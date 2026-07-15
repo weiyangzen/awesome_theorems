@@ -6,6 +6,7 @@ from __future__ import annotations
 import copy
 import contextlib
 import hashlib
+import inspect
 import importlib.util
 import io
 import json
@@ -1155,6 +1156,14 @@ class IntegrationTransactionTests(unittest.TestCase):
                 cron.contained_regular_file(snapshot, f"{self.owner}/linked.md", self.owner)
             with self.assertRaisesRegex(ValueError, "scheduler-owned"):
                 cron.validated_blocked_snapshot(self.item["id"], str(self.sandbox))
+
+    def test_blocked_only_batch_regenerates_v2_before_validation(self) -> None:
+        source = inspect.getsource(cron._integrate)
+        regeneration = source.index('run(["python3", "Docs/tools/generate_stage1_theorem_dag_v2.py"])')
+        validation = source.index('run(["python3", "Docs/tools/check_stage1_theorem_dag_v2.py"])')
+        self.assertLess(regeneration, validation)
+        between = source[source.index("if accepted or preserved_blockers:"):validation]
+        self.assertNotIn('if accepted:\n            run(["python3", "Docs/tools/generate_stage1_theorem_dag_v2.py"])', between)
 
     def test_invalid_attempts_fail_before_worker_files_are_copied(self) -> None:
         data = copy.deepcopy(cron.read_json(cron.DAG))

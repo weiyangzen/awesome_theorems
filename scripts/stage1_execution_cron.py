@@ -2218,8 +2218,10 @@ def _integrate(
         # artifact batch, including blocked-only evidence, before persistence.
         if accepted:
             atomic_write(DAG, json.dumps(data, ensure_ascii=False, indent=2) + "\n")
-            run(["python3", "Docs/tools/generate_stage1_theorem_dag_v2.py"])
-            theorem_dag_v2.cache_clear()
+        # The v2 inventory includes target-owned blocker artifacts as well as
+        # phase-state projections, so every copied batch must regenerate it.
+        run(["python3", "Docs/tools/generate_stage1_theorem_dag_v2.py"])
+        theorem_dag_v2.cache_clear()
         run(["python3", "Docs/tools/check_stage1_theorem_dag_v2.py"])
         run(["python3", "Docs/tools/check_stage1_standard.py"])
         run(["python3", "scripts/stage1_target.py", "check"])
