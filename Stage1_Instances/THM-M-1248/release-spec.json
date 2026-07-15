@@ -1,0 +1,65 @@
+{
+  "schema_version": "stage1-validation-recipe/1.0",
+  "recipe_id": "S56-M-1248-RELEASE-negative-reconciliation-v1",
+  "item_id": "S56-M-1248-RELEASE",
+  "theorem_id": "THM-M-1248",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-1248/check_release.py",
+    "--worker-packet",
+    ".stage1-worker-selftest.json"
+  ],
+  "env_allowlist": {
+    "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "LEAN_NUM_THREADS": "1",
+    "HOME": "runner home used only to address the hash-verified .elan/bin/lake launcher",
+    "PATH": "<HOME>/.elan/bin:/usr/bin:/bin"
+  },
+  "timeout_seconds": 900,
+  "network_policy": "denied",
+  "network_enforcement": "The checker runs a fresh-output Lean replay inside bubblewrap with --unshare-net, a read-only host root, and only a disposable temporary directory writable. It performs no update, build, clone, fetch, checkout, or network operation. The existing pinned warm .lake is reused read-only, so this recipe is deliberately nonrelease evidence rather than a cold empty-cache reproduction.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact six-line fail-closed release summary"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M1248-ROOT",
+    "M1248-S-DEFS",
+    "M1248-S-ADMISSIBLE",
+    "M1248-S-TEST",
+    "M1248-S-FOUNDATION",
+    "M1248-N-PARAM",
+    "M1248-B-A0",
+    "M1248-B-A1",
+    "M1248-B-INTERIOR",
+    "M1248-L-WEIGHTED",
+    "M1248-L-HOLDER",
+    "M1248-L-RPOW",
+    "M1248-L-ORIGIN",
+    "M1248-T-ALL-PARAMS",
+    "M1248-T-ASSEMBLE",
+    "M1248-X-SOURCE",
+    "M1248-X-PROVENANCE",
+    "M1248-X-TRUST"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_1248.CaffarelliKohnNirenbergTarget",
+    "Stage1Instances.THM_M_1248.caffarelliKohnNirenbergTarget_of_analyticPackage",
+    "Stage1Instances.THM_M_1248.compactlySupported_analytic_eq_zero",
+    "Stage1Instances.THM_M_1248.caffarelliKohnNirenbergTarget",
+    "Stage1Instances.THM_M_1248.Validation.frozenOrder_eq_omega",
+    "Stage1Instances.THM_M_1248.Validation.frozenOrder_ne_infinity",
+    "Stage1Instances.THM_M_1248.Validation.independentlyCompactlySupportedTopEqZero",
+    "Stage1Instances.THM_M_1248.Validation.independentlyReconstructedFrozenTarget"
+  ],
+  "scope_boundary": "Current-base negative release reconciliation plus a network-isolated trust-zero replay of the defective frozen proposition, its local vacuity body, and the no-Proof differential reconstruction. A passing recipe supports only the blocked release decision; it does not establish source identity, an accepted CKN proof, AUDIT-Z, THEOREM-Z, master acceptance, cold offline reproduction, independent runners, or a deterministic release bundle."
+}
