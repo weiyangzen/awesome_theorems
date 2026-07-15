@@ -1,0 +1,40 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "recipe_id": "S56-M-0168-VALIDATION-network-isolated-v1",
+  "item_id": "S56-M-0168-VALIDATION",
+  "theorem_id": "THM-M-0168",
+  "cwd": ".",
+  "argv": [
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0168/check_validation.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 900,
+  "network_policy": "denied",
+  "network_enforcement": "Every Lean subprocess runs through Bubblewrap with a read-only host root, a cleared fixed environment, an unshared network namespace, and only one fresh temporary directory writable.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exact six-line PASS/OPEN/BLOCKED summary; unavailable root, complete provenance/TCB, cold hermetic, and independent-runner gates remain fail-closed"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0168-ROOT",
+    "M0168-S-INTERFACE",
+    "M0168-T-INTEGRATE",
+    "M0168-X-TRUST"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THM_M_0168.BernsteinMinimalGraphTarget",
+    "Stage1Instances.THM_M_0168_Obligations.compose_root",
+    "Stage1Instances.THM_M_0168_Obligations.constantPartials_to_affine",
+    "Stage1Instances.THM_M_0168_Obligations.constantPartialsToAffine_proof",
+    "Stage1Instances.THM_M_0168_Obligations.bernstein_of_derivativeRigidity",
+    "Stage1Instances.THM_M_0168_Obligations.canonicalTarget_iff_obligationTarget",
+    "Stage1Instances.THM_M_0168_Obligations.canonical_bernstein_of_derivativeRigidity"
+  ],
+  "coverage_boundary": "Network-isolated trust-zero warm-cache replay of the exact statement, frozen conditional composition, affine-integration proof body, canonical transport, and same-worker trust probe. Covered IDs are validation subjects rather than accepted closure credit. DerivativeRigidity and the exact Bernstein root remain open; complete transitive provenance/TCB, cold empty-cache offline restoration, and distinct signed independent verification remain fail-closed."
+}

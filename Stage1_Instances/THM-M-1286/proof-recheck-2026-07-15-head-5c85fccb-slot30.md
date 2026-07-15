@@ -1,0 +1,123 @@
+# THM-M-1286 proof-phase recheck at `5c85fccb`
+
+Item: `S56-M-1286-PROOF`
+
+Recorded: `2026-07-15T14:45:01+08:00` (`Asia/Shanghai`)
+
+Base revision: `5c85fccbb71a5ac8b4a5d95413a0f36af5e04294`
+
+Base tree: `f80ad746fe4c15d869994cc47c3f10b881d89dd5`
+
+## Verdict
+
+`blocked`. No consistent positive proof body can inhabit the exact frozen target. The current base
+contains the placeholder-free declaration
+
+```lean
+theorem Stage1Instances.THM_M_1286.Counterexample.not_polyaSzegoTarget :
+    Not Stage1Instances.THM_M_1286.PolyaSzegoTarget
+```
+
+and the prescribed `lake env lean` replay at trust level zero checked its exact type and body. The
+positive item therefore remains `[ ]`. This packet is blocker evidence, not a positive proof
+receipt, and `.stage1-worker-selftest.json` is deliberately absent.
+
+The refutation specializes the target to `n = p = 1`. The input is `-log x` on `(0, 1)`, extended
+by zero and transported to `Fin 1 -> Real`, with zero as its proposed weak gradient. It is
+nonnegative and integrable, and every positive superlevel has finite, strictly positive measure.
+In the frozen API, `ContDiff Real top` denotes analytic rather than merely smooth regularity.
+Analytic uniqueness forces compactly supported test functions to be zero, making
+`HasWeakGradient` vacuous. Every pointwise real-valued `IsSymmetricDecreasing` witness is bounded
+above by its value at zero, so its superlevel at `uStar 0 + 1` is empty. Equimeasurability with the
+unbounded input then gives a contradiction.
+
+This refutes only the frozen Lean encoding, not the classical Polya-Szego theorem. The encoding
+also uses `Euclidean n := Fin n -> Real`, whose norm is the coordinate supremum norm rather than
+Euclidean `l2`; `ProofAudit.lean` checks that independent fidelity defect. Finally,
+`ObligationTree.exactTarget_of_packages` is conditional composition. Its
+`RearrangementConstruction` and `GradientEstimate` premises cannot both be implemented in a
+consistent environment because their composition would contradict the checked refutation.
+
+The neighboring `THM-M-1285` construction does not repair this target: it uses
+`EuclideanSpace Real (Fin n)` and an `ENNReal`-valued rearrangement, so it neither transports to the
+frozen domain nor satisfies the finite-real-value constraint that drives the counterexample.
+
+The first failed gate is exact canonical target consistency. The actual remaining root cut is
+`S56-M-1286-STATEMENT`, not the stale positive analytic package cut. The prerequisite obligation
+tree records the invalidated positive architecture as open `M4`; this proof worker does not edit
+that predecessor or any authoritative state.
+
+## Narrow Validation
+
+All checks used this worker clone and existing pinned artifacts. No `lake update`, `lake build`,
+dependency clone/fetch, network action, or `.lake` mutation was requested or performed. Lean
+outputs were isolated under `/tmp` and removed.
+
+| Command | Exit | Exact result |
+|---|---:|---|
+| `python3 Docs/tools/check_stage1_standard.py` | 0 | `check_stage1_standard: ok (15 assurance groups, 41 legacy rows, 300 legacy slots, 1546 uniform-L0 Lean 4 targets, execution skill present)` |
+| `python3 scripts/stage1_target.py check` | 0 | `stage1_target: ok (1546 unique targets, ranks 1..1546, all L0/rework_required)` |
+| `python3 scripts/stage1_target.py show THM-M-1286` | 0 | Rank 457; lifecycle `planned`; lane `hard_mathlib_anchor_and_wrapper`; theorem incomplete. |
+| `python3 Stage1_Instances/THM-M-1286/check_obligation_tree.py` | 0 | 18 obligations and 23 typed edges passed structurally; denominator `e586a1f...ddaa4`; stale positive root recorded open `M4`. |
+| Isolated `lake --offline env lean --trust=0 -t0` replay below | 0 | `Statement.lean` and `Counterexample.lean` elaborated to 67,392-byte and 218,384-byte oleans. `not_polyaSzegoTarget` had exact type `Not PolyaSzegoTarget` and axioms `[propext, Classical.choice, Quot.sound]`. |
+| `cd Formalizations/Lean && lake env lean --version && lake --version` | 0 | Lean 4.29.0, commit `98dc76e3...40`, Release; Lake `5.0.0-src+98dc76e`. |
+| Prohibited-device scan over owned Lean files | 1, expected | No `sorry`, `admit`, `axiom`, `sorryAx`, `unsafe`, `implemented_by`, `native_decide`, or `extern` token occurs. |
+| `git -C Formalizations/Lean/.lake/packages/mathlib rev-parse HEAD HEAD^{tree}` | 0 | Mathlib commit `8a178386...a95`; tree `bdc39a31...b2b`. |
+| `git -C Formalizations/Lean/.lake/packages/flt-regular rev-parse HEAD HEAD^{tree}` | 0 | Expected pinned commit `56161b6e...a27`; tree `32c9eace...893`. |
+| `sha256sum` over the nine pinned inputs listed below | 0 | All digests matched the structured packet. |
+| `python3 -m json.tool` on the structured packet | 0 | The current-base blocker is valid JSON. |
+| `git diff --check` and `git diff --no-index --check /dev/null` on both packet files | 0 / 1, expected | No whitespace diagnostic; each raw no-index check returned only the expected new-file difference status. |
+| Dependency mutation checks | 0 | No diff in `.lake`, `lake-manifest.json`, pinned mathlib, or pinned `flt-regular`. |
+| `test ! -e .stage1-worker-selftest.json` | 0 | Completion self-test is absent because the positive proof phase is blocked. |
+
+The exact replay was:
+
+```bash
+set -euo pipefail
+ROOT=$PWD
+TMP=$(mktemp -d /tmp/thm-m-1286-5c85fccb-slot30.XXXXXX)
+trap 'rm -rf "$TMP"' EXIT
+mkdir -p "$TMP/Stage1_Instances/THM-M-1286"
+cd "$ROOT/Formalizations/Lean"
+LEAN_NUM_THREADS=1 timeout --foreground --kill-after=10s 600 \
+  lake --offline env lean --trust=0 -t0 -R ../.. \
+  -o "$TMP/Stage1_Instances/THM-M-1286/Statement.olean" \
+  ../../Stage1_Instances/THM-M-1286/Statement.lean
+LEAN_NUM_THREADS=1 LEAN_PATH="$TMP" timeout --foreground --kill-after=10s 600 \
+  lake --offline env lean --trust=0 -t0 -R ../.. \
+  -o "$TMP/Stage1_Instances/THM-M-1286/Counterexample.olean" \
+  ../../Stage1_Instances/THM-M-1286/Counterexample.lean
+```
+
+Pinned input SHA-256 values:
+
+| Input | SHA-256 |
+|---|---|
+| `Statement.lean` | `ef428b6d6fbb5a05b9112291cd5e113ff02d58776a03b2765837bd3ddc2039bb` |
+| `Counterexample.lean` | `dd227181174b72d4aafd614313499c35f6b930056879764b311a479f06f1f0a6` |
+| `ProofAudit.lean` | `09152048ca2a69b790f9bd1ab8db0e8bf533d7d5873b05d571b64647a1b647a9` |
+| `ObligationTree.lean` | `31690c4c88849ca069648df8cbc72aaec44ce139e83a9fabda1b5b26093a4d6b` |
+| `obligation-registry.json` | `c7d331ee666db5ca093880b051d0959395d35735bb2c337dfd7d5c7a91215d20` |
+| `typed-graphs.json` | `9c225e12b3cb6db6f264b360a5e7c6d418d837efe3214909d5cbd9a664a987e2` |
+| `anchor-audit.json` | `f05ca7a660c1ba2d5ca1fa359cde5338eaded9355c84795294d1a48e745bd33c` |
+| `validation-specs.json` | `2ee56fb5cadf7df96cc8d0ba96b6fbacec5cfc7861f2114a6608b444aec44e9a` |
+| `Formalizations/Lean/lake-manifest.json` | `321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81` |
+
+The temporary olean SHA-256 values were `3e7524cf...c0b` (`Statement.olean`) and
+`7d1b1dc2...a9c1` (`Counterexample.olean`). The statement and counterexample stdout digests were
+`0f7665b4...403` and `941eda26...ad9f`; both stderr streams were empty.
+
+## Retry Condition
+
+Reopen `S56-M-1286-STATEMENT`; use measure-compatible Euclidean `l2` geometry, the intended smooth
+compactly supported test class, and a rearrangement representation that admits essentially
+unbounded finite-`p` inputs. Publish a new statement fingerprint, then refreeze transports,
+mutations, anchor audit, registry, typed graphs, and obligation tree in dependency order before
+resuming proof work.
+
+## Status Boundary
+
+Lifecycle remains `planned`; no authoritative vector or scheduler state was changed. This is
+current-base, target-scoped, nonrelease proof-blocker evidence. It does not satisfy
+`S56-M-1286-PROOF` and claims no positive proof completion, audit completion, validation, release,
+master acceptance, or theorem completion.

@@ -1,0 +1,50 @@
+import Proof
+import Mathlib.Util.AssertNoSorry
+import Mathlib.Util.PrintSorries
+
+/-!
+# THM-M-0168 validation trust probe
+
+This module adds no proof content. It asks Lean to inspect the proof-phase
+affine-integration body, its frozen package wrapper, and the conditional
+composition into the canonical target.
+
+This is a same-worker trust probe. It is not an independent-runner
+attestation and the conditional declarations are not a proof of Bernstein's
+theorem.
+-/
+
+namespace Stage1Instances.THM_M_0168_Validation
+
+#check Stage1Instances.THM_M_0168.BernsteinMinimalGraphTarget
+#check Stage1Instances.THM_M_0168_Obligations.ConstantPartialsToAffine
+#check Stage1Instances.THM_M_0168_Obligations.DerivativeRigidity
+#check Stage1Instances.THM_M_0168_Obligations.compose_root
+#check Stage1Instances.THM_M_0168_Obligations.constantPartials_to_affine
+#check Stage1Instances.THM_M_0168_Obligations.constantPartialsToAffine_proof
+#check Stage1Instances.THM_M_0168_Obligations.bernstein_of_derivativeRigidity
+#check Stage1Instances.THM_M_0168_Obligations.canonicalTarget_iff_obligationTarget
+#check Stage1Instances.THM_M_0168_Obligations.canonical_bernstein_of_derivativeRigidity
+
+assert_no_sorry Stage1Instances.THM_M_0168_Obligations.compose_root
+assert_no_sorry Stage1Instances.THM_M_0168_Obligations.constantPartials_to_affine
+assert_no_sorry Stage1Instances.THM_M_0168_Obligations.constantPartialsToAffine_proof
+assert_no_sorry Stage1Instances.THM_M_0168_Obligations.bernstein_of_derivativeRigidity
+assert_no_sorry Stage1Instances.THM_M_0168_Obligations.canonicalTarget_iff_obligationTarget
+assert_no_sorry Stage1Instances.THM_M_0168_Obligations.canonical_bernstein_of_derivativeRigidity
+
+#print sorries Stage1Instances.THM_M_0168_Obligations.compose_root
+#print sorries Stage1Instances.THM_M_0168_Obligations.constantPartials_to_affine
+#print sorries Stage1Instances.THM_M_0168_Obligations.constantPartialsToAffine_proof
+#print sorries Stage1Instances.THM_M_0168_Obligations.bernstein_of_derivativeRigidity
+#print sorries Stage1Instances.THM_M_0168_Obligations.canonicalTarget_iff_obligationTarget
+#print sorries Stage1Instances.THM_M_0168_Obligations.canonical_bernstein_of_derivativeRigidity
+
+#print axioms Stage1Instances.THM_M_0168_Obligations.compose_root
+#print axioms Stage1Instances.THM_M_0168_Obligations.constantPartials_to_affine
+#print axioms Stage1Instances.THM_M_0168_Obligations.constantPartialsToAffine_proof
+#print axioms Stage1Instances.THM_M_0168_Obligations.bernstein_of_derivativeRigidity
+#print axioms Stage1Instances.THM_M_0168_Obligations.canonicalTarget_iff_obligationTarget
+#print axioms Stage1Instances.THM_M_0168_Obligations.canonical_bernstein_of_derivativeRigidity
+
+end Stage1Instances.THM_M_0168_Validation
