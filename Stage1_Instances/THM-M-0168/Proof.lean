@@ -1,4 +1,5 @@
 import ObligationTree
+import Statement
 import Mathlib.Analysis.Calculus.MeanValue
 
 /-!
@@ -73,7 +74,26 @@ theorem bernstein_of_derivativeRigidity
     BernsteinMinimalGraphTarget :=
   compose_root rigidity constantPartialsToAffine_proof
 
+/-- The frozen obligation harness and the canonical statement are
+definitionally the same proposition.  Keeping this transport explicit prevents
+the duplicated harness namespace from receiving accidental root credit. -/
+theorem canonicalTarget_iff_obligationTarget :
+    Stage1Instances.THM_M_0168.BernsteinMinimalGraphTarget ↔
+      BernsteinMinimalGraphTarget := by
+  rfl
+
+/-- Conditional composition into the canonical target.  The geometric
+derivative-rigidity package remains an explicit premise. -/
+theorem canonical_bernstein_of_derivativeRigidity
+    (rigidity : DerivativeRigidity) :
+    Stage1Instances.THM_M_0168.BernsteinMinimalGraphTarget :=
+  canonicalTarget_iff_obligationTarget.mpr
+    (bernstein_of_derivativeRigidity rigidity)
+
 #print axioms constantPartials_to_affine
+#print axioms constantPartialsToAffine_proof
 #print axioms bernstein_of_derivativeRigidity
+#print axioms canonicalTarget_iff_obligationTarget
+#print axioms canonical_bernstein_of_derivativeRigidity
 
 end Stage1Instances.THM_M_0168_Obligations

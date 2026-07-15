@@ -1,0 +1,66 @@
+{
+  "schema_version": "stage1-release-spec/1.0",
+  "spec_id": "S56-M-1065-RELEASE-negative-reconciliation-v1",
+  "item_id": "S56-M-1065-RELEASE",
+  "theorem_id": "THM-M-1065",
+  "intent": "release",
+  "recipe": {
+    "recipe_id": "S56-M-1065-RELEASE-negative-reconciliation-v1",
+    "cwd": ".",
+    "argv": [
+      "python3",
+      "-I",
+      "-B",
+      "Stage1_Instances/THM-M-1065/check_release.py"
+    ],
+    "env_allowlist": {
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "TZ": "UTC",
+      "LEAN_NUM_THREADS": "1"
+    },
+    "timeout_seconds": 900,
+    "network_policy": "denied",
+    "network_enforcement": "The checker invokes the existing validation shell replay. Every Lean subprocess runs through bubblewrap --unshare-net with a read-only host root and one fresh writable temporary directory. The outer checker performs local file, hash, process, and Git checks only.",
+    "expected_exit": 0,
+    "expected_outputs": [
+      {
+        "path_or_stream": "stdout",
+        "semantic_hash_policy": "contains verdict=blocked lifecycle=planned audit_complete=false theorem_complete=false accepted_receipts=0"
+      }
+    ],
+    "covered_obligation_ids": [
+      "M1065-ROOT",
+      "M1065-S-LAW",
+      "M1065-S-EVENT",
+      "M1065-S-BOUNDARY",
+      "M1065-S-FOUNDATION",
+      "M1065-C-SPACE",
+      "M1065-L-X-LAWS",
+      "M1065-L-X-INDEP",
+      "M1065-L-Y-LAWS",
+      "M1065-L-Y-INDEP",
+      "M1065-L-EVENT-MEAS",
+      "M1065-C-CONSTANTS",
+      "M1065-L-BLOCK-COUPLING",
+      "M1065-L-MAXIMAL-TAIL",
+      "M1065-T-WITNESS",
+      "M1065-T-COMPOSE",
+      "M1065-X-SOURCE",
+      "M1065-X-PROVENANCE"
+    ],
+    "covered_declarations": [
+      "Stage1Instances.THM_M_1065.KMTStrongApproximationTarget",
+      "Stage1Instances.THM_M_1065.target_iff_expandedSourceShape",
+      "Stage1Instances.THM_M_1065.discrepancyEvent_one",
+      "Stage1Instances.THM_M_1065.ObligationTree.kmtTarget_iff_couplingData",
+      "Stage1Instances.THM_M_1065.exists_commonIIDSequences",
+      "Stage1Instances.THM_M_1065.measurableSet_discrepancyEvent",
+      "Stage1Instances.THM_M_1065.AnchorAudit.noRetainedCandidateClaimsTerminalProof",
+      "Stage1Instances.THM_M_1065.AnchorAudit.anchorAuditPermitsTheoremCompletion_eq_false",
+      "Stage1Instances.THM_M_1065.Validation.independentlyReconstructedTargetExpansion",
+      "Stage1Instances.THM_M_1065.Validation.independentlyReconstructedDiscrepancyEventOne"
+    ],
+    "scope_boundary": "Reconciles the full 18-obligation frozen inventory and current structured authority, then replays the exact statement, conditional composition, two partial proof bodies, two negative anchor decisions, and two same-worker differential statement probes. It does not construct a dependent KMT coupling, close a frozen obligation or the exact root, supply H0/R0/AUDIT-Z, perform a cold empty-cache build or offline restoration, or provide independent release verification."
+  }
+}
