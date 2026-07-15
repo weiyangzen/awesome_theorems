@@ -1,0 +1,68 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "recipe_id": "S56-M-0593-RELEASE-negative-reconciliation-v1",
+  "item_id": "S56-M-0593-RELEASE",
+  "theorem_id": "THM-M-0593",
+  "cwd": ".",
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0593/check_release.py",
+    "--worker-packet",
+    ".stage1-worker-selftest.json"
+  ],
+  "env_allowlist": {
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "LEAN_NUM_THREADS": "1",
+    "PYTHONOPTIMIZE": "0",
+    "PATH": "explicitly_variable; must resolve python3, git, lake, and the pinned Lean executable"
+  },
+  "timeout_seconds": 900,
+  "network_policy": "not_invoked",
+  "network_enforcement": "The checker performs no fetch or dependency mutation. Its Lean subprocesses use --trust=0 with fresh target outputs and the existing pinned warm cache. No independently enforced release sandbox, cold empty cache, or offline archive restoration is claimed.",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "contains verdict=blocked audit_complete=false theorem_complete=false"
+    }
+  ],
+  "decision_covered_obligation_ids": [
+    "M0593-ROOT",
+    "M0593-S-DEFINITIONS",
+    "M0593-S-DOMAINS",
+    "M0593-S-BOUNDARY",
+    "M0593-S-FOUNDATION",
+    "M0593-N-LOCAL",
+    "M0593-B-ZERO",
+    "M0593-B-LOWDIM",
+    "M0593-B-HARD",
+    "M0593-B-MERGE",
+    "M0593-L-DIMENSION-IMAGE",
+    "M0593-C-RANK-STRATA",
+    "M0593-L-RANK-REDUCTION",
+    "M0593-L-HIGHER-STRATA",
+    "M0593-L-TAYLOR",
+    "M0593-L-CUBE-COVER",
+    "M0593-L-NULL-LIMIT",
+    "M0593-T-HARD-LOCAL",
+    "M0593-T-LOCAL-GLOBAL",
+    "M0593-X-EQUAL-DIM",
+    "M0593-X-SOURCE",
+    "M0593-X-PROVENANCE"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THMM0593.SardTarget",
+    "Stage1Instances.THMM0593.root_of_sard_branches",
+    "Stage1Instances.THMM0593.zeroCodomainBranch_proof",
+    "Stage1Instances.THMM0593.lowDimensionBranch_proof",
+    "Stage1Instances.THMM0593.sardTarget_of_hardDimensionBranch",
+    "Stage1Instances.THMM0593.Validation.exactRoot_iff_frozen",
+    "Stage1Instances.THMM0593.Validation.zeroCodomainBranch_validation",
+    "Stage1Instances.THMM0593.Validation.conditionalExactRoot"
+  ],
+  "scope_boundary": "Reconciles all 22 frozen obligations and the current structured authority, then freshly replays only the exact statement, conditional composition, two proved dimension branches, their conditional adapter, and same-worker differential probes. It does not construct HardDimensionBranch, close SardTarget, accept a receipt, reconcile the stale intake scope, supply H0/R0/AUDIT-Z, or provide cold/offline and independent release evidence, THEOREM-Z, release, or master acceptance."
+}
