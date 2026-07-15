@@ -20460,7 +20460,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-0487-STATEMENT`. Owned paths: `Stage1_Instances/THM-M-0487`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0487-OBLIGATION_TREE` / `THM-M-0487` / `obligation_tree`: Freeze the obligation registry and typed proof/provenance/workflow graphs.
   Depends: `S56-M-0487-ANCHOR_AUDIT`. Owned paths: `Stage1_Instances/THM-M-0487`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-0487-PROOF` / `THM-M-0487` / `proof`: Implement or pin/import the required proof bodies without placeholders.
+- [_] `S56-M-0487-PROOF` / `THM-M-0487` / `proof`: Implement or pin/import the required proof bodies without placeholders.
   Depends: `S56-M-0487-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-0487`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-0487-VALIDATION` / `THM-M-0487` / `validation`: Run hermetic kernel, trust, provenance, and independent validation gates.
   Depends: `S56-M-0487-PROOF`. Owned paths: `Stage1_Instances/THM-M-0487`. Gate: rev-5.6 node-specific receipt and master acceptance.
@@ -20614,7 +20614,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-0819-STATEMENT`. Owned paths: `Stage1_Instances/THM-M-0819`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0819-OBLIGATION_TREE` / `THM-M-0819` / `obligation_tree`: Freeze the obligation registry and typed proof/provenance/workflow graphs.
   Depends: `S56-M-0819-ANCHOR_AUDIT`. Owned paths: `Stage1_Instances/THM-M-0819`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-0819-PROOF` / `THM-M-0819` / `proof`: Implement or pin/import the required proof bodies without placeholders.
+- [_] `S56-M-0819-PROOF` / `THM-M-0819` / `proof`: Implement or pin/import the required proof bodies without placeholders.
   Depends: `S56-M-0819-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-0819`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-0819-VALIDATION` / `THM-M-0819` / `validation`: Run hermetic kernel, trust, provenance, and independent validation gates.
   Depends: `S56-M-0819-PROOF`. Owned paths: `Stage1_Instances/THM-M-0819`. Gate: rev-5.6 node-specific receipt and master acceptance.
@@ -21076,7 +21076,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-0856-STATEMENT`. Owned paths: `Stage1_Instances/THM-M-0856`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0856-OBLIGATION_TREE` / `THM-M-0856` / `obligation_tree`: Freeze the obligation registry and typed proof/provenance/workflow graphs.
   Depends: `S56-M-0856-ANCHOR_AUDIT`. Owned paths: `Stage1_Instances/THM-M-0856`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-0856-PROOF` / `THM-M-0856` / `proof`: Implement or pin/import the required proof bodies without placeholders.
+- [_] `S56-M-0856-PROOF` / `THM-M-0856` / `proof`: Implement or pin/import the required proof bodies without placeholders.
   Depends: `S56-M-0856-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-0856`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-0856-VALIDATION` / `THM-M-0856` / `validation`: Run hermetic kernel, trust, provenance, and independent validation gates.
   Depends: `S56-M-0856-PROOF`. Owned paths: `Stage1_Instances/THM-M-0856`. Gate: rev-5.6 node-specific receipt and master acceptance.

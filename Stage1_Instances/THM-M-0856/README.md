@@ -71,3 +71,19 @@ This worker-self-tested architecture keeps `accepted_closed_obligations=[]` and 
 `[H1, M3, R4]`. Primary-source H0, proof-phase acceptance, release-grade provenance and trust,
 readable R0, hermetic replay, independent validation, `AUDIT-Z`, theorem completion, and master
 acceptance all remain open.
+
+## Proof result
+
+`Proof.lean` now installs `SimpleGraph.tutte` from manifest-pinned mathlib revision
+`8a178386ffc0` at the frozen terminal interface. It checks the exact canonical root through
+`compose_root terminal_adapter pinnedTerminal` and independently through a direct exact-target
+wrapper. Lean reports the terminal and all three proof declarations sorry-free, with exactly
+`propext`, `Classical.choice`, and `Quot.sound` in their axiom closures. Both root wrappers share
+one upstream terminal body and receive no duplicate proof credit.
+
+This is provisional proof-node evidence for an `M0-W` root proposal. It maps the pinned body to all
+44 proof-reachable required-machine IDs but gives exact declaration evidence only to the root,
+terminal, and adapter. The 16 internal source-body decomposition plans still lack abstract-child
+composition certificates and receive no individual closure credit. The accepted instance remains
+`[H1, M3, R4]`; validation, release, H0/R0, complete trust and provenance, master acceptance, and
+theorem completion remain open.
