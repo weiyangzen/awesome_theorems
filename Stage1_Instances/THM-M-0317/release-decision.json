@@ -1,0 +1,142 @@
+{
+  "schema_version": "stage1-release-decision/1.0",
+  "decision_id": "S56-M-0317-RELEASE-blocked-20260715T113705+0800",
+  "item_id": "S56-M-0317-RELEASE",
+  "theorem_id": "THM-M-0317",
+  "execution_rank": 683,
+  "intent": "release",
+  "base_revision": "443b8bbc23bf35a1e7a4bb7b3183073f76bbee2b",
+  "base_tree": "c5771c47c12b80aba613e6d844570f83b39ded6d",
+  "decided_at": "2026-07-15T11:37:05+08:00",
+  "decision_support": "provisional_worker_selftest",
+  "proposed_state": "[_]",
+  "dependency": {
+    "item_id": "S56-M-0317-VALIDATION",
+    "worker_projection": "[_]",
+    "master_accepted": false,
+    "receipt_id": "S56-M-0317-VALIDATION-blocked-network-isolated-20260715T092700+0800-v3",
+    "receipt_sha256": "0e3e066e752396d4743e337cd2e2df4b3ad5a242d2539ee63f1da994eda9baf3",
+    "support_state": "provisional_worker_selftest",
+    "accepted": false,
+    "release_grade": false
+  },
+  "accepted_receipt_ids": [],
+  "provisional_receipt_ids_inspected": [
+    "S56-M-0317-PROOF-partial-da908a598cfd7e18",
+    "S56-M-0317-VALIDATION-blocked-network-isolated-20260715T092700+0800-v3"
+  ],
+  "canonical_target": "AwesomeTheorems.THM_M_0317.TychonoffFixedPointTarget",
+  "canonical_obligation_ids": [
+    "M0317-ROOT",
+    "M0317-S-DEFINITIONS",
+    "M0317-S-DOMAINS",
+    "M0317-S-BOUNDARY",
+    "M0317-S-FOUNDATION",
+    "M0317-N-NEIGHBORHOODS",
+    "M0317-C-FINITE-COVER",
+    "M0317-C-PARTITION",
+    "M0317-C-FINITE-MAP",
+    "M0317-L-BROUWER",
+    "M0317-L-APPROX-FIXED",
+    "M0317-L-COMPACT-LIMIT",
+    "M0317-T-APPROX",
+    "M0317-T-LIMIT",
+    "M0317-T-ASSEMBLE",
+    "M0317-X-SOURCE",
+    "M0317-X-PROVENANCE"
+  ],
+  "evidence_reconciliation": {
+    "exact_statement_kernel_replay": "provisional_pass",
+    "statement_mutation_kernel_replay": "provisional_pass",
+    "compactness_limit_kernel_replay": "provisional_pass",
+    "conditional_root_composition": "provisional_pass",
+    "same_worker_differential_reconstruction": "provisional_pass",
+    "placeholder_and_unsafe_scan": "provisional_pass",
+    "accepted_exact_root_kernel_closure": false,
+    "approximation_package_body_present": false,
+    "authoritative_graph_reconciled": false,
+    "audit_z_accepted": false,
+    "pinpoint_h0_review": false,
+    "independent_r0_review": false,
+    "accepted_foundation_profile": false,
+    "complete_provenance_trust_and_tcb_closure": false,
+    "immutable_clean_release_input": false,
+    "hermetic_cold_offline_replay": false,
+    "sbom_license_archive_closure": false,
+    "independent_clean_runner_attestations": false,
+    "independently_implemented_minimal_verifier": false,
+    "protected_ci_and_mutation_gates": false,
+    "deterministic_release_bundle": false,
+    "master_acceptance": false
+  },
+  "decision": {
+    "verdict": "blocked",
+    "lifecycle_before": "planned",
+    "lifecycle_after": "planned",
+    "root_vector_before": ["H1", "M4", "R4"],
+    "root_vector_after": ["H1", "M4", "R4"],
+    "audit_complete": false,
+    "theorem_complete": false,
+    "audit_z": "blocked",
+    "theorem_z": "blocked",
+    "release_accepted": false,
+    "first_failed_gate": {
+      "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
+      "reason": "S56-M-0317-VALIDATION is only a provisional [_] worker projection; its receipt has accepted=false and release_grade=false, so the release prerequisite is not master accepted."
+    },
+    "next_failed_theorem_gate": {
+      "gate_id": "proof.root_kernel_closure",
+      "reason": "M0317-T-APPROX has no placeholder-free inhabitant of ApproximationPackage. Only the compactness-limit branch and a conditional root composer elaborate, so the exact canonical root is not kernel closed."
+    },
+    "first_failed_release_specific_gate": {
+      "gate_id": "S56-RELEASE-IMMUTABLE-CLEAN-INPUT",
+      "reason": "The evidence comes from a dirty worker checkout with an untracked shared .lake link and is explicitly classified as nonrelease evidence."
+    },
+    "next_failed_release_gate": {
+      "gate_id": "S56-10.6-HERMETIC-COLD-EMPTY-CACHE",
+      "reason": "No clean immutable checkout, empty-cache cold dependency build, or offline archive restoration replay exists."
+    },
+    "authoritative_remaining_root_cut_set": [
+      "M0317-T-APPROX",
+      "M0317-T-LIMIT"
+    ],
+    "post_provisional_validation_mathematical_cut_set": [
+      "M0317-T-APPROX"
+    ],
+    "remaining_root_cut_set": [
+      "master acceptance of S56-M-0317-VALIDATION and all transitive phase receipts",
+      "M0317-T-APPROX: placeholder-free finite-cover, partition-of-unity, finite-rank map, finite-dimensional Brouwer, and approximation-transfer closure",
+      "M0317-T-LIMIT: authoritative closure remains open until the provisionally replayed compactness-limit body is accepted and reconciled append-only",
+      "accepted M0317-X-SOURCE evidence with exact primary-source text, assumptions, errata, node crosswalk, duplicate resolution, and independent H0 review",
+      "accepted R0 structured reconstruction and independent reader review",
+      "accepted foundation profile plus complete root provenance, declaration dependency, axiom, trust, TCB, SBOM, and license closure",
+      "immutable clean snapshot, empty-cache network-denied cold build, and offline archive restoration replay",
+      "two signed attestations from separately provisioned independent runners with no shared writable cache",
+      "independently implemented minimal release verifier",
+      "protected CI with required mutation and metamorphic fixtures",
+      "deterministic content-addressed release bundle, semantic-digest reproduction, and master reconciliation"
+    ]
+  },
+  "retry_condition": "Implement the exact frozen ApproximationPackage without placeholders, reconcile the typed graph append-only, and obtain dependency-ordered master acceptance. Then accept H0/R0 and foundation/provenance/trust/TCB evidence and validate an immutable clean snapshot through empty-cache cold offline replay, SBOM/license closure, distinct signed runners, an independent minimal verifier, protected CI fixtures, and a deterministic release bundle.",
+  "known_failures": [
+    "S56-M-0317-VALIDATION is only provisional [_] evidence and is neither accepted nor release-grade.",
+    "M0317-T-APPROX has no placeholder-free ApproximationPackage body, so M0317-ROOT and the exact Tychonoff target remain kernel-open.",
+    "The authoritative instance and frozen graph remain planned at H1/M4/R4 and have not reconciled the provisional compactness-limit proof bodies.",
+    "The primary-source crosswalk, duplicate relationship with THM-M-0638, H0 review, and independent R0 review remain open, so AUDIT-Z is false independently of proof closure.",
+    "There is no accepted foundation profile or complete transitive provenance, declaration, axiom, trust, TCB, SBOM, and license closure.",
+    "The existing replay uses a dirty worker checkout and warm shared pinned dependencies rather than immutable clean input, an empty-cache cold build, or offline restoration.",
+    "A current lake env replay is blocked because the shared canonical .lake lacks a valid pinned flt-regular checkout; a failed worker-side invocation indirectly attempted materialization and left an invalid HEAD. This contaminated cache state is not evidence and was not repaired or fetched further.",
+    "There are no two independent signed runner attestations, independently implemented minimal release verifier, protected release CI fixtures, or deterministic content-addressed release bundle.",
+    "No receipt is accepted; AUDIT-Z, THEOREM-Z, release, theorem completion, and master acceptance remain open."
+  ],
+  "freshness": {
+    "owner": "THM-M-0317 release lane",
+    "reviewer": "independent Stage1 integration lane",
+    "review_due": "before master acceptance and after any bound input changes",
+    "support_state": "provisional_nonrelease_worker_evidence",
+    "supersession_state": "current_worker_proposal",
+    "revocation_state": "unaccepted",
+    "incident_path": "Revoke this decision and rerun release reconciliation after any bound input or gate-status change."
+  },
+  "status_boundary": "This is a self-tested negative release reconciliation. It accepts no receipt, advances no lifecycle or debt state, and grants no ApproximationPackage, exact root, accepted M0/E0/E1, H0, R0, AUDIT-Z, THEOREM-Z, release, theorem completion, or master acceptance."
+}
