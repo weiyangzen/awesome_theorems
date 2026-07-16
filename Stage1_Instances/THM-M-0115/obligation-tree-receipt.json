@@ -1,0 +1,398 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "receipt_id": "S56-M-0115-OBLIGATION-TREE-WORKER-20260717",
+  "receipt_class": "provisional_worker_selftest",
+  "content_addressed": false,
+  "item_id": "S56-M-0115-OBLIGATION_TREE",
+  "theorem_id": "THM-M-0115",
+  "phase": "obligation_tree",
+  "intent": "audit",
+  "execution_rank": 23,
+  "v2_execution_rank": 260,
+  "phase_layer": 3,
+  "depends_on": [
+    "S56-M-0115-ANCHOR_AUDIT"
+  ],
+  "base_revision": "c5037228977a81948bbd6119e1728b4b65b9924e",
+  "base_tree": "78b2627e717156dffe240bea12d14205af667d2a",
+  "support_state": "provisional_worker_selftest",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "acceptance_authority": "Stage1 integration lane only",
+  "verdict": "accepted",
+  "selftest_status": "passed",
+  "selftest_result": {
+    "exit_code": 0,
+    "commands": [
+      {
+        "cwd": ".",
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "Stage1_Instances/THM-M-0115/check_obligation_tree.py"
+        ],
+        "exit_code": 0,
+        "result": "one exact stage1-validator-semantic-result/1.0 object; status passed, verdict phase_accepted, phase predicate proven true, audit/theorem complete false"
+      },
+      {
+        "cwd": ".",
+        "argv": [
+          "python3",
+          "Docs/tools/check_stage1_standard.py"
+        ],
+        "exit_code": 1,
+        "result": "expected worker-delta boundary: the checked-in theorem DAG inventory omits this unintegrated target-owned Lean/receipt/structured evidence, so fresh generation differs until scheduler integration regenerates the derived DAG; the same command passes when the owned delta is excluded"
+      },
+      {
+        "cwd": ".",
+        "argv": [
+          "python3",
+          "Docs/tools/check_stage1_theorem_dag_v2.py"
+        ],
+        "exit_code": 1,
+        "result": "expected worker-delta boundary: fresh inventory sees this unintegrated owned delta while the checked-in read-only projection cannot be edited by the worker; with those new inventory files temporarily excluded, 1546 theorems, 10822 states, two hard edges, five hints, 310 groups, and acyclicity pass"
+      },
+      {
+        "cwd": ".",
+        "argv": [
+          "python3",
+          "scripts/stage1_target.py",
+          "check"
+        ],
+        "exit_code": 0,
+        "result": "1546 unique targets, ranks 1..1546, all L0/rework_required"
+      },
+      {
+        "cwd": ".",
+        "argv": [
+          "python3",
+          "scripts/stage1_target.py",
+          "show",
+          "THM-M-0115"
+        ],
+        "exit_code": 0,
+        "result": "rank 23, planned, L0/rework_required, theorem_complete false"
+      },
+      {
+        "cwd": ".",
+        "argv": [
+          "python3",
+          "-B",
+          "Stage1_Instances/THM-M-0115/build_obligation_artifacts.py"
+        ],
+        "exit_code": 0,
+        "result": "deterministically reproduced 32 obligations, 192 typed edges, and denominator f1455869731874b94cb533d3a6ee70bb15d428438472ffc205b63888eae68527"
+      },
+      {
+        "cwd": ".",
+        "argv": [
+          "python3",
+          "-m",
+          "json.tool",
+          "Stage1_Instances/THM-M-0115/obligation-registry.json"
+        ],
+        "exit_code": 0,
+        "result": "all six new structured JSON artifacts and the root worker handoff separately parsed as JSON"
+      },
+      {
+        "cwd": ".",
+        "argv": [
+          "git",
+          "diff",
+          "--check",
+          "--",
+          "Stage1_Instances/THM-M-0115",
+          ".stage1-worker-selftest.json"
+        ],
+        "exit_code": 0,
+        "result": "no whitespace diagnostics"
+      }
+    ],
+    "validator_semantic_stdout": {
+      "schema_version": "stage1-validator-semantic-result/1.0",
+      "item_id": "S56-M-0115-OBLIGATION_TREE",
+      "theorem_id": "THM-M-0115",
+      "phase": "obligation_tree",
+      "status": "passed",
+      "verdict": "phase_accepted",
+      "phase_accepted": true,
+      "audit_complete": false,
+      "theorem_complete": false,
+      "phase_predicate_proven": true,
+      "first_failed_gate": null,
+      "open_obligations": 0,
+      "stale_inputs": [],
+      "blocked": false,
+      "message": "T01-T04 and G01/G02/G08/G09 passed: 32 status-independent obligations, seven typed graphs, 192 typed edges, audited empty dependency context, substantive leaf ledgers, and three exact conditional Lean composition certificates are ready for independent master review; the theorem's mathematical proof obligations and all terminal completion flags remain open."
+    }
+  },
+  "inputs": {
+    "authorities": [
+      {
+        "path": "Docs/Stage1_Phase_Acceptance_Contracts.json",
+        "sha256": "1e7adf0f4fae0541b3595d4b0bfbb53f7eb17e28a4a889fec14f6df969e0cec4",
+        "git_blob": "84b92df9eaf457ab954b652c3f20f4d513cf0a88"
+      },
+      {
+        "path": "Docs/Stage1_Blueprint_v2.md",
+        "sha256": "727816e9cf48af14bac74f94e273d82bedaffc63d0877517484fa2f027a45623",
+        "git_blob": "ebdbd3bde9f9660b9d753d1dc02287b9b71c54c8"
+      },
+      {
+        "path": "Docs/Stage1_Blueprint_rev-5.6.md",
+        "sha256": "3779901013ac5e0b1f1b2bb4ea7a2ee08429f85bb1ee26c4b96905d6796c65c8",
+        "git_blob": "00b304bc44f3d1c52f3723cf1553bb13a2ad4018"
+      },
+      {
+        "path": "Docs/Stage1_Theorem_DAG_v2.json",
+        "sha256": "fb17743ff737fd3c528467b6f992a7235a36f0842b528e57de3e4c6d660d3518",
+        "git_blob": "8fa1c0fa89c1a022219e0f519b21d74794793aa5"
+      },
+      {
+        "path": "Docs/Stage1_Targets_rev-5.6.json",
+        "sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+        "git_blob": "3c85586d3060c219bad5462121b85717360a0665"
+      },
+      {
+        "path": "skills/execute-stage1-rev56/SKILL.md",
+        "sha256": "5da11caafdb40b121c2fd19e13cd232a1b13a615f7a64eb314aa82cc19fea454",
+        "git_blob": "9b1a2dd279ea94d9b4ca840b063cc8d7fc0d6a49"
+      }
+    ],
+    "phase_dependencies": [
+      {
+        "path": "Stage1_Instances/THM-M-0115/statement-receipt.json",
+        "sha256": "c3783725c70b74e3e7e49a14c82fdcdbf83b7ec946c372e3985c0dbd789dff55",
+        "git_blob": "722885074fac857944e4879f18b49192cfa3a2a3"
+      },
+      {
+        "path": "Stage1_Instances/THM-M-0115/anchor-audit-receipt.json",
+        "sha256": "9d6a7848e61ce0cebf013f190790a774035a710d76e118a4044b04fa7ae59e55",
+        "git_blob": "2823269d8573f21cbb63b422bc14322a4cc9f41a"
+      }
+    ],
+    "dependency_context": [
+      {
+        "path": "Stage1_Instances/THM-M-0115/dependency-reuse-ledger.json",
+        "sha256": "5c3fb56a429d84ea1bcd485987c4379061ec11227ebd94d38a097b8e519c4622",
+        "git_blob": "c7eb6a53a4f77426238323afef76dba9949f493c"
+      }
+    ],
+    "selected_artifacts": [
+      {
+        "role": "obligation_registry",
+        "path": "Stage1_Instances/THM-M-0115/obligation-registry.json",
+        "sha256": "1259038b59ce7429205a1813b97c31f2be5075b7c6ee784f3d602110d13f37c3",
+        "git_blob": "35fdecd564804042680386ee7a0bfabb57637894"
+      },
+      {
+        "role": "typed_graph_bundle",
+        "path": "Stage1_Instances/THM-M-0115/typed-graphs.json",
+        "sha256": "ccf1757734fe4f37aae3bc65bebcb9fbf63a65f6d59031f74156607df91a768a",
+        "git_blob": "8ae46f25af81916f2077a5cc93e09f9c52be41b0"
+      },
+      {
+        "role": "readable_tree",
+        "path": "Stage1_Instances/THM-M-0115/obligation-tree.md",
+        "sha256": "5d950dd6abbc4a58761c7588afd057f1d615de8d4d776d6168c01e5996450113",
+        "git_blob": "04032d0efbb145f842635d2742053c8be85449eb"
+      },
+      {
+        "role": "composition_source",
+        "path": "Stage1_Instances/THM-M-0115/ObligationTree.lean",
+        "sha256": "7aeb4e6dfe6789365302e1ca6cc92ab8278233b9710d19b8882e3e76616f5c7e",
+        "git_blob": "8d6130f9d5ca054488c7e886f7c9009d64a1eae9"
+      },
+      {
+        "role": "phase_receipt",
+        "path": "Stage1_Instances/THM-M-0115/obligation-tree-receipt.json",
+        "sha256": "scheduler_recomputed_after_integration",
+        "git_blob": "scheduler_recomputed_after_integration"
+      }
+    ],
+    "validation_inputs": [
+      {
+        "path": "Stage1_Instances/THM-M-0115/Statement.lean",
+        "sha256": "26648a8514a0a9240c831132918c9ad0f735eb7accce33f2287a45961394d538",
+        "git_blob": "549a67286060ee9091c4751269d635d71a46c7cf"
+      },
+      {
+        "path": "Stage1_Instances/THM-M-0115/statement.json",
+        "sha256": "241a8d4b943a6431050fece1beca135557777c42ff44e8169d30383c66763e3f",
+        "git_blob": "3ef04f93a0ee0d4150badd8b39ee7cdacde32ddb"
+      },
+      {
+        "path": "Stage1_Instances/THM-M-0115/anchor-audit.json",
+        "sha256": "1aa93316cb6fec237cf88f0ce4bf9633bbcc25a26f54a1c11a69c41225ff8d4f",
+        "git_blob": "2b266be7d3a3e35d277fba7d10aeb0636804cb6c"
+      },
+      {
+        "path": "Stage1_Instances/THM-M-0115/check_obligation_tree.py",
+        "sha256": "d9efb330e90f9c81fb43e1a2c14a0d97242bd3d85f43d8f38bd72bad32c19aef",
+        "git_blob": "9d4a153e51423864b20c243c2b078929b4e03627"
+      },
+      {
+        "path": "Stage1_Instances/THM-M-0115/build_obligation_artifacts.py",
+        "sha256": "ff305eb029104868746b98935e96f8bbed294169f7c29a6cc73a29ba1c81816f",
+        "git_blob": "8071c3b8361cfc061022a524a0dfc4d151c96930"
+      }
+    ]
+  },
+  "artifact_binding_boundary": "All non-self roles bind exact worker bytes by path, SHA-256, and prospective Git blob. The phase receipt cannot contain its own digest; its selected role uses an explicit scheduler-recomputed sentinel, and the master role map must replace it with the committed HEAD SHA-256 and Git blob before acceptance.",
+  "registry_id": "THM-M-0115-OBLIGATIONS-v1",
+  "registry_version": 1,
+  "registry_denominator_sha256": "f1455869731874b94cb533d3a6ee70bb15d428438472ffc205b63888eae68527",
+  "canonical_obligation_ids": [
+    "M0115-ROOT",
+    "M0115-S-TARGET",
+    "M0115-S-DOMAIN",
+    "M0115-S-KZERO",
+    "M0115-S-CHOW",
+    "M0115-S-OPERATIONS",
+    "M0115-S-BOUNDARY",
+    "M0115-S-TRANSPORT",
+    "M0115-S-FOUNDATION",
+    "M0115-N-PERFECT",
+    "M0115-N-FACTORIZATION",
+    "M0115-B-FACTOR",
+    "M0115-C-DEFORMATION",
+    "M0115-C-NORMAL",
+    "M0115-L-CHERN",
+    "M0115-L-TODD",
+    "M0115-L-PROJECTION",
+    "M0115-L-IMMERSION",
+    "M0115-L-PROJECTION_CASE",
+    "M0115-L-COMPOSE",
+    "M0115-X-MATHLIB",
+    "M0115-X-EXTERNAL",
+    "M0115-X-SOURCE",
+    "M0115-X-PROVENANCE",
+    "M0115-X-EVIDENCE",
+    "M0115-X-TRUST",
+    "M0115-X-READABLE",
+    "M0115-X-WORKFLOW",
+    "M0115-T-RELATIVE",
+    "M0115-T-TODD_ACTION",
+    "M0115-T-FORMULA",
+    "M0115-T-ASSEMBLE"
+  ],
+  "graph_names": [
+    "proof",
+    "refinement",
+    "provenance",
+    "evidence",
+    "trust",
+    "documentation",
+    "workflow"
+  ],
+  "typed_edge_count": 192,
+  "composition_certificates": [
+    {
+      "certificate_id": "M0115-COMP-ROOT",
+      "parent_obligation_id": "M0115-ROOT",
+      "parent_statement_fingerprint": "lean-expression-sha256:eada246ab2968c378c5b6c31c2ffd84c10873d9206b499457c451ae3848c160e",
+      "required_child_ids": [
+        "M0115-T-ASSEMBLE"
+      ],
+      "required_child_statement_fingerprints": {
+        "M0115-T-ASSEMBLE": "planned-context-sha256:2514b6104eeec5f444af4ba274e3c26e04c74ca83d451429797caac624026f04"
+      },
+      "certificate_kind": "lean_abstract_child_harness",
+      "checked_declaration": "Stage1Instances.THMM0115.ObligationTree.root_of_assembled_root_package",
+      "status": "provisionally_elaborated_not_accepted",
+      "consumes_all_required_children": true,
+      "yields_exact_parent": true,
+      "introduces_undeclared_premises": false
+    },
+    {
+      "certificate_id": "M0115-COMP-T-ASSEMBLE",
+      "parent_obligation_id": "M0115-T-ASSEMBLE",
+      "parent_statement_fingerprint": "planned-context-sha256:2514b6104eeec5f444af4ba274e3c26e04c74ca83d451429797caac624026f04",
+      "required_child_ids": [
+        "M0115-T-FORMULA"
+      ],
+      "required_child_statement_fingerprints": {
+        "M0115-T-FORMULA": "planned-context-sha256:45b7f3b4f1410e7945b5bcdefdd4adf4f84bb8948feeeaf2b38daf66d7a9808c"
+      },
+      "certificate_kind": "lean_abstract_child_harness",
+      "checked_declaration": "Stage1Instances.THMM0115.ObligationTree.assembled_root_package_of_formula_package",
+      "status": "provisionally_elaborated_not_accepted",
+      "consumes_all_required_children": true,
+      "yields_exact_parent": true,
+      "introduces_undeclared_premises": false
+    },
+    {
+      "certificate_id": "M0115-COMP-T-FORMULA",
+      "parent_obligation_id": "M0115-T-FORMULA",
+      "parent_statement_fingerprint": "planned-context-sha256:45b7f3b4f1410e7945b5bcdefdd4adf4f84bb8948feeeaf2b38daf66d7a9808c",
+      "required_child_ids": [
+        "M0115-T-RELATIVE",
+        "M0115-T-TODD_ACTION"
+      ],
+      "required_child_statement_fingerprints": {
+        "M0115-T-RELATIVE": "planned-context-sha256:3fc007db5c96827893e98089a6fa01e616b7cb5cafcc2d19a9b035a1b839cdfa",
+        "M0115-T-TODD_ACTION": "planned-context-sha256:7b057b60f942485746f31bbd24af44c6e4604dcff7689e9b0c8eb6a154d4d667"
+      },
+      "certificate_kind": "lean_abstract_child_harness",
+      "checked_declaration": "Stage1Instances.THMM0115.ObligationTree.formula_package_of_relative_and_todd",
+      "status": "provisionally_elaborated_not_accepted",
+      "consumes_all_required_children": true,
+      "yields_exact_parent": true,
+      "introduces_undeclared_premises": false
+    }
+  ],
+  "unverified_decomposition_count": 11,
+  "accepted_closed_obligations": [],
+  "accepted_receipt_ids": [],
+  "terminal_proof_body_ids": [],
+  "dependency_reuse_ledger": "Stage1_Instances/THM-M-0115/dependency-reuse-ledger.json",
+  "inspected_parent_ids": [],
+  "reused_declaration_ids": [],
+  "lean_output_sha256": "094da5e8c6f0fbd2c688a04aef2378d689f8592f3708bda077cee0adbc15e2b8",
+  "lean_axiom_result": "Three conditional composition declarations elaborate under --trust=0 and each reports exactly propext, Classical.choice, and Quot.sound; no sorryAx or custom axiom occurs.",
+  "root_vector_before": {
+    "H": "H4",
+    "M": "M3",
+    "R": "R4"
+  },
+  "root_vector_after": {
+    "H": "H4",
+    "M": "M3",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "remaining_machine_root_cut_set": [
+    "M0115-T-RELATIVE",
+    "M0115-T-TODD_ACTION"
+  ],
+  "remaining_release_cut_set": [
+    "M0115-X-SOURCE",
+    "M0115-X-PROVENANCE",
+    "M0115-X-EVIDENCE",
+    "M0115-X-TRUST",
+    "M0115-X-READABLE",
+    "M0115-X-WORKFLOW"
+  ],
+  "known_failures": [
+    "The predecessor intake, statement, and anchor-audit items remain worker self-tested [_] rather than master accepted [x]; topology must be resolved in order by the integration lane.",
+    "No exact placeholder-free Lean proof body exists for the frozen GRR root; the strongest public candidate inspected is a non-exact direct-sorry declaration and is rejected.",
+    "The K_0, rational Chow, characteristic-class, deformation/factorization, immersion, projection, and composition mathematical packages remain open formalization work.",
+    "Eleven source-architecture decompositions are explicitly unverified as child-to-parent Lean compositions and cannot receive machine closure.",
+    "Primary-source pinpoint mapping and independent H0 review, terminal-body provenance, complete TCB closure, reviewed R0 reconstruction, hermetic validation, independent verification, release, AUDIT-Z, and THEOREM-Z remain open.",
+    "The automation-provided canonical pinned .lake symlink makes this a warm nonrelease worker self-test; it was used read-only and no dependency mutation occurred."
+  ],
+  "first_failed_gate": null,
+  "retry_condition": "Master integration must commit these exact bytes, accept the predecessor in DAG order, replay the unchanged HEAD validator, independently review the semantic phase predicate, and issue the master phase receipt.",
+  "invalidation_inputs": [
+    "the exact Statement.lean source, statement expression fingerprint, statement record, or statement receipt",
+    "the anchor inventory, candidate classification, source revisions, or anchor receipt",
+    "the obligation registry, typed graphs, readable tree, composition source, generator, validator, or dependency ledger",
+    "the v2 blueprint phase state, theorem DAG graph digest, dependency context digest, rank, or claim order",
+    "the rev-5.6 assurance standard, HEAD phase contract, target manifest, execution skill, Lean toolchain, Lake manifest, mathlib revision/tree, or foundation profile"
+  ],
+  "lifecycle_after": "planned",
+  "status_boundary": "Worker self-tested obligation-tree proposal only. It freezes a complete architecture and checks conditional composition, but accepts no proof body or obligation, inherits no provider acceptance, leaves H4/M3/R4 unchanged, and does not claim audit completion, theorem completion, validation, release, or master acceptance."
+}
