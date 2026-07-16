@@ -61,7 +61,7 @@ DAG = DOCS / "Stage1_Execution_DAG_rev-5.6.json"
 THEOREM_DAG_V2 = DOCS / "Stage1_Theorem_DAG_v2.json"
 PHASE_ACCEPTANCE_CONTRACTS = DOCS / "Stage1_Phase_Acceptance_Contracts.json"
 PHASE_ACCEPTANCE_CONTRACT_SHA256 = (
-    "c5feada8eea4ac796359c759083904921d53cbf051320d870f39767b00478a03"
+    "081b225fa80f882ae0268e05004b0f3ab2503947429ca289f5593cdbafc99499"
 )
 LEGACY_RUNTIME = ROOT / ".cron" / "stage1-rev56"
 RUNTIME = ROOT / ".cron" / "stage1-v2-app-server"
@@ -130,11 +130,11 @@ GOAL_HANDSHAKE_RECOVERY_GRACE_SECONDS = 120.0
 STARTED_TARGETS_ONLY = False
 CODEX_MODEL = "gpt-5.6-sol"
 CODEX_REASONING_EFFORT = "ultra"
-CODEX_SERVICE_TIER = "priority"  # model/list advertises this id as "Fast"
+CODEX_SERVICE_TIER = "default"
 REQUIRED_RUNTIME_CONFIG = {
     "model": "gpt-5.6-sol",
     "reasoning_effort": "ultra",
-    "service_tier": "priority",
+    "service_tier": "default",
 }
 IMPLEMENTATION_LANE = "implementation"
 REVIEW_LANE = "review"
@@ -1908,9 +1908,14 @@ def runtime_path(name: str) -> Path:
 
 
 def load_claims() -> list[dict[str, Any]]:
-    path = runtime_path("claims.json")
+    # Reading scheduler state must not create the runtime tree.  In particular,
+    # validate-only uses this path and is required to leave an absent runtime
+    # directory absent.
+    path = RUNTIME / "claims.json"
     if not path.exists():
         return []
+    if path.is_symlink() or not path.is_file():
+        fail("claim ledger is not a regular scheduler-owned file")
     claims = read_json(path).get("claims", [])
     if not isinstance(claims, list):
         fail("claim ledger is malformed")
@@ -3376,13 +3381,14 @@ def prepare_review_workspace(slot: int, base_revision: str) -> Path:
     return workspace
 
 
-def write_todo(
+def render_todo(
     data: dict[str, Any],
     ordered: list[dict[str, Any]],
     claims: list[dict[str, Any]],
     *,
     destination: Path | None = None,
-) -> Path:
+) -> tuple[Path, str]:
+    """Validate and render the canonical daily projection without writing it."""
     authoritative = load_blueprint_items()
     if data.get("items") != authoritative:
         fail("todo input disagrees with the v2 blueprint SSOT")
@@ -3461,18 +3467,39 @@ def write_todo(
         hard_display = hard_gate if not hard_blockers else f"{hard_gate}: {len(hard_blockers)} blocker(s); see target ledger"
         lines.append(f"| `{item['id']}` | {phase_deps_done} | {hard_display} | {claim_state} |")
     lines.append("")
-    atomic_write(path, "\n".join(lines))
+    return path, "\n".join(lines)
+
+
+def write_todo(
+    data: dict[str, Any],
+    ordered: list[dict[str, Any]],
+    claims: list[dict[str, Any]],
+    *,
+    destination: Path | None = None,
+) -> Path:
+    path, projection = render_todo(
+        data, ordered, claims, destination=destination
+    )
+    atomic_write(path, projection)
     return path
 
 
 def validate_only() -> None:
-    run(["python3", "Docs/tools/check_stage1_theorem_dag_v2.py"])
+    validate_runtime_root()
+    run(["python3", "-B", "Docs/tools/check_stage1_theorem_dag_v2.py"])
     data, ordered = load_dag()
     theorem_graph, _ = theorem_dag_v2()
     # A dry gate must not stop workers, snapshot workspaces, rewrite ledgers,
     # trim logs, or otherwise reconcile mutable scheduler state.
     claims = load_claims()
-    todo = write_todo(data, ordered, claims)
+    todo, todo_projection = render_todo(data, ordered, claims)
+    todo_status = "absent_projection_validated"
+    if todo.exists():
+        if todo.is_symlink() or not todo.is_file():
+            fail("daily todo projection is not a regular file")
+        if todo.read_text(encoding="utf-8") != todo_projection:
+            fail("daily todo projection is stale relative to the v2 blueprint SSOT")
+        todo_status = "current"
     print("validate-only: ok")
     print("requirements_source=Docs/Stage1_Blueprint_v2.md")
     print(
@@ -3488,7 +3515,7 @@ def validate_only() -> None:
         f"reasoning_effort={CODEX_REASONING_EFFORT} "
         f"service_tier={CODEX_SERVICE_TIER}"
     )
-    print(f"todo={todo.relative_to(ROOT)}")
+    print(f"todo={todo.relative_to(ROOT)} status={todo_status}")
 
 
 def integrate(limit: int) -> int:
@@ -5942,7 +5969,12 @@ def install(schedule: str) -> None:
         fail("install refused: Stage1 execution is paused; use --resume explicitly first")
     if not re.fullmatch(r"[^\n]+", schedule):
         fail("schedule must be one crontab line prefix")
-    command = f"{schedule} cd {ROOT} && {ROOT / 'scripts' / 'stage1_execution_cron.py'} --tick --workers {DEFAULT_WORKERS} --limit {DEFAULT_INTEGRATION_LIMIT} >> {RUNTIME / 'keepalive.log'} 2>&1 # stage1_execution_cron.py"
+    command = (
+        f"{schedule} cd {ROOT} && "
+        f"{sys.executable} {ROOT / 'scripts' / 'stage1_execution_cron.py'} "
+        f"--tick --workers {DEFAULT_WORKERS} --limit {DEFAULT_INTEGRATION_LIMIT} "
+        f">> {RUNTIME / 'keepalive.log'} 2>&1 # stage1_execution_cron.py"
+    )
     current = run(["crontab", "-l"], check=False).stdout.splitlines()
     current = [line for line in current if "stage1_execution_cron.py" not in line]
     subprocess.run(["crontab", "-"], input="\n".join(current + [command]) + "\n", text=True, check=True)
@@ -5978,11 +6010,13 @@ def resume() -> None:
 
 
 def main() -> None:
+    validate_only_requested = "--validate-only" in sys.argv[1:]
     # A paused tick must be a true no-op, including no runtime directory or
     # lock-file mutation. Check it before constructing the scheduler lock.
     # The one allowed migration is copying the retired stop marker into the
     # current runtime; this preserves rather than relaxes the operator freeze.
-    migrate_pause_marker()
+    if not validate_only_requested:
+        migrate_pause_marker()
     if "--tick" in sys.argv[1:] and execution_is_paused():
         print("tick: Stage1 execution is paused; no sync, integration, or refill performed")
         return
@@ -5996,21 +6030,24 @@ def main() -> None:
     requested_paused_modes = paused_mutating_modes.intersection(sys.argv[1:])
     if execution_is_paused() and requested_paused_modes:
         fail(f"Stage1 execution is paused; refused {sorted(requested_paused_modes)[0]}")
-    # A refill can take longer than its three-minute cadence. Serialize all
-    # scheduler invocations so overlapping ticks cannot allocate the same slot
-    # or orphan an unrecorded app-server worker.
-    validate_runtime_root()
-    lock = runtime_path("scheduler.lock").open("w", encoding="utf-8")
-    try:
-        fcntl.flock(lock.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
-    except BlockingIOError:
-        print("scheduler: another invocation is active; skipping overlapping run")
-        lock.close()
-        return
+    lock = None
+    if not validate_only_requested:
+        # A refill can take longer than its three-minute cadence. Serialize all
+        # mutating scheduler invocations so overlapping ticks cannot allocate
+        # the same slot or orphan an unrecorded app-server worker. Validate-only
+        # deliberately avoids creating or touching this lock.
+        validate_runtime_root()
+        lock = runtime_path("scheduler.lock").open("w", encoding="utf-8")
+        try:
+            fcntl.flock(lock.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError:
+            print("scheduler: another invocation is active; skipping overlapping run")
+            lock.close()
+            return
     parser = argparse.ArgumentParser(description=__doc__)
     modes = parser.add_mutually_exclusive_group(required=True)
     modes.add_argument("--bootstrap", action="store_true", help="generate the typed 1546-target execution DAG and blueprint appendix")
-    modes.add_argument("--validate-only", action="store_true", help="validate DAG, state, budgets, and todo without syncing or spawning workers")
+    modes.add_argument("--validate-only", action="store_true", help="read-only validation of DAG, state, runtime configuration, and the daily todo projection")
     modes.add_argument("--integrate", action="store_true", help="verify completed worker handoffs and advance them to worker-self-tested")
     modes.add_argument("--tick", action="store_true", help="sync, refill the app-server /goal worker lanes, and refresh todo")
     modes.add_argument("--cleanup", action="store_true", help="remove the cron entry only after every completion gate is true")
@@ -6040,7 +6077,8 @@ def main() -> None:
         resume()
     else:
         install(args.schedule)
-    lock.close()
+    if lock is not None:
+        lock.close()
 
 
 if __name__ == "__main__":

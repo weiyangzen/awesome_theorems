@@ -12,7 +12,7 @@ from typing import Any, NoReturn
 
 ROOT = Path(__file__).resolve().parents[2]
 CONTRACT = ROOT / "Docs" / "Stage1_Phase_Acceptance_Contracts.json"
-CONTRACT_SHA256 = "c5feada8eea4ac796359c759083904921d53cbf051320d870f39767b00478a03"
+CONTRACT_SHA256 = "081b225fa80f882ae0268e05004b0f3ab2503947429ca289f5593cdbafc99499"
 
 PHASES = (
     "intake",
@@ -418,8 +418,8 @@ def validate_review_runtime(value: Any) -> None:
     require(row["per_item_goal_required"] is True, "review must have a persisted /goal")
     require(row["model"] == "gpt-5.6-sol", "review model changed")
     require(row["reasoning_effort"] == "ultra", "review effort changed")
-    require(row["service_tier"] == "priority", "review service tier changed")
-    require(row["catalog_label"] == "Fast", "priority catalog label changed")
+    require(row["service_tier"] == "default", "review service tier changed")
+    require(row["catalog_label"] == "Default", "default catalog label changed")
     require(row["repo_access"] == "read_only", "review repository must be read-only")
     require(row["scratch_access"] == "isolated_writable", "review scratch must be isolated")
     require(row["network_access"] is False, "review network must be disabled")

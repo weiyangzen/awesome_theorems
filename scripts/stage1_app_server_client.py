@@ -24,10 +24,10 @@ CLIENT_NAME = "awesome_theorems_stage1"
 CLIENT_VERSION = "1.0.0"
 DEFAULT_MODEL = "gpt-5.6-sol"
 DEFAULT_EFFORT = "ultra"
-DEFAULT_SERVICE_TIER = "priority"
+DEFAULT_SERVICE_TIER = "default"
 RUNTIME_MODEL = "gpt-5.6-sol"
 RUNTIME_EFFORT = "ultra"
-RUNTIME_SERVICE_TIER = "priority"
+RUNTIME_SERVICE_TIER = "default"
 IMPLEMENTATION_LANE = "implementation"
 REVIEW_LANE = "review"
 LANES = {IMPLEMENTATION_LANE, REVIEW_LANE}
@@ -855,22 +855,24 @@ def model_contract(
     }
     if effort not in efforts:
         raise ProtocolError(f"model {model!r} does not advertise reasoning effort {effort!r}")
-    speed_tiers = row.get("additionalSpeedTiers")
-    if not isinstance(speed_tiers, list) or "fast" not in speed_tiers:
-        raise ProtocolError(f"model {model!r} does not advertise the Fast speed capability")
-    tier_rows = [
-        option
-        for option in row.get("serviceTiers", [])
-        if isinstance(option, dict) and isinstance(option.get("id"), str)
-    ]
-    matching_tiers = [option for option in tier_rows if option.get("id") == service_tier]
-    if len(matching_tiers) != 1:
+    if service_tier != RUNTIME_SERVICE_TIER:
         raise ProtocolError(
-            f"model {model!r} must advertise service tier {service_tier!r} exactly once"
+            f"model {model!r} requested unsupported service tier {service_tier!r}"
         )
-    tier = matching_tiers[0]
-    if service_tier == RUNTIME_SERVICE_TIER and tier.get("name") != "Fast":
-        raise ProtocolError("service tier 'priority' is not advertised as Fast")
+    # The app-server catalog exposes the baseline `default` tier implicitly.
+    # Rows such as priority/Fast describe optional acceleration, not a reason to
+    # reroute a default request. An explicit default row must not contradict the
+    # baseline identity if a future catalog starts emitting one.
+    tier_rows = row.get("serviceTiers", [])
+    if not isinstance(tier_rows, list) or any(not isinstance(option, dict) for option in tier_rows):
+        raise ProtocolError(f"model {model!r} returned malformed service tier metadata")
+    explicit_defaults = [option for option in tier_rows if option.get("id") == service_tier]
+    if len(explicit_defaults) > 1:
+        raise ProtocolError(
+            f"model {model!r} advertises service tier {service_tier!r} more than once"
+        )
+    if explicit_defaults and explicit_defaults[0].get("name") not in {None, "Default"}:
+        raise ProtocolError("service tier 'default' has a contradictory catalog label")
     return row
 
 
@@ -1284,7 +1286,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--lane", choices=sorted(LANES), required=True)
     parser.add_argument("--binding", type=Path)
     parser.add_argument("--thread-id")
-    parser.add_argument("--codex", default="codex")
+    parser.add_argument(
+        "--codex",
+        default=str(Path.home() / ".local" / "bin" / "codex"),
+    )
     parser.add_argument("--model", default=DEFAULT_MODEL)
     parser.add_argument("--effort", default=DEFAULT_EFFORT)
     parser.add_argument("--service-tier", default=DEFAULT_SERVICE_TIER)

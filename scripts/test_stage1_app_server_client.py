@@ -11,10 +11,12 @@ import json
 import os
 from pathlib import Path
 import signal
+import sys
 import tempfile
 import textwrap
 import time
 import unittest
+from unittest import mock
 
 
 MODULE_PATH = Path(__file__).with_name("stage1_app_server_client.py")
@@ -31,7 +33,7 @@ def catalog_row() -> dict[str, object]:
         "supportedReasoningEfforts": [{"reasoningEffort": "ultra"}],
         "additionalSpeedTiers": ["fast"],
         "serviceTiers": [
-            {"id": "priority", "name": "Fast", "description": "fast lane"}
+            {"id": "priority", "name": "Fast", "description": "optional fast lane"}
         ],
     }
 
@@ -87,16 +89,30 @@ def review_output(binding: dict[str, object]) -> dict[str, object]:
 
 
 class ContractTests(unittest.TestCase):
+    def test_default_codex_binary_is_cron_safe(self) -> None:
+        argv = [
+            "stage1_app_server_client.py",
+            "--workspace", "/repo/worker",
+            "--prompt", "/repo/prompt",
+            "--objective", "/repo/objective",
+            "--status", "/repo/status",
+            "--log", "/repo/log",
+            "--lane", "implementation",
+        ]
+        with mock.patch.object(sys, "argv", argv):
+            args = client.parse_args()
+        self.assertEqual(args.codex, str(Path.home() / ".local" / "bin" / "codex"))
+
     def test_runtime_args_are_exact_and_do_not_fallback(self) -> None:
         valid = argparse.Namespace(
-            model="gpt-5.6-sol", effort="ultra", service_tier="priority",
+            model="gpt-5.6-sol", effort="ultra", service_tier="default",
             lane="implementation", binding=None,
         )
         client.require_exact_runtime_args(valid)
         for field, value in (
             ("model", "gpt-5.5"),
             ("effort", "max"),
-            ("service_tier", "default"),
+            ("service_tier", "priority"),
         ):
             invalid = argparse.Namespace(**vars(valid))
             setattr(invalid, field, value)
@@ -107,7 +123,7 @@ class ContractTests(unittest.TestCase):
         valid = argparse.Namespace(
             model="gpt-5.6-sol",
             effort="ultra",
-            service_tier="priority",
+            service_tier="default",
             lane="review",
             binding=Path("binding.json"),
         )
@@ -231,35 +247,42 @@ class ContractTests(unittest.TestCase):
         self.assertEqual(set(schema["required"]), client.REVIEW_OUTPUT_FIELDS)
         self.assertEqual(set(schema["properties"]), client.REVIEW_OUTPUT_FIELDS)
 
-    def test_catalog_requires_priority_to_mean_fast(self) -> None:
+    def test_catalog_accepts_implicit_default_and_rejects_contradictions(self) -> None:
         self.assertEqual(
             client.model_contract(
-                [catalog_row()], "gpt-5.6-sol", "ultra", "priority"
+                [catalog_row()], "gpt-5.6-sol", "ultra", "default"
             )["model"],
             "gpt-5.6-sol",
         )
-        wrong = catalog_row()
-        wrong["serviceTiers"] = [{"id": "priority", "name": "Default"}]
-        with self.assertRaisesRegex(client.ProtocolError, "not advertised as Fast"):
-            client.model_contract([wrong], "gpt-5.6-sol", "ultra", "priority")
-
-        missing_fast = catalog_row()
-        missing_fast["additionalSpeedTiers"] = []
-        with self.assertRaisesRegex(client.ProtocolError, "Fast speed capability"):
-            client.model_contract([missing_fast], "gpt-5.6-sol", "ultra", "priority")
+        no_optional_tiers = catalog_row()
+        no_optional_tiers["additionalSpeedTiers"] = []
+        no_optional_tiers["serviceTiers"] = []
+        self.assertEqual(
+            client.model_contract(
+                [no_optional_tiers], "gpt-5.6-sol", "ultra", "default"
+            )["model"],
+            "gpt-5.6-sol",
+        )
 
         alias = catalog_row()
         alias["id"] = "provider-alias"
         with self.assertRaisesRegex(client.ProtocolError, "alias or reroute"):
-            client.model_contract([alias], "gpt-5.6-sol", "ultra", "priority")
+            client.model_contract([alias], "gpt-5.6-sol", "ultra", "default")
 
         duplicate = catalog_row()
         duplicate["serviceTiers"] = [
-            {"id": "priority", "name": "Default"},
-            {"id": "priority", "name": "Fast"},
+            {"id": "default", "name": "Default"},
+            {"id": "default", "name": "Default duplicate"},
         ]
-        with self.assertRaisesRegex(client.ProtocolError, "exactly once"):
-            client.model_contract([duplicate], "gpt-5.6-sol", "ultra", "priority")
+        with self.assertRaisesRegex(client.ProtocolError, "more than once"):
+            client.model_contract([duplicate], "gpt-5.6-sol", "ultra", "default")
+
+        contradictory = catalog_row()
+        contradictory["serviceTiers"] = [{"id": "default", "name": "Fast"}]
+        with self.assertRaisesRegex(client.ProtocolError, "contradictory catalog label"):
+            client.model_contract(
+                [contradictory], "gpt-5.6-sol", "ultra", "default"
+            )
 
     def test_server_request_responses_are_schema_shaped(self) -> None:
         connection = object.__new__(client.AppServerConnection)
@@ -452,7 +475,7 @@ class ScriptedAppServer:
                                   else params["model"]),
                         "reasoningEffort": ("max" if resume_mode == "wrong_effort"
                                             else params["config"]["model_reasoning_effort"]),
-                        "serviceTier": ("default" if resume_mode == "wrong_tier"
+                        "serviceTier": ("priority" if resume_mode == "wrong_tier"
                                         else params["serviceTier"]),
                         "approvalPolicy": params["approvalPolicy"],
                         "approvalsReviewer": params["approvalsReviewer"],
@@ -643,7 +666,7 @@ class FlowTests(unittest.TestCase):
                 codex=str(server),
                 model="gpt-5.6-sol",
                 effort="ultra",
-                service_tier="priority",
+                service_tier="default",
                 lane=lane,
                 binding=binding_path if lane == client.REVIEW_LANE else None,
                 thread_id=thread_id,
@@ -702,7 +725,7 @@ class FlowTests(unittest.TestCase):
         start = next(message for message in transcript if message.get("method") == "thread/start")
         self.assertFalse(start["params"]["allowProviderModelFallback"])
         self.assertEqual(start["params"]["model"], "gpt-5.6-sol")
-        self.assertEqual(start["params"]["serviceTier"], "priority")
+        self.assertEqual(start["params"]["serviceTier"], "default")
         self.assertEqual(start["params"]["config"]["model_reasoning_effort"], "ultra")
         self.assertEqual(start["params"]["sandbox"], "workspace-write")
         self.assertEqual(start["params"]["runtimeWorkspaceRoots"], [state["workspace"]])
@@ -749,7 +772,7 @@ class FlowTests(unittest.TestCase):
         self.assertEqual(state["turn_id"], "turn-2")
         self.assertEqual(turns[0]["params"]["model"], "gpt-5.6-sol")
         self.assertEqual(turns[0]["params"]["effort"], "ultra")
-        self.assertEqual(turns[0]["params"]["serviceTier"], "priority")
+        self.assertEqual(turns[0]["params"]["serviceTier"], "default")
         self.assertEqual(
             turns[0]["params"]["sandboxPolicy"],
             {
@@ -788,10 +811,10 @@ class FlowTests(unittest.TestCase):
                 "approvalsReviewer": "user",
                 "sandbox": "workspace-write",
                 "runtimeWorkspaceRoots": [state["workspace"]],
-                "serviceTier": "priority",
+                "serviceTier": "default",
                 "config": {
                     "model_reasoning_effort": "ultra",
-                    "service_tier": "priority",
+                    "service_tier": "default",
                     "features": {
                         "goals": True,
                         "code_mode": False,
@@ -850,7 +873,7 @@ class FlowTests(unittest.TestCase):
         self.assertEqual(resume["params"]["sandbox"], "read-only")
         self.assertEqual(resume["params"]["runtimeWorkspaceRoots"], [])
         self.assertEqual(resume["params"]["config"]["model_reasoning_effort"], "ultra")
-        self.assertEqual(resume["params"]["serviceTier"], "priority")
+        self.assertEqual(resume["params"]["serviceTier"], "default")
         self.assertTrue(state["resumed"])
 
     def test_review_lane_is_read_only_and_persists_bound_evidence(self) -> None:
@@ -919,7 +942,7 @@ class FlowTests(unittest.TestCase):
                 codex=str(root / "must-not-run"),
                 model="gpt-5.6-sol",
                 effort="ultra",
-                service_tier="priority",
+                service_tier="default",
                 lane="review",
                 binding=None,
                 thread_id=None,
@@ -1304,7 +1327,7 @@ class DurableWriteTests(unittest.TestCase):
                 codex=str(root / "must-not-run"),
                 model="gpt-5.6-sol",
                 effort="ultra",
-                service_tier="priority",
+                service_tier="default",
                 lane="implementation",
                 binding=None,
                 thread_id=None,
@@ -1336,7 +1359,7 @@ class DurableWriteTests(unittest.TestCase):
                 codex=str(root / "must-not-run"),
                 model="gpt-5.6-sol",
                 effort="ultra",
-                service_tier="priority",
+                service_tier="default",
                 lane="implementation",
                 binding=None,
                 thread_id=None,

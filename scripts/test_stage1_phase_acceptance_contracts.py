@@ -47,6 +47,14 @@ class PhaseAcceptanceContractTests(unittest.TestCase):
     def test_authoritative_contract_passes(self) -> None:
         self.assertEqual(len(self.validate()["phases"]), 7)
 
+    def test_review_runtime_uses_requested_default_service_tier(self) -> None:
+        runtime = self.contract["review_runtime"]
+        self.assertEqual(runtime["model"], "gpt-5.6-sol")
+        self.assertEqual(runtime["reasoning_effort"], "ultra")
+        self.assertEqual(runtime["service_tier"], "default")
+        self.assertEqual(runtime["catalog_label"], "Default")
+        self.assertEqual(runtime["shared_total_concurrency_limit"], 20)
+
     def test_raw_blocked_can_never_close_or_be_review_eligible(self) -> None:
         self.assert_rejected(
             lambda value: value["phases"][4].update(raw_blocked_can_close_phase=True),

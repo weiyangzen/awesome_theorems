@@ -16,6 +16,7 @@ from pathlib import Path
 import re
 import shutil
 import subprocess
+import sys
 import tempfile
 import unittest
 from collections import Counter
@@ -2219,7 +2220,7 @@ class SchedulerCapacityTests(unittest.TestCase):
                 self.assertTrue(legacy.exists())
                 self.assertTrue(cron.execution_is_paused())
 
-    def test_worker_argv_binds_exact_ultra_fast_runtime_contract(self) -> None:
+    def test_worker_argv_binds_exact_ultra_default_runtime_contract(self) -> None:
         argv = cron.worker_argv(
             Path("/repo/worker"), Path("/repo/prompt"), Path("/repo/log"),
             Path("/repo/status"), Path("/repo/objective"),
@@ -2227,7 +2228,7 @@ class SchedulerCapacityTests(unittest.TestCase):
         self.assertEqual(argv[1], str(cron.APP_SERVER_CLIENT))
         self.assertEqual(argv[argv.index("--model") + 1], "gpt-5.6-sol")
         self.assertEqual(argv[argv.index("--effort") + 1], "ultra")
-        self.assertEqual(argv[argv.index("--service-tier") + 1], "priority")
+        self.assertEqual(argv[argv.index("--service-tier") + 1], "default")
         self.assertNotIn("tmux", argv)
 
     def test_worker_argv_rejects_scheduler_runtime_fallback(self) -> None:
@@ -3535,6 +3536,7 @@ class SchedulerCapacityTests(unittest.TestCase):
                 cron.install("*/3 * * * *")
         line = captured["input"].strip()
         self.assertTrue(line.startswith("*/3 * * * * "))
+        self.assertIn(f"{sys.executable} {root / 'scripts' / 'stage1_execution_cron.py'}", line)
         self.assertIn("--tick --workers 20 --limit 20", line)
         self.assertIn("stage1-v2-app-server/keepalive.log", line)
 
@@ -3725,22 +3727,131 @@ class SchedulerCapacityTests(unittest.TestCase):
         terminate.assert_called_once_with(claim)
         save.assert_called_once_with([])
 
-    def test_validate_only_does_not_refresh_or_apply_space_guard(self) -> None:
+    def test_validate_only_renders_complete_todo_validation_without_writing(self) -> None:
         data = {"items": []}
+        todo = cron.DOCS / "todo.md"
+        projection = "validated projection\n"
         with (
-            mock.patch.object(cron, "run"),
+            mock.patch.object(cron, "run") as run,
+            mock.patch.object(cron, "validate_runtime_root") as validate_runtime,
             mock.patch.object(cron, "load_dag", return_value=(data, [])),
-            mock.patch.object(cron, "load_blueprint_items", return_value=[]),
             mock.patch.object(cron, "theorem_dag_v2", return_value=({"hard_edges": [], "reuse_hints": []}, {})),
             mock.patch.object(cron, "load_claims", return_value=[]),
             mock.patch.object(cron, "refresh_claims") as refresh,
             mock.patch.object(cron, "space_guard") as space,
-            mock.patch.object(cron, "write_todo", return_value=cron.DOCS / "todo.md"),
-            contextlib.redirect_stdout(io.StringIO()),
+            mock.patch.object(
+                cron, "render_todo", return_value=(todo, projection)
+            ) as render,
+            mock.patch.object(cron, "write_todo") as write,
+            mock.patch.object(cron, "atomic_write") as atomic,
+            mock.patch.object(Path, "exists", return_value=False),
+            contextlib.redirect_stdout(io.StringIO()) as output,
         ):
             cron.validate_only()
+        validate_runtime.assert_called_once_with()
+        run.assert_called_once_with(
+            ["python3", "-B", "Docs/tools/check_stage1_theorem_dag_v2.py"]
+        )
+        render.assert_called_once_with(data, [], [])
+        write.assert_not_called()
+        atomic.assert_not_called()
         refresh.assert_not_called()
         space.assert_not_called()
+        self.assertIn(
+            "todo=Docs/todo.md status=absent_projection_validated",
+            output.getvalue(),
+        )
+
+    def test_validate_only_rejects_stale_existing_todo_without_rewriting(self) -> None:
+        data = {"items": []}
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            docs = root / "Docs"
+            docs.mkdir()
+            todo = docs / "todos_20260717.md"
+            todo.write_text("stale projection\n", encoding="utf-8")
+            before = todo.read_bytes()
+            with (
+                mock.patch.object(cron, "ROOT", root),
+                mock.patch.object(cron, "DOCS", docs),
+                mock.patch.object(cron, "validate_runtime_root"),
+                mock.patch.object(cron, "run"),
+                mock.patch.object(cron, "load_dag", return_value=(data, [])),
+                mock.patch.object(
+                    cron,
+                    "theorem_dag_v2",
+                    return_value=({"hard_edges": [], "reuse_hints": []}, {}),
+                ),
+                mock.patch.object(cron, "load_claims", return_value=[]),
+                mock.patch.object(
+                    cron,
+                    "render_todo",
+                    return_value=(todo, "current projection\n"),
+                ),
+                mock.patch.object(cron, "atomic_write") as write,
+                self.assertRaisesRegex(SystemExit, "daily todo projection is stale"),
+            ):
+                cron.validate_only()
+            self.assertEqual(todo.read_bytes(), before)
+            write.assert_not_called()
+
+    def test_validate_only_accepts_current_existing_todo_without_rewriting(self) -> None:
+        data = {"items": []}
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            docs = root / "Docs"
+            docs.mkdir()
+            todo = docs / "todos_20260717.md"
+            projection = "current projection\n"
+            todo.write_text(projection, encoding="utf-8")
+            before = todo.stat()
+            with (
+                mock.patch.object(cron, "ROOT", root),
+                mock.patch.object(cron, "DOCS", docs),
+                mock.patch.object(cron, "validate_runtime_root"),
+                mock.patch.object(cron, "run"),
+                mock.patch.object(cron, "load_dag", return_value=(data, [])),
+                mock.patch.object(
+                    cron,
+                    "theorem_dag_v2",
+                    return_value=({"hard_edges": [], "reuse_hints": []}, {}),
+                ),
+                mock.patch.object(cron, "load_claims", return_value=[]),
+                mock.patch.object(
+                    cron,
+                    "render_todo",
+                    return_value=(todo, projection),
+                ),
+                mock.patch.object(cron, "atomic_write") as write,
+                contextlib.redirect_stdout(io.StringIO()) as output,
+            ):
+                cron.validate_only()
+            after = todo.stat()
+            self.assertEqual(todo.read_text(encoding="utf-8"), projection)
+            self.assertEqual((after.st_ino, after.st_mtime_ns), (before.st_ino, before.st_mtime_ns))
+            write.assert_not_called()
+            self.assertIn("status=current", output.getvalue())
+
+    def test_validate_only_main_does_not_create_runtime_or_migrate_pause(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            runtime = root / ".cron" / "stage1-v2-app-server"
+            argv = ["stage1_execution_cron.py", "--validate-only"]
+            with (
+                mock.patch.object(cron, "ROOT", root),
+                mock.patch.object(cron, "RUNTIME", runtime),
+                mock.patch.object(cron.sys, "argv", argv),
+                mock.patch.object(cron, "migrate_pause_marker") as migrate,
+                mock.patch.object(cron, "validate_only") as validate,
+                mock.patch.object(cron, "runtime_path") as runtime_path,
+                mock.patch.object(cron.fcntl, "flock") as flock,
+            ):
+                cron.main()
+            validate.assert_called_once_with()
+            migrate.assert_not_called()
+            runtime_path.assert_not_called()
+            flock.assert_not_called()
+            self.assertFalse(runtime.exists())
 
     def test_preparing_claim_recovers_live_app_server_worker(self) -> None:
         item = {
