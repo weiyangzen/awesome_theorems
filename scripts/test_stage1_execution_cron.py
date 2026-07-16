@@ -1565,6 +1565,20 @@ class IntegrationTransactionTests(unittest.TestCase):
 
 
 class SchedulerCapacityTests(unittest.TestCase):
+    def setUp(self) -> None:
+        # Focused refresh tests commonly replace only the claim ledger. Give
+        # them an empty synthetic /proc tree so a live scheduler cohort on the
+        # host cannot be mistaken for unledgered fixture processes. Tests of
+        # process reconciliation below replace this root with their own fully
+        # described synthetic inventory.
+        self.process_inventory = tempfile.TemporaryDirectory()
+        self.addCleanup(self.process_inventory.cleanup)
+        proc_root = Path(self.process_inventory.name) / "proc"
+        proc_root.mkdir()
+        proc_patch = mock.patch.object(cron, "PROC_ROOT", proc_root)
+        proc_patch.start()
+        self.addCleanup(proc_patch.stop)
+
     @staticmethod
     def canonical_claim(item: dict[str, object], status: str) -> dict[str, object]:
         _, theorem_nodes = cron.theorem_dag_v2()
