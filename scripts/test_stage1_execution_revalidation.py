@@ -539,6 +539,27 @@ class HistoricalRevalidationBoundaryTests(unittest.TestCase):
             )
             self.assertEqual(cron.review_candidates([post_item], claims), [])
 
+    def test_historical_successor_validator_mismatch_is_quarantined_not_requeued(self) -> None:
+        self.write_plan()
+        claim = self.integrated_historical_claim()
+        claim["revalidation_predecessor_claim_id"] = (
+            "20260716T120000Z-0123456789ab"
+        )
+        post_item = {**self.item, "attempts": self.item["attempts"] + 1}
+        with mock.patch.object(
+            cron,
+            "select_review_validator",
+            side_effect=SystemExit(
+                "selected validator HEAD blob differs from worker-base blob"
+            ),
+        ):
+            self.assertTrue(
+                cron.reconcile_historical_revalidation_sources([post_item], [claim])
+            )
+        self.assertEqual(claim["status"], "quarantined")
+        self.assertIn("successor", claim["quarantine_reason"])
+        self.assertNotIn("revalidation_required_at", claim)
+
     def test_malformed_historical_integration_is_quarantined_not_requeued(self) -> None:
         self.write_plan()
         claim = self.integrated_historical_claim()

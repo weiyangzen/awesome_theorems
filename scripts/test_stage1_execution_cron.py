@@ -1204,6 +1204,9 @@ class IntegrationTransactionTests(unittest.TestCase):
             stack.enter_context(mock.patch.object(cron, "theorem_dag_v2", return_value=({}, {self.item["theorem_id"]: {"v2_execution_rank": 1}})))
             stack.enter_context(mock.patch.object(cron, "refresh_claims", return_value=[self.claim]))
             stack.enter_context(mock.patch.object(cron, "goal_runtime_is_verified", return_value=True))
+            stack.enter_context(mock.patch.object(
+                cron, "phase_validator_candidate_paths", return_value=set()
+            ))
             stack.enter_context(mock.patch.object(cron, "write_projection", side_effect=projection))
             stack.enter_context(mock.patch.object(cron, "load_blueprint_items", return_value=[self.item]))
             stack.enter_context(mock.patch.object(cron, "write_todo", return_value=self.docs / "todos_test.md"))
@@ -1305,6 +1308,48 @@ class IntegrationTransactionTests(unittest.TestCase):
         with self.assertRaisesRegex(SystemExit, "invalid attempts"):
             cron.validate_dag(data)
         self.assertEqual((self.master / self.existing_relative).read_bytes(), self.master_existing)
+
+    def test_phase_validator_guard_rejects_every_contract_candidate(self) -> None:
+        candidates = [
+            f"{self.owner}/check_intake.py",
+            f"{self.owner}/validate_intake.py",
+        ]
+        contract = {
+            "validator_candidates": [
+                {
+                    "path_pattern": candidate.replace(
+                        self.item["theorem_id"], "{theorem_id}"
+                    )
+                }
+                for candidate in candidates
+            ]
+        }
+        with mock.patch.object(cron, "phase_contract", return_value=contract):
+            self.assertEqual(
+                cron.phase_validator_candidate_paths(self.item), set(candidates)
+            )
+            for candidate in candidates:
+                with self.subTest(candidate=candidate), self.assertRaisesRegex(
+                    ValueError, "scheduler-owned validator candidate"
+                ):
+                    cron.reject_worker_validator_changes(self.item, [candidate])
+
+    def test_worker_changed_paths_rejects_deleted_protected_candidate(self) -> None:
+        candidate = f"{self.owner}/check_intake.py"
+        responses = iter(
+            [
+                subprocess.CompletedProcess([], 0, f"D\t{candidate}\n", ""),
+                subprocess.CompletedProcess([], 0, "", ""),
+                subprocess.CompletedProcess([], 0, "", ""),
+            ]
+        )
+        with (
+            mock.patch.object(cron, "run", side_effect=lambda *_args, **_kwargs: next(responses)),
+            self.assertRaisesRegex(ValueError, "scheduler-owned validator candidate"),
+        ):
+            cron.worker_changed_paths(
+                self.workspace, self.owner + "/", protected_paths={candidate}
+            )
 
     def test_interrupted_integration_wal_restores_original_bytes(self) -> None:
         original = self.master / self.existing_relative
@@ -1862,11 +1907,19 @@ class SchedulerCapacityTests(unittest.TestCase):
                 mock.patch.object(cron, "PAUSE_FILE", Path(directory) / "PAUSED"),
                 mock.patch.object(cron, "recover_integration_wal", side_effect=lambda: events.append("recover")),
                 mock.patch.object(cron, "sync_guard", side_effect=lambda: events.append("sync")),
-                mock.patch.object(cron, "refill_workers", side_effect=lambda _count: events.append("refill") or 0),
+                mock.patch.object(
+                    cron, "stable_refill",
+                    side_effect=lambda _count, **kwargs: events.append(
+                        f"refill:{kwargs['phase']}"
+                    ) or 0,
+                ),
                 mock.patch.object(cron, "integrate", side_effect=lambda _count: events.append("integrate") or 0) as integrate,
             ):
                 cron.launch(20, 73)
-        self.assertEqual(events, ["recover", "sync", "refill", "integrate"])
+        self.assertEqual(
+            events,
+            ["recover", "sync", "refill:pre-integration", "integrate", "refill:tail"],
+        )
         integrate.assert_called_once_with(73)
 
     def test_pending_checkpoint_is_committed_before_worker_refill(self) -> None:
@@ -1881,12 +1934,96 @@ class SchedulerCapacityTests(unittest.TestCase):
                 mock.patch.object(cron, "recover_integration_wal", side_effect=lambda: events.append("recover")),
                 mock.patch.object(cron, "checkpoint_sync_guard", side_effect=lambda: events.append("checkpoint_sync")),
                 mock.patch.object(cron, "checkpoint_integration", side_effect=lambda: (events.append("checkpoint"), (runtime / "pending_checkpoint.json").unlink())),
-                mock.patch.object(cron, "refill_workers", side_effect=lambda _count: events.append("refill") or 0),
+                mock.patch.object(
+                    cron, "stable_refill",
+                    side_effect=lambda _count, **kwargs: events.append(
+                        f"refill:{kwargs['phase']}"
+                    ) or 0,
+                ),
                 mock.patch.object(cron, "integrate", side_effect=lambda _count: events.append("integrate") or 0) as integrate,
             ):
                 cron.launch(20, 47)
-        self.assertEqual(events, ["recover", "checkpoint_sync", "checkpoint", "refill", "integrate"])
+        self.assertEqual(
+            events,
+            [
+                "recover", "checkpoint_sync", "checkpoint",
+                "refill:pre-integration", "integrate", "refill:tail",
+            ],
+        )
         integrate.assert_called_once_with(47)
+
+    def test_stable_refill_reaudits_and_retries_only_to_cap(self) -> None:
+        # Each tuple is (pre-refill audit, post-refill audit).  A launch that
+        # exits immediately leaves a real vacancy for the next bounded round.
+        audits = iter([47, 49, 48, 50])
+        with (
+            mock.patch.object(cron, "audited_active_worker_count", side_effect=audits) as audit,
+            mock.patch.object(cron, "refill_workers", side_effect=[2, 2]) as refill,
+            mock.patch.object(cron, "execution_is_paused", return_value=False),
+            mock.patch.object(cron.time, "sleep") as sleep,
+            contextlib.redirect_stdout(io.StringIO()) as output,
+        ):
+            active = cron.stable_refill(
+                50, phase="pre-integration", max_rounds=3, deadline_seconds=180,
+            )
+        self.assertEqual(active, 50)
+        self.assertEqual(audit.call_count, 4)
+        self.assertEqual(refill.call_count, 2)
+        sleep.assert_called_once_with(cron.REFILL_RETRY_SETTLE_SECONDS)
+        self.assertIn("active=50/50, stop=cap_reached", output.getvalue())
+
+    def test_stable_refill_downscale_does_not_refill_or_stop_workers(self) -> None:
+        with (
+            mock.patch.object(cron, "audited_active_worker_count", return_value=20),
+            mock.patch.object(cron, "refill_workers") as refill,
+            mock.patch.object(cron, "execution_is_paused", return_value=False),
+            mock.patch.object(cron, "terminate_app_server_worker") as terminate,
+            contextlib.redirect_stdout(io.StringIO()) as output,
+        ):
+            active = cron.stable_refill(
+                1, phase="tail", max_rounds=1, deadline_seconds=60,
+            )
+        self.assertEqual(active, 20)
+        refill.assert_not_called()
+        terminate.assert_not_called()
+        self.assertIn("active=20/1, stop=downscale_draining", output.getvalue())
+
+    def test_stable_refill_deadline_prevents_busy_loop(self) -> None:
+        monotonic = iter([0.0, 0.0, 181.0])
+        with (
+            mock.patch.object(cron.time, "monotonic", side_effect=monotonic),
+            mock.patch.object(cron, "audited_active_worker_count", side_effect=[10, 11]),
+            mock.patch.object(cron, "refill_workers", return_value=1) as refill,
+            mock.patch.object(cron, "execution_is_paused", return_value=False),
+            mock.patch.object(cron.time, "sleep") as sleep,
+            contextlib.redirect_stdout(io.StringIO()) as output,
+        ):
+            active = cron.stable_refill(
+                50, phase="pre-integration", max_rounds=3, deadline_seconds=180,
+            )
+        self.assertEqual(active, 11)
+        refill.assert_called_once_with(50)
+        sleep.assert_not_called()
+        self.assertIn("stop=deadline", output.getvalue())
+
+    def test_paused_after_integration_skips_tail_refill(self) -> None:
+        events: list[str] = []
+        pause_states = iter([False, False, True])
+        with tempfile.TemporaryDirectory() as directory:
+            with (
+                mock.patch.object(cron, "RUNTIME", Path(directory) / "runtime"),
+                mock.patch.object(cron, "execution_is_paused", side_effect=pause_states),
+                mock.patch.object(cron, "recover_integration_wal"),
+                mock.patch.object(cron, "sync_guard"),
+                mock.patch.object(
+                    cron, "stable_refill",
+                    side_effect=lambda _count, **kwargs: events.append(kwargs["phase"]) or 0,
+                ),
+                mock.patch.object(cron, "integrate", return_value=0),
+                contextlib.redirect_stdout(io.StringIO()),
+            ):
+                cron.launch(20, 20)
+        self.assertEqual(events, ["pre-integration"])
 
     def test_claim_order_key_is_rank_then_phase_layer_then_item_id(self) -> None:
         nodes = {

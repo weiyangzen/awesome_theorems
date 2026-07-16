@@ -131,6 +131,13 @@ GOAL_HANDSHAKE_RECOVERY_GRACE_SECONDS = 120.0
 # of them in one burst makes initialization contend before client-level goal
 # retries can run, so launch one bounded cohort at a controlled cadence.
 APP_SERVER_LAUNCH_STAGGER_SECONDS = 0.2
+# A five-minute scheduler cadence must not turn one refill into an unbounded
+# retry loop.  The pre-integration cohort gets three measured attempts within
+# three minutes; the post-integration tail gets one attempt before exit.
+PRE_INTEGRATION_REFILL_ROUNDS = 3
+PRE_INTEGRATION_REFILL_DEADLINE_SECONDS = 180.0
+TAIL_REFILL_DEADLINE_SECONDS = 60.0
+REFILL_RETRY_SETTLE_SECONDS = 1.0
 STARTED_TARGETS_ONLY = False
 CODEX_MODEL = "gpt-5.6-sol"
 CODEX_REASONING_EFFORT = "ultra"
@@ -2991,6 +2998,45 @@ def phase_contract(item: dict[str, Any]) -> dict[str, Any]:
     return rows[0]
 
 
+def phase_validator_candidate_paths(item: dict[str, Any]) -> set[str]:
+    """Resolve every validator path protected by the item's HEAD contract."""
+    candidates = phase_contract(item).get("validator_candidates")
+    if not isinstance(candidates, list) or not candidates:
+        raise ValueError("phase contract lacks validator candidates")
+    paths: set[str] = set()
+    for candidate in candidates:
+        pattern = candidate.get("path_pattern") if isinstance(candidate, dict) else None
+        if not isinstance(pattern, str) or not pattern:
+            raise ValueError("phase contract contains a malformed validator candidate")
+        relative = pattern.replace("{theorem_id}", str(item.get("theorem_id", "")))
+        path = Path(relative)
+        if (
+            "{" in relative
+            or "}" in relative
+            or path.is_absolute()
+            or ".." in path.parts
+            or path.as_posix() != relative
+            or not relative.startswith(str(item["owned_paths"][0]).rstrip("/") + "/")
+        ):
+            raise ValueError("phase contract validator candidate escapes item ownership")
+        paths.add(relative)
+    if len(paths) != len(candidates):
+        raise ValueError("phase contract contains duplicate validator candidates")
+    return paths
+
+
+def reject_worker_validator_changes(item: dict[str, Any], changed_paths: list[str]) -> None:
+    """Keep scheduler-selected validators immutable across worker handoffs."""
+    changed_candidates = sorted(
+        phase_validator_candidate_paths(item).intersection(changed_paths)
+    )
+    if changed_candidates:
+        raise ValueError(
+            "worker handoff changes scheduler-owned validator candidate(s): "
+            + ", ".join(changed_candidates)
+        )
+
+
 def scheduler_head_path(relative: str) -> Path:
     if not isinstance(relative, str) or not relative or Path(relative).is_absolute() or ".." in Path(relative).parts:
         fail(f"unsafe scheduler review path: {relative!r}")
@@ -3666,11 +3712,19 @@ def _integrate(
             if not source.is_dir():
                 raise ValueError("worker source missing")
             reject_mutable_dependency_operations(item["id"])
-            changed = worker_changed_paths(workspace, owner)
+            validator_candidates = phase_validator_candidate_paths(item)
+            changed = worker_changed_paths(
+                workspace, owner, protected_paths=validator_candidates
+            )
             if not changed:
                 raise ValueError("worker made no owned-path changes")
             if any(not packet_path_covers(path, changed_paths, owner) for path in changed):
                 raise ValueError("worker packet does not declare every changed owned path")
+            # Resolve the complete candidate set, not merely the currently
+            # selected validator. A worker may neither replace an existing
+            # candidate nor introduce an alternate that makes selection
+            # ambiguous after the copy.
+            reject_worker_validator_changes(item, changed)
             records = [*source.rglob("*.json"), *source.rglob("*.yaml"), *source.rglob("*.yml")]
             if not records or not any(item["theorem_id"] in record.read_text(encoding="utf-8", errors="ignore") for record in records):
                 raise ValueError("no target-identifying structured evidence record")
@@ -3788,6 +3842,7 @@ def _integrate(
             if not isinstance(changed, list):
                 changed = worker_changed_paths(workspace, owner)
             changed = validate_owned_relative_paths(changed, owner)
+            reject_worker_validator_changes(item, changed)
             allowed_suffixes = {".json", ".md", ".txt", ".yaml", ".yml", ".lean"}
             if any(Path(path).suffix not in allowed_suffixes for path in changed):
                 raise ValueError("blocked handoff contains an unsupported artifact type")
@@ -3923,7 +3978,12 @@ def _integrate(
     return len(master_accepted) + len(accepted) + len(preserved_blockers)
 
 
-def worker_changed_paths(workspace: Path, owner: str) -> list[str]:
+def worker_changed_paths(
+    workspace: Path,
+    owner: str,
+    *,
+    protected_paths: set[str] | None = None,
+) -> list[str]:
     """Return the worker's owned file changes and reject deletions.
 
     A later phase starts from a clone which already contains its target's intake
@@ -3933,14 +3993,30 @@ def worker_changed_paths(workspace: Path, owner: str) -> list[str]:
     a time with a base-content conflict check.
     """
     status = run(["git", "diff", "--name-status", "HEAD", "--", owner], cwd=workspace).stdout.splitlines()
-    deleted = [line for line in status if line.startswith("D\t")]
-    if deleted:
-        raise ValueError(f"worker deletion is not an admissible handoff: {deleted}")
+    status_paths = {
+        path
+        for line in status
+        for path in line.split("\t")[1:]
+        if path
+    }
     tracked = run(["git", "diff", "--name-only", "HEAD", "--", owner], cwd=workspace).stdout.splitlines()
     untracked = run(["git", "ls-files", "--others", "--exclude-standard", "--", owner], cwd=workspace).stdout.splitlines()
     paths = sorted(set(tracked + untracked))
-    if any(not path.startswith(owner) or ".." in Path(path).parts for path in paths):
+    all_changed_paths = status_paths | set(paths)
+    if any(
+        not path.startswith(owner) or ".." in Path(path).parts
+        for path in all_changed_paths
+    ):
         raise ValueError("worker Git delta escapes the assigned ownership scope")
+    protected_changes = sorted((protected_paths or set()) & all_changed_paths)
+    if protected_changes:
+        raise ValueError(
+            "worker handoff changes scheduler-owned validator candidate(s): "
+            + ", ".join(protected_changes)
+        )
+    deleted = [line for line in status if line.startswith("D\t")]
+    if deleted:
+        raise ValueError(f"worker deletion is not an admissible handoff: {deleted}")
     return paths
 
 
@@ -4947,6 +5023,17 @@ def reconcile_historical_revalidation_sources(
                     "selected validator HEAD blob differs from worker-base blob",
                 )
             ):
+                continue
+            if isinstance(source.get("revalidation_predecessor_claim_id"), str):
+                source["status"] = "quarantined"
+                source["quarantined_at"] = dt.datetime.now(
+                    dt.timezone.utc
+                ).isoformat()
+                source["quarantine_reason"] = (
+                    "historical revalidation successor still has a validator "
+                    "base mismatch: " + reason
+                )
+                changed = True
                 continue
             source["status"] = "revalidation_required"
             source["revalidation_required_at"] = dt.datetime.now(
@@ -6114,9 +6201,77 @@ def refill_workers(max_workers: int) -> int:
     failed = sum(claim.get("status") == "launch_failed" for claim, _ in reservations)
     print(
         f"tick: verified {launched} implementation and {launched_reviews} review app-server /goal lane(s), "
-        f"failed={failed}, active={len(active_leases) + launched}/{max_workers}, todo={todo.relative_to(ROOT)}"
+        f"failed={failed}, todo={todo.relative_to(ROOT)}"
     )
     return launched + launched_reviews
+
+
+def audited_active_worker_count() -> int:
+    """Refresh the claim ledger, then count only process-backed live leases."""
+    _data, ordered = load_dag()
+    claims = refresh_claims(ordered)
+    refuse_unsafe_live_identities(claims)
+    return len(active_lane_leases(claims))
+
+
+def stable_refill(
+    max_workers: int,
+    *,
+    phase: str,
+    max_rounds: int,
+    deadline_seconds: float,
+) -> int:
+    """Refill from fresh PID audits, bounded by both attempts and wall time."""
+    if max_rounds < 1 or max_rounds > PRE_INTEGRATION_REFILL_ROUNDS:
+        fail("stable refill rounds must be in 1..3")
+    if deadline_seconds <= 0:
+        fail("stable refill deadline must be positive")
+    deadline = time.monotonic() + deadline_seconds
+    rounds = 0
+    verified = 0
+    active = 0
+    stop_reason = "round_limit"
+    while rounds < max_rounds:
+        if execution_is_paused():
+            active = len(active_lane_leases(load_claims()))
+            stop_reason = "paused"
+            break
+        # refresh_claims performs the canonical PID/start-tick and /goal
+        # reconciliation.  Capacity is never inferred from the prior round's
+        # launch count or from a stale claim-status snapshot.
+        active = audited_active_worker_count()
+        if active >= max_workers:
+            stop_reason = "cap_reached" if active == max_workers else "downscale_draining"
+            break
+        if time.monotonic() >= deadline:
+            stop_reason = "deadline"
+            break
+        verified += refill_workers(max_workers)
+        rounds += 1
+        # Report and decide from a second real process audit.  A client that
+        # verified its handshake and then exited does not occupy capacity.
+        active = audited_active_worker_count()
+        if active >= max_workers:
+            stop_reason = "cap_reached" if active == max_workers else "downscale_draining"
+            break
+        if execution_is_paused():
+            stop_reason = "paused"
+            break
+        if time.monotonic() >= deadline:
+            stop_reason = "deadline"
+            break
+        if rounds < max_rounds:
+            time.sleep(
+                min(REFILL_RETRY_SETTLE_SECONDS, max(0.0, deadline - time.monotonic()))
+            )
+    # The value in this line is always a PID-backed audit, never
+    # len(starting_claims) + launches.  Existing over-cap workers after a
+    # downscale are observed but left to finish naturally.
+    print(
+        f"refill[{phase}]: rounds={rounds}/{max_rounds}, verified={verified}, "
+        f"active={active}/{max_workers}, stop={stop_reason}"
+    )
+    return active
 
 
 def launch(max_workers: int, integration_limit: int = DEFAULT_INTEGRATION_LIMIT) -> None:
@@ -6144,13 +6299,27 @@ def launch(max_workers: int, integration_limit: int = DEFAULT_INTEGRATION_LIMIT)
             return
     else:
         sync_guard()
-    refill_workers(max_workers)
+    stable_refill(
+        max_workers,
+        phase="pre-integration",
+        max_rounds=PRE_INTEGRATION_REFILL_ROUNDS,
+        deadline_seconds=PRE_INTEGRATION_REFILL_DEADLINE_SECONDS,
+    )
     if execution_is_paused():
         print("tick: Stage1 execution paused after refill; integration skipped")
         return
     integrated = integrate(integration_limit)
     if integrated:
         checkpoint_integration()
+    if execution_is_paused():
+        print("tick: Stage1 execution paused after integration; tail refill skipped")
+        return
+    stable_refill(
+        max_workers,
+        phase="tail",
+        max_rounds=1,
+        deadline_seconds=TAIL_REFILL_DEADLINE_SECONDS,
+    )
 
 
 def restart_live_workers(max_workers: int) -> None:
