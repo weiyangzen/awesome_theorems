@@ -2413,6 +2413,44 @@ class SchedulerCapacityTests(unittest.TestCase):
             ],
         )
 
+    def test_unified_queue_does_not_prioritize_revalidation_over_exact_key(self) -> None:
+        review = {
+            "id": "S56-M-0001-INTAKE", "theorem_id": "THM-M-0001",
+            "phase": "intake", "layer": 0,
+        }
+        ordinary = {
+            "id": "S56-M-0002-INTAKE", "theorem_id": "THM-M-0002",
+            "phase": "intake", "layer": 0,
+        }
+        required = {
+            "id": "S56-M-0300-INTAKE", "theorem_id": "THM-M-0300",
+            "phase": "intake", "layer": 0,
+        }
+        nodes = {
+            review["theorem_id"]: {"v2_execution_rank": 1},
+            ordinary["theorem_id"]: {"v2_execution_rank": 2},
+            required["theorem_id"]: {"v2_execution_rank": 300},
+        }
+        required_claim = {
+            "item_id": required["id"],
+            "lane": cron.IMPLEMENTATION_LANE,
+            "status": "revalidation_required",
+            "runtime_protocol": cron.RUNTIME_PROTOCOL,
+        }
+        with (
+            mock.patch.object(
+                cron, "implementation_candidates",
+                return_value=[required, ordinary],
+            ),
+            mock.patch.object(cron, "review_candidates", return_value=[review]),
+            mock.patch.object(cron, "theorem_dag_v2", return_value=({}, nodes)),
+        ):
+            selected = cron.unified_lane_candidates([], [required_claim])
+        self.assertEqual(
+            [row["item"]["id"] for row in selected],
+            [review["id"], ordinary["id"], required["id"]],
+        )
+
     def test_unified_queue_rejects_same_item_on_both_lanes(self) -> None:
         item = {
             "id": "S56-M-0001-INTAKE", "theorem_id": "THM-M-0001",

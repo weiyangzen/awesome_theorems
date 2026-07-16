@@ -417,6 +417,36 @@ class HistoricalRevalidationBoundaryTests(unittest.TestCase):
                 [self.item, self.open_item],
             )
 
+    def test_revalidation_required_does_not_override_exact_claim_order(self) -> None:
+        self.write_plan()
+        late_item = {**self.item, "id": "S56-M-0300-INTAKE", "theorem_id": "THM-M-0300"}
+        early_item = {**self.open_item, "id": "S56-M-0002-INTAKE", "theorem_id": "THM-M-0002"}
+        late_lane = {**self.stored_lane(), "item_id": late_item["id"], "theorem_id": late_item["theorem_id"]}
+        required_claim = {
+            "item_id": late_item["id"],
+            "lane": cron.IMPLEMENTATION_LANE,
+            "status": "revalidation_required",
+            "runtime_protocol": cron.RUNTIME_PROTOCOL,
+        }
+        nodes = {
+            early_item["theorem_id"]: {"v2_execution_rank": 2},
+            late_item["theorem_id"]: {"v2_execution_rank": 300},
+        }
+        with (
+            mock.patch.object(
+                cron, "optional_legacy_revalidation_lanes",
+                return_value={late_item["id"]: late_lane},
+            ),
+            mock.patch.object(cron, "theorem_dag_v2", return_value=({}, nodes)),
+        ):
+            selected = cron.implementation_candidates(
+                [late_item, early_item], [required_claim]
+            )
+        self.assertEqual(
+            [item["id"] for item in selected],
+            [early_item["id"], late_item["id"]],
+        )
+
     def test_true_without_or_with_tampered_lane_is_rejected(self) -> None:
         self.write_plan()
         missing = self.claim(fresh=True, include_bindings=False)

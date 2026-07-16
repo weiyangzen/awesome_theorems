@@ -5458,13 +5458,6 @@ def implementation_candidates(
             "finished_integrated", "master_accepted", "review_finished", "review_failed"
         }
     )
-    revalidation_required_ids = {
-        claim.get("item_id")
-        for claim in claims
-        if claim.get("runtime_protocol") == RUNTIME_PROTOCOL
-        and claim.get("lane", IMPLEMENTATION_LANE) == IMPLEMENTATION_LANE
-        and claim.get("status") == "revalidation_required"
-    }
     states_by_id = {item["id"]: item["state"] for item in ordered}
     started_targets = {
         item["theorem_id"]
@@ -5494,13 +5487,7 @@ def implementation_candidates(
         )
     ]
     _, nodes = theorem_dag_v2()
-    return sorted(
-        candidates,
-        key=lambda item: (
-            0 if item.get("id") in revalidation_required_ids else 1,
-            claim_order_key(item, nodes),
-        ),
-    )
+    return sorted(candidates, key=lambda item: claim_order_key(item, nodes))
 
 
 def unified_lane_candidates(
@@ -5518,21 +5505,8 @@ def unified_lane_candidates(
     if len(item_ids) != len(set(item_ids)):
         fail("one item is simultaneously eligible for implementation and review")
     _, nodes = theorem_dag_v2()
-    required_ids = {
-        claim.get("item_id")
-        for claim in claims
-        if claim.get("lane", IMPLEMENTATION_LANE) == IMPLEMENTATION_LANE
-        and claim.get("status") == "revalidation_required"
-    }
     return sorted(
-        records,
-        key=lambda record: (
-            0
-            if record["lane"] == IMPLEMENTATION_LANE
-            and record["item"].get("id") in required_ids
-            else 1,
-            claim_order_key(record["item"], nodes),
-        ),
+        records, key=lambda record: claim_order_key(record["item"], nodes)
     )
 
 
