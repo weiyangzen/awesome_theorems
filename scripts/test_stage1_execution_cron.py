@@ -29,6 +29,20 @@ if CRON_SPEC is None or CRON_SPEC.loader is None:
 cron = importlib.util.module_from_spec(CRON_SPEC)
 CRON_SPEC.loader.exec_module(cron)
 
+INTAKE_VALIDATOR_PATH = (
+    Path(__file__).resolve().parents[1]
+    / "Stage1_Instances"
+    / "THM-M-0387"
+    / "check_intake.py"
+)
+INTAKE_VALIDATOR_SPEC = importlib.util.spec_from_file_location(
+    "stage1_m0387_intake_validator_under_test", INTAKE_VALIDATOR_PATH
+)
+if INTAKE_VALIDATOR_SPEC is None or INTAKE_VALIDATOR_SPEC.loader is None:
+    raise RuntimeError(f"cannot load {INTAKE_VALIDATOR_PATH}")
+intake_validator = importlib.util.module_from_spec(INTAKE_VALIDATOR_SPEC)
+INTAKE_VALIDATOR_SPEC.loader.exec_module(intake_validator)
+
 
 CHILD = "THM-M-0990"
 PARENT = "THM-M-0989"
@@ -83,6 +97,46 @@ def lean_declaration_signature(path: Path, declaration: str) -> str:
 def lean_declaration_fingerprint(path: Path, declaration: str) -> str:
     signature = lean_declaration_signature(path, declaration)
     return hashlib.sha256(signature.encode("utf-8")).hexdigest()
+
+
+class SchedulerOwnedIntakeValidatorTests(unittest.TestCase):
+    def setUp(self) -> None:
+        root = Path(__file__).resolve().parents[1]
+        owner = root / "Stage1_Instances" / "THM-M-0387"
+        self.instance = json.loads((owner / "intake.json").read_text(encoding="utf-8"))
+        self.receipt = json.loads(
+            (owner / "intake-receipt.json").read_text(encoding="utf-8")
+        )
+        self.ledger = json.loads(
+            (owner / "dependency-reuse-ledger.json").read_text(encoding="utf-8")
+        )
+
+    def test_stable_provenance_must_agree_across_intake_evidence(self) -> None:
+        intake_validator.require_stable_provenance_consistency(
+            self.instance, self.receipt, self.ledger
+        )
+        mutations = (
+            (self.receipt, "base_revision", "f" * 40),
+            (self.receipt["inputs"], "theorem_dag_sha256", "f" * 64),
+            (self.ledger, "repository_revision", "e" * 40),
+        )
+        for record, field, replacement in mutations:
+            original = record[field]
+            record[field] = replacement
+            with self.subTest(field=field), self.assertRaisesRegex(
+                ValueError, "disagrees across intake evidence"
+            ):
+                intake_validator.require_stable_provenance_consistency(
+                    self.instance, self.receipt, self.ledger
+                )
+            record[field] = original
+
+    def test_required_narrative_evidence_rejects_empty_values(self) -> None:
+        for value in ([], [""], ["valid", "  "]):
+            with self.subTest(value=value), self.assertRaisesRegex(
+                ValueError, "empty"
+            ):
+                intake_validator.require_nonempty_strings(value, "evidence is empty")
 
 
 class DependencyReuseLedgerTests(unittest.TestCase):

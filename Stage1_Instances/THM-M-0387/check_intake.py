@@ -81,6 +81,59 @@ def require_pointer(record: dict, pointer: str) -> None:
         value = value[component]
 
 
+def require_nonempty_strings(value: object, message: str) -> None:
+    require(
+        isinstance(value, list)
+        and bool(value)
+        and all(isinstance(item, str) and bool(item.strip()) for item in value),
+        message,
+    )
+
+
+def require_stable_provenance_consistency(
+    instance: dict, receipt: dict, ledger: dict
+) -> None:
+    revisions = instance["source_revisions"]
+    inputs = receipt["inputs"]
+    require(
+        revisions["repository_base"]
+        == receipt["base_revision"]
+        == ledger["repository_revision"],
+        "repository base disagrees across intake evidence",
+    )
+    require(
+        revisions["repository_base_tree"] == receipt["base_tree"],
+        "repository base tree disagrees across intake evidence",
+    )
+    require(
+        revisions["v2_blueprint_sha256"]
+        == inputs["task_state_authority"]["sha256"],
+        "base Blueprint digest disagrees across intake evidence",
+    )
+    require(
+        revisions["theorem_dag_sha256"]
+        == inputs["theorem_dag_sha256"]
+        == ledger["observed_theorem_dag_sha256"],
+        "base theorem DAG digest disagrees across intake evidence",
+    )
+    require(
+        revisions["phase_contract_sha256"]
+        == inputs["phase_contract_sha256"]
+        == CONTRACT_SHA256,
+        "phase contract digest disagrees across intake evidence",
+    )
+    require(
+        revisions["target_manifest_sha256"]
+        == inputs["target_manifest"]["sha256"],
+        "target manifest digest disagrees across intake evidence",
+    )
+    require(
+        revisions["authoritative_blueprint_sha256"]
+        == inputs["assurance_authority"]["sha256"],
+        "assurance Blueprint digest disagrees across intake evidence",
+    )
+
+
 def check() -> None:
     manifest = load("Docs/Stage1_Targets_rev-5.6.json")
     execution = load("Docs/Stage1_Execution_DAG_rev-5.6.json")
@@ -190,6 +243,18 @@ def check() -> None:
     require(instance["audit_complete"] is instance["theorem_complete"] is False, "terminal overclaim")
     require(bool(instance["downstream_blockers"]) and bool(instance["status_boundary"]), "open boundary missing")
     require(instance["owners_and_reviewers"]["acceptance_owner"] == "Stage1 integration lane", "acceptance owner drift")
+    freshness = instance["freshness_and_revocation_policy"]
+    require(
+        isinstance(freshness["review_due"], str) and bool(freshness["review_due"].strip()),
+        "freshness review trigger is empty",
+    )
+    require_nonempty_strings(
+        freshness["invalidation_inputs"], "freshness invalidation inputs are empty"
+    )
+    require(
+        isinstance(freshness["incident_path"], str) and bool(freshness["incident_path"].strip()),
+        "freshness incident path is empty",
+    )
 
     revisions = instance["source_revisions"]
     require(GIT_OID_RE.fullmatch(revisions["repository_base"]) is not None, "base revision is malformed")
@@ -291,6 +356,19 @@ def check() -> None:
     require(inputs["task_state_authority"]["item_state_observed"] == "[_]", "receipt state observation drift")
     require(SHA256_RE.fullmatch(inputs["task_state_authority"]["sha256"]) is not None, "base blueprint hash malformed")
     require(SHA256_RE.fullmatch(inputs["theorem_dag_sha256"]) is not None, "base DAG hash malformed")
+    require_stable_provenance_consistency(instance, receipt, ledger)
+    require_nonempty_strings(receipt["known_failures"], "receipt known failures are empty")
+    require(
+        isinstance(receipt["retry_condition"], str) and bool(receipt["retry_condition"].strip()),
+        "receipt retry condition is empty",
+    )
+    require(
+        isinstance(receipt["status_boundary"], str) and bool(receipt["status_boundary"].strip()),
+        "receipt status boundary is empty",
+    )
+    require_nonempty_strings(
+        receipt["invalidation_inputs"], "receipt invalidation inputs are empty"
+    )
 
     bindings = receipt["artifact_bindings"]
     require(set(bindings) == set(ROLE_PATHS), "receipt role bindings are incomplete")
