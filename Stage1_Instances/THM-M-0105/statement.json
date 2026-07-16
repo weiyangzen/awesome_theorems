@@ -1,0 +1,121 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0105-STATEMENT",
+  "theorem_id": "THM-M-0105",
+  "lifecycle_mode": "planned",
+  "canonical_claim_status": "intake_selected_algebraic_curve_divisor_formula_frozen_source_fidelity_open",
+  "canonical_statement": "Let X be a smooth projective geometrically integral curve over a field k, D a divisor on X, K_X a canonical divisor, and g the genus of X. Then ell(D) - ell(K_X - D) = deg(D) + 1 - g, where ell(E) = dim_k H^0(X, O_X(E)).",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0105/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0105.RiemannRochTarget",
+    "elaborated_expression_sha256": "e69f2d70cecb6da37ea45e75b35aa3e57b175eb35b8cdf5eb4056ac141815cb2",
+    "statement_file_sha256": "2c5bb3a3e12910b1d9317fa60be408c94037388a4133759615cea0bc9454b33d",
+    "unresolved_metavariables": false
+  },
+  "domain_and_universes": "universes u v; k : Type u with Field k; C : CurveOver k stores a Scheme.{u} and its structure morphism to Spec k; A : RiemannRochData.{u,v} k C stores a Type v divisor carrier, subtraction, integer degree and ell, a canonical divisor, and integer genus; the target is Prop.",
+  "ordered_binders": [
+    "k : Type u",
+    "[Field k]",
+    "C : CurveOver k",
+    "A : RiemannRochData k C",
+    "SmoothOfRelativeDimension 1 C.structureMap",
+    "IsProper C.structureMap",
+    "GeometricallyIntegral C.structureMap",
+    "six conclusion-free semantic compatibility predicates",
+    "D : A.Divisor"
+  ],
+  "hypotheses": [
+    "C is a smooth relative-dimension-one curve over k",
+    "C is proper over k, the pinned statement-level encoding of projectivity",
+    "C is geometrically integral over k",
+    "A's carrier and subtraction model curve divisors and divisor subtraction",
+    "A.degree, A.ell, A.canonicalDivisor, and A.genus have their standard meanings"
+  ],
+  "conclusion": "For every D : A.Divisor, A.ell D - A.ell (A.sub A.canonicalDivisor D) = A.degree D + 1 - A.genus in Int.",
+  "direct_imports": [
+    "Mathlib.AlgebraicGeometry.Geometrically.Integral",
+    "Mathlib.AlgebraicGeometry.Morphisms.Proper",
+    "Mathlib.AlgebraicGeometry.Morphisms.Smooth"
+  ],
+  "minimal_import_basis": "Each direct import is deletion-essential in the pinned snapshot: they respectively supply GeometricallyIntegral, IsProper, and SmoothOfRelativeDimension. The validator runs all three deletion probes. No aggregate Mathlib import, legacy discovery module, terminal theorem, or external dependency is imported.",
+  "encoding_boundary": "The pinned snapshot lacks a combined native algebraic-curve divisor, canonical-divisor, degree, genus, and divisor-sheaf/global-section interface. RiemannRochData therefore combines the actual pinned curve predicates with conclusion-free typed operations and explicit semantic compatibility hypotheses. The desired equality is not a field, hypothesis, or definitional consequence. Quantifying over every compatible realization prevents the legacy existential choice of convenient data.",
+  "checked_alternate_encodings": [
+    {
+      "target": "the fully expanded canonical target",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0105.riemannRochTarget_iff_expanded",
+      "boundary": "Iff.rfl fixes all binders, geometric and semantic hypotheses, integer operations, and the universal divisor conclusion; it is statement identity evidence, not a Riemann-Roch proof."
+    }
+  ],
+  "uncredited_alternate_encodings": [
+    "the legacy existential RiemannRochDivisorData statement shape",
+    "the duplicate THM-M-0175 algebraic-curve target without an exact checked cross-target relationship",
+    "the compact-Riemann-surface THM-M-0237 target",
+    "a line-bundle Euler-characteristic, analytic, function-field, algebraically closed-field, or special-divisor formulation without a checked transport"
+  ],
+  "degenerate_and_boundary_cases": "The base is every field, not only an algebraically closed field, Complex, or Rat. The formula is required for every divisor, including the canonical divisor and any zero divisor supplied by a realization. Singular, nonproper, non-geometrically-integral, and non-relative-dimension-one schemes are outside scope through explicit hypotheses.",
+  "source_fidelity_boundary": "Hartshorne IV.1.3 remains an unaccepted primary-source candidate. Exact edition/page and incorporated definitions, errata, arbitrary-field and geometric-integrality conventions, projective/proper comparison, and independent review remain H-debt for anchor audit. This phase freezes the intake-selected claim but does not claim H0.",
+  "foundation_profile": "Lean 4 dependent type theory under pinned mathlib. The checked definitional expansion reports only propext, Classical.choice, and Quot.sound; no custom axiom, sorryAx, oracle, unsafe declaration, or bodyless theorem is introduced.",
+  "tcb_profile": "Lean 4.29.0 kernel plus pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95. Imported predicates are statement substrate only and receive no proof-body credit.",
+  "computation_profile": "No native computation, external solver, generated proof, numerical experiment, oracle, or unchecked certificate is used or credited.",
+  "environment_fingerprint": {
+    "repository_base_revision": "1cc6aa61bb055a5c032297ee457905c849af7608",
+    "repository_base_tree": "dc3053b55c5724ccb2e6a247e7deffebca9dbb99",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "5.0.0-src+98dc76e",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_options": [
+      "pp.universes=true",
+      "pp.explicit=true"
+    ],
+    "lean_output_sha256": "529a043c7b61e5b3956aed4ab1e53ddcf4f7f87955211c62e4db6dcb25117308",
+    "dependency_mode": "automation-provided canonical pinned .lake symlink reused read-only; no update, build, clone, fetch, or dependency mutation"
+  },
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0105/check_statement.py",
+    "killed": [
+      {
+        "kind": "removed_hypothesis",
+        "declaration": "MutationRemovedGeometricIntegrality",
+        "expression_sha256": "f83caad1a4acfafa1f3a14901d34471eeaa99d5ab0267b8fc578dc08040bfe83"
+      },
+      {
+        "kind": "changed_domain",
+        "declaration": "MutationChangedDomainToRational",
+        "expression_sha256": "34e8b17ac82508322e80f4f35f9593b4eca44ae81eaeca28320fee3b0d67f492"
+      },
+      {
+        "kind": "changed_binder_scope",
+        "declaration": "MutationChangedDivisorBinderScope",
+        "expression_sha256": "e4aee8a127cf41fd40387e94a373b75b3172ad7512fc7a5ca0b144bf6c8f5949"
+      },
+      {
+        "kind": "boundary_case",
+        "declaration": "MutationOnlyCanonicalDivisor",
+        "expression_sha256": "fd3bddd085e95d1da1686eb6f66407a6785ff542ec465a6f3115b83060f28c69"
+      }
+    ],
+    "method": "Every mutation is separately elaborated, has a distinct fully explicit expression, and is rejected as a term of RiemannRochTarget by Lean #check_failure."
+  },
+  "root_vector_before": {
+    "H": "H5",
+    "M": "M5",
+    "R": "R4"
+  },
+  "root_vector_after_proposed": {
+    "H": "H5",
+    "M": "M3",
+    "R": "R4"
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "status_boundary": "Exact M3 statement/interface elaboration only. No Riemann-Roch proof body, concrete native divisor transport, primary-source acceptance, anchor audit, obligation tree, proof, validation, release, AUDIT-Z, THEOREM-Z, theorem completion, or master acceptance is introduced or credited."
+}

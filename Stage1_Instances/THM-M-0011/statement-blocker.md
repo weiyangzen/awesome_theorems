@@ -30,14 +30,37 @@ conjunction as the exact root would silently choose modules and faithful flatnes
 other plausible meanings of the source phrase. Its successful elaboration below is therefore
 discovery evidence only, with no exact-statement or proof credit.
 
-No canonical Lean file, proxy predicate, theorem declaration, proof escape, broadened conjunction,
-or substituted module theorem was introduced. The intake machine grade remains `M4`, and statement
+No canonical Lean target, proxy predicate, theorem declaration, proof escape, broadened conjunction,
+or substituted module theorem was introduced. The new `Statement.lean` is explicitly a substrate
+probe rather than a canonical formula. The intake machine grade remains `M4`, and statement
 acceptance and theorem completion remain false.
+
+## Current rev-5.6 statement packet
+
+At repository base `1cc6aa61bb055a5c032297ee457905c849af7608`, the v2 theorem node has rank
+`320`, layer `0`, dependency context
+`068170c76abd4579d643ede04d731b974412185bd285e7b40255ec4044adec5c`, and no direct or
+transitive hard parents, reuse hints, or shared groups. The required parent inspection order was
+therefore the empty sequence; `dependency-reuse-ledger.json` records that audit against graph
+SHA-256 `e8472863a24609e37868f215bbf0e0654b11a62f912a403ebca5feb8de5a3b9b` without an
+independence claim or transferred provider credit.
+
+`Statement.lean` now elaborates one read-only, single-import vocabulary probe for
+`Mathlib.Algebra.Category.ModuleCat.Descent`. It checks extension of scalars, preservation of finite
+limits under flatness, reflection of isomorphisms under faithful flatness, and comonadicity. The
+probe intentionally defines no target and supplies no exact-statement credit. `statement.json`
+records null canonical fields, all four unexecuted mutation classes, the pinned environment, and the
+positive-gate failure. `check_statement.py` emits the required structured negative semantic result.
+
+The HEAD statement acceptance contract explicitly says a negative finding cannot satisfy the
+deliverable. Therefore `S02-EXACT-TARGET` fails, the phase predicate is false, and the validator
+must report `phase_accepted=false` even though the blocker packet and Lean probe self-test
+successfully.
 
 ## Environment fingerprint
 
-- Repository base revision: `9e3fd02a2a952da7031bb1dd61387443dd4c1cc7`.
-- Validation date: 2026-07-12 (Asia/Shanghai).
+- Repository base revision for the current packet: `1cc6aa61bb055a5c032297ee457905c849af7608`.
+- Validation date: 2026-07-17 (Asia/Shanghai).
 - Lean toolchain: `leanprover/lean4:v4.29.0`; Lean `4.29.0`, commit
   `98dc76e3c0a9b856c9b98726b713fb04fab16740`.
 - Checked mathlib revision: `8a178386ffc0f5fef0b77738bb5449d50efeea95`.
@@ -45,13 +68,17 @@ acceptance and theorem completion remain false.
   `651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2`.
 - Lake manifest SHA-256:
   `321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81`.
+- Direct probe import SHA-256:
+  `dac6c87bd1a670bb875089061f357d2026118e9408ada42d6ad6070bc831d477`.
 - Legacy discovery module SHA-256:
   `64de9ae48c5f0b6902fea34f1f24a445f3a17deb4d8617738e813510c74f7b7a`.
 
 ## Validation evidence
 
 Commands ran in this worker clone. Lean used the existing canonical pinned `.lake` link; no Lake
-update/build, dependency clone/fetch, or `.lake` mutation was performed.
+update/build, dependency clone/fetch, or `.lake` mutation was performed. The earlier table below is
+retained as historical intake evidence; the current statement receipt and worker packet bind the
+2026-07-17 command set and results.
 
 | Command | Exit | Result |
 |---|---:|---|

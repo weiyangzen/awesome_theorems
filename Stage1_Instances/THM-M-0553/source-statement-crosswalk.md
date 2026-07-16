@@ -30,3 +30,13 @@ external projects belong to the later anchor-audit phase and receive no intake p
 Before `H0`, an independent reviewer must inspect the primary edition, record exact theorem/page
 anchors and definitions, audit errata, and map every assumption and conclusion to the selected
 canonical claim.
+
+## Statement-phase disposition
+
+The statement run at base `1cc6aa61bb055a5c032297ee457905c849af7608` did not admit any of the
+candidate interpretations above. The mod-2 sphere form, an arbitrary-prime stable-maps form, and a
+generalized Adams form remain materially different targets. Accordingly `statement.json` keeps
+the canonical mathematical and Lean expressions null, and `Statement.lean` checks only adjacent
+pinned interfaces. Its successful elaboration is not an Adams proposition or proof. The semantic
+validator reports `phase_accepted=false`; the source-fidelity debt in this crosswalk remains
+blocking.

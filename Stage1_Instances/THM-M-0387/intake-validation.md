@@ -2,9 +2,9 @@
 
 ## Immutable worker base
 
-- Repository commit: `c5037228977a81948bbd6119e1728b4b65b9924e`
-- Repository tree: `78b2627e717156dffe240bea12d14205af667d2a`
-- V2 theorem DAG SHA-256: `fb17743ff737fd3c528467b6f992a7235a36f0842b528e57de3e4c6d660d3518`
+- Repository commit: `1cc6aa61bb055a5c032297ee457905c849af7608`
+- Repository tree: `dc3053b55c5724ccb2e6a247e7deffebca9dbb99`
+- V2 theorem DAG SHA-256: `e8472863a24609e37868f215bbf0e0654b11a62f912a403ebca5feb8de5a3b9b`
 - Dependency context SHA-256: `90f56448880bb5c1f54b618027daea5b7b32be6e0d05ba2723c43bcc39e17235`
 - Phase contract SHA-256: `1e7adf0f4fae0541b3595d4b0bfbb53f7eb17e28a4a889fec14f6df969e0cec4`
 - Pinned mathlib commit: `8a178386ffc0f5fef0b77738bb5449d50efeea95`
@@ -21,14 +21,11 @@ python3 scripts/stage1_target.py check
 python3 scripts/stage1_target.py show THM-M-0387
 ```
 
-All four passed during preflight before the new target-owned JSON files were created. The receipt
-and worker packet record the final post-edit results, not those earlier successes. After creation, the
-manifest/target checks still pass, while the standard and v2 graph checks intentionally report
-that the checked-in theorem DAG differs from fresh generation: its derived evidence inventory now
-sees `intake-receipt.json` and `task-dag.json`. The worker is forbidden to edit that read-only
-projection. The integration transaction merges the owned files, regenerates the theorem DAG, and
-reruns both validators. This expected projection drift is recorded as a known handoff boundary
-rather than hidden as a passing final result.
+All four passed on the current base before the target-owned receipt refresh. After the receipt changes, the manifest checks
+remain green while the two repository DAG checks truthfully report one stale reusable-artifact digest:
+the immutable theorem DAG still binds the prior `intake-receipt.json` bytes. The worker does not edit
+either read-only DAG projection or the authoritative checklist. Integration must merge this owned
+refresh and regenerate the projections before master acceptance.
 
 The target validator command is:
 
@@ -41,12 +38,15 @@ open downstream task DAG, exact dependency-context ledger, complete receipt fiel
 absence of proof credit, and receipt/self-test command agreement. Its only stdout is the required
 typed semantic JSON object.
 
-The scheduler acceptance unit suite was also run. Twenty-seven tests passed and three replay
-environment tests failed before semantic review: this managed worker cannot write a probe secret
-under the read-only home directory, and `/usr/bin/bwrap` fails the suite's root-ownership/permission
-precondition. The target validator stdout was independently fed to the scheduler's exact semantic
-parser and accepted as one schema-valid object. Actual master replay remains integration-owned and
-fail-closed; the environment failures are not represented as positive replay evidence.
+The target validator stdout is also parsed as exactly one JSON object with the full semantic-result
+field set required by the HEAD contract using the scheduler's `_parse_validator_semantic_stdout`
+implementation. Actual independent review and master replay remain
+integration-owned; local command success is not represented as master acceptance.
+
+The acceptance-evidence unit suite reports twenty-seven passing tests and three managed-environment
+failures before semantic review: the read-only home prevents creation of its probe secret, and
+`/usr/bin/bwrap` fails its root-ownership/permission precondition. These are recorded honestly and
+are not treated as positive replay evidence.
 
 No Lean proof work belongs to intake. The later statement source already exists in this dossier,
 but its state and evidence are not used to infer intake acceptance. The pinned Lean environment is
@@ -59,8 +59,8 @@ The planned intake predicate is self-tested. The validator may truthfully report
 scope map, source crosswalk, open task DAG, and explicit unresolved boundaries. That semantic field
 does not mean master acceptance, accepted exact statement, proof credit, `AUDIT-Z`, or `THEOREM-Z`.
 
-The validator was absent from the historical worker base and is new in this revalidation handoff.
-The HEAD contract also requires the integration lane to select a validator whose HEAD blob equals
-the worker-base blob. Therefore master replay remains fail-closed until the integration lane first
-lands these owned bytes and performs a fresh review/replay against a base containing the validator.
-This worker neither infers nor claims that scheduler-owned gate from local command success.
+The validator exists at the sole declared candidate path in the worker base and is HEAD-tracked.
+This revalidation refreshes its base/context assertions and the provisional receipt. The integration
+lane must still bind the selected HEAD artifact roles, independently review the exact packet, replay
+the base-identical validator, and issue the master acceptance receipt. This worker neither infers nor
+claims those scheduler-owned gates from local command success.

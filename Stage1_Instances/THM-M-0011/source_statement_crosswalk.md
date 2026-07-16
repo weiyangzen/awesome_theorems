@@ -24,3 +24,20 @@ Discovery links (not immutable evidence receipts):
 - Stacks Project, Descent chapter: <https://stacks.math.columbia.edu/tag/0238>
 
 No `H0`, exact-statement, anchor-audit, or proof claim is made.
+
+## Exact premise and boundary mapping
+
+No exact premise mapping is currently possible. The source record fixes only a flat base-change
+theme. It does not fix the objects, base category, topology or cover, faithful-flatness, direction of
+base change, descent datum, effectiveness condition, or conclusion. Therefore every corresponding
+Lean binder and proposition field remains null in `statement.json` rather than being guessed.
+
+The pinned `Mathlib.Algebra.Category.ModuleCat.Descent` probe establishes only that the current
+environment exposes extension of scalars, flat preservation of finite limits, faithfully flat
+reflection of isomorphisms, and comonadicity. Those are competing module-descent ingredients, not a
+source-admitted statement crosswalk. The legacy conjunction receives no statement or proof credit.
+
+Required resolution: an immutable primary edition plus pinpoint theorem/proposition and pages must
+select one branch and supply all incorporated definitions, hypotheses, conclusion, translation,
+correction and errata disposition. Until then the unresolved source-fidelity debt remains visible at
+`H2`, and the positive statement gate cannot close.

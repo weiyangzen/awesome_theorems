@@ -13,9 +13,9 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 THEOREM_ID = "THM-M-0387"
 ITEM_ID = "S56-M-0387-INTAKE"
-BASE_REVISION = "c5037228977a81948bbd6119e1728b4b65b9924e"
-BASE_TREE = "78b2627e717156dffe240bea12d14205af667d2a"
-GRAPH_SHA256 = "fb17743ff737fd3c528467b6f992a7235a36f0842b528e57de3e4c6d660d3518"
+BASE_REVISION = "1cc6aa61bb055a5c032297ee457905c849af7608"
+BASE_TREE = "dc3053b55c5724ccb2e6a247e7deffebca9dbb99"
+GRAPH_SHA256 = "e8472863a24609e37868f215bbf0e0654b11a62f912a403ebca5feb8de5a3b9b"
 CONTEXT_SHA256 = "90f56448880bb5c1f54b618027daea5b7b32be6e0d05ba2723c43bcc39e17235"
 CONTRACT_SHA256 = "1e7adf0f4fae0541b3595d4b0bfbb53f7eb17e28a4a889fec14f6df969e0cec4"
 SHARED_GROUPS = [
@@ -79,6 +79,10 @@ def git(*args: str) -> str:
     ).strip()
 
 
+def tracked_blob(relative: str) -> str:
+    return git("rev-parse", f"{BASE_REVISION}:{relative}")
+
+
 def check() -> None:
     manifest = load("Docs/Stage1_Targets_rev-5.6.json")
     execution = load("Docs/Stage1_Execution_DAG_rev-5.6.json")
@@ -106,7 +110,7 @@ def check() -> None:
     authoritative = next(row for row in execution["items"] if row["id"] == ITEM_ID)
     assert authoritative["theorem_id"] == THEOREM_ID
     assert authoritative["phase"] == "intake" and authoritative["layer"] == 0
-    assert authoritative["state"] == "[_]" and authoritative["attempts"] == 1
+    assert authoritative["state"] == "[_]" and authoritative["attempts"] == 2
     assert authoritative["depends_on"] == []
     assert authoritative["owned_paths"] == [f"Stage1_Instances/{THEOREM_ID}"]
     assert authoritative["deliverable"] == (
@@ -142,6 +146,9 @@ def check() -> None:
     assert [row["path_pattern"] for row in phase_contract["validator_candidates"]] == [
         "Stage1_Instances/{theorem_id}/check_intake.py"
     ]
+    validator_path = "Stage1_Instances/THM-M-0387/check_intake.py"
+    assert tracked_blob(validator_path) == "f658d2178dcdee1df26c39c8822130f8c1683d6f"
+    assert git("ls-files", "--error-unmatch", validator_path) == validator_path
 
     assert instance["schema_version"] == "stage1-instance-intake/1.0"
     assert instance["normative_profile"] == "machine-theorem-assurance/1.0"
@@ -269,7 +276,7 @@ def check() -> None:
     assert receipt["selftest_result"]["commands"]
     expected_command_results = [1, 1, 0, 0, 0, 0, 1]
     assert [row["exit_code"] for row in receipt["selftest_result"]["commands"]] == expected_command_results
-    assert receipt["first_failed_gate"] == "master_replay.validator_base_identity_pending"
+    assert receipt["first_failed_gate"] == "master_acceptance.pending"
     assert receipt["retry_condition"]
     assert receipt["audit_complete"] is receipt["theorem_complete"] is False
     assert receipt["lifecycle_after"] == "planned"
@@ -279,6 +286,17 @@ def check() -> None:
     assert receipt["inputs"]["dependency_context_sha256"] == CONTEXT_SHA256
     assert receipt["inputs"]["phase_contract_sha256"] == CONTRACT_SHA256
     assert receipt["inputs"]["accepted_receipt_ids"] == []
+    assert receipt["inputs"]["parent_inspection_order"] == []
+    assert receipt["inputs"]["provider_acceptance_inherited"] is False
+    assert receipt["inputs"]["task_state_authority"]["attempts_observed"] == 2
+    authority_hashes = {
+        "task_state_authority": "Docs/Stage1_Blueprint_v2.md",
+        "assurance_authority": "Docs/Stage1_Blueprint_rev-5.6.md",
+        "target_manifest": "Docs/Stage1_Targets_rev-5.6.json",
+    }
+    for field, relative in authority_hashes.items():
+        assert receipt["inputs"][field]["path"] == relative
+        assert receipt["inputs"][field]["sha256"] == sha256(relative)
     worker_packet = load(".stage1-worker-selftest.json")
     assert worker_packet["item_id"] == ITEM_ID and worker_packet["state"] == "[_]"
     assert worker_packet["base_revision"] == receipt["base_revision"]
@@ -292,9 +310,6 @@ def check() -> None:
         "Stage1_Instances/THM-M-0387/intake-receipt.json",
         "Stage1_Instances/THM-M-0387/intake-validation.md",
         "Stage1_Instances/THM-M-0387/intake.json",
-        "Stage1_Instances/THM-M-0387/scope-map.md",
-        "Stage1_Instances/THM-M-0387/source-statement-crosswalk.md",
-        "Stage1_Instances/THM-M-0387/task-dag.json",
     }
     bindings = receipt["artifact_bindings"]
     assert set(bindings) == set(ROLE_PATHS)

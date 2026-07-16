@@ -4,7 +4,7 @@ Item: `S56-M-0433-STATEMENT`
 
 Theorem: `THM-M-0433`
 
-Verdict: blocked; no exact canonical Lean target is claimed.
+Verdict: blocked; no exact canonical Lean target is claimed and `phase_accepted=false`.
 
 ## First failed gate
 
@@ -35,10 +35,26 @@ to transport, and no meaningful removed-hypothesis or boundary mutation suite. T
 remains `M3` (checked statement/interface scaffolding only). No theorem, axiom, opaque proxy
 predicate, proof placeholder, or purported exact target was added.
 
+## Rev-5.6 statement execution boundary
+
+The target's v2 execution rank is 295 and the statement phase layer is 1. Its direct hard-parent,
+transitive-ancestor, reuse-hint, and shared-group closures are all empty. Accordingly,
+`parent_inspection_order` is `[]`; that exact empty order was traversed once and recorded in
+`dependency-reuse-ledger.json`. No provider source, declaration, receipt, checkbox state, or
+acceptance is consumed. In particular, the legacy module is same-target discovery material rather
+than accepted parent reuse.
+
+The HEAD statement contract requires a positive exact target and does not allow a raw blocker to
+close the phase. `statement.json` therefore keeps the canonical mathematical statement, Lean
+declaration/expression, expression fingerprint, checked transports, and mutation executions null or
+empty. `Statement.lean` is only a trust-level-0 adjacent-interface probe. This negative result is a
+truthful target-scoped handoff, not the requested positive statement deliverable.
+
 ## Environment fingerprint
 
-- Repository base revision: `7d17b9db8c379ed7c645c8cd1f7b0c7073736926`.
-- Validation date: 2026-07-12 (Asia/Shanghai).
+- Repository base revision: `1cc6aa61bb055a5c032297ee457905c849af7608`.
+- Repository base tree: `dc3053b55c5724ccb2e6a247e7deffebca9dbb99`.
+- Validation date: 2026-07-17 (Asia/Shanghai).
 - Lean toolchain: `leanprover/lean4:v4.29.0`; Lean `4.29.0`, commit
   `98dc76e3c0a9b856c9b98726b713fb04fab16740`.
 - Checked mathlib revision: `8a178386ffc0f5fef0b77738bb5449d50efeea95`.
@@ -56,12 +72,15 @@ build, fetch, or clone command was used.
 
 | Command | Exit | Result |
 |---|---:|---|
-| `cd Formalizations/Lean && lake env lean AwesomeTheorems/Stage1/S1_M_061.lean` | 0 | Legacy interface module elaborated; `StatementShape` and its abstract boundary objects were printed, but no exact terminal target exists |
-| `cd Formalizations/Lean && lake env lean --version` | 0 | Lean 4.29.0, commit `98dc76e3c0a9b856c9b98726b713fb04fab16740` |
-| `git -C Formalizations/Lean/.lake/packages/mathlib rev-parse HEAD` | 0 | Checked mathlib revision `8a178386ffc0f5fef0b77738bb5449d50efeea95` |
-| `cd Formalizations/Lean && sha256sum lean-toolchain lake-manifest.json AwesomeTheorems/Stage1/S1_M_061.lean` | 0 | Produced the three hashes recorded above |
-| `rg` for exact Lafforgue/Langlands/automorphic/Satake/Weil terminology in pinned mathlib, excluding two unrelated prose hits | 1 | No candidate declaration or relevant object model found |
-| `python3 Docs/tools/check_stage1_standard.py` | 0 | 15 assurance groups and 1546 uniform-L0 Lean 4 targets passed |
+| `cd Formalizations/Lean && lake env lean --trust=0 ../../Stage1_Instances/THM-M-0433/Statement.lean` | 0 | Target-owned adjacent interfaces elaborated; no canonical target is declared |
+| `cd Formalizations/Lean && lake env lean --trust=0 AwesomeTheorems/Stage1/S1_M_061.lean` | 0 | Legacy interface module elaborated; no exact terminal target exists |
+| `cd Formalizations/Lean && lake env lean --version` | 0 (environment preflight) | Lean 4.29.0, commit `98dc76e3c0a9b856c9b98726b713fb04fab16740` |
+| `git -C Formalizations/Lean/.lake/packages/mathlib rev-parse HEAD` | 0 (environment preflight) | Checked mathlib revision `8a178386ffc0f5fef0b77738bb5449d50efeea95` |
+| `/usr/bin/python3 -I -B Stage1_Instances/THM-M-0433/check_statement.py` | 0 | Emitted exactly one `stage1-validator-semantic-result/1.0` object with `status=blocked`, `phase_accepted=false`, and the S02 first failed gate |
+| `cd Formalizations/Lean && sha256sum lean-toolchain lake-manifest.json AwesomeTheorems/Stage1/S1_M_061.lean` | 0 (environment preflight) | Produced the three hashes recorded above |
+| `rg` for exact Lafforgue/Langlands/automorphic/Satake/Weil terminology in pinned mathlib, excluding two unrelated prose hits | 1 (prior target-owned discovery record) | No candidate declaration or relevant object model found |
+| `python3 Docs/tools/check_stage1_standard.py` | 1 (expected integration boundary) | Target-owned additions make the checked-in theorem-DAG evidence inventory stale; only the master may regenerate that read-only projection |
+| `python3 Docs/tools/check_stage1_theorem_dag_v2.py` | 1 (expected integration boundary) | Fresh deterministic generation differs only because the worker-owned evidence inventory changed; no authority file was edited |
 | `python3 scripts/stage1_target.py check` | 0 | 1546 unique targets, ranks 1 through 1546, all L0/rework-required |
 | `python3 scripts/stage1_target.py show THM-M-0433` | 0 | Rank 61, planned, L0/rework-required, legacy artifacts unaccepted, theorem incomplete |
 
@@ -75,5 +94,6 @@ transport from an immutable external Lean implementation). A later statement run
 inputs to elaborate and fingerprint the exact proposition and mutation-test its hypotheses,
 domains, binder scope, and boundary cases.
 
-Until then, the statement node and theorem completion are false. Because the assigned phase is not
-genuinely self-tested to its completion gate, no `.stage1-worker-selftest.json` is emitted.
+Until then, statement acceptance and theorem completion are false. The worker handoff records only
+that this target-scoped negative boundary was self-tested; its `[_]` proposal does not mean that the
+positive statement completion predicate was met.
