@@ -134,3 +134,23 @@ proof remains an invalid substitution.
 This artifact is durable blocker evidence only. It does not satisfy `S56-M-0423-PROOF`, close an
 obligation, accept a receipt, or support validation, release, audit-completion, theorem-completion,
 or master-acceptance claims.
+
+## Current rev-5.6 contract refresh
+
+On 2026-07-17 at base `2dc5a410b68eff806858fd6ed0cb33d57f6209f7`, the proof attempt was
+replayed against the HEAD phase acceptance contract and v2 dependency context. The complete hard
+parent/ancestor inspection order is empty. Both weak shared-module groups were inspected and
+recorded as `not_applicable` in `dependency-reuse-ledger.json`; no provider material or acceptance
+is consumed.
+
+`check_proof.py` is the sole present contract candidate. It emits exactly one
+`stage1-validator-semantic-result/1.0` JSON object and truthfully reports `status=blocked`,
+`phase_accepted=false`, and first failed gate `P04-KERNEL.M0423-T-LOCAL-GLOBAL`. It replays
+temporary copies of `Statement.lean`, `ObligationTree.lean`, and `Proof.lean` with
+`lake env lean --trust=0 -t0`, checks the four partial declarations' exact axiom profiles, and
+revalidates the pinned clean mathlib revision/tree without mutating `.lake`.
+
+The current `proof-receipt.json` and worker packet bind the new ledger and validator. This is a
+self-tested negative handoff, not proof-phase completion: the exact local-to-global inhabitant,
+complete assigned proof predicate, accepted obligation closure, and all downstream gates remain
+open.

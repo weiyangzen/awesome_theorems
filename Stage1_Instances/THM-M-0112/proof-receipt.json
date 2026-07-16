@@ -1,0 +1,200 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0112-PROOF-blocked-20260717-slot58",
+  "item_id": "S56-M-0112-PROOF",
+  "theorem_id": "THM-M-0112",
+  "phase": "proof",
+  "intent": "prove",
+  "base_revision": "2dc5a410b68eff806858fd6ed0cb33d57f6209f7",
+  "base_tree": "841bdd6114e7436cff4a3a1ff248fc1e884a9ddc",
+  "validated_at": "2026-07-17T02:38:52+08:00",
+  "attestor": "stage1-rev56-worker-slot58",
+  "support_state": "provisional_worker_selftest",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "verdict": "blocked",
+  "selftest_status": "passed",
+  "selftest_result": {
+    "exit_code": 0,
+    "commands": [
+      {
+        "argv": [
+          "python3",
+          "Docs/tools/check_stage1_standard.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "python3",
+          "Docs/tools/check_stage1_theorem_dag_v2.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "python3",
+          "scripts/stage1_target.py",
+          "check"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "python3",
+          "scripts/stage1_target.py",
+          "show",
+          "THM-M-0112"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "lake",
+          "env",
+          "lean",
+          "--trust=0",
+          "-R",
+          "<isolated_tmp>",
+          "-o",
+          "<isolated_tmp>/Statement.olean",
+          "<isolated_tmp>/Statement.lean"
+        ],
+        "cwd": "Formalizations/Lean",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "lake",
+          "env",
+          "lean",
+          "--trust=0",
+          "-R",
+          "<isolated_tmp>",
+          "-o",
+          "<isolated_tmp>/Proof.olean",
+          "<isolated_tmp>/Proof.lean"
+        ],
+        "cwd": "Formalizations/Lean",
+        "exit_code": 0,
+        "environment": {
+          "LEAN_PATH_PREFIX": "<isolated_tmp>"
+        }
+      },
+      {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "Stage1_Instances/THM-M-0112/check_proof.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      }
+    ]
+  },
+  "known_failures": [
+    "The exact frozen proposition is false at universes (0,0): the five opaque geometric premise propositions do not constrain the arbitrary piMap field.",
+    "The checked negative declaration refutes only the frozen abstract encoding, not the mathematical Lefschetz hyperplane theorem.",
+    "Ten required positive obligations, including both root-cut packages M0112-B-BELOW and M0112-B-EDGE, have no proof body.",
+    "A positive proof cannot proceed without reopening and accepting S56-M-0112-STATEMENT, refreezing the obligation registry, and rerunning all dependent phases.",
+    "Proof-phase acceptance, exact-root closure, validation, release, AUDIT-Z, THEOREM-Z, and master acceptance remain false.",
+    "The mandatory proof validator candidate did not exist at worker base 2dc5a410; these target-owned bytes must first be integrated and then replayed from a fresh claim base, so the current claim cannot pass the unchanged-base validator-selection gate.",
+    "The automation-provided Formalizations/Lean/.lake symlink was reused read-only for warm nonrelease validation."
+  ],
+  "first_failed_gate": "P04-KERNEL/EXACT-TARGET-CONSISTENCY",
+  "retry_condition": "Reopen S56-M-0112-STATEMENT; replace the opaque geometric stand-ins with faithful native complex-geometric constructions and tie piMap to the actual inclusion-induced homotopy map; accept a new exact-statement fingerprint; then refreeze and rerun anchor-audit, obligation-tree, and proof phases.",
+  "status_boundary": "Self-tested target-owned negative proof evidence only. It establishes that the current frozen encoding cannot receive a positive proof body, but it does not satisfy the assigned positive proof predicate, close any positive obligation or root, transfer any provider acceptance, or establish audit, theorem, validation, release, or master completion.",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "invalidation_inputs": [
+    "Docs/Stage1_Blueprint_v2.md",
+    "Docs/Stage1_Theorem_DAG_v2.json",
+    "Docs/Stage1_Phase_Acceptance_Contracts.json",
+    "Stage1_Instances/THM-M-0112/Statement.lean",
+    "Stage1_Instances/THM-M-0112/statement.json",
+    "Stage1_Instances/THM-M-0112/ObligationTree.lean",
+    "Stage1_Instances/THM-M-0112/obligation-registry.json",
+    "Stage1_Instances/THM-M-0112/typed-graphs.json",
+    "Stage1_Instances/THM-M-0112/Proof.lean",
+    "Stage1_Instances/THM-M-0112/dependency-reuse-ledger.json",
+    "Lean toolchain or mathlib revision"
+  ],
+  "canonical_target": "Stage1Instances.THMM0112.WeakTopologicalLefschetzTarget",
+  "canonical_target_expression_sha256": "1daee7f6d7814d04bb7cefe87b3487fc78a862bedafbf8dc283bd6cf1a5eb654",
+  "exact_declarations": [
+    "Stage1Instances.THMM0112.Proof.not_weakTopologicalLefschetzTarget"
+  ],
+  "closed_obligation_ids": [],
+  "proof_body": {
+    "classification": "target_owned_negative_countermodel_witness",
+    "source": "Stage1_Instances/THM-M-0112/Proof.lean",
+    "source_sha256": "10154b503f6927c4772054154ccd04d4691a329d2878a0e625b579c3688fbde7",
+    "declaration": "Stage1Instances.THMM0112.Proof.not_weakTopologicalLefschetzTarget",
+    "exact_type": "Not (Stage1Instances.THMM0112.WeakTopologicalLefschetzTarget.{0, 0})",
+    "positive_proof_credit": false
+  },
+  "inputs": {
+    "validator_candidate": {
+      "path": "Stage1_Instances/THM-M-0112/check_proof.py",
+      "sha256": "38adc855b256df295ae7e8769052541ef51a9e8e8b89e8afd21af29e74f47883",
+      "git_blob": "e0f659eab8dd3f3c30cecef6c1fa2c1f070d9c80",
+      "existed_at_base": false,
+      "current_claim_selection_eligible": false
+    },
+    "proof_sources": [
+      {
+        "path": "Stage1_Instances/THM-M-0112/Proof.lean",
+        "sha256": "10154b503f6927c4772054154ccd04d4691a329d2878a0e625b579c3688fbde7",
+        "git_blob": "464b3fc25ab1de4b2bab72ed8e3aada5ed14de8a"
+      }
+    ],
+    "dependency_reuse_ledger": {
+      "path": "Stage1_Instances/THM-M-0112/dependency-reuse-ledger.json",
+      "sha256": "48fdb81fb7655a5eb06df4022efe7e971892ab62c600b523dbbff4f72296e812",
+      "git_blob": "8c44f6a30f88b9b9fbc2a17636471b702a86c28a"
+    },
+    "statement_sha256": "35bd5ca61ade63d95f8c4243be0a7aae1f153a0c527b54998c13f25302862dff",
+    "obligation_tree_sha256": "f82e2912f027091e8acc8bb9255c4f4c963fbef3f7686050d388c200b4c6e865",
+    "obligation_registry_sha256": "5ebb5f85391d27ddd85fe9deb6dd8555c7657d57178e845f96a08ca8140dea13",
+    "typed_graphs_sha256": "3db91c177026ca9a8f541049dcc82312f179d3d04c934efa8b51d19754f52894",
+    "anchor_audit_sha256": "aabf178868dd890040088c04d70494b4e645af8d26df4ab1836c65ee7bda09e5",
+    "validation_specs_sha256": "e46182224d7c443752bdb6cc409ae15c9d69b4553e171c43c1fd32d9c31bdd38",
+    "theorem_dag_sha256": "3d32f808e2914b338c459d52651b69731f0979a90a720f98bc0f31a577e2bafa",
+    "dependency_context_sha256": "068170c76abd4579d643ede04d731b974412185bd285e7b40255ec4044adec5c",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95"
+  },
+  "result": {
+    "exit_code": 0,
+    "semantic_verdict": "blocked",
+    "phase_predicate_proven": false,
+    "phase_accepted": false,
+    "blocked": true,
+    "audit_complete": false,
+    "theorem_complete": false,
+    "open_obligations": 10,
+    "stale_inputs": [],
+    "statement_olean_sha256": "f869a1057c46e20107dd3464966d1b86c9d534d61224242ff1fc9576dffb2a77",
+    "proof_olean_sha256": "5d11e1de5da347e936936bf2c5b4e965306a7639f98ee54404d58dfcd0173b82",
+    "machine_derived_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  }
+}

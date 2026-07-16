@@ -12,3 +12,11 @@ or theorem completion is claimed.
 
 The open downstream nodes are recorded in `task-dag.json`. Exact intake checks and their results are
 in `validation.md`.
+
+The statement execution has now been replayed against the current HEAD contract and remains
+blocked. `statement.json` records the deliberately null canonical target, `Statement.lean` checks
+only pinned adjacent interfaces, `dependency-reuse-ledger.json` records the exact empty v2 closure,
+and `statement-receipt.json` plus `check_statement.py` provide a typed negative result. The
+validator reports `phase_accepted=false`. The root worker packet proposes only `[_]`, meaning the
+negative boundary was self-tested; it does not claim the positive statement predicate or master
+acceptance.

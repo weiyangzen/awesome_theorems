@@ -1,0 +1,181 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0123-STATEMENT-WORKER-9FA3C7A0BFF5",
+  "item_id": "S56-M-0123-STATEMENT",
+  "theorem_id": "THM-M-0123",
+  "phase": "statement",
+  "intent": "audit",
+  "base_revision": "2dc5a410b68eff806858fd6ed0cb33d57f6209f7",
+  "base_tree": "841bdd6114e7436cff4a3a1ff248fc1e884a9ddc",
+  "contract_sha256": "1e7adf0f4fae0541b3595d4b0bfbb53f7eb17e28a4a889fec14f6df969e0cec4",
+  "changed_paths": [
+    ".stage1-worker-selftest.json",
+    "Stage1_Instances/THM-M-0123/Statement.lean",
+    "Stage1_Instances/THM-M-0123/check_statement.py",
+    "Stage1_Instances/THM-M-0123/dependency-reuse-ledger.json",
+    "Stage1_Instances/THM-M-0123/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0123/statement-receipt.json",
+    "Stage1_Instances/THM-M-0123/statement-validation.md",
+    "Stage1_Instances/THM-M-0123/statement.json"
+  ],
+  "inputs": {
+    "Docs/Stage1_Blueprint_v2.md": "sha256:d4c88372fac1516ff8c7f1105625b364243ea87121f4c92dd8b479be7f1564ee",
+    "Docs/Stage1_Blueprint_rev-5.6.md": "sha256:3779901013ac5e0b1f1b2bb4ea7a2ee08429f85bb1ee26c4b96905d6796c65c8",
+    "Docs/Stage1_Phase_Acceptance_Contracts.json": "sha256:1e7adf0f4fae0541b3595d4b0bfbb53f7eb17e28a4a889fec14f6df969e0cec4",
+    "Docs/Stage1_Targets_rev-5.6.json": "sha256:02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "Docs/Stage1_Theorem_DAG_v2.json": "sha256:3d32f808e2914b338c459d52651b69731f0979a90a720f98bc0f31a577e2bafa",
+    "skills/execute-stage1-rev56/SKILL.md": "sha256:5da11caafdb40b121c2fd19e13cd232a1b13a615f7a64eb314aa82cc19fea454",
+    "Stage1_Instances/THM-M-0123/instance.json": "sha256:be5e872afd6d4ca722a381299893262a94351acbe6350825a3dcefca4637c2ea",
+    "Stage1_Instances/THM-M-0123/source-statement-crosswalk.md": "sha256:c4e661c736bca150a662d8d3dafa82bf6bcfde428b2e45a0715c394f81468205",
+    "Formalizations/Lean/lean-toolchain": "sha256:651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "Formalizations/Lean/lake-manifest.json": "sha256:321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+  },
+  "support_state": "worker_self_tested_pending_dependency_ordered_master_acceptance",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "verdict": "accepted",
+  "selftest_status": "passed",
+  "selftest_result": {
+    "exit_code": 0,
+    "commands": [
+      "python3 scripts/stage1_target.py check",
+      "python3 scripts/stage1_target.py show THM-M-0123",
+      "cd Formalizations/Lean && LC_ALL=C TZ=UTC lake env lean ../../Stage1_Instances/THM-M-0123/Statement.lean",
+      "/usr/bin/python3 -I -B Stage1_Instances/THM-M-0123/check_statement.py",
+      "python3 -m json.tool Stage1_Instances/THM-M-0123/statement.json",
+      "python3 -m json.tool Stage1_Instances/THM-M-0123/statement-receipt.json",
+      "python3 -m json.tool Stage1_Instances/THM-M-0123/dependency-reuse-ledger.json",
+      "git diff --check -- Stage1_Instances/THM-M-0123 .stage1-worker-selftest.json"
+    ]
+  },
+  "known_failures": [
+    "The checked-in v2 theorem DAG validator currently reports deterministic inventory drift because the worker-owned new evidence is intentionally not written into the read-only generated DAG; the integration lane must regenerate it atomically when accepting the packet.",
+    "The phase receipt cannot recursively contain its own final SHA-256 and Git-blob ID. Those two role-map bindings are explicitly deferred to the scheduler master lane after the receipt becomes a HEAD-tracked Git object; all non-self selected roles are already byte-bound here.",
+    "The intake predecessor remains worker-self-tested and awaits dependency-ordered master acceptance.",
+    "The pinned snapshot lacks a native K-linear finrank/geometric-genus declaration; the checked comparison from the concrete H^1 additive-equivalence encoding remains M3 normalization debt.",
+    "The primary-source wording, incorporated curve conventions, derivation, corrections, and independent source review remain H4.",
+    "No Mordell/Faltings proof body, anchor audit, obligation graph, proof validation, readable proof review, release evidence, audit completion, or theorem completion is claimed."
+  ],
+  "first_failed_gate": null,
+  "retry_condition": "Master review must independently replay the unchanged HEAD-tracked validator and selected artifacts after accepting the intake predecessor; later phases must discharge the source, native-genus comparison, proof, trust, readability, validation, and release obligations.",
+  "status_boundary": "This receipt proposes only worker-self-tested statement-phase evidence. It is unsigned, mutable, nonrelease, not master accepted, and carries no proof-body, H0, M0, R0, audit-completion, theorem-completion, or inherited acceptance credit.",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "invalidation_inputs": [
+    "Statement.lean, statement.json, statement-receipt.json, check_statement.py, dependency-reuse-ledger.json, or source-statement-crosswalk.md",
+    "canonical field, curve, genus, rational-point, binder, hypothesis, conclusion, boundary, or checked transport encoding",
+    "v2 task state, graph digest, dependency context, phase contract, execution skill, or rev-5.6 assurance rules",
+    "Lean toolchain, lake manifest, mathlib revision, imported module bytes, serialization options, or validator output"
+  ],
+  "statement_fingerprints": [
+    "sha256:9fa3c7a0bff55098e7cc234793cb06ec1628e84e003ddb273a6dc47094f58dbd"
+  ],
+  "mutation_tests": [
+    {
+      "kind": "removed_hypothesis",
+      "declaration": "Stage1Instances.THM_M_0123.MutationRemovedGenusHypothesis",
+      "result": "Lean exact-type rejection and distinct fully explicit expression"
+    },
+    {
+      "kind": "changed_domain",
+      "declaration": "Stage1Instances.THM_M_0123.MutationRemovedNumberField",
+      "result": "Lean exact-type rejection and distinct fully explicit expression"
+    },
+    {
+      "kind": "changed_binder_scope",
+      "declaration": "Stage1Instances.THM_M_0123.MutationChangedCurveBinderScope",
+      "result": "Lean exact-type rejection and distinct fully explicit expression"
+    },
+    {
+      "kind": "boundary_case",
+      "declaration": "Stage1Instances.THM_M_0123.MutationIncludesGenusOne",
+      "result": "Lean exact-type rejection and distinct fully explicit expression"
+    }
+  ],
+  "canonical_declaration": "Stage1Instances.THM_M_0123.MordellTarget",
+  "statement_file_sha256": "62c3d5936d64ed2225d239246ac8139663bc4f722f896625b94bb9a11e59ca8f",
+  "lean_output_sha256": "f57215dfa63c8993cf43abfd1a3bbe60715bdda3e635f2c4a9a8cf35591748a6",
+  "validator_sha256": "8b0047cdbb7df962f2f3bbbebf2bb06bc10d298166975b15e608026fc06b0470",
+  "direct_imports": [
+    "Mathlib.AlgebraicGeometry.Geometrically.Basic",
+    "Mathlib.AlgebraicGeometry.Modules.Sheaf",
+    "Mathlib.AlgebraicGeometry.Morphisms.Proper",
+    "Mathlib.AlgebraicGeometry.Morphisms.Smooth",
+    "Mathlib.CategoryTheory.Abelian.GrothendieckCategory.HasExt",
+    "Mathlib.CategoryTheory.Sites.SheafCohomology.Basic",
+    "Mathlib.NumberTheory.NumberField.Basic",
+    "Mathlib.Topology.Sheaves.Abelian"
+  ],
+  "import_source_sha256": {
+    "Mathlib.AlgebraicGeometry.Geometrically.Basic": "6699ca4970cb991a292c2a76b8c05fc277f4bbd31fb9fbffcffc8853a084e57f",
+    "Mathlib.AlgebraicGeometry.Modules.Sheaf": "39ad16dcfaafa9f6d6d8c3546f4fbd59153a1e25255c7ab80c98d4dcb0bcd762",
+    "Mathlib.AlgebraicGeometry.Morphisms.Proper": "eeb5b7352df6c6af10bcce6140b41be5a15efc3c2656640d2d316409e59a96a4",
+    "Mathlib.AlgebraicGeometry.Morphisms.Smooth": "3918ed842c3aad02c69746032e5e202f138028c44f48089e1b408f140c9d9e20",
+    "Mathlib.CategoryTheory.Abelian.GrothendieckCategory.HasExt": "1463efee3bc17da1e7cdece714038436719d404585c4c3ec4a1c503eddb95687",
+    "Mathlib.CategoryTheory.Sites.SheafCohomology.Basic": "8765b1daa9cca22fe316be0619f110f8fff814ae1bb7a70c42f9cfbc4ba8a6f8",
+    "Mathlib.NumberTheory.NumberField.Basic": "766a8a37751cf628a5350756e1f640eab1840ceef854c372221f860e4ea4b663",
+    "Mathlib.Topology.Sheaves.Abelian": "029df72c74ffa7afe10d8d923826427b0a20df90c08d6c3f69a356c9216d17b8"
+  },
+  "checked_transports": [
+    "Stage1Instances.THM_M_0123.mordellTarget_iff_expanded",
+    "Stage1Instances.THM_M_0123.finite_rationalPoint_iff_finite_over",
+    "Stage1Instances.THM_M_0123.mordellTarget_iff_over"
+  ],
+  "axiom_and_placeholder_result": "The canonical target is a Prop definition with no proof body. Checked statement transports report only propext, Classical.choice, and Quot.sound. No sorry, admit, sorryAx, custom axiom, opaque body, unsafe declaration, oracle, or conclusion-bearing input exists.",
+  "proof_body_locations": [],
+  "dependency_context": {
+    "graph_sha256": "3d32f808e2914b338c459d52651b69731f0979a90a720f98bc0f31a577e2bafa",
+    "dependency_context_sha256": "068170c76abd4579d643ede04d731b974412185bd285e7b40255ec4044adec5c",
+    "parent_inspection_order": [],
+    "inspected_parent_ids": [],
+    "reused_declaration_ids": []
+  },
+  "artifact_bindings": [
+    {
+      "role": "statement_record",
+      "path": "Stage1_Instances/THM-M-0123/statement.json",
+      "sha256": "0197c69517569249820374f0e1bd1d77396a9dc2503ab4e9aa89ef7a2ac570e2",
+      "git_blob": "a08901d61e24501f7b28717430eb53f0c402b971"
+    },
+    {
+      "role": "statement_source",
+      "path": "Stage1_Instances/THM-M-0123/Statement.lean",
+      "sha256": "62c3d5936d64ed2225d239246ac8139663bc4f722f896625b94bb9a11e59ca8f",
+      "git_blob": "01a796c392a21c69a9394ffa4c76f09338fa7b34"
+    },
+    {
+      "role": "source_crosswalk",
+      "path": "Stage1_Instances/THM-M-0123/source-statement-crosswalk.md",
+      "sha256": "c4e661c736bca150a662d8d3dafa82bf6bcfde428b2e45a0715c394f81468205",
+      "git_blob": "25e0ad8f3e8ec1f3658a25638265a8774155e9c3"
+    }
+  ],
+  "phase_receipt_self_binding": {
+    "role": "phase_receipt",
+    "path": "Stage1_Instances/THM-M-0123/statement-receipt.json",
+    "binding_kind": "git_object_at_integration",
+    "expected_sha256": null,
+    "expected_git_blob": null,
+    "status": "deferred_to_scheduler_master_lane_after_HEAD_tracking"
+  },
+  "root_vector_before": {
+    "H": "H4",
+    "M": "M4",
+    "R": "R4"
+  },
+  "root_vector_after_proposed": {
+    "H": "H4",
+    "M": "M3",
+    "R": "R3"
+  },
+  "remaining_root_cut_set": [
+    "master acceptance of S56-M-0123-INTAKE",
+    "master acceptance of S56-M-0123-STATEMENT",
+    "native K-linear/geometric-genus comparison and source-convention audit",
+    "S56-M-0123-ANCHOR_AUDIT",
+    "S56-M-0123-OBLIGATION_TREE",
+    "S56-M-0123-PROOF",
+    "S56-M-0123-VALIDATION",
+    "S56-M-0123-RELEASE"
+  ]
+}

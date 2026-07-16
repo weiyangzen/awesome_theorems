@@ -35,3 +35,18 @@ The anchor audit must inspect the primary paper at the cited locator, record
 assumptions and errata, distinguish a theorem stated directly for curves from a
 corollary, and obtain independent source-to-target review.
 
+## Statement-phase encoding decision
+
+`Statement.lean` now freezes the intake-selected proper-curve formulation.
+Its genus condition is not the legacy arbitrary proposition: it is a predicate
+of the actual curve's pinned structure-sheaf cohomology, requiring an additive
+equivalence `H^1(X, O_X) ≃+ K^n` for some `2 <= n`. Rational points are
+sections of the structure morphism, with a checked equivalence to the slice
+category encoding.
+
+This is an exact Lean encoding of the selected cohomological normalization,
+not an H0 source-admission claim. The primary-source audit must still check the
+proper/projective and geometrically connected/integral conventions, the
+derivation of the curve consequence, the genus convention, and corrections.
+The anchor audit must also supply a checked comparison to a native K-linear or
+geometric-genus API if the pinned environment later exposes one.
