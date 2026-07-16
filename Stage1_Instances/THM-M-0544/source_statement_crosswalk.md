@@ -1,5 +1,10 @@
 # Source-statement crosswalk
 
+This file is the statement contract's selected crosswalk role. The intake selected the classical
+unique-harmonic-representative claim below, but the exact primary-source edition/page and an
+independent fidelity review remain open. The repository's terse source phrase, "harmonic forms and
+cohomology," is not itself H0 evidence.
+
 | Claim component | Human source anchor | Lean candidate | Intake assessment |
 |---|---|---|---|
 | Unique harmonic representative of each real de Rham class on a compact oriented Riemannian manifold | W. V. D. Hodge, *The Theory and Applications of Harmonic Integrals*, Cambridge University Press (1941), the classical harmonic-integral theorem | No concrete root declaration identified | Primary monograph identified, but edition/page/theorem wording and errata have not been independently pinned: `H1` |
@@ -19,3 +24,21 @@ isomorphism. It must not substitute the legacy `Nonempty` wrapper.
 No `H0` or machine-closure claim is made. Source audit must pin an edition and exact theorem/pages,
 map every analytic and geometric assumption, search corrections/errata, and obtain independent
 review before source fidelity can close.
+
+## Exact premise and boundary map
+
+| Selected claim component | Intended Lean binder or hypothesis | Current pinned boundary |
+|---|---|---|
+| smooth finite-dimensional real manifold | model space, `ModelWithCorners`, charted space, `IsManifold` | adjacent manifold vocabulary exists |
+| smooth Riemannian metric | Riemannian tangent bundle data and `IsRiemannianManifold` | adjacent Riemannian vocabulary exists |
+| compact, oriented, without boundary | `CompactSpace`, orientation data, boundaryless model/manifold condition | compactness and boundaryless substrate exist; the exact orientation/form integration is unfrozen |
+| real smooth p-forms | bundled smooth alternating covector fields on the manifold | missing; pinned `DifferentialForm.Basic` explicitly says manifold forms are not defined yet |
+| real de Rham cohomology | closed smooth p-forms modulo exact forms | missing |
+| harmonic representative | kernel of the Hodge Laplacian | Hodge star, codifferential, Laplacian, and harmonic-form predicate are missing |
+| representative of class c | harmonic-form class map into de Rham cohomology | missing |
+| unique existence | `ExistsUnique` over the fiber of that class map | cannot be typed until the preceding objects exist |
+
+The exact canonical Lean declaration, elaborated expression fingerprint, checked transport to the
+harmonic-to-cohomology isomorphism, and removed-hypothesis/changed-domain/changed-scope/boundary
+mutations therefore remain blocked. The elaborating `Statement.lean` module is an interface probe
+only and must not be read as the target theorem.
