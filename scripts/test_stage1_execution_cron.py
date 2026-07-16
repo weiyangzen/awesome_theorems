@@ -1091,6 +1091,7 @@ class IntegrationTransactionTests(unittest.TestCase):
             "slot": 1,
             "runtime_protocol": cron.RUNTIME_PROTOCOL,
             "output_log": str(self.runtime / "logs" / "test.out"),
+            "fresh_revalidation": False,
         }
         (self.workspace / ".stage1-worker-selftest.json").write_text(
             json.dumps(
@@ -1259,6 +1260,18 @@ class IntegrationTransactionTests(unittest.TestCase):
             )
             with self.assertRaisesRegex(ValueError, "ownership scope"):
                 cron.validate_owned_relative_paths([f"{self.owner}/../../escape.md"], self.owner)
+            receipt_path = cron.master_acceptance_receipt_path(
+                "THM-M-0001", "intake", "a" * 64
+            )
+            with self.assertRaisesRegex(ValueError, "scheduler-reserved"):
+                cron.validate_owned_relative_paths([receipt_path], self.owner)
+            reserved_source = self.workspace / receipt_path
+            reserved_source.parent.mkdir(parents=True, exist_ok=True)
+            reserved_source.write_text("{}\n", encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "scheduler-reserved"):
+                cron.merge_worker_changes(
+                    self.workspace, [receipt_path], owner=self.owner
+                )
             outside = self.sandbox / "outside.md"
             outside.write_text("THM-M-0001 blocked\n", encoding="utf-8")
             link = owned_snapshot / "linked.md"
@@ -1273,7 +1286,9 @@ class IntegrationTransactionTests(unittest.TestCase):
         regeneration = source.index('run(["python3", "Docs/tools/generate_stage1_theorem_dag_v2.py"])')
         validation = source.index('run(["python3", "Docs/tools/check_stage1_theorem_dag_v2.py"])')
         self.assertLess(regeneration, validation)
-        between = source[source.index("if accepted or preserved_blockers:"):validation]
+        between = source[
+            source.index("if accepted or preserved_blockers or master_accepted:"):validation
+        ]
         self.assertNotIn('if accepted:\n            run(["python3", "Docs/tools/generate_stage1_theorem_dag_v2.py"])', between)
 
     def test_checkpoint_manifest_filters_paths_identical_to_head(self) -> None:
@@ -1354,6 +1369,114 @@ class IntegrationTransactionTests(unittest.TestCase):
         ):
             with self.assertRaisesRegex(SystemExit, "unsafe path"):
                 cron.recover_integration_wal()
+
+    def test_integration_wal_removes_canonical_master_receipt_directories(self) -> None:
+        root = self.sandbox / "receipt-recovery-master"
+        runtime = root / ".cron" / "stage1-v2-app-server"
+        runtime.mkdir(parents=True)
+        instances_root = root / "Stage1_Instances"
+        theorem_root = instances_root / "THM-M-0001"
+        receipt_root = theorem_root / "master-acceptance"
+        phase_directory = receipt_root / "intake"
+        receipt = phase_directory / f"{'a' * 64}.json"
+        phase_directory.mkdir(parents=True)
+        receipt.write_text("interrupted receipt\n", encoding="utf-8")
+        wal = runtime / "integration_wal.json"
+        wal.write_text(
+            json.dumps({
+                "schema_version": "stage1-integration-wal/1.0",
+                "state": "prepared",
+                "base_revision": "test-revision",
+                "files": [{
+                    "path": receipt.relative_to(root).as_posix(),
+                    "kind": "missing",
+                    "mode": None,
+                }],
+                "created_dirs": [
+                    "Stage1_Instances",
+                    "Stage1_Instances/THM-M-0001",
+                    "Stage1_Instances/THM-M-0001/master-acceptance",
+                    "Stage1_Instances/THM-M-0001/master-acceptance/intake",
+                ],
+            }) + "\n",
+            encoding="utf-8",
+        )
+        with (
+            mock.patch.object(cron, "ROOT", root),
+            mock.patch.object(cron, "RUNTIME", runtime),
+            mock.patch.object(
+                cron,
+                "run",
+                return_value=subprocess.CompletedProcess([], 0, "test-revision\n", ""),
+            ),
+        ):
+            cron.recover_integration_wal()
+        self.assertFalse(receipt.exists())
+        self.assertFalse(phase_directory.exists())
+        self.assertFalse(receipt_root.exists())
+        self.assertFalse(theorem_root.exists())
+        self.assertFalse(instances_root.exists())
+        self.assertFalse(wal.exists())
+
+    def test_integration_wal_rejects_noncanonical_master_receipt_directory(self) -> None:
+        wal = self.runtime / "integration_wal.json"
+        wal.write_text(
+            json.dumps({
+                "schema_version": "stage1-integration-wal/1.0",
+                "state": "prepared",
+                "base_revision": "test-revision",
+                "files": [],
+                "created_dirs": [
+                    "Stage1_Instances/THM-M-0001/master-acceptance/not-a-phase",
+                ],
+            }) + "\n",
+            encoding="utf-8",
+        )
+        with (
+            mock.patch.object(cron, "ROOT", self.master),
+            mock.patch.object(cron, "RUNTIME", self.runtime),
+            mock.patch.object(
+                cron,
+                "run",
+                return_value=subprocess.CompletedProcess([], 0, "test-revision\n", ""),
+            ),
+            self.assertRaisesRegex(SystemExit, "unsafe path"),
+        ):
+            cron.recover_integration_wal()
+        self.assertTrue(wal.exists())
+
+    def test_integration_wal_rejects_noncanonical_instance_and_receipt_files(self) -> None:
+        unsafe_paths = (
+            "Stage1_Instances/THM-M-evil/note.json",
+            "Stage1_Instances/THM-M-0001/master-acceptance/intake/not-a-digest.json",
+            f"Stage1_Instances/THM-M-0001/master-acceptance/not-a-phase/{'a' * 64}.json",
+        )
+        for relative in unsafe_paths:
+            with self.subTest(relative=relative):
+                wal = self.runtime / "integration_wal.json"
+                wal.write_text(
+                    json.dumps({
+                        "schema_version": "stage1-integration-wal/1.0",
+                        "state": "prepared",
+                        "base_revision": "test-revision",
+                        "files": [{"path": relative, "kind": "missing", "mode": None}],
+                        "created_dirs": [],
+                    }) + "\n",
+                    encoding="utf-8",
+                )
+                with (
+                    mock.patch.object(cron, "ROOT", self.master),
+                    mock.patch.object(cron, "RUNTIME", self.runtime),
+                    mock.patch.object(
+                        cron,
+                        "run",
+                        return_value=subprocess.CompletedProcess([], 0, "test-revision\n", ""),
+                    ),
+                    self.assertRaisesRegex(SystemExit, "unsafe path"),
+                ):
+                    cron.recover_integration_wal()
+                self.assertTrue(wal.exists())
+                wal.unlink()
 
     def test_integration_wal_restores_pending_and_prior_day_todo(self) -> None:
         pending = self.runtime / "pending_checkpoint.json"
@@ -1554,25 +1677,34 @@ class SchedulerCapacityTests(unittest.TestCase):
             pause = root / "PAUSED"
             todo = root / "Docs" / "todo.md"
             todo.parent.mkdir(parents=True)
-            with (
-                mock.patch.object(cron, "ROOT", root),
-                mock.patch.object(cron, "RUNTIME", runtime),
-                mock.patch.object(cron, "PAUSE_FILE", pause),
-                mock.patch.object(cron, "load_dag", return_value=({"items": items}, items)),
-                mock.patch.object(cron, "refresh_claims", return_value=existing),
-                mock.patch.object(cron, "space_guard"),
-                mock.patch.object(cron, "theorem_dag_v2", return_value=({}, nodes)),
-                mock.patch.object(cron, "graph_sha256", return_value="a" * 64),
-                mock.patch.object(cron, "run", return_value=subprocess.CompletedProcess([], 0, "b" * 40 + "\n", "")),
-                mock.patch.object(cron, "save_claims", side_effect=save),
-                mock.patch.object(cron, "prepare_workspace", side_effect=prepare),
-                mock.patch.object(cron, "task_prompt", return_value="prompt\n"),
-                mock.patch.object(cron, "launch_app_server_worker", side_effect=launch_worker),
-                mock.patch.object(cron, "process_start_ticks", return_value=77),
-                mock.patch.object(cron, "confirm_goal_handshakes", side_effect=confirm),
-                mock.patch.object(cron, "write_todo", return_value=todo),
-                contextlib.redirect_stdout(io.StringIO()),
-            ):
+            with contextlib.ExitStack() as stack:
+                for name, value in {
+                    "ROOT": root,
+                    "RUNTIME": runtime,
+                    "PAUSE_FILE": pause,
+                }.items():
+                    stack.enter_context(mock.patch.object(cron, name, value))
+                for name, kwargs in (
+                    ("load_dag", {"return_value": ({"items": items}, items)}),
+                    ("refresh_claims", {"return_value": existing}),
+                    ("space_guard", {}),
+                    ("reconcile_process_inventory", {"return_value": False}),
+                    ("app_server_worker_is_live", {"side_effect": lambda claim: claim in existing}),
+                    ("app_server_child_is_live", {"return_value": False}),
+                    ("refill_reviews", {"return_value": 0}),
+                    ("theorem_dag_v2", {"return_value": ({}, nodes)}),
+                    ("graph_sha256", {"return_value": "a" * 64}),
+                    ("run", {"return_value": subprocess.CompletedProcess([], 0, "b" * 40 + "\n", "")}),
+                    ("save_claims", {"side_effect": save}),
+                    ("prepare_workspace", {"side_effect": prepare}),
+                    ("task_prompt", {"return_value": "prompt\n"}),
+                    ("launch_app_server_worker", {"side_effect": launch_worker}),
+                    ("process_start_ticks", {"return_value": 77}),
+                    ("confirm_goal_handshakes", {"side_effect": confirm}),
+                    ("write_todo", {"return_value": todo}),
+                ):
+                    stack.enter_context(mock.patch.object(cron, name, **kwargs))
+                stack.enter_context(contextlib.redirect_stdout(io.StringIO()))
                 cron.refill_workers(cron.MAX_WORKERS)
         return (saved[-1] if saved else existing), events, saved
 
@@ -1649,7 +1781,12 @@ class SchedulerCapacityTests(unittest.TestCase):
                 mock.patch.object(cron, "load_dag", return_value=({"items": items}, items)),
                 mock.patch.object(cron, "refresh_claims", return_value=claims),
                 mock.patch.object(cron, "space_guard"),
-                mock.patch.object(cron, "app_server_worker_is_live", side_effect=lambda claim: claim.get("status") == "preparing"),
+                mock.patch.object(cron, "reconcile_process_inventory", return_value=False),
+                mock.patch.object(
+                    cron,
+                    "app_server_worker_is_live",
+                    side_effect=lambda claim: claim.get("status") in {"live", "preparing"},
+                ),
                 mock.patch.object(cron, "app_server_child_is_live", return_value=False),
                 mock.patch.object(cron, "write_todo", return_value=todo),
                 mock.patch.object(cron, "prepare_workspace") as prepare,
@@ -1746,6 +1883,77 @@ class SchedulerCapacityTests(unittest.TestCase):
             ["S56-M-0002-A", "S56-M-0002-B", "S56-M-0002-Z", "S56-M-0001-INTAKE"],
         )
 
+    def test_unified_queue_capacity_one_never_prefers_later_review(self) -> None:
+        implementation = {
+            "id": "S56-M-0001-INTAKE", "theorem_id": "THM-M-0001",
+            "phase": "intake", "layer": 0,
+        }
+        review = {
+            "id": "S56-M-0100-INTAKE", "theorem_id": "THM-M-0100",
+            "phase": "intake", "layer": 0,
+        }
+        nodes = {
+            implementation["theorem_id"]: {"v2_execution_rank": 1},
+            review["theorem_id"]: {"v2_execution_rank": 100},
+        }
+        with (
+            mock.patch.object(cron, "implementation_candidates", return_value=[implementation]),
+            mock.patch.object(cron, "review_candidates", return_value=[review]),
+            mock.patch.object(cron, "theorem_dag_v2", return_value=({}, nodes)),
+        ):
+            selected = cron.unified_lane_candidates([], [])[:1]
+        self.assertEqual(
+            [(row["lane"], row["item"]["id"]) for row in selected],
+            [(cron.IMPLEMENTATION_LANE, implementation["id"])],
+        )
+
+    def test_unified_queue_capacity_two_interleaves_lanes_by_exact_key(self) -> None:
+        review = {
+            "id": "S56-M-0001-STATEMENT", "theorem_id": "THM-M-0001",
+            "phase": "statement", "layer": 1,
+        }
+        early_implementation = {
+            "id": "S56-M-0002-INTAKE", "theorem_id": "THM-M-0002",
+            "phase": "intake", "layer": 0,
+        }
+        late_implementation = {
+            "id": "S56-M-0003-INTAKE", "theorem_id": "THM-M-0003",
+            "phase": "intake", "layer": 0,
+        }
+        nodes = {
+            review["theorem_id"]: {"v2_execution_rank": 1},
+            early_implementation["theorem_id"]: {"v2_execution_rank": 2},
+            late_implementation["theorem_id"]: {"v2_execution_rank": 3},
+        }
+        with (
+            mock.patch.object(
+                cron, "implementation_candidates",
+                return_value=[late_implementation, early_implementation],
+            ),
+            mock.patch.object(cron, "review_candidates", return_value=[review]),
+            mock.patch.object(cron, "theorem_dag_v2", return_value=({}, nodes)),
+        ):
+            selected = cron.unified_lane_candidates([], [])[:2]
+        self.assertEqual(
+            [(row["lane"], row["item"]["id"]) for row in selected],
+            [
+                (cron.REVIEW_LANE, review["id"]),
+                (cron.IMPLEMENTATION_LANE, early_implementation["id"]),
+            ],
+        )
+
+    def test_unified_queue_rejects_same_item_on_both_lanes(self) -> None:
+        item = {
+            "id": "S56-M-0001-INTAKE", "theorem_id": "THM-M-0001",
+            "phase": "intake", "layer": 0,
+        }
+        with (
+            mock.patch.object(cron, "implementation_candidates", return_value=[item]),
+            mock.patch.object(cron, "review_candidates", return_value=[item]),
+            self.assertRaisesRegex(SystemExit, "simultaneously eligible"),
+        ):
+            cron.unified_lane_candidates([], [])
+
     def test_refill_uses_contract_claim_order_for_actual_reservations(self) -> None:
         items = [
             {
@@ -1796,6 +2004,9 @@ class SchedulerCapacityTests(unittest.TestCase):
                 mock.patch.object(cron, "load_dag", return_value=({"items": items}, items)),
                 mock.patch.object(cron, "refresh_claims", return_value=[]),
                 mock.patch.object(cron, "space_guard"),
+                mock.patch.object(cron, "reconcile_process_inventory", return_value=False),
+                mock.patch.object(cron, "review_candidates", return_value=[]),
+                mock.patch.object(cron, "refill_reviews", return_value=0),
                 mock.patch.object(cron, "theorem_dag_v2", return_value=({}, nodes)),
                 mock.patch.object(cron, "graph_sha256", return_value="a" * 64),
                 mock.patch.object(
@@ -1897,6 +2108,47 @@ class SchedulerCapacityTests(unittest.TestCase):
         with self.assertRaisesRegex(SystemExit, "not ranked before"):
             cron.parent_inspection_order("THM-M-0002", nodes)
 
+    def test_dependency_ledger_requires_ranked_parent_and_ancestor_order(self) -> None:
+        child = "THM-M-0003"
+        nodes = {
+            "THM-M-0001": {"v2_execution_rank": 2},
+            "THM-M-0002": {"v2_execution_rank": 1},
+            child: {
+                "v2_execution_rank": 3,
+                "direct_hard_parents": ["THM-M-0001"],
+                "transitive_hard_ancestors": ["THM-M-0001", "THM-M-0002"],
+                "direct_reuse_hint_ids": [],
+                "shared_lemma_group_ids": [],
+                "dependency_context_sha256": "a" * 64,
+            },
+        }
+        graph = {"hard_edges": []}
+        ledger = {
+            "schema_version": cron.DEPENDENCY_LEDGER_SCHEMA,
+            "consumer_theorem_id": child,
+            "observed_theorem_dag_sha256": "b" * 64,
+            "dependency_context_sha256": "a" * 64,
+            "repository_revision": "base",
+            "direct_parent_ids": ["THM-M-0001"],
+            "transitive_ancestor_ids": ["THM-M-0001", "THM-M-0002"],
+            "hard_edge_ids": [],
+            "reuse_hint_ids": [],
+            "shared_group_ids": [],
+            "inspections": [],
+            "reuse_decisions": [],
+            "unresolved_compatibility_obligations": [],
+        }
+        with tempfile.TemporaryDirectory() as raw:
+            path = Path(raw) / "ledger.json"
+            path.write_text(json.dumps(ledger), encoding="utf-8")
+            with mock.patch.object(cron, "theorem_dag_v2", return_value=(graph, nodes)):
+                self.assertEqual(
+                    cron.expected_dependency_context(child)["transitive_ancestor_ids"],
+                    ["THM-M-0002", "THM-M-0001"],
+                )
+                with self.assertRaisesRegex(ValueError, "incomplete transitive_ancestor_ids"):
+                    cron.validate_dependency_reuse_ledger(path, child)
+
     def test_scheduler_loader_rejects_incomplete_transitive_parent_closure(self) -> None:
         graph = copy.deepcopy(cron.read_json(cron.THEOREM_DAG_V2))
         target = next(row for row in graph["theorems"] if row["direct_hard_parents"])
@@ -1924,7 +2176,48 @@ class SchedulerCapacityTests(unittest.TestCase):
     def test_app_server_runtime_is_isolated_from_legacy_claim_ledger(self) -> None:
         self.assertNotEqual(cron.RUNTIME, cron.LEGACY_RUNTIME)
         self.assertEqual(cron.RUNTIME.name, "stage1-v2-app-server")
-        self.assertEqual(cron.PAUSE_FILE, cron.LEGACY_RUNTIME / "PAUSED")
+        self.assertEqual(cron.PAUSE_FILE, cron.RUNTIME / "PAUSED")
+        self.assertEqual(cron.LEGACY_PAUSE_FILE, cron.LEGACY_RUNTIME / "PAUSED")
+
+    def test_current_and_legacy_pause_markers_both_freeze_execution(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            current = root / "current" / "PAUSED"
+            legacy = root / "legacy" / "PAUSED"
+            with (
+                mock.patch.object(cron, "RUNTIME", current.parent),
+                mock.patch.object(cron, "LEGACY_RUNTIME", legacy.parent),
+                mock.patch.object(cron, "PAUSE_FILE", current),
+                mock.patch.object(cron, "LEGACY_PAUSE_FILE", legacy),
+            ):
+                self.assertFalse(cron.execution_is_paused())
+                legacy.parent.mkdir(parents=True)
+                legacy.write_text("paused\n", encoding="utf-8")
+                self.assertTrue(cron.execution_is_paused())
+                legacy.unlink()
+                current.parent.mkdir(parents=True)
+                current.write_text("paused\n", encoding="utf-8")
+                self.assertTrue(cron.execution_is_paused())
+
+    def test_legacy_pause_is_migrated_without_clearing_the_freeze(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            runtime = root / ".cron" / "current"
+            legacy_runtime = root / ".cron" / "legacy"
+            current = runtime / "PAUSED"
+            legacy = legacy_runtime / "PAUSED"
+            legacy.parent.mkdir(parents=True)
+            legacy.write_text("frozen-boundary\n", encoding="utf-8")
+            with (
+                mock.patch.object(cron, "RUNTIME", runtime),
+                mock.patch.object(cron, "LEGACY_RUNTIME", legacy_runtime),
+                mock.patch.object(cron, "PAUSE_FILE", current),
+                mock.patch.object(cron, "LEGACY_PAUSE_FILE", legacy),
+            ):
+                self.assertTrue(cron.migrate_pause_marker())
+                self.assertEqual(current.read_text(encoding="utf-8"), "frozen-boundary\n")
+                self.assertTrue(legacy.exists())
+                self.assertTrue(cron.execution_is_paused())
 
     def test_worker_argv_binds_exact_ultra_fast_runtime_contract(self) -> None:
         argv = cron.worker_argv(
@@ -1946,6 +2239,1026 @@ class SchedulerCapacityTests(unittest.TestCase):
                 Path("/repo/worker"), Path("/repo/prompt"), Path("/repo/log"),
                 Path("/repo/status"), Path("/repo/objective"),
             )
+
+    def test_worker_argv_requires_explicit_client_lane_and_review_binding(self) -> None:
+        implementation = cron.worker_argv(
+            Path("/repo/worker"), Path("/repo/prompt"), Path("/repo/log"),
+            Path("/repo/status"), Path("/repo/objective"),
+        )
+        self.assertEqual(
+            implementation[implementation.index("--lane") + 1], cron.IMPLEMENTATION_LANE
+        )
+        self.assertNotIn("--binding", implementation)
+        binding = Path("/repo/review-binding.json")
+        review = cron.worker_argv(
+            Path("/repo"), Path("/repo/prompt"), Path("/repo/log"),
+            Path("/repo/status"), Path("/repo/objective"),
+            lane=cron.REVIEW_LANE, binding_path=binding,
+        )
+        self.assertEqual(review[review.index("--lane") + 1], cron.REVIEW_LANE)
+        self.assertEqual(review[review.index("--binding") + 1], str(binding))
+        with self.assertRaisesRegex(SystemExit, "requires a scheduler-owned binding"):
+            cron.worker_argv(
+                Path("/repo"), Path("/repo/prompt"), Path("/repo/log"),
+                Path("/repo/status"), Path("/repo/objective"), lane=cron.REVIEW_LANE,
+            )
+        resumed = cron.worker_argv(
+            Path("/repo/worker"), Path("/repo/prompt"), Path("/repo/log"),
+            Path("/repo/status"), Path("/repo/objective"), thread_id="thread-123",
+        )
+        self.assertEqual(resumed[resumed.index("--thread-id") + 1], "thread-123")
+        with self.assertRaisesRegex(SystemExit, "thread id is malformed"):
+            cron.worker_argv(
+                Path("/repo/worker"), Path("/repo/prompt"), Path("/repo/log"),
+                Path("/repo/status"), Path("/repo/objective"), thread_id="bad thread",
+            )
+
+    def test_active_lease_budget_is_shared_by_implementation_and_review(self) -> None:
+        claims = [
+            {
+                "lane": cron.IMPLEMENTATION_LANE,
+                "runtime_protocol": cron.RUNTIME_PROTOCOL,
+                "status": "live",
+            }
+            for _ in range(12)
+        ] + [
+            {
+                "lane": cron.REVIEW_LANE,
+                "runtime_protocol": cron.RUNTIME_PROTOCOL,
+                "status": "preparing",
+            }
+            for _ in range(8)
+        ]
+        with (
+            mock.patch.object(
+                cron, "app_server_worker_is_live",
+                return_value=True,
+            ),
+            mock.patch.object(cron, "app_server_child_is_live", return_value=False),
+        ):
+            self.assertEqual(len(cron.active_lane_leases(claims)), cron.MAX_WORKERS)
+
+    def test_quarantined_live_identity_blocks_lane_allocation(self) -> None:
+        claims = [{"runtime_protocol": cron.RUNTIME_PROTOCOL, "status": "quarantined"}]
+        with (
+            mock.patch.object(cron, "app_server_worker_is_live", return_value=True),
+            mock.patch.object(cron, "app_server_child_is_live", return_value=False),
+            self.assertRaisesRegex(SystemExit, "quarantined live app-server identity"),
+        ):
+            cron.refuse_unsafe_live_identities(claims)
+
+    @staticmethod
+    def write_proc_entry(
+        proc_root: Path,
+        pid: int,
+        command: list[str],
+        *,
+        parent: int = 1,
+        start_ticks: int = 12345,
+    ) -> None:
+        entry = proc_root / str(pid)
+        entry.mkdir(parents=True)
+        entry.joinpath("cmdline").write_bytes(
+            b"\0".join(part.encode() for part in command) + b"\0"
+        )
+        # process_start_ticks consumes field 22 and proc_parent_pid consumes
+        # field 4. The values after comm begin at field 3.
+        fields = ["S", str(parent)] + ["0"] * 17 + [str(start_ticks)]
+        entry.joinpath("stat").write_text(
+            f"{pid} (stage1-fixture) " + " ".join(fields) + "\n",
+            encoding="utf-8",
+        )
+
+    def process_inventory_fixture(
+        self, root: Path, claim: dict[str, object]
+    ) -> tuple[Path, list[str]]:
+        runtime = root / ".cron" / "stage1-v2-app-server"
+        claim_id = str(claim["claim_id"])
+        workspace = runtime / "workers" / "slot1"
+        prompt = runtime / "prompts" / f"{claim_id}.txt"
+        objective = runtime / "goals" / f"{claim_id}.txt"
+        status = runtime / "app-server" / f"{claim_id}.json"
+        output = runtime / "logs" / f"{claim_id}.out"
+        command = [
+            "/usr/bin/python3", str(root / "scripts" / "stage1_app_server_client.py"),
+            "--workspace", str(workspace), "--prompt", str(prompt),
+            "--objective", str(objective), "--status", str(status),
+            "--log", str(output), "--lane", cron.IMPLEMENTATION_LANE,
+            "--model", cron.CODEX_MODEL, "--effort", cron.CODEX_REASONING_EFFORT,
+            "--service-tier", cron.CODEX_SERVICE_TIER,
+        ]
+        claim.update(
+            lane=cron.IMPLEMENTATION_LANE,
+            slot=1,
+            workspace=str(workspace),
+            app_server_status=str(status),
+            goal_objective_path=str(objective),
+            output_log=str(output),
+            runtime_protocol=cron.RUNTIME_PROTOCOL,
+            status="preparing",
+            pid=None,
+        )
+        return runtime, command
+
+    def test_proc_inventory_recovers_unique_preparing_claim_identity(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / "repo"
+            proc_root = Path(directory) / "proc"
+            proc_root.mkdir()
+            claim: dict[str, object] = {
+                "claim_id": "20260716T120000Z-0123456789ab",
+            }
+            runtime, command = self.process_inventory_fixture(root, claim)
+            self.write_proc_entry(proc_root, 4242, command, start_ticks=98765)
+            with (
+                mock.patch.object(cron, "ROOT", root),
+                mock.patch.object(cron, "RUNTIME", runtime),
+                mock.patch.object(
+                    cron, "APP_SERVER_CLIENT",
+                    root / "scripts" / "stage1_app_server_client.py",
+                ),
+                mock.patch.object(cron, "PROC_ROOT", proc_root),
+            ):
+                changed = cron.reconcile_process_inventory([claim])
+            self.assertTrue(changed)
+            self.assertEqual((claim["pid"], claim["pid_start_ticks"]), (4242, 98765))
+
+    def test_refresh_reconciles_process_identity_before_claim_mutation(self) -> None:
+        item = {
+            "id": "S56-M-0001-INTAKE",
+            "theorem_id": "THM-M-0001",
+            "owned_paths": ["Stage1_Instances/THM-M-0001"],
+            "state": "[ ]",
+        }
+        claim = self.canonical_claim(item, "preparing")
+        events: list[str] = []
+        with tempfile.TemporaryDirectory() as directory:
+            with (
+                mock.patch.object(cron, "PROC_ROOT", Path(directory) / "proc"),
+                mock.patch.object(cron, "load_claims", side_effect=lambda: events.append("load") or [claim]),
+                mock.patch.object(
+                    cron, "reconcile_process_inventory",
+                    side_effect=lambda _claims: events.append("inventory") or False,
+                ),
+                mock.patch.object(
+                    cron, "run",
+                    side_effect=lambda *_args, **_kwargs: events.append("git")
+                    or subprocess.CompletedProcess([], 0, "base\n", ""),
+                ),
+                mock.patch.object(cron, "theorem_dag_v2", return_value=({}, {
+                    item["theorem_id"]: {"v2_execution_rank": 1},
+                })),
+                mock.patch.object(cron, "app_server_worker_is_live", return_value=False),
+                mock.patch.object(cron, "app_server_child_is_live", return_value=False),
+                mock.patch.object(cron, "recover_claim_process_identity", return_value=False),
+                mock.patch.object(cron, "save_claims"),
+            ):
+                cron.refresh_claims([item])
+        self.assertLess(events.index("inventory"), events.index("git"))
+
+    def test_proc_inventory_rejects_unledgered_client_without_disclosing_argv(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / "repo"
+            proc_root = Path(directory) / "proc"
+            proc_root.mkdir()
+            claim: dict[str, object] = {
+                "claim_id": "20260716T120000Z-0123456789ab",
+            }
+            runtime, command = self.process_inventory_fixture(root, claim)
+            self.write_proc_entry(proc_root, 4242, command)
+            with (
+                mock.patch.object(cron, "ROOT", root),
+                mock.patch.object(cron, "RUNTIME", runtime),
+                mock.patch.object(
+                    cron, "APP_SERVER_CLIENT",
+                    root / "scripts" / "stage1_app_server_client.py",
+                ),
+                mock.patch.object(cron, "PROC_ROOT", proc_root),
+                self.assertRaisesRegex(SystemExit, "unledgered or ambiguous"),
+            ):
+                cron.reconcile_process_inventory([])
+
+    def test_proc_inventory_rejects_unbound_child_and_ignores_unrelated_process(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / "repo"
+            proc_root = Path(directory) / "proc"
+            proc_root.mkdir()
+            claim: dict[str, object] = {
+                "claim_id": "20260716T120000Z-0123456789ab",
+            }
+            runtime, command = self.process_inventory_fixture(root, claim)
+            self.write_proc_entry(proc_root, 4242, command)
+            self.write_proc_entry(
+                proc_root,
+                4243,
+                ["/usr/bin/codex", *cron.REQUIRED_APP_SERVER_ARGV],
+                parent=4242,
+                start_ticks=777,
+            )
+            self.write_proc_entry(
+                proc_root, 5000, ["/usr/bin/codex", "app-server", "proxy"]
+            )
+            with (
+                mock.patch.object(cron, "ROOT", root),
+                mock.patch.object(cron, "RUNTIME", runtime),
+                mock.patch.object(
+                    cron, "APP_SERVER_CLIENT",
+                    root / "scripts" / "stage1_app_server_client.py",
+                ),
+                mock.patch.object(cron, "PROC_ROOT", proc_root),
+                self.assertRaisesRegex(SystemExit, "unledgered Stage1 app-server child"),
+            ):
+                cron.reconcile_process_inventory([claim])
+
+    def test_proc_inventory_accepts_child_only_with_claim_bound_status(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / "repo"
+            proc_root = Path(directory) / "proc"
+            proc_root.mkdir()
+            claim: dict[str, object] = {
+                "claim_id": "20260716T120000Z-0123456789ab",
+            }
+            runtime, command = self.process_inventory_fixture(root, claim)
+            self.write_proc_entry(proc_root, 4242, command)
+            self.write_proc_entry(
+                proc_root,
+                4243,
+                ["/usr/bin/codex", *cron.REQUIRED_APP_SERVER_ARGV],
+                parent=4242,
+                start_ticks=777,
+            )
+            status = Path(str(claim["app_server_status"]))
+            status.parent.mkdir(parents=True)
+            status.write_text(json.dumps({
+                "app_server_pid": 4243,
+                "app_server_start_ticks": 777,
+            }) + "\n", encoding="utf-8")
+            with (
+                mock.patch.object(cron, "ROOT", root),
+                mock.patch.object(cron, "RUNTIME", runtime),
+                mock.patch.object(
+                    cron, "APP_SERVER_CLIENT",
+                    root / "scripts" / "stage1_app_server_client.py",
+                ),
+                mock.patch.object(cron, "PROC_ROOT", proc_root),
+            ):
+                self.assertTrue(cron.reconcile_process_inventory([claim]))
+
+    def test_proc_inventory_rejects_orphan_child_after_canonical_parent_exits(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / "repo"
+            proc_root = Path(directory) / "proc"
+            proc_root.mkdir()
+            claim: dict[str, object] = {
+                "claim_id": "20260716T120000Z-0123456789ab",
+            }
+            runtime, _command = self.process_inventory_fixture(root, claim)
+            self.write_proc_entry(
+                proc_root,
+                4243,
+                ["/usr/bin/codex", *cron.REQUIRED_APP_SERVER_ARGV],
+                parent=1,
+                start_ticks=777,
+            )
+            status = Path(str(claim["app_server_status"]))
+            status.parent.mkdir(parents=True)
+            status.write_text(json.dumps({
+                "app_server_pid": 4243,
+                "app_server_start_ticks": 777,
+            }) + "\n", encoding="utf-8")
+            with (
+                mock.patch.object(cron, "ROOT", root),
+                mock.patch.object(cron, "RUNTIME", runtime),
+                mock.patch.object(
+                    cron, "APP_SERVER_CLIENT",
+                    root / "scripts" / "stage1_app_server_client.py",
+                ),
+                mock.patch.object(cron, "PROC_ROOT", proc_root),
+                self.assertRaisesRegex(SystemExit, "unledgered Stage1 app-server child"),
+            ):
+                cron.reconcile_process_inventory([])
+
+    def test_proc_inventory_rejects_duplicate_or_noncanonical_client_argv(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / "repo"
+            proc_root = Path(directory) / "proc"
+            proc_root.mkdir()
+            claim: dict[str, object] = {
+                "claim_id": "20260716T120000Z-0123456789ab",
+            }
+            runtime, command = self.process_inventory_fixture(root, claim)
+            command.extend(["--workspace", str(runtime / "workers" / "slot2")])
+            self.write_proc_entry(proc_root, 4242, command)
+            with (
+                mock.patch.object(cron, "ROOT", root),
+                mock.patch.object(cron, "RUNTIME", runtime),
+                mock.patch.object(
+                    cron, "APP_SERVER_CLIENT",
+                    root / "scripts" / "stage1_app_server_client.py",
+                ),
+                mock.patch.object(cron, "PROC_ROOT", proc_root),
+                self.assertRaisesRegex(SystemExit, "noncanonical Stage1 app-server client"),
+            ):
+                cron.stage1_process_inventory()
+
+    def test_review_candidates_use_stable_order_but_source_requires_provenance(self) -> None:
+        first = {
+            "id": "S56-M-0001-INTAKE", "theorem_id": "THM-M-0001",
+            "phase": "intake", "layer": 0, "state": "[_]",
+        }
+        second = {
+            "id": "S56-M-0002-INTAKE", "theorem_id": "THM-M-0002",
+            "phase": "intake", "layer": 0, "state": "[_]",
+        }
+        claims: list[dict[str, object]] = [
+            {
+                "item_id": item["id"],
+                "lane": cron.IMPLEMENTATION_LANE,
+                "status": "finished_integrated",
+                "runtime_protocol": cron.RUNTIME_PROTOCOL,
+                "fresh_revalidation": False,
+            }
+            for item in (first, second)
+        ]
+        nodes = {
+            first["theorem_id"]: {"v2_execution_rank": 2},
+            second["theorem_id"]: {"v2_execution_rank": 1},
+        }
+        with mock.patch.object(cron, "theorem_dag_v2", return_value=({}, nodes)):
+            selected = cron.review_candidates([first, second], claims)
+        self.assertEqual([item["id"] for item in selected], [second["id"], first["id"]])
+        self.assertIsNone(cron.review_source_claim(first, claims))
+        claims.append({
+            "item_id": second["id"], "lane": cron.REVIEW_LANE, "status": "review_finished",
+        })
+        with mock.patch.object(cron, "theorem_dag_v2", return_value=({}, nodes)):
+            selected = cron.review_candidates([first, second], claims)
+        self.assertEqual([item["id"] for item in selected], [first["id"]])
+
+    def test_review_failed_retries_after_backoff_but_live_implementation_excludes(self) -> None:
+        item = {
+            "id": "S56-M-0001-INTAKE", "theorem_id": "THM-M-0001",
+            "phase": "intake", "layer": 0, "state": "[_]", "depends_on": [],
+        }
+        nodes = {item["theorem_id"]: {"v2_execution_rank": 1}}
+        expired = (dt.datetime.now(dt.timezone.utc) - dt.timedelta(seconds=1)).isoformat()
+        with mock.patch.object(cron, "theorem_dag_v2", return_value=({}, nodes)):
+            source = {
+                "item_id": item["id"], "lane": cron.IMPLEMENTATION_LANE,
+                "status": "finished_integrated", "runtime_protocol": cron.RUNTIME_PROTOCOL,
+                "fresh_revalidation": False,
+            }
+            self.assertEqual(
+                cron.review_candidates([item], [source, {
+                    "item_id": item["id"], "lane": cron.REVIEW_LANE,
+                    "status": "review_failed", "review_retry_after": expired,
+                }]),
+                [item],
+            )
+            self.assertEqual(
+                cron.review_candidates([item], [{
+                    "item_id": item["id"], "lane": cron.IMPLEMENTATION_LANE,
+                    "status": "live",
+                }]),
+                [],
+            )
+
+    def test_review_candidates_require_master_accepted_phase_dependencies(self) -> None:
+        intake = {
+            "id": "S56-M-0001-INTAKE", "theorem_id": "THM-M-0001",
+            "phase": "intake", "layer": 0, "state": "[_]", "depends_on": [],
+        }
+        statement = {
+            "id": "S56-M-0001-STATEMENT", "theorem_id": "THM-M-0001",
+            "phase": "statement", "layer": 1, "state": "[_]",
+            "depends_on": [intake["id"]],
+        }
+        nodes = {intake["theorem_id"]: {"v2_execution_rank": 1}}
+        with mock.patch.object(cron, "theorem_dag_v2", return_value=({}, nodes)):
+            intake_source = {
+                "item_id": intake["id"], "lane": cron.IMPLEMENTATION_LANE,
+                "status": "finished_integrated", "runtime_protocol": cron.RUNTIME_PROTOCOL,
+                "fresh_revalidation": False,
+            }
+            statement_source = {
+                "item_id": statement["id"], "lane": cron.IMPLEMENTATION_LANE,
+                "status": "finished_integrated", "runtime_protocol": cron.RUNTIME_PROTOCOL,
+                "fresh_revalidation": False,
+            }
+            self.assertEqual(
+                cron.review_candidates([intake, statement], [intake_source, statement_source]),
+                [intake],
+            )
+            intake["state"] = "[x]"
+            self.assertEqual(
+                cron.review_candidates([intake, statement], [intake_source, statement_source]),
+                [statement],
+            )
+
+    def test_historical_self_tested_item_requires_content_bound_revalidation_plan(self) -> None:
+        historical = {
+            "id": "S56-M-0001-INTAKE", "theorem_id": "THM-M-0001",
+            "phase": "intake", "layer": 0, "state": "[_]", "attempts": 1,
+            "depends_on": [], "owned_paths": ["Stage1_Instances/THM-M-0001"],
+        }
+        open_item = {
+            **historical,
+            "id": "S56-M-0002-INTAKE", "theorem_id": "THM-M-0002",
+            "state": "[ ]", "attempts": 0,
+            "owned_paths": ["Stage1_Instances/THM-M-0002"],
+        }
+        nodes = {
+            historical["theorem_id"]: {"v2_execution_rank": 1},
+            open_item["theorem_id"]: {"v2_execution_rank": 2},
+        }
+        with (
+            mock.patch.object(cron, "legacy_revalidation_lanes", return_value={}),
+            mock.patch.object(cron, "theorem_dag_v2", return_value=({}, nodes)),
+        ):
+            self.assertEqual(cron.implementation_candidates([historical, open_item], []), [open_item])
+        lane = {
+            "schema_version": "stage1-legacy-revalidation-lane/1.0",
+            "item_id": historical["id"], "theorem_id": historical["theorem_id"],
+            "phase": historical["phase"], "authoritative_state": "[_]",
+        }
+        with (
+            mock.patch.object(
+                cron, "legacy_revalidation_lanes", return_value={historical["id"]: lane}
+            ),
+            mock.patch.object(cron, "theorem_dag_v2", return_value=({}, nodes)),
+        ):
+            self.assertEqual(
+                cron.implementation_candidates([open_item, historical], []),
+                [historical, open_item],
+            )
+
+    def test_review_frontier_excludes_historical_marker_without_fresh_source(self) -> None:
+        item = {
+            "id": "S56-M-0001-INTAKE", "theorem_id": "THM-M-0001",
+            "phase": "intake", "layer": 0, "state": "[_]", "depends_on": [],
+        }
+        nodes = {item["theorem_id"]: {"v2_execution_rank": 1}}
+        with mock.patch.object(cron, "theorem_dag_v2", return_value=({}, nodes)):
+            self.assertEqual(cron.review_candidates([item], []), [])
+            self.assertEqual(
+                cron.review_candidates([item], [{
+                    "item_id": item["id"], "lane": cron.IMPLEMENTATION_LANE,
+                    "status": "finished_integrated", "runtime_protocol": cron.RUNTIME_PROTOCOL,
+                    "fresh_revalidation": False,
+                }]),
+                [item],
+            )
+
+    def test_scheduler_head_path_rejects_dirty_worktree_bytes(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            artifact = root / "evidence.json"
+            artifact.write_text("dirty\n", encoding="utf-8")
+            with (
+                mock.patch.object(cron, "ROOT", root),
+                mock.patch.object(
+                    cron, "run",
+                    return_value=subprocess.CompletedProcess([], 0, "evidence.json\n", ""),
+                ),
+                mock.patch.object(cron, "git_object_bytes", return_value=b"head\n"),
+                self.assertRaisesRegex(SystemExit, "worktree bytes disagree with HEAD"),
+            ):
+                cron.scheduler_head_path("evidence.json")
+
+    def test_refill_reviews_launches_read_only_lane_from_detached_checkout(self) -> None:
+        item = {
+            "id": "S56-M-0001-INTAKE", "theorem_id": "THM-M-0001",
+            "phase": "intake", "layer": 0, "state": "[_]", "attempts": 1,
+            "depends_on": [], "owned_paths": ["Stage1_Instances/THM-M-0001"],
+        }
+        role_map = {
+            "schema_version": cron.ROLE_MAP_SCHEMA, "item_id": item["id"],
+            "theorem_id": item["theorem_id"], "phase": item["phase"],
+            "base_revision": "b" * 40, "contract_sha256": "c" * 64,
+            "artifacts": [{
+                "role": "phase_receipt", "path": "Stage1_Instances/THM-M-0001/intake-receipt.json",
+                "sha256": "d" * 64, "git_blob": "e" * 40,
+            }],
+        }
+        validator = {
+            "path": "Stage1_Instances/THM-M-0001/check_intake.py", "sha256": "f" * 64,
+            "git_blob": "1" * 40, "argv": ["/usr/bin/python3", "-I", "-B", "check_intake.py"],
+            "recipe_sha256": "2" * 64,
+        }
+        saved: list[list[dict[str, object]]] = []
+        launched_argv: list[str] = []
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            runtime = root / ".cron" / "stage1-v2-app-server"
+            blueprint = root / "Docs" / "Stage1_Blueprint_v2.md"
+            theorem_dag = root / "Docs" / "Stage1_Theorem_DAG_v2.json"
+            blueprint.parent.mkdir(parents=True)
+            blueprint.write_text("blueprint\n", encoding="utf-8")
+            theorem_dag.write_text("{}\n", encoding="utf-8")
+            review_workspace = runtime / "review-workspaces" / "slot1"
+            review_workspace.mkdir(parents=True)
+
+            def launch(argv: list[str]) -> int:
+                launched_argv.extend(argv)
+                return 7654
+
+            def confirm(claims: list[dict[str, object]], cohort: list[dict[str, object]]) -> int:
+                cohort[0]["status"] = "live"
+                return 1
+
+            source_claim = {
+                "lane": cron.IMPLEMENTATION_LANE,
+                "item_id": item["id"],
+                "theorem_id": item["theorem_id"],
+                "owned_paths": item["owned_paths"],
+                "status": "finished_integrated",
+                "runtime_protocol": cron.RUNTIME_PROTOCOL,
+                "fresh_revalidation": False,
+                "claim_id": "20260716T120000Z-0123456789ab",
+                "base_revision": "b" * 40,
+                "goal_objective": "implement",
+                "goal_objective_path": str(runtime / "goals" / "impl.txt"),
+                "app_server_status": str(runtime / "app-server" / "impl.json"),
+                "output_log": str(runtime / "logs" / "impl.out"),
+                "workspace": str(runtime / "workers" / "slot2"),
+                "selftest_manifest": str(runtime / "workers" / "slot2" / ".stage1-worker-selftest.json"),
+            }
+
+            patches = [
+                mock.patch.object(cron, "ROOT", root),
+                mock.patch.object(cron, "RUNTIME", runtime),
+                mock.patch.object(cron, "BLUEPRINT", blueprint),
+                mock.patch.object(cron, "THEOREM_DAG_V2", theorem_dag),
+                mock.patch.object(cron, "PAUSE_FILE", root / "PAUSED"),
+                mock.patch.object(cron, "active_lane_leases", return_value=[]),
+                mock.patch.object(cron, "review_candidates", return_value=[item]),
+                mock.patch.object(cron, "build_review_role_map", return_value=role_map),
+                mock.patch.object(cron, "select_review_validator", return_value=validator),
+                mock.patch.object(cron, "snapshot_review_provenance", return_value={
+                    "schema_version": cron.WORKER_PROVENANCE_SCHEMA,
+                    "claim_sha256": "3" * 64,
+                    "status_sha256": "4" * 64,
+                    "files": {},
+                    "snapshot_sha256": "5" * 64,
+                }),
+                mock.patch.object(
+                    cron, "persist_review_provenance",
+                    return_value=(runtime / "worker-provenance" / "impl.json", "6" * 64),
+                ),
+                mock.patch.object(cron, "build_scheduler_review_manifest", return_value={
+                    "schema_version": "stage1-master-review-input/1.0",
+                    "manifest_sha256": "7" * 64,
+                }),
+                mock.patch.object(
+                    cron, "persist_review_manifest",
+                    return_value=(runtime / "review-manifests" / "review.json", "8" * 64),
+                ),
+                mock.patch.object(cron, "phase_contract", return_value={"phase": "intake"}),
+                mock.patch.object(cron, "theorem_dag_v2", return_value=({}, {
+                    item["theorem_id"]: {"v2_execution_rank": 1},
+                })),
+                mock.patch.object(cron, "run", return_value=subprocess.CompletedProcess([], 0, "b" * 40 + "\n", "")),
+                mock.patch.object(cron, "save_claims", side_effect=lambda rows: saved.append(copy.deepcopy(rows))),
+                mock.patch.object(cron, "prepare_review_workspace", return_value=review_workspace),
+                mock.patch.object(cron, "launch_app_server_worker", side_effect=launch),
+                mock.patch.object(cron, "process_start_ticks", return_value=99),
+                mock.patch.object(cron, "confirm_goal_handshakes", side_effect=confirm),
+            ]
+            with contextlib.ExitStack() as stack:
+                for patcher in patches:
+                    stack.enter_context(patcher)
+                count = cron.refill_reviews(
+                    20, data={"items": [item]}, ordered=[item], claims=[source_claim]
+                )
+                launched_claim = saved[-1][-1]
+                review_input = json.loads(Path(launched_claim["review_input_path"]).read_text())
+                prompt = Path(
+                    runtime / "prompts" / f"{launched_claim['claim_id']}.txt"
+                ).read_text()
+        self.assertEqual(count, 1)
+        claim = saved[-1][-1]
+        self.assertEqual(claim["lane"], cron.REVIEW_LANE)
+        self.assertEqual(claim["workspace"], str(review_workspace))
+        self.assertEqual(claim["review_manifest_sha256"], "7" * 64)
+        self.assertEqual(claim["review_provenance_sha256"], "6" * 64)
+        self.assertEqual(review_input["review_manifest"]["manifest_sha256"], "7" * 64)
+        self.assertEqual(
+            review_input["implementation_provenance"]["snapshot_sha256"], "5" * 64
+        )
+        self.assertIn("\"snapshot_sha256\": \"" + "5" * 64 + "\"", prompt)
+        self.assertIn("\"manifest_sha256\": \"" + "7" * 64 + "\"", prompt)
+        self.assertEqual(launched_argv[launched_argv.index("--lane") + 1], cron.REVIEW_LANE)
+        self.assertIn("--binding", launched_argv)
+
+    def test_review_pause_after_prepare_persists_all_unstarted_cancellations(self) -> None:
+        items = [
+            {
+                "id": f"S56-M-{index:04d}-INTAKE",
+                "theorem_id": f"THM-M-{index:04d}",
+                "phase": "intake", "layer": 0, "state": "[_]", "attempts": 1,
+                "depends_on": [],
+                "owned_paths": [f"Stage1_Instances/THM-M-{index:04d}"],
+            }
+            for index in (1, 2)
+        ]
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            runtime = root / ".cron/runtime"
+            pause = root / "PAUSED"
+            saved: list[list[dict[str, object]]] = []
+
+            def prepare(_slot: int, _base: str) -> Path:
+                pause.write_text("paused\n", encoding="utf-8")
+                return runtime / "review-workspaces/slot1"
+
+            def add_reservations(*args: object, **kwargs: object) -> int:
+                return 0
+
+            source_claims = [{
+                "lane": cron.IMPLEMENTATION_LANE, "item_id": item["id"],
+                "theorem_id": item["theorem_id"], "owned_paths": item["owned_paths"],
+                "status": "finished_integrated", "runtime_protocol": cron.RUNTIME_PROTOCOL,
+                "fresh_revalidation": False,
+            } for item in items]
+            # Exercise only the post-reservation launch gate by replacing the
+            # expensive evidence builders with canonical fixture values.
+            with (
+                mock.patch.object(cron, "ROOT", root),
+                mock.patch.object(cron, "RUNTIME", runtime),
+                mock.patch.object(cron, "PAUSE_FILE", pause),
+                mock.patch.object(cron, "active_lane_leases", return_value=[]),
+                mock.patch.object(cron, "review_candidates", return_value=items),
+                mock.patch.object(cron, "run", return_value=subprocess.CompletedProcess([], 0, "b" * 40 + "\n", "")),
+                mock.patch.object(cron, "theorem_dag_v2", return_value=({}, {
+                    item["theorem_id"]: {"v2_execution_rank": index}
+                    for index, item in enumerate(items, 1)
+                })),
+                mock.patch.object(cron, "review_source_claim", side_effect=lambda item, claims: next(c for c in source_claims if c["item_id"] == item["id"])),
+                mock.patch.object(cron, "build_review_role_map", return_value={"artifacts": []}),
+                mock.patch.object(cron, "select_review_validator", return_value={"recipe_sha256": "1" * 64}),
+                mock.patch.object(cron, "snapshot_review_provenance", return_value={}),
+                mock.patch.object(cron, "persist_review_provenance", return_value=(runtime / "p.json", "2" * 64)),
+                mock.patch.object(cron, "build_scheduler_review_manifest", return_value={"manifest_sha256": "3" * 64}),
+                mock.patch.object(cron, "persist_review_manifest", return_value=(runtime / "m.json", "4" * 64)),
+                mock.patch.object(cron, "phase_contract", return_value={}),
+                mock.patch.object(cron, "build_review_binding", return_value={}),
+                mock.patch.object(cron, "prepare_review_workspace", side_effect=prepare),
+                mock.patch.object(cron, "launch_app_server_worker") as launch,
+                mock.patch.object(cron, "confirm_goal_handshakes", side_effect=add_reservations),
+                mock.patch.object(cron, "save_claims", side_effect=lambda rows: saved.append(copy.deepcopy(rows))),
+            ):
+                cron.refill_reviews(
+                    2, data={"items": items}, ordered=items, claims=source_claims,
+                    selected_items=items, selected_slots=[1, 2],
+                )
+        review_rows = [row for row in saved[-1] if row.get("lane") == cron.REVIEW_LANE]
+        self.assertEqual([row["status"] for row in review_rows], ["cancelled", "cancelled"])
+        self.assertTrue(all("cancelled_at" in row for row in review_rows))
+        launch.assert_not_called()
+
+    def test_master_acceptance_replays_receipts_and_cas_closes_phase(self) -> None:
+        item = {
+            "id": "S56-M-0001-INTAKE", "theorem_id": "THM-M-0001",
+            "phase": "intake", "layer": 0, "state": "[_]", "attempts": 1,
+            "depends_on": [], "owned_paths": ["Stage1_Instances/THM-M-0001"],
+        }
+        review_output = {
+            "worker_verdict": "no_state_change", "review_verdict": "phase_accepted",
+            "audit_complete": False, "theorem_complete": False,
+            "status_boundary": "phase only",
+        }
+        manifest = {
+            "authority_revision": "a" * 40, "authority_tree": "b" * 40,
+            "blueprint_sha256": "", "manifest_sha256": "c" * 64,
+        }
+        role_map = {"manifest_sha256": "d" * 64, "artifacts": []}
+        validator = {"recipe_sha256": "e" * 64}
+        replay = {"result_sha256": "f" * 64}
+        decision = {
+            "decision": "phase_accepted", "phase_evidence_accepted": True,
+            "decision_sha256": "1" * 64,
+        }
+        claim = {
+            "lane": cron.REVIEW_LANE, "status": "review_finished",
+            "item_id": item["id"], "claim_id": "20260716T120000Z-abcdef123456",
+            "review_binding_sha256": "2" * 64,
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            blueprint = root / "Docs" / "Stage1_Blueprint_v2.md"
+            blueprint.parent.mkdir(parents=True)
+            blueprint.write_text("frozen [_] authority\n", encoding="utf-8")
+            manifest["blueprint_sha256"] = sha256(blueprint)
+            transaction = cron.FileTransaction()
+            original = copy.deepcopy(item)
+            with (
+                mock.patch.object(cron, "ROOT", root),
+                mock.patch.object(cron, "BLUEPRINT", blueprint),
+                mock.patch.object(cron, "PAUSE_FILE", root / "PAUSED"),
+                mock.patch.object(cron, "theorem_dag_v2", return_value=({}, {
+                    item["theorem_id"]: {"v2_execution_rank": 1},
+                })),
+                mock.patch.object(cron, "hard_edge_gate_status", return_value=("not_applicable", [])),
+                mock.patch.object(
+                    cron, "verify_review_evidence_bundle",
+                    return_value=(review_output, manifest, role_map, validator, {}),
+                ),
+                mock.patch.object(cron.acceptance_evidence, "replay_validator", return_value=replay),
+                mock.patch.object(
+                    cron.acceptance_evidence, "evaluate_replay_semantics", return_value=decision
+                ),
+                mock.patch.object(cron, "phase_acceptance_contract_record", return_value={}),
+                mock.patch.object(cron, "load_blueprint_items", return_value=[original]),
+                mock.patch.object(cron, "write_projection") as write_projection,
+                mock.patch.object(cron, "write_derived_surfaces") as write_derived,
+            ):
+                accepted, rejected = cron.consume_review_finished(
+                    {"items": [item]}, [item], [claim], transaction, limit=1
+                )
+            self.assertEqual(accepted, [item["id"]])
+            self.assertEqual(rejected, [])
+            self.assertEqual(item["state"], "[x]")
+            self.assertEqual(claim["status"], "master_accepted")
+            receipt = root / str(claim["master_receipt_path"])
+            self.assertTrue(receipt.is_file())
+            self.assertEqual(sha256(receipt), claim["master_receipt_sha256"])
+            write_projection.assert_called_once()
+            write_derived.assert_called_once()
+
+    def test_master_acceptance_rejects_legacy_hard_edge_evidence(self) -> None:
+        item = {
+            "id": "S56-M-0001-PROOF", "theorem_id": "THM-M-0001",
+            "phase": "proof", "layer": 4, "state": "[_]", "attempts": 1,
+            "depends_on": [], "owned_paths": ["Stage1_Instances/THM-M-0001"],
+        }
+        claim = {
+            "lane": cron.REVIEW_LANE, "status": "review_finished",
+            "item_id": item["id"], "claim_id": "20260716T120000Z-abcdef123456",
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            blueprint = root / "blueprint.md"
+            blueprint.write_text("[_]\n", encoding="utf-8")
+            verify = mock.Mock()
+            with (
+                mock.patch.object(cron, "ROOT", root),
+                mock.patch.object(cron, "BLUEPRINT", blueprint),
+                mock.patch.object(cron, "PAUSE_FILE", root / "PAUSED"),
+                mock.patch.object(cron, "theorem_dag_v2", return_value=({}, {
+                    item["theorem_id"]: {"v2_execution_rank": 1},
+                })),
+                mock.patch.object(
+                    cron, "hard_edge_gate_status",
+                    return_value=("legacy_evidence_present", []),
+                ),
+                mock.patch.object(cron, "verify_review_evidence_bundle", verify),
+            ):
+                accepted, rejected = cron.consume_review_finished(
+                    {"items": [item]}, [item], [claim], cron.FileTransaction(), limit=1
+                )
+        self.assertEqual(accepted, [])
+        self.assertEqual(rejected, [item["id"]])
+        self.assertEqual(item["state"], "[_]")
+        self.assertEqual(claim["status"], "review_failed")
+        self.assertIn("G08", claim["review_rejection_reason"])
+        verify.assert_not_called()
+
+    def test_master_acceptance_requires_every_phase_predecessor_x(self) -> None:
+        predecessor = {
+            "id": "S56-M-0001-INTAKE", "theorem_id": "THM-M-0001",
+            "phase": "intake", "layer": 0, "state": "[_]", "attempts": 1,
+            "depends_on": [], "owned_paths": ["Stage1_Instances/THM-M-0001"],
+        }
+        item = {
+            "id": "S56-M-0001-STATEMENT", "theorem_id": "THM-M-0001",
+            "phase": "statement", "layer": 1, "state": "[_]", "attempts": 1,
+            "depends_on": [predecessor["id"]],
+            "owned_paths": ["Stage1_Instances/THM-M-0001"],
+        }
+        claim = {
+            "lane": cron.REVIEW_LANE, "status": "review_finished",
+            "item_id": item["id"], "claim_id": "20260716T120000Z-abcdef123456",
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            blueprint = root / "blueprint.md"
+            blueprint.write_text("[_]\n", encoding="utf-8")
+            verify = mock.Mock()
+            with (
+                mock.patch.object(cron, "ROOT", root),
+                mock.patch.object(cron, "BLUEPRINT", blueprint),
+                mock.patch.object(cron, "PAUSE_FILE", root / "PAUSED"),
+                mock.patch.object(cron, "theorem_dag_v2", return_value=({}, {
+                    item["theorem_id"]: {"v2_execution_rank": 1},
+                })),
+                mock.patch.object(cron, "verify_review_evidence_bundle", verify),
+            ):
+                accepted, rejected = cron.consume_review_finished(
+                    {"items": [predecessor, item]}, [predecessor, item], [claim],
+                    cron.FileTransaction(), limit=1,
+                )
+        self.assertEqual(accepted, [])
+        self.assertEqual(rejected, [item["id"]])
+        self.assertEqual(item["state"], "[_]")
+        self.assertIn("predecessor", claim["review_rejection_reason"])
+        verify.assert_not_called()
+
+    def test_review_output_worker_verdict_must_match_frozen_receipt_and_handoff(self) -> None:
+        item = {
+            "id": "S56-M-0001-INTAKE", "theorem_id": "THM-M-0001",
+            "phase": "intake", "layer": 0, "state": "[_]", "attempts": 1,
+            "depends_on": [], "owned_paths": ["Stage1_Instances/THM-M-0001"],
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            runtime = root / ".cron" / "runtime"
+            claim_id = "20260716T120000Z-abcdef123456"
+            paths = {
+                "review_input": runtime / "review-inputs" / f"{claim_id}.json",
+                "manifest": runtime / "review-manifests" / f"{claim_id}.json",
+                "binding": runtime / "review-bindings" / f"{claim_id}.json",
+                "provenance": runtime / "worker-provenance" / "impl.json",
+                "prompt": runtime / "prompts" / f"{claim_id}.txt",
+                "status": runtime / "app-server" / f"{claim_id}.json",
+                "receipt": root / "Stage1_Instances" / "THM-M-0001" / "intake-receipt.json",
+            }
+            for path in paths.values():
+                path.parent.mkdir(parents=True, exist_ok=True)
+            receipt = {"worker_verdict": "no_state_change"}
+            paths["receipt"].write_text(json.dumps(receipt), encoding="utf-8")
+            handoff_bytes = json.dumps({"worker_verdict": "no_state_change"}).encode()
+            provenance = {
+                "files": {"selftest_manifest": {
+                    "content_base64": __import__("base64").b64encode(handoff_bytes).decode(),
+                }},
+            }
+            manifest = {
+                "manifest_sha256": "a" * 64, "base_revision": "r",
+                "blueprint_sha256": "s", "theorem_dag_sha256": "t",
+            }
+            role_map = {"artifacts": [{
+                "role": "phase_receipt",
+                "path": paths["receipt"].relative_to(root).as_posix(),
+                "sha256": sha256(paths["receipt"]),
+            }]}
+            validator = {"recipe_sha256": "b" * 64}
+            review_input = {
+                "schema_version": cron.REVIEW_INPUT_SCHEMA,
+                "review_claim_id": claim_id,
+                "item": item,
+                "implementation_provenance": provenance,
+                "implementation_provenance_path": str(paths["provenance"]),
+                "implementation_provenance_file_sha256": "p",
+                "review_manifest": manifest,
+                "review_manifest_path": str(paths["manifest"]),
+                "review_manifest_file_sha256": "m",
+                "role_map": role_map,
+                "validator_recipe": validator,
+            }
+            objective = cron.review_goal_objective(item)
+            prompt = cron.review_prompt(item, review_input, claim_id, runtime / "review-workspaces/slot1")
+            binding = {
+                "schema_version": cron.REVIEW_BINDING_SCHEMA,
+                "claim_id": claim_id, "item_id": item["id"],
+                "theorem_id": item["theorem_id"], "phase": item["phase"],
+                "prompt_sha256": hashlib.sha256(prompt.encode()).hexdigest(),
+                "objective_sha256": hashlib.sha256(objective.encode()).hexdigest(),
+                "artifact_digests": {
+                    role_map["artifacts"][0]["path"]: role_map["artifacts"][0]["sha256"]
+                },
+                "validator_recipe_sha256s": [validator["recipe_sha256"]],
+                "base_revision": "r", "blueprint_sha256": "s",
+                "theorem_dag_sha256": "t",
+            }
+            output = {
+                "schema_version": cron.REVIEW_OUTPUT_SCHEMA, "claim_id": claim_id,
+                "item_id": item["id"], "theorem_id": item["theorem_id"],
+                "phase": item["phase"], "worker_verdict": "accepted",
+                "review_verdict": "phase_accepted", "audit_complete": False,
+                "theorem_complete": False, "root_state": None,
+                "first_failed_gate": None, "retry_condition": None,
+                "status_boundary": "phase", "artifact_findings": [],
+                "reviewed_artifact_sha256s": binding["artifact_digests"],
+                "validator_recipe_sha256s": binding["validator_recipe_sha256s"],
+            }
+            status = {
+                "state": "finished", "review_output": output,
+                "review_output_text": json.dumps(output),
+            }
+            status["review_output_sha256"] = hashlib.sha256(
+                status["review_output_text"].encode()
+            ).hexdigest()
+            status["review_output_canonical_sha256"] = cron.canonical_json_sha256(output)
+            claim = {
+                "claim_id": claim_id, "item_id": item["id"],
+                "theorem_id": item["theorem_id"], "workspace": str(runtime / "review-workspaces/slot1"),
+                "review_input_path": str(paths["review_input"]),
+                "review_manifest_path": str(paths["manifest"]),
+                "review_binding_path": str(paths["binding"]),
+                "review_provenance_path": str(paths["provenance"]),
+                "review_manifest_sha256": manifest["manifest_sha256"],
+            }
+            claim["review_provenance_sha256"] = "p"
+            claim["review_manifest_file_sha256"] = "m"
+            paths["prompt"].write_text(prompt, encoding="utf-8")
+            with (
+                mock.patch.object(cron, "ROOT", root),
+                mock.patch.object(cron, "RUNTIME", runtime),
+                mock.patch.object(
+                    cron, "claimed_runtime_json",
+                    side_effect=[review_input, manifest, binding],
+                ),
+                mock.patch.object(
+                    cron, "read_exact_json_file", return_value=(provenance, b"{}")
+                ),
+                mock.patch.object(cron, "worker_status", return_value=status),
+            ):
+                with self.assertRaisesRegex(ValueError, "differs from immutable"):
+                    cron.verify_review_evidence_bundle(item, claim)
+
+    def test_pause_after_replay_rolls_back_without_receipt_or_x(self) -> None:
+        item = {
+            "id": "S56-M-0001-INTAKE", "theorem_id": "THM-M-0001",
+            "phase": "intake", "layer": 0, "state": "[_]", "attempts": 1,
+            "depends_on": [], "owned_paths": ["Stage1_Instances/THM-M-0001"],
+        }
+        claim = {
+            "lane": cron.REVIEW_LANE, "status": "review_finished",
+            "item_id": item["id"], "claim_id": "20260716T120000Z-abcdef123456",
+        }
+        output = {
+            "worker_verdict": "no_state_change", "review_verdict": "phase_accepted",
+            "audit_complete": False, "theorem_complete": False,
+        }
+        manifest = {"manifest_sha256": "a" * 64}
+        role_map = {"manifest_sha256": "b" * 64, "artifacts": []}
+        validator = {"recipe_sha256": "c" * 64}
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            blueprint = root / "blueprint.md"
+            blueprint.write_text("[_]\n", encoding="utf-8")
+            pause = root / "PAUSED"
+
+            def replay(*args: object, **kwargs: object) -> dict[str, object]:
+                pause.write_text("paused\n", encoding="utf-8")
+                return {"result_sha256": "d" * 64}
+
+            with (
+                mock.patch.object(cron, "ROOT", root),
+                mock.patch.object(cron, "RUNTIME", root / ".cron/runtime"),
+                mock.patch.object(cron, "BLUEPRINT", blueprint),
+                mock.patch.object(cron, "PAUSE_FILE", pause),
+                mock.patch.object(cron, "theorem_dag_v2", return_value=({}, {
+                    item["theorem_id"]: {"v2_execution_rank": 1},
+                })),
+                mock.patch.object(cron, "hard_edge_gate_status", return_value=("not_applicable", [])),
+                mock.patch.object(
+                    cron, "verify_review_evidence_bundle",
+                    return_value=(output, manifest, role_map, validator, {}),
+                ),
+                mock.patch.object(cron.acceptance_evidence, "replay_validator", side_effect=replay),
+                mock.patch.object(cron, "write_projection") as write_projection,
+            ):
+                with self.assertRaisesRegex(SystemExit, "pause after authority replay"):
+                    cron.consume_review_finished(
+                        {"items": [item]}, [item], [claim], cron.FileTransaction(), limit=1
+                    )
+            self.assertEqual(item["state"], "[_]")
+            self.assertFalse((root / "Stage1_Instances").exists())
+            write_projection.assert_not_called()
+
+    def test_review_finished_with_invalid_exact_output_is_failed_closed_on_refresh(self) -> None:
+        item = {
+            "id": "S56-M-0001-INTAKE", "theorem_id": "THM-M-0001",
+            "phase": "intake", "state": "[_]", "owned_paths": ["owner"],
+        }
+        claim = {
+            "lane": cron.REVIEW_LANE, "status": "review_finished",
+            "item_id": item["id"], "theorem_id": item["theorem_id"],
+            "owned_paths": item["owned_paths"],
+            "runtime_protocol": cron.RUNTIME_PROTOCOL,
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            runtime = root / ".cron/runtime"
+            with (
+                mock.patch.object(cron, "ROOT", root),
+                mock.patch.object(cron, "RUNTIME", runtime),
+                mock.patch.object(cron, "load_claims", return_value=[claim]),
+                mock.patch.object(cron, "save_claims"),
+                mock.patch.object(cron, "theorem_dag_v2", return_value=({}, {
+                    item["theorem_id"]: {"v2_execution_rank": 1},
+                })),
+                mock.patch.object(cron, "app_server_worker_is_live", return_value=False),
+                mock.patch.object(cron, "app_server_child_is_live", return_value=False),
+                mock.patch.object(cron, "CLAIM_ID_RE", mock.Mock(fullmatch=mock.Mock(return_value=True))),
+                mock.patch.object(cron, "run", return_value=subprocess.CompletedProcess([], 0, "a" * 40 + "\n", "")),
+                mock.patch.object(cron, "worker_status", return_value={"state": "finished"}),
+                mock.patch.object(cron, "claimed_runtime_json", return_value={}),
+            ):
+                kept = cron.refresh_claims([item])
+        self.assertEqual(kept[0]["status"], "review_failed")
+        self.assertIn("review output", kept[0]["review_failure_reason"])
 
     def test_pid_reuse_fails_closed_on_start_tick_mismatch(self) -> None:
         item = {
@@ -2097,6 +3410,15 @@ class SchedulerCapacityTests(unittest.TestCase):
             workspace = runtime / "workers" / "slot1"
             workspace.mkdir(parents=True)
             claim["workspace"] = str(workspace)
+            old_objective = str(claim["goal_objective"])
+            old_status = {
+                "thread_id": "thread-existing-1",
+                "goal": {
+                    "threadId": "thread-existing-1",
+                    "objective": old_objective,
+                    "status": "active",
+                },
+            }
             launched: list[list[str]] = []
 
             def fake_launch(argv: list[str]) -> int:
@@ -2110,6 +3432,7 @@ class SchedulerCapacityTests(unittest.TestCase):
                 mock.patch.object(cron, "sync_guard"),
                 mock.patch.object(cron, "load_dag", return_value=(data, [item])),
                 mock.patch.object(cron, "refresh_claims", return_value=[claim]),
+                mock.patch.object(cron, "worker_status", return_value=old_status),
                 mock.patch.object(cron, "app_server_worker_is_live", return_value=True),
                 mock.patch.object(cron, "terminate_app_server_worker", return_value=True) as terminate,
                 mock.patch.object(cron, "launch_app_server_worker", side_effect=fake_launch),
@@ -2124,8 +3447,42 @@ class SchedulerCapacityTests(unittest.TestCase):
             self.assertEqual(len(launched), 1)
             self.assertEqual(launched[0][1], str(cron.APP_SERVER_CLIENT))
             self.assertNotIn("tmux", launched[0])
+            self.assertEqual(
+                launched[0][launched[0].index("--thread-id") + 1], "thread-existing-1"
+            )
             self.assertEqual(claim["status"], "live")
             self.assertEqual(claim["pid_start_ticks"], 999)
+            self.assertEqual(claim["goal_objective"], old_objective)
+            self.assertEqual(claim["previous_runtime"]["thread_id"], "thread-existing-1")
+
+    def test_restart_live_workers_refuses_missing_resume_thread_before_stop(self) -> None:
+        item = {
+            "id": "S56-M-0001-INTAKE", "theorem_id": "THM-M-0001",
+            "owned_paths": ["Stage1_Instances/THM-M-0001"], "state": "[ ]",
+        }
+        claim = self.canonical_claim(item, "live")
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            workspace = root / "runtime/workers/slot1"
+            workspace.mkdir(parents=True)
+            claim["workspace"] = str(workspace)
+            terminate = mock.Mock(return_value=True)
+            with (
+                mock.patch.object(cron, "ROOT", root),
+                mock.patch.object(cron, "RUNTIME", root / "runtime"),
+                mock.patch.object(cron, "PAUSE_FILE", root / "PAUSED"),
+                mock.patch.object(cron, "sync_guard"),
+                mock.patch.object(cron, "load_dag", return_value=({"items": [item]}, [item])),
+                mock.patch.object(cron, "refresh_claims", return_value=[claim]),
+                mock.patch.object(cron, "worker_status", return_value={"goal": {}}),
+                mock.patch.object(cron, "terminate_app_server_worker", terminate),
+                mock.patch.object(cron, "theorem_dag_v2", return_value=({}, {
+                    item["theorem_id"]: {"v2_execution_rank": 1},
+                })),
+                self.assertRaisesRegex(SystemExit, "exact active thread/goal"),
+            ):
+                cron.restart_live_workers(1)
+        terminate.assert_not_called()
 
     def test_paused_tick_is_noop_before_sync_or_integration(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -2133,6 +3490,7 @@ class SchedulerCapacityTests(unittest.TestCase):
             pause_file.write_text("paused\n", encoding="utf-8")
             with (
                 mock.patch.object(cron, "PAUSE_FILE", pause_file),
+                mock.patch.object(cron, "LEGACY_PAUSE_FILE", pause_file),
                 mock.patch.object(cron, "recover_integration_wal") as recover,
                 mock.patch.object(cron, "sync_guard") as sync,
                 mock.patch.object(cron, "integrate") as integrate,
@@ -2149,6 +3507,7 @@ class SchedulerCapacityTests(unittest.TestCase):
             pause_file.write_text("paused\n", encoding="utf-8")
             with (
                 mock.patch.object(cron, "PAUSE_FILE", pause_file),
+                mock.patch.object(cron, "LEGACY_PAUSE_FILE", pause_file),
                 mock.patch.object(cron, "run") as run,
                 self.assertRaisesRegex(SystemExit, "paused"),
             ):
@@ -2216,6 +3575,7 @@ class SchedulerCapacityTests(unittest.TestCase):
             with (
                 mock.patch.object(cron, "RUNTIME", runtime),
                 mock.patch.object(cron, "PAUSE_FILE", pause_file),
+                mock.patch.object(cron, "LEGACY_PAUSE_FILE", pause_file),
                 mock.patch.object(cron.sys, "argv", argv),
                 mock.patch.object(cron, "pause") as pause,
             ):
@@ -2236,6 +3596,7 @@ class SchedulerCapacityTests(unittest.TestCase):
                 mock.patch.object(cron, "ROOT", root),
                 mock.patch.object(cron, "RUNTIME", runtime),
                 mock.patch.object(cron, "PAUSE_FILE", pause_file),
+                mock.patch.object(cron, "LEGACY_PAUSE_FILE", pause_file),
                 mock.patch.object(cron, "validate_runtime_root"),
                 mock.patch.object(
                     cron,
@@ -2656,6 +4017,10 @@ class CheckpointManifestTests(unittest.TestCase):
         subprocess.run(["git", "push", "-qu", "origin", "main"], cwd=self.root, check=True)
         self.runtime = self.root / ".cron" / "stage1-rev56"
         self.runtime.mkdir(parents=True)
+        self.pause = self.sandbox / "PAUSED"
+        pause_patcher = mock.patch.object(cron, "PAUSE_FILE", self.pause)
+        pause_patcher.start()
+        self.addCleanup(pause_patcher.stop)
 
     def write_pending(self) -> dict[str, object]:
         base = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=self.root, text=True).strip()
@@ -2693,6 +4058,25 @@ class CheckpointManifestTests(unittest.TestCase):
         ):
             with self.assertRaisesRegex(SystemExit, "changed after validation"):
                 cron.checkpoint_integration()
+
+    def test_checkpoint_refuses_pause_before_staging(self) -> None:
+        self.target.write_text('{"theorem_id":"THM-M-0001","value":"validated"}\n', encoding="utf-8")
+        self.write_pending()
+        pause = self.sandbox / "PAUSED"
+        pause.write_text("paused\n", encoding="utf-8")
+        with (
+            mock.patch.object(cron, "ROOT", self.root),
+            mock.patch.object(cron, "RUNTIME", self.runtime),
+            mock.patch.object(cron, "PAUSE_FILE", pause),
+            self.assertRaisesRegex(SystemExit, "checkpoint refused"),
+        ):
+            cron.checkpoint_integration()
+        self.assertEqual(
+            subprocess.check_output(
+                ["git", "diff", "--cached", "--name-only"], cwd=self.root, text=True
+            ).strip(),
+            "",
+        )
 
     def test_checkpoint_rejects_partial_state_surface_manifest(self) -> None:
         relative = "Docs/Stage1_Blueprint_v2.md"

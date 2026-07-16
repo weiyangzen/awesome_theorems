@@ -22,6 +22,10 @@ V2_BLUEPRINT = ROOT / "Docs" / "Stage1_Blueprint_v2.md"
 V2_THEOREM_DAG = ROOT / "Docs" / "Stage1_Theorem_DAG_v2.json"
 V2_VALIDATOR = ROOT / "Docs" / "tools" / "check_stage1_theorem_dag_v2.py"
 V2_LEDGER_TEST = ROOT / "scripts" / "test_stage1_execution_cron.py"
+PHASE_ACCEPTANCE_CONTRACT = ROOT / "Docs" / "Stage1_Phase_Acceptance_Contracts.json"
+PHASE_ACCEPTANCE_VALIDATOR = (
+    ROOT / "Docs" / "tools" / "check_stage1_phase_acceptance_contracts.py"
+)
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import generate_stage1_blueprint as stage1  # noqa: E402
@@ -61,6 +65,8 @@ def main() -> None:
     require(V2_THEOREM_DAG.is_file(), "v2 theorem dependency DAG is missing")
     require(V2_VALIDATOR.is_file(), "v2 theorem DAG validator is missing")
     require(V2_LEDGER_TEST.is_file(), "v2 dependency ledger regression gate is missing")
+    require(PHASE_ACCEPTANCE_CONTRACT.is_file(), "phase acceptance contract is missing")
+    require(PHASE_ACCEPTANCE_VALIDATOR.is_file(), "phase acceptance contract validator is missing")
     v2_blueprint = V2_BLUEPRINT.read_text(encoding="utf-8")
     v2_requirements = (
         "Stage1 v2 Theorem Dependency and Reuse Blueprint",
@@ -236,6 +242,17 @@ def main() -> None:
         v2_check.returncode == 0,
         "v2 theorem DAG validator failed: " + (v2_check.stderr or v2_check.stdout).strip(),
     )
+    phase_acceptance_check = subprocess.run(
+        [sys.executable, str(PHASE_ACCEPTANCE_VALIDATOR)],
+        cwd=ROOT,
+        text=True,
+        capture_output=True,
+    )
+    require(
+        phase_acceptance_check.returncode == 0,
+        "phase acceptance contract validator failed: "
+        + (phase_acceptance_check.stderr or phase_acceptance_check.stdout).strip(),
+    )
     ledger_check = subprocess.run(
         [sys.executable, "-m", "unittest", "scripts/test_stage1_execution_cron.py"],
         cwd=ROOT,
@@ -251,7 +268,8 @@ def main() -> None:
     print(
         "check_stage1_standard: ok "
         f"({len(FEATURE_GROUPS)} assurance groups, 41 legacy rows, "
-        "300 legacy slots, 1546 uniform-L0 Lean 4 targets, v2 theorem DAG, execution skill present)"
+        "300 legacy slots, 1546 uniform-L0 Lean 4 targets, v2 theorem DAG, "
+        "seven-phase acceptance contract, execution skill present)"
     )
 
 
