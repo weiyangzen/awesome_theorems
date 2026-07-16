@@ -1,0 +1,75 @@
+{
+  "schema_version": "stage1-target-scoped-blocker/1.0",
+  "blocker_id": "S56-M-0387-RELEASE-validator-policy-blocker-20260717-slot42-v1",
+  "item_id": "S56-M-0387-RELEASE",
+  "theorem_id": "THM-M-0387",
+  "phase": "release",
+  "base_revision": "738c0e35f61cf22c1ab5e31a5cd0ad6432f12f01",
+  "base_tree": "90fca08279c74cf64ace6ae4fa9fbe4fa31896dc",
+  "theorem_dag_sha256": "6ce46e0d9e79e1a40c423ae1074db34e889702b9a5b5989034cd462615fed604",
+  "dependency_context_sha256": "90f56448880bb5c1f54b618027daea5b7b32be6e0d05ba2723c43bcc39e17235",
+  "phase_contract_sha256": "1e7adf0f4fae0541b3595d4b0bfbb53f7eb17e28a4a889fec14f6df969e0cec4",
+  "state_observed": "[_]",
+  "attempts_observed": 1,
+  "blocked": true,
+  "blocker_class": "scheduler_owned_validator_publication",
+  "first_failed_gate": "validator_selection.typed_semantic_protocol",
+  "facts": {
+    "declared_validator_path": "Stage1_Instances/THM-M-0387/check_release.py",
+    "worker_base_git_blob": "05cd6cdd47b2e7a68053ce78b0e640852bf4eae3",
+    "base_stdout_protocol": "legacy prose",
+    "required_stdout_protocol": "stage1-validator-semantic-result/1.0 exact JSON object",
+    "worker_repair_changes_validator_candidate": true,
+    "worker_repair_retained_in_handoff": false,
+    "handoff_validator_matches_worker_base": true,
+    "integration_rejects_worker_validator_changes": true,
+    "normal_selftest_handoff_integrable": false,
+    "target_scoped_blocker_integrable": true,
+    "changed_owned_path_count": 2,
+    "changed_validator_candidate_count": 0
+  },
+  "diagnostic_validator_result": {
+    "schema_version": "stage1-validator-semantic-result/1.0",
+    "item_id": "S56-M-0387-RELEASE",
+    "theorem_id": "THM-M-0387",
+    "phase": "release",
+    "status": "blocked",
+    "verdict": "blocked",
+    "phase_accepted": false,
+    "audit_complete": false,
+    "theorem_complete": false,
+    "phase_predicate_proven": false,
+    "first_failed_gate": "dependency.S56-M-0387-VALIDATION.master_acceptance",
+    "open_obligations": 121,
+    "stale_inputs": [
+      "Stage1_Instances/THM-M-0387/validation-receipt.json"
+    ],
+    "blocked": true,
+    "message": "This diagnostic object records the tested negative semantic result but is not stdout from the unchanged HEAD validator and cannot support phase acceptance."
+  },
+  "release_reconciliation": {
+    "verdict": "blocked",
+    "audit_complete": false,
+    "theorem_complete": false,
+    "root_vector": {
+      "H": "H1",
+      "M": "M2",
+      "R": "R4"
+    },
+    "mathematical_root_cut": [
+      "M0387-WTW"
+    ],
+    "accepted_receipt_ids": [],
+    "provider_acceptance_inherited": false
+  },
+  "known_failures": [
+    "S56-M-0387-VALIDATION is [_], not [x], and its legacy receipt is not a current master-accepted stage1-node-receipt/1.0.",
+    "M0387-WTW has no placeholder-free pinned proof body, so the exact root remains M2 and theorem_complete=false.",
+    "AUDIT-Z remains open at H1/R4 with missing pinpoint source and independent readability review.",
+    "Hermetic cold/offline, SBOM/license, deterministic bundle, independent attestations, and minimal-verifier evidence are absent.",
+    "The current pinned cache lacks the compiled flt-regular olean required by Proof.lean; mutable dependency operations were not run.",
+    "The sole base validator emits prose. A diagnostic typed repair was validated locally, then removed from the handoff because normal and blocked integration reject any worker validator change."
+  ],
+  "retry_condition": "The scheduler must publish a HEAD-tracked release validator whose typed semantic JSON bytes already exist unchanged at the next worker base. Then allocate a fresh release revalidation. Mathematical and release-assurance blockers must still remain fail-closed until independently resolved.",
+  "status_boundary": "This artifact is the required target-scoped blocker handoff. It does not claim a self-tested integrable phase transition, release acceptance, AUDIT-Z, THEOREM-Z, theorem completion, or master acceptance."
+}
