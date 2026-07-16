@@ -2,12 +2,22 @@
 
 Item: `S56-M-0128-STATEMENT`  
 Theorem: `THM-M-0128`  
-Base revision: `b11e1f5a1a404420eee7320a845fdb9df48bec0c`
+Base revision: `dae1951609072752d49d111bf00e78e4512f2d14`
+
+Rechecked: `2026-07-17` (`Asia/Shanghai`)
 
 ## Verdict
 
 The exact-statement gate is blocked, so this node is not self-tested as
-complete. No `.stage1-worker-selftest.json` is issued.
+complete. `.stage1-worker-selftest.json` hands off the self-tested negative
+assessment only; its `[_]` is unfinished worker state, not phase acceptance.
+The HEAD contract roles are now present as `statement.json`, `Statement.lean`,
+`source-statement-crosswalk.md`, and `statement-receipt.json`;
+`check_statement.py` emits the required typed negative semantic result. Those
+artifacts cannot support `[x]` while the exact-target gate is blocked.
+The validator did not exist at this worker base, so scheduler replay cannot
+select it until integration lands these owned artifacts on a new immutable
+base; this does not weaken the earlier mathematical blocker.
 
 The accepted intake prose asks for the CM-special-point form of Shimura
 reciprocity: an Artin action from the reflex field must agree with the action
@@ -29,30 +39,38 @@ by `intake.json` and `scope-map.md`; assuming the compatibility equation as a
 field would make the target circular.
 
 The pinned mathlib checkout provides object-model anchors for CM fields and
-adeles. `StatementProbe.lean` elaborates those anchors with only the two direct
-imports. A repository-local scan found no declaration for a CM type, reflex
-field/reflex norm, idele class, or Shimura special-point reciprocity target in
-the pinned Mathlib sources. Thus the anchors do not determine an exact root
-expression.
+adeles. `Statement.lean` elaborates those anchors with only the two direct
+imports and deliberately declares no target. A repository-local scan found no
+declaration for a CM type, reflex field/reflex norm, idele class, or Shimura
+special-point reciprocity target in the pinned Mathlib sources. Thus the
+anchors do not determine an exact root expression.
+
+The v2 theorem node has no direct hard parent, transitive hard ancestor, hard
+edge, reuse hint, or shared group. `dependency-reuse-ledger.json` records this
+exact empty closure at graph digest
+`3d32f808e2914b338c459d52651b69731f0979a90a720f98bc0f31a577e2bafa`
+and context digest
+`068170c76abd4579d643ede04d731b974412185bd285e7b40255ec4044adec5c`.
+No parent acceptance or proof credit is transferred.
 
 ## Commands and results
 
-All commands ran in this worker clone on 2026-07-12. No dependency update,
+The current commands ran in this worker clone on 2026-07-17. No dependency update,
 fetch, clone, or `.lake` mutation was performed.
 
 | Command | Exit | Result |
 |---|---:|---|
-| `python3 Docs/tools/check_stage1_standard.py` | 0 | standard is consistent: 15 assurance groups and 1546 uniform-L0 targets |
-| `python3 scripts/stage1_target.py check` | 0 | 1546 unique targets, ranks 1 through 1546, all L0/rework-required |
-| `python3 scripts/stage1_target.py show THM-M-0128` | 0 | rank 46, planned, L0/rework-required, theorem incomplete |
-| `lake env lean ../../Stage1_Instances/THM-M-0128/StatementProbe.lean` from `Formalizations/Lean` | 0 | `NumberField.IsCMField` and `NumberField.AdeleRing` elaborated |
-| `lake env lean --version` from `Formalizations/Lean` | 0 | Lean 4.29.0, commit `98dc76e3c0a9b856c9b98726b713fb04fab16740` |
-| `rg -n 'structure CMType|def CMType|ReflexField|reflex.*[Nn]orm|IdeleClass|Shimura' Formalizations/Lean/.lake/packages/mathlib/Mathlib` | 1 | no matching pinned Mathlib declaration |
-| `git diff --check -- Stage1_Instances/THM-M-0128` | 0 | no whitespace errors |
+| `lake env lean ../../Stage1_Instances/THM-M-0128/Statement.lean` from `Formalizations/Lean` | 0 | the two substrate types elaborated; no canonical declaration was made |
+| `/usr/bin/python3 -I -B Stage1_Instances/THM-M-0128/check_statement.py` | 0 | one typed JSON object reported `status=blocked`, `phase_accepted=false`, and failed gate `S02-EXACT-TARGET...` |
+| schema-1.1 ledger validation against the exact graph and base | 0 | empty direct/transitive parent and reuse context accepted |
+| JSON parsing, semantic-output parsing, prohibited-token scan, and `git diff --check` | 0 | structured negative artifacts are internally consistent and clean |
+| `python3 Docs/tools/check_stage1_standard.py` | 1, expected worker-local drift | new target-owned evidence changes fresh theorem-DAG inventory; this worker cannot edit the generated DAG |
+| `python3 Docs/tools/check_stage1_theorem_dag_v2.py` | 1, same expected drift | deterministic generation sees `Statement.lean`, `statement.json`, and `statement-receipt.json`; master integration must regenerate the read-only projection after merge |
 
 ## First failed gate
 
-`exact canonical statement`: an exact source theorem and its convention
+`S02-EXACT-TARGET.exact_source_statement_identity_and_convention_selection`:
+an exact source theorem and its convention
 crosswalk are not frozen, and the pinned Lean environment lacks the semantic
 APIs needed to recover those missing choices. The next valid action is a source
 and convention audit that fixes those choices, followed by implementation (or
