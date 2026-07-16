@@ -1,14 +1,14 @@
 {
   "schema_version": "stage1-node-receipt/1.0",
-  "receipt_id": "S56-M-0393-RELEASE-revalidation-20260717-slot65-v3",
+  "receipt_id": "S56-M-0393-RELEASE-revalidation-20260717-slot35-v4",
   "item_id": "S56-M-0393-RELEASE",
   "theorem_id": "THM-M-0393",
   "phase": "release",
   "intent": "release",
-  "base_revision": "4cd90b554a8bcb8d1ae35df80394142de21ad8e6",
-  "base_tree": "97bfe79ee52c8571512e68446dc3ed7ddd900b85",
-  "validated_at": "2026-07-17T05:00:00+08:00",
-  "attestor": "stage1-rev56-worker-slot7",
+  "base_revision": "f545339546bf410d5110d7fe44e70bdcf5d8b48e",
+  "base_tree": "6dc924134293b2674df7324ff98b6fdaf660159e",
+  "validated_at": "2026-07-17T07:04:03+08:00",
+  "attestor": "stage1-rev56-worker-slot35",
   "support_state": "provisional_worker_selftest",
   "proposed_state": "[_]",
   "accepted": false,
@@ -17,6 +17,16 @@
   "selftest_result": {
     "exit_code": 0,
     "commands": [
+      {
+        "argv": ["python3", "Docs/tools/check_stage1_standard.py"],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": ["python3", "Docs/tools/check_stage1_theorem_dag_v2.py"],
+        "cwd": ".",
+        "exit_code": 0
+      },
       {
         "argv": ["python3", "Docs/tools/check_stage1_phase_acceptance_contracts.py"],
         "cwd": ".",
@@ -62,13 +72,13 @@
         "argv": ["python3", "Docs/tools/check_stage1_theorem_dag_v2.py"],
         "cwd": ".",
         "exit_code": 1,
-        "expected_failure": "The target-owned receipt refresh makes the read-only theorem-DAG reusable-artifact digest stale until master regeneration."
+        "expected_failure": "Refreshing the target-owned release receipt makes its read-only theorem-DAG reusable-artifact digest stale; master owns projection regeneration."
       },
       {
         "argv": ["python3", "Docs/tools/check_stage1_standard.py"],
         "cwd": ".",
         "exit_code": 1,
-        "expected_failure": "The standard check propagates the same read-only theorem-DAG digest failure."
+        "expected_failure": "The standard check propagates the same post-refresh read-only theorem-DAG digest failure."
       },
       {
         "argv": ["git", "diff", "--check", "--", "Stage1_Instances/THM-M-0393", ".stage1-worker-selftest.json"],
@@ -76,7 +86,7 @@
         "exit_code": 0
       }
     ],
-    "output_summary": "The phase contract, target manifest, obligation tree, Proof.lean and Validation.lean replays, JSON checks, typed negative release validator, and diff hygiene pass. Direct Statement.lean replay fails at lean.dependsOnNoncomputable as the owned release decision records. The standard and v2 DAG checks fail only because this refreshed owned receipt makes their checked-in reusable-artifact digest stale; the master integration lane owns projection regeneration. The semantic release result remains blocked with audit_complete=false and theorem_complete=false."
+    "output_summary": "The standard, v2 theorem-DAG, phase-contract, target-manifest, obligation-tree, Proof.lean and Validation.lean, JSON, typed negative release-validator, and diff-hygiene checks pass at the worker base. Direct Statement.lean replay fails at lean.dependsOnNoncomputable as the owned release decision records. After the target-owned receipt refresh, the standard and v2 DAG checks fail only on the now-stale read-only reusable-artifact digest, whose regeneration is master-owned. The semantic release result remains blocked with audit_complete=false and theorem_complete=false."
   },
   "inputs": {
     "release_specification": {
@@ -86,8 +96,8 @@
     },
     "release_decision": {
       "path": "Stage1_Instances/THM-M-0393/release-decision.json",
-      "sha256": "c8cf97858e9b58c8ff09ff2cf81a10411d397a17e5e122df44f034e8bb2165dd",
-      "git_blob": "24792b7928526b3e65306c04c8cfabb29efc19f6"
+      "sha256": "05db342a7ec2df69af784229ca38dcd68aecca6a47ba596841c6a261660a10d0",
+      "git_blob": "c0cc11a9befaa9d9ab31793cc6d66126178fa753"
     },
     "validation_receipt": {
       "path": "Stage1_Instances/THM-M-0393/validation-receipt.json",
@@ -96,8 +106,8 @@
     },
     "dependency_reuse_ledger": {
       "path": "Stage1_Instances/THM-M-0393/dependency-reuse-ledger.json",
-      "sha256": "f02aa8fea0c9e2ef6e6799aab71282e2ed71f1ada2ad5bc404a40951b440e6f7",
-      "git_blob": "e6d341fb27a55b9c79e671f2b91ead30792f2733"
+      "sha256": "8125f6e4d02f0e43384e78536920c29314e2ab07edfc284288ddcf5cb90e7fa3",
+      "git_blob": "85ca16ac40e7c5db39f968323d22a71de0e250b5"
     },
     "obligation_registry": {
       "path": "Stage1_Instances/THM-M-0393/obligation-registry.json",
@@ -137,8 +147,8 @@
     "public_projections": [
       {
         "path": "Stage1_Instances/THM-M-0393/release-validation.md",
-        "sha256": "6b7a3e4f4973d98cdbf2b767c136cb7535785ecaf02e7de04c6f8ee4d3022279",
-        "git_blob": "31e7384456f2dc567ab68f57a79ba9c96cbfec7c",
+        "sha256": "7fd7f96020a9197c1f6532504a27c3935a4555786b656965aee98cfb2301f6bf",
+        "git_blob": "1e522a474b50ffc0ad9967882dec2264becc0705",
         "artifact_kind": "legacy_worker_projection_not_generated_from_an_accepted_bundle"
       }
     ]
@@ -164,9 +174,9 @@
     "All seventeen canonical root-relevant obligations and every composition certificate remain open; the finite_pow_divisors result is only a strict subclaim of M0393-N1.",
     "AUDIT-Z is not established: accepted H0 source review, R0 readable review, complete provenance/trust/TCB classification, and accepted public reconciliation are absent.",
     "No immutable clean cold/offline run, SBOM/license closure, deterministic evidence bundle, two independent signed runners, or independent minimal verifier exists.",
-    "The standard and v2 theorem-DAG validators observe the expected stale reusable-artifact digest for this refreshed target-owned receipt; the worker may not regenerate the authoritative theorem-DAG projection.",
+    "Refreshing the target-owned receipt changes the reusable-artifact digest recorded in the read-only theorem-DAG projection; only the master integration lane may regenerate that projection.",
     "The local host denies unprivileged namespaces, so a worker-side bubblewrap dry run cannot establish the scheduler's isolated replay; master replay remains required and fail-closed.",
-    "The release validator at the current worker base already emitted a typed semantic result, but its evidence was bound to an older repository base and v2 graph digest; this revalidation refreshes those bindings without changing the fail-closed verdict.",
+    "The unchanged release validator at the current worker base emits the required typed semantic result; this revalidation refreshes target-owned bindings without changing the fail-closed verdict.",
     "The worker clone contains the automation-provided untracked canonical .lake symlink; the narrow Lean replays are warm nonrelease evidence only."
   ],
   "first_failed_gate": "G02-TOPOLOGY",

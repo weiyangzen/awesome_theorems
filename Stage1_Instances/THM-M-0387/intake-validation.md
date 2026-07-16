@@ -2,10 +2,10 @@
 
 ## Immutable worker base
 
-- Repository commit: `7d8182914615a5f5f0445f515fbd635a74bf1faa`
-- Repository tree: `8b4e8697f3cc153b4bc2ae68ff0efc2bf0ccddb3`
-- V2 blueprint SHA-256: `a4a4bd987791234cf349f20053f7689a52b45937054919676bc628aab3d1bc8e`
-- V2 theorem DAG SHA-256: `6ce46e0d9e79e1a40c423ae1074db34e889702b9a5b5989034cd462615fed604`
+- Repository commit: `f545339546bf410d5110d7fe44e70bdcf5d8b48e`
+- Repository tree: `6dc924134293b2674df7324ff98b6fdaf660159e`
+- V2 blueprint SHA-256: `4d2b5c73fb15ea8ae421329ddfd31778ea10cc58a62800fe46fa7a653a58eea8`
+- V2 theorem DAG SHA-256: `39dc7ce5f668c527de899e74c99840aef50e6be4c576aaf146abed1b6749275c`
 - Dependency context SHA-256: `90f56448880bb5c1f54b618027daea5b7b32be6e0d05ba2723c43bcc39e17235`
 - Phase contract SHA-256: `1e7adf0f4fae0541b3595d4b0bfbb53f7eb17e28a4a889fec14f6df969e0cec4`
 - Pinned mathlib commit: `8a178386ffc0f5fef0b77738bb5449d50efeea95`
@@ -22,10 +22,11 @@ python3 scripts/stage1_target.py check
 python3 scripts/stage1_target.py show THM-M-0387
 ```
 
-All four passed on the current base before the target-owned attempt-3 receipt refresh. After the
-receipt changes, the two manifest commands remain green while the two repository DAG checks
-truthfully report one stale reusable-artifact digest: the immutable theorem DAG still binds the
-prior `intake-receipt.json` bytes. The worker does not edit either read-only DAG projection or the
+All four passed on the current base before the target-owned attempt-4 receipt refresh, as did the
+repository-wide validate-only cron projection. After the receipt changes, the two manifest
+commands remain green while the two repository DAG checks and validate-only projection truthfully
+report one stale reusable-artifact digest: the immutable theorem DAG still binds the prior
+`intake-receipt.json` bytes. The worker does not edit either read-only DAG projection or the
 authoritative checklist. Integration must merge this owned refresh and regenerate the projections
 before master acceptance.
 
