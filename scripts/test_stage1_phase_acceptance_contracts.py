@@ -53,7 +53,7 @@ class PhaseAcceptanceContractTests(unittest.TestCase):
         self.assertEqual(runtime["reasoning_effort"], "ultra")
         self.assertEqual(runtime["service_tier"], "default")
         self.assertEqual(runtime["catalog_label"], "Default")
-        self.assertEqual(runtime["shared_total_concurrency_limit"], 20)
+        self.assertEqual(runtime["shared_total_concurrency_limit"], 50)
 
     def test_raw_blocked_can_never_close_or_be_review_eligible(self) -> None:
         self.assert_rejected(

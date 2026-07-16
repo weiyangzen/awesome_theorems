@@ -1721,33 +1721,33 @@ class SchedulerCapacityTests(unittest.TestCase):
             for slot in range(1, cron.MAX_SLOT_ID + 1)
             if slot not in occupied
         ][:capacity]
-        self.assertEqual(capacity, 10)
-        self.assertEqual(available, list(range(21, 31)))
+        self.assertEqual(capacity, 40)
+        self.assertEqual(available, list(range(21, 61)))
 
-    def test_zero_live_refill_persists_twenty_reservations_before_any_launch(self) -> None:
+    def test_zero_live_refill_persists_fifty_reservations_before_any_launch(self) -> None:
         claims, events, saved = self.run_refill_fixture(0)
         new_claims = [claim for claim in claims if claim.get("status") == "live"]
-        self.assertEqual(len(new_claims), 20)
-        self.assertEqual(len({claim["claim_id"] for claim in new_claims}), 20)
-        self.assertEqual(len({claim["slot"] for claim in new_claims}), 20)
+        self.assertEqual(len(new_claims), 50)
+        self.assertEqual(len({claim["claim_id"] for claim in new_claims}), 50)
+        self.assertEqual(len({claim["slot"] for claim in new_claims}), 50)
         self.assertLess(events.index("save"), events.index("prepare"))
         self.assertLess(events.index("save"), events.index("popen"))
         first_save = saved[0]
-        self.assertEqual(len(first_save), 20)
+        self.assertEqual(len(first_save), 50)
         self.assertTrue(all(claim["status"] == "preparing" for claim in first_save))
 
-    def test_eighteen_live_refill_launches_exactly_two(self) -> None:
-        claims, events, saved = self.run_refill_fixture(18)
+    def test_forty_eight_live_refill_launches_exactly_two(self) -> None:
+        claims, events, saved = self.run_refill_fixture(48)
         self.assertEqual(events.count("popen"), 2)
-        self.assertEqual(sum(claim.get("status") == "live" for claim in claims), 20)
+        self.assertEqual(sum(claim.get("status") == "live" for claim in claims), 50)
         first_save = saved[0]
         self.assertEqual(sum(claim.get("status") == "preparing" for claim in first_save), 2)
 
-    def test_live_preparing_processes_consume_the_twenty_lease_cap(self) -> None:
+    def test_live_preparing_processes_consume_the_fifty_lease_cap(self) -> None:
         items: list[dict[str, object]] = []
         nodes: dict[str, dict[str, object]] = {}
         claims: list[dict[str, object]] = []
-        for index in range(1, 23):
+        for index in range(1, 53):
             theorem_id = f"THM-M-{index:04d}"
             item = {
                 "id": f"S56-M-{index:04d}-INTAKE",
@@ -1761,13 +1761,13 @@ class SchedulerCapacityTests(unittest.TestCase):
             }
             items.append(item)
             nodes[theorem_id] = {"v2_execution_rank": index}
-            if index <= 20:
+            if index <= 50:
                 claim_id = f"20260716T120000Z-{index:012x}"
                 claim = {
                     "item_id": item["id"],
                     "theorem_id": theorem_id,
                     "owned_paths": item["owned_paths"],
-                    "status": "live" if index <= 18 else "preparing",
+                    "status": "live" if index <= 48 else "preparing",
                     "slot": index,
                     "claim_id": claim_id,
                     "worker_id": f"stage1app-{index}-{index:04d}-{claim_id[-12:]}",
@@ -1800,25 +1800,25 @@ class SchedulerCapacityTests(unittest.TestCase):
         launch_worker.assert_not_called()
 
     def test_launch_failure_does_not_block_remaining_cohort_or_exceed_cap(self) -> None:
-        claims, events, _ = self.run_refill_fixture(18, launch_failure_at=1)
+        claims, events, _ = self.run_refill_fixture(48, launch_failure_at=1)
         self.assertEqual(events.count("popen"), 2)
-        self.assertEqual(sum(claim.get("status") == "live" for claim in claims), 19)
+        self.assertEqual(sum(claim.get("status") == "live" for claim in claims), 49)
         self.assertEqual(sum(claim.get("status") == "launch_failed" for claim in claims), 1)
-        self.assertLessEqual(sum(claim.get("status") in {"live", "preparing"} for claim in claims), 20)
+        self.assertLessEqual(sum(claim.get("status") in {"live", "preparing"} for claim in claims), 50)
 
     def test_pause_between_prepare_and_popen_cancels_all_unstarted_reservations(self) -> None:
         claims, events, _ = self.run_refill_fixture(0, pause_before_launch_at=0)
         self.assertEqual(events.count("popen"), 0)
-        self.assertEqual(sum(claim.get("status") == "cancelled" for claim in claims), 20)
+        self.assertEqual(sum(claim.get("status") == "cancelled" for claim in claims), 50)
         self.assertEqual(sum(claim.get("status") in {"live", "preparing"} for claim in claims), 0)
 
-    def test_worker_cap_above_twenty_fails_before_refill_side_effects(self) -> None:
+    def test_worker_cap_above_fifty_fails_before_refill_side_effects(self) -> None:
         with (
             mock.patch.object(cron, "recover_integration_wal") as recover,
             mock.patch.object(cron, "refill_workers") as refill,
-            self.assertRaisesRegex(SystemExit, "0..20"),
+            self.assertRaisesRegex(SystemExit, "0..50"),
         ):
-            cron.launch(21)
+            cron.launch(51)
         recover.assert_not_called()
         refill.assert_not_called()
 
@@ -1828,7 +1828,7 @@ class SchedulerCapacityTests(unittest.TestCase):
             mock.patch.object(cron, "refill_workers") as refill,
             self.assertRaisesRegex(SystemExit, "--limit must be"),
         ):
-            cron.launch(20, cron.MAX_INTEGRATION_LIMIT + 1)
+            cron.launch(50, cron.MAX_INTEGRATION_LIMIT + 1)
         recover.assert_not_called()
         refill.assert_not_called()
 
@@ -2281,14 +2281,14 @@ class SchedulerCapacityTests(unittest.TestCase):
                 "runtime_protocol": cron.RUNTIME_PROTOCOL,
                 "status": "live",
             }
-            for _ in range(12)
+            for _ in range(30)
         ] + [
             {
                 "lane": cron.REVIEW_LANE,
                 "runtime_protocol": cron.RUNTIME_PROTOCOL,
                 "status": "preparing",
             }
-            for _ in range(8)
+            for _ in range(20)
         ]
         with (
             mock.patch.object(
@@ -3512,10 +3512,10 @@ class SchedulerCapacityTests(unittest.TestCase):
                 mock.patch.object(cron, "run") as run,
                 self.assertRaisesRegex(SystemExit, "paused"),
             ):
-                cron.install("*/3 * * * *")
+                cron.install("*/5 * * * *")
         run.assert_not_called()
 
-    def test_default_install_is_three_minute_twenty_worker_cron(self) -> None:
+    def test_default_install_is_five_minute_fifty_worker_cron(self) -> None:
         captured: dict[str, str] = {}
 
         def write_crontab(command: list[str], **kwargs):
@@ -3533,11 +3533,11 @@ class SchedulerCapacityTests(unittest.TestCase):
                 mock.patch.object(cron.subprocess, "run", side_effect=write_crontab),
                 contextlib.redirect_stdout(io.StringIO()),
             ):
-                cron.install("*/3 * * * *")
+                cron.install("*/5 * * * *")
         line = captured["input"].strip()
-        self.assertTrue(line.startswith("*/3 * * * * "))
+        self.assertTrue(line.startswith("*/5 * * * * "))
         self.assertIn(f"{sys.executable} {root / 'scripts' / 'stage1_execution_cron.py'}", line)
-        self.assertIn("--tick --workers 20 --limit 20", line)
+        self.assertIn("--tick --workers 50 --limit 20", line)
         self.assertIn("stage1-v2-app-server/keepalive.log", line)
 
     def test_integrate_refuses_persistent_pause_before_recovery(self) -> None:
@@ -3556,7 +3556,7 @@ class SchedulerCapacityTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             pause_file = Path(directory) / "PAUSED"
             pause_file.write_text("paused\n", encoding="utf-8")
-            cron_line = "*/3 * * * * /repo/scripts/stage1_execution_cron.py --tick\n"
+            cron_line = "*/5 * * * * /repo/scripts/stage1_execution_cron.py --tick\n"
             with (
                 mock.patch.object(cron, "PAUSE_FILE", pause_file),
                 mock.patch.object(

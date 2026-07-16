@@ -61,7 +61,7 @@ DAG = DOCS / "Stage1_Execution_DAG_rev-5.6.json"
 THEOREM_DAG_V2 = DOCS / "Stage1_Theorem_DAG_v2.json"
 PHASE_ACCEPTANCE_CONTRACTS = DOCS / "Stage1_Phase_Acceptance_Contracts.json"
 PHASE_ACCEPTANCE_CONTRACT_SHA256 = (
-    "081b225fa80f882ae0268e05004b0f3ab2503947429ca289f5593cdbafc99499"
+    "1e7adf0f4fae0541b3595d4b0bfbb53f7eb17e28a4a889fec14f6df969e0cec4"
 )
 LEGACY_RUNTIME = ROOT / ".cron" / "stage1-rev56"
 RUNTIME = ROOT / ".cron" / "stage1-v2-app-server"
@@ -116,10 +116,10 @@ EXECUTION_CONTRACT = {
     "provider_acceptance_inherited": False,
     "consumer_acceptance_required": True,
 }
-# App-server workers are deliberately bounded to one 20-thread cohort.  The
+# App-server workers are deliberately bounded to one 50-thread cohort.  The
 # integration budget is independent because a refill may drain older evidence.
-MAX_WORKERS = 20
-DEFAULT_WORKERS = 20
+MAX_WORKERS = 50
+DEFAULT_WORKERS = 50
 MAX_INTEGRATION_LIMIT = 80
 DEFAULT_INTEGRATION_LIMIT = 20
 MAX_SLOT_ID = 1546 * len(PHASES)
@@ -3344,7 +3344,7 @@ def prepare_workspace(slot: int) -> Path:
         source, destination = ROOT / relative, workspace / relative
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(source, destination)
-    # Lean worker clones are source-only to keep 20 lanes practical. The host
+    # Lean worker clones are source-only to keep 50 lanes practical. The host
     # symlink is only a convenience for implementation-time self-tests; it is
     # not acceptance evidence. Master replay never follows it and instead uses
     # the scheduler-owned bubblewrap runtime/mount policy.
@@ -4325,7 +4325,7 @@ def _valid_legacy_plan_binding_shape(binding: Any) -> bool:
         is not None
         and isinstance(binding.get("source_bindings"), dict)
         and isinstance(lane_sha256s, list)
-        and 1 <= len(lane_sha256s) <= 20
+        and 1 <= len(lane_sha256s) <= 50
         and len(lane_sha256s) == len(set(lane_sha256s))
         and all(re.fullmatch(r"[0-9a-f]{64}", str(value)) for value in lane_sha256s)
     )
@@ -4459,12 +4459,12 @@ def legacy_revalidation_plan() -> tuple[
         or value.get("launches_workers") is not False
         or embedded != canonical_json_sha256(unhashed)
         or not isinstance(lanes, list)
-        or not 1 <= len(lanes) <= 20
+        or not 1 <= len(lanes) <= 50
         or value.get("selected_item_count") != len(lanes)
         or value.get("required_steps") != LEGACY_REVALIDATION_REQUIRED_STEPS
         or not isinstance(source, dict)
         or not isinstance(selection, dict)
-        or selection.get("hard_max_samples") != 20
+        or selection.get("hard_max_samples") != 50
         or selection.get("authoritative_state_filter") != "[_]"
         or selection.get("phase_order") != phases
         or selection.get("phase_layers") != {phase: index for index, phase in enumerate(phases)}
@@ -5811,7 +5811,7 @@ def launch(max_workers: int, integration_limit: int = DEFAULT_INTEGRATION_LIMIT)
         print("tick: Stage1 execution is paused; no sync, integration, or refill performed")
         return
     # Sync and crash recovery are safety prerequisites. Refill comes before the
-    # heavyweight integration/checkpoint cursor so every three-minute tick can
+    # heavyweight integration/checkpoint cursor so every five-minute tick can
     # restore live capacity without waiting for validation, commit, or push.
     recover_integration_wal()
     pending = runtime_path("pending_checkpoint.json")
@@ -6032,7 +6032,7 @@ def main() -> None:
         fail(f"Stage1 execution is paused; refused {sorted(requested_paused_modes)[0]}")
     lock = None
     if not validate_only_requested:
-        # A refill can take longer than its three-minute cadence. Serialize all
+        # A refill can take longer than its five-minute cadence. Serialize all
         # mutating scheduler invocations so overlapping ticks cannot allocate
         # the same slot or orphan an unrecorded app-server worker. Validate-only
         # deliberately avoids creating or touching this lock.
@@ -6057,7 +6057,7 @@ def main() -> None:
     modes.add_argument("--resume", action="store_true", help="clear the persistent pause without installing cron")
     parser.add_argument("--workers", type=int, default=DEFAULT_WORKERS, help=f"concurrent-worker refill budget (0..{MAX_WORKERS}; default {DEFAULT_WORKERS})")
     parser.add_argument("--limit", type=int, default=DEFAULT_INTEGRATION_LIMIT, help=f"handoff integration budget (0..{MAX_INTEGRATION_LIMIT}; default {DEFAULT_INTEGRATION_LIMIT})")
-    parser.add_argument("--schedule", default="*/3 * * * *", help="crontab schedule used by --install")
+    parser.add_argument("--schedule", default="*/5 * * * *", help="crontab schedule used by --install")
     args = parser.parse_args()
     if args.bootstrap:
         bootstrap()

@@ -80,7 +80,7 @@ class Fixture:
 
         self.theorems: list[dict[str, object]] = []
         checklist: list[str] = [planner.CHECKLIST_BEGIN]
-        for rank in range(1, 5):
+        for rank in range(1, 10):
             theorem_id = f"THM-M-{rank:04d}"
             states = {
                 phase: ("[_]" if not (rank == 4 and phase == "release") else "[ ]")
@@ -185,17 +185,20 @@ class RevalidationPlanTests(unittest.TestCase):
         fixture = Fixture()
         self.addCleanup(fixture.close)
         plan = planner.build_plan(fixture.root, fixture.inventory_path)
+        self.assertEqual(planner.MAX_SAMPLES, 50)
         self.assertEqual(plan["selected_item_count"], planner.MAX_SAMPLES)
+        self.assertEqual(plan["selection_policy"]["hard_max_samples"], 50)
+        self.assertEqual(plan["selection_policy"]["requested_limit"], 50)
         self.assertEqual(
             plan["selected_phase_counts"],
             {
-                "intake": 3,
-                "statement": 3,
-                "anchor_audit": 3,
-                "obligation_tree": 3,
-                "proof": 3,
-                "validation": 3,
-                "release": 2,
+                "intake": 8,
+                "statement": 7,
+                "anchor_audit": 7,
+                "obligation_tree": 7,
+                "proof": 7,
+                "validation": 7,
+                "release": 7,
             },
         )
         keys = [
@@ -311,8 +314,8 @@ class RevalidationPlanTests(unittest.TestCase):
     def test_limit_is_bounded_and_output_inside_repo_is_rejected(self) -> None:
         fixture = Fixture()
         self.addCleanup(fixture.close)
-        with self.assertRaisesRegex(planner.PlanError, "between 1 and 20"):
-            planner.build_plan(fixture.root, fixture.inventory_path, limit=21)
+        with self.assertRaisesRegex(planner.PlanError, "between 1 and 50"):
+            planner.build_plan(fixture.root, fixture.inventory_path, limit=51)
         with self.assertRaisesRegex(planner.PlanError, "outside the repository"):
             planner._write_external_output(
                 fixture.root, fixture.root / "plan.json", b"{}\n"

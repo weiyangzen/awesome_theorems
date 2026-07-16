@@ -12,7 +12,7 @@ from typing import Any, NoReturn
 
 ROOT = Path(__file__).resolve().parents[2]
 CONTRACT = ROOT / "Docs" / "Stage1_Phase_Acceptance_Contracts.json"
-CONTRACT_SHA256 = "081b225fa80f882ae0268e05004b0f3ab2503947429ca289f5593cdbafc99499"
+CONTRACT_SHA256 = "1e7adf0f4fae0541b3595d4b0bfbb53f7eb17e28a4a889fec14f6df969e0cec4"
 
 PHASES = (
     "intake",
@@ -423,7 +423,7 @@ def validate_review_runtime(value: Any) -> None:
     require(row["repo_access"] == "read_only", "review repository must be read-only")
     require(row["scratch_access"] == "isolated_writable", "review scratch must be isolated")
     require(row["network_access"] is False, "review network must be disabled")
-    require(row["shared_total_concurrency_limit"] == 20, "implementation/review total concurrency must be 20")
+    require(row["shared_total_concurrency_limit"] == 50, "implementation/review total concurrency must be 50")
 
 
 def validate_artifact_roles(value: Any, phase: str) -> None:

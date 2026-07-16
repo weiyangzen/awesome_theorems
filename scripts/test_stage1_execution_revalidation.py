@@ -169,7 +169,7 @@ class HistoricalRevalidationBoundaryTests(unittest.TestCase):
                 },
             },
             "selection_policy": {
-                "hard_max_samples": 20,
+                "hard_max_samples": 50,
                 "requested_limit": 1,
                 "authoritative_state_filter": "[_]",
                 "phase_order": [

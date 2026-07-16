@@ -27,7 +27,7 @@ CONTRACT_PATH = migration.CONTRACT_PATH
 THEOREM_DAG_PATH = "Docs/Stage1_Theorem_DAG_v2.json"
 PLAN_SCHEMA = "stage1-legacy-revalidation-plan/1.0"
 LANE_SCHEMA = "stage1-legacy-revalidation-lane/1.0"
-MAX_SAMPLES = 20
+MAX_SAMPLES = 50
 PHASES = (
     "intake",
     "statement",
