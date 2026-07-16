@@ -138,6 +138,43 @@ class SchedulerOwnedIntakeValidatorTests(unittest.TestCase):
             ):
                 intake_validator.require_nonempty_strings(value, "evidence is empty")
 
+    def test_phase_contract_record_cache_tracks_checkpointed_head(self) -> None:
+        first = "1" * 40
+        second = "2" * 40
+        loaded: list[str] = []
+
+        records = iter((first, second))
+        revisions_seen: list[object] = []
+
+        def load_contract(
+            root: Path, expected_sha256: str, **kwargs: object
+        ) -> dict[str, object]:
+            self.assertEqual(root, cron.ROOT)
+            self.assertEqual(expected_sha256, cron.PHASE_ACCEPTANCE_CONTRACT_SHA256)
+            revisions_seen.append(kwargs.get("revision"))
+            revision = next(records)
+            loaded.append(revision)
+            return {"revision": revision, "contract": {"phase_order": []}}
+
+        cron._phase_acceptance_contract_record_at.cache_clear()
+        self.addCleanup(cron._phase_acceptance_contract_record_at.cache_clear)
+        with (
+            mock.patch.object(
+                cron,
+                "authoritative_head_revision",
+                side_effect=[first, first, first, second, second],
+            ),
+            mock.patch.object(
+                cron.acceptance_evidence, "load_head_contract", side_effect=load_contract
+            ),
+        ):
+            self.assertEqual(cron.phase_acceptance_contract_record()["revision"], first)
+            self.assertEqual(cron.phase_acceptance_contract()["phase_order"], [])
+            self.assertEqual(cron.phase_acceptance_contract_record()["revision"], second)
+
+        self.assertEqual(loaded, [first, second])
+        self.assertEqual(revisions_seen, [None, None])
+
 
 class DependencyReuseLedgerTests(unittest.TestCase):
     def setUp(self) -> None:

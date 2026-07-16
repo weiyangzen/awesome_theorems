@@ -2968,24 +2968,36 @@ def read_bound_runtime_file(path: Path, label: str) -> tuple[bytes, str]:
     return data, hashlib.sha256(data).hexdigest()
 
 
-@functools.lru_cache(maxsize=1)
-def phase_acceptance_contract() -> dict[str, Any]:
-    try:
-        return acceptance_evidence.load_head_contract(
-            ROOT, PHASE_ACCEPTANCE_CONTRACT_SHA256
-        )["contract"]
-    except acceptance_evidence.EvidenceError as exc:
-        fail(str(exc))
+def authoritative_head_revision() -> str:
+    """Return the commit currently owned by the scheduler checkout."""
+    return run(["git", "rev-parse", "--verify", "HEAD^{commit}"]).stdout.strip()
 
 
-@functools.lru_cache(maxsize=1)
-def phase_acceptance_contract_record() -> dict[str, Any]:
+@functools.lru_cache(maxsize=2)
+def _phase_acceptance_contract_record_at(revision: str) -> dict[str, Any]:
     try:
-        return acceptance_evidence.load_head_contract(
+        record = acceptance_evidence.load_head_contract(
             ROOT, PHASE_ACCEPTANCE_CONTRACT_SHA256
         )
     except acceptance_evidence.EvidenceError as exc:
         fail(str(exc))
+    if (
+        record.get("revision") != revision
+        or authoritative_head_revision() != revision
+    ):
+        fail("authoritative HEAD changed while loading the phase acceptance contract")
+    return record
+
+
+def phase_acceptance_contract_record() -> dict[str, Any]:
+    # One tick may checkpoint and advance HEAD before allocating its review
+    # tail. Key the cache by commit so that evidence selection never carries a
+    # pre-checkpoint authority record into the new HEAD.
+    return _phase_acceptance_contract_record_at(authoritative_head_revision())
+
+
+def phase_acceptance_contract() -> dict[str, Any]:
+    return phase_acceptance_contract_record()["contract"]
 
 
 def phase_contract(item: dict[str, Any]) -> dict[str, Any]:
