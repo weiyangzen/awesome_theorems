@@ -3551,7 +3551,7 @@ class SchedulerCapacityTests(unittest.TestCase):
         line = captured["input"].strip()
         self.assertTrue(line.startswith("*/5 * * * * "))
         self.assertIn(f"{sys.executable} {root / 'scripts' / 'stage1_execution_cron.py'}", line)
-        self.assertIn("--tick --workers 50 --limit 20", line)
+        self.assertIn("--tick --workers 50 --limit 50", line)
         self.assertIn("stage1-v2-app-server/keepalive.log", line)
 
     def test_integrate_refuses_persistent_pause_before_recovery(self) -> None:
