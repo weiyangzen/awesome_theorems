@@ -1,18 +1,18 @@
 {
   "schema_version": "stage1-node-receipt/1.0",
-  "receipt_id": "S56-M-0388-VALIDATION-pinned-warm-20260716T181854Z-v2",
+  "receipt_id": "S56-M-0388-VALIDATION-current-base-blocker-20260716T211814Z-v3",
   "item_id": "S56-M-0388-VALIDATION",
   "theorem_id": "THM-M-0388",
   "phase": "validation",
   "intent": "validate",
-  "base_revision": "c5037228977a81948bbd6119e1728b4b65b9924e",
-  "base_tree": "78b2627e717156dffe240bea12d14205af667d2a",
-  "validated_at": "2026-07-16T18:18:54Z",
-  "attestor": "stage1app-impl-20-0003-0da2ad60a061",
+  "base_revision": "738c0e35f61cf22c1ab5e31a5cd0ad6432f12f01",
+  "base_tree": "90fca08279c74cf64ace6ae4fa9fbe4fa31896dc",
+  "validated_at": "2026-07-16T21:18:14Z",
+  "attestor": "stage1-rev56-worker-slot1",
   "support_state": "provisional_worker_selftest",
   "proposed_state": "[_]",
   "accepted": false,
-  "verdict": "accepted",
+  "verdict": "blocked",
   "selftest_status": "passed",
   "selftest_result": {
     "exit_code": 0,
@@ -24,6 +24,94 @@
           "-B",
           "Stage1_Instances/THM-M-0388/check_validation.py"
         ],
+        "cwd": ".",
+        "exit_code": 1,
+        "expected_failure": "The unchanged HEAD validator emits one typed repair_required result because its historical base binding differs from current base 738c0e35.",
+        "output_summary": "Exactly one 451-byte stdout JSON line; stderr empty; schema stage1-validator-semantic-result/1.0; status failed; verdict repair_required; phase_accepted=false; first_failed_gate=V02-RECIPES."
+      },
+      {
+        "argv": [
+          "lake",
+          "env",
+          "lean",
+          "../../Stage1_Instances/THM-M-0388/Proof.lean"
+        ],
+        "cwd": "Formalizations/Lean",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "lake",
+          "env",
+          "lean",
+          "../../Stage1_Instances/THM-M-0388/Validation.lean"
+        ],
+        "cwd": "Formalizations/Lean",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "python3",
+          "Docs/tools/check_stage1_standard.py"
+        ],
+        "cwd": ".",
+        "exit_code": 1,
+        "expected_failure": "The refreshed target-owned receipt makes the read-only theorem-DAG reusable-artifact digest stale pending scheduler regeneration."
+      },
+      {
+        "argv": [
+          "python3",
+          "Docs/tools/check_stage1_theorem_dag_v2.py"
+        ],
+        "cwd": ".",
+        "exit_code": 1,
+        "expected_failure": "The refreshed target-owned receipt makes the read-only theorem-DAG reusable-artifact digest stale pending scheduler regeneration."
+      },
+      {
+        "argv": [
+          "python3",
+          "scripts/stage1_target.py",
+          "check"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "python3",
+          "scripts/stage1_target.py",
+          "show",
+          "THM-M-0388"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "python3",
+          "Stage1_Instances/THM-M-0388/check_obligation_tree.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "python3",
+          "Docs/tools/check_stage1_phase_acceptance_contracts.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "git",
+          "diff",
+          "--check",
+          "--",
+          "Stage1_Instances/THM-M-0388",
+          ".stage1-worker-selftest.json"
+        ],
+        "cwd": ".",
         "exit_code": 0
       }
     ]
@@ -40,6 +128,11 @@
       "path": "Stage1_Instances/THM-M-0388/proof-receipt.json",
       "sha256": "11881f661cc5b72d5c4e573a07c14fc8a3296f8761f103b144d182cbd8cb0f96",
       "git_blob": "6848dc5c6e6ea01464936192065a074415433f32"
+    },
+    "validation_specification": {
+      "path": "Stage1_Instances/THM-M-0388/validation-spec.json",
+      "sha256": "72a2c4c13acdcc9108211bcf9cd09dee0e1e3332c77113d86ee79499755f9e8b",
+      "git_blob": "95f01bd9a87f2ca2756f4e9e625827425f3bbe53"
     }
   },
   "recipe": {
@@ -75,8 +168,11 @@
     ]
   },
   "result": {
-    "exit_code": 0,
-    "semantic_verdict": "phase_accepted",
+    "exit_code": 1,
+    "semantic_verdict": "repair_required",
+    "phase_accepted": false,
+    "phase_predicate_proven": false,
+    "blocked": true,
     "kernel_replay": "pass for the exact proof wrapper and independently written target-owned reconstruction",
     "observed_axioms": [
       "propext",
@@ -87,7 +183,7 @@
     "placeholder_unsafe_scan": "pass for Proof.lean, Validation.lean, and the selected terminal Pell declaration body",
     "dependency_context": "pass: empty direct/transitive parent, hard-edge, hint, and shared-group closure audited at the assigned graph digest",
     "selected_provenance": "pass: proof inputs, mathlib revision/tree, Pell source, Pell olean, toolchain, and manifest digests agree",
-    "validation_phase_complete": true,
+    "validation_phase_complete": false,
     "audit_complete": false,
     "theorem_complete": false
   },
@@ -125,15 +221,27 @@
     "second_signed_attestation": false,
     "decision": "satisfies the node-specific differential validation surface; does not satisfy release-only distinct-runner assurance"
   },
+  "master_replay_boundary": {
+    "selected_validator_candidate": "Stage1_Instances/THM-M-0388/check_validation.py",
+    "validator_existed_at_worker_base": true,
+    "validator_unchanged_from_head": true,
+    "validator_internal_base_revision": "c5037228977a81948bbd6119e1728b4b65b9924e",
+    "current_worker_base_revision": "738c0e35f61cf22c1ab5e31a5cd0ad6432f12f01",
+    "current_claim_replay_eligible": false,
+    "required_action": "Integrate the refreshed blocker evidence and allocate a successor whose immutable base and HEAD validator bindings are jointly current.",
+    "acceptance_effect": "No validation-phase master acceptance can be derived from this current-base replay."
+  },
   "known_failures": [
+    "The unchanged HEAD-tracked validation candidate is internally bound to historical base c5037228977a81948bbd6119e1728b4b65b9924e and tree 78b2627e717156dffe240bea12d14205af667d2a; at this worker base it emits a typed repair_required result and exits 1.",
+    "The refreshed target-owned validation receipt intentionally makes the checked-in theorem-DAG reusable-artifact digest stale; only the scheduler integration lane may regenerate that read-only projection.",
     "The proof predecessor and all earlier phases remain authoritative worker-self-tested [_], not master-accepted [x]; only the integration lane can advance phase state.",
     "The replay uses the automation-provided canonical pinned warm .lake symlink. It is not a clean-checkout empty-cache cold build or an offline release archive restoration.",
     "The independently written Validation.lean probe ran in the same worker, kernel, and read-only dependency cache. It is not a distinct signed independent runner or independently implemented release verifier.",
     "Complete transitive declaration/import/object provenance, accepted foundation/TCB closure, SBOM/license archive, H0 review, R0 review, AUDIT-Z, THEOREM-Z, and release remain outside this phase."
   ],
-  "first_failed_gate": null,
-  "retry_condition": "Master acceptance requires dependency-legal integration, scheduler-selected HEAD artifact binding, an independent app-server review, and read-only authority replay of the unchanged HEAD validator.",
-  "status_boundary": "The validation phase is freshly self-tested for its node-specific pinned warm-cache kernel, selected trust/provenance, empty v2 dependency context, and same-workspace differential gates. This receipt is provisional worker evidence only and does not claim master acceptance, audit completion, theorem completion, or release-grade assurance.",
+  "first_failed_gate": "V02-RECIPES/validator-current-base-binding",
+  "retry_condition": "Integrate this refreshed current-base blocker receipt and dependency ledger, then allocate a fresh revalidation base containing the same unchanged HEAD validator so its immutable base binding can be reconciled without a worker validator edit; only then run scheduler replay and independent review.",
+  "status_boundary": "The exact proof and independent validation Lean modules still pass narrow pinned warm-cache kernel and axiom checks, but the authority-selected HEAD validator is stale for this current worker base and truthfully returns repair_required. This is a self-tested target-scoped blocker, not phase acceptance, audit completion, theorem completion, release, or master acceptance.",
   "audit_complete": false,
   "theorem_complete": false,
   "invalidation_inputs": [
