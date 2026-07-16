@@ -1,0 +1,231 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "receipt_id": "S56-M-0391-RELEASE-blocked-20260717-slot35-v2",
+  "item_id": "S56-M-0391-RELEASE",
+  "theorem_id": "THM-M-0391",
+  "execution_rank": 5,
+  "phase": "release",
+  "intent": "release",
+  "depends_on": [
+    "S56-M-0391-VALIDATION"
+  ],
+  "base_revision": "c5037228977a81948bbd6119e1728b4b65b9924e",
+  "base_tree": "78b2627e717156dffe240bea12d14205af667d2a",
+  "validated_at": "2026-07-17T02:01:17+08:00",
+  "attestor": "stage1-rev56-worker-slot35",
+  "owner": "THM-M-0391 release lane",
+  "reviewer": "independent Stage1 integration reviewer required",
+  "review_due": "before any retry or after any invalidation input changes",
+  "support_state": "provisional_worker_selftest",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "acceptance_authority": "Stage1 integration lane",
+  "verdict": "blocked",
+  "selftest_status": "passed",
+  "selftest_result": {
+    "exit_code": 0,
+    "commands": [
+      {
+        "argv": [
+          "python3",
+          "Docs/tools/check_stage1_standard.py"
+        ],
+        "cwd": ".",
+        "exit_code": 1,
+        "expected_failure": "Target-owned release inventory changes make the checked-in theorem-DAG projection stale until the master integration lane regenerates it."
+      },
+      {
+        "argv": [
+          "python3",
+          "Docs/tools/check_stage1_theorem_dag_v2.py"
+        ],
+        "cwd": ".",
+        "exit_code": 1,
+        "expected_failure": "Target-owned release inventory changes make the checked-in theorem-DAG projection stale until the master integration lane regenerates it."
+      },
+      {
+        "argv": [
+          "python3",
+          "scripts/stage1_target.py",
+          "check"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "python3",
+          "scripts/stage1_target.py",
+          "show",
+          "THM-M-0391"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "lake",
+          "env",
+          "lean",
+          "--trust=0",
+          "../../Stage1_Instances/THM-M-0391/Statement.lean"
+        ],
+        "cwd": "Formalizations/Lean",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "lake",
+          "env",
+          "lean",
+          "--trust=0",
+          "../../Stage1_Instances/THM-M-0391/Proof.lean"
+        ],
+        "cwd": "Formalizations/Lean",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "lake",
+          "env",
+          "lean",
+          "--trust=0",
+          "../../Stage1_Instances/THM-M-0391/Validation.lean"
+        ],
+        "cwd": "Formalizations/Lean",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "Stage1_Instances/THM-M-0391/check_release.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      }
+    ]
+  },
+  "known_failures": [
+    "S56-M-0391-VALIDATION and all intra-theorem predecessors remain [_], not dependency-ordered master-accepted [x].",
+    "The legacy validation receipt is provisional, accepted=false by absence, nonrelease, based on an ancestor revision, and lacks the current contract's normalized selftest and semantic result fields.",
+    "Only M0391-B-EE has a placeholder-free provisional body and independent same-workspace probe; the exact root and fourteen of fifteen frozen root-relevant obligations remain open at M4.",
+    "The primary-source boundary remains H1, the readable reconstruction remains R4, and AUDIT-Z is not complete.",
+    "No complete root composition, declaration/body provenance, axiom/trust/TCB closure, durable archive, SBOM, or license closure exists.",
+    "No immutable clean empty-cache cold/offline replay, deterministic evidence bundle, accepted public projections, two qualifying independent attestations, or independent minimal verifier exists.",
+    "The canonical pinned .lake symlink was reused read-only for narrow elaboration; it is shared warm nonrelease evidence and was not mutated.",
+    "THEOREM-Z, theorem completion, release acceptance, and master acceptance remain false."
+  ],
+  "first_failed_gate": "dependency.S56-M-0391-VALIDATION.master_acceptance",
+  "retry_condition": "First close and validate the unchanged exact root and every root-critical obligation, reconcile the frozen audit, and obtain dependency-ordered master acceptance through validation. Then complete accepted H0/R0 and root provenance/trust/TCB/SBOM/license evidence and run the immutable clean cold/offline, deterministic-bundle, public-reconciliation, distinct-runner, independent-verifier, and final master release protocol.",
+  "status_boundary": "Self-tested target-owned negative release reconciliation only. It proves the blocked verdict and grants no accepted phase, proof obligation, root, debt promotion, AUDIT-Z, THEOREM-Z, release, theorem completion, or master acceptance.",
+  "phase_receipt_binding": {
+    "role": "phase_receipt",
+    "path": "Stage1_Instances/THM-M-0391/release-receipt.json",
+    "sha256": null,
+    "git_blob": null,
+    "binding_owner": "scheduler integration lane",
+    "status_boundary": "A receipt cannot embed its own final SHA-256 or Git blob without a cycle. The scheduler binds the integrated HEAD bytes when resolving the phase_receipt role."
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "invalidation_inputs": [
+    "release specification, decision, receipt, validator, narrative, worker packet, or dependency-reuse ledger",
+    "Statement.lean, Proof.lean, Validation.lean, instance, obligation registry/nodes, typed graphs, proof receipt, validation receipt, or public dossier",
+    "v2 blueprint, execution DAG, theorem DAG, phase acceptance contract, target manifest, rev-5.6 assurance standard, Blueprint Guidelines, or execution skill",
+    "Lean/Lake executable, toolchain, Lake manifest, mathlib revision/tree/source/object/license, dependency cache, or archive identity",
+    "foundation, provenance, trust, TCB, source, readability, hermeticity, independence, bundle, freshness, or master-acceptance policy"
+  ],
+  "release_grade": false,
+  "accepted_receipt_ids": [],
+  "remaining_root_cut_set": [
+    "dependency.S56-M-0391-VALIDATION.master_acceptance and dependency-ordered acceptance of every predecessor",
+    "kernel closure of the fourteen open root-relevant obligations and checked exact child-to-parent root composition",
+    "accepted H0 primary-source edition, theorem/page, assumptions, errata, node crosswalk, and independent source review",
+    "accepted R0 structured reconstruction and independent reader review",
+    "complete root declaration/body provenance, axiom, trust, computation, TCB, archive, SBOM, and license closure",
+    "immutable clean source snapshot, empty-cache network-denied cold build, and offline archive restoration",
+    "deterministic content-addressed release bundle and public projections generated from that accepted bundle",
+    "two signed attestations from distinct independently provisioned runners with no shared writable dependency or cache",
+    "independently implemented minimal verifier and protected mutation, differential, and metamorphic CI gates",
+    "AUDIT-Z, THEOREM-Z, release acceptance, theorem completion, and master acceptance"
+  ],
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R4"
+  },
+  "deterministic_bundle_sha256": null,
+  "independent_attestations": [],
+  "inputs": {
+    "release_specification": {
+      "path": "Stage1_Instances/THM-M-0391/release-spec.json",
+      "sha256": "aea503878185231bc675bdd4f124c8b849eeda9094954a1b5168dad23154aa2f",
+      "git_blob": "51b5b213120451b6b0cc68bf8d78cf9c09b096cf"
+    },
+    "release_decision": {
+      "path": "Stage1_Instances/THM-M-0391/release-decision.json",
+      "sha256": "e1466073f470f6b386c7f1a501bbbe956ea0912301d44240a4168e10d69bd1d2",
+      "git_blob": "1c4fa8d54e318cb4af8032c037405d74fee40423"
+    },
+    "validation_receipt": {
+      "path": "Stage1_Instances/THM-M-0391/validation-receipt.json",
+      "sha256": "5a391531af68aaf19870f20b832d9b2b2b70e6b6d2bfabcf09ece66be6fa8478",
+      "git_blob": "c8f9f59e43b8ec73b2734b2b6436fcc6d2cac3d1"
+    },
+    "deterministic_evidence_bundle": {
+      "path": "Stage1_Instances/THM-M-0391/release-missing-evidence.json",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "git_blob": null,
+      "availability": "missing",
+      "evidence_credit": false,
+      "status_boundary": "No deterministic release evidence bundle exists. This explicit missing binding makes R01/R02 fail closed."
+    },
+    "independent_attestations": [
+      {
+        "path": "Stage1_Instances/THM-M-0391/release-missing-attestation.json",
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+        "git_blob": null,
+        "availability": "missing",
+        "evidence_credit": false,
+        "status_boundary": "No qualifying independent attestation exists. This explicit missing binding makes R01/R02 fail closed."
+      }
+    ],
+    "public_projections": [
+      {
+        "path": "Stage1_Instances/THM-M-0391/README.md",
+        "sha256": "3cecf3b3aed8050b9aa4a162f029e5918360a55ebff960d406a32a3b3ad760ae",
+        "git_blob": "9d70d32145abc35bb4d3d02f58fca45d0fc7c6f5"
+      },
+      {
+        "path": "Stage1_Instances/THM-M-0391/release-validation.md",
+        "sha256": "1c5f8ba21cd7ac9e704498d8fbe3041cb9d63f8fdd553397d9db1e37695614a8",
+        "git_blob": "bca38867b8129448c5ae95ddc637fb2ffc7a567d"
+      }
+    ],
+    "dependency_reuse_ledger": {
+      "path": "Stage1_Instances/THM-M-0391/dependency-reuse-ledger.json",
+      "sha256": "7935c375a1b3689f393b8e6c77ff4c673ae78f645360e228186cf05ea0eac745",
+      "git_blob": "8624615d832bd11cee184cc7da0ae2fac6bdd642"
+    }
+  },
+  "result": {
+    "exit_code": 0,
+    "semantic_verdict": "blocked",
+    "phase_predicate_proven": false,
+    "phase_accepted": false,
+    "blocked": true,
+    "audit_complete": false,
+    "theorem_complete": false,
+    "open_obligations": 14,
+    "stale_inputs": [
+      "Stage1_Instances/THM-M-0391/validation-receipt.json"
+    ],
+    "accepted_closed_obligation_ids": [],
+    "provisional_closed_obligation_ids": [
+      "M0391-B-EE"
+    ]
+  }
+}

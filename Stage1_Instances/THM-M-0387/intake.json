@@ -1,40 +1,196 @@
 {
-  "schema_version": "stage1-instance/5.6.0",
+  "schema_version": "stage1-instance-intake/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
   "item_id": "S56-M-0387-INTAKE",
+  "intent": "intake",
+  "lifecycle": "planned",
   "lifecycle_mode": "planned",
   "theorem_id": "THM-M-0387",
+  "execution_rank": 1,
+  "legacy_priority_slot": "S1-M-001",
+  "name_zh": "费马大定理",
   "canonical_name": "Fermat's Last Theorem",
-  "canonical_statement": "For every natural exponent n greater than 2, there are no nonzero natural numbers a, b, c satisfying a^n + b^n = c^n.",
+  "category": "数论 / 丢番图方程",
+  "canonical_statement": "For every natural exponent n greater than 2, there are no positive integers x, y, z satisfying x^n + y^n = z^n.",
   "canonical_formal_target": {
     "backend": "lean4",
     "module": "Mathlib.NumberTheory.FLT.Basic",
     "declaration_or_expression": "FermatLastTheorem",
     "elaborated_expression_hash": null,
     "environment_fingerprint": null,
-    "gate_state": "open_pending_statement_phase"
+    "gate_state": "open_pending_statement_phase",
+    "open_boundary": "The statement phase must re-elaborate the pinned declaration, normalize its exact expression, and bind the minimal import environment before this candidate can receive statement credit."
   },
-  "domain_and_universes": "n a b c : Nat; Prop in Lean universe 0",
-  "quantifiers": ["n : Nat (implicit in the definition: 2 < n)", "a b c : Nat"],
-  "hypotheses": ["2 < n", "a != 0", "b != 0", "c != 0"],
-  "conclusion": "a ^ n + b ^ n != c ^ n",
-  "alternate_encodings": [
-    {"target": "FermatLastTheoremWith Int n", "relationship": "iff at each n", "checked_witness": "candidate only: fermatLastTheoremFor_iff_int; credit deferred to statement phase"},
-    {"target": "FermatLastTheoremWith Rat n", "relationship": "iff at each n", "checked_witness": "candidate only: fermatLastTheoremFor_iff_rat; credit deferred to statement phase"},
-    {"target": "FermatLastTheoremForCoprime n", "relationship": "iff at each n", "checked_witness": "candidate only: AwesomeTheorems.NumberTheory.THM_M_0387.fermatLastTheoremFor_iff_coprime; credit deferred to statement phase"}
+  "domain_and_universes": "Planned root over n x y z : Nat, producing Prop in Lean universe 0; the human source uses positive integers.",
+  "ordered_binders": [
+    "n : Nat",
+    "x : Nat",
+    "y : Nat",
+    "z : Nat"
   ],
-  "excluded_degenerate_cases": "The root quantifies only over 2 < n. Zero, one, and two are boundary probes, not FLT instances.",
-  "foundation_profile": "rev-5.6 profile not yet instantiated; classical/choice/quotient audit remains open",
-  "tcb_profile": "rev-5.6 Lean 4 kernel profile; exact version and dependency closure remain open",
-  "computation_profile": "No computation or oracle is credited at intake",
-  "formal_system": "Lean 4 + pinned mathlib (pin verification deferred to statement phase)",
-  "source_revisions": "See source_statement_crosswalk.md; immutable source and Lean pins require later audit",
+  "quantifiers": [
+    "for every n : Nat with 2 < n",
+    "for every x y z : Nat"
+  ],
+  "hypotheses": [
+    "2 < n",
+    "x != 0",
+    "y != 0",
+    "z != 0"
+  ],
+  "conclusion": "x ^ n + y ^ n != z ^ n",
+  "alternate_encodings": [
+    {
+      "target": "FermatLastTheoremFor n",
+      "relationship": "component_of_root",
+      "checked_witness": null,
+      "gate_state": "candidate_only_pending_statement_phase"
+    },
+    {
+      "target": "FermatLastTheoremWith Int n",
+      "relationship": "iff_candidate",
+      "checked_witness": null,
+      "gate_state": "candidate_only_pending_two_way_transport"
+    },
+    {
+      "target": "FermatLastTheoremWith Rat n",
+      "relationship": "iff_candidate",
+      "checked_witness": null,
+      "gate_state": "candidate_only_pending_two_way_transport"
+    },
+    {
+      "target": "FermatLastTheoremForCoprime n",
+      "relationship": "iff_candidate",
+      "checked_witness": null,
+      "gate_state": "candidate_only_pending_two_way_transport"
+    }
+  ],
+  "candidate_encodings_not_credited": true,
+  "excluded_degenerate_cases": "The root requires n > 2. Exponents 0, 1, and 2 are boundary mutations, not FLT cases. A zero base is outside the positive-integer claim and is excluded by all three nonzeroness hypotheses.",
+  "foundation_profile": {
+    "profile_id": "lean4-foundation-planned/1.0",
+    "accepted_at_intake": [],
+    "requires_later_audit": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound",
+      "all transitive declaration axioms"
+    ],
+    "disallowed": [
+      "sorry",
+      "admit",
+      "sorryAx",
+      "unreviewed custom axioms",
+      "unsafe proof injection",
+      "unverifiable oracle results"
+    ]
+  },
+  "tcb_profile": {
+    "profile_id": "lean4-mathlib-tcb-planned/1.0",
+    "kernel": "Lean 4 kernel at the pinned lean-toolchain",
+    "dependency_policy": "Only lake-manifest pins and content-bound repo-local sources may receive later credit.",
+    "open_boundary": "Complete transitive TCB and declaration provenance remain audit/validation work."
+  },
+  "computation_profile": {
+    "profile_id": "no-computation-credit-at-intake/1.0",
+    "credited_methods": [],
+    "boundary": "Numerical search, bounded checking, cache output, native oracles, and experiments do not prove the universal theorem."
+  },
+  "formal_system": {
+    "backend": "Lean 4",
+    "adapter": "repository pinned lake environment",
+    "toolchain_file": "Formalizations/Lean/lean-toolchain",
+    "dependency_lock": "Formalizations/Lean/lake-manifest.json",
+    "statement_import_candidate": "Mathlib.NumberTheory.FLT.Basic"
+  },
+  "source_revisions": {
+    "repository_base": "c5037228977a81948bbd6119e1728b4b65b9924e",
+    "repository_base_tree": "78b2627e717156dffe240bea12d14205af667d2a",
+    "repository_source_record_commit": "c5037228977a81948bbd6119e1728b4b65b9924e",
+    "repository_source_record_blob": "b78ec1f48495aa5747ef252665ab58e418d195e4",
+    "target_manifest_sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+    "v2_blueprint_sha256": "727816e9cf48af14bac74f94e273d82bedaffc63d0877517484fa2f027a45623",
+    "authoritative_blueprint_sha256": "3779901013ac5e0b1f1b2bb4ea7a2ee08429f85bb1ee26c4b96905d6796c65c8",
+    "phase_contract_sha256": "1e7adf0f4fae0541b3595d4b0bfbb53f7eb17e28a4a889fec14f6df969e0cec4",
+    "theorem_dag_sha256": "fb17743ff737fd3c528467b6f992a7235a36f0842b528e57de3e4c6d660d3518",
+    "execution_skill_sha256": "5da11caafdb40b121c2fd19e13cd232a1b13a615f7a64eb314aa82cc19fea454",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_math_source_sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29",
+    "stage0_blueprint_sha256": "ab92a43f9ca23ba446bf8cb881a787d30b99bc7181857fea049f5a8208b2b65f",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "mathlib_flt_basic_sha256": "4007b6455eea58863e8842355d4ae8c2a38b7cc3d6b2dcbc6ef68f697beeb42c"
+  },
   "obligation_registry_hash": null,
   "discovery_protocol_hash": null,
   "authoritative_blueprint": "Docs/Stage1_Blueprint_rev-5.6.md",
-  "public_merge_targets": ["Stage1_Instances/THM-M-0387/README.md", "Stage1_Instances/THM-M-0387/source_statement_crosswalk.md"],
-  "owners_and_reviewers": {"owner": "Stage1 rev-5.6 execution lane", "reviewer": "independent integration-lane reviewer required"},
-  "freshness_and_revocation_policy": "Invalidate on changes to the canonical claim, Lean target, imports/toolchain, source pins, foundation/TCB policy, or rev-5.6 standard.",
-  "root_vector": {"human": "H1", "machine": "M3", "readability": "R3"},
+  "task_state_authority": "Docs/Stage1_Blueprint_v2.md",
+  "dependency_context": {
+    "graph_sha256": "fb17743ff737fd3c528467b6f992a7235a36f0842b528e57de3e4c6d660d3518",
+    "dependency_context_sha256": "90f56448880bb5c1f54b618027daea5b7b32be6e0d05ba2723c43bcc39e17235",
+    "parent_inspection_order": [],
+    "direct_parent_ids": [],
+    "transitive_ancestor_ids": [],
+    "hard_edge_ids": [],
+    "reuse_hint_ids": [],
+    "shared_group_ids": [
+      "SHARED-MODULE-12060056b1f9fd84",
+      "SHARED-MODULE-2884526d078231ae",
+      "SHARED-MODULE-4f11ecbb9eb91fb0",
+      "SHARED-MODULE-97c08d929c8c634f",
+      "SHARED-MODULE-d59c2e49212cb785"
+    ],
+    "acceptance_boundary": "No parent or shared-group state is inherited. The target-owned ledger records five non-reuse decisions and no accepted reuse."
+  },
+  "public_merge_targets": [
+    "Stage1_Instances/THM-M-0387/intake.json",
+    "Stage1_Instances/THM-M-0387/scope-map.md",
+    "Stage1_Instances/THM-M-0387/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0387/task-dag.json",
+    "Stage1_Instances/THM-M-0387/dependency-reuse-ledger.json",
+    "Stage1_Instances/THM-M-0387/intake-validation.md",
+    "Stage1_Instances/THM-M-0387/intake-receipt.json",
+    "Stage1_Instances/THM-M-0387/check_intake.py"
+  ],
+  "owners_and_reviewers": {
+    "artifact_owner": "Stage1 THM-M-0387 execution lane",
+    "acceptance_owner": "Stage1 integration lane",
+    "reviewer_policy": "An independent read-only app-server review and scheduler-owned replay are required before master acceptance."
+  },
+  "freshness_and_revocation_policy": {
+    "policy_id": "stage1-intake-freshness/1.0",
+    "review_due": "before statement acceptance or any proof, source, or transport credit",
+    "invalidation_inputs": [
+      "the canonical human claim or boundary convention",
+      "the target manifest, v2 blueprint, theorem DAG, or phase contract",
+      "the Lean target, imports, toolchain, dependency lock, or mathlib revision",
+      "the source leads, correction or errata findings",
+      "any selected intake artifact or validator byte"
+    ],
+    "incident_path": "revoke or supersede the intake receipt, return the item to repair, and issue a fresh content-bound self-test"
+  },
+  "baseline": "L0",
+  "rework_required": true,
+  "legacy_artifacts_accepted": false,
+  "target_lane": "flagship_deep_formalization_debt",
+  "intake_score": 279,
+  "source_status_untrusted": "部分验证（n=3、n=4 与 regular primes 已 machine-checked；全证明进行中）",
+  "accepted_proof_state": [],
+  "accepted_receipt_ids": [],
+  "root_vector": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R3"
+  },
+  "audit_complete": false,
   "theorem_complete": false,
-  "status_boundary": "This planned intake freezes scope only. It does not pass the Lean statement gate, accept historical artifacts, or prove FLT."
+  "downstream_blockers": [
+    "Exact normalized Lean expression, environment fingerprint, and required mutation results remain statement-phase work.",
+    "Pinpoint primary-source premise mapping, corrections, errata, and independent source review remain open.",
+    "Formal candidate provenance, canonical obligation registry, typed graphs, exact proof bodies, composition, validation, and release remain open.",
+    "The all-odd-prime Wiles/Taylor-Wiles and Frey/Ribet formalization frontier remains open; partial exponent and regular-prime branches do not close the root."
+  ],
+  "status_boundary": "This complete planned intake freezes one bounded FLT claim, profiles, ownership, freshness, scope, source leads, an open downstream DAG, and an audited no-parent reuse context. It claims no accepted exact statement, proof credit, audit completion, theorem completion, or master acceptance."
 }

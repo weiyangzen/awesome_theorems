@@ -2,17 +2,29 @@
   "schema_version": "stage1-release-decision/1.0",
   "item_id": "S56-M-0393-RELEASE",
   "theorem_id": "THM-M-0393",
+  "phase": "release",
   "intent": "release",
-  "base_revision": "15a5351889f1657f452569fe630c9e39edb81877",
-  "decided_at": "2026-07-11T19:42:00Z",
+  "base_revision": "c5037228977a81948bbd6119e1728b4b65b9924e",
+  "base_tree": "78b2627e717156dffe240bea12d14205af667d2a",
   "decision_support": "provisional_worker_selftest",
   "verdict": "blocked",
   "lifecycle_before": "planned",
   "lifecycle_after": "planned",
+  "dependency_context": {
+    "graph_sha256": "fb17743ff737fd3c528467b6f992a7235a36f0842b528e57de3e4c6d660d3518",
+    "dependency_context_sha256": "068170c76abd4579d643ede04d731b974412185bd285e7b40255ec4044adec5c",
+    "parent_inspection_order": [],
+    "inspected_parent_ids": [],
+    "reused_declaration_ids": [],
+    "ledger_path": "Stage1_Instances/THM-M-0393/dependency-reuse-ledger.json",
+    "ledger_sha256": "c6bb38200b521717fffa97270da37248eafd778cdb5d22b6dc18f78bebb43802",
+    "unresolved_compatibility_obligations": []
+  },
   "dependency": {
     "item_id": "S56-M-0393-VALIDATION",
-    "worker_projection": "[_]",
+    "authoritative_state": "[_]",
     "master_accepted": false,
+    "receipt_path": "Stage1_Instances/THM-M-0393/validation-receipt.json",
     "receipt_id": "S56-M-0393-VALIDATION-local-20260711T193851Z",
     "receipt_support_state": "provisional_worker_selftest",
     "receipt_sha256": "e799386f8a5c361d7d2cd1fc310afd6d5b6de0b23ee19976e8bd828586e3921c"
@@ -23,9 +35,21 @@
     "S56-M-0393-VALIDATION-local-20260711T193851Z"
   ],
   "root_vector": {
-    "accepted_before": ["H3", "M4", "R3"],
-    "accepted_after": ["H3", "M4", "R3"],
-    "best_provisional_evidence": ["H3", "M4", "R3"],
+    "accepted_before": {
+      "H": "H3",
+      "M": "M4",
+      "R": "R3"
+    },
+    "accepted_after": {
+      "H": "H3",
+      "M": "M4",
+      "R": "R3"
+    },
+    "best_provisional_evidence": {
+      "H": "H3",
+      "M": "M4",
+      "R": "R3"
+    },
     "boundary": "A finite-choice subclaim inside M0393-N1 has provisional same-workspace kernel evidence. It does not close M0393-N1 or any canonical obligation. The exact Thue root and all seventeen frozen root-relevant obligations remain open."
   },
   "terminal_decisions": {
@@ -35,31 +59,60 @@
     "theorem_z": "blocked"
   },
   "first_failed_gate": {
-    "gate_id": "S56-10.2-DEPENDENCY-ACCEPTANCE",
-    "reason": "S56-M-0393-VALIDATION is only worker-self-tested and has no master-accepted receipt, so release is not dependency-legal."
+    "gate_id": "G02-TOPOLOGY",
+    "reason": "S56-M-0393-VALIDATION is [_], not master-accepted [x], so release is not dependency-legal."
   },
   "next_failed_theorem_gate": {
     "gate_id": "S56-M-0393-ROOT-KERNEL-CLOSURE",
     "reason": "Validation records root_closed=false and validates only a strict finite-choice subclaim within M0393-N1; no canonical obligation or root composition is closed."
   },
+  "first_failed_release_assurance_gate": {
+    "gate_id": "R01-ARTIFACTS",
+    "reason": "No master-accepted validation receipt, deterministic evidence bundle, two independent signed attestations, or accepted-bundle-derived public projections exist."
+  },
   "evidence_reconciliation": {
-    "statement_source_frozen": "provisional source hash only",
+    "frozen_obligation_inventory": "present_but_provisional",
+    "typed_graph_bundle": "present_but_provisional",
+    "dependency_reuse_closure": "empty_context_fully_inspected_no_reuse",
     "statement_identity": "lean-source-sha256:456c62756bc035e675135270bf6984c00bb1203bc6687d3495ae7663131d985f#Stage1.THM_M_0393.ThueStatement",
-    "canonical_statement_replay": "missing",
-    "statement_replay_failure": "Statement.lean fails direct elaboration because evalBinary uses a noncomputable instance without being declared noncomputable",
+    "canonical_statement_replay": "failed",
+    "statement_replay_failure": "Statement.lean fails direct elaboration because evalBinary uses a noncomputable instance without being declared noncomputable.",
     "partial_proof_body": "local body for a finite-choice subclaim at Stage1.THM_M_0393.Proof.finite_pow_divisors",
     "exact_root_kernel_check": "missing",
     "closed_obligation_ids": [],
-    "partial_obligation_ids": ["M0393-N1"],
+    "partial_obligation_ids": [
+      "M0393-N1"
+    ],
     "open_root_relevant_obligation_count": 17,
-    "axioms_observed_on_partial_checks": ["propext", "Classical.choice", "Quot.sound"],
-    "placeholder_scan": "pass on Proof.lean and Validation.lean",
+    "axioms_observed_on_partial_checks": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "placeholder_scan": "pass_on_Proof.lean_and_Validation.lean_only",
     "root_composition": "missing",
-    "hermetic_release_reproduction": "missing",
-    "independent_release_verification": "missing",
     "human_source_acceptance": "missing",
     "readability_acceptance": "missing",
-    "release_bundle": "missing"
+    "root_provenance_trust_tcb_closure": "missing",
+    "immutable_clean_source_snapshot": "missing",
+    "cold_empty_cache_build": "missing",
+    "offline_archive_replay": "missing",
+    "sbom_and_license_closure": "missing",
+    "independent_release_verification": "missing",
+    "deterministic_release_bundle": "missing",
+    "public_projection_from_accepted_bundle": "missing"
+  },
+  "release_protocol": {
+    "specification_path": "Stage1_Instances/THM-M-0393/release-spec.json",
+    "specification_sha256": "3a198579b662eb1ea6a5de4fa0a9de3802ed4369492aec0b75968524eb42202d",
+    "immutable_clean": false,
+    "cold_empty_cache": false,
+    "offline_replay": false,
+    "sbom_and_licenses": false,
+    "deterministic_bundle": false,
+    "two_independent_attestations": false,
+    "independent_minimal_verifier": false,
+    "status": "not_release_grade"
   },
   "remaining_root_cut_set": [
     "master acceptance of S56-M-0393-VALIDATION and all transitive phase receipts",
@@ -67,15 +120,16 @@
     "kernel closure of all seventeen root-relevant obligations and checked exact child-to-parent root composition",
     "accepted H0 primary-source theorem, assumptions, errata, and node crosswalk with independent source review",
     "accepted R0 structured reconstruction with independent reader review",
-    "complete root provenance, axiom, trust, and TCB closure",
+    "complete root provenance, axiom, trust, computation, and TCB closure",
     "immutable clean source snapshot and clean-worktree attestation",
     "empty-cache network-denied cold build and offline archive replay",
-    "SBOM and license closure",
+    "content-addressed SBOM and license closure",
     "two signed attestations from separately provisioned independent runners",
     "independently implemented minimal release verifier",
-    "protected CI and required mutation and metamorphic gate results",
-    "deterministic content-addressed release bundle and master reconciliation"
+    "protected CI plus required mutation and metamorphic gate results",
+    "deterministic content-addressed release bundle and accepted-bundle-derived public projections",
+    "master reconciliation and acceptance"
   ],
-  "retry_condition": "Repair and master-accept the statement replay, complete and master-accept every root proof obligation and composition certificate, then master-accept validation. A separate release lane must close H0/R0 review, root trust and provenance, hermetic and independent reproduction, supply-chain, CI, and deterministic-bundle gates.",
-  "status_boundary": "This worker artifact decides the requested release phase as blocked. It creates no accepted receipt, changes no lifecycle or debt state, and makes no theorem-completion claim."
+  "retry_condition": "First repair and master-accept every predecessor phase, including exact statement replay and root validation. Then complete H0/R0, provenance/trust/TCB, immutable cold/offline reproduction, supply-chain, independent-verifier, deterministic-bundle, and public-reconciliation gates before retrying release.",
+  "status_boundary": "Truthful target-scoped negative release reconciliation only. The audit remains incomplete, the theorem remains incomplete, release is not grade, no receipt is accepted, and no lifecycle, debt, task state, or theorem-completion promotion is claimed."
 }

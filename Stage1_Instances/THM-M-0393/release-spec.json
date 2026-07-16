@@ -1,0 +1,60 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "recipe_id": "S56-M-0393-RELEASE-negative-reconciliation-v2",
+  "item_id": "S56-M-0393-RELEASE",
+  "theorem_id": "THM-M-0393",
+  "phase": "release",
+  "intent": "release",
+  "cwd": ".",
+  "argv": [
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0393/check_release.py"
+  ],
+  "env_allowlist": {},
+  "timeout_seconds": 120,
+  "network_policy": "denied",
+  "expected_exit": 0,
+  "expected_outputs": [
+    {
+      "path_or_stream": "stdout",
+      "semantic_hash_policy": "exactly one stage1-validator-semantic-result/1.0 JSON object"
+    }
+  ],
+  "covered_obligation_ids": [
+    "M0393-ROOT",
+    "M0393-S1",
+    "M0393-S2",
+    "M0393-S3",
+    "M0393-N1",
+    "M0393-N2",
+    "M0393-C1",
+    "M0393-C2",
+    "M0393-L1",
+    "M0393-L2",
+    "M0393-L3",
+    "M0393-X1",
+    "M0393-B1",
+    "M0393-B2",
+    "M0393-T1",
+    "M0393-T2",
+    "M0393-X2"
+  ],
+  "release_protocol": {
+    "immutable_clean_input": "required_not_satisfied",
+    "cold_empty_cache_build": "required_not_satisfied",
+    "offline_archive_replay": "required_not_satisfied",
+    "sbom_and_license_closure": "required_not_satisfied",
+    "deterministic_bundle": "required_not_satisfied",
+    "two_independent_signed_attestations": "required_not_satisfied",
+    "independent_minimal_verifier": "required_not_satisfied"
+  },
+  "deterministic_bundle_recipe": {
+    "canonicalization": "canonical JSON plus content-addressed raw receipts and exact source bytes",
+    "build_twice_required": true,
+    "semantic_digest_agreement_required": true,
+    "status": "not_executed_missing_release_inputs"
+  },
+  "scope_boundary": "This specification supports a fail-closed worker reconciliation of missing release evidence. It does not perform or claim the immutable cold/offline, supply-chain, deterministic-bundle, or independent-runner protocol."
+}

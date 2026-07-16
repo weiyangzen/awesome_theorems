@@ -1,0 +1,124 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0387-INTAKE-worker-c5037228977a-20260716T181856Z",
+  "item_id": "S56-M-0387-INTAKE",
+  "theorem_id": "THM-M-0387",
+  "phase": "intake",
+  "intent": "intake",
+  "base_revision": "c5037228977a81948bbd6119e1728b4b65b9924e",
+  "base_tree": "78b2627e717156dffe240bea12d14205af667d2a",
+  "inputs": {
+    "task_state_authority": {
+      "path": "Docs/Stage1_Blueprint_v2.md",
+      "sha256": "727816e9cf48af14bac74f94e273d82bedaffc63d0877517484fa2f027a45623",
+      "item_state_observed": "[_]",
+      "attempts_observed": 1
+    },
+    "assurance_authority": {
+      "path": "Docs/Stage1_Blueprint_rev-5.6.md",
+      "sha256": "3779901013ac5e0b1f1b2bb4ea7a2ee08429f85bb1ee26c4b96905d6796c65c8"
+    },
+    "target_manifest": {
+      "path": "Docs/Stage1_Targets_rev-5.6.json",
+      "sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c"
+    },
+    "theorem_dag_sha256": "fb17743ff737fd3c528467b6f992a7235a36f0842b528e57de3e4c6d660d3518",
+    "dependency_context_sha256": "90f56448880bb5c1f54b618027daea5b7b32be6e0d05ba2723c43bcc39e17235",
+    "phase_contract_sha256": "1e7adf0f4fae0541b3595d4b0bfbb53f7eb17e28a4a889fec14f6df969e0cec4",
+    "parent_inspection_order": [],
+    "accepted_receipt_ids": [],
+    "provider_acceptance_inherited": false
+  },
+  "artifact_bindings": {
+    "instance_manifest": {
+      "role": "instance_manifest",
+      "path": "Stage1_Instances/THM-M-0387/intake.json",
+      "sha256": "ece896111b63fd7395e58908bb145c6f63a4076a9e632bf03df5098207ca25f2",
+      "git_blob": "45c5cab5096b09c70c2420e8989fcdafaad1c873"
+    },
+    "scope_map": {
+      "role": "scope_map",
+      "path": "Stage1_Instances/THM-M-0387/scope-map.md",
+      "sha256": "3cb6eb59fb33f20bf9c37502b844591d925a10b887f79207e47742dd516b8cf8",
+      "git_blob": "7deef2e45f89dcf4f3fefdac5a272b4228ddbbc3"
+    },
+    "source_crosswalk": {
+      "role": "source_crosswalk",
+      "path": "Stage1_Instances/THM-M-0387/source-statement-crosswalk.md",
+      "sha256": "e08749a6f4abc551300e8df24c6a57c8d0ece47746a6f00ba9ac41e9ef4f0564",
+      "git_blob": "79df872ea76394062563fb4f0d5c972597ed7e75"
+    },
+    "open_task_dag": {
+      "role": "open_task_dag",
+      "path": "Stage1_Instances/THM-M-0387/task-dag.json",
+      "sha256": "269cde918cdaf9092426c7432cd3c882b02dba9bc3c988bd014c8b3f704f8583",
+      "git_blob": "0e3faf3cfb2b964791e7feac918ea3476878ef4c"
+    },
+    "phase_receipt": {
+      "role": "phase_receipt",
+      "path": "Stage1_Instances/THM-M-0387/intake-receipt.json",
+      "sha256": "self_referential_excluded",
+      "git_blob": "self_referential_excluded"
+    }
+  },
+  "support_state": "provisional_worker_selftest",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "verdict": "accepted",
+  "selftest_status": "passed_with_expected_projection_drift",
+  "selftest_result": {
+    "exit_code": 0,
+    "commands": [
+      {
+        "argv": ["python3", "Docs/tools/check_stage1_standard.py"],
+        "exit_code": 1
+      },
+      {
+        "argv": ["python3", "Docs/tools/check_stage1_theorem_dag_v2.py"],
+        "exit_code": 1
+      },
+      {
+        "argv": ["python3", "scripts/stage1_target.py", "check"],
+        "exit_code": 0
+      },
+      {
+        "argv": ["python3", "scripts/stage1_target.py", "show", "THM-M-0387"],
+        "exit_code": 0
+      },
+      {
+        "argv": ["/usr/bin/python3", "-I", "-B", "Stage1_Instances/THM-M-0387/check_intake.py"],
+        "exit_code": 0
+      },
+      {
+        "argv": ["git", "diff", "--check", "--", "Stage1_Instances/THM-M-0387"],
+        "exit_code": 0
+      },
+      {
+        "argv": ["python3", "-m", "unittest", "scripts.test_stage1_acceptance_evidence", "scripts.test_stage1_phase_acceptance_contracts"],
+        "exit_code": 1
+      }
+    ],
+    "output_summary": "Manifest, target identity, target-owned intake semantic checks, scheduler semantic parsing, dependency-ledger validation, and whitespace checks pass. The repository-wide standard/v2 graph checks report the expected worker-local inventory drift caused by new target-owned JSON evidence; the integration lane regenerates that read-only projection after merge. The validator emits one typed positive intake result and no prose."
+  },
+  "known_failures": [
+    "The exact normalized Lean expression, environment fingerprint, credited transports, and mutation suite remain statement-phase work.",
+    "Pinpoint source mapping, corrections and errata audit, and independent source review remain open; H0 is not claimed.",
+    "No proof body, obligation closure, composition certificate, accepted receipt, audit completion, or theorem completion is claimed.",
+    "The checked-in theorem DAG intentionally remains unchanged in the worker clone. Its deterministic inventory check sees the new intake receipt/task JSON and fails until the integration lane merges the owned files and regenerates the read-only theorem DAG projection.",
+    "The scheduler acceptance test suite has three environment failures in this managed worker: the home directory is read-only and /usr/bin/bwrap ownership/permission checks fail. The target validator's exact semantic stdout was separately parsed successfully in-process.",
+    "The historical worker base did not contain check_intake.py. Contract-selected master replay therefore remains fail-closed until integration lands the validator and starts a fresh base-bound review/replay."
+  ],
+  "first_failed_gate": "master_replay.validator_base_identity_pending",
+  "retry_condition": "The integration lane must land this fresh revalidation packet, bind each selected HEAD artifact, allocate independent review, and replay check_intake.py from an immutable base containing the identical validator blob before master acceptance.",
+  "status_boundary": "Accepted is the worker verdict for the complete planned intake predicate only. The named failed gate is the expected downstream master-replay base-identity gate, not a failed intake deliverable. This receipt is unsigned provisional evidence and does not itself produce master acceptance, exact-statement acceptance, proof credit, AUDIT-Z, or THEOREM-Z.",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "invalidation_inputs": [
+    "canonical claim, scope, domain, binders, hypotheses, or conclusion",
+    "target manifest, v2 blueprint state/attempts, theorem DAG, dependency context, or phase contract",
+    "selected artifact or check_intake.py bytes",
+    "Lean toolchain, dependency lock, mathlib revision, source lead, correction, or errata finding",
+    "worker command result, independent review, scheduler replay, supersession, or revocation state"
+  ],
+  "lifecycle_after": "planned"
+}

@@ -1,0 +1,72 @@
+{
+  "schema_version": "stage1-release-recipe/1.0",
+  "recipe_id": "S56-M-0391-RELEASE-negative-reconciliation-v2",
+  "item_id": "S56-M-0391-RELEASE",
+  "theorem_id": "THM-M-0391",
+  "phase": "release",
+  "intent": "release",
+  "base_revision": "c5037228977a81948bbd6119e1728b4b65b9924e",
+  "base_tree": "78b2627e717156dffe240bea12d14205af667d2a",
+  "cwd": ".",
+  "argv": [
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "Stage1_Instances/THM-M-0391/check_release.py"
+  ],
+  "env_allowlist": {
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC"
+  },
+  "timeout_seconds": 180,
+  "network_policy": "denied",
+  "network_enforcement": "The validator performs only local strict-JSON, Git, byte-hash, and source-hygiene checks. It does not invoke Lean, Lake, a network client, or any dependency mutation. Narrow Lean elaboration is recorded separately as warm nonrelease worker evidence.",
+  "expected_exit": 0,
+  "expected_semantic_result": {
+    "schema_version": "stage1-validator-semantic-result/1.0",
+    "item_id": "S56-M-0391-RELEASE",
+    "theorem_id": "THM-M-0391",
+    "phase": "release",
+    "status": "blocked",
+    "verdict": "blocked",
+    "phase_accepted": false,
+    "audit_complete": false,
+    "theorem_complete": false,
+    "phase_predicate_proven": false,
+    "first_failed_gate": "dependency.S56-M-0391-VALIDATION.master_acceptance",
+    "open_obligations": 14,
+    "stale_inputs": [
+      "Stage1_Instances/THM-M-0391/validation-receipt.json"
+    ],
+    "blocked": true,
+    "message": "Negative release reconciliation self-tested; validation is not master accepted, AUDIT-Z is open, and the exact theorem root remains open."
+  },
+  "covered_obligation_ids": [
+    "M0391-ROOT",
+    "M0391-S-BOUNDARY",
+    "M0391-N-EXPONENT",
+    "M0391-N-POWER-LIFT",
+    "M0391-B-EXHAUSTIVE",
+    "M0391-B-EE",
+    "M0391-B-EO",
+    "M0391-L-EO-FACTOR",
+    "M0391-L-EO-CLASSIFY",
+    "M0391-B-OE",
+    "M0391-L-OE-FACTOR",
+    "M0391-B-OO",
+    "M0391-L-OO-CYCLOTOMIC",
+    "M0391-L-OO-DESCENT",
+    "M0391-T-LIFTBACK"
+  ],
+  "covered_declarations": [
+    "Stage1Instances.THMM0391.MihailescuTarget",
+    "Stage1Instances.THMM0391.Proof.evenEvenImpossible",
+    "Stage1Instances.THMM0391.Validation.independentEvenEvenImpossible"
+  ],
+  "covered_decisions": [
+    "AUDIT-Z",
+    "THEOREM-Z"
+  ],
+  "scope_boundary": "This recipe proves only that the current release result is blocked. It supplies no accepted validation dependency, complete frozen audit, exact root proof, H0, R0, root trust closure, immutable clean cold/offline replay, SBOM/license closure, deterministic bundle, independent attestations, minimal verifier, AUDIT-Z, THEOREM-Z, theorem completion, release acceptance, or master acceptance."
+}

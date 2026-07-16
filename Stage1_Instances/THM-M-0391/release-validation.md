@@ -1,86 +1,89 @@
-# THM-M-0391 Release Decision Handoff
+# THM-M-0391 release reconciliation
 
-## Exact verdict
+## Verdict
 
-`S56-M-0391-RELEASE` is **blocked**. The lifecycle remains `planned`, the root vector remains
-`[H1, M4, R4]`, `audit_complete=false`, and `theorem_complete=false`. There are no accepted receipt
-IDs and no theorem-completion promotion.
+The `S56-M-0391-RELEASE` worker verdict is `blocked`. The release phase is not
+accepted: `audit_complete=false`, `theorem_complete=false`, and the lifecycle and
+root vector remain `planned` and `[H1, M4, R4]`. This is a self-tested negative
+reconciliation, not `AUDIT-Z`, `THEOREM-Z`, theorem completion, or master acceptance.
 
-The first failed gate is `S56-10.2-DEPENDENCY-ACCEPTANCE`: the validation prerequisite is `[_]`
-worker evidence with `support_state=provisional_worker_selftest`, not a master-accepted dependency.
-Even after dependency acceptance, `THEOREM-Z` would immediately fail root kernel closure: the
-validation receipt records `root_closed=false` and closes only `M0391-B-EE`.
+The first failed gate is
+`dependency.S56-M-0391-VALIDATION.master_acceptance`. The sole task-state authority
+records validation as `[_]`, not `[x]`. Its target-owned legacy receipt is provisional,
+binds ancestor revision `66630bedafa43a769b94226b7431188dea47edf1`, and lacks the
+current contract's normalized semantic/self-test fields. It therefore cannot support
+release acceptance.
 
-## Reconciliation
+## DAG and reuse audit
 
-The statement elaborates exactly, and two different same-workspace Lean implementations validate
-the elementary fact that two nontrivial squares cannot differ by one. This is provisional local
-kernel evidence for one branch. It is not a proof of Mihailescu's theorem. Fourteen of the fifteen
-frozen root-relevant obligations remain open, including exponent normalization, power lifting, the
-EO/OE/OO branches, lift-back, and exact root composition. Therefore the root remains `M4`, not
-`M0-*` or `M2`.
+The claim tuple is `(v2_execution_rank=5, phase_layer=6,
+phase_item_id=S56-M-0391-RELEASE)`. The theorem DAG digest is
+`fb17743ff737fd3c528467b6f992a7235a36f0842b528e57de3e4c6d660d3518`, and the
+target context digest is
+`068170c76abd4579d643ede04d731b974412185bd285e7b40255ec4044adec5c`.
+The complete parent inspection order is empty: there are no direct hard parents,
+transitive hard ancestors, hard edges, reuse hints, or shared groups. The target-owned
+schema-1.1 ledger records that exact empty closure. No parent body was inspected,
+copied, imported, transported, or credited; no provider acceptance was transferred.
 
-The human-source packet is still `H1`: it lacks an independently reviewed exact primary-source
-theorem/page, assumptions, errata, and node crosswalk. The readable surface remains `R4`: the open
-architecture is not an independently accepted complete reconstruction. Hence `AUDIT-Z` also does
-not pass.
+## Evidence boundary
 
-Release evidence is absent for complete root provenance/axiom/TCB closure, an immutable clean
-snapshot, empty-cache network-denied cold build, offline archive restoration, SBOM/licenses,
-protected CI and mutation gates, two separately provisioned signed attestations, an independently
-implemented minimal release verifier, and a deterministic content-addressed bundle. The existing
-independent branch probe ran in this same checkout with the shared read-only dependency cache and
-does not satisfy section 10.7.
+`Statement.lean` still elaborates the unchanged exact natural-number target and its
+checked statement transport. `Proof.lean` and `Validation.lean` independently
+elaborate the elementary even/even impossibility branch. This is provisional warm
+kernel evidence for `M0391-B-EE` only. There is no declaration proving
+`Stage1Instances.THMM0391.MihailescuTarget`, and fourteen of fifteen frozen
+root-relevant obligations plus exact root composition remain open.
 
-## Self-test
+The dossier also remains H1 and R4. It has no accepted pinpoint primary-source and
+errata crosswalk, independent H0/R0 review, complete root provenance/axiom/trust/TCB
+closure, immutable clean source snapshot, empty-cache cold/offline replay,
+SBOM/license closure, deterministic evidence bundle, accepted bundle-derived public
+projections, two qualifying independent attestations, or independently implemented
+minimal verifier. Consequently neither `AUDIT-Z` nor `THEOREM-Z` is established.
 
-Commands were run from base revision `62c2c0315a74e39528d22069068ffe85fea50afd` on 2026-07-12:
+## Worker self-test
+
+The worker used base revision `c5037228977a81948bbd6119e1728b4b65b9924e` and did
+not run `lake update`, `lake build`, a dependency fetch/clone, or any `.lake`
+mutation. The automation-provided `.lake` symlink was reused read-only and is
+classified as shared warm nonrelease input.
+
+The base-tree structural commands passed before adding the target-owned release
+inventory. The first two commands below therefore have a base-tree pass and the
+post-edit expected inventory-drift result described after the block. The narrow
+target checks and release validator passed after the edits:
 
 ```text
 python3 Docs/tools/check_stage1_standard.py
-  exit 0: 15 assurance groups; 1546 uniform-L0 targets; execution skill present
-
+python3 Docs/tools/check_stage1_theorem_dag_v2.py
 python3 scripts/stage1_target.py check
-  exit 0: 1546 unique targets, ranks 1..1546, all L0/rework_required
-
 python3 scripts/stage1_target.py show THM-M-0391
-  exit 0: rank 5; lifecycle planned; theorem_complete=false
-
-python3 Stage1_Instances/THM-M-0391/check_validation.py
-  exit 0: exact partial proof re-elaborated; independent M0391-B-EE probe passed;
-  root remains open
-
-cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0391/Statement.lean
-  exit 0 with no output: exact statement and checked transports elaborated
-
-cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0391/Proof.lean
-  exit 0: M0391-B-EE proof elaborated; axioms propext and Quot.sound
-
-cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0391/Validation.lean
-  exit 0: independently reconstructed M0391-B-EE proof elaborated; axioms propext,
-  Classical.choice, and Quot.sound
-
-python3 Stage1_Instances/THM-M-0391/check_release.py
-  exit 0: blocked decision, unaccepted dependency, one closed branch, fourteen open
-  obligations, false terminal booleans, and release cut set agree
-
-python3 -m json.tool Stage1_Instances/THM-M-0391/release-decision.json
-  exit 0: valid JSON
-
-rg -n '\b(sorry|admit)\b|^[[:space:]]*(axiom|unsafe)\b' \
-  Stage1_Instances/THM-M-0391/{Statement,Proof,Validation}.lean
-  exit 1 with empty output: pass, no prohibited local declaration or placeholder
-
-git diff --check -- Stage1_Instances/THM-M-0391
-  exit 0: no whitespace errors
+cd Formalizations/Lean && lake env lean --trust=0 ../../Stage1_Instances/THM-M-0391/Statement.lean
+cd Formalizations/Lean && lake env lean --trust=0 ../../Stage1_Instances/THM-M-0391/Proof.lean
+cd Formalizations/Lean && lake env lean --trust=0 ../../Stage1_Instances/THM-M-0391/Validation.lean
+/usr/bin/python3 -I -B Stage1_Instances/THM-M-0391/check_release.py
+python3 -m json.tool on every new release JSON artifact
+python3 -m py_compile Stage1_Instances/THM-M-0391/check_release.py with PYTHONPYCACHEPREFIX under /tmp
+git diff --check -- Stage1_Instances/THM-M-0391 .stage1-worker-selftest.json
 ```
 
-No `lake update`, `lake build`, dependency fetch, clone, or `.lake` mutation was performed. The
-pre-existing untracked `.lake` symlink is excluded from changed paths and is not release evidence.
+After the release receipt/specification/ledger were added, the two repository-wide
+structural commands truthfully returned exit 1 because the checked-in theorem-DAG
+inventory does not yet list those new files. This is the expected worker/master
+boundary: the worker did not edit the read-only projection, and the integration lane
+regenerates it after copying the owned-path evidence. `stage1_target.py check` and
+`show THM-M-0391` still pass on the current worker tree.
+
+The release validator emits exactly one
+`stage1-validator-semantic-result/1.0` JSON object. Its truthful semantic result is
+`status=blocked`, `verdict=blocked`, `phase_accepted=false`,
+`audit_complete=false`, `theorem_complete=false`, and `open_obligations=14`.
 
 ## Retry boundary
 
-The proof lane must close the remaining root obligations and exact composition. The integration
-lane must then master-accept the dependency chain. A separately provisioned release lane must close
-H0/R0 reviews, root trust and provenance, hermetic and independent reproduction, supply-chain and
-CI gates, and deterministic bundle verification. Only the master may accept the terminal decision.
+First close the unchanged exact root and all root-critical obligations, reconcile the
+complete frozen audit, and obtain dependency-ordered master acceptance through
+validation. Then close H0/R0, provenance/trust/TCB/SBOM/license, immutable cold and
+offline reproduction, deterministic bundling and public reconciliation, distinct
+independent attestations, the minimal verifier, and final master release gates.

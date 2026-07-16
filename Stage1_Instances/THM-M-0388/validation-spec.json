@@ -1,0 +1,49 @@
+{
+  "schema_version": "stage1-validation-spec/1.0",
+  "item_id": "S56-M-0388-VALIDATION",
+  "theorem_id": "THM-M-0388",
+  "depends_on": [
+    "S56-M-0388-PROOF"
+  ],
+  "recipes": [
+    {
+      "recipe_id": "S56-M-0388-VALIDATION-pinned-warm-v2",
+      "cwd": ".",
+      "argv": [
+        "/usr/bin/python3",
+        "-I",
+        "-B",
+        "Stage1_Instances/THM-M-0388/check_validation.py"
+      ],
+      "env_allowlist": {},
+      "timeout_seconds": 180,
+      "network_policy": "denied",
+      "expected_exit": 0,
+      "expected_outputs": [
+        {
+          "path_or_stream": "stdout",
+          "semantic_hash_policy": "exactly one stage1-validator-semantic-result/1.0 JSON object"
+        }
+      ],
+      "covered_obligation_ids": [
+        "M0388-ROOT",
+        "M0388-S-PREDICATE",
+        "M0388-X-PELL",
+        "M0388-N-IRRATIONAL",
+        "M0388-C-APPROX",
+        "M0388-B-NORM",
+        "M0388-C-PAIR",
+        "M0388-C-QUOTIENT",
+        "M0388-L-EQUATION",
+        "M0388-L-NONZERO",
+        "M0388-X-TRUST"
+      ],
+      "covered_declarations": [
+        "Stage1Instances.THMM0388.Proof.pellEquationStatement",
+        "Stage1Instances.THMM0388.Validation.independentRoot",
+        "Pell.exists_of_not_isSquare"
+      ],
+      "coverage_boundary": "Pinned warm-cache kernel replay, exact local statement and proof input binding, selected terminal source and olean provenance, local placeholder policy, and same-workspace differential reconstruction. This phase does not claim audit completion, theorem completion, a cold empty-cache release replay, a complete transitive TCB/SBOM bundle, or a distinct signed independent runner."
+    }
+  ]
+}
