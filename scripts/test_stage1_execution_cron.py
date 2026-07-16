@@ -176,6 +176,216 @@ class SchedulerOwnedIntakeValidatorTests(unittest.TestCase):
         self.assertEqual(revisions_seen, [None, None])
 
 
+class DurableWorkerHandoffTests(unittest.TestCase):
+    CLAIM_ID = "20260716T120000Z-0123456789ab"
+
+    def setUp(self) -> None:
+        self.temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temporary.cleanup)
+        self.root = Path(self.temporary.name)
+        self.runtime = self.root / ".cron" / "stage1-v2-app-server"
+        self.runtime.mkdir(parents=True)
+        self.item = {
+            "id": "S56-M-0001-INTAKE",
+            "theorem_id": "THM-M-0001",
+            "phase": "intake",
+            "layer": 0,
+            "state": "[_]",
+            "attempts": 1,
+            "depends_on": [],
+            "owned_paths": ["Stage1_Instances/THM-M-0001"],
+        }
+        self.claim = {
+            "lane": cron.IMPLEMENTATION_LANE,
+            "claim_id": self.CLAIM_ID,
+            "item_id": self.item["id"],
+            "theorem_id": self.item["theorem_id"],
+            "base_revision": "b" * 40,
+            "status": "finished_integrated",
+            "runtime_protocol": cron.RUNTIME_PROTOCOL,
+            "fresh_revalidation": False,
+            "goal_objective": "implement",
+            "goal_objective_path": str(self.runtime / "goals" / "impl.txt"),
+            "app_server_status": str(self.runtime / "app-server" / "impl.json"),
+            "output_log": str(self.runtime / "logs" / "impl.out"),
+            "workspace": str(self.runtime / "workers" / "slot1"),
+            "selftest_manifest": str(
+                self.runtime / "workers" / "slot1" / ".stage1-worker-selftest.json"
+            ),
+        }
+        self.payload = (
+            json.dumps({
+                "item_id": self.item["id"],
+                "state": "[_]",
+                "base_revision": self.claim["base_revision"],
+                "changed_paths": ["Stage1_Instances/THM-M-0001/intake.json"],
+                "commands": ["python3 check_intake.py"],
+            }, sort_keys=True) + "\n"
+        ).encode()
+
+    def archive(self) -> Path:
+        with (
+            mock.patch.object(cron, "ROOT", self.root),
+            mock.patch.object(cron, "RUNTIME", self.runtime),
+        ):
+            path, digest, size = cron.persist_worker_handoff(
+                self.claim, self.payload
+            )
+        self.claim.update({
+            "worker_handoff_archive_schema": cron.WORKER_HANDOFF_ARCHIVE_SCHEMA,
+            "worker_handoff_path": str(path),
+            "worker_handoff_sha256": digest,
+            "worker_handoff_size": size,
+        })
+        return path
+
+    def test_archive_survives_slot_reuse_and_is_exactly_bound(self) -> None:
+        path = self.archive()
+        shutil.rmtree(Path(str(self.claim["workspace"])), ignore_errors=True)
+        Path(str(self.claim["workspace"])).mkdir(parents=True)
+        (Path(str(self.claim["workspace"])) / ".stage1-worker-selftest.json").write_text(
+            '{"item_id":"S56-M-9999-INTAKE"}\n', encoding="utf-8"
+        )
+        with (
+            mock.patch.object(cron, "ROOT", self.root),
+            mock.patch.object(cron, "RUNTIME", self.runtime),
+        ):
+            data, digest, loaded = cron.read_persisted_worker_handoff(self.claim)
+            self.assertIs(cron.review_source_claim(self.item, [self.claim]), self.claim)
+        self.assertEqual((data, loaded), (self.payload, path))
+        self.assertEqual(digest, hashlib.sha256(self.payload).hexdigest())
+
+    def test_review_provenance_binds_original_archived_bytes(self) -> None:
+        path = self.archive()
+        handoff_sha256 = hashlib.sha256(self.payload).hexdigest()
+        provenance = {
+            "schema_version": cron.WORKER_PROVENANCE_SCHEMA,
+            "claim": copy.deepcopy(self.claim),
+            "files": {
+                "selftest_manifest": {
+                    "path": str(path),
+                    "sha256": handoff_sha256,
+                    "size": len(self.payload),
+                    "content_base64": __import__("base64").b64encode(
+                        self.payload
+                    ).decode(),
+                }
+            },
+        }
+        provenance["snapshot_sha256"] = cron.canonical_json_sha256(provenance)
+        with (
+            mock.patch.object(cron, "ROOT", self.root),
+            mock.patch.object(cron, "RUNTIME", self.runtime),
+        ):
+            source, record = cron.validate_review_provenance_handoff(
+                self.item, provenance
+            )
+        self.assertEqual(source["claim_id"], self.CLAIM_ID)
+        self.assertEqual(record["sha256"], handoff_sha256)
+        tampered = copy.deepcopy(provenance)
+        tampered["files"]["selftest_manifest"]["size"] += 1
+        tampered["snapshot_sha256"] = cron.canonical_json_sha256(
+            {key: value for key, value in tampered.items() if key != "snapshot_sha256"}
+        )
+        with (
+            mock.patch.object(cron, "ROOT", self.root),
+            mock.patch.object(cron, "RUNTIME", self.runtime),
+            self.assertRaisesRegex(ValueError, "durable worker handoff"),
+        ):
+            cron.validate_review_provenance_handoff(self.item, tampered)
+
+    def test_archive_is_idempotent_and_rejects_conflict_tamper_and_symlink(self) -> None:
+        path = self.archive()
+        with (
+            mock.patch.object(cron, "ROOT", self.root),
+            mock.patch.object(cron, "RUNTIME", self.runtime),
+        ):
+            self.assertEqual(
+                cron.persist_worker_handoff(self.claim, self.payload)[0], path
+            )
+            conflicting = self.payload.replace(b"check_intake", b"check_other_")
+            with self.assertRaisesRegex(ValueError, "conflicts"):
+                cron.persist_worker_handoff(self.claim, conflicting)
+            self.claim["worker_handoff_sha256"] = "0" * 64
+            with self.assertRaisesRegex(ValueError, "binding"):
+                cron.read_persisted_worker_handoff(self.claim)
+            self.claim["worker_handoff_sha256"] = hashlib.sha256(self.payload).hexdigest()
+            path.unlink()
+            outside = self.root / "outside.json"
+            outside.write_bytes(self.payload)
+            path.symlink_to(outside)
+            with self.assertRaisesRegex(ValueError, "missing or unsafe"):
+                cron.read_persisted_worker_handoff(self.claim)
+
+    def test_duplicate_key_handoff_is_rejected(self) -> None:
+        duplicate = (
+            '{"item_id":"S56-M-0001-INTAKE","item_id":"S56-M-0001-INTAKE",'
+            '"state":"[_]","base_revision":"' + "b" * 40 + '"}\n'
+        ).encode()
+        with (
+            mock.patch.object(cron, "ROOT", self.root),
+            mock.patch.object(cron, "RUNTIME", self.runtime),
+            self.assertRaisesRegex(ValueError, "duplicate key"),
+        ):
+            cron.persist_worker_handoff(self.claim, duplicate)
+
+    def test_failed_archive_create_removes_partial_leaf(self) -> None:
+        real_write = os.write
+        writes = 0
+
+        def fail_after_partial(descriptor: int, value: object) -> int:
+            nonlocal writes
+            writes += 1
+            if writes == 1:
+                data = bytes(value)
+                return real_write(descriptor, data[: max(1, len(data) // 2)])
+            raise OSError("injected archive write failure")
+
+        with (
+            mock.patch.object(cron, "ROOT", self.root),
+            mock.patch.object(cron, "RUNTIME", self.runtime),
+            mock.patch.object(cron.os, "write", side_effect=fail_after_partial),
+            self.assertRaisesRegex(OSError, "injected"),
+        ):
+            cron.persist_worker_handoff(self.claim, self.payload)
+        self.assertFalse(
+            (self.runtime / "worker-handoffs" / f"{self.CLAIM_ID}.json").exists()
+        )
+
+    def test_reconcile_is_bounded_and_excludes_unmigrated_sources_from_review(self) -> None:
+        items: list[dict[str, object]] = []
+        claims: list[dict[str, object]] = []
+        nodes: dict[str, dict[str, int]] = {}
+        for index in range(1, 82):
+            item = {
+                **self.item,
+                "id": f"S56-M-{index:04d}-INTAKE",
+                "theorem_id": f"THM-M-{index:04d}",
+                "owned_paths": [f"Stage1_Instances/THM-M-{index:04d}"],
+            }
+            claim = {
+                **self.claim,
+                "claim_id": f"20260716T12{index // 60:02d}{index % 60:02d}Z-{index:012x}",
+                "item_id": item["id"],
+                "theorem_id": item["theorem_id"],
+            }
+            items.append(item)
+            claims.append(claim)
+            nodes[item["theorem_id"]] = {"v2_execution_rank": index}
+        with (
+            mock.patch.object(cron, "ROOT", self.root),
+            mock.patch.object(cron, "RUNTIME", self.runtime),
+            mock.patch.object(cron, "theorem_dag_v2", return_value=({}, nodes)),
+        ):
+            self.assertTrue(
+                cron.reconcile_finished_implementation_handoffs(items, claims)
+            )
+            self.assertEqual(
+                sum(row["status"] == "revalidation_required" for row in claims), 50
+            )
+            self.assertEqual(cron.review_candidates(items, claims), [])
+
+
 class DependencyReuseLedgerTests(unittest.TestCase):
     def setUp(self) -> None:
         cron.theorem_dag_v2.cache_clear()
@@ -1295,6 +1505,17 @@ class IntegrationTransactionTests(unittest.TestCase):
             stack.enter_context(mock.patch.object(cron, "theorem_dag_v2", return_value=({}, {self.item["theorem_id"]: {"v2_execution_rank": 1}})))
             stack.enter_context(mock.patch.object(cron, "refresh_claims", return_value=[self.claim]))
             stack.enter_context(mock.patch.object(cron, "goal_runtime_is_verified", return_value=True))
+            stack.enter_context(
+                mock.patch.object(
+                    cron,
+                    "persist_worker_handoff",
+                    return_value=(
+                        self.runtime / "worker-handoffs" / "fixture.json",
+                        "a" * 64,
+                        123,
+                    ),
+                )
+            )
             stack.enter_context(mock.patch.object(
                 cron, "phase_validator_candidate_paths", return_value=set()
             ))
@@ -2838,14 +3059,24 @@ class SchedulerCapacityTests(unittest.TestCase):
             first["theorem_id"]: {"v2_execution_rank": 2},
             second["theorem_id"]: {"v2_execution_rank": 1},
         }
-        with mock.patch.object(cron, "theorem_dag_v2", return_value=({}, nodes)):
+        with (
+            mock.patch.object(cron, "theorem_dag_v2", return_value=({}, nodes)),
+            mock.patch.object(
+                cron, "review_source_claim", side_effect=lambda _item, rows: rows[0]
+            ),
+        ):
             selected = cron.review_candidates([first, second], claims)
         self.assertEqual([item["id"] for item in selected], [second["id"], first["id"]])
         self.assertIsNone(cron.review_source_claim(first, claims))
         claims.append({
             "item_id": second["id"], "lane": cron.REVIEW_LANE, "status": "review_finished",
         })
-        with mock.patch.object(cron, "theorem_dag_v2", return_value=({}, nodes)):
+        with (
+            mock.patch.object(cron, "theorem_dag_v2", return_value=({}, nodes)),
+            mock.patch.object(
+                cron, "review_source_claim", side_effect=lambda _item, rows: rows[0]
+            ),
+        ):
             selected = cron.review_candidates([first, second], claims)
         self.assertEqual([item["id"] for item in selected], [first["id"]])
 
@@ -2856,7 +3087,12 @@ class SchedulerCapacityTests(unittest.TestCase):
         }
         nodes = {item["theorem_id"]: {"v2_execution_rank": 1}}
         expired = (dt.datetime.now(dt.timezone.utc) - dt.timedelta(seconds=1)).isoformat()
-        with mock.patch.object(cron, "theorem_dag_v2", return_value=({}, nodes)):
+        with (
+            mock.patch.object(cron, "theorem_dag_v2", return_value=({}, nodes)),
+            mock.patch.object(
+                cron, "review_source_claim", side_effect=lambda _item, rows: rows[0]
+            ),
+        ):
             source = {
                 "item_id": item["id"], "lane": cron.IMPLEMENTATION_LANE,
                 "status": "finished_integrated", "runtime_protocol": cron.RUNTIME_PROTOCOL,
@@ -2888,7 +3124,12 @@ class SchedulerCapacityTests(unittest.TestCase):
             "depends_on": [intake["id"]],
         }
         nodes = {intake["theorem_id"]: {"v2_execution_rank": 1}}
-        with mock.patch.object(cron, "theorem_dag_v2", return_value=({}, nodes)):
+        with (
+            mock.patch.object(cron, "theorem_dag_v2", return_value=({}, nodes)),
+            mock.patch.object(
+                cron, "review_source_claim", side_effect=lambda _item, rows: rows[0]
+            ),
+        ):
             intake_source = {
                 "item_id": intake["id"], "lane": cron.IMPLEMENTATION_LANE,
                 "status": "finished_integrated", "runtime_protocol": cron.RUNTIME_PROTOCOL,
@@ -2952,7 +3193,12 @@ class SchedulerCapacityTests(unittest.TestCase):
             "phase": "intake", "layer": 0, "state": "[_]", "depends_on": [],
         }
         nodes = {item["theorem_id"]: {"v2_execution_rank": 1}}
-        with mock.patch.object(cron, "theorem_dag_v2", return_value=({}, nodes)):
+        with (
+            mock.patch.object(cron, "theorem_dag_v2", return_value=({}, nodes)),
+            mock.patch.object(
+                cron, "review_source_claim", side_effect=lambda _item, rows: rows[0]
+            ),
+        ):
             self.assertEqual(cron.review_candidates([item], []), [])
             self.assertEqual(
                 cron.review_candidates([item], [{
@@ -3049,6 +3295,9 @@ class SchedulerCapacityTests(unittest.TestCase):
                 mock.patch.object(cron, "PAUSE_FILE", root / "PAUSED"),
                 mock.patch.object(cron, "active_lane_leases", return_value=[]),
                 mock.patch.object(cron, "review_candidates", return_value=[item]),
+                mock.patch.object(
+                    cron, "review_source_claim", return_value=source_claim
+                ),
                 mock.patch.object(cron, "build_review_role_map", return_value=role_map),
                 mock.patch.object(cron, "select_review_validator", return_value=validator),
                 mock.patch.object(cron, "snapshot_review_provenance", return_value={
@@ -3344,11 +3593,26 @@ class SchedulerCapacityTests(unittest.TestCase):
             receipt = {"worker_verdict": "no_state_change"}
             paths["receipt"].write_text(json.dumps(receipt), encoding="utf-8")
             handoff_bytes = json.dumps({"worker_verdict": "no_state_change"}).encode()
+            handoff_sha256 = hashlib.sha256(handoff_bytes).hexdigest()
+            implementation_claim = {
+                "claim_id": "20260716T110000Z-0123456789ab",
+                "item_id": item["id"],
+                "theorem_id": item["theorem_id"],
+                "worker_handoff_path": str(runtime / "worker-handoffs" / "impl.json"),
+                "worker_handoff_sha256": handoff_sha256,
+                "worker_handoff_size": len(handoff_bytes),
+            }
             provenance = {
+                "schema_version": cron.WORKER_PROVENANCE_SCHEMA,
+                "claim": implementation_claim,
                 "files": {"selftest_manifest": {
+                    "path": implementation_claim["worker_handoff_path"],
+                    "sha256": handoff_sha256,
+                    "size": len(handoff_bytes),
                     "content_base64": __import__("base64").b64encode(handoff_bytes).decode(),
                 }},
             }
+            provenance["snapshot_sha256"] = cron.canonical_json_sha256(provenance)
             manifest = {
                 "manifest_sha256": "a" * 64, "base_revision": "r",
                 "blueprint_sha256": "s", "theorem_dag_sha256": "t",
@@ -3427,6 +3691,9 @@ class SchedulerCapacityTests(unittest.TestCase):
                 ),
                 mock.patch.object(
                     cron, "read_exact_json_file", return_value=(provenance, b"{}")
+                ),
+                mock.patch.object(
+                    cron, "review_source_claim", return_value=implementation_claim
                 ),
                 mock.patch.object(cron, "worker_status", return_value=status),
             ):

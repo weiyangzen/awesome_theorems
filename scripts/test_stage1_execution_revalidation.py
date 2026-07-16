@@ -361,7 +361,20 @@ class HistoricalRevalidationBoundaryTests(unittest.TestCase):
 
     def test_normal_fresh_source_without_legacy_lane_enters_review_frontier(self) -> None:
         claim = self.claim(fresh=False, include_bindings=False)
-        with mock.patch.object(cron, "theorem_dag_v2", return_value=({}, self.nodes)):
+        with (
+            mock.patch.object(cron, "theorem_dag_v2", return_value=({}, self.nodes)),
+            mock.patch.object(
+                cron, "read_persisted_worker_handoff", return_value=(b"{}", "a" * 64, Path("archive"))
+            ),
+        ):
+            claim.update({
+                "worker_handoff_archive_schema": cron.WORKER_HANDOFF_ARCHIVE_SCHEMA,
+                "worker_handoff_path": str(
+                    self.runtime / "worker-handoffs" / f"{claim['claim_id']}.json"
+                ),
+                "worker_handoff_sha256": "a" * 64,
+                "worker_handoff_size": 2,
+            })
             self.assertEqual(cron.review_candidates([self.item], [claim]), [self.item])
             self.assertIs(cron.review_source_claim(self.item, [claim]), claim)
         self.assertIsNone(cron.claim_legacy_revalidation_lane(claim, self.item))
@@ -616,7 +629,18 @@ class HistoricalRevalidationBoundaryTests(unittest.TestCase):
         self.assertEqual(
             old_source["superseded_by_claim_id"], new_source["claim_id"]
         )
-        self.assertIs(cron.review_source_claim(self.item, claims), new_source)
+        new_source.update({
+            "worker_handoff_archive_schema": cron.WORKER_HANDOFF_ARCHIVE_SCHEMA,
+            "worker_handoff_path": str(
+                self.runtime / "worker-handoffs" / f"{new_source['claim_id']}.json"
+            ),
+            "worker_handoff_sha256": "a" * 64,
+            "worker_handoff_size": 2,
+        })
+        with mock.patch.object(
+            cron, "read_persisted_worker_handoff", return_value=(b"{}", "a" * 64, Path("archive"))
+        ):
+            self.assertIs(cron.review_source_claim(self.item, claims), new_source)
 
     def test_resigned_claim_cannot_replace_head_owned_plan(self) -> None:
         plan = self.write_plan()

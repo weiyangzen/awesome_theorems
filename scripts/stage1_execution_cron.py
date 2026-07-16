@@ -155,6 +155,8 @@ REVIEW_OUTPUT_SCHEMA = "stage1-master-review-output/1.0"
 ROLE_MAP_SCHEMA = "stage1-phase-artifact-role-map/1.0"
 MASTER_ACCEPTANCE_RECEIPT_SCHEMA = "stage1-master-phase-acceptance/1.0"
 WORKER_PROVENANCE_SCHEMA = "stage1-worker-review-provenance/1.0"
+WORKER_HANDOFF_ARCHIVE_SCHEMA = "stage1-worker-handoff-archive/1.0"
+MAX_WORKER_HANDOFF_BYTES = 4 * 1024 * 1024
 REVIEW_INPUT_SCHEMA = "stage1-scheduler-review-input/1.0"
 LEGACY_REVALIDATION_PLAN_SCHEMA = "stage1-legacy-revalidation-plan/1.0"
 LEGACY_REVALIDATION_LANE_SCHEMA = "stage1-legacy-revalidation-lane/1.0"
@@ -2968,6 +2970,223 @@ def read_bound_runtime_file(path: Path, label: str) -> tuple[bytes, str]:
     return data, hashlib.sha256(data).hexdigest()
 
 
+def read_bounded_runtime_file(
+    path: Path, label: str, *, max_bytes: int
+) -> tuple[bytes, str]:
+    """Read a scheduler-bound regular file only when its size is bounded."""
+    try:
+        descriptor = os.open(path, os.O_RDONLY | os.O_NOFOLLOW)
+    except OSError as exc:
+        raise ValueError(f"{label} is missing or unsafe") from exc
+    try:
+        metadata = os.fstat(descriptor)
+        if (
+            not stat.S_ISREG(metadata.st_mode)
+            or metadata.st_size <= 0
+            or metadata.st_size > max_bytes
+        ):
+            raise ValueError(f"{label} size is outside the scheduler limit")
+        chunks: list[bytes] = []
+        remaining = metadata.st_size
+        while remaining:
+            chunk = os.read(descriptor, min(remaining, 1024 * 1024))
+            if not chunk:
+                raise ValueError(f"{label} was truncated while reading")
+            chunks.append(chunk)
+            remaining -= len(chunk)
+        if os.read(descriptor, 1):
+            raise ValueError(f"{label} grew while reading")
+        data = b"".join(chunks)
+    finally:
+        os.close(descriptor)
+    return data, hashlib.sha256(data).hexdigest()
+
+
+def worker_handoff_archive_path(claim: dict[str, Any]) -> Path:
+    """Return the immutable scheduler-owned handoff path for one worker claim."""
+    claim_id = claim.get("claim_id")
+    if not isinstance(claim_id, str) or CLAIM_ID_RE.fullmatch(claim_id) is None:
+        raise ValueError("implementation claim id is malformed")
+    return RUNTIME / "worker-handoffs" / f"{claim_id}.json"
+
+
+def parse_worker_handoff(payload: bytes, claim: dict[str, Any]) -> dict[str, Any]:
+    """Parse one bounded handoff while rejecting duplicate JSON fields."""
+    if not payload or len(payload) > MAX_WORKER_HANDOFF_BYTES:
+        raise ValueError("worker handoff size is outside the scheduler limit")
+
+    def reject_duplicates(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+        result: dict[str, Any] = {}
+        for key, value in pairs:
+            if key in result:
+                raise ValueError(f"worker handoff contains duplicate key {key!r}")
+            result[key] = value
+        return result
+
+    try:
+        packet = json.loads(
+            payload.decode("utf-8"), object_pairs_hook=reject_duplicates
+        )
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise ValueError("worker handoff is not UTF-8 JSON") from exc
+    if (
+        not isinstance(packet, dict)
+        or packet.get("item_id") != claim.get("item_id")
+        or packet.get("state") != "[_]"
+        or packet.get("base_revision") != claim.get("base_revision")
+    ):
+        raise ValueError("worker handoff identity is invalid")
+    return packet
+
+
+def require_safe_handoff_archive_parent(*, create: bool) -> Path:
+    """Return the canonical archive directory after rechecking its ancestry."""
+    validate_runtime_root()
+    directory = RUNTIME / "worker-handoffs"
+    if create:
+        directory.mkdir(parents=True, exist_ok=True)
+    validate_runtime_root()
+    if (
+        directory.is_symlink()
+        or not directory.is_dir()
+        or not directory.resolve().is_relative_to(RUNTIME.resolve())
+    ):
+        raise ValueError("worker handoff archive directory is unsafe")
+    return directory
+
+
+def read_handoff_archive_bytes(directory: Path, name: str) -> bytes:
+    """Read one archive leaf through a no-follow directory descriptor."""
+    directory_fd = os.open(
+        directory, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW
+    )
+    try:
+        descriptor = os.open(
+            name, os.O_RDONLY | os.O_NOFOLLOW, dir_fd=directory_fd
+        )
+        try:
+            metadata = os.fstat(descriptor)
+            if (
+                not stat.S_ISREG(metadata.st_mode)
+                or metadata.st_size <= 0
+                or metadata.st_size > MAX_WORKER_HANDOFF_BYTES
+            ):
+                raise ValueError("persisted worker handoff is not a bounded regular file")
+            chunks: list[bytes] = []
+            remaining = metadata.st_size
+            while remaining:
+                chunk = os.read(descriptor, min(remaining, 1024 * 1024))
+                if not chunk:
+                    raise ValueError("persisted worker handoff was truncated while reading")
+                chunks.append(chunk)
+                remaining -= len(chunk)
+            if os.read(descriptor, 1):
+                raise ValueError("persisted worker handoff grew while reading")
+            return b"".join(chunks)
+        finally:
+            os.close(descriptor)
+    finally:
+        os.close(directory_fd)
+
+
+def create_handoff_archive_bytes(directory: Path, name: str, payload: bytes) -> None:
+    """Create one immutable archive leaf without replacing an existing name."""
+    directory_fd = os.open(
+        directory, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW
+    )
+    descriptor: int | None = None
+    created = False
+    complete = False
+    try:
+        descriptor = os.open(
+            name,
+            os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW,
+            0o600,
+            dir_fd=directory_fd,
+        )
+        created = True
+        view = memoryview(payload)
+        while view:
+            written = os.write(descriptor, view)
+            if written <= 0:
+                raise OSError("short write while persisting worker handoff")
+            view = view[written:]
+        os.fsync(descriptor)
+        os.close(descriptor)
+        descriptor = None
+        os.fsync(directory_fd)
+        complete = True
+    finally:
+        if descriptor is not None:
+            os.close(descriptor)
+        if created and not complete:
+            try:
+                os.unlink(name, dir_fd=directory_fd)
+                os.fsync(directory_fd)
+            except FileNotFoundError:
+                pass
+        os.close(directory_fd)
+
+
+def persist_worker_handoff(
+    claim: dict[str, Any], payload: bytes
+) -> tuple[Path, str, int]:
+    """Freeze exact validated worker bytes before its recyclable slot is released."""
+    directory = require_safe_handoff_archive_parent(create=True)
+    path = worker_handoff_archive_path(claim)
+    if path.parent.absolute() != directory.absolute():
+        raise ValueError("worker handoff archive path is not scheduler-canonical")
+    parse_worker_handoff(payload, claim)
+    digest = hashlib.sha256(payload).hexdigest()
+    try:
+        create_handoff_archive_bytes(directory, path.name, payload)
+    except FileExistsError:
+        existing = read_handoff_archive_bytes(directory, path.name)
+        if existing != payload or hashlib.sha256(existing).hexdigest() != digest:
+            raise ValueError(
+                "immutable worker handoff conflicts with existing scheduler bytes"
+            )
+    return path, digest, len(payload)
+
+
+def read_persisted_worker_handoff(
+    claim: dict[str, Any]
+) -> tuple[bytes, str, Path]:
+    """Reload one exact handoff without trusting a reused worker workspace."""
+    directory = require_safe_handoff_archive_parent(create=False)
+    expected = worker_handoff_archive_path(claim)
+    value = claim.get("worker_handoff_path")
+    if not isinstance(value, str) or not value:
+        raise ValueError("implementation claim lacks its persisted worker handoff")
+    path = Path(value)
+    if not path.is_absolute():
+        path = ROOT / path
+    if path.absolute() != expected.absolute():
+        raise ValueError("worker handoff path is not scheduler-canonical")
+    expected_digest = claim.get("worker_handoff_sha256")
+    expected_size = claim.get("worker_handoff_size")
+    if (
+        claim.get("worker_handoff_archive_schema")
+        != WORKER_HANDOFF_ARCHIVE_SCHEMA
+        or path.parent.absolute() != directory.absolute()
+        or not isinstance(expected_digest, str)
+        or re.fullmatch(r"[0-9a-f]{64}", expected_digest) is None
+        or not isinstance(expected_size, int)
+        or isinstance(expected_size, bool)
+        or expected_size <= 0
+    ):
+        raise ValueError("implementation claim lacks a complete worker handoff binding")
+    try:
+        data = read_handoff_archive_bytes(directory, path.name)
+    except OSError as exc:
+        raise ValueError("persisted worker handoff is missing or unsafe") from exc
+    digest = hashlib.sha256(data).hexdigest()
+    if digest != expected_digest or len(data) != expected_size:
+        raise ValueError("persisted worker handoff disagrees with its claim binding")
+    parse_worker_handoff(data, claim)
+    return data, digest, path
+
+
 def authoritative_head_revision() -> str:
     """Return the commit currently owned by the scheduler checkout."""
     return run(["git", "rev-parse", "--verify", "HEAD^{commit}"]).stdout.strip()
@@ -3614,6 +3833,10 @@ def integrate(limit: int) -> int:
     # rollback restores this post-refresh state rather than resurrecting dead
     # workers or discarding their scheduler-owned blocker snapshots.
     claims = refresh_claims(ordered)
+    reconciled = reconcile_finished_implementation_handoffs(ordered, claims)
+    reconciled |= reconcile_historical_revalidation_sources(ordered, claims)
+    if reconciled:
+        save_claims(claims)
     transaction = FileTransaction(runtime_path("integration_wal.json"))
     todo_path = DOCS / f"todos_{dt.date.today():%Y%m%d}.md"
     try:
@@ -3700,7 +3923,12 @@ def _integrate(
                 )
             if claim.get("runtime_protocol") != RUNTIME_PROTOCOL or not goal_runtime_is_verified(claim):
                 raise ValueError("worker handoff lacks a verified app-server /goal runtime contract")
-            packet = json.loads(handoff.read_text(encoding="utf-8"))
+            handoff_data, _ = read_bounded_runtime_file(
+                handoff,
+                "worker handoff",
+                max_bytes=MAX_WORKER_HANDOFF_BYTES,
+            )
+            packet = parse_worker_handoff(handoff_data, claim)
             changed_paths = packet.get("changed_paths")
             owner = item["owned_paths"][0] + "/"
             if packet.get("item_id") != item["id"] or packet.get("state") != "[_]":
@@ -3775,11 +4003,20 @@ def _integrate(
                     expected_commands=packet_commands,
                 )
             merge_worker_changes(workspace, changed, owner=owner, transaction=claim_transaction)
+            archive_path, archive_digest, archive_size = persist_worker_handoff(
+                claim, handoff_data
+            )
             pre_attempts = int(item.get("attempts", 0))
             item["state"] = "[_]"
             item["attempts"] = pre_attempts + 1
             claim["status"] = "finished_integrated"
             claim["integrated_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
+            claim["worker_handoff_archive_schema"] = (
+                WORKER_HANDOFF_ARCHIVE_SCHEMA
+            )
+            claim["worker_handoff_path"] = str(archive_path)
+            claim["worker_handoff_sha256"] = archive_digest
+            claim["worker_handoff_size"] = archive_size
             claim["fresh_revalidation"] = revalidating_historical
             if revalidating_historical:
                 closure = {
@@ -4792,11 +5029,11 @@ def ensure_revalidation_plan_for_required_sources(
         key=lambda item: claim_order_key(item, nodes),
     )
     planned_required_ids = [item["id"] for item in required_items[:50]]
-    unresolved_ids = required_ids - set(planned_required_ids)
-    if unresolved_ids:
+    invalid_ids = required_ids - {item["id"] for item in required_items}
+    if invalid_ids:
         fail(
-            "required historical revalidation source is not authoritative [_] or "
-            "exceeds the bounded plan: " + ", ".join(sorted(map(str, unresolved_ids)))
+            "required historical revalidation source is not authoritative [_]: "
+            + ", ".join(sorted(map(str, invalid_ids)))
         )
     lanes = optional_legacy_revalidation_lanes()
     if set(planned_required_ids).issubset(lanes):
@@ -5073,6 +5310,66 @@ def reconcile_historical_revalidation_sources(
     return changed
 
 
+def reconcile_finished_implementation_handoffs(
+    items: list[dict[str, Any]], claims: list[dict[str, Any]], *, limit: int = 50
+) -> bool:
+    """Re-run sources whose recyclable slot outlived their only handoff copy."""
+    if limit < 0 or limit > 50:
+        raise ValueError("handoff reconciliation limit must be in 0..50")
+    item_by_id = {item.get("id"): item for item in items}
+    _, nodes = theorem_dag_v2()
+    existing_required = {
+        source.get("item_id")
+        for source in claims
+        if source.get("lane", IMPLEMENTATION_LANE) == IMPLEMENTATION_LANE
+        and source.get("status") == "revalidation_required"
+    }
+    capacity = max(0, limit - len(existing_required))
+    sources = sorted(
+        (
+            source
+            for source in claims
+            if source.get("lane", IMPLEMENTATION_LANE) == IMPLEMENTATION_LANE
+            and source.get("status") == "finished_integrated"
+            and isinstance(item_by_id.get(source.get("item_id")), dict)
+            and item_by_id[source.get("item_id")].get("state") == "[_]"
+        ),
+        key=lambda source: claim_order_key(
+            item_by_id[source.get("item_id")], nodes
+        ),
+    )
+    changed = False
+    for source in sources:
+        item = item_by_id.get(source.get("item_id"))
+        try:
+            read_persisted_worker_handoff(source)
+        except (OSError, ValueError) as exc:
+            if capacity <= 0:
+                continue
+            source["status"] = "revalidation_required"
+            source["revalidation_required_at"] = dt.datetime.now(
+                dt.timezone.utc
+            ).isoformat()
+            source["revalidation_required_reason"] = (
+                "immutable worker handoff is unavailable: " + str(exc)
+            )
+            capacity -= 1
+            successor_id = str(source.get("claim_id", ""))
+            for review in claims:
+                if (
+                    review.get("lane") == REVIEW_LANE
+                    and review.get("item_id") == source.get("item_id")
+                    and review.get("status") in {"review_failed", "review_finished"}
+                ):
+                    _supersede_claim(
+                        review,
+                        successor_claim_id=successor_id,
+                        reason="implementation source requires a durable handoff rerun",
+                    )
+            changed = True
+    return changed
+
+
 def refuse_unsafe_live_identities(claims: list[dict[str, Any]]) -> None:
     unsafe = [
         claim
@@ -5108,14 +5405,7 @@ def review_candidates(
             except ValueError:
                 reviewed_or_claimed.add(item_id)
     states = {item.get("id"): item.get("state") for item in ordered}
-    fresh_sources = {
-        claim.get("item_id")
-        for claim in claims
-        if claim.get("lane", IMPLEMENTATION_LANE) == IMPLEMENTATION_LANE
-        and claim.get("status") == "finished_integrated"
-        and claim.get("runtime_protocol") == RUNTIME_PROTOCOL
-        and isinstance(claim.get("fresh_revalidation"), bool)
-    }
+    ordered_by_id = {item.get("id"): item for item in ordered}
     source_claims_by_item: dict[Any, list[dict[str, Any]]] = {}
     for claim in claims:
         if (
@@ -5124,11 +5414,12 @@ def review_candidates(
             and claim.get("runtime_protocol") == RUNTIME_PROTOCOL
             and isinstance(claim.get("fresh_revalidation"), bool)
         ):
-            source_claims_by_item.setdefault(claim.get("item_id"), []).append(claim)
+            item = ordered_by_id.get(claim.get("item_id"))
+            if isinstance(item, dict) and review_source_claim(item, [claim]) is not None:
+                source_claims_by_item.setdefault(claim.get("item_id"), []).append(claim)
     candidates = [
         item for item in ordered
         if item.get("state") == "[_]"
-        and item.get("id") in fresh_sources
         and len(source_claims_by_item.get(item.get("id"), [])) == 1
         and item.get("id") not in reviewed_or_claimed
         and all(states.get(dependency) == "[x]" for dependency in item.get("depends_on", []))
@@ -5266,13 +5557,32 @@ def review_source_claim(
         "output_log",
         "workspace",
         "selftest_manifest",
+        "worker_handoff_archive_schema",
+        "worker_handoff_path",
+        "worker_handoff_sha256",
+        "worker_handoff_size",
         "fresh_revalidation",
     }
-    string_required = required - {"fresh_revalidation"}
+    string_required = required - {
+        "fresh_revalidation", "worker_handoff_size"
+    }
     if (
         any(not isinstance(claim.get(field), str) or not claim.get(field) for field in string_required)
         or not isinstance(claim.get("fresh_revalidation"), bool)
+        or not isinstance(claim.get("worker_handoff_size"), int)
+        or isinstance(claim.get("worker_handoff_size"), bool)
+        or int(claim["worker_handoff_size"]) <= 0
+        or claim.get("worker_handoff_archive_schema")
+        != WORKER_HANDOFF_ARCHIVE_SCHEMA
+        or re.fullmatch(
+            r"[0-9a-f]{64}", str(claim.get("worker_handoff_sha256", ""))
+        )
+        is None
     ):
+        return None
+    try:
+        read_persisted_worker_handoff(claim)
+    except (OSError, ValueError):
         return None
     return claim
 
@@ -5297,10 +5607,13 @@ def snapshot_review_provenance(
         "selftest_manifest": "worker handoff",
     }
     for field, label in field_labels.items():
-        path = Path(str(claim[field]))
-        if not path.is_absolute():
-            path = ROOT / path
-        data, digest = read_bound_runtime_file(path, label)
+        if field == "selftest_manifest":
+            data, digest, path = read_persisted_worker_handoff(claim)
+        else:
+            path = Path(str(claim[field]))
+            if not path.is_absolute():
+                path = ROOT / path
+            data, digest = read_bound_runtime_file(path, label)
         files[field] = {
             "path": str(path),
             "sha256": digest,
@@ -5330,6 +5643,34 @@ def snapshot_review_provenance(
     }
     snapshot["snapshot_sha256"] = canonical_json_sha256(snapshot)
     return snapshot
+
+
+def validate_review_provenance_handoff(
+    item: dict[str, Any], provenance: dict[str, Any]
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    """Verify the embedded source claim and durable handoff metadata closure."""
+    provenance_unhashed = dict(provenance)
+    embedded_snapshot_sha256 = provenance_unhashed.pop("snapshot_sha256", None)
+    implementation_claim = provenance.get("claim")
+    files = provenance.get("files")
+    handoff_record = (
+        files.get("selftest_manifest") if isinstance(files, dict) else None
+    )
+    if (
+        provenance.get("schema_version") != WORKER_PROVENANCE_SCHEMA
+        or embedded_snapshot_sha256 != canonical_json_sha256(provenance_unhashed)
+        or not isinstance(implementation_claim, dict)
+        or not isinstance(handoff_record, dict)
+        or review_source_claim(item, [implementation_claim]) is None
+        or handoff_record.get("path")
+        != implementation_claim.get("worker_handoff_path")
+        or handoff_record.get("sha256")
+        != implementation_claim.get("worker_handoff_sha256")
+        or handoff_record.get("size")
+        != implementation_claim.get("worker_handoff_size")
+    ):
+        raise ValueError("review provenance lacks a valid durable worker handoff binding")
+    return implementation_claim, handoff_record
 
 
 def persist_review_provenance(
@@ -5520,6 +5861,9 @@ def verify_review_evidence_bundle(
         Path(provenance_path), "review provenance",
         expected_sha256=str(claim.get("review_provenance_sha256")),
     )
+    _implementation_claim, handoff_record = validate_review_provenance_handoff(
+        item, provenance
+    )
     if (
         review_input.get("schema_version") != REVIEW_INPUT_SCHEMA
         or review_input.get("review_claim_id") != claim.get("claim_id")
@@ -5582,15 +5926,18 @@ def verify_review_evidence_bundle(
     receipt_path = ROOT / str(phase_receipt["path"])
     receipt, receipt_bytes = read_exact_json_file(receipt_path, "worker phase receipt")
     receipt_verdict = receipt.get("worker_verdict", receipt.get("verdict"))
-    handoff_record = provenance.get("files", {}).get("selftest_manifest")
-    if not isinstance(handoff_record, dict):
-        raise ValueError("review provenance lacks the worker handoff")
     handoff_encoded = handoff_record.get("content_base64")
     try:
         handoff_bytes = base64.b64decode(handoff_encoded, validate=True)
         handoff = json.loads(handoff_bytes)
     except (ValueError, TypeError, json.JSONDecodeError) as exc:
         raise ValueError("review provenance handoff snapshot is malformed") from exc
+    if (
+        len(handoff_bytes) != handoff_record.get("size")
+        or hashlib.sha256(handoff_bytes).hexdigest()
+        != handoff_record.get("sha256")
+    ):
+        raise ValueError("review provenance handoff bytes disagree with their binding")
     handoff_verdict = handoff.get("worker_verdict", handoff.get("verdict"))
     if handoff_verdict is None:
         handoff_verdict = receipt_verdict
@@ -6025,7 +6372,9 @@ def refill_workers(max_workers: int) -> int:
     """Reconcile and refill lanes without running heavyweight integration."""
     data, ordered = load_dag()
     claims = refresh_claims(ordered)
-    if reconcile_historical_revalidation_sources(ordered, claims):
+    reconciled = reconcile_finished_implementation_handoffs(ordered, claims)
+    reconciled |= reconcile_historical_revalidation_sources(ordered, claims)
+    if reconciled:
         save_claims(claims)
     ensure_revalidation_plan_for_required_sources(ordered, claims)
     claims = enforce_worker_cap(claims, max_workers)
