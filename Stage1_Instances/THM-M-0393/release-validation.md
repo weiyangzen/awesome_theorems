@@ -15,7 +15,7 @@ open.
 ## Dependency and reuse audit
 
 The v2 graph file has SHA-256
-`fb17743ff737fd3c528467b6f992a7235a36f0842b528e57de3e4c6d660d3518`, and the target context is
+`e8472863a24609e37868f215bbf0e0654b11a62f912a403ebca5feb8de5a3b9b`, and the target context is
 `068170c76abd4579d643ede04d731b974412185bd285e7b40255ec4044adec5c`. It records no direct hard
 parent, transitive hard ancestor, hard edge, reuse hint, or shared group. Therefore the mandated
 parent inspection order is exactly empty. `dependency-reuse-ledger.json` records that complete empty
@@ -34,27 +34,33 @@ offline reproduction, SBOM/licenses, two independent signed runners, an independ
 minimal verifier, required CI/mutation results, a deterministic evidence bundle, and bundle-derived
 public projections.
 
-The HEAD-tracked `check_release.py` now emits exactly one
+The target-owned `check_release.py` emits exactly one
 `stage1-validator-semantic-result/1.0` JSON object. It truthfully reports `status=blocked`,
 `phase_accepted=false`, `audit_complete=false`, `theorem_complete=false`, and 17 open obligations.
 Exit zero means the negative reconciliation is internally consistent; it does not mean release is
 accepted.
 
-The HEAD/base validator was legacy prose, so this required typed-output repair necessarily changes
-its blob. Current scheduler policy also requires the selected validator's HEAD blob to equal its
-worker-base blob. Consequently this handoff can establish and test the correct target-owned bytes,
-but only integration followed by a fresh revalidation base can make those bytes review-eligible.
+The current worker base already contains a typed-output validator, but it was still bound to an
+older repository base and theorem-DAG digest. This fresh revalidation updates those bindings while
+preserving the same fail-closed verdict. The validator remains a candidate for scheduler-owned
+selection only; neither this worker nor command success grants acceptance.
 
 ## Worker checks
 
 The handoff re-runs the structural standard, theorem DAG, phase-contract, target-manifest, obligation
 tree, partial Lean modules, exact semantic release validator, JSON syntax, and diff hygiene checks.
-The phase contract, target manifest, obligation tree, Lean modules, semantic validator, JSON, and
-diff hygiene pass. The global standard and v2 theorem-DAG checks fail closed because the generator
-inventories newly required target JSON evidence while this worker is expressly forbidden to
-regenerate `Docs/Stage1_Theorem_DAG_v2.json`; master integration must reconcile that derived
-projection. No dependency update, build, clone, fetch, network operation, or `.lake` mutation is
-performed. The automation-provided `.lake` symlink remains untracked nonrelease state.
+The phase-contract and target checks, the proof and validation modules, the semantic validator,
+JSON, and diff hygiene pass. Direct `Statement.lean` replay fails at
+`lean.dependsOnNoncomputable`, exactly as the release decision records. The standard and v2
+theorem-DAG checks fail only because the refreshed owned receipt makes their checked-in
+reusable-artifact digest stale; the master integration lane owns regeneration of that projection.
+No dependency update, build, clone, fetch, network operation, or `.lake` mutation is performed. The
+automation-provided `.lake` symlink remains untracked nonrelease state.
+
+The contract-required bundle and two attestation roles resolve to dedicated, target-owned missing-
+artifact records. Each says `evidence_available=false` and explicitly denies evidence credit. They
+exist only to make the required role map complete and auditable; neither their presence nor their
+hash bindings satisfy `R01-ARTIFACTS` or `R02-PROTOCOL`.
 
 ## Retry boundary
 

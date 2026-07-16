@@ -1,48 +1,99 @@
-# THM-M-0586 proof-phase blocker
+# THM-M-0586 proof-phase self-test handoff
 
-Item: `S56-M-0586-PROOF`  
-Attempt date: 2026-07-12  
-Base revision: `29490c1ef89c2a6c9eb8dcfc4888b8761f710422`
+Item: `S56-M-0586-PROOF`
 
-## Verdict
+Base revision: `1cc6aa61bb055a5c032297ee457905c849af7608`
 
-The assigned proof phase is blocked and is not self-tested as complete. No
-`.stage1-worker-selftest.json` is emitted.
+Verdict: `blocked`; the exact proof-phase predicate is not satisfied.
 
-The frozen exact root needs both `DimensionFivePackage` and
-`StableDimensionPackage`. Neither package has a proof-bearing declaration in
-the repository or pinned mathlib closure. The only apparent matching mathlib
-name, `ContinuousMap.HomotopyEquiv.nonempty_homeomorph_sphere`, is introduced
-by `proof_wanted` and is not an environment constant. The bounded source search
-found no additional pinned mathlib file mentioning the needed h-cobordism,
-s-cobordism, surgery, or exact homeomorphism result. The already audited
-immutable external candidate proves only dimension zero.
+## Exact Boundary
 
-`highDimensionalPoincare_of_dimension_packages` was re-elaborated successfully,
-but it is only a conditional composition whose two arguments are precisely the
-missing mathematical proofs. Treating it as root closure would move those
-assumptions out of sight rather than prove them. Closing the root therefore
-requires a new formalization of the puncture, disk, cobordism,
-h-cobordism/s-cobordism, and gluing packages. No axiom, placeholder, changed
-dimension range, or weaker theorem was added.
+The frozen target says that, for every `n >= 5`, every compact Hausdorff
+smooth boundaryless `n`-manifold homotopy equivalent to the unit `n`-sphere is
+homeomorphic to it. The target-owned `ProofEvidence.lean` checks the exact
+remaining cut:
 
-## Validation Evidence
+```text
+HighDimensionalPoincareTarget <->
+  (DimensionFivePackage and StableDimensionPackage)
+```
 
-Commands ran in this worker clone using only the existing pinned Lake artifacts.
-No update, build, clone, fetch, or `.lake` mutation was performed. Temporary
-`.olean` output was placed under `/tmp` and removed.
+This is a characterization, not a root inhabitant. The conditional composer
+closes `M0586-T-ASSEMBLE`, but neither `M0586-T-FIVE` nor
+`M0586-T-STABLE` has a placeholder-free proof body. The pinned mathlib source
+still declares the broader generalized Poincare statement only with
+`proof_wanted`; import-time trust-zero replay confirms that the name is absent.
+The immutable external candidate recorded by the anchor audit proves only the
+dimension-zero case.
 
-| Command | Exit | Exact result |
-|---|---:|---|
-| `python3 Docs/tools/check_stage1_standard.py` | 0 | `check_stage1_standard: ok (15 assurance groups, 41 legacy rows, 300 legacy slots, 1546 uniform-L0 Lean 4 targets, execution skill present)` |
-| `python3 scripts/stage1_target.py check` | 0 | `stage1_target: ok (1546 unique targets, ranks 1..1546, all L0/rework_required)` |
-| `python3 scripts/stage1_target.py show THM-M-0586` | 0 | Rank 117, lifecycle `planned`, baseline L0/rework-required, and `theorem_complete: false` |
-| `python3 Stage1_Instances/THM-M-0586/check_obligation_tree.py` | 0 | `PASS THM-M-0586 obligation tree: 18 obligations, 38 typed edges`; denominator `bbeb74...07b3e`; root open at M3 and both packages M4 |
-| `LEAN=$(cd Formalizations/Lean && lake env which lean); LP=$(cd Formalizations/Lean && lake env printenv LEAN_PATH); cd Stage1_Instances/THM-M-0586; LEAN_PATH="$LP" "$LEAN" -o /tmp/thm-m-0586-proof/Statement.olean Statement.lean; LEAN_PATH="/tmp/thm-m-0586-proof:$LP" "$LEAN" ObligationTree.lean` | 0 | Exact statement and conditional composition elaborated; `#print axioms` reported only `propext`, `Classical.choice`, and `Quot.sound` |
-| `rg -n '^\s*(sorry\|admit\|axiom)(\s\|$)' Stage1_Instances/THM-M-0586` | 1 | Expected no-match result: no prohibited Lean declaration token |
-| `rg -l -i 'h.?cobord\|s.?cobord\|surgery\|nonempty_homeomorph_sphere' Formalizations/Lean/.lake/packages/mathlib/Mathlib -g '*.lean'` | 0 | Only `Mathlib/Geometry/Manifold/PoincareConjecture.lean` matched |
+No assumption, axiom, placeholder, unsafe escape, weaker dimension range, or
+substituted theorem was introduced. The root remains `[H2, M3, R4]`, with
+`audit_complete=false` and `theorem_complete=false`.
 
-The first failed proof gate is terminal proof-body availability for
-`M0586-T-FIVE` and `M0586-T-STABLE`; these two obligations are the remaining
-root cut set. This record is blocker evidence only and claims no proof closure,
-M0 status, validation, release, theorem completion, or master acceptance.
+## Dependency Context
+
+The exact hard-parent and transitive-ancestor closure is empty, so the required
+`parent_inspection_order` was traversed exactly once as the empty sequence
+before proof work. The refreshed `dependency-reuse-ledger.json` binds theorem
+DAG SHA-256 `e8472863a24609e37868f215bbf0e0654b11a62f912a403ebca5feb8de5a3b9b`,
+context SHA-256 `cdf6c9f8de36e769dba3868e130e3dbcced7e1e38e0429fb4b3a728c4b787aff`,
+and this worker base.
+
+The only reuse context is weak shared-module group
+`SHARED-MODULE-b3a9d89c683d7166`. Actual member `THM-M-0579` was inspected:
+its seven phase states are `[_], [_], [_], [_], [ ], [ ], [ ]`; its exact
+statement is dimension three; its composer is conditional; its root cut is
+open; and its matching mathlib names are also discarded `proof_wanted`
+markers. The decision is therefore `not_applicable`, not accepted reuse. No
+provider acceptance, receipt, declaration, or proof credit is transferred.
+
+## Semantic Replay
+
+`check_proof.py` is the sole declared proof-validator candidate. It checks the
+authoritative item identity and v2 context, exact target and provider bytes,
+dependency ledger, obligation denominator and cut, receipt/packet agreement,
+prohibited constructs, pinned mathlib identity, and a temporary trust-zero
+Lean replay of `Statement.lean`, `ObligationTree.lean`,
+`ProofBlockerProbe.lean`, and `ProofEvidence.lean`.
+
+Its stdout is exactly one `stage1-validator-semantic-result/1.0` object. A
+successful replay truthfully reports `status=blocked`, `verdict=blocked`,
+`phase_accepted=false`, `phase_predicate_proven=false`, 15 open required
+obligations (with a two-node minimal root cut), and first failed gate
+`P04-KERNEL.M0586-T-FIVE+M0586-T-STABLE`. Command success
+therefore certifies the negative evidence packet, not proof completion.
+
+The validator did not exist at this worker base. Under the HEAD acceptance
+contract, the integration lane must first land the sole validator and receipt,
+regenerate the theorem-DAG inventory, and allocate a fresh base-bound
+revalidation with the identical validator blob. This historical packet cannot
+itself support authority replay or master acceptance.
+
+The automation-provided `Formalizations/Lean/.lake` symlink was reused
+read-only. No `lake update`, `lake build`, dependency clone/fetch, network
+request, or dependency mutation ran. Temporary Lean outputs live only under
+`/tmp` and are removed.
+
+## Required Split
+
+There are already 44 structured blocked proof rechecks and 53 Markdown
+rechecks under this owned path, while the authoritative proof item still says
+`attempts=0` and has no children. Rev-5.6 section 10.2 requires splitting after
+five unresolved execution ticks. The master must stop scheduling the same
+root-sized task and create dependency-legal children for the open route:
+
+```text
+M0586-N-PUNCTURE
+M0586-C-DISKS
+M0586-C-COBORDISM
+M0586-L-HCOB
+M0586-L-FIVE
+M0586-L-STABLE
+M0586-C-GLUE
+M0586-T-FIVE
+M0586-T-STABLE
+```
+
+This worker did not edit either blueprint, either generated DAG, the checklist,
+or any item state. The handoff is self-tested target-scoped blocker evidence,
+not proof-phase completion or master acceptance.

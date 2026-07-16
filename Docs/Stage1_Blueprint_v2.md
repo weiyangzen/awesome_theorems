@@ -658,8 +658,8 @@ This appendix is the single writable task-state authority. The execution DAG and
 generated, read-only projections of these stable rows; they never override this checklist.
 
 Authoritative progress summary (derived and validated from the rows below):
-- `[_]` 3299 (30.48% worker self-tested)
-- `[ ]` 7523
+- `[_]` 3301 (30.50% worker self-tested)
+- `[ ]` 7521
 - `[x]` 0
 
 Every target is expanded into seven dependency-ordered phases: intake, statement, anchor audit,
@@ -748,7 +748,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-0393-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-0393`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0393-VALIDATION` / `THM-M-0393` / `validation`: Run hermetic kernel, trust, provenance, and independent validation gates. {attempts=1}
   Depends: `S56-M-0393-PROOF`. Owned paths: `Stage1_Instances/THM-M-0393`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [_] `S56-M-0393-RELEASE` / `THM-M-0393` / `release`: Reconcile evidence and decide the exact theorem-completion verdict. {attempts=2}
+- [_] `S56-M-0393-RELEASE` / `THM-M-0393` / `release`: Reconcile evidence and decide the exact theorem-completion verdict. {attempts=3}
   Depends: `S56-M-0393-VALIDATION`. Owned paths: `Stage1_Instances/THM-M-0393`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0394-INTAKE` / `THM-M-0394` / `intake`: Create the theorem dossier, scope map, and source-statement crosswalk. {attempts=1}
   Depends: none. Owned paths: `Stage1_Instances/THM-M-0394`. Gate: rev-5.6 node-specific receipt and master acceptance.
@@ -952,7 +952,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-0412-INTAKE`. Owned paths: `Stage1_Instances/THM-M-0412`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0412-ANCHOR_AUDIT` / `THM-M-0412` / `anchor_audit`: Audit mathlib and external Lean 4 candidates at immutable revisions. {attempts=1}
   Depends: `S56-M-0412-STATEMENT`. Owned paths: `Stage1_Instances/THM-M-0412`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-0412-OBLIGATION_TREE` / `THM-M-0412` / `obligation_tree`: Freeze the obligation registry and typed proof/provenance/workflow graphs. {attempts=0}
+- [_] `S56-M-0412-OBLIGATION_TREE` / `THM-M-0412` / `obligation_tree`: Freeze the obligation registry and typed proof/provenance/workflow graphs. {attempts=1}
   Depends: `S56-M-0412-ANCHOR_AUDIT`. Owned paths: `Stage1_Instances/THM-M-0412`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-0412-PROOF` / `THM-M-0412` / `proof`: Implement or pin/import the required proof bodies without placeholders. {attempts=0}
   Depends: `S56-M-0412-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-0412`. Gate: rev-5.6 node-specific receipt and master acceptance.
@@ -2298,7 +2298,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-0586-STATEMENT`. Owned paths: `Stage1_Instances/THM-M-0586`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0586-OBLIGATION_TREE` / `THM-M-0586` / `obligation_tree`: Freeze the obligation registry and typed proof/provenance/workflow graphs. {attempts=1}
   Depends: `S56-M-0586-ANCHOR_AUDIT`. Owned paths: `Stage1_Instances/THM-M-0586`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-0586-PROOF` / `THM-M-0586` / `proof`: Implement or pin/import the required proof bodies without placeholders. {attempts=0}
+- [_] `S56-M-0586-PROOF` / `THM-M-0586` / `proof`: Implement or pin/import the required proof bodies without placeholders. {attempts=1}
   Depends: `S56-M-0586-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-0586`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-0586-VALIDATION` / `THM-M-0586` / `validation`: Run hermetic kernel, trust, provenance, and independent validation gates. {attempts=0}
   Depends: `S56-M-0586-PROOF`. Owned paths: `Stage1_Instances/THM-M-0586`. Gate: rev-5.6 node-specific receipt and master acceptance.

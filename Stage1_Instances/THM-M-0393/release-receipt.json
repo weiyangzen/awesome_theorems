@@ -1,14 +1,14 @@
 {
   "schema_version": "stage1-node-receipt/1.0",
-  "receipt_id": "S56-M-0393-RELEASE-local-20260717-v2",
+  "receipt_id": "S56-M-0393-RELEASE-revalidation-20260717-slot65-v3",
   "item_id": "S56-M-0393-RELEASE",
   "theorem_id": "THM-M-0393",
   "phase": "release",
   "intent": "release",
-  "base_revision": "c5037228977a81948bbd6119e1728b4b65b9924e",
-  "base_tree": "78b2627e717156dffe240bea12d14205af667d2a",
-  "validated_at": "2026-07-17T00:00:00+08:00",
-  "attestor": "stage1-rev56-worker-slot42",
+  "base_revision": "1cc6aa61bb055a5c032297ee457905c849af7608",
+  "base_tree": "dc3053b55c5724ccb2e6a247e7deffebca9dbb99",
+  "validated_at": "2026-07-17T04:23:52+08:00",
+  "attestor": "stage1-rev56-worker-slot65",
   "support_state": "provisional_worker_selftest",
   "proposed_state": "[_]",
   "accepted": false,
@@ -31,21 +31,23 @@
       "python3 -m json.tool Stage1_Instances/THM-M-0393/release-spec.json",
       "python3 -m json.tool Stage1_Instances/THM-M-0393/release-decision.json",
       "python3 -m json.tool Stage1_Instances/THM-M-0393/release-receipt.json",
-      "python3 -m json.tool .stage1-worker-selftest.json",
+      "python3 -m json.tool Stage1_Instances/THM-M-0393/deterministic-evidence-bundle.json",
+      "python3 -m json.tool Stage1_Instances/THM-M-0393/independent-attestation-1.json",
+      "python3 -m json.tool Stage1_Instances/THM-M-0393/independent-attestation-2.json",
       "git diff --check -- Stage1_Instances/THM-M-0393 .stage1-worker-selftest.json"
     ],
-    "output_summary": "The phase contract, target manifest, obligation tree, partial Lean replays, JSON checks, typed negative release validator, and diff hygiene passed. Direct Statement.lean replay failed as expected at lean.dependsOnNoncomputable. The global standard and v2 DAG checks fail closed because adding the contract-required release receipt changes the generated DAG inventory while the worker is forbidden to regenerate the authoritative DAG. The semantic release result remains blocked with audit_complete=false and theorem_complete=false."
+    "output_summary": "The phase contract, target manifest, obligation tree, Proof.lean and Validation.lean replays, JSON checks, typed negative release validator, and diff hygiene pass. Direct Statement.lean replay fails at lean.dependsOnNoncomputable as the owned release decision records. The standard and v2 DAG checks fail only because this refreshed owned receipt makes their checked-in reusable-artifact digest stale; the master integration lane owns projection regeneration. The semantic release result remains blocked with audit_complete=false and theorem_complete=false."
   },
   "inputs": {
     "release_specification": {
       "path": "Stage1_Instances/THM-M-0393/release-spec.json",
-      "sha256": "3a198579b662eb1ea6a5de4fa0a9de3802ed4369492aec0b75968524eb42202d",
-      "git_blob": "3b5b22b56c28bd6da5c45d83a1db06f555ff6afe"
+      "sha256": "917fc30510f1821440059fa0fb4de90b241ae00c24de26df79ddfb94998af0b4",
+      "git_blob": "b77b7de40c9b2795027daa335a58367b8495f12e"
     },
     "release_decision": {
       "path": "Stage1_Instances/THM-M-0393/release-decision.json",
-      "sha256": "88deaddedf30405e4fca5e1ddf80d86543af697f0f40b68bc8b01a6f77ae1bcf",
-      "git_blob": "447fccb4b5b67e4a7495debead16c913148ddc23"
+      "sha256": "a00420c750b23b70401e9908523088b35a30fb142976a9d448de46e1b840e91d",
+      "git_blob": "3fd20f880ca2d8b7702011d47a758b1ed8a0f846"
     },
     "validation_receipt": {
       "path": "Stage1_Instances/THM-M-0393/validation-receipt.json",
@@ -54,8 +56,8 @@
     },
     "dependency_reuse_ledger": {
       "path": "Stage1_Instances/THM-M-0393/dependency-reuse-ledger.json",
-      "sha256": "c6bb38200b521717fffa97270da37248eafd778cdb5d22b6dc18f78bebb43802",
-      "git_blob": "5555f778ff77020efefb25b9d2b3c6d8b17903b9"
+      "sha256": "0a5472d33c5abf1cee73bbad79a824f14f633535d6f6c800750fe6009661554e",
+      "git_blob": "7ac2c1988166b4533ab8c242e2cc47bbfdc743cf"
     },
     "obligation_registry": {
       "path": "Stage1_Instances/THM-M-0393/obligation-registry.json",
@@ -69,28 +71,34 @@
     },
     "release_validator": {
       "path": "Stage1_Instances/THM-M-0393/check_release.py",
-      "sha256": "dc7b69b831f7aec14b39512f2c8d5dd1642d00993b0862b81dfef9d5db7e2887",
-      "git_blob": "63ee97e0d10354b87d5e220f03d77509674cb858"
+      "sha256": "1f934b66342d39d5ca6287b20ce2b10cb3482a8d33ebcb58da76b39d0e6d520f",
+      "git_blob": "da529d2ad6b9a1288540e989b467bc47f1abd637"
     },
     "deterministic_evidence_bundle": {
-      "path": "Stage1_Instances/THM-M-0393/release-decision.json",
-      "sha256": "88deaddedf30405e4fca5e1ddf80d86543af697f0f40b68bc8b01a6f77ae1bcf",
-      "git_blob": "447fccb4b5b67e4a7495debead16c913148ddc23",
-      "artifact_kind": "negative_evidence_inventory_only_not_a_release_bundle"
+      "path": "Stage1_Instances/THM-M-0393/deterministic-evidence-bundle.json",
+      "sha256": "06ce35eb3568a9e3c113d4c355728dc064029430de0800b258ffb8db1923253c",
+      "git_blob": "fb31598d4d4d675de78710a8e28cc2394f04ab41",
+      "artifact_kind": "required_release_bundle_missing"
     },
     "independent_attestations": [
       {
-        "path": "Stage1_Instances/THM-M-0393/release-decision.json",
-        "sha256": "88deaddedf30405e4fca5e1ddf80d86543af697f0f40b68bc8b01a6f77ae1bcf",
-        "git_blob": "447fccb4b5b67e4a7495debead16c913148ddc23",
-        "artifact_kind": "absence_record_only_not_an_independent_attestation"
+        "path": "Stage1_Instances/THM-M-0393/independent-attestation-1.json",
+        "sha256": "49c05ffa3bc94247fff7bb78a2a2b2a47e1b4c36de8f693c443ba39f1f387020",
+        "git_blob": "c2be14a34967e76bccfe480d3e1f9794ae9ab9d1",
+        "artifact_kind": "required_independent_attestation_missing"
+      },
+      {
+        "path": "Stage1_Instances/THM-M-0393/independent-attestation-2.json",
+        "sha256": "469ba3d800454eda5a769bd5c242d1b7a77d561bf7d67e6476038c9df940ed9a",
+        "git_blob": "6b9e2653980d7eace1f5d0be3f2020379c490cf0",
+        "artifact_kind": "required_independent_attestation_missing"
       }
     ],
     "public_projections": [
       {
         "path": "Stage1_Instances/THM-M-0393/release-validation.md",
-        "sha256": "c3a043ca61576a1490dc3f13f286d9878f110e84b5ad5d6e4cc19d7856def5c8",
-        "git_blob": "6ec3d9b370abe4cf159663165b832a16275f0007",
+        "sha256": "9902492f3257ebb20281c714f3f19f95c7e58778472ceda18a0a8f512605184c",
+        "git_blob": "23c44105c28d249675cf866a8b3c315304e09ace",
         "artifact_kind": "legacy_worker_projection_not_generated_from_an_accepted_bundle"
       }
     ]
@@ -110,13 +118,15 @@
     "expected_exit": 0
   },
   "known_failures": [
+    "The authoritative historical-revalidation plan classifies validator_base_mismatch as blocked and validator_stdout_mismatch plus sandbox_incompatible as unknown; this handoff supplies the required fresh self-test and new base-bound receipt, while independent review and master replay remain scheduler-owned.",
     "S56-M-0393-VALIDATION and every earlier phase remain [_], not master-accepted [x].",
     "The frozen Statement.lean does not directly elaborate because evalBinary lacks the required noncomputable marker.",
     "All seventeen canonical root-relevant obligations and every composition certificate remain open; the finite_pow_divisors result is only a strict subclaim of M0393-N1.",
     "AUDIT-Z is not established: accepted H0 source review, R0 readable review, complete provenance/trust/TCB classification, and accepted public reconciliation are absent.",
     "No immutable clean cold/offline run, SBOM/license closure, deterministic evidence bundle, two independent signed runners, or independent minimal verifier exists.",
-    "The global standard and v2 theorem-DAG validators fail in this worker tree because the generator inventories new target JSON receipts, while this worker is forbidden to regenerate Docs/Stage1_Theorem_DAG_v2.json; master integration must reconcile that derived projection.",
-    "The HEAD release validator is legacy prose rather than the mandatory typed semantic result. This worker repaired it and self-tested the typed negative output, but validator-selection policy requires an unchanged worker-base blob, so only a new authority integration/revalidation base can make it review-eligible.",
+    "The standard and v2 theorem-DAG validators observe the expected stale reusable-artifact digest for this refreshed target-owned receipt; the worker may not regenerate the authoritative theorem-DAG projection.",
+    "The local host denies unprivileged namespaces, so a worker-side bubblewrap dry run cannot establish the scheduler's isolated replay; master replay remains required and fail-closed.",
+    "The release validator at the current worker base already emitted a typed semantic result, but its evidence was bound to an older repository base and v2 graph digest; this revalidation refreshes those bindings without changing the fail-closed verdict.",
     "The worker clone contains the automation-provided untracked canonical .lake symlink; the narrow Lean replays are warm nonrelease evidence only."
   ],
   "first_failed_gate": "G02-TOPOLOGY",
@@ -173,10 +183,14 @@
   "result": {
     "exit_code": 0,
     "semantic_verdict": "blocked",
+    "phase_predicate_proven": false,
     "phase_accepted": false,
     "audit_complete": false,
     "theorem_complete": false,
     "open_obligations": 17,
+    "stale_inputs": [
+      "Stage1_Instances/THM-M-0393/validation-receipt.json"
+    ],
     "first_failed_gate": "G02-TOPOLOGY"
   }
 }
