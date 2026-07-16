@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
-"""Run the Stage1 rev-5.6 Lean 4 execution queue safely.
+"""Run the Stage1 v2 Lean 4 execution queue safely.
 
-The requirements source is ``Docs/Stage1_Blueprint_rev-5.6.md``.  Its generated
-execution appendix is a rendering of the typed execution-state DAG in
-``Docs/Stage1_Execution_DAG_rev-5.6.json``.  The JSON is deliberately kept in
-the repository, rather than in `.cron`, so worker state, dependencies, and
-acceptance history are reviewable and reproducible.
+``Docs/Stage1_Blueprint_v2.md`` is the single writable requirements and task-
+state authority.  Its generated checklist is projected into the typed
+``Docs/Stage1_Execution_DAG_rev-5.6.json`` and the daily todo snapshot; neither
+projection may feed state back into the blueprint.
 
-This program owns scheduler-only state below `.cron/stage1-rev56/`, which is
-gitignored.  A worker never writes an accepted state: it produces a self-test
-manifest and its isolated clone is queued for the integration owner.
+This program owns its app-server state below `.cron/stage1-v2-app-server/`,
+which is gitignored.  The historical `.cron/stage1-rev56/` runtime is retained
+as read-only audit evidence.  A worker never writes an accepted state: it
+produces a self-test manifest and its isolated clone is queued for the
+integration owner.
 """
 
 from __future__ import annotations
@@ -36,13 +37,21 @@ from typing import Any, NoReturn
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "Docs"
-BLUEPRINT = DOCS / "Stage1_Blueprint_rev-5.6.md"
+BLUEPRINT = DOCS / "Stage1_Blueprint_v2.md"
+ASSURANCE_BLUEPRINT = DOCS / "Stage1_Blueprint_rev-5.6.md"
 TARGETS = DOCS / "Stage1_Targets_rev-5.6.json"
 DAG = DOCS / "Stage1_Execution_DAG_rev-5.6.json"
 THEOREM_DAG_V2 = DOCS / "Stage1_Theorem_DAG_v2.json"
-RUNTIME = ROOT / ".cron" / "stage1-rev56"
+LEGACY_RUNTIME = ROOT / ".cron" / "stage1-rev56"
+RUNTIME = ROOT / ".cron" / "stage1-v2-app-server"
 CHECKLIST_BEGIN = "<!-- STAGE1-EXECUTION-CHECKLIST:BEGIN -->"
 CHECKLIST_END = "<!-- STAGE1-EXECUTION-CHECKLIST:END -->"
+CHECKLIST_ROW_RE = re.compile(
+    r"^- (?P<state>\[[_x ]\]) `(?P<id>S56-M-\d{4}-(?:INTAKE|STATEMENT|ANCHOR_AUDIT|OBLIGATION_TREE|PROOF|VALIDATION|RELEASE))`"
+    r" / `(?P<theorem>THM-M-\d{4})` / `(?P<phase>intake|statement|anchor_audit|obligation_tree|proof|validation|release)`"
+    r": (?P<deliverable>.+?) \{attempts=(?P<attempts>\d+)\}$",
+    re.MULTILINE,
+)
 PHASES = (
     ("intake", "Create the theorem dossier, scope map, and source-statement crosswalk."),
     ("statement", "Elaborate the exact Lean 4 target with the minimal pinned imports."),
@@ -68,17 +77,67 @@ REUSE_RELATIONSHIPS = {"exact", "checked_transport", "implication", "candidate_o
 ACCEPTED_REUSE_DECISIONS = {"reused_exact", "reused_with_transport"}
 RECEIPT_REFERENCE_FIELDS = {"path", "receipt_id", "sha256"}
 ARTIFACT_REFERENCE_FIELDS = {"path", "sha256"}
-# This is both the lane-concurrency ceiling and the per-tick integration/refill ceiling.
-# The operator requested three-minute saturation at 80 lanes. The target set
-# remains frozen, but unfinished phases of the existing 1546 targets refill.
-MAX_WORKERS = 80
-DEFAULT_WORKERS = 80
-DEFAULT_INTEGRATION_LIMIT = 80
+EXECUTION_CONTRACT = {
+    "claim_order": ["v2_execution_rank", "phase_layer", "phase_item_id"],
+    "proof_parent_inspection": {
+        "scope": ["direct_hard_parents", "transitive_hard_ancestors"],
+        "order": "ascending_v2_execution_rank_parent_before_child",
+        "complete_closure_required": True,
+    },
+    "accepted_reuse_relationships": ["exact", "checked_transport"],
+    "checked_transport_requires": [
+        "content_bound_provider_source",
+        "provider_and_consumer_statement_fingerprints",
+        "consumer_owned_import_or_wrapper",
+        "consumer_validation_receipt",
+    ],
+    "provider_checkbox_state_is_observation_only": True,
+    "provider_acceptance_inherited": False,
+    "consumer_acceptance_required": True,
+}
+# App-server workers are deliberately bounded to one 20-thread cohort.  The
+# integration budget is independent because a refill may drain older evidence.
+MAX_WORKERS = 20
+DEFAULT_WORKERS = 20
+MAX_INTEGRATION_LIMIT = 80
+DEFAULT_INTEGRATION_LIMIT = 20
+MAX_SLOT_ID = 1546 * len(PHASES)
+CLAIM_ID_RE = re.compile(r"[0-9]{8}T[0-9]{6}Z-[0-9a-f]{12}")
+GOAL_HANDSHAKE_TIMEOUT_SECONDS = 30.0
+GOAL_HANDSHAKE_POLL_SECONDS = 0.1
+GOAL_HANDSHAKE_RECOVERY_GRACE_SECONDS = 120.0
 STARTED_TARGETS_ONLY = False
 CODEX_MODEL = "gpt-5.6-sol"
 CODEX_REASONING_EFFORT = "ultra"
-CODEX_SERVICE_TIER = "default"
-ALLOWED_REASONING_EFFORTS = {"low", "medium", "high", "xhigh", "ultra"}
+CODEX_SERVICE_TIER = "priority"  # model/list advertises this id as "Fast"
+REQUIRED_RUNTIME_CONFIG = {
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "ultra",
+    "service_tier": "priority",
+}
+REQUIRED_APP_SERVER_ARGV = [
+    "app-server",
+    "--stdio",
+    "--enable",
+    "goals",
+    "--disable",
+    "code_mode",
+    "--disable",
+    "code_mode_host",
+    "--disable",
+    "code_mode_only",
+]
+REQUIRED_SANDBOX_CONTRACT = {
+    "type": "workspaceWrite",
+    "writableRoots": [],
+    "networkAccess": False,
+    "excludeTmpdirEnvVar": False,
+    "excludeSlashTmp": False,
+}
+PAUSE_FILE = LEGACY_RUNTIME / "PAUSED"
+APP_SERVER_CLIENT = ROOT / "scripts" / "stage1_app_server_client.py"
+RUNTIME_PROTOCOL = "codex-app-server-jsonl"
+LEGACY_RUNTIME_PROTOCOL = "tmux-codex-exec"
 
 
 def fail(message: str) -> NoReturn:
@@ -164,7 +223,7 @@ def validate_runtime_root() -> None:
         fail("scheduler runtime path contains a symlink or escapes the repository")
     if RUNTIME.exists() and not RUNTIME.resolve().is_relative_to(root_resolved):
         fail("scheduler runtime path escapes the repository")
-    for name in ("workers", "prompts", "logs", "blocked-reports"):
+    for name in ("workers", "prompts", "logs", "goals", "app-server", "blocked-reports"):
         path = RUNTIME / name
         if path.is_symlink() or (path.exists() and (not path.is_dir() or not path.resolve().is_relative_to(root_resolved))):
             fail(f"scheduler runtime subdirectory is unsafe: {name}")
@@ -308,10 +367,11 @@ def recover_integration_wal() -> None:
     rows = wal.get("files")
     if not isinstance(rows, list):
         fail("integration recovery journal has no file snapshots")
+    runtime_relative = RUNTIME.relative_to(ROOT).as_posix()
     allowed_runtime = {
-        ".cron/stage1-rev56/claims.json",
-        ".cron/stage1-rev56/integration_queue.json",
-        ".cron/stage1-rev56/pending_checkpoint.json",
+        f"{runtime_relative}/claims.json",
+        f"{runtime_relative}/integration_queue.json",
+        f"{runtime_relative}/pending_checkpoint.json",
     }
 
     def recovery_target(relative: str) -> Path:
@@ -322,6 +382,7 @@ def recover_integration_wal() -> None:
             or (
                 relative not in allowed_runtime
                 and relative not in {
+                    "Docs/Stage1_Blueprint_v2.md",
                     "Docs/Stage1_Blueprint_rev-5.6.md",
                     "Docs/Stage1_Execution_DAG_rev-5.6.json",
                     "Docs/Stage1_Theorem_DAG_v2.json",
@@ -416,6 +477,8 @@ def theorem_dag_v2() -> tuple[dict[str, Any], dict[str, dict[str, Any]]]:
     targets = target_rows()
     if set(by_id) != {target["theorem_id"] for target in targets}:
         fail("v2 theorem DAG target set disagrees with rev-5.6 manifest")
+    if data.get("execution_contract") != EXECUTION_CONTRACT:
+        fail("v2 theorem DAG execution contract is incomplete or stale")
     ranks = [node.get("v2_execution_rank") for node in nodes]
     if sorted(ranks) != list(range(1, 1547)):
         fail("v2 theorem DAG execution ranks are not contiguous")
@@ -423,6 +486,7 @@ def theorem_dag_v2() -> tuple[dict[str, Any], dict[str, dict[str, Any]]]:
     hard_edges = data.get("hard_edges")
     if not isinstance(hard_edges, list):
         fail("v2 theorem DAG hard_edges must be a list")
+    parents_by_id: dict[str, set[str]] = {theorem_id: set() for theorem_id in by_id}
     for edge in hard_edges:
         if not isinstance(edge, dict) or edge.get("blocking") is not True:
             fail("v2 theorem DAG has malformed hard edge")
@@ -430,6 +494,7 @@ def theorem_dag_v2() -> tuple[dict[str, Any], dict[str, dict[str, Any]]]:
         child = edge.get("child_theorem_id")
         if parent not in by_id or child not in by_id or rank_by_id[parent] >= rank_by_id[child]:
             fail("v2 theorem DAG hard edge violates parent-first order")
+        parents_by_id[child].add(parent)
         contract = edge.get("material_contract")
         if (
             not isinstance(contract, dict)
@@ -439,20 +504,65 @@ def theorem_dag_v2() -> tuple[dict[str, Any], dict[str, dict[str, Any]]]:
             or not contract["consumer_sources"]
         ):
             fail("v2 theorem DAG hard edge lacks a material contract")
+    closure_by_id: dict[str, set[str]] = {}
+    for theorem_id in sorted(by_id, key=rank_by_id.__getitem__):
+        direct = by_id[theorem_id].get("direct_hard_parents")
+        ancestors = by_id[theorem_id].get("transitive_hard_ancestors")
+        expected_direct = parents_by_id[theorem_id]
+        expected_closure = set(expected_direct)
+        for parent in expected_direct:
+            expected_closure.update(closure_by_id[parent])
+        expected_ancestors = sorted(expected_closure, key=rank_by_id.__getitem__)
+        if (
+            not isinstance(direct, list)
+            or len(direct) != len(set(direct))
+            or set(direct) != expected_direct
+            or ancestors != expected_ancestors
+        ):
+            fail(f"v2 theorem DAG parent closure is incomplete or stale: {theorem_id}")
+        closure_by_id[theorem_id] = expected_closure
     return data, by_id
 
 
 def order_by_v2(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
     """Use v2 theorem priority while preserving each theorem's seven phases."""
     _, nodes = theorem_dag_v2()
-    return sorted(
-        items,
-        key=lambda item: (
-            nodes[item["theorem_id"]]["v2_execution_rank"],
-            item["layer"],
-            item["id"],
-        ),
+    return sorted(items, key=lambda item: claim_order_key(item, nodes))
+
+
+def claim_order_key(
+    item: dict[str, Any],
+    theorem_nodes: dict[str, dict[str, Any]],
+) -> tuple[int, int, str]:
+    """Return the sole scheduler key declared by the theorem DAG contract."""
+    return (
+        theorem_nodes[item["theorem_id"]]["v2_execution_rank"],
+        item["layer"],
+        item["id"],
     )
+
+
+def parent_inspection_order(
+    theorem_id: str,
+    theorem_nodes: dict[str, dict[str, Any]],
+) -> list[str]:
+    """Return the complete hard-parent closure in deterministic provider-first order."""
+    node = theorem_nodes[theorem_id]
+    direct = node.get("direct_hard_parents")
+    ancestors = node.get("transitive_hard_ancestors")
+    if not isinstance(direct, list) or not isinstance(ancestors, list):
+        fail(f"{theorem_id} has malformed v2 parent metadata")
+    closure = set(direct) | set(ancestors)
+    if any(parent not in theorem_nodes for parent in closure):
+        fail(f"{theorem_id} has an unknown v2 parent")
+    child_rank = node.get("v2_execution_rank")
+    ordered = sorted(closure, key=lambda parent: theorem_nodes[parent]["v2_execution_rank"])
+    if not isinstance(child_rank, int) or any(
+        theorem_nodes[parent].get("v2_execution_rank", child_rank) >= child_rank
+        for parent in ordered
+    ):
+        fail(f"{theorem_id} has a hard parent that is not ranked before its consumer")
+    return ordered
 
 
 def hard_parent_ids(theorem_id: str) -> list[str]:
@@ -972,7 +1082,7 @@ def validate_dependency_reuse_ledger(
             raise ValueError("dependency reuse inspection lacks valid phase states")
         current_states = {
             item["phase"]: item["state"]
-            for item in read_json(DAG).get("items", [])
+            for item in authoritative_state_items(authoritative_root)
             if item.get("theorem_id") == row["theorem_id"]
         }
         if phase_states != current_states:
@@ -1141,7 +1251,7 @@ def hard_edge_decision_blockers(
     blockers: list[str] = []
     phase_states = {
         item["phase"]: item["state"]
-        for item in read_json(DAG).get("items", [])
+        for item in authoritative_state_items(authoritative_root)
         if item.get("theorem_id") == theorem_id
     }
     for edge in incoming:
@@ -1302,7 +1412,7 @@ def new_dag() -> dict[str, Any]:
     ids = "\n".join(sorted(target["theorem_id"] for target in targets)) + "\n"
     return {
         "schema_version": "stage1-execution-dag/1.0",
-        "requirements_source": "Docs/Stage1_Blueprint_rev-5.6.md",
+        "requirements_source": "Docs/Stage1_Blueprint_v2.md",
         "target_manifest": "Docs/Stage1_Targets_rev-5.6.json",
         "target_id_set_sha256": hashlib.sha256(ids.encode()).hexdigest(),
         "state_protocol": {"not_done": "[ ]", "worker_self_tested": "[_]", "master_accepted": "[x]"},
@@ -1342,8 +1452,8 @@ def topological_order(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
 def validate_dag(data: dict[str, Any]) -> list[dict[str, Any]]:
     if data.get("schema_version") != "stage1-execution-dag/1.0":
         fail("unsupported execution DAG schema")
-    if data.get("requirements_source") != "Docs/Stage1_Blueprint_rev-5.6.md":
-        fail("execution DAG requirements source is not the rev-5.6 blueprint")
+    if data.get("requirements_source") != "Docs/Stage1_Blueprint_v2.md":
+        fail("execution DAG requirements source is not the v2 blueprint")
     items = data.get("items")
     if not isinstance(items, list) or len(items) != 1546 * len(PHASES):
         fail(f"execution DAG must contain exactly {1546 * len(PHASES)} phase items")
@@ -1381,13 +1491,19 @@ def validate_dag(data: dict[str, Any]) -> list[dict[str, Any]]:
 
 
 def render_checklist(items: list[dict[str, Any]]) -> str:
+    counts = Counter(item["state"] for item in items)
+    worker_pct = 100 * counts["[_]"] / len(items) if items else 0.0
     lines = [
         CHECKLIST_BEGIN,
         "## 13. Generated 1546-Target Execution Checklist",
         "",
-        "This appendix is generated by `scripts/stage1_execution_cron.py --bootstrap`. The typed DAG at",
-        "`Docs/Stage1_Execution_DAG_rev-5.6.json` is the execution-state authority; this Markdown rendering",
-        "is retained in the normative blueprint for inspection. Do not edit either surface by hand.",
+        "This appendix is the single writable task-state authority. The execution DAG and daily todo are",
+        "generated, read-only projections of these stable rows; they never override this checklist.",
+        "",
+        "Authoritative progress summary (derived and validated from the rows below):",
+        f"- `[_]` {counts['[_]']} ({worker_pct:.2f}% worker self-tested)",
+        f"- `[ ]` {counts['[ ]']}",
+        f"- `[x]` {counts['[x]']}",
         "",
         "Every target is expanded into seven dependency-ordered phases: intake, statement, anchor audit,",
         "obligation tree, proof, validation, and release. `[ ]` and `[_]` are unfinished; only the master",
@@ -1398,7 +1514,8 @@ def render_checklist(items: list[dict[str, Any]]) -> str:
         depends = ", ".join(f"`{dependency}`" for dependency in item["depends_on"]) or "none"
         paths = ", ".join(f"`{path}`" for path in item["owned_paths"])
         lines.append(
-            f"- {item['state']} `{item['id']}` / `{item['theorem_id']}` / `{item['phase']}`: {item['deliverable']}"
+            f"- {item['state']} `{item['id']}` / `{item['theorem_id']}` / `{item['phase']}`: "
+            f"{item['deliverable']} {{attempts={item.get('attempts', 0)}}}"
         )
         lines.append(f"  Depends: {depends}. Owned paths: {paths}. Gate: {item['completion_gate']}.")
     lines.extend(["", CHECKLIST_END, ""])
@@ -1421,22 +1538,132 @@ def write_projection(data: dict[str, Any]) -> None:
     atomic_write(BLUEPRINT, blueprint)
 
 
+def checklist_body(text: str) -> str:
+    """Return the unique authoritative checklist body, failing closed."""
+    if text.count(CHECKLIST_BEGIN) != 1 or text.count(CHECKLIST_END) != 1:
+        fail("v2 blueprint must contain exactly one execution checklist marker pair")
+    begin = text.index(CHECKLIST_BEGIN) + len(CHECKLIST_BEGIN)
+    end = text.index(CHECKLIST_END, begin)
+    return text[begin:end]
+
+
+def load_blueprint_items() -> list[dict[str, Any]]:
+    """Parse all task state and attempts from the v2 blueprint SSOT."""
+    body = checklist_body(BLUEPRINT.read_text(encoding="utf-8"))
+    rows: list[dict[str, Any]] = []
+    for match in CHECKLIST_ROW_RE.finditer(body):
+        theorem_id = match["theorem"]
+        phase = match["phase"]
+        phase_index = next(index for index, row in enumerate(PHASES) if row[0] == phase)
+        item = make_item(
+            {"theorem_id": theorem_id, "execution_rank": 0}, phase_index
+        )
+        item.update(
+            id=match["id"],
+            state=match["state"],
+            deliverable=match["deliverable"],
+            attempts=int(match["attempts"]),
+        )
+        rows.append(item)
+    expected = 1546 * len(PHASES)
+    if len(rows) != expected:
+        fail(f"v2 blueprint checklist must contain exactly {expected} machine-readable rows")
+    ranks = {row["theorem_id"]: row["execution_rank"] for row in target_rows()}
+    for item in rows:
+        item["execution_rank"] = ranks[item["theorem_id"]]
+    expected_render = render_checklist(rows)
+    actual_render = CHECKLIST_BEGIN + body + CHECKLIST_END + "\n"
+    if actual_render != expected_render:
+        fail("v2 blueprint checklist has malformed, duplicate, reordered, or noncanonical rows")
+    return rows
+
+
+def authoritative_state_items(authoritative_root: Path = ROOT) -> list[dict[str, Any]]:
+    """Load the SSOT under the selected authority root, including test clones."""
+    if authoritative_root.resolve() == ROOT.resolve():
+        return load_blueprint_items()
+    blueprint = authoritative_root / "Docs" / "Stage1_Blueprint_v2.md"
+    if blueprint.is_file():
+        original = BLUEPRINT
+        try:
+            globals()["BLUEPRINT"] = blueprint
+            return load_blueprint_items()
+        finally:
+            globals()["BLUEPRINT"] = original
+    # Test-clone and one-time migration compatibility only. Production ROOT
+    # must always possess the blueprint SSOT and never reaches this fallback.
+    dag = authoritative_root / "Docs" / "Stage1_Execution_DAG_rev-5.6.json"
+    if dag.is_file():
+        items = read_json(dag).get("items")
+        if isinstance(items, list):
+            return items
+    raise ValueError("authoritative Stage1 state source is missing")
+
+
+def project_dag(items: list[dict[str, Any]]) -> dict[str, Any]:
+    """Build the read-only execution-DAG projection from blueprint state."""
+    data = new_dag()
+    data["items"] = items
+    return data
+
+
+def write_derived_surfaces(data: dict[str, Any]) -> None:
+    """Project the authoritative checklist to JSON after the blueprint write."""
+    items = load_blueprint_items()
+    projection = project_dag(items)
+    validate_dag(projection)
+    if data.get("items") != items:
+        fail("authoritative blueprint write did not preserve the requested task state")
+    atomic_write(DAG, json.dumps(projection, ensure_ascii=False, indent=2) + "\n")
+
+
+def retire_assurance_checklist() -> None:
+    """Remove the obsolete second checkbox surface after SSOT migration."""
+    text = ASSURANCE_BLUEPRINT.read_text(encoding="utf-8")
+    begin_count = text.count(CHECKLIST_BEGIN)
+    end_count = text.count(CHECKLIST_END)
+    if begin_count == end_count == 0:
+        return
+    if begin_count != 1 or end_count != 1:
+        fail("assurance blueprint has malformed legacy checklist markers")
+    replacement = (
+        "## 13. Stage1 v2 Execution State\n\n"
+        "The former generated phase checklist was migrated without state loss to "
+        "`Docs/Stage1_Blueprint_v2.md`. That v2 checklist is the only writable task-state "
+        "authority; the execution DAG and daily todo are derived projections.\n"
+    )
+    pattern = re.escape(CHECKLIST_BEGIN) + r".*?" + re.escape(CHECKLIST_END) + r"\n?"
+    updated, count = re.subn(pattern, replacement, text, count=1, flags=re.DOTALL)
+    if count != 1:
+        fail("assurance blueprint legacy checklist markers are ambiguous")
+    atomic_write(ASSURANCE_BLUEPRINT, updated)
+
+
 def bootstrap() -> None:
-    data = read_json(DAG) if DAG.exists() else new_dag()
+    if CHECKLIST_BEGIN in BLUEPRINT.read_text(encoding="utf-8"):
+        data = project_dag(load_blueprint_items())
+    else:
+        # One-time migration only: preserve the old projection byte-semantics,
+        # then make the v2 checklist the sole source for every later run.
+        data = read_json(DAG) if DAG.exists() else new_dag()
+        data["requirements_source"] = "Docs/Stage1_Blueprint_v2.md"
     validate_dag(data)
-    atomic_write(DAG, json.dumps(data, ensure_ascii=False, indent=2) + "\n")
+    write_projection(data)
+    write_derived_surfaces(data)
+    retire_assurance_checklist()
     run(["python3", "Docs/tools/generate_stage1_theorem_dag_v2.py"])
     theorem_dag_v2.cache_clear()
     run(["python3", "Docs/tools/check_stage1_theorem_dag_v2.py"])
-    write_projection(data)
     print(f"bootstrapped {len(data['items'])} phase items for 1546 targets")
 
 
 def load_dag() -> tuple[dict[str, Any], list[dict[str, Any]]]:
-    if not DAG.exists():
-        fail("execution DAG is missing; run --bootstrap first")
-    data = read_json(DAG)
-    return data, validate_dag(data)
+    items = load_blueprint_items()
+    data = project_dag(items)
+    ordered = validate_dag(data)
+    if not DAG.exists() or read_json(DAG) != data:
+        fail("derived execution DAG disagrees with the v2 blueprint SSOT; run --bootstrap")
+    return data, ordered
 
 
 def runtime_path(name: str) -> Path:
@@ -1462,11 +1689,217 @@ def pid_alive(pid: Any) -> bool:
     return isinstance(pid, int) and pid > 0 and Path(f"/proc/{pid}").exists()
 
 
-def session_is_live(session: Any) -> bool:
-    if not isinstance(session, str):
+def process_command(pid: Any) -> list[str]:
+    if not pid_alive(pid):
+        return []
+    try:
+        raw = Path(f"/proc/{pid}/cmdline").read_bytes()
+    except OSError:
+        return []
+    return [part.decode("utf-8", errors="replace") for part in raw.split(b"\0") if part]
+
+
+def process_start_ticks(pid: Any) -> int | None:
+    """Return Linux /proc start ticks so a reused PID cannot inherit a lease."""
+    if not pid_alive(pid):
+        return None
+    try:
+        data = Path(f"/proc/{pid}/stat").read_text(encoding="utf-8")
+        closing = data.rfind(")")
+        if closing < 0:
+            return None
+        fields_after_comm = data[closing + 2 :].split()
+        return int(fields_after_comm[19])
+    except (OSError, ValueError, IndexError):
+        return None
+
+
+def app_server_worker_is_live(claim: dict[str, Any]) -> bool:
+    """Prove that the recorded PID is this claim's app-server client."""
+    pid = claim.get("pid")
+    command = process_command(pid)
+    if not command:
         return False
-    result = run(["tmux", "list-panes", "-t", session, "-F", "#{pane_dead}"], check=False)
-    return result.returncode == 0 and any(line.strip() == "0" for line in result.stdout.splitlines())
+    workspace = str(claim.get("workspace", ""))
+    status_path = str(claim.get("app_server_status", ""))
+    objective_path = str(claim.get("goal_objective_path", ""))
+    output_path = str(claim.get("output_log", ""))
+    expected_start = claim.get("pid_start_ticks")
+    config = claim.get("runtime_config")
+    if not isinstance(config, dict):
+        return False
+    return (
+        claim.get("runtime_protocol") == RUNTIME_PROTOCOL
+        and isinstance(expected_start, int)
+        and process_start_ticks(pid) == expected_start
+        and str(APP_SERVER_CLIENT) in command
+        and "--workspace" in command
+        and workspace in command
+        and "--status" in command
+        and status_path in command
+        and "--objective" in command
+        and objective_path in command
+        and "--log" in command
+        and output_path in command
+        and "--model" in command
+        and config.get("model") in command
+        and "--effort" in command
+        and config.get("reasoning_effort") in command
+        and "--service-tier" in command
+        and config.get("service_tier") in command
+    )
+
+
+def app_server_child_is_live(claim: dict[str, Any]) -> bool:
+    """Verify the exact app-server child argv independently of its client."""
+    status = worker_status(claim)
+    if not isinstance(status, dict):
+        return False
+    pid = status.get("app_server_pid")
+    start = status.get("app_server_start_ticks")
+    command = process_command(pid)
+    return (
+        isinstance(pid, int)
+        and isinstance(start, int)
+        and process_start_ticks(pid) == start
+        and command[1:] == REQUIRED_APP_SERVER_ARGV
+    )
+
+
+def terminate_app_server_worker(claim: dict[str, Any]) -> bool:
+    """Stop both independently grouped client and app-server processes."""
+    client_live = app_server_worker_is_live(claim)
+    child_live = app_server_child_is_live(claim)
+    if not client_live and not child_live:
+        return False
+    client_pid = claim.get("pid") if client_live else None
+    status = worker_status(claim)
+    child_pid = status.get("app_server_pid") if isinstance(status, dict) else None
+    if child_live and isinstance(child_pid, int):
+        try:
+            os.killpg(child_pid, 15)
+        except ProcessLookupError:
+            pass
+    if client_live:
+        assert isinstance(client_pid, int)
+        try:
+            os.killpg(client_pid, 15)
+        except ProcessLookupError:
+            pass
+    for _ in range(50):
+        client_stopped = not isinstance(client_pid, int) or not pid_alive(client_pid)
+        child_stopped = not isinstance(child_pid, int) or not pid_alive(child_pid)
+        if client_stopped and child_stopped:
+            return True
+        time.sleep(0.1)
+    client_stopped = not isinstance(client_pid, int) or not pid_alive(client_pid)
+    child_stopped = not isinstance(child_pid, int) or not pid_alive(child_pid)
+    return client_stopped and child_stopped
+
+
+def worker_status(claim: dict[str, Any]) -> dict[str, Any] | None:
+    value = claim.get("app_server_status")
+    if not isinstance(value, str):
+        return None
+    path = Path(value)
+    expected = RUNTIME / "app-server" / f"{claim.get('claim_id')}.json"
+    status_root = RUNTIME / "app-server"
+    if (
+        RUNTIME.is_symlink()
+        or status_root.is_symlink()
+        or (status_root.exists() and not status_root.resolve().is_relative_to(RUNTIME.resolve()))
+        or path.absolute() != expected.absolute()
+        or path.is_symlink()
+        or not path.is_file()
+    ):
+        return None
+    try:
+        result = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    return result if isinstance(result, dict) else None
+
+
+def recover_claim_process_identity(claim: dict[str, Any]) -> bool:
+    """Recover a crash-window client identity from its content-bound status."""
+    status = worker_status(claim)
+    if not isinstance(status, dict):
+        return False
+    client_pid = status.get("client_pid")
+    client_start = status.get("client_start_ticks")
+    if not isinstance(client_pid, int) or not isinstance(client_start, int):
+        return False
+    original_pid = claim.get("pid")
+    original_start = claim.get("pid_start_ticks")
+    claim["pid"] = client_pid
+    claim["pid_start_ticks"] = client_start
+    if app_server_worker_is_live(claim):
+        return True
+    claim["pid"] = original_pid
+    claim["pid_start_ticks"] = original_start
+    return False
+
+
+def claim_handshake_timed_out(claim: dict[str, Any]) -> bool:
+    stamp = claim.get("client_started_at") or claim.get("claimed_at")
+    if not isinstance(stamp, str):
+        return True
+    try:
+        if stamp.endswith("Z") and "-" not in stamp[:8]:
+            started = dt.datetime.strptime(stamp, "%Y%m%dT%H%M%SZ").replace(tzinfo=dt.timezone.utc)
+        else:
+            started = dt.datetime.fromisoformat(stamp.replace("Z", "+00:00"))
+    except ValueError:
+        return True
+    return (dt.datetime.now(dt.timezone.utc) - started).total_seconds() >= GOAL_HANDSHAKE_RECOVERY_GRACE_SECONDS
+
+
+def goal_runtime_is_verified(claim: dict[str, Any]) -> bool:
+    status = worker_status(claim)
+    goal = status.get("goal") if isinstance(status, dict) else None
+    contract = status.get("runtime_contract") if isinstance(status, dict) else None
+    expected = claim.get("runtime_config")
+    child_pid = status.get("app_server_pid") if isinstance(status, dict) else None
+    child_start = status.get("app_server_start_ticks") if isinstance(status, dict) else None
+    objective_path = claim.get("goal_objective_path")
+    objective_matches = False
+    if isinstance(objective_path, str):
+        path = Path(objective_path)
+        expected_path = RUNTIME / "goals" / f"{claim.get('claim_id')}.txt"
+        try:
+            objective_matches = (
+                path.absolute() == expected_path.absolute()
+                and not path.is_symlink()
+                and path.is_file()
+                and path.read_text(encoding="utf-8").strip() == claim.get("goal_objective")
+            )
+        except OSError:
+            objective_matches = False
+    return (
+        isinstance(status, dict)
+        and status.get("state") in {"live", "finished"}
+        and status.get("protocol") == RUNTIME_PROTOCOL
+        and status.get("client_pid") == claim.get("pid")
+        and status.get("client_start_ticks") == claim.get("pid_start_ticks")
+        and isinstance(child_pid, int)
+        and isinstance(child_start, int)
+        and (status.get("state") == "finished" or process_start_ticks(child_pid) == child_start)
+        and isinstance(status.get("thread_id"), str)
+        and isinstance(goal, dict)
+        and goal.get("threadId") == status.get("thread_id")
+        and goal.get("objective") == claim.get("goal_objective")
+        and objective_matches
+        and goal.get("status") in {"active", "blocked", "usageLimited", "budgetLimited", "complete"}
+        and isinstance(contract, dict)
+        and isinstance(expected, dict)
+        and contract.get("model") == expected.get("model")
+        and contract.get("reasoning_effort") == expected.get("reasoning_effort")
+        and contract.get("service_tier") == expected.get("service_tier")
+        and contract.get("cwd") == claim.get("workspace")
+        and contract.get("sandbox") == REQUIRED_SANDBOX_CONTRACT
+        and contract.get("network_access") is False
+        and contract.get("app_server_argv") == REQUIRED_APP_SERVER_ARGV
+    )
 
 
 def snapshot_blocked_worker(claim: dict[str, Any]) -> tuple[list[str], Path]:
@@ -1533,9 +1966,9 @@ def refresh_claims(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
     _, theorem_nodes = theorem_dag_v2()
     identity_counts: Counter[tuple[str, Any]] = Counter()
     for claim in raw_claims:
-        if claim.get("status") not in active_statuses:
+        if claim.get("status") not in active_statuses or claim.get("runtime_protocol") != RUNTIME_PROTOCOL:
             continue
-        for field in ("item_id", "session", "slot", "workspace"):
+        for field in ("item_id", "worker_id", "slot", "workspace"):
             value = claim.get(field)
             if value is not None:
                 identity_counts[(field, value)] += 1
@@ -1546,7 +1979,7 @@ def refresh_claims(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
         item = item_by_id.get(claim.get("item_id"))
         if item is None:
             # Runtime state is not an authority surface. Preserve malformed or
-            # obsolete rows for audit, but never derive tmux/filesystem side
+            # obsolete rows for audit, but never derive runtime/filesystem side
             # effects from an identity absent from the validated DAG.
             claim["status"] = "quarantined"
             claim["quarantined_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
@@ -1560,25 +1993,43 @@ def refresh_claims(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
             kept.append(claim)
             continue
         slot = claim.get("slot")
-        session = claim.get("session")
         workspace_value = claim.get("workspace")
         output_value = claim.get("output_log")
         expected_rank = theorem_nodes[item["theorem_id"]]["v2_execution_rank"]
-        expected_session = f"stage1r56-{slot}-{expected_rank:04d}" if isinstance(slot, int) else None
+        claim_id = claim.get("claim_id")
+        expected_worker_id = (
+            f"stage1app-{slot}-{expected_rank:04d}-{claim_id[-12:]}"
+            if isinstance(slot, int) and isinstance(claim_id, str) and len(claim_id) >= 12
+            else None
+        )
         expected_workspace = RUNTIME / "workers" / f"slot{slot}" if isinstance(slot, int) else None
-        expected_output = RUNTIME / "logs" / f"{item['id']}.out"
+        expected_output = RUNTIME / "logs" / f"{claim_id}.out"
+        expected_status = RUNTIME / "app-server" / f"{claim_id}.json"
+        expected_goal = RUNTIME / "goals" / f"{claim_id}.txt"
         runtime_bound = claim.get("status") in active_statuses | {"blocked"}
         active_runtime = claim.get("status") in active_statuses
+        protocol = claim.get("runtime_protocol", LEGACY_RUNTIME_PROTOCOL)
+        legacy_runtime = protocol == LEGACY_RUNTIME_PROTOCOL
+        # Historical tmux claims and quarantines belong to the retired runtime.
+        # The new ledger never adopts, rewrites, or derives side effects from them.
+        if legacy_runtime:
+            claim["status"] = "quarantined"
+            claim["quarantined_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
+            claim["quarantine_reason"] = "legacy runtime claim is not reusable by the app-server scheduler"
+            kept.append(claim)
+            continue
         if runtime_bound and (
             (
                 active_runtime
-                and any(identity_counts[(field, claim.get(field))] > 1 for field in ("item_id", "session", "slot", "workspace"))
+                and any(identity_counts[(field, claim.get(field))] > 1 for field in ("item_id", "worker_id", "slot", "workspace"))
             )
             or (
             not isinstance(slot, int)
             or isinstance(slot, bool)
             or slot < 1
-            or slot > MAX_WORKERS * 4
+            or slot > MAX_SLOT_ID
+            or not isinstance(claim_id, str)
+            or CLAIM_ID_RE.fullmatch(claim_id) is None
             or not isinstance(workspace_value, str)
             or Path(workspace_value).absolute() != expected_workspace.absolute()
             or Path(workspace_value).is_symlink()
@@ -1588,8 +2039,18 @@ def refresh_claims(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
             )
             or not isinstance(output_value, str)
             or Path(output_value).absolute() != expected_output.absolute()
+            or claim.get("worker_id") != expected_worker_id
+            or claim.get("runtime_protocol") != RUNTIME_PROTOCOL
+            or not isinstance(claim.get("app_server_status"), str)
+            or Path(str(claim.get("app_server_status"))).absolute() != expected_status.absolute()
+            or not isinstance(claim.get("goal_objective_path"), str)
+            or Path(str(claim.get("goal_objective_path"))).absolute() != expected_goal.absolute()
+            or not isinstance(claim.get("goal_objective"), str)
+            or not claim.get("goal_objective")
+            or not isinstance(claim.get("runtime_config"), dict)
+            or set(claim["runtime_config"]) != {"model", "reasoning_effort", "service_tier"}
+            or claim["runtime_config"] != REQUIRED_RUNTIME_CONFIG
             )
-            or (active_runtime and session != expected_session)
         ):
             claim["status"] = "quarantined"
             claim["quarantined_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
@@ -1597,12 +2058,14 @@ def refresh_claims(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
             kept.append(claim)
             continue
         if states[item["id"]] == "[x]":
-            if claim.get("status") in {"live", "preparing", "launch_failed", "draining"} and session_is_live(session):
-                if isinstance(session, str):
-                    run(["tmux", "kill-session", "-t", session], check=False)
-                if session_is_live(session):
+            if (
+                claim.get("status") in {"live", "preparing", "launch_failed", "draining"}
+                and (app_server_worker_is_live(claim) or app_server_child_is_live(claim))
+            ):
+                terminate_app_server_worker(claim)
+                if app_server_worker_is_live(claim) or app_server_child_is_live(claim):
                     claim["status"] = "draining"
-                    claim["drain_reason"] = "master accepted but worker session did not stop"
+                    claim["drain_reason"] = "master accepted but app-server worker did not stop"
                     kept.append(claim)
                     continue
             claim["released_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
@@ -1610,31 +2073,63 @@ def refresh_claims(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
             released.append(claim)
             continue
         if claim.get("status") == "draining":
-            if session_is_live(session):
-                run(["tmux", "kill-session", "-t", str(session)], check=False)
-            if session_is_live(session):
+            if app_server_worker_is_live(claim) or app_server_child_is_live(claim):
+                terminate_app_server_worker(claim)
+            if app_server_worker_is_live(claim) or app_server_child_is_live(claim):
                 claim["drain_retried_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
                 kept.append(claim)
             else:
                 claim["released_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
-                claim["release_reason"] = "draining worker session stopped"
+                claim["release_reason"] = "draining app-server worker stopped"
                 released.append(claim)
             continue
         if claim.get("status") in {"preparing", "launch_failed"}:
-            session = claim.get("session")
             workspace = Path(str(claim.get("workspace", "")))
             manifest = workspace / ".stage1-worker-selftest.json"
-            if session_is_live(session):
-                pid_result = run(
-                    ["tmux", "list-panes", "-t", str(session), "-F", "#{pane_pid}"],
-                    check=False,
-                )
-                pid_text = pid_result.stdout.strip()
+            if not app_server_worker_is_live(claim):
+                recover_claim_process_identity(claim)
+            if app_server_worker_is_live(claim):
+                if not goal_runtime_is_verified(claim):
+                    status = worker_status(claim)
+                    failed = isinstance(status, dict) and status.get("state") == "failed"
+                    if not failed and not claim_handshake_timed_out(claim):
+                        claim["status"] = "preparing"
+                        claim["handshake_pending_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
+                        kept.append(claim)
+                        continue
+                    claim["status"] = "draining"
+                    claim["drain_reason"] = (
+                        "app-server reported failed /goal handshake"
+                        if failed else "app-server /goal handshake exceeded recovery grace"
+                    )
+                    terminate_app_server_worker(claim)
+                    kept.append(claim)
+                    continue
                 claim["status"] = "live"
-                claim["pid"] = int(pid_text) if pid_text.isdigit() else None
                 claim["recovered_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
                 kept.append(claim)
+            elif app_server_child_is_live(claim):
+                status = worker_status(claim)
+                failed = isinstance(status, dict) and status.get("state") == "failed"
+                if not failed and not claim_handshake_timed_out(claim):
+                    claim["status"] = "preparing"
+                    claim["handshake_pending_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
+                    kept.append(claim)
+                    continue
+                claim["status"] = "draining"
+                claim["drain_reason"] = (
+                    "orphan app-server reported failed /goal handshake"
+                    if failed else "orphan app-server /goal handshake exceeded recovery grace"
+                )
+                terminate_app_server_worker(claim)
+                kept.append(claim)
             elif manifest.is_file() and not manifest.is_symlink():
+                if not goal_runtime_is_verified(claim):
+                    claim["status"] = "quarantined"
+                    claim["quarantined_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
+                    claim["quarantine_reason"] = "recovered handoff lacks a verified app-server /goal runtime contract"
+                    kept.append(claim)
+                    continue
                 claim["status"] = "finished"
                 claim["selftest_manifest"] = (
                     str(manifest.relative_to(ROOT)) if manifest.is_relative_to(ROOT) else str(manifest)
@@ -1642,18 +2137,19 @@ def refresh_claims(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 claim["recovered_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
                 kept.append(claim)
             else:
-                if isinstance(session, str):
-                    run(["tmux", "kill-session", "-t", session], check=False)
                 claim["released_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
                 claim["release_reason"] = "incomplete worker launch reservation"
                 released.append(claim)
             continue
-        if claim.get("status") == "live" and not session_is_live(claim.get("session")):
-            session = claim.get("session")
-            if isinstance(session, str):
-                run(["tmux", "kill-session", "-t", session], check=False)
+        if claim.get("status") == "live" and not app_server_worker_is_live(claim):
             manifest = Path(claim.get("workspace", "")) / ".stage1-worker-selftest.json"
             if manifest.exists():
+                if not goal_runtime_is_verified(claim):
+                    claim["status"] = "quarantined"
+                    claim["quarantined_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
+                    claim["quarantine_reason"] = "worker handoff lacks a verified app-server /goal runtime contract"
+                    kept.append(claim)
+                    continue
                 claim["status"] = "finished"
                 claim["selftest_manifest"] = str(manifest.relative_to(ROOT)) if manifest.is_relative_to(ROOT) else str(manifest)
                 kept.append(claim)
@@ -1674,6 +2170,11 @@ def refresh_claims(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 except ValueError as exc:
                     claim["blocked_artifact_rejection_reason"] = str(exc)
                 kept.append(claim)
+        elif claim.get("status") == "live" and not goal_runtime_is_verified(claim):
+            claim["status"] = "draining"
+            claim["drain_reason"] = "live worker lacks a verified app-server /goal runtime contract"
+            terminate_app_server_worker(claim)
+            kept.append(claim)
         else:
             kept.append(claim)
     if released:
@@ -1793,13 +2294,16 @@ def task_prompt(item: dict[str, Any], workspace: Path) -> str:
     item_json = json.dumps(item, ensure_ascii=False, indent=2)
     _, theorem_nodes = theorem_dag_v2()
     theorem_node = theorem_nodes[item["theorem_id"]]
+    inspection_order = parent_inspection_order(item["theorem_id"], theorem_nodes)
     dependency_context = json.dumps(
         {
             "graph_sha256": graph_sha256(),
             "dependency_context_sha256": theorem_node.get("dependency_context_sha256"),
             "theorem_node": theorem_node,
+            "parent_inspection_order": inspection_order,
             "required_ledger_context": expected_dependency_context(item["theorem_id"]),
             "ledger_schema": DEPENDENCY_LEDGER_SCHEMA,
+            "execution_contract": EXECUTION_CONTRACT,
         },
         ensure_ascii=False,
         indent=2,
@@ -1810,7 +2314,11 @@ Repository root: {workspace}
 Work only inside this worker automation clone: {workspace}
 Do not edit the scheduler's authoritative checkout directly: {ROOT}
 
-Active /goal: fully and truthfully expand and validate all 1546 metadata-screened Lean 4 targets under Docs/Stage1_Blueprint_rev-5.6.md. Do not claim theorem completion without every rev-5.6 gate and kernel evidence.
+This thread has a real persisted Codex `/goal`, created through app-server
+`thread/goal/set`, for exactly the assigned item below. `Docs/Stage1_Blueprint_v2.md`
+is the sole task-state authority. `Docs/Stage1_Blueprint_rev-5.6.md` is assurance
+authority only. Do not claim theorem completion without every rev-5.6 gate and
+kernel evidence.
 
 Resume the active `/goal` now. If your current context has reached capacity,
 write the required target-scoped artifact or self-test handoff immediately and
@@ -1826,7 +2334,8 @@ The authoritative v2 dependency/reuse context for this theorem is:
 Required work:
 1. Read Docs/Stage1_Blueprint_v2.md, Docs/Stage1_Blueprint_rev-5.6.md, skills/execute-stage1-rev56/SKILL.md, the target manifest entry, and the target node in Docs/Stage1_Theorem_DAG_v2.json.
 2. Complete the assigned phase with real source, Lean, and/or evidence artifacts under the item's owned path. You may inspect shared read-only sources, but never modify another target's owned path. Never use sorry, axiom, placeholder, fake results, or a broadened/substituted theorem.
-   Before proof work, traverse every direct and transitive parent in the v2 node, inspect its current rev-5.6 phase state and exact reusable artifacts, and create or refresh the target-owned dependency-reuse-ledger.json required by the execution skill. Use schema {DEPENDENCY_LEDGER_SCHEMA} and exactly the graph digest/context IDs above. The ledger must include inspections, reuse_decisions, and unresolved_compatibility_obligations as specified by the skill. Empty parent/hint/group closure still requires an empty audited ledger. A reuse_hint or [_] ancestor is informative only and cannot transfer proof credit.
+   Before proof work, traverse every ID in `parent_inspection_order` exactly once and in that order; it is the complete direct/transitive closure in ascending v2 rank, not only the nearest parents. Inspect each parent's authoritative phase state, receipts, declaration bodies, and reusable artifacts. Accepted reuse is only `reused_exact` or `reused_with_transport`. Prefer an exact already-proved body over reproving it: import it when possible; otherwise copy only the minimal proof term/declaration into the consumer-owned path and record both the original provider bytes and the consumer copy/checked transport. A checked transport must bind both statement fingerprints, the provider source bytes, the consumer-owned import/wrapper bytes, and the consumer's own validation receipt. Re-elaborate the consumer and bind both byte hashes. Provider checkbox/receipt state is observation only: copying never transfers parent acceptance or evidence credit, and a `[_]` parent is guidance only unless the hard edge's material contract permits provisional consumption.
+   Create or refresh the target-owned dependency-reuse-ledger.json required by the execution skill. Use schema {DEPENDENCY_LEDGER_SCHEMA} and exactly the graph digest/context IDs above. The ledger must include inspections, reuse_decisions, and unresolved_compatibility_obligations as specified by the skill. Empty parent/hint/group closure still requires an empty audited ledger. A reuse_hint or [_] ancestor is informative only and cannot transfer proof credit.
 3. Run the smallest real validation available and record exact commands/results in the owned artifact.
    The worker clone reuses the canonical pinned Lean `.lake` artifacts when available. Do not run
    `lake update`, `lake build`, dependency `git clone`/`git fetch`, or otherwise mutate `.lake`;
@@ -1835,32 +2344,111 @@ Required work:
    artifact as a blocker rather than fetching a moving dependency.
 4. Do not edit Docs/Stage1_Execution_DAG_rev-5.6.json, Docs/Stage1_Theorem_DAG_v2.json, either blueprint, the generated checklist, or any item state. You are a worker, never the master.
 5. If and only if your assigned phase is genuinely self-tested, write `.stage1-worker-selftest.json` at the workspace root with item_id, changed_paths, commands, output_summary, base_revision, known_failures, and `state: "[_]"`. Otherwise leave no self-test manifest and explain the blocker in an owned artifact.
-6. Do not commit, push, or modify unrelated targets. The integration lane will inspect this clone.
+6. Do not commit, push, launch tmux, launch `codex exec`, create nested agents, or modify unrelated targets. The app-server integration lane will inspect this clone.
 """
 
 
-def worker_command(workspace: Path, prompt_path: Path, output_path: Path) -> str:
-    model = CODEX_MODEL
-    effort = CODEX_REASONING_EFFORT
-    if effort not in ALLOWED_REASONING_EFFORTS:
-        fail(f"CODEX_REASONING_EFFORT must be one of {sorted(ALLOWED_REASONING_EFFORTS)}")
-    # Stage1 workers must use the standard-priority lane.  Do not inherit a
-    # caller's ``fast`` setting: the scheduler owns this execution policy.
-    service_tier = CODEX_SERVICE_TIER
+def worker_goal_objective(item: dict[str, Any]) -> str:
     return (
-        f"cd {shlex_quote(str(workspace))} && "
-        f"codex exec --cd {shlex_quote(str(workspace))} --model {shlex_quote(model)} "
-        f"-c features.code_mode_host=false -c model_reasoning_effort={shlex_quote(effort)} "
-        f"-c service_tier={shlex_quote(service_tier)} "
-        f"--sandbox danger-full-access "
-        f"< {shlex_quote(str(prompt_path))} > {shlex_quote(str(output_path))} 2>&1"
+        f"Execute {item['id']} for {item['theorem_id']} from the sole task-state authority "
+        "Docs/Stage1_Blueprint_v2.md. Preserve rev-5.6 assurance, follow the exact DAG claim order, "
+        "inspect every direct and transitive parent before proof work, and reuse compatible "
+        "already-proved parent bodies by exact import or checked consumer-owned copy/transport "
+        "without transferring acceptance. Finish only with truthful owned-path evidence and the "
+        "required worker self-test handoff, or a target-scoped blocker."
     )
 
 
-def shlex_quote(value: str) -> str:
-    import shlex
+def worker_argv(
+    workspace: Path,
+    prompt_path: Path,
+    output_path: Path,
+    status_path: Path,
+    objective_path: Path,
+) -> list[str]:
+    configured = {
+        "model": CODEX_MODEL,
+        "reasoning_effort": CODEX_REASONING_EFFORT,
+        "service_tier": CODEX_SERVICE_TIER,
+    }
+    if configured != REQUIRED_RUNTIME_CONFIG:
+        fail(
+            "worker runtime fallback is forbidden: expected "
+            f"{REQUIRED_RUNTIME_CONFIG}, got {configured}"
+        )
+    return [
+        sys.executable,
+        str(APP_SERVER_CLIENT),
+        "--workspace", str(workspace),
+        "--prompt", str(prompt_path),
+        "--objective", str(objective_path),
+        "--status", str(status_path),
+        "--log", str(output_path),
+        "--model", CODEX_MODEL,
+        "--effort", CODEX_REASONING_EFFORT,
+        "--service-tier", CODEX_SERVICE_TIER,
+    ]
 
-    return shlex.quote(value)
+
+def launch_app_server_worker(argv: list[str]) -> int:
+    """Launch without tmux/nohup/shell and return the process-group leader."""
+    process = subprocess.Popen(
+        argv,
+        cwd=ROOT,
+        stdin=subprocess.DEVNULL,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+        start_new_session=True,
+        close_fds=True,
+    )
+    return process.pid
+
+
+def confirm_goal_handshakes(
+    claims: list[dict[str, Any]],
+    cohort: list[dict[str, Any]],
+    *,
+    timeout_seconds: float = GOAL_HANDSHAKE_TIMEOUT_SECONDS,
+) -> int:
+    """Promote preparing clients only after app-server proves the exact /goal."""
+    pending = list(cohort)
+    deadline = time.monotonic() + timeout_seconds
+    while pending and time.monotonic() < deadline:
+        for claim in list(pending):
+            if goal_runtime_is_verified(claim):
+                claim["status"] = "live"
+                claim["goal_verified_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
+                pending.remove(claim)
+                save_claims(claims)
+                continue
+            status = worker_status(claim)
+            if isinstance(status, dict) and status.get("state") == "failed":
+                claim["status"] = "launch_failed"
+                claim["launch_failed_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
+                claim["launch_error"] = str(status.get("error", "app-server /goal handshake failed"))
+                if app_server_worker_is_live(claim) or app_server_child_is_live(claim):
+                    terminated = terminate_app_server_worker(claim)
+                    claim["process_terminated_after_handshake_failure"] = terminated
+                    if not terminated:
+                        claim["status"] = "draining"
+                        claim["drain_reason"] = "failed /goal app-server process did not stop"
+                pending.remove(claim)
+                save_claims(claims)
+        if pending:
+            time.sleep(GOAL_HANDSHAKE_POLL_SECONDS)
+    for claim in pending:
+        claim["status"] = "launch_failed"
+        claim["launch_failed_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
+        claim["launch_error"] = "timed out waiting for verified app-server /goal handshake"
+        if app_server_worker_is_live(claim) or app_server_child_is_live(claim):
+            terminated = terminate_app_server_worker(claim)
+            claim["process_terminated_after_handshake_timeout"] = terminated
+            if not terminated:
+                claim["status"] = "draining"
+                claim["drain_reason"] = "timed-out /goal client did not stop"
+    if pending:
+        save_claims(claims)
+    return sum(claim.get("status") == "live" for claim in cohort)
 
 
 def prepare_workspace(slot: int) -> Path:
@@ -1900,7 +2488,7 @@ def prepare_workspace(slot: int) -> Path:
         source, destination = ROOT / relative, workspace / relative
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(source, destination)
-    # Lean worker clones are source-only to keep 12 lanes practical.  Reuse the
+    # Lean worker clones are source-only to keep 20 lanes practical.  Reuse the
     # canonical checkout's pinned build artifacts read-only rather than asking
     # every statement worker to run `lake update` and fetch dependencies again.
     canonical_lean = ROOT / "Formalizations" / "Lean"
@@ -1913,6 +2501,9 @@ def prepare_workspace(slot: int) -> Path:
 
 
 def write_todo(data: dict[str, Any], ordered: list[dict[str, Any]], claims: list[dict[str, Any]]) -> Path:
+    authoritative = load_blueprint_items()
+    if data.get("items") != authoritative:
+        fail("todo input disagrees with the v2 blueprint SSOT")
     ordered = order_by_v2(ordered)
     counts = Counter(item["state"] for item in ordered)
     theorem_states: dict[str, list[str]] = {}
@@ -1933,7 +2524,7 @@ def write_todo(data: dict[str, Any], ordered: list[dict[str, Any]], claims: list
     workers = []
     for item in ordered:
         claim = claim_by_item.get(item["id"])
-        claim_state = "unclaimed" if claim is None else f"{claim.get('status')}:{claim.get('session', 'unknown')}"
+        claim_state = "unclaimed" if claim is None else f"{claim.get('status')}:{claim.get('worker_id', 'unknown')}"
         phase_deps_done = all(next(row for row in ordered if row["id"] == dependency)["state"] == "[x]" for dependency in item["depends_on"])
         if item["phase"] in {"proof", "validation", "release"}:
             hard_gate, hard_blockers = hard_edge_gate_status(item["theorem_id"], item["phase"])
@@ -1946,10 +2537,20 @@ def write_todo(data: dict[str, Any], ordered: list[dict[str, Any]], claims: list
             workers.append((item, claim_state, phase_deps_done, deps_done, hard_gate, hard_blockers))
     today = dt.date.today().strftime("%Y%m%d")
     path = DOCS / f"todos_{today}.md"
+    blueprint_sha256 = hashlib.sha256(BLUEPRINT.read_bytes()).hexdigest()
+    state_records = [
+        {"id": item["id"], "state": item["state"], "attempts": item.get("attempts", 0)}
+        for item in sorted(authoritative, key=lambda row: row["id"])
+    ]
+    state_sha256 = hashlib.sha256(
+        json.dumps(state_records, ensure_ascii=True, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    ).hexdigest()
     lines = [
         "# Stage1 rev-5.6 Execution Todo",
         "",
-        "Source: `Docs/Stage1_Blueprint_v2.md`; assurance/state bases: `Docs/Stage1_Blueprint_rev-5.6.md` and `Docs/Stage1_Execution_DAG_rev-5.6.json`; theorem order: `Docs/Stage1_Theorem_DAG_v2.json`.",
+        "SSOT: `Docs/Stage1_Blueprint_v2.md`; this file is today's derived task snapshot. Assurance: `Docs/Stage1_Blueprint_rev-5.6.md`; derived DAG/order: `Docs/Stage1_Execution_DAG_rev-5.6.json`, `Docs/Stage1_Theorem_DAG_v2.json`.",
+        f"SSOT blueprint SHA-256: `{blueprint_sha256}`",
+        f"Phase state/attempts SHA-256: `{state_sha256}`",
         f"Not done: {counts['[ ]']}",
         f"Worker self-tested: {counts['[_]']}",
         f"Master accepted: {counts['[x]']}",
@@ -1959,7 +2560,7 @@ def write_todo(data: dict[str, Any], ordered: list[dict[str, Any]], claims: list
         f"Theorems partial [_]/[ ]: {theorem_counts['partial']}",
         f"Theorems unstarted [ ] x7: {theorem_counts['unstarted']}",
         "DAG cycle check: passed.",
-        f"Claim ledger: `.cron/stage1-rev56/claims.json`; live worker claims: {sum(c.get('status') == 'live' for c in claims)}.",
+        f"Claim ledger: `{RUNTIME.relative_to(ROOT) / 'claims.json'}`; live worker claims: {sum(c.get('status') == 'live' for c in claims)}.",
         "",
         "## Worker Claim Frontier",
         "",
@@ -1982,7 +2583,7 @@ def validate_only() -> None:
     run(["python3", "Docs/tools/check_stage1_theorem_dag_v2.py"])
     data, ordered = load_dag()
     theorem_graph, _ = theorem_dag_v2()
-    # A dry gate must not kill sessions, snapshot workspaces, rewrite ledgers,
+    # A dry gate must not stop workers, snapshot workspaces, rewrite ledgers,
     # trim logs, or otherwise reconcile mutable scheduler state.
     claims = load_claims()
     todo = write_todo(data, ordered, claims)
@@ -2006,8 +2607,10 @@ def validate_only() -> None:
 
 def integrate(limit: int) -> int:
     """Run one all-or-none integration transaction."""
-    if limit < 0 or limit > MAX_WORKERS:
-        fail(f"--limit must be in 0..{MAX_WORKERS}")
+    if limit < 0 or limit > MAX_INTEGRATION_LIMIT:
+        fail(f"--limit must be in 0..{MAX_INTEGRATION_LIMIT}")
+    if PAUSE_FILE.exists():
+        fail("integration refused: Stage1 execution is paused")
     recover_integration_wal()
     if runtime_path("pending_checkpoint.json").exists():
         fail("pending checkpoint must be resumed before another integration pass")
@@ -2015,11 +2618,13 @@ def integrate(limit: int) -> int:
     ordered = order_by_v2(ordered)
     # Lease reconciliation is its own durable preflight. A later integration
     # rollback restores this post-refresh state rather than resurrecting dead
-    # sessions or discarding their scheduler-owned blocker snapshots.
+    # workers or discarding their scheduler-owned blocker snapshots.
     claims = refresh_claims(ordered)
     transaction = FileTransaction(runtime_path("integration_wal.json"))
     try:
         integrated = _integrate(limit, transaction, data, ordered, claims)
+        if PAUSE_FILE.exists():
+            fail("integration rolled back: Stage1 execution was paused during this pass")
         # A successful integration is now guarded by the content-bound pending
         # checkpoint. Removing the rollback WAL is the final local transition.
         transaction.commit()
@@ -2041,9 +2646,9 @@ def _integrate(
     # These projections and scheduler surfaces can be rewritten after worker
     # files land. Snapshot them before any copy so integration is all-or-none.
     for path in (
+        BLUEPRINT,
         DAG,
         THEOREM_DAG_V2,
-        BLUEPRINT,
         runtime_path("claims.json"),
         runtime_path("integration_queue.json"),
         runtime_path("pending_checkpoint.json"),
@@ -2074,6 +2679,8 @@ def _integrate(
                 raise ValueError("claim refers to unknown item")
             if item["state"] != "[ ]":
                 raise ValueError("finished claim no longer targets a not-done authoritative item")
+            if claim.get("runtime_protocol") != RUNTIME_PROTOCOL or not goal_runtime_is_verified(claim):
+                raise ValueError("worker handoff lacks a verified app-server /goal runtime contract")
             packet = json.loads(handoff.read_text(encoding="utf-8"))
             changed_paths = packet.get("changed_paths")
             owner = item["owned_paths"][0] + "/"
@@ -2213,11 +2820,11 @@ def _integrate(
                 raise
             claim["blocked_artifact_rejection_reason"] = str(exc)
     if accepted or preserved_blockers:
-        # Phase state and v2 completion-bucket order are one transaction.
-        # Write both projections when state changed, but validate every copied
-        # artifact batch, including blocked-only evidence, before persistence.
+        # Write the sole authority first, then regenerate every state-bearing
+        # projection from it inside the same rollback transaction.
         if accepted:
-            atomic_write(DAG, json.dumps(data, ensure_ascii=False, indent=2) + "\n")
+            write_projection(data)
+            write_derived_surfaces(data)
         # The v2 inventory includes target-owned blocker artifacts as well as
         # phase-state projections, so every copied batch must regenerate it.
         run(["python3", "Docs/tools/generate_stage1_theorem_dag_v2.py"])
@@ -2225,8 +2832,6 @@ def _integrate(
         run(["python3", "Docs/tools/check_stage1_theorem_dag_v2.py"])
         run(["python3", "Docs/tools/check_stage1_standard.py"])
         run(["python3", "scripts/stage1_target.py", "check"])
-        if accepted:
-            write_projection(data)
     save_claims(claims)
     integration_queue = {
         "queued": queue,
@@ -2258,7 +2863,7 @@ def _integrate(
             *(
                 path
                 for path in (
-                    "Docs/Stage1_Blueprint_rev-5.6.md",
+                    "Docs/Stage1_Blueprint_v2.md",
                     "Docs/Stage1_Execution_DAG_rev-5.6.json",
                     "Docs/Stage1_Theorem_DAG_v2.json",
                 )
@@ -2316,8 +2921,12 @@ def worker_changed_paths(workspace: Path, owner: str) -> list[str]:
 
 def reject_mutable_dependency_operations(item_id: str) -> None:
     """Fail closed when a worker's recorded execution mutates Lean dependencies."""
-    log = RUNTIME / "logs" / f"{item_id}.out"
-    if not log.exists():
+    claim = next(
+        (row for row in reversed(load_claims()) if row.get("item_id") == item_id and isinstance(row.get("output_log"), str)),
+        None,
+    )
+    log = Path(str(claim["output_log"])) if claim is not None else None
+    if log is None or not log.exists() or log.is_symlink():
         return
     text = log.read_text(encoding="utf-8", errors="replace")
     # A worker prompt and repository search may legitimately quote forbidden
@@ -2530,7 +3139,7 @@ def checkpoint_integration() -> None:
     expected_hashes: dict[str, str] = {}
     expected_modes: dict[str, str] = {}
     allowed_generated = {
-        "Docs/Stage1_Blueprint_rev-5.6.md",
+        "Docs/Stage1_Blueprint_v2.md",
         "Docs/Stage1_Execution_DAG_rev-5.6.json",
         "Docs/Stage1_Theorem_DAG_v2.json",
     }
@@ -2557,6 +3166,24 @@ def checkpoint_integration() -> None:
         selected.append(path)
         expected_hashes[path] = digest
         expected_modes[path] = mode
+
+    state_surfaces = {
+        "Docs/Stage1_Blueprint_v2.md",
+        "Docs/Stage1_Execution_DAG_rev-5.6.json",
+        "Docs/Stage1_Theorem_DAG_v2.json",
+    }
+    selected_state_surfaces = state_surfaces.intersection(selected)
+    if selected_state_surfaces.intersection({
+        "Docs/Stage1_Blueprint_v2.md",
+        "Docs/Stage1_Execution_DAG_rev-5.6.json",
+    }) and selected_state_surfaces != state_surfaces:
+        fail("task-state checkpoint must bind the blueprint SSOT and both state projections together")
+    if "Docs/Stage1_Theorem_DAG_v2.json" in selected_state_surfaces:
+        # Content binding alone would allow three mutually consistent-looking
+        # but semantically forged state files. Re-run the independent SSOT and
+        # projection validators immediately before staging or recovery.
+        load_dag()
+        run(["python3", "Docs/tools/check_stage1_theorem_dag_v2.py"])
 
     base_revision = pending.get("base_revision")
     if not isinstance(base_revision, str) or re.fullmatch(r"[0-9a-f]{40,64}", base_revision) is None:
@@ -2614,35 +3241,39 @@ def checkpoint_integration() -> None:
     finish_checkpoint_push(pending_path, base_revision, commit_revision)
 
 
-def launch(max_workers: int) -> None:
-    if max_workers < 0 or max_workers > MAX_WORKERS:
-        fail(f"--workers must be in 0..{MAX_WORKERS}")
-    # A tick begins clean/synced, then drains handoffs, checkpoints them, and only then
-    # refills worker capacity. This preserves the worker/master dual cursor across cron ticks.
-    recover_integration_wal()
-    pending = runtime_path("pending_checkpoint.json")
-    if pending.exists():
-        checkpoint_sync_guard()
-        checkpoint_integration()
-    else:
-        sync_guard()
-        integrated = integrate(max_workers)
-        if integrated:
-            checkpoint_integration()
+def refill_workers(max_workers: int) -> int:
+    """Reconcile and refill lanes without running heavyweight integration."""
     data, ordered = load_dag()
     claims = refresh_claims(ordered)
     claims = enforce_worker_cap(claims, max_workers)
     space_guard(claims)
-    live = [claim for claim in claims if claim.get("status") in {"live", "draining"}]
-    if any(claim.get("status") == "quarantined" for claim in claims):
-        fail("claim ledger contains quarantined runtime identities; refuse worker refill")
+    if PAUSE_FILE.exists():
+        print("tick: Stage1 execution paused during this tick; refill skipped")
+        write_todo(data, ordered, claims)
+        return 0
+    active_leases = [
+        claim
+        for claim in claims
+        if claim.get("status") in {"live", "draining"}
+        or (
+            claim.get("status") in {"preparing", "launch_failed"}
+            and (app_server_worker_is_live(claim) or app_server_child_is_live(claim))
+        )
+    ]
+    live_quarantines = [
+        claim for claim in claims
+        if claim.get("status") == "quarantined" and app_server_worker_is_live(claim)
+    ]
+    if live_quarantines:
+        fail("claim ledger contains a quarantined live app-server identity; refuse worker refill")
     # Finished handoffs retain their clones until integration, but they do not
     # consume live-worker capacity. Their occupied slot numbers are skipped
     # while fresh, otherwise-unused slot numbers refill the requested lanes.
     slot_reservations = [
         claim
         for claim in claims
-        if claim.get("status") in {"live", "finished", "preparing", "launch_failed", "draining", "quarantined"}
+        if claim.get("runtime_protocol") == RUNTIME_PROTOCOL
+        and claim.get("status") in {"live", "finished", "preparing", "launch_failed", "draining", "quarantined"}
     ]
     # A slot owns its clone.  Never derive a slot from the count of live claims:
     # claims can finish out of order, leaving holes, and reusing an occupied slot
@@ -2654,19 +3285,27 @@ def launch(max_workers: int) -> None:
     }
     # On a downscale, existing live workers are grandfathered until they
     # finish. Pending handoffs remain reserved only at the filesystem level.
-    capacity = max(0, max_workers - len(live))
-    available_slots = [slot for slot in range(1, max_workers + len(slot_reservations) + 1) if slot not in occupied_slots][:capacity]
+    capacity = max(0, max_workers - len(active_leases))
+    available_slots = [
+        slot
+        for slot in range(1, MAX_SLOT_ID + 1)
+        if slot not in occupied_slots
+    ][:capacity]
     if capacity <= 0:
-        print(f"tick: saturated ({len(live)} live/{max_workers} slots, {len(slot_reservations) - len(live)} handoff pending)")
+        print(
+            f"tick: saturated ({len(active_leases)} active/{max_workers} slots, "
+            f"{len(slot_reservations) - len(active_leases)} handoff pending)"
+        )
         write_todo(data, ordered, claims)
-        return
+        return 0
     # A blocked worker is a durable negative receipt, not a lease forever.
     # Keep only live workers and pending handoffs reserved so a three-minute
     # refill can retry eligible work and maintain the operator's lane target.
     claimed_ids = {
         claim.get("item_id")
         for claim in claims
-        if claim.get("status") in {"live", "finished", "preparing", "launch_failed", "draining", "quarantined"}
+        if claim.get("runtime_protocol") == RUNTIME_PROTOCOL
+        and claim.get("status") in {"live", "finished", "preparing", "launch_failed", "draining", "quarantined"}
     }
     states_by_id = {item["id"]: item["state"] for item in ordered}
     started_targets = {
@@ -2688,41 +3327,40 @@ def launch(max_workers: int) -> None:
         # Hard theorem parents block only accepted closure.  Workers may still
         # prepare a dependent proof provisionally after inspecting all parents.
     ]
-    # Start a bounded *depth-first* pipeline. Once a target has a self-tested
-    # predecessor, advancing its deepest ready phase is more useful than
-    # launching another unrelated statement: it permits real statement ->
-    # anchor -> obligation -> proof -> validation -> release progress rather
-    # than filling all 1546 targets one phase at a time. Intake remains the
-    # deterministic fallback when no successor phase is ready.
+    # Claim in the blueprint's total v2 theorem order, then phase order. This
+    # is a stable prefix of the dependency-eligible frontier: no later rank can
+    # jump ahead merely because it has a deeper phase ready.
     _, theorem_nodes = theorem_dag_v2()
-    candidates.sort(
-        key=lambda item: (
-            0 if item["depends_on"] else 1,
-            -item["layer"],
-            theorem_nodes[item["theorem_id"]]["v2_execution_rank"],
-            item["id"],
-        )
-    )
+    candidates.sort(key=lambda item: claim_order_key(item, theorem_nodes))
     selected = candidates[:capacity]
     if not selected:
         print("tick: no unclaimed work")
         write_todo(data, ordered, claims)
-        return
+        return 0
     timestamp = dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     claim_graph_sha256 = graph_sha256()
     base_revision = run(["git", "rev-parse", "HEAD"]).stdout.strip()
     reservations: list[tuple[dict[str, Any], dict[str, Any]]] = []
     for slot, item in zip(available_slots, selected):
+        claim_id = f"{timestamp}-{os.urandom(6).hex()}"
         workspace = RUNTIME / "workers" / f"slot{slot}"
-        prompt = RUNTIME / "prompts" / f"{item['id']}.txt"
-        output = RUNTIME / "logs" / f"{item['id']}.out"
-        session = f"stage1r56-{slot}-{theorem_nodes[item['theorem_id']]['v2_execution_rank']:04d}"
+        prompt = RUNTIME / "prompts" / f"{claim_id}.txt"
+        output = RUNTIME / "logs" / f"{claim_id}.out"
+        worker_id = f"stage1app-{slot}-{theorem_nodes[item['theorem_id']]['v2_execution_rank']:04d}-{claim_id[-12:]}"
+        status_path = RUNTIME / "app-server" / f"{claim_id}.json"
+        objective_path = RUNTIME / "goals" / f"{claim_id}.txt"
+        objective = worker_goal_objective(item)
         claim = {
             "item_id": item["id"], "theorem_id": item["theorem_id"], "depends_on": item["depends_on"],
-            "owned_paths": item["owned_paths"], "session": session, "slot": slot, "workspace": str(workspace),
+            "owned_paths": item["owned_paths"], "claim_id": claim_id, "worker_id": worker_id,
+            "slot": slot, "workspace": str(workspace),
             "status": "preparing", "pid": None, "claimed_at": timestamp,
             "retry_count": sum(1 for claim in claims if claim.get("item_id") == item["id"]),
             "base_revision": base_revision, "output_log": str(output),
+            "runtime_protocol": RUNTIME_PROTOCOL,
+            "app_server_status": str(status_path),
+            "goal_objective_path": str(objective_path),
+            "goal_objective": objective,
             "runtime_config": {
                 "model": CODEX_MODEL,
                 "reasoning_effort": CODEX_REASONING_EFFORT,
@@ -2733,29 +3371,51 @@ def launch(max_workers: int) -> None:
         }
         claims.append(claim)
         reservations.append((claim, item))
-    # Persist all leases before creating or replacing a clone/session. A crash
+    # Persist all leases before creating or replacing a clone/process. A crash
     # can now leave only a recoverable preparing row, never an unowned worker.
     save_claims(claims)
-    launched = 0
+    started: list[dict[str, Any]] = []
+
+    def cancel_unstarted_for_pause() -> None:
+        now = dt.datetime.now(dt.timezone.utc).isoformat()
+        started_ids = {started_claim.get("claim_id") for started_claim in started}
+        for pending_claim, _ in reservations:
+            if (
+                pending_claim.get("status") == "preparing"
+                and pending_claim.get("claim_id") not in started_ids
+            ):
+                pending_claim["status"] = "cancelled"
+                pending_claim["cancelled_at"] = now
+                pending_claim["cancel_reason"] = "operator pause observed before launch"
+        save_claims(claims)
+
     for claim, item in reservations:
+        if PAUSE_FILE.exists():
+            cancel_unstarted_for_pause()
+            break
         workspace = Path(claim["workspace"])
-        prompt = RUNTIME / "prompts" / f"{item['id']}.txt"
+        prompt = RUNTIME / "prompts" / f"{claim['claim_id']}.txt"
         output = Path(claim["output_log"])
-        session = str(claim["session"])
+        status_path = Path(str(claim["app_server_status"]))
+        objective_path = Path(str(claim["goal_objective_path"]))
         try:
             prepare_workspace(int(claim["slot"]))
             prompt.parent.mkdir(parents=True, exist_ok=True)
             output.parent.mkdir(parents=True, exist_ok=True)
             atomic_write(prompt, task_prompt(item, workspace))
-            run(["tmux", "kill-session", "-t", session], check=False)
-            command = worker_command(workspace, prompt, output)
-            run(["tmux", "new-session", "-d", "-s", session, "bash", "-lc", command])
-            pid_result = run(["tmux", "list-panes", "-t", session, "-F", "#{pane_pid}"], check=False)
-            pid_text = pid_result.stdout.strip()
-            claim["pid"] = int(pid_text) if pid_text.isdigit() else None
-            claim["status"] = "live"
-            claim["launched_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
-            launched += 1
+            atomic_write(objective_path, str(claim["goal_objective"]) + "\n")
+            durable_unlink(status_path)
+            if PAUSE_FILE.exists():
+                cancel_unstarted_for_pause()
+                break
+            claim["pid"] = launch_app_server_worker(
+                worker_argv(workspace, prompt, output, status_path, objective_path)
+            )
+            claim["pid_start_ticks"] = process_start_ticks(claim["pid"])
+            if claim["pid_start_ticks"] is None:
+                raise RuntimeError("launched app-server client lacks a stable /proc identity")
+            claim["client_started_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
+            started.append(claim)
         except BaseException as exc:
             # Persist a failed reservation before propagating. On the next
             # tick it cannot be mistaken for a free slot or live worker.
@@ -2763,10 +3423,50 @@ def launch(max_workers: int) -> None:
             claim["launch_failed_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
             claim["launch_error"] = str(exc)
             save_claims(claims)
-            raise
+            continue
         save_claims(claims)
+    launched = confirm_goal_handshakes(claims, started) if started else 0
     todo = write_todo(data, ordered, claims)
-    print(f"tick: launched {launched} worker(s), live={len(live) + launched}/{max_workers}, todo={todo.relative_to(ROOT)}")
+    failed = sum(claim.get("status") == "launch_failed" for claim, _ in reservations)
+    print(
+        f"tick: verified {launched} app-server /goal worker(s), "
+        f"failed={failed}, active={len(active_leases) + launched}/{max_workers}, todo={todo.relative_to(ROOT)}"
+    )
+    return launched
+
+
+def launch(max_workers: int, integration_limit: int = DEFAULT_INTEGRATION_LIMIT) -> None:
+    """Run one bounded tick with independent refill and integration budgets."""
+    if max_workers < 0 or max_workers > MAX_WORKERS:
+        fail(f"--workers must be in 0..{MAX_WORKERS}")
+    if integration_limit < 0 or integration_limit > MAX_INTEGRATION_LIMIT:
+        fail(f"--limit must be in 0..{MAX_INTEGRATION_LIMIT}")
+    if PAUSE_FILE.exists():
+        print("tick: Stage1 execution is paused; no sync, integration, or refill performed")
+        return
+    # Sync and crash recovery are safety prerequisites. Refill comes before the
+    # heavyweight integration/checkpoint cursor so every three-minute tick can
+    # restore live capacity without waiting for validation, commit, or push.
+    recover_integration_wal()
+    pending = runtime_path("pending_checkpoint.json")
+    if pending.exists():
+        checkpoint_sync_guard()
+        # The authoritative worktree may contain integrated bytes that are not
+        # yet in HEAD.  Commit/push that exact manifest before cloning a worker;
+        # otherwise a refill clone could silently receive stale task state.
+        checkpoint_integration()
+        if PAUSE_FILE.exists():
+            print("tick: Stage1 execution paused after checkpoint; refill skipped")
+            return
+    else:
+        sync_guard()
+    refill_workers(max_workers)
+    if PAUSE_FILE.exists():
+        print("tick: Stage1 execution paused after refill; integration skipped")
+        return
+    integrated = integrate(integration_limit)
+    if integrated:
+        checkpoint_integration()
 
 
 def restart_live_workers(max_workers: int) -> None:
@@ -2779,42 +3479,83 @@ def restart_live_workers(max_workers: int) -> None:
     """
     if max_workers < 0 or max_workers > MAX_WORKERS:
         fail(f"--workers must be in 0..{MAX_WORKERS}")
+    if PAUSE_FILE.exists():
+        fail("restart refused: Stage1 execution is paused")
     sync_guard()
     data, ordered = load_dag()
     claims = refresh_claims(ordered)
     by_id = {item["id"]: item for item in ordered}
-    live = [claim for claim in claims if claim.get("status") == "live" and int(claim.get("slot", 0)) <= max_workers]
+    live = [
+        claim
+        for claim in claims
+        if claim.get("runtime_protocol") == RUNTIME_PROTOCOL
+        and claim.get("status") == "live"
+        and int(claim.get("slot", 0)) <= max_workers
+    ]
     timestamp = dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     restarted = 0
+    _, theorem_nodes = theorem_dag_v2()
     for claim in live:
         item = by_id.get(claim.get("item_id"))
         workspace = Path(str(claim.get("workspace", "")))
         slot = claim.get("slot")
-        session = claim.get("session")
-        if item is None or not isinstance(slot, int) or not workspace.is_dir() or not isinstance(session, str):
+        if item is None or not isinstance(slot, int) or not workspace.is_dir():
             fail(f"cannot safely restart malformed live claim: {claim.get('item_id')}")
-        run(["tmux", "kill-session", "-t", session], check=False)
-        prompt = RUNTIME / "prompts" / f"{item['id']}.txt"
-        output = RUNTIME / "logs" / f"{item['id']}.out"
+        if not app_server_worker_is_live(claim) or not terminate_app_server_worker(claim):
+            fail(f"cannot safely stop live app-server claim: {claim.get('item_id')}")
+        claim_id = f"{timestamp}-{os.urandom(6).hex()}"
+        worker_id = f"stage1app-{slot}-{theorem_nodes[item['theorem_id']]['v2_execution_rank']:04d}-{claim_id[-12:]}"
+        prompt = RUNTIME / "prompts" / f"{claim_id}.txt"
+        output = RUNTIME / "logs" / f"{claim_id}.out"
+        status_path = RUNTIME / "app-server" / f"{claim_id}.json"
+        objective_path = RUNTIME / "goals" / f"{claim_id}.txt"
+        objective = worker_goal_objective(item)
         atomic_write(prompt, task_prompt(item, workspace))
-        command = worker_command(workspace, prompt, output)
-        run(["tmux", "new-session", "-d", "-s", session, "bash", "-lc", command])
-        pid_result = run(["tmux", "list-panes", "-t", session, "-F", "#{pane_pid}"], check=False)
-        pid_text = pid_result.stdout.strip()
-        claim["pid"] = int(pid_text) if pid_text.isdigit() else None
-        claim["restarted_at"] = timestamp
+        atomic_write(objective_path, objective + "\n")
+        durable_unlink(status_path)
+        previous = {
+            "claim_id": claim.get("claim_id"),
+            "worker_id": claim.get("worker_id"),
+            "pid": claim.get("pid"),
+            "pid_start_ticks": claim.get("pid_start_ticks"),
+            "app_server_status": claim.get("app_server_status"),
+        }
+        claim.update(
+            claim_id=claim_id,
+            worker_id=worker_id,
+            output_log=str(output),
+            app_server_status=str(status_path),
+            goal_objective_path=str(objective_path),
+            goal_objective=objective,
+            status="preparing",
+            previous_runtime=previous,
+        )
+        save_claims(claims)
+        claim["pid"] = launch_app_server_worker(
+            worker_argv(workspace, prompt, output, status_path, objective_path)
+        )
+        claim["pid_start_ticks"] = process_start_ticks(claim["pid"])
+        if claim["pid_start_ticks"] is None:
+            claim["status"] = "launch_failed"
+            save_claims(claims)
+            fail(f"restarted app-server client lacks a stable /proc identity: {claim.get('item_id')}")
+        claim["client_started_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
         claim["runtime_config"] = {
             "model": CODEX_MODEL,
             "reasoning_effort": CODEX_REASONING_EFFORT,
             "service_tier": CODEX_SERVICE_TIER,
         }
         claim["theorem_dag_sha256"] = graph_sha256()
-        _, theorem_nodes = theorem_dag_v2()
         claim["dependency_context_sha256"] = theorem_nodes[item["theorem_id"]].get("dependency_context_sha256")
+        save_claims(claims)
+        if confirm_goal_handshakes(claims, [claim]) != 1:
+            fail(f"restarted app-server client failed its /goal handshake: {claim.get('item_id')}")
+        claim["restarted_at"] = timestamp
         restarted += 1
+        save_claims(claims)
     save_claims(claims)
     write_todo(data, ordered, claims)
-    print(f"restart: restarted {restarted} live worker(s) with service_tier={CODEX_SERVICE_TIER}")
+    print(f"restart: restarted {restarted} app-server /goal worker(s) with service_tier={CODEX_SERVICE_TIER}")
 
 
 def cleanup() -> None:
@@ -2823,7 +3564,13 @@ def cleanup() -> None:
     counts = Counter(item["state"] for item in ordered)
     todo = DOCS / f"todos_{dt.date.today():%Y%m%d}.md"
     unfinished_zero = todo.exists() and "Unfinished: 0" in todo.read_text(encoding="utf-8")
-    if counts["[ ]"] or counts["[_]"] or claims or not unfinished_zero:
+    runtime_claims = [
+        claim
+        for claim in claims
+        if claim.get("runtime_protocol") == RUNTIME_PROTOCOL
+        and claim.get("status") in {"live", "preparing", "launch_failed", "draining", "finished", "blocked", "quarantined"}
+    ]
+    if counts["[ ]"] or counts["[_]"] or runtime_claims or not unfinished_zero:
         fail("cleanup refused: unfinished work, active/pending claims, or stale todo remains")
     cron = run(["crontab", "-l"], check=False)
     lines = [line for line in cron.stdout.splitlines() if "stage1_execution_cron.py" not in line]
@@ -2833,6 +3580,8 @@ def cleanup() -> None:
 
 
 def install(schedule: str) -> None:
+    if PAUSE_FILE.exists():
+        fail("install refused: Stage1 execution is paused; use --resume explicitly first")
     if not re.fullmatch(r"[^\n]+", schedule):
         fail("schedule must be one crontab line prefix")
     command = f"{schedule} cd {ROOT} && {ROOT / 'scripts' / 'stage1_execution_cron.py'} --tick --workers {DEFAULT_WORKERS} --limit {DEFAULT_INTEGRATION_LIMIT} >> {RUNTIME / 'keepalive.log'} 2>&1 # stage1_execution_cron.py"
@@ -2842,10 +3591,50 @@ def install(schedule: str) -> None:
     print("install: cron entry installed")
 
 
+def pause() -> None:
+    """Persistently stop scheduling before any future tick can mutate state."""
+    validate_runtime_root()
+    PAUSE_FILE.parent.mkdir(parents=True, exist_ok=True)
+    atomic_write(PAUSE_FILE, dt.datetime.now(dt.timezone.utc).isoformat() + "\n")
+    cron = run(["crontab", "-l"], check=False)
+    lines = [line for line in cron.stdout.splitlines() if "stage1_execution_cron.py" not in line]
+    subprocess.run(["crontab", "-"], input="\n".join(lines) + "\n", text=True, check=True)
+    # Wait for any in-flight tick to observe PAUSED and finish (or roll its WAL
+    # back) before confirming the stop to the operator.
+    with runtime_path("scheduler.lock").open("w", encoding="utf-8") as lock:
+        fcntl.flock(lock.fileno(), fcntl.LOCK_EX)
+    print("pause: persisted PAUSED state and removed the Stage1 cron entry; live app-server workers were left to stop naturally")
+
+
+def resume() -> None:
+    """Clear the persistent pause without implicitly installing a cron."""
+    validate_runtime_root()
+    cron = run(["crontab", "-l"], check=False)
+    if any("stage1_execution_cron.py" in line for line in cron.stdout.splitlines()):
+        fail("resume refused: a Stage1 cron entry already exists")
+    durable_unlink(PAUSE_FILE)
+    print("resume: cleared PAUSED state; cron remains uninstalled")
+
+
 def main() -> None:
+    # A paused tick must be a true no-op, including no runtime directory or
+    # lock-file mutation.  Check it before constructing the scheduler lock.
+    if "--tick" in sys.argv[1:] and PAUSE_FILE.exists():
+        print("tick: Stage1 execution is paused; no sync, integration, or refill performed")
+        return
+    # A pause request must never be dropped behind an active scheduler lock.
+    # Persist the stop intent and remove the refill entry immediately; any
+    # in-flight tick observes PAUSED before launching a new worker below.
+    if "--pause" in sys.argv[1:]:
+        pause()
+        return
+    paused_mutating_modes = {"--bootstrap", "--integrate", "--cleanup", "--restart-live", "--install"}
+    requested_paused_modes = paused_mutating_modes.intersection(sys.argv[1:])
+    if PAUSE_FILE.exists() and requested_paused_modes:
+        fail(f"Stage1 execution is paused; refused {sorted(requested_paused_modes)[0]}")
     # A refill can take longer than its three-minute cadence. Serialize all
     # scheduler invocations so overlapping ticks cannot allocate the same slot
-    # or orphan an unrecorded tmux worker.
+    # or orphan an unrecorded app-server worker.
     validate_runtime_root()
     lock = runtime_path("scheduler.lock").open("w", encoding="utf-8")
     try:
@@ -2859,12 +3648,14 @@ def main() -> None:
     modes.add_argument("--bootstrap", action="store_true", help="generate the typed 1546-target execution DAG and blueprint appendix")
     modes.add_argument("--validate-only", action="store_true", help="validate DAG, state, budgets, and todo without syncing or spawning workers")
     modes.add_argument("--integrate", action="store_true", help="verify completed worker handoffs and advance them to worker-self-tested")
-    modes.add_argument("--tick", action="store_true", help="sync, refill the tmux Codex worker lanes, and refresh todo")
+    modes.add_argument("--tick", action="store_true", help="sync, refill the app-server /goal worker lanes, and refresh todo")
     modes.add_argument("--cleanup", action="store_true", help="remove the cron entry only after every completion gate is true")
     modes.add_argument("--restart-live", action="store_true", help="restart live workers in place using the current scheduler runtime policy")
     modes.add_argument("--install", action="store_true", help="install a bounded scheduler cron entry")
+    modes.add_argument("--pause", action="store_true", help="persistently disable ticks and remove the cron entry")
+    modes.add_argument("--resume", action="store_true", help="clear the persistent pause without installing cron")
     parser.add_argument("--workers", type=int, default=DEFAULT_WORKERS, help=f"concurrent-worker refill budget (0..{MAX_WORKERS}; default {DEFAULT_WORKERS})")
-    parser.add_argument("--limit", type=int, default=DEFAULT_INTEGRATION_LIMIT, help=f"handoff integration budget (0..{MAX_WORKERS}; default {DEFAULT_INTEGRATION_LIMIT})")
+    parser.add_argument("--limit", type=int, default=DEFAULT_INTEGRATION_LIMIT, help=f"handoff integration budget (0..{MAX_INTEGRATION_LIMIT}; default {DEFAULT_INTEGRATION_LIMIT})")
     parser.add_argument("--schedule", default="*/3 * * * *", help="crontab schedule used by --install")
     args = parser.parse_args()
     if args.bootstrap:
@@ -2874,11 +3665,15 @@ def main() -> None:
     elif args.integrate:
         integrate(args.limit)
     elif args.tick:
-        launch(args.workers)
+        launch(args.workers, args.limit)
     elif args.cleanup:
         cleanup()
     elif args.restart_live:
         restart_live_workers(args.workers)
+    elif args.pause:
+        pause()
+    elif args.resume:
+        resume()
     else:
         install(args.schedule)
     lock.close()

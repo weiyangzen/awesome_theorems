@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the Stage1 v2 theorem DAG against immutable inputs and legacy state."""
+"""Validate the Stage1 v2 theorem DAG against immutable inputs and blueprint state."""
 
 from __future__ import annotations
 
@@ -16,6 +16,7 @@ from typing import Any, NoReturn
 
 ROOT = Path(__file__).resolve().parents[2]
 TARGETS = ROOT / "Docs" / "Stage1_Targets_rev-5.6.json"
+BLUEPRINT = ROOT / "Docs" / "Stage1_Blueprint_v2.md"
 LEGACY_DAG = ROOT / "Docs" / "Stage1_Execution_DAG_rev-5.6.json"
 DAG = ROOT / "Docs" / "Stage1_Theorem_DAG_v2.json"
 GENERATOR = ROOT / "Docs" / "tools" / "generate_stage1_theorem_dag_v2.py"
@@ -26,6 +27,24 @@ BUCKET_ORDER = {
     "fully_self_tested": 1,
     "partial": 2,
     "unstarted": 3,
+}
+EXECUTION_CONTRACT = {
+    "claim_order": ["v2_execution_rank", "phase_layer", "phase_item_id"],
+    "proof_parent_inspection": {
+        "scope": ["direct_hard_parents", "transitive_hard_ancestors"],
+        "order": "ascending_v2_execution_rank_parent_before_child",
+        "complete_closure_required": True,
+    },
+    "accepted_reuse_relationships": ["exact", "checked_transport"],
+    "checked_transport_requires": [
+        "content_bound_provider_source",
+        "provider_and_consumer_statement_fingerprints",
+        "consumer_owned_import_or_wrapper",
+        "consumer_validation_receipt",
+    ],
+    "provider_checkbox_state_is_observation_only": True,
+    "provider_acceptance_inherited": False,
+    "consumer_acceptance_required": True,
 }
 AUDIT_STATUSES = {
     "audited_hard_dependency_found",
@@ -110,9 +129,19 @@ def load_generator() -> Any:
 
 
 def validate_legacy_state(data: dict[str, Any], target_ids: set[str]) -> tuple[dict[str, dict[str, Any]], dict[str, str]]:
+    """Validate both JSON projections against the blueprint's sole cursor."""
+    generator = load_generator()
+    items = generator.blueprint_state_items()
     legacy = load_json(LEGACY_DAG)
-    items = legacy.get("items")
-    require(isinstance(items, list) and len(items) == 10822, "legacy DAG must contain exactly 10822 phase items")
+    require(legacy.get("requirements_source") == "Docs/Stage1_Blueprint_v2.md", "derived execution DAG source is stale")
+    projected = legacy.get("items")
+    require(isinstance(projected, list) and len(projected) == 10822, "derived execution DAG must contain exactly 10822 phase items")
+    projected_state = [
+        {"id": item.get("id"), "theorem_id": item.get("theorem_id"), "phase": item.get("phase"),
+         "state": item.get("state"), "attempts": item.get("attempts", 0)}
+        for item in projected
+    ]
+    require(projected_state == items, "derived execution DAG state disagrees with the v2 blueprint SSOT")
     ids = [item.get("id") for item in items if isinstance(item, dict)]
     require(len(ids) == 10822 and len(set(ids)) == 10822 and all(isinstance(item_id, str) for item_id in ids), "legacy item IDs must be complete and unique")
     by_target: dict[str, dict[str, Any]] = defaultdict(dict)
@@ -120,20 +149,21 @@ def validate_legacy_state(data: dict[str, Any], target_ids: set[str]) -> tuple[d
         theorem_id, phase, state = item.get("theorem_id"), item.get("phase"), item.get("state")
         require(theorem_id in target_ids, f"legacy item has unknown theorem: {item.get('id')}")
         require(phase in PHASES and state in VALID_STATES, f"legacy item has invalid phase/state: {item.get('id')}")
-        require(phase not in by_target[theorem_id], f"duplicate legacy phase: {theorem_id}/{phase}")
+        require(phase not in by_target[theorem_id], f"duplicate blueprint phase: {theorem_id}/{phase}")
         by_target[theorem_id][phase] = item
-    require(set(by_target) == target_ids, "legacy DAG theorem coverage disagrees with target set")
-    require(all(set(rows) == set(PHASES) for rows in by_target.values()), "each theorem must retain all seven legacy phases")
+    require(set(by_target) == target_ids, "blueprint theorem coverage disagrees with target set")
+    require(all(set(rows) == set(PHASES) for rows in by_target.values()), "each theorem must retain all seven blueprint phases")
     records = [
         {"id": item["id"], "state": item["state"], "attempts": item.get("attempts", 0)}
         for item in sorted(items, key=lambda row: row["id"])
     ]
     snapshot = data.get("legacy_state_snapshot")
     require(isinstance(snapshot, dict), "legacy_state_snapshot must be an object")
-    require(snapshot.get("legacy_execution_dag_sha256") == sha256(LEGACY_DAG), "legacy execution DAG digest is stale")
-    require(snapshot.get("item_count") == 10822, "legacy state snapshot item count is stale")
-    require(snapshot.get("item_state_counts") == dict(sorted(Counter(item["state"] for item in items).items())), "legacy state counts changed")
-    require(snapshot.get("item_state_attempts_sha256") == canonical_sha256(records), "one or more of the 10822 legacy item states/attempts changed")
+    require(snapshot.get("authoritative_blueprint") == "Docs/Stage1_Blueprint_v2.md", "state snapshot authority is stale")
+    require(snapshot.get("authoritative_blueprint_sha256") == sha256(BLUEPRINT), "authoritative blueprint digest is stale")
+    require(snapshot.get("item_count") == 10822, "blueprint state snapshot item count is stale")
+    require(snapshot.get("item_state_counts") == dict(sorted(Counter(item["state"] for item in items).items())), "blueprint state counts changed")
+    require(snapshot.get("item_state_attempts_sha256") == canonical_sha256(records), "one or more blueprint item states/attempts changed")
     current = {item["id"]: item["state"] for item in items}
     return by_target, current
 
@@ -431,12 +461,17 @@ def validate_topology(
             if indegree[child] == 0:
                 heapq.heappush(ready, (BUCKET_ORDER[buckets[child]], layers[child], original_ranks[child], child))
     require(len(order) == len(parents), "hard theorem graph contains a cycle")
+    order_index = {theorem_id: index for index, theorem_id in enumerate(order)}
     ancestors: dict[str, list[str]] = {}
     for theorem_id in order:
         closure = set(parents[theorem_id])
         for parent in parents[theorem_id]:
             closure.update(ancestors[parent])
-        ancestors[theorem_id] = sorted(closure, key=lambda item: (layers[item], original_ranks[item], item))
+        ancestors[theorem_id] = sorted(closure, key=order_index.__getitem__)
+        require(
+            all(order_index[ancestor] < order_index[theorem_id] for ancestor in ancestors[theorem_id]),
+            f"hard ancestor is not ordered before its consumer: {theorem_id}",
+        )
     require([row["theorem_id"] for row in rows] == order, "theorem array is not in deterministic v2 execution order")
     return order, layers, ancestors
 
@@ -448,9 +483,10 @@ def main() -> None:
     require(data.get("generated_by") == "Docs/tools/generate_stage1_theorem_dag_v2.py", "generated_by is stale")
     require(data.get("requirements_source") == "Docs/Stage1_Blueprint_v2.md", "requirements_source must be the v2 blueprint")
     require(data.get("target_manifest") == "Docs/Stage1_Targets_rev-5.6.json", "target_manifest is stale")
-    require(data.get("legacy_execution_dag") == "Docs/Stage1_Execution_DAG_rev-5.6.json", "legacy_execution_dag is stale")
+    require(data.get("legacy_execution_dag") == "Docs/Stage1_Execution_DAG_rev-5.6.json", "derived execution DAG path is stale")
     require(data.get("state_protocol") == {"not_done": "[ ]", "worker_self_tested": "[_]", "master_accepted": "[x]"}, "state protocol changed")
     require(data.get("completion_bucket_order") == list(BUCKET_ORDER), "completion bucket order changed")
+    require(data.get("execution_contract") == EXECUTION_CONTRACT, "execution contract is incomplete or stale")
     policy = data.get("edge_policy")
     require(isinstance(policy, dict) and set(policy) == {"hard_edge_admission", "reuse_hint_admission", "unknown_policy", "hard_dependency_worker_policy", "reuse_hint_worker_policy"}, "edge_policy is incomplete")
     require("unknown_not_independent_proof_claim" in policy["unknown_policy"], "unknown dependencies must not be called independent")
@@ -485,8 +521,8 @@ def main() -> None:
         require(row["original_execution_rank"] == original_ranks[theorem_id], f"original rank changed: {theorem_id}")
         expected_states = {phase: by_target[theorem_id][phase]["state"] for phase in PHASES}
         expected_attempts = {phase: by_target[theorem_id][phase].get("attempts", 0) for phase in PHASES}
-        require(row["phase_states"] == expected_states, f"legacy phase state changed in v2 projection: {theorem_id}")
-        require(row["phase_attempts"] == expected_attempts, f"legacy phase attempts changed in v2 projection: {theorem_id}")
+        require(row["phase_states"] == expected_states, f"blueprint phase state changed in v2 projection: {theorem_id}")
+        require(row["phase_attempts"] == expected_attempts, f"blueprint phase attempts changed in v2 projection: {theorem_id}")
         require(row["state_counts"] == dict(sorted(Counter(expected_states.values()).items())), f"state counts stale: {theorem_id}")
         expected_bucket = bucket(list(expected_states.values()))
         require(row["completion_bucket"] == expected_bucket, f"completion bucket stale: {theorem_id}")
@@ -558,7 +594,10 @@ def main() -> None:
             else "unknown_not_independent_proof_claim"
         )
         require(row["dependency_audit_status"] == expected_audit, f"dependency audit status stale: {theorem_id}")
-        require(all(row_by_id[parent]["v2_execution_rank"] < row["v2_execution_rank"] for parent in parents[theorem_id]), f"parent is not ranked before child: {theorem_id}")
+        require(
+            all(row_by_id[ancestor]["v2_execution_rank"] < row["v2_execution_rank"] for ancestor in ancestors[theorem_id]),
+            f"hard ancestor is not ranked before child: {theorem_id}",
+        )
 
     summary = data.get("graph_summary")
     require(isinstance(summary, dict), "graph_summary must be an object")
@@ -577,7 +616,7 @@ def main() -> None:
 
     # Strong reproducibility check: the checked-in artifact must equal a fresh
     # in-memory build, covering evidence discovery, inventories, hashes, ranks,
-    # ancestor closure, and every one of the 10822 legacy phase states.
+    # ancestor closure, and every one of the 10822 blueprint phase states.
     expected = load_generator().build()
     require(data == expected, "checked-in theorem DAG differs from a fresh deterministic generation")
     # A dependency-reuse ledger is a graph consumer, never a discovery input;
@@ -588,7 +627,7 @@ def main() -> None:
     )
     print(
         "check_stage1_theorem_dag_v2: ok "
-        f"(1546 theorems, 10822 legacy states preserved, {len(data['hard_edges'])} hard edges, "
+        f"(1546 theorems, 10822 blueprint states, {len(data['hard_edges'])} hard edges, "
         f"{len(data['reuse_hints'])} reuse hints, {len(data['shared_lemma_groups'])} shared groups, acyclic)"
     )
 

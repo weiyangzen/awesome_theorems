@@ -72,12 +72,27 @@ def main() -> None:
         "shared_lemma_groups",
         "v2_execution_rank",
         "Docs/Stage1_Execution_DAG_rev-5.6.json",
+        "Requirements and phase-state SSOT",
+        "STAGE1-EXECUTION-CHECKLIST:BEGIN",
         "[_]",
         "[x]",
     )
     require(
         all(needle in v2_blueprint for needle in v2_requirements),
         "v2 orchestration blueprint is missing coverage, reuse, order, or compatibility requirements",
+    )
+    v2_states = re.findall(
+        r"^- (\[[_x ]\]) `(S56-M-\d{4}-(?:INTAKE|STATEMENT|ANCHOR_AUDIT|OBLIGATION_TREE|PROOF|VALIDATION|RELEASE))`"
+        r" / `THM-M-\d{4}` / `[a-z_]+`: .+ \{attempts=\d+\}$",
+        v2_blueprint,
+        re.MULTILINE,
+    )
+    require(len(v2_states) == 10822, "v2 SSOT must contain exactly 10822 phase-state rows")
+    require(len({item_id for _, item_id in v2_states}) == 10822, "v2 SSOT contains duplicate phase IDs")
+    require(
+        "STAGE1-EXECUTION-CHECKLIST:BEGIN" not in standard
+        and not re.search(r"^[-] \[[_x ]\] `S56-M-\d{4}-(?:INTAKE|STATEMENT|ANCHOR_AUDIT|OBLIGATION_TREE|PROOF|VALIDATION|RELEASE)`", standard, re.MULTILINE),
+        "rev-5.6 assurance blueprint must not retain a second live phase-state checklist",
     )
 
     missing = {

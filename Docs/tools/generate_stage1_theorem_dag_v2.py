@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Generate the theorem-level Stage1 v2 dependency and reuse DAG.
 
-The legacy 10822-node phase DAG remains the state authority.  This projection
-adds conservative cross-theorem ordering: only audited, machine-readable
-dependencies are hard edges; useful but unintegrated common results are
-nonblocking reuse hints.
+The 10822-row checklist embedded in ``Docs/Stage1_Blueprint_v2.md`` is the
+state authority.  The execution and theorem JSON DAGs are derived projections.
+Only audited, machine-readable dependencies are hard edges; useful but
+unintegrated common results are nonblocking reuse hints.
 """
 
 from __future__ import annotations
@@ -20,15 +20,52 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[2]
 TARGETS = ROOT / "Docs" / "Stage1_Targets_rev-5.6.json"
+BLUEPRINT = ROOT / "Docs" / "Stage1_Blueprint_v2.md"
 LEGACY_DAG = ROOT / "Docs" / "Stage1_Execution_DAG_rev-5.6.json"
 OUTPUT = ROOT / "Docs" / "Stage1_Theorem_DAG_v2.json"
 PHASES = ("intake", "statement", "anchor_audit", "obligation_tree", "proof", "validation", "release")
+PHASE_DELIVERABLES = {
+    "intake": "Create the theorem dossier, scope map, and source-statement crosswalk.",
+    "statement": "Elaborate the exact Lean 4 target with the minimal pinned imports.",
+    "anchor_audit": "Audit mathlib and external Lean 4 candidates at immutable revisions.",
+    "obligation_tree": "Freeze the obligation registry and typed proof/provenance/workflow graphs.",
+    "proof": "Implement or pin/import the required proof bodies without placeholders.",
+    "validation": "Run hermetic kernel, trust, provenance, and independent validation gates.",
+    "release": "Reconcile evidence and decide the exact theorem-completion verdict.",
+}
 VALID_STATES = {"[ ]", "[_]", "[x]"}
+CHECKLIST_BEGIN = "<!-- STAGE1-EXECUTION-CHECKLIST:BEGIN -->"
+CHECKLIST_END = "<!-- STAGE1-EXECUTION-CHECKLIST:END -->"
+CHECKLIST_ROW_RE = re.compile(
+    r"^- (?P<state>\[[_x ]\]) `(?P<id>S56-M-\d{4}-(?:INTAKE|STATEMENT|ANCHOR_AUDIT|OBLIGATION_TREE|PROOF|VALIDATION|RELEASE))`"
+    r" / `(?P<theorem>THM-M-\d{4})` / `(?P<phase>intake|statement|anchor_audit|obligation_tree|proof|validation|release)`"
+    r": (?P<deliverable>.+?) \{attempts=(?P<attempts>\d+)\}$"
+    r"\n(?P<detail>  Depends: .+)$",
+    re.MULTILINE,
+)
 BUCKET_ORDER = {
     "master_complete": 0,
     "fully_self_tested": 1,
     "partial": 2,
     "unstarted": 3,
+}
+EXECUTION_CONTRACT = {
+    "claim_order": ["v2_execution_rank", "phase_layer", "phase_item_id"],
+    "proof_parent_inspection": {
+        "scope": ["direct_hard_parents", "transitive_hard_ancestors"],
+        "order": "ascending_v2_execution_rank_parent_before_child",
+        "complete_closure_required": True,
+    },
+    "accepted_reuse_relationships": ["exact", "checked_transport"],
+    "checked_transport_requires": [
+        "content_bound_provider_source",
+        "provider_and_consumer_statement_fingerprints",
+        "consumer_owned_import_or_wrapper",
+        "consumer_validation_receipt",
+    ],
+    "provider_checkbox_state_is_observation_only": True,
+    "provider_acceptance_inherited": False,
+    "consumer_acceptance_required": True,
 }
 IMPORT_RE = re.compile(r"^\s*import\s+.*?[«.]?(THM-M-\d{4})[».]?(?:\.|»)", re.MULTILINE)
 MODULE_IDENTITY_KEYS = {
@@ -120,6 +157,62 @@ def phase_bucket(states: list[str]) -> str:
     if all(state == "[ ]" for state in states):
         return "unstarted"
     return "partial"
+
+
+def blueprint_state_items() -> list[dict[str, Any]]:
+    """Read the state cursor only from the v2 blueprint checklist."""
+    text = BLUEPRINT.read_text(encoding="utf-8")
+    if text.count(CHECKLIST_BEGIN) != 1 or text.count(CHECKLIST_END) != 1:
+        raise RuntimeError("v2 blueprint must contain exactly one execution checklist")
+    body = text.split(CHECKLIST_BEGIN, 1)[1].split(CHECKLIST_END, 1)[0]
+    matches = list(CHECKLIST_ROW_RE.finditer(body))
+    items = [
+        {
+            "id": match["id"],
+            "theorem_id": match["theorem"],
+            "phase": match["phase"],
+            "state": match["state"],
+            "attempts": int(match["attempts"]),
+        }
+        for match in matches
+    ]
+    if len(items) != 1546 * len(PHASES) or len({item["id"] for item in items}) != len(items):
+        raise RuntimeError("v2 blueprint checklist state coverage is incomplete or duplicated")
+    targets = load_json(TARGETS).get("targets")
+    if not isinstance(targets, list) or len(targets) != 1546:
+        raise RuntimeError("target manifest must contain exactly 1546 targets")
+    expected_order = [
+        (target.get("theorem_id"), phase)
+        for target in targets
+        for phase in PHASES
+    ]
+    if [(item["theorem_id"], item["phase"]) for item in items] != expected_order:
+        raise RuntimeError("v2 blueprint checklist is not in canonical target/phase order")
+    for match, item in zip(matches, items):
+        theorem_id, phase = item["theorem_id"], item["phase"]
+        phase_index = PHASES.index(phase)
+        expected_id = f"S56-{theorem_id.removeprefix('THM-')}-{phase.upper()}"
+        dependency = "none" if phase_index == 0 else f"`S56-{theorem_id.removeprefix('THM-')}-{PHASES[phase_index - 1].upper()}`"
+        expected_detail = (
+            f"  Depends: {dependency}. Owned paths: `Stage1_Instances/{theorem_id}`. "
+            "Gate: rev-5.6 node-specific receipt and master acceptance."
+        )
+        if (
+            item["id"] != expected_id
+            or match["deliverable"] != PHASE_DELIVERABLES[phase]
+            or match["detail"] != expected_detail
+        ):
+            raise RuntimeError(f"v2 blueprint checklist row is noncanonical: {item['id']}")
+    counts = Counter(item["state"] for item in items)
+    summary = (
+        "Authoritative progress summary (derived and validated from the rows below):\n"
+        f"- `[_]` {counts['[_]']} ({100 * counts['[_]'] / len(items):.2f}% worker self-tested)\n"
+        f"- `[ ]` {counts['[ ]']}\n"
+        f"- `[x]` {counts['[x]']}"
+    )
+    if body.count(summary) != 1:
+        raise RuntimeError("v2 blueprint progress summary is missing, duplicated, or stale")
+    return items
 
 
 def discover_cross_target_imports(target_ids: set[str]) -> list[tuple[str, str, list[dict[str, str]]]]:
@@ -531,24 +624,26 @@ def topological_metadata(
                 )
     if len(ordered) != len(theorem_ids):
         raise RuntimeError("hard theorem dependency graph contains a cycle")
+    order_index = {theorem_id: index for index, theorem_id in enumerate(ordered)}
     ancestors: dict[str, list[str]] = {}
     for theorem_id in ordered:
         closure = set(parents[theorem_id])
         for parent in parents[theorem_id]:
             closure.update(ancestors[parent])
-        ancestors[theorem_id] = sorted(closure, key=lambda item: (layer[item], original_ranks[item], item))
+        ancestors[theorem_id] = sorted(closure, key=order_index.__getitem__)
+        if any(order_index[ancestor] >= order_index[theorem_id] for ancestor in ancestors[theorem_id]):
+            raise RuntimeError(f"hard ancestor is not ordered before its consumer: {theorem_id}")
     return ordered, layer, parents, children, ancestors
 
 
 def build() -> dict[str, Any]:
     target_manifest = load_json(TARGETS)
-    legacy = load_json(LEGACY_DAG)
     targets = target_manifest.get("targets")
-    items = legacy.get("items")
+    items = blueprint_state_items()
     if not isinstance(targets, list) or len(targets) != 1546:
         raise RuntimeError("target manifest must contain exactly 1546 targets")
     if not isinstance(items, list) or len(items) != 1546 * len(PHASES):
-        raise RuntimeError("legacy DAG must contain exactly 10822 phase items")
+        raise RuntimeError("v2 blueprint must contain exactly 10822 phase items")
     target_ids = {target["theorem_id"] for target in targets}
     if len(target_ids) != 1546:
         raise RuntimeError("target IDs are not unique")
@@ -557,10 +652,10 @@ def build() -> dict[str, Any]:
         if item.get("theorem_id") not in target_ids or item.get("phase") not in PHASES:
             raise RuntimeError(f"invalid legacy item: {item.get('id')}")
         if item.get("state") not in VALID_STATES or item["phase"] in by_target[item["theorem_id"]]:
-            raise RuntimeError(f"invalid or duplicate legacy phase: {item.get('id')}")
+            raise RuntimeError(f"invalid or duplicate blueprint phase: {item.get('id')}")
         by_target[item["theorem_id"]][item["phase"]] = item
     if any(set(by_target[theorem_id]) != set(PHASES) for theorem_id in target_ids):
-        raise RuntimeError("legacy phase coverage is incomplete")
+        raise RuntimeError("blueprint phase coverage is incomplete")
 
     target_by_id = {target["theorem_id"]: target for target in targets}
     original_ranks = {theorem_id: target_by_id[theorem_id]["execution_rank"] for theorem_id in target_ids}
@@ -652,10 +747,13 @@ def build() -> dict[str, Any]:
         "generated_by": "Docs/tools/generate_stage1_theorem_dag_v2.py",
         "requirements_source": "Docs/Stage1_Blueprint_v2.md",
         "target_manifest": "Docs/Stage1_Targets_rev-5.6.json",
+        # Compatibility projection path. It contains no independently writable
+        # state; all marks and attempts originate in the v2 blueprint.
         "legacy_execution_dag": "Docs/Stage1_Execution_DAG_rev-5.6.json",
         "target_id_set_sha256": target_manifest["scope"]["canonical_sorted_target_id_set_sha256"],
         "state_protocol": {"not_done": "[ ]", "worker_self_tested": "[_]", "master_accepted": "[x]"},
         "completion_bucket_order": list(BUCKET_ORDER),
+        "execution_contract": EXECUTION_CONTRACT,
         "edge_policy": {
             "hard_edge_admission": "exact cross-target Lean import plus content-bound receipt, or structured source theorem/path hashes consumed by a replay validator",
             "reuse_hint_admission": "named provider theorem/declaration/module with reviewable evidence but no checked target-local import/transport",
@@ -664,7 +762,8 @@ def build() -> dict[str, Any]:
             "reuse_hint_worker_policy": "inspect hints opportunistically; hints never block claims, acceptance, or transfer checkbox state",
         },
         "legacy_state_snapshot": {
-            "legacy_execution_dag_sha256": file_sha256(LEGACY_DAG),
+            "authoritative_blueprint": "Docs/Stage1_Blueprint_v2.md",
+            "authoritative_blueprint_sha256": file_sha256(BLUEPRINT),
             "item_count": len(items),
             "item_state_counts": dict(sorted(Counter(item["state"] for item in items).items())),
             "item_state_attempts_sha256": canonical_sha256(state_records),

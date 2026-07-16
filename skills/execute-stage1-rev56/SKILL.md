@@ -21,7 +21,9 @@ Read, in order:
 1. `Docs/Stage1_Targets_rev-5.6.json` for membership, execution rank, lane, and the uniform L0 rework baseline.
 2. `Docs/Stage1_Blueprint_v2.md` for global theorem ordering, dependency inspection, and reuse rules.
 3. The target node in `Docs/Stage1_Theorem_DAG_v2.json`, including every direct parent and the complete transitive-ancestor closure.
-4. `Docs/Stage1_Execution_DAG_rev-5.6.json` for the current seven-phase dual-cursor state. This remains the task-state authority.
+4. The generated checklist in `Docs/Stage1_Blueprint_v2.md` for the current seven-phase dual-cursor
+   state. It is the task-state SSOT; `Docs/Stage1_Execution_DAG_rev-5.6.json` is its read-only JSON
+   projection.
 5. `Docs/Stage1_Blueprint_rev-5.6.md` for normative assurance gates, especially sections 0, 3, 5-11, and 14.
 6. `Docs/Blueprint_Guidelines.md` for repository publication and debt rules.
 7. Existing theorem dossier, Lean modules, dependency pins, validation scripts, and dependency-reuse ledger for the target and its ancestors.
@@ -110,7 +112,10 @@ transports, and shared terminal bodies in all coverage metrics.
 
 Before changing a `proof` phase, load the target's complete v2 dependency context. Traverse all
 direct parents and transitive ancestors recorded in `Docs/Stage1_Theorem_DAG_v2.json`; do not stop at
-the first layer or silently discard an unresolved parent. For each ancestor inspect:
+the first layer or silently discard an unresolved parent. Inspect that exact closure in ascending
+`v2_execution_rank`, so every provider is visited before any dependent descendant. Do not replace
+this order with filesystem order, theorem ID order, or whichever parent is easiest. For each
+ancestor inspect:
 
 - its current seven rev-5.6 phase states and blockers;
 - exact statement/declaration types and checked transports;
@@ -155,8 +160,12 @@ fabricate declaration identities or fingerprints for a mere module co-mention.
 `reused_exact` requires exact inspection/relationship, equal 64-hex statement fingerprints, and no
 unresolved compatibility work. `reused_with_transport` requires checked-transport
 inspection/relationship, explicit 64-hex fingerprints, the consumer wrapper, and no unresolved
-compatibility work. The ledger revision, current validation receipt, and worker handoff packet must
-all bind the scheduler claim's base revision and exact nonempty validation commands.
+compatibility work. A checked transport is consumer-owned proof work: it must content-bind the
+provider source, bind both statement fingerprints, identify the target-owned import/wrapper, and
+obtain the consumer's own validation receipt. Provider `[x]`, a provider receipt, or a passing
+provider replay cannot substitute for any consumer binding. The ledger revision, current validation
+receipt, and worker handoff packet must all bind the scheduler claim's base revision and exact
+nonempty validation commands.
 Bind `terminal_proof_body_id` through `provider_body_source: {path, sha256}` and bind
 `consumer_import_or_wrapper` through `consumer_import_source: {path, sha256}`. Each declaration must
 actually occur in that owner-scoped Lean source and the source must match the authoritative checkout.
@@ -198,7 +207,7 @@ minimal verifier. Decide `AUDIT-Z` and `THEOREM-Z` separately.
 
 ## Phase 6: Reconcile Public State
 
-Treat structured instance/state/evidence files as authority. Generate or reconcile README, metadata,
+Treat the v2 blueprint checklist plus structured instance/evidence files as authority. Generate or reconcile README, metadata,
 proof outline, machine audit, process audit, readable reconstruction, and build record from accepted
 state. Never edit generated target lists manually. Never expose private runtime ledgers or absolute
 machine paths in public artifacts.
@@ -243,7 +252,9 @@ Batch execution is opt-in. Process targets by `v2_execution_rank`, which is a de
 never rewrite the retained rev-5.6 `execution_rank` or stable phase IDs. Saturate independent roots
 and nonblocking branches, but keep master closure ordered by audited hard dependencies. A failure
 blocks only hard dependents, not truthful auditing or provisional work on independent targets.
+Within one claim frontier, use `(v2_execution_rank, phase_layer, phase_item_id)` exactly; do not let a
+later theorem jump ahead because its phase is shallower or cheaper to launch.
 Immutable accepted declarations and canonical shared lemma bodies may be reused, but every consumer
 must own its import/transport/composition/validation receipt. Never share checkbox state, mutable
-build output, or receipt identity between targets. Aggregate counts are derived from authoritative
-per-target state, never manually edited.
+build output, or receipt identity between targets. Aggregate counts and JSON/todo state are derived
+from the authoritative v2 checklist, never manually edited.
