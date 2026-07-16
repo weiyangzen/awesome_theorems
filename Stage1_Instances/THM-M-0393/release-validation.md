@@ -15,7 +15,7 @@ open.
 ## Dependency and reuse audit
 
 The v2 graph file has SHA-256
-`e8472863a24609e37868f215bbf0e0654b11a62f912a403ebca5feb8de5a3b9b`, and the target context is
+`ccfe534e697065f0d1501abba8d092102230694e73f0335f2a6d2faa92b42876`, and the target context is
 `068170c76abd4579d643ede04d731b974412185bd285e7b40255ec4044adec5c`. It records no direct hard
 parent, transitive hard ancestor, hard edge, reuse hint, or shared group. Therefore the mandated
 parent inspection order is exactly empty. `dependency-reuse-ledger.json` records that complete empty

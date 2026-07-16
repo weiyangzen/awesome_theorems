@@ -5,10 +5,10 @@
   "theorem_id": "THM-M-0393",
   "phase": "release",
   "intent": "release",
-  "base_revision": "1cc6aa61bb055a5c032297ee457905c849af7608",
-  "base_tree": "dc3053b55c5724ccb2e6a247e7deffebca9dbb99",
-  "validated_at": "2026-07-17T04:23:52+08:00",
-  "attestor": "stage1-rev56-worker-slot65",
+  "base_revision": "4cd90b554a8bcb8d1ae35df80394142de21ad8e6",
+  "base_tree": "97bfe79ee52c8571512e68446dc3ed7ddd900b85",
+  "validated_at": "2026-07-17T05:00:00+08:00",
+  "attestor": "stage1-rev56-worker-slot7",
   "support_state": "provisional_worker_selftest",
   "proposed_state": "[_]",
   "accepted": false,
@@ -17,24 +17,64 @@
   "selftest_result": {
     "exit_code": 0,
     "commands": [
-      "python3 Docs/tools/check_stage1_standard.py",
-      "python3 Docs/tools/check_stage1_theorem_dag_v2.py",
-      "python3 Docs/tools/check_stage1_phase_acceptance_contracts.py",
-      "python3 scripts/stage1_target.py check",
-      "python3 scripts/stage1_target.py show THM-M-0393",
-      "python3 Stage1_Instances/THM-M-0393/validate_obligation_tree.py",
-      "cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0393/Proof.lean",
-      "cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0393/Validation.lean",
-      "cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0393/Statement.lean",
-      "/usr/bin/python3 -I -B Stage1_Instances/THM-M-0393/check_release.py",
-      "python3 -m json.tool Stage1_Instances/THM-M-0393/dependency-reuse-ledger.json",
-      "python3 -m json.tool Stage1_Instances/THM-M-0393/release-spec.json",
-      "python3 -m json.tool Stage1_Instances/THM-M-0393/release-decision.json",
-      "python3 -m json.tool Stage1_Instances/THM-M-0393/release-receipt.json",
-      "python3 -m json.tool Stage1_Instances/THM-M-0393/deterministic-evidence-bundle.json",
-      "python3 -m json.tool Stage1_Instances/THM-M-0393/independent-attestation-1.json",
-      "python3 -m json.tool Stage1_Instances/THM-M-0393/independent-attestation-2.json",
-      "git diff --check -- Stage1_Instances/THM-M-0393 .stage1-worker-selftest.json"
+      {
+        "argv": ["python3", "Docs/tools/check_stage1_phase_acceptance_contracts.py"],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": ["python3", "scripts/stage1_target.py", "check"],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": ["python3", "scripts/stage1_target.py", "show", "THM-M-0393"],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": ["python3", "Stage1_Instances/THM-M-0393/validate_obligation_tree.py"],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0393/Proof.lean"],
+        "cwd": "Formalizations/Lean",
+        "exit_code": 0
+      },
+      {
+        "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0393/Validation.lean"],
+        "cwd": "Formalizations/Lean",
+        "exit_code": 0
+      },
+      {
+        "argv": ["lake", "env", "lean", "../../Stage1_Instances/THM-M-0393/Statement.lean"],
+        "cwd": "Formalizations/Lean",
+        "exit_code": 1,
+        "expected_failure": "The frozen statement fails at lean.dependsOnNoncomputable; the release decision preserves this blocker."
+      },
+      {
+        "argv": ["/usr/bin/python3", "-I", "-B", "Stage1_Instances/THM-M-0393/check_release.py"],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": ["python3", "Docs/tools/check_stage1_theorem_dag_v2.py"],
+        "cwd": ".",
+        "exit_code": 1,
+        "expected_failure": "The target-owned receipt refresh makes the read-only theorem-DAG reusable-artifact digest stale until master regeneration."
+      },
+      {
+        "argv": ["python3", "Docs/tools/check_stage1_standard.py"],
+        "cwd": ".",
+        "exit_code": 1,
+        "expected_failure": "The standard check propagates the same read-only theorem-DAG digest failure."
+      },
+      {
+        "argv": ["git", "diff", "--check", "--", "Stage1_Instances/THM-M-0393", ".stage1-worker-selftest.json"],
+        "cwd": ".",
+        "exit_code": 0
+      }
     ],
     "output_summary": "The phase contract, target manifest, obligation tree, Proof.lean and Validation.lean replays, JSON checks, typed negative release validator, and diff hygiene pass. Direct Statement.lean replay fails at lean.dependsOnNoncomputable as the owned release decision records. The standard and v2 DAG checks fail only because this refreshed owned receipt makes their checked-in reusable-artifact digest stale; the master integration lane owns projection regeneration. The semantic release result remains blocked with audit_complete=false and theorem_complete=false."
   },
@@ -46,8 +86,8 @@
     },
     "release_decision": {
       "path": "Stage1_Instances/THM-M-0393/release-decision.json",
-      "sha256": "a00420c750b23b70401e9908523088b35a30fb142976a9d448de46e1b840e91d",
-      "git_blob": "3fd20f880ca2d8b7702011d47a758b1ed8a0f846"
+      "sha256": "c8cf97858e9b58c8ff09ff2cf81a10411d397a17e5e122df44f034e8bb2165dd",
+      "git_blob": "24792b7928526b3e65306c04c8cfabb29efc19f6"
     },
     "validation_receipt": {
       "path": "Stage1_Instances/THM-M-0393/validation-receipt.json",
@@ -56,8 +96,8 @@
     },
     "dependency_reuse_ledger": {
       "path": "Stage1_Instances/THM-M-0393/dependency-reuse-ledger.json",
-      "sha256": "0a5472d33c5abf1cee73bbad79a824f14f633535d6f6c800750fe6009661554e",
-      "git_blob": "7ac2c1988166b4533ab8c242e2cc47bbfdc743cf"
+      "sha256": "f02aa8fea0c9e2ef6e6799aab71282e2ed71f1ada2ad5bc404a40951b440e6f7",
+      "git_blob": "e6d341fb27a55b9c79e671f2b91ead30792f2733"
     },
     "obligation_registry": {
       "path": "Stage1_Instances/THM-M-0393/obligation-registry.json",
@@ -97,8 +137,8 @@
     "public_projections": [
       {
         "path": "Stage1_Instances/THM-M-0393/release-validation.md",
-        "sha256": "9902492f3257ebb20281c714f3f19f95c7e58778472ceda18a0a8f512605184c",
-        "git_blob": "23c44105c28d249675cf866a8b3c315304e09ace",
+        "sha256": "6b7a3e4f4973d98cdbf2b767c136cb7535785ecaf02e7de04c6f8ee4d3022279",
+        "git_blob": "31e7384456f2dc567ab68f57a79ba9c96cbfec7c",
         "artifact_kind": "legacy_worker_projection_not_generated_from_an_accepted_bundle"
       }
     ]
