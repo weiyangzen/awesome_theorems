@@ -19,6 +19,17 @@ The statement phase must pin a primary-source artifact, record its digest and ex
 all hypotheses and conventions, and either produce an exact Lean expression plus checked transports
 to any alternate character formula or report a blocker. No `H0` or machine-checked claim is made.
 
+## Statement-phase result
+
+The required primary-source bytes or an independently accepted exact transcription are still not
+present in this clone. Consequently the source-native index and normalization choices remain open,
+and `Statement.lean` is only a pinned substrate probe. The legacy candidate
+`AwesomeTheorems.Stage1.S1_M_055.StatementShape` is not selected: it quantifies over freely supplied
+abstract data and therefore does not encode the concrete regular-integral category-O setting or the
+source conventions. No candidate equation in this crosswalk is a canonical Lean target or a checked
+transport. The exact statement, its premise and boundary mapping, and all source-fidelity debt remain
+visible and unresolved.
+
 Discovery links (not immutable receipts):
 
 - Original paper DOI: <https://doi.org/10.1007/BF01390031>

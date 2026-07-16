@@ -1,7 +1,7 @@
 # THM-M-0139 statement-phase blocker
 
 Item: `S56-M-0139-STATEMENT`  
-Base revision: `de9509a9b807a45e9fb1511465a7b957788afc54`
+Base revision: `94009a6bebd743588e09c3b45bfbf18bf9b5c5e3`
 
 ## Verdict
 
@@ -46,10 +46,13 @@ must transcribe every source hypothesis and convention, implement (or pin) the n
 and Kazhdan-Lusztig interfaces without circular conclusion fields, and then elaborate the exact
 target with checked transports to any alternate character formula.
 
-## Commands and results
+## Earlier discovery commands
 
-All commands ran in this worker clone on 2026-07-12. Lean used the existing pinned Lake artifacts;
-no dependency update, fetch, clone, or build was performed.
+The source-access and legacy-discovery commands below ran in an earlier worker clone on 2026-07-12.
+They are retained as historical blocker context, not claimed as commands rerun by this handoff.
+The current exact self-test commands and exit codes are bound in `statement-receipt.json` and
+`.stage1-worker-selftest.json`. Lean validation used the existing pinned Lake artifacts; no
+dependency update, fetch, clone, or build was performed.
 
 | Command | Exit | Result |
 |---|---:|---|
@@ -65,5 +68,7 @@ no dependency update, fetch, clone, or build was performed.
 | `curl -L https://api.crossref.org/works/10.1007/BF01390031` | 0 | bibliographic metadata confirmed pages 165-184, but no theorem text or formula was supplied |
 | `curl -L https://link.springer.com/content/pdf/10.1007/BF01390031.pdf` | 0 | returned a 229744-byte HTML access page rather than a PDF |
 
-Because the assigned statement phase is blocked rather than genuinely self-tested to completion,
-no `.stage1-worker-selftest.json` is emitted.
+The target-owned semantic validator now self-tests this negative boundary and emits
+`phase_accepted=false`. That establishes a truthful worker handoff only; the HEAD contract says a raw
+blocked result cannot close the positive statement phase. It does not make the missing canonical
+statement, expression fingerprint, transports, or mutations exist.

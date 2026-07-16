@@ -658,8 +658,8 @@ This appendix is the single writable task-state authority. The execution DAG and
 generated, read-only projections of these stable rows; they never override this checklist.
 
 Authoritative progress summary (derived and validated from the rows below):
-- `[_]` 3234 (29.88% worker self-tested)
-- `[ ]` 7588
+- `[_]` 3236 (29.90% worker self-tested)
+- `[ ]` 7586
 - `[x]` 0
 
 Every target is expanded into seven dependency-ordered phases: intake, statement, anchor audit,
@@ -1424,7 +1424,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-0138-VALIDATION`. Owned paths: `Stage1_Instances/THM-M-0138`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0139-INTAKE` / `THM-M-0139` / `intake`: Create the theorem dossier, scope map, and source-statement crosswalk. {attempts=1}
   Depends: none. Owned paths: `Stage1_Instances/THM-M-0139`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-0139-STATEMENT` / `THM-M-0139` / `statement`: Elaborate the exact Lean 4 target with the minimal pinned imports. {attempts=0}
+- [_] `S56-M-0139-STATEMENT` / `THM-M-0139` / `statement`: Elaborate the exact Lean 4 target with the minimal pinned imports. {attempts=1}
   Depends: `S56-M-0139-INTAKE`. Owned paths: `Stage1_Instances/THM-M-0139`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-0139-ANCHOR_AUDIT` / `THM-M-0139` / `anchor_audit`: Audit mathlib and external Lean 4 candidates at immutable revisions. {attempts=0}
   Depends: `S56-M-0139-STATEMENT`. Owned paths: `Stage1_Instances/THM-M-0139`. Gate: rev-5.6 node-specific receipt and master acceptance.
@@ -1788,7 +1788,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-0426-VALIDATION`. Owned paths: `Stage1_Instances/THM-M-0426`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0427-INTAKE` / `THM-M-0427` / `intake`: Create the theorem dossier, scope map, and source-statement crosswalk. {attempts=1}
   Depends: none. Owned paths: `Stage1_Instances/THM-M-0427`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-0427-STATEMENT` / `THM-M-0427` / `statement`: Elaborate the exact Lean 4 target with the minimal pinned imports. {attempts=0}
+- [_] `S56-M-0427-STATEMENT` / `THM-M-0427` / `statement`: Elaborate the exact Lean 4 target with the minimal pinned imports. {attempts=1}
   Depends: `S56-M-0427-INTAKE`. Owned paths: `Stage1_Instances/THM-M-0427`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-0427-ANCHOR_AUDIT` / `THM-M-0427` / `anchor_audit`: Audit mathlib and external Lean 4 candidates at immutable revisions. {attempts=0}
   Depends: `S56-M-0427-STATEMENT`. Owned paths: `Stage1_Instances/THM-M-0427`. Gate: rev-5.6 node-specific receipt and master acceptance.
