@@ -658,8 +658,8 @@ This appendix is the single writable task-state authority. The execution DAG and
 generated, read-only projections of these stable rows; they never override this checklist.
 
 Authoritative progress summary (derived and validated from the rows below):
-- `[_]` 3273 (30.24% worker self-tested)
-- `[ ]` 7549
+- `[_]` 3276 (30.27% worker self-tested)
+- `[ ]` 7546
 - `[x]` 0
 
 Every target is expanded into seven dependency-ordered phases: intake, statement, anchor audit,
@@ -1984,7 +1984,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-0007-VALIDATION`. Owned paths: `Stage1_Instances/THM-M-0007`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0006-INTAKE` / `THM-M-0006` / `intake`: Create the theorem dossier, scope map, and source-statement crosswalk. {attempts=1}
   Depends: none. Owned paths: `Stage1_Instances/THM-M-0006`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-0006-STATEMENT` / `THM-M-0006` / `statement`: Elaborate the exact Lean 4 target with the minimal pinned imports. {attempts=0}
+- [_] `S56-M-0006-STATEMENT` / `THM-M-0006` / `statement`: Elaborate the exact Lean 4 target with the minimal pinned imports. {attempts=1}
   Depends: `S56-M-0006-INTAKE`. Owned paths: `Stage1_Instances/THM-M-0006`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-0006-ANCHOR_AUDIT` / `THM-M-0006` / `anchor_audit`: Audit mathlib and external Lean 4 candidates at immutable revisions. {attempts=0}
   Depends: `S56-M-0006-STATEMENT`. Owned paths: `Stage1_Instances/THM-M-0006`. Gate: rev-5.6 node-specific receipt and master acceptance.
@@ -2144,7 +2144,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-0554-STATEMENT`. Owned paths: `Stage1_Instances/THM-M-0554`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0554-OBLIGATION_TREE` / `THM-M-0554` / `obligation_tree`: Freeze the obligation registry and typed proof/provenance/workflow graphs. {attempts=1}
   Depends: `S56-M-0554-ANCHOR_AUDIT`. Owned paths: `Stage1_Instances/THM-M-0554`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-0554-PROOF` / `THM-M-0554` / `proof`: Implement or pin/import the required proof bodies without placeholders. {attempts=0}
+- [_] `S56-M-0554-PROOF` / `THM-M-0554` / `proof`: Implement or pin/import the required proof bodies without placeholders. {attempts=1}
   Depends: `S56-M-0554-OBLIGATION_TREE`. Owned paths: `Stage1_Instances/THM-M-0554`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-0554-VALIDATION` / `THM-M-0554` / `validation`: Run hermetic kernel, trust, provenance, and independent validation gates. {attempts=0}
   Depends: `S56-M-0554-PROOF`. Owned paths: `Stage1_Instances/THM-M-0554`. Gate: rev-5.6 node-specific receipt and master acceptance.
@@ -2306,7 +2306,7 @@ integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
   Depends: `S56-M-0586-VALIDATION`. Owned paths: `Stage1_Instances/THM-M-0586`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0571-INTAKE` / `THM-M-0571` / `intake`: Create the theorem dossier, scope map, and source-statement crosswalk. {attempts=1}
   Depends: none. Owned paths: `Stage1_Instances/THM-M-0571`. Gate: rev-5.6 node-specific receipt and master acceptance.
-- [ ] `S56-M-0571-STATEMENT` / `THM-M-0571` / `statement`: Elaborate the exact Lean 4 target with the minimal pinned imports. {attempts=0}
+- [_] `S56-M-0571-STATEMENT` / `THM-M-0571` / `statement`: Elaborate the exact Lean 4 target with the minimal pinned imports. {attempts=1}
   Depends: `S56-M-0571-INTAKE`. Owned paths: `Stage1_Instances/THM-M-0571`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [ ] `S56-M-0571-ANCHOR_AUDIT` / `THM-M-0571` / `anchor_audit`: Audit mathlib and external Lean 4 candidates at immutable revisions. {attempts=0}
   Depends: `S56-M-0571-STATEMENT`. Owned paths: `Stage1_Instances/THM-M-0571`. Gate: rev-5.6 node-specific receipt and master acceptance.

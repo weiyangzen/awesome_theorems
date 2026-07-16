@@ -2,42 +2,56 @@
 
 Item: `S56-M-0006-STATEMENT`  
 Theorem: `THM-M-0006`  
-Base revision: `093814ff79615377ad01b5275537212b6a345688`
+Worker base revision: `1cc6aa61bb055a5c032297ee457905c849af7608`
 
 ## Verdict
 
-The exact-statement gate is blocked. The only repository claim is "existence of left/right derived
-functors" in `Docs/researches/math_theorems.md`. It supplies no primary edition, theorem/page,
-domains, variance, additivity or exactness hypotheses, resolution hypotheses, or choice between
-degreewise resolution-derived functors and total Kan-extension-derived functors. Selecting any of
-those data as canonical would broaden or substitute the source rather than elaborate its exact
-target. This is the hard-stop condition in Phase 1 of `skills/execute-stage1-rev56/SKILL.md`.
+The exact-statement gate is blocked. This negative result is normalized to the HEAD statement
+contract. The required roles are present as `statement.json`, `Statement.lean`, this source
+crosswalk, and exactly one `stage1-node-receipt/1.0` phase receipt. `Statement.lean` is only a
+pinned interface probe: it contains no canonical target, checked alternate transport, or mutation
+fixture. The target-owned validator returns `phase_accepted=false`, so the positive phase predicate
+remains false. The root worker packet's `[_]` proposes only a self-tested negative handoff for
+integration inspection; it is not statement acceptance.
 
-`StatementCandidate.lean` records the narrowest already-discovered degreewise interpretation with
-explicit universes and binders. It has only the two imports required for mathlib's left- and
-right-derived abelian APIs. Its successful elaboration proves that this candidate is well typed;
-it does not make the candidate source-authorized or canonical. The total-derived interpretation is
-not silently substituted.
+The sole repository claim is `左/右导出函子的存在性` (existence of left/right derived functors) in
+`Docs/researches/math_theorems.md`. It supplies no admitted primary edition, theorem or definition
+number, page, ambient categories, variance, additivity or exactness assumptions, resolution or
+localization hypotheses, degree convention, conclusion strength, or choice between degreewise
+resolution-derived functors and total Kan-extension-derived functors. Selecting those data would
+broaden or substitute the source rather than elaborate its exact target. Rev-5.6 sections 2 and 5
+make statement ambiguity and a missing expression fingerprint hard blockers.
 
-## Exact blocker and resolution condition
+`StatementCandidate.lean` records the narrow degreewise interpretation already discovered, and the
+legacy `S1_M_095.lean` module contains checked-looking degreewise and total-derived wrappers. They
+remain unaccepted discovery inputs. Elaborating them proves only that their chosen interfaces are
+well typed; it does not source-authorize either candidate, transfer legacy acceptance, or establish
+the exact target. No `sorry`, axiom, opaque proxy predicate, placeholder theorem, or substituted
+total-derived statement was introduced.
 
-To unblock this node, an authoritative source must identify an edition, theorem/page, assumptions,
-and intended construction. The integration lane can then select the corresponding formal target,
-check transports from alternate encodings, and run hypothesis/domain/binder and boundary
-mutations. Until that happens, the intake classifications `H4` and `M4` remain accurate and no
-statement receipt or theorem credit is warranted.
+## Dependency and reuse boundary
 
-## Validation record
+The exact claim order is `(v2_execution_rank=317, phase_layer=1,
+phase_item_id=S56-M-0006-STATEMENT)`. The supplied `parent_inspection_order` is `[]`, and the v2 node
+has no direct hard parents, transitive hard ancestors, reuse hints, or shared groups. The schema-1.1
+dependency ledger records that empty closure as fully traversed. No provider declaration, receipt,
+terminal body, checkbox state, or acceptance is consumed or inherited. The empty dependency context
+does not assert that the mathematical theorem is independent.
 
-Commands ran in this worker clone. Lean ran from `Formalizations/Lean` using the existing pinned
-`.lake` link; no dependency operation was performed.
+## First failed gate and retry condition
 
-| Command | Exit | Result |
-|---|---:|---|
-| `python3 Docs/tools/check_stage1_standard.py` | 0 | standard consistent: 15 groups and 1546 uniform-L0 targets |
-| `python3 scripts/stage1_target.py check` | 0 | 1546 unique targets, ranks 1 through 1546 |
-| `python3 scripts/stage1_target.py show THM-M-0006` | 0 | rank 95, planned, L0/rework-required, theorem incomplete |
-| `lake env lean ../../Stage1_Instances/THM-M-0006/StatementCandidate.lean` | 0 | candidate elaborated; explicit candidate expression printed |
-| `lake env lean AwesomeTheorems/Stage1/S1_M_095.lean` | 0 | legacy discovery module elaborated under the pinned environment |
+The first failed gate is `S02-EXACT-TARGET.source_statement_ambiguity`. To retry positively, admit
+an immutable primary-source edition and exact result that selects the intended construction and
+fixes all domains, ordered binders, hypotheses, conclusions, and boundary cases. Then author and
+kernel-elaborate precisely that Lean proposition with minimal imports, bind its normalized
+expression and environment fingerprints, check every credited alternate transport, and kill the
+removed-hypothesis, changed-domain, changed-binder-scope, and boundary-case mutations. Until then
+the intake classifications `H4` and `M4` remain accurate.
 
-This node was not genuinely completed, so `.stage1-worker-selftest.json` is intentionally absent.
+## Validation boundary
+
+Validation uses only the existing pinned `.lake` artifacts from `Formalizations/Lean`; no update,
+build, fetch, clone, or dependency mutation is permitted. The semantic validator checks the exact
+empty dependency closure, source ambiguity, null canonical fields, pinned interface probe, receipt
+contract, and absence of prohibited proof escapes. It reports a truthful blocked result with no
+statement, proof, audit-completion, theorem-completion, release, or master-acceptance credit.
