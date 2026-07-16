@@ -1,0 +1,381 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "receipt_id": "S56-M-0395-RELEASE-blocked-20260717-slot76-v2",
+  "item_id": "S56-M-0395-RELEASE",
+  "theorem_id": "THM-M-0395",
+  "execution_rank": 8,
+  "phase": "release",
+  "intent": "release",
+  "depends_on": [
+    "S56-M-0395-VALIDATION"
+  ],
+  "base_revision": "1cc6aa61bb055a5c032297ee457905c849af7608",
+  "base_tree": "dc3053b55c5724ccb2e6a247e7deffebca9dbb99",
+  "validated_at": "2026-07-17T06:00:00+08:00",
+  "attestor": "stage1-rev56-worker-slot76",
+  "owner": "THM-M-0395 release lane",
+  "reviewer": "independent Stage1 integration reviewer required",
+  "review_due": "before any retry or after any invalidation input changes",
+  "support_state": "provisional_worker_selftest",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "acceptance_authority": "Stage1 integration lane",
+  "verdict": "blocked",
+  "selftest_status": "passed",
+  "selftest_result": {
+    "exit_code": 0,
+    "commands": [
+      {
+        "argv": [
+          "python3",
+          "Docs/tools/check_stage1_standard.py"
+        ],
+        "cwd": ".",
+        "exit_code": 1,
+        "expected_failure": "The checked-in theorem-DAG projection does not yet inventory the newly contract-required target-owned release receipt, specification, and dependency ledger; only the master lane may regenerate it."
+      },
+      {
+        "argv": [
+          "python3",
+          "Docs/tools/check_stage1_theorem_dag_v2.py"
+        ],
+        "cwd": ".",
+        "exit_code": 1,
+        "expected_failure": "The checked-in theorem-DAG projection does not yet inventory the newly contract-required target-owned release receipt, specification, and dependency ledger; only the master lane may regenerate it."
+      },
+      {
+        "argv": [
+          "python3",
+          "Docs/tools/check_stage1_phase_acceptance_contracts.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "python3",
+          "scripts/stage1_target.py",
+          "check"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "python3",
+          "scripts/stage1_target.py",
+          "show",
+          "THM-M-0395"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "python3",
+          "Stage1_Instances/THM-M-0395/check_anchor_audit.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "python3",
+          "Stage1_Instances/THM-M-0395/check_obligation_tree.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "python3",
+          "Stage1_Instances/THM-M-0395/check_validation.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "/usr/bin/bash",
+          "../../Stage1_Instances/THM-M-0395/check_proof.sh"
+        ],
+        "cwd": "Formalizations/Lean",
+        "env": {
+          "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0"
+        },
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "/usr/bin/bash",
+          "../../Stage1_Instances/THM-M-0395/check_validation_lean.sh"
+        ],
+        "cwd": "Formalizations/Lean",
+        "env": {
+          "ELAN_TOOLCHAIN": "leanprover/lean4:v4.29.0"
+        },
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "Stage1_Instances/THM-M-0395/check_release.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "python3",
+          "-m",
+          "json.tool",
+          "Stage1_Instances/THM-M-0395/dependency-reuse-ledger.json"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "python3",
+          "-m",
+          "json.tool",
+          "Stage1_Instances/THM-M-0395/release-spec.json"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "python3",
+          "-m",
+          "json.tool",
+          "Stage1_Instances/THM-M-0395/release-decision.json"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "python3",
+          "-m",
+          "json.tool",
+          "Stage1_Instances/THM-M-0395/release-receipt.json"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "python3",
+          "-m",
+          "json.tool",
+          ".stage1-worker-selftest.json"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "python3",
+          "-m",
+          "py_compile",
+          "Stage1_Instances/THM-M-0395/check_release.py"
+        ],
+        "cwd": ".",
+        "env": {
+          "PYTHONPYCACHEPREFIX": "/tmp/stage1-m0395-pycache"
+        },
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "git",
+          "diff",
+          "--check",
+          "--",
+          "Stage1_Instances/THM-M-0395",
+          ".stage1-worker-selftest.json"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      }
+    ],
+    "output_summary": "The phase contract, target manifest, anchor, obligation, validation, narrow pinned Lean, strict JSON, exact typed negative release validator, Python syntax, and diff-hygiene checks pass. The standard and theorem-DAG checks fail only at generated evidence-inventory drift after the contract-required owned files are added; the worker is forbidden to regenerate that read-only projection. The semantic release result remains blocked with audit_complete=false, theorem_complete=false, and seventeen open root-relevant obligations."
+  },
+  "inputs": {
+    "release_specification": {
+      "role": "release_specification",
+      "path": "Stage1_Instances/THM-M-0395/release-spec.json",
+      "sha256": "ad64bb33b43e506c9a8dd646fc20bae6f2ee669b9f10078175a805b20f7d2e2d",
+      "git_blob": "54df35f17a08abeeb0db9ec69072b92542f16bc3"
+    },
+    "release_decision": {
+      "role": "release_decision",
+      "path": "Stage1_Instances/THM-M-0395/release-decision.json",
+      "sha256": "8916fe7d6c370f53a73ddaa6965ee7b39994f4f8041bfe8e8b82a66a2bf728ca",
+      "git_blob": "ca9462f73126f9137972e694eb606fd9681d252a"
+    },
+    "validation_receipt": {
+      "role": "validation_receipt",
+      "path": "Stage1_Instances/THM-M-0395/validation-receipt.json",
+      "sha256": "b5300fb5d7061a63859580b6ec108392dc6b68e92a7739d898869734a3da987f",
+      "git_blob": "568670610905ad43f5aad30595a242d6a6bff837",
+      "artifact_kind": "provisional_legacy_receipt_not_master_accepted"
+    },
+    "dependency_reuse_ledger": {
+      "role": "dependency_reuse_ledger",
+      "path": "Stage1_Instances/THM-M-0395/dependency-reuse-ledger.json",
+      "sha256": "a6d07b4a3fab5f0cf2a20433fb4086ac993e8b41255dd8daecdc298fefb49335",
+      "git_blob": "f94a94bbe917764eeb25db5a805b953215bcc47c"
+    },
+    "obligation_registry": {
+      "role": "obligation_registry",
+      "path": "Stage1_Instances/THM-M-0395/obligation-registry.json",
+      "sha256": "2461eef24bec0c53faf36b2a16f1cb7c61fb13341544fad2cc64113be64381be",
+      "git_blob": "c3037c42ae5354a548708e421aed2ab4c7b69d93"
+    },
+    "typed_graphs": {
+      "role": "typed_graphs",
+      "path": "Stage1_Instances/THM-M-0395/typed-graphs.json",
+      "sha256": "c130159ff5c46af19263bae478720e4fe33ec8007f8d6bb15c6e444096bb1e81",
+      "git_blob": "f5c153776030c2ee09a0b901f9f19766e6f9cb99"
+    },
+    "release_validator": {
+      "role": "release_validator",
+      "path": "Stage1_Instances/THM-M-0395/check_release.py",
+      "sha256": "676702bb3816f5fafc3c2d007ec0044a19a47294b8981c34322cc3d802d2071b",
+      "git_blob": "cb176d3f2c714b9bc94c282876c86545e6a56c57"
+    },
+    "proof_runner": {
+      "role": "proof_runner",
+      "path": "Stage1_Instances/THM-M-0395/check_proof.sh",
+      "sha256": "ca97bd0d570ee91561651f1750325bd6c5c07eef8f1bf43417ea94faaa53dcaa",
+      "git_blob": "ede100b68be7201e038179bb637e138a8b6514e8"
+    },
+    "validation_runner": {
+      "role": "validation_runner",
+      "path": "Stage1_Instances/THM-M-0395/check_validation_lean.sh",
+      "sha256": "35acd4262f80bbfeef4be2db757f155f7054b449d1df1a7ffa8d16f5eb3c37c6",
+      "git_blob": "83ee4456e2b8f37b64ed3f7e88599592db3f92ca"
+    },
+    "deterministic_evidence_bundle": {
+      "role": "deterministic_evidence_bundle",
+      "path": "Stage1_Instances/THM-M-0395/release-decision.json",
+      "sha256": "8916fe7d6c370f53a73ddaa6965ee7b39994f4f8041bfe8e8b82a66a2bf728ca",
+      "git_blob": "ca9462f73126f9137972e694eb606fd9681d252a",
+      "artifact_kind": "absence_record_only_not_a_deterministic_release_bundle"
+    },
+    "independent_attestations": [
+      {
+        "role": "independent_attestations",
+        "path": "Stage1_Instances/THM-M-0395/release-decision.json",
+        "sha256": "8916fe7d6c370f53a73ddaa6965ee7b39994f4f8041bfe8e8b82a66a2bf728ca",
+        "git_blob": "ca9462f73126f9137972e694eb606fd9681d252a",
+        "artifact_kind": "absence_record_only_not_an_independent_attestation"
+      }
+    ],
+    "public_projections": [
+      {
+        "role": "public_projections",
+        "path": "Stage1_Instances/THM-M-0395/release-validation.md",
+        "sha256": "c197e2bc7dc07351a2d5a203ddba1bccfdb73c8c31ecfb76ed65d5bbf0e3e8de",
+        "git_blob": "499c39606e77b4ef4508544dc405f959e7ff4afc",
+        "artifact_kind": "worker_negative_projection_not_generated_from_an_accepted_bundle"
+      }
+    ]
+  },
+  "recipe": {
+    "recipe_id": "S56-M-0395-RELEASE-negative-reconciliation-v2",
+    "cwd": ".",
+    "argv": [
+      "/usr/bin/python3",
+      "-I",
+      "-B",
+      "Stage1_Instances/THM-M-0395/check_release.py"
+    ],
+    "env_allowlist": {
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "TZ": "UTC"
+    },
+    "timeout_seconds": 180,
+    "network_policy": "denied",
+    "expected_exit": 0
+  },
+  "known_failures": [
+    "S56-M-0395-VALIDATION and every earlier phase remain [_], not master-accepted [x].",
+    "The validation receipt is provisional legacy evidence from an ancestor revision, lacks the current contract's normalized acceptance, self-test, semantic-result, base-tree, and release-grade fields, and binds predecessor runner bytes repaired by this handoff; it is stale and receives no acceptance credit.",
+    "The elementary proof and validation transports close no frozen obligation; the exact Faltings root and all seventeen root-relevant obligations remain open at M4.",
+    "AUDIT-Z is not established: accepted H0 source review, R0 readable review, complete provenance/trust/TCB classification, and accepted public reconciliation are absent.",
+    "No immutable clean cold/offline run, SBOM/license closure, deterministic evidence bundle, two independent signed runners, or independent minimal verifier exists.",
+    "The standard and theorem-DAG validators report generated inventory drift after the newly required owned release artifacts are added; master integration must regenerate the read-only theorem-DAG projection.",
+    "The worker-base release validator emits legacy prose. The worker repaired it to mandatory typed semantic JSON, but a future worker base must contain that exact validator blob before scheduler replay can select it.",
+    "The proof and validation runners now use disposable worker-local oleans and trust=0. Their successful current replay is warm nonrelease evidence only and invalidates, rather than refreshes, the old predecessor runner binding from this release phase.",
+    "The worker clone contains the automation-provided untracked canonical .lake symlink; narrow Lean re-elaboration is warm nonrelease evidence only."
+  ],
+  "first_failed_gate": "G02-TOPOLOGY",
+  "retry_condition": "Close and master-accept every predecessor and the unchanged exact root, reconcile the complete audit, then provide accepted H0/R0, complete provenance/trust/TCB/SBOM/license evidence, immutable cold/offline reproduction, deterministic bundling and public reconciliation, two independent attestations, the minimal verifier, protected CI, and final master release acceptance.",
+  "status_boundary": "Self-tested target-owned negative reconciliation only. The release phase is not accepted, AUDIT-Z and THEOREM-Z are false, and no proof, debt, lifecycle, theorem-completion, release, or master-acceptance claim is made.",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "invalidation_inputs": [
+    "Docs/Stage1_Blueprint_v2.md",
+    "Docs/Stage1_Blueprint_rev-5.6.md",
+    "Docs/Stage1_Phase_Acceptance_Contracts.json",
+    "Docs/Stage1_Theorem_DAG_v2.json",
+    "Docs/Stage1_Execution_DAG_rev-5.6.json",
+    "Docs/Stage1_Targets_rev-5.6.json",
+    "skills/execute-stage1-rev56/SKILL.md",
+    "Stage1_Instances/THM-M-0395/Statement.lean",
+    "Stage1_Instances/THM-M-0395/Proof.lean",
+    "Stage1_Instances/THM-M-0395/Validation.lean",
+    "Stage1_Instances/THM-M-0395/obligation-registry.json",
+    "Stage1_Instances/THM-M-0395/typed-graphs.json",
+    "Stage1_Instances/THM-M-0395/proof-receipt.json",
+    "Stage1_Instances/THM-M-0395/validation-receipt.json",
+    "Stage1_Instances/THM-M-0395/dependency-reuse-ledger.json",
+    "Stage1_Instances/THM-M-0395/release-spec.json",
+    "Stage1_Instances/THM-M-0395/release-decision.json",
+    "Stage1_Instances/THM-M-0395/check_release.py",
+    "Stage1_Instances/THM-M-0395/check_proof.sh",
+    "Stage1_Instances/THM-M-0395/check_validation_lean.sh",
+    "Stage1_Instances/THM-M-0395/release-validation.md",
+    "Lean toolchain, Lake manifest, mathlib revision, dependency tree/cache/archive, foundation, trust, source, readability, release, freshness, or master-acceptance policy"
+  ],
+  "release_grade": false,
+  "accepted_receipt_ids": [],
+  "remaining_root_cut_set": [
+    "dependency.S56-M-0395-VALIDATION.master_acceptance and dependency-ordered acceptance of every predecessor",
+    "kernel closure of finite-extension normalization M0395-N and its field/model bridges M0395-N1 and M0395-N2",
+    "kernel closure of the Jacobian and Abel-Jacobi construction route M0395-C, M0395-C1, and M0395-C2",
+    "kernel closure of Mordell-Weil, Mordell-Lang, and the no-positive-dimensional-coset input M0395-L1, M0395-X1, and M0395-L2",
+    "kernel closure of finite intersection M0395-L3 and exact terminal/root composition M0395-T, M0395-X2, and M0395-ROOT",
+    "accepted H0 primary-source edition, theorem/page, assumptions, errata, node crosswalk, and independent source review",
+    "accepted R0 structured reconstruction and independent reader review",
+    "complete root declaration/body provenance, axiom, trust, computation, TCB, archive, SBOM, and license closure",
+    "immutable clean source snapshot, empty-cache network-denied cold build, and offline archive restoration",
+    "deterministic content-addressed release bundle and public projections generated from that accepted bundle",
+    "two signed attestations from distinct independently provisioned runners with no shared writable dependency or cache",
+    "independently implemented minimal verifier and protected mutation, differential, and metamorphic CI gates",
+    "AUDIT-Z, THEOREM-Z, release acceptance, theorem completion, and master acceptance"
+  ],
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M4",
+    "R": "R3"
+  },
+  "deterministic_bundle_sha256": null,
+  "independent_attestations": [],
+  "result": {
+    "exit_code": 0,
+    "semantic_verdict": "blocked",
+    "phase_accepted": false,
+    "audit_complete": false,
+    "theorem_complete": false,
+    "open_obligations": 17,
+    "first_failed_gate": "G02-TOPOLOGY"
+  }
+}

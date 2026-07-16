@@ -1,0 +1,256 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "receipt_id": "S56-M-0547-STATEMENT-worker-selftest-1cc6aa61bb05-20260717",
+  "item_id": "S56-M-0547-STATEMENT",
+  "theorem_id": "THM-M-0547",
+  "phase": "statement",
+  "intent": "audit",
+  "base_revision": "1cc6aa61bb055a5c032297ee457905c849af7608",
+  "base_tree": "dc3053b55c5724ccb2e6a247e7deffebca9dbb99",
+  "claim_order": {
+    "v2_execution_rank": 335,
+    "phase_layer": 1,
+    "phase_item_id": "S56-M-0547-STATEMENT"
+  },
+  "depends_on": [
+    "S56-M-0547-INTAKE"
+  ],
+  "inputs": {
+    "task_state_authority": {
+      "path": "Docs/Stage1_Blueprint_v2.md",
+      "sha256": "fb6cd286dc5c47e22d754ab73e5162986e98a18b5bc6d8e7213ae5d39b4256d1",
+      "item_state_observed": "[ ]",
+      "attempts_observed": 0
+    },
+    "assurance_authority": {
+      "path": "Docs/Stage1_Blueprint_rev-5.6.md",
+      "sha256": "3779901013ac5e0b1f1b2bb4ea7a2ee08429f85bb1ee26c4b96905d6796c65c8"
+    },
+    "target_manifest": {
+      "path": "Docs/Stage1_Targets_rev-5.6.json",
+      "sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c"
+    },
+    "theorem_dag_sha256": "e8472863a24609e37868f215bbf0e0654b11a62f912a403ebca5feb8de5a3b9b",
+    "dependency_context_sha256": "068170c76abd4579d643ede04d731b974412185bd285e7b40255ec4044adec5c",
+    "phase_contract_sha256": "1e7adf0f4fae0541b3595d4b0bfbb53f7eb17e28a4a889fec14f6df969e0cec4",
+    "execution_skill_sha256": "5da11caafdb40b121c2fd19e13cd232a1b13a615f7a64eb314aa82cc19fea454",
+    "blueprint_guidelines_sha256": "a06c07b5ca1b270b4935ad3dab893e9a0e078c29c8da2ef9dca1e71193310535",
+    "repository_source_record": {
+      "path": "Docs/researches/math_theorems.md",
+      "sha256": "bdde11afb307986844ab56ec7002cf6e598ee533ca86e6546e395f60bef32a29"
+    },
+    "legacy_discovery_source": {
+      "path": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_119.lean",
+      "sha256": "07c14a7a1e29fab03f7cece730d9cb074af4dbd541cff7466a496b00fda9e7ef"
+    },
+    "dependency_reuse_ledger": {
+      "path": "Stage1_Instances/THM-M-0547/dependency-reuse-ledger.json",
+      "sha256": "a23d66f6f118e01ecd18f410cbc3457088551a5f54116aa2c450250dd632dd8b",
+      "git_blob": "7a6dcbad00683b25e675a910b97bdb34d65258df"
+    },
+    "parent_inspection_order": [],
+    "inspected_parent_ids": [],
+    "accepted_receipt_ids": [],
+    "reused_declaration_ids": [],
+    "provider_acceptance_inherited": false
+  },
+  "artifact_bindings": {
+    "statement_record": {
+      "role": "statement_record",
+      "path": "Stage1_Instances/THM-M-0547/statement.json",
+      "sha256": "1b0e95fef6ead36589820437ef17d81ca857e69b262abe1fed4b4e5d617f6bd1",
+      "git_blob": "01aa0fe8e65b8ec7ac1c14458b2728e08f2e6b79"
+    },
+    "statement_source": {
+      "role": "statement_source",
+      "path": "Stage1_Instances/THM-M-0547/Statement.lean",
+      "sha256": "9407665d6bdcc3ff384daa6f16600b5555776641837fbabedc6da7b80f9a5268",
+      "git_blob": "ec7660c38fd5e1dc3a3d30ea157175f721ea2dcd"
+    },
+    "source_crosswalk": {
+      "role": "source_crosswalk",
+      "path": "Stage1_Instances/THM-M-0547/source-statement-crosswalk.md",
+      "sha256": "2fac48a1deb8df39afc969993bbb4bfe202fc3ce48939f5b0f28a7a1983a8470",
+      "git_blob": "000c32d717d15e7533eacf56e79aed9a5d02354c"
+    },
+    "phase_receipt": {
+      "role": "phase_receipt",
+      "path": "Stage1_Instances/THM-M-0547/statement-receipt.json",
+      "sha256": null,
+      "git_blob": null,
+      "binding_owner": "scheduler integration lane",
+      "status_boundary": "The receipt cannot recursively bind its own final bytes; the scheduler must publish the final HEAD receipt SHA-256 and Git blob in the authority-owned per-item role map."
+    }
+  },
+  "support_state": "provisional_worker_selftest",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "verdict": "accepted",
+  "selftest_status": "passed",
+  "selftest_result": {
+    "exit_code": 0,
+    "commands": [
+      {
+        "argv": [
+          "python3",
+          "Docs/tools/check_stage1_standard.py"
+        ],
+        "cwd": ".",
+        "exit_code": 1,
+        "expected_failure": "Target-owned statement additions make the checked-in theorem-DAG evidence inventory stale until the master integration lane regenerates the read-only projection."
+      },
+      {
+        "argv": [
+          "python3",
+          "Docs/tools/check_stage1_theorem_dag_v2.py"
+        ],
+        "cwd": ".",
+        "exit_code": 1,
+        "expected_failure": "Target-owned statement additions make the checked-in theorem-DAG evidence inventory stale until the master integration lane regenerates the read-only projection."
+      },
+      {
+        "argv": [
+          "python3",
+          "scripts/stage1_target.py",
+          "check"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "python3",
+          "scripts/stage1_target.py",
+          "show",
+          "THM-M-0547"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "lake",
+          "env",
+          "lean",
+          "--trust=0",
+          "../../Stage1_Instances/THM-M-0547/Statement.lean"
+        ],
+        "cwd": "Formalizations/Lean",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "Stage1_Instances/THM-M-0547/check_statement.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "git",
+          "diff",
+          "--check",
+          "--",
+          ".stage1-worker-selftest.json",
+          "Stage1_Instances/THM-M-0547"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      }
+    ]
+  },
+  "known_failures": [
+    "The intake predecessor is worker-self-tested [_] rather than dependency-ordered master-accepted [x]; only the master may resolve topology and accept this phase.",
+    "No accepted immutable primary-source edition/page/definition chain or independent H0 review is present; the selected compact integral form remains H2.",
+    "Pinned mathlib has no native relative singular-homology, compact-support singular-cohomology, cap-product, relative fundamental-class, or Poincare-Lefschetz theorem interface; the exact statement uses an explicit faithful-realization boundary and remains M3.",
+    "The theorem proof, anchor audit, obligation tree, validation, release, audit completion, and theorem completion remain open.",
+    "Target-owned statement additions make the checked-in theorem-DAG evidence inventory stale until the master integration lane regenerates the read-only projection."
+  ],
+  "first_failed_gate": null,
+  "retry_condition": "Master integration must bind the final tracked role bytes, replay the unchanged HEAD validator, independently review statement identity and the realization boundary, accept the predecessor under the exact topology contract, regenerate read-only projections, and only then decide phase acceptance.",
+  "status_boundary": "Worker-local statement evidence only. An accepted worker verdict means the assigned statement predicate self-tested; accepted=false and proposed_state=[_] preserve the master boundary. No proof credit, native topology transport, source H0, M0, audit completion, theorem completion, downstream acceptance, provider acceptance, or [x] state is claimed.",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "invalidation_inputs": [
+    "repository source record, intake scope, source crosswalk, or admitted primary source",
+    "statement source, record, receipt, validator, dependency ledger, or worker handoff packet",
+    "target manifest, v2 blueprint, theorem DAG, phase contract, rev-5.6 standard, execution skill, or Blueprint Guidelines",
+    "Lean toolchain, Lake manifest, mathlib revision/tree, direct import bytes, or canonical dependency-cache identity",
+    "canonical or mutation expression serialization, checked transport, ordered binders, realization boundary, or grading convention"
+  ],
+  "statement_fingerprints": [
+    "sha256:f7166d14cb6a1a04db1f715a0fcbcf5598e9c7811390e8aa5d14c3f09ddbbde5"
+  ],
+  "mutation_tests": {
+    "required": [
+      "removed_hypothesis",
+      "changed_domain",
+      "changed_binder_scope",
+      "boundary_case"
+    ],
+    "executed": [
+      {
+        "kind": "removed_hypothesis",
+        "declaration": "mutationRemovedOrientation",
+        "expression_sha256": "a7bae7b8dc2a63b261c78586d5eae70b6335b7fba3347a4583408c5f5290ce8c"
+      },
+      {
+        "kind": "changed_domain",
+        "declaration": "mutationChangedToAbsoluteHomology",
+        "expression_sha256": "e5eea1b6bb26e21d772e528a3e84f267993a542fcdf8840c4ad0ca2b41a2298c"
+      },
+      {
+        "kind": "changed_binder_scope",
+        "declaration": "mutationChangedBinderScope",
+        "expression_sha256": "f79cb73595de19e225c495c329db0842eace0a907672c1eae4e76caa4d1ec2fd"
+      },
+      {
+        "kind": "boundary_case",
+        "declaration": "mutationBoundaryDegreeZeroOnly",
+        "expression_sha256": "2ea6971db47b085f1d0a21ea1ce87a62a9a3bf0438a5355c38bf08162370adad"
+      }
+    ],
+    "status": "passed_structural_identity_suite",
+    "credit": "statement_identity_only"
+  },
+  "statement_file_sha256": "9407665d6bdcc3ff384daa6f16600b5555776641837fbabedc6da7b80f9a5268",
+  "direct_imports": [
+    "Mathlib.Geometry.Manifold.IsManifold.InteriorBoundary"
+  ],
+  "environment": {
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "direct_import_source_sha256": {
+      "Mathlib.Geometry.Manifold.IsManifold.InteriorBoundary": "0ba9d2e50ad50079275858286bf254da15b1845c08bd07ab49d5a45e317b995a"
+    },
+    "dependency_mode": "canonical pinned .lake symlink used read-only; no update, build, fetch, clone, or dependency mutation"
+  },
+  "root_vector_before": {
+    "H": "H2",
+    "M": "M4",
+    "R": "R4"
+  },
+  "root_vector_after": {
+    "H": "H2",
+    "M": "M3",
+    "R": "R4"
+  },
+  "changed_paths": [
+    ".stage1-worker-selftest.json",
+    "Stage1_Instances/THM-M-0547/Statement.lean",
+    "Stage1_Instances/THM-M-0547/check_statement.py",
+    "Stage1_Instances/THM-M-0547/dependency-reuse-ledger.json",
+    "Stage1_Instances/THM-M-0547/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0547/statement-receipt.json",
+    "Stage1_Instances/THM-M-0547/statement.json"
+  ]
+}

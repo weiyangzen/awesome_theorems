@@ -1,10 +1,19 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-statement_olean=../../Stage1_Instances/THM-M-0395/Statement.olean
-trap 'rm -f "$statement_olean"' EXIT
+tmp=$(mktemp -d ./.m0395-validation.XXXXXX)
+trap 'rm -rf "$tmp"' EXIT
+mkdir -p "$tmp/Stage1_Instances/THM-M-0395"
+cp ../../Stage1_Instances/THM-M-0395/{Statement,Proof,Validation}.lean \
+  "$tmp/Stage1_Instances/THM-M-0395/"
 
-lake env lean -R ../.. -o "$statement_olean" \
-  ../../Stage1_Instances/THM-M-0395/Statement.lean
-LEAN_PATH=../.. lake env lean ../../Stage1_Instances/THM-M-0395/Proof.lean
-LEAN_PATH=../.. lake env lean ../../Stage1_Instances/THM-M-0395/Validation.lean
+lean_path=$(lake env printenv LEAN_PATH)
+lean_bin=$(lake env printenv LEAN)
+
+LEAN_PATH="$lean_path" "$lean_bin" --trust=0 \
+  -o "$tmp/Stage1_Instances/THM-M-0395/Statement.olean" \
+  "$tmp/Stage1_Instances/THM-M-0395/Statement.lean"
+LEAN_PATH="$tmp:$lean_path" "$lean_bin" --trust=0 \
+  "$tmp/Stage1_Instances/THM-M-0395/Proof.lean"
+LEAN_PATH="$tmp:$lean_path" "$lean_bin" --trust=0 \
+  "$tmp/Stage1_Instances/THM-M-0395/Validation.lean"

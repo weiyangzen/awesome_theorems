@@ -44,3 +44,42 @@ The toolchain reported Lean commit
 `98dc76e3c0a9b856c9b98726b713fb04fab16740`. No Lake update, build, dependency
 clone, fetch, or `.lake` mutation was performed. Machine status remains M2 and
 theorem completion remains false.
+## Current semantic blocker validation
+
+Base: `1cc6aa61bb055a5c032297ee457905c849af7608`
+
+The exact target is the four-dimensional **topological** Poincare theorem in
+`Statement.lean`. The v2 hard-parent and transitive-ancestor closure is empty.
+The sole shared-module group is nonblocking and was inspected through
+`THM-M-0586`; its open `n >= 5` smooth target cannot provide an exact body or
+checked transport for dimension four.
+
+`ProofBlockerProbe.lean` rechecks two boundaries at trust zero: the frozen
+terminal core is definitionally the complete target, and mathlib's matching
+`proof_wanted` names are not retained declarations after import. This is
+blocker evidence, not a proof body. All 16 frozen obligations remain open.
+
+The target-owned `check_proof.py` validates the current authority hashes,
+empty parent inspection order, shared-group non-reuse decision, frozen
+registry and typed graph, source hygiene, pinned mathlib bytes, node receipt,
+worker packet, and the three narrow trust-zero Lean replays. Its stdout is one
+`stage1-validator-semantic-result/1.0` object with `status=blocked`,
+`phase_accepted=false`, and `theorem_complete=false`.
+
+The validator did not exist at the worker base. The integration lane must land
+these bytes and issue a fresh base-bound claim before the contract-selected
+unchanged-validator replay can run. This packet therefore proposes only the
+worker `[_]` handoff for truthful negative evidence; it does not close the
+positive proof phase or change the authoritative checklist.
+
+After adding the target-owned receipt and validator, the repository-wide
+standard and theorem-DAG checks truthfully report that the checked-in theorem
+DAG evidence inventory differs from fresh deterministic generation. The worker
+is forbidden to edit that authority projection; the integration lane must
+regenerate it while landing the packet. Target identity and manifest checks
+still pass.
+
+Retry only after scheduler-owned task splitting supplies exact Lean children
+and checked composition for the seven open mathematical packages, or after an
+immutable audited exact proof body becomes available for consumer-owned import
+and validation.

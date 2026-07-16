@@ -44,15 +44,15 @@ minimal verifier. Consequently neither `AUDIT-Z` nor `THEOREM-Z` is established.
 
 ## Worker self-test
 
-The worker used base revision `c5037228977a81948bbd6119e1728b4b65b9924e` and did
+The worker refreshed this reconciliation at base revision
+`1cc6aa61bb055a5c032297ee457905c849af7608` and did
 not run `lake update`, `lake build`, a dependency fetch/clone, or any `.lake`
 mutation. The automation-provided `.lake` symlink was reused read-only and is
 classified as shared warm nonrelease input.
 
-The base-tree structural commands passed before adding the target-owned release
-inventory. The first two commands below therefore have a base-tree pass and the
-post-edit expected inventory-drift result described after the block. The narrow
-target checks and release validator passed after the edits:
+The structural authorities passed before the target-owned receipt refresh. The
+narrow target checks and release validator then reproduced the truthful negative
+semantic result on the refreshed inputs:
 
 ```text
 python3 Docs/tools/check_stage1_standard.py
@@ -68,12 +68,12 @@ python3 -m py_compile Stage1_Instances/THM-M-0391/check_release.py with PYTHONPY
 git diff --check -- Stage1_Instances/THM-M-0391 .stage1-worker-selftest.json
 ```
 
-After the release receipt/specification/ledger were added, the two repository-wide
-structural commands truthfully returned exit 1 because the checked-in theorem-DAG
-inventory does not yet list those new files. This is the expected worker/master
-boundary: the worker did not edit the read-only projection, and the integration lane
-regenerates it after copying the owned-path evidence. `stage1_target.py check` and
-`show THM-M-0391` still pass on the current worker tree.
+The target commands returned exit 0. After the receipt bytes changed, the two global
+structural commands truthfully returned exit 1 because the read-only theorem-DAG
+inventory still binds the prior release-receipt digest. The worker did not edit that
+projection; the integration lane regenerates it after copying the owned-path evidence.
+The target-owned ledger itself binds the current theorem-DAG digest and the empty
+audited dependency closure.
 
 The release validator emits exactly one
 `stage1-validator-semantic-result/1.0` JSON object. Its truthful semantic result is

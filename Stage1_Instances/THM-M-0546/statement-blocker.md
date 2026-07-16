@@ -2,7 +2,8 @@
 
 Item: `S56-M-0546-STATEMENT`
 Theorem: `THM-M-0546`
-Verdict: blocked; no exact canonical Lean target is claimed.
+Claim order: `(v2 rank 323, phase layer 1, S56-M-0546-STATEMENT)`
+Worker verdict: `blocked`; `phase_accepted=false` and no exact canonical Lean target is claimed.
 
 ## First failed gate
 
@@ -31,13 +32,27 @@ hide rather than state Poincare duality and is prohibited by the exact-statement
 
 Consequently the ordered binders, exact hypotheses and conclusion, expression fingerprint,
 checked transports, and hypothesis/boundary mutation tests required by rev-5.6 cannot truthfully
-be frozen. `StatementInfrastructure.lean` deliberately declares no canonical theorem, axiom,
-proxy predicate, or proof.
+be frozen. The contract-selected `Statement.lean` is deliberately declaration-free, while
+`StatementInfrastructure.lean` checks only adjacent APIs. Neither file declares a canonical
+theorem, axiom, proxy predicate, or proof.
+
+## Dependency and reuse closure
+
+The authoritative theorem DAG has no direct hard parent, transitive hard ancestor, hard edge,
+reuse hint, or shared lemma group for this target. Its exact `parent_inspection_order` is therefore
+empty and was traversed exactly once before statement work. The target-owned
+`dependency-reuse-ledger.json` binds graph SHA-256
+`e8472863a24609e37868f215bbf0e0654b11a62f912a403ebca5feb8de5a3b9b` and context SHA-256
+`068170c76abd4579d643ede04d731b974412185bd285e7b40255ec4044adec5c` with empty inspections,
+decisions, and unresolved compatibility obligations. No provider bytes, receipt, declaration,
+checkbox state, acceptance, or proof credit are consumed. The empty declared graph context is not
+a mathematical-independence claim.
 
 ## Environment fingerprint
 
-- Repository base revision: `9e3fd02a2a952da7031bb1dd61387443dd4c1cc7`.
-- Validation date: 2026-07-12.
+- Repository base revision: `1cc6aa61bb055a5c032297ee457905c849af7608`.
+- Repository base tree: `dc3053b55c5724ccb2e6a247e7deffebca9dbb99`.
+- Validation date: 2026-07-17.
 - Lean toolchain: `leanprover/lean4:v4.29.0`; Lean `4.29.0`, commit
   `98dc76e3c0a9b856c9b98726b713fb04fab16740`.
 - mathlib Lake pin and checked revision:
@@ -54,17 +69,21 @@ artifacts. No update, build, fetch, or clone command was used.
 
 | Command | Exit | Result |
 |---|---:|---|
-| initial `lake env lean ../../Stage1_Instances/THM-M-0546/StatementInfrastructure.lean` | 1 | probe types printed, but doc comments immediately before commands were rejected; comments were corrected before the evidentiary rerun |
-| `lake env lean ../../Stage1_Instances/THM-M-0546/StatementInfrastructure.lean` | 0 | pinned singular-homology and boundaryless-manifold API probes elaborated; their types printed |
-| `lake env lean AwesomeTheorems/Stage1/S1_M_107.lean` | 0 | legacy discovery artifact elaborated; this supplies neither exact-statement nor proof credit |
+| `LC_ALL=C TZ=UTC lake env lean --trust=0 ../../Stage1_Instances/THM-M-0546/Statement.lean` | 0 | declaration-free contract-selected boundary elaborated with empty stdout and stderr; no statement credit |
+| `LC_ALL=C TZ=UTC lake env lean --trust=0 ../../Stage1_Instances/THM-M-0546/StatementInfrastructure.lean` | 0 | pinned singular-homology and boundaryless-manifold API probes elaborated; stdout SHA-256 `4d14ccd0fc7ef066d2c0f833f00d9b8f1f651d2a419feca841d2275642bda08a` |
 | `lake env lean --version` | 0 | Lean 4.29.0, commit `98dc76e3c0a9b856c9b98726b713fb04fab16740` |
 | `git -C .lake/packages/mathlib rev-parse HEAD` | 0 | `8a178386ffc0f5fef0b77738bb5449d50efeea95` |
 | `sha256sum lean-toolchain lake-manifest.json` | 0 | hashes match the environment fingerprint above |
-| `python3 Docs/tools/check_stage1_standard.py` | 0 | 15 assurance groups, 41 legacy rows, 300 legacy slots, 1546 uniform-L0 targets, execution skill present |
+| `python3 Docs/tools/check_stage1_standard.py` | 0 | 15 assurance groups, 1546 uniform-L0 targets, v2 theorem DAG, phase contract, and execution skill passed before target-owned inventory additions |
+| `python3 Docs/tools/check_stage1_theorem_dag_v2.py` | 0 | 1546 theorems, 10822 phase states, declared graph acyclic before target-owned inventory additions |
 | `python3 scripts/stage1_target.py check` | 0 | 1546 unique targets, ranks 1 through 1546, all L0/rework-required |
 | `python3 scripts/stage1_target.py show THM-M-0546` | 0 | rank 107, planned, L0/rework-required, legacy artifacts unaccepted, theorem incomplete |
-| `git diff --check -- Stage1_Instances/THM-M-0546` | 0 | no tracked diff output; owned additions were still untracked |
-| scoped whitespace check over both new owned files, plus forbidden-declaration-token check over the Lean file | 0 | no trailing whitespace; Lean probe contains no prohibited declaration or proof token |
+| `python3 Docs/tools/check_stage1_phase_acceptance_contracts.py` | 0 | seven phases, twelve common gates, and twenty-three source references passed |
+| `/usr/bin/python3 -I -B Stage1_Instances/THM-M-0546/check_statement.py` | 0 | one typed JSON object reports `status=blocked`, `phase_accepted=false`, and `phase_predicate_proven=false` |
+| final `python3 Docs/tools/check_stage1_standard.py` | 1 | expected post-edit mismatch: the target-owned evidence inventory changed while the worker is forbidden to regenerate the read-only theorem DAG |
+| final `python3 Docs/tools/check_stage1_theorem_dag_v2.py` | 1 | expected post-edit mismatch: checked-in theorem DAG differs from fresh deterministic generation; master regeneration is required |
+| `git diff --check -- Stage1_Instances/THM-M-0546` | 0 | no whitespace diagnostics |
+| scoped forbidden-construct scan over target Lean sources | 1 (expected no match) | no `sorry`, `admit`, `sorryAx`, axiom, opaque, unsafe, native-decide, or implementation escape hatch |
 
 ## Retry condition
 
@@ -75,5 +94,6 @@ that statement without assuming its conclusion. Only then can this node elaborat
 the exact target and run meaningful mutations.
 
 Until those inputs exist, the root remains `M4`; statement acceptance and theorem completion are
-false. Because the assigned phase is not genuinely self-tested to its completion gate, no
-`.stage1-worker-selftest.json` is emitted.
+false. The worker handoff records only that this target-scoped negative packet was self-tested. A
+validator exit of zero does not satisfy the positive statement predicate and does not transfer
+master acceptance.

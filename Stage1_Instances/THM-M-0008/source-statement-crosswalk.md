@@ -21,6 +21,25 @@ check errata, and map every assumption and conclusion. Likely search loci includ
 Eilenberg's *Homological Algebra* and a precise modern derived-functor reference, but these are
 search directions rather than citations: no edition or theorem location has yet been verified.
 
+## Competing interpretations
+
+The catalog wording does not distinguish higher-degree projective or flat vanishing, balancedness
+between resolutions in the two variables, a long exact sequence for one variance, a two-variance
+family, or the degree-zero tensor comparison. These claims require different domains, assumptions,
+binders, conclusions, and boundary policies. The generated Stage1 suggestion to inspect naturality
+and exact-sequence branches is a work-scope hint, not a source selection rule. Choosing whichever
+claim the pinned library already proves would substitute a convenient theorem for the unknown root.
+
+## Required resolution
+
+The statement gate requires one admitted primary or approved-authoritative passage with a stable
+edition, theorem/section/page locator, incorporated definitions, exact hypotheses and conclusion,
+correction and errata disposition, and independent review. That decision must fix the ambient ring
+or categorical model, which tensor variable is derived, degree indexing including zero, variance,
+projective or flat assumptions, naturality level, and degenerate cases. Until then the canonical
+human statement, Lean expression, environment fingerprint, credited transports, and semantic
+mutations remain null or unexecutable.
+
 ## Lean discovery boundary
 
 The legacy file imports `Mathlib.CategoryTheory.Monoidal.Tor` and records genuine candidate anchors
@@ -33,3 +52,6 @@ and long-exactness cannot establish those results.
 An H0 decision requires a pinpoint primary source, assumption-by-assumption crosswalk, errata check,
 and independent review. An M0 decision separately requires an exact elaborated target and kernel
 evidence; neither decision has been made.
+
+This crosswalk is a truthful blocker record. It supplies no H0, exact-statement, proof, audit, or
+theorem-completion credit.

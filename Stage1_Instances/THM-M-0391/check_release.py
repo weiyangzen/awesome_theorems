@@ -16,9 +16,9 @@ ROOT = Path(__file__).resolve().parents[2]
 HERE = ROOT / "Stage1_Instances" / "THM-M-0391"
 ITEM = "S56-M-0391-RELEASE"
 THEOREM = "THM-M-0391"
-BASE_REVISION = "c5037228977a81948bbd6119e1728b4b65b9924e"
-BASE_TREE = "78b2627e717156dffe240bea12d14205af667d2a"
-GRAPH_SHA256 = "fb17743ff737fd3c528467b6f992a7235a36f0842b528e57de3e4c6d660d3518"
+BASE_REVISION = "1cc6aa61bb055a5c032297ee457905c849af7608"
+BASE_TREE = "dc3053b55c5724ccb2e6a247e7deffebca9dbb99"
+GRAPH_SHA256 = "e8472863a24609e37868f215bbf0e0654b11a62f912a403ebca5feb8de5a3b9b"
 CONTEXT_SHA256 = "068170c76abd4579d643ede04d731b974412185bd285e7b40255ec4044adec5c"
 VALIDATION_RECEIPT_SHA256 = (
     "5a391531af68aaf19870f20b832d9b2b2b70e6b6d2bfabcf09ece66be6fa8478"
@@ -26,13 +26,13 @@ VALIDATION_RECEIPT_SHA256 = (
 ROOT_VECTOR = {"H": "H1", "M": "M4", "R": "R4"}
 EXPECTED_HASHES = {
     "dependency-reuse-ledger.json": (
-        "7935c375a1b3689f393b8e6c77ff4c673ae78f645360e228186cf05ea0eac745"
+        "00587a8522545cd651c2d923b0f4f38a0c35fec539c122686a343fa8b979fcba"
     ),
     "release-spec.json": (
-        "aea503878185231bc675bdd4f124c8b849eeda9094954a1b5168dad23154aa2f"
+        "42442c1580506cdb71802376a2df13e8ddcf57c5851f1315326c1c21985f55a3"
     ),
     "release-decision.json": (
-        "e1466073f470f6b386c7f1a501bbbe956ea0912301d44240a4168e10d69bd1d2"
+        "a21a6506c5a3f222cf26d654484b726072e5f8e587aac22e3cadd6303b42e4f6"
     ),
     "validation-receipt.json": VALIDATION_RECEIPT_SHA256,
     "proof-receipt.json": (
@@ -68,7 +68,7 @@ EXPECTED_AUTHORITY_HASHES = {
         "1e7adf0f4fae0541b3595d4b0bfbb53f7eb17e28a4a889fec14f6df969e0cec4"
     ),
     "Docs/Stage1_Blueprint_v2.md": (
-        "727816e9cf48af14bac74f94e273d82bedaffc63d0877517484fa2f027a45623"
+        "fb6cd286dc5c47e22d754ab73e5162986e98a18b5bc6d8e7213ae5d39b4256d1"
     ),
     "Docs/Stage1_Blueprint_rev-5.6.md": (
         "3779901013ac5e0b1f1b2bb4ea7a2ee08429f85bb1ee26c4b96905d6796c65c8"
@@ -77,7 +77,7 @@ EXPECTED_AUTHORITY_HASHES = {
         "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c"
     ),
     "Docs/Stage1_Execution_DAG_rev-5.6.json": (
-        "cba000bafb9aed52c4c932a3f5126f83c0d4261e67f90f030e15b4b63e0781f9"
+        "80b2ad4e2943128eeff5b4b2446dc0057a978de003d9c90140567d2f32aca5af"
     ),
     "Docs/Stage1_Theorem_DAG_v2.json": GRAPH_SHA256,
     "Docs/Blueprint_Guidelines.md": (
@@ -140,11 +140,22 @@ def git(*argv: str) -> str:
     return result.stdout.strip()
 
 
+def require_binding(container: dict[str, Any], key: str, name: str) -> None:
+    binding = container.get(key)
+    expected_path = f"Stage1_Instances/THM-M-0391/{name}"
+    if not isinstance(binding, dict) or binding.get("path") != expected_path:
+        fail(f"receipt role {key} has the wrong target-owned path")
+    if binding.get("sha256") != digest(HERE / name):
+        fail(f"receipt role {key} has a stale SHA-256 binding")
+    if binding.get("git_blob") != git("hash-object", str(HERE / name)):
+        fail(f"receipt role {key} has a stale Git-blob binding")
+
+
 def main() -> None:
     if git("rev-parse", "HEAD") != BASE_REVISION:
         fail("repository HEAD differs from the claimed worker base")
-    if git("rev-parse", "HEAD^{tree}") != BASE_TREE:
-        fail("repository tree differs from the claimed worker base")
+    if git("rev-parse", f"{BASE_REVISION}^{{tree}}") != BASE_TREE:
+        fail("claimed worker base tree does not match its revision")
 
     for name, expected in EXPECTED_HASHES.items():
         actual = digest(HERE / name)
@@ -224,6 +235,7 @@ def main() -> None:
     graphs = load(HERE / "typed-graphs.json")
     decision = load(HERE / "release-decision.json")
     spec = load(HERE / "release-spec.json")
+    receipt = load(HERE / "release-receipt.json")
 
     if instance.get("lifecycle") != "planned" or instance.get("root_vector") != ROOT_VECTOR:
         fail("instance lifecycle or root vector changed")
@@ -270,6 +282,22 @@ def main() -> None:
         fail("release specification recipe changed")
     if spec.get("network_policy") != "denied" or spec.get("expected_exit") != 0:
         fail("release specification execution boundary changed")
+    protocol = spec.get("release_protocol_recipes")
+    if not isinstance(protocol, dict) or set(protocol) != {
+        "immutable_clean_cold_offline", "supply_chain_sbom_licenses",
+        "deterministic_bundle", "independent_verification",
+    }:
+        fail("release specification omits a required release protocol lane")
+    if any(
+        not isinstance(row, dict)
+        or row.get("required") is not True
+        or row.get("available") is not False
+        or row.get("argv") is not None
+        or row.get("evidence_credit") is not False
+        or not str(row.get("status", "")).startswith("blocked_missing_")
+        for row in protocol.values()
+    ):
+        fail("release specification falsely supplies an unavailable protocol recipe")
 
     if decision.get("schema_version") != "stage1-release-decision/1.0":
         fail("release decision schema changed")
@@ -310,6 +338,49 @@ def main() -> None:
         fail("release decision open-obligation count changed")
     if decision.get("remaining_root_cut_set") is None or len(decision["remaining_root_cut_set"]) != 10:
         fail("release decision does not preserve the complete remaining cut set")
+
+    if receipt.get("schema_version") != "stage1-node-receipt/1.0":
+        fail("release receipt schema changed")
+    if receipt.get("receipt_id") != decision.get("decision_id"):
+        fail("release receipt and decision identities disagree")
+    if receipt.get("item_id") != ITEM or receipt.get("theorem_id") != THEOREM:
+        fail("release receipt has the wrong node identity")
+    if receipt.get("phase") != "release" or receipt.get("intent") != "release":
+        fail("release receipt has the wrong phase or intent")
+    if receipt.get("base_revision") != BASE_REVISION or receipt.get("base_tree") != BASE_TREE:
+        fail("release receipt has a stale worker base")
+    if receipt.get("verdict") != "blocked" or receipt.get("accepted") is not False:
+        fail("release receipt falsely changes the blocked verdict")
+    if receipt.get("selftest_status") != "passed":
+        fail("release receipt lacks a passed negative self-test")
+    selftest = receipt.get("selftest_result")
+    if not isinstance(selftest, dict) or selftest.get("exit_code") != 0 or not selftest.get("commands"):
+        fail("release receipt lacks exact self-test command evidence")
+    if receipt.get("audit_complete") is not False or receipt.get("theorem_complete") is not False:
+        fail("release receipt falsely closes a terminal decision")
+    if receipt.get("result", {}).get("semantic_verdict") != "blocked":
+        fail("release receipt does not preserve the semantic blocker")
+    if receipt.get("result", {}).get("phase_accepted") is not False:
+        fail("release receipt falsely claims phase acceptance")
+    inputs = receipt.get("inputs")
+    if not isinstance(inputs, dict):
+        fail("release receipt lacks artifact bindings")
+    require_binding(inputs, "release_specification", "release-spec.json")
+    require_binding(inputs, "release_decision", "release-decision.json")
+    require_binding(inputs, "validation_receipt", "validation-receipt.json")
+    require_binding(inputs, "dependency_reuse_ledger", "dependency-reuse-ledger.json")
+    for key in ("deterministic_evidence_bundle", "independent_attestations"):
+        rows = inputs.get(key)
+        rows = rows if isinstance(rows, list) else [rows]
+        if not rows or any(
+            not isinstance(row, dict)
+            or row.get("availability") != "missing"
+            or row.get("evidence_credit") is not False
+            or row.get("sha256") != "0" * 64
+            or row.get("git_blob") is not None
+            for row in rows
+        ):
+            fail(f"release receipt falsely supplies missing role {key}")
 
     for name in ("Statement.lean", "Proof.lean", "Validation.lean"):
         source = (HERE / name).read_text(encoding="utf-8")

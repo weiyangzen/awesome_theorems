@@ -4,6 +4,15 @@ Item: `S56-M-0444-STATEMENT`
 Theorem: `THM-M-0444`  
 Verdict: blocked; no exact canonical Lean target is claimed.
 
+Rechecked: `2026-07-17` (`Asia/Shanghai`) at repository base
+`1cc6aa61bb055a5c032297ee457905c849af7608`.
+
+This target-owned phase assessment is now normalized into the four HEAD contract roles:
+`statement.json`, `Statement.lean`, `source_statement_crosswalk.md`, and
+`statement-receipt.json`. `check_statement.py` emits the required typed negative semantic result.
+Those artifacts self-test only the blocker boundary; the positive statement deliverable remains
+unsatisfied, and the raw blocked result cannot support phase acceptance.
+
 ## First failed gate
 
 The repository source record supplies only the label "Kolyvagin Euler system" and the gloss
@@ -30,14 +39,23 @@ fields. The module itself calls this deliberately weaker than a terminal theorem
 user-supplied interface as Kolyvagin's construction would be a proxy-statement substitution, so it
 receives no exact-statement credit.
 
-No theorem declaration, proxy predicate, `sorry`, axiom, placeholder, broadened target, or
-substituted special case was introduced. Machine status remains `M4`, and statement acceptance and
-theorem completion are false.
+No theorem declaration, proxy predicate, proof placeholder, custom trust declaration, broadened
+target, or substituted special case was introduced. Machine status remains `M4`, and statement
+acceptance and theorem completion are false.
+
+The v2 node's exact `parent_inspection_order` is empty: it has no direct hard parent, transitive hard
+ancestor, incoming hard edge, reuse hint, or shared group. `dependency-reuse-ledger.json` binds that
+complete empty closure to graph digest
+`e8472863a24609e37868f215bbf0e0654b11a62f912a403ebca5feb8de5a3b9b` and context digest
+`068170c76abd4579d643ede04d731b974412185bd285e7b40255ec4044adec5c`.
+No provider body, receipt, checkbox state, or acceptance is consumed or transferred. The absence of
+admitted graph context is not a mathematical independence claim.
 
 ## Environment fingerprint
 
-- Repository base revision: `129c68bce8fd58065c4af147e92a1975267f0279`.
-- Validation date: 2026-07-12 (Asia/Shanghai).
+- Repository base revision: `1cc6aa61bb055a5c032297ee457905c849af7608`.
+- Repository base tree: `dc3053b55c5724ccb2e6a247e7deffebca9dbb99`.
+- Validation date: 2026-07-17 (Asia/Shanghai).
 - Lean toolchain: `leanprover/lean4:v4.29.0`; Lean `4.29.0`, commit
   `98dc76e3c0a9b856c9b98726b713fb04fab16740`.
 - Checked mathlib revision: `8a178386ffc0f5fef0b77738bb5449d50efeea95`.
@@ -55,13 +73,14 @@ update, build, fetch, or clone command was used.
 
 | Command | Exit | Result |
 |---|---:|---|
-| `cd Formalizations/Lean && lake env lean AwesomeTheorems/Stage1/S1_M_090.lean` | 0 | Legacy abstract discovery module elaborated; its own documentation says the statement shape is not a terminal Kolyvagin construction theorem |
-| `cd Formalizations/Lean && lake env lean --version` | 0 | Lean 4.29.0, commit `98dc76e3c0a9b856c9b98726b713fb04fab16740` |
-| `git -C Formalizations/Lean/.lake/packages/mathlib rev-parse HEAD` | 0 | Checked mathlib revision `8a178386ffc0f5fef0b77738bb5449d50efeea95` |
-| `rg -n -i 'Kolyvagin\|EulerSystem\|Euler system\|KolyvaginSystem' Formalizations/Lean/.lake/packages/mathlib/Mathlib --glob '*.lean'` | 1 | No matching declaration or source reference in pinned mathlib; exit 1 means no matches |
-| `python3 Docs/tools/check_stage1_standard.py` | 0 | 15 assurance groups, 41 legacy rows, 300 legacy slots, and 1546 uniform-L0 Lean 4 targets passed |
+| `lake env lean --trust=0 ../../Stage1_Instances/THM-M-0444/Statement.lean` from `Formalizations/Lean` | 0 | The two pinned adjacent interfaces elaborated; the file deliberately contains no canonical target |
+| `/usr/bin/python3 -I -B Stage1_Instances/THM-M-0444/check_statement.py` | 0 | Exactly one `stage1-validator-semantic-result/1.0` object reported `status=blocked`, `phase_accepted=false`, and the exact failed gate |
+| schema-1.1 ledger validation against the exact graph digest, context, and base | 0 | The direct/transitive parent, hard-edge, hint, group, inspection, decision, and unresolved-obligation lists are all exactly empty |
 | `python3 scripts/stage1_target.py check` | 0 | 1546 unique targets, ranks 1 through 1546, all L0/rework-required |
 | `python3 scripts/stage1_target.py show THM-M-0444` | 0 | Rank 90, planned, L0/rework-required, legacy artifacts unaccepted, theorem incomplete |
+| `python3 Docs/tools/check_stage1_standard.py` | 1, expected worker-local inventory drift | Target-owned statement artifacts are absent from the read-only generated theorem-DAG inventory until master integration regenerates it |
+| `python3 Docs/tools/check_stage1_theorem_dag_v2.py` | 1, same expected drift | Structural generation detects the new owned artifacts; this worker is forbidden to edit the projection |
+| `git diff --check -- Stage1_Instances/THM-M-0444 .stage1-worker-selftest.json` | 0 | No whitespace error in the owned handoff |
 
 ## Retry condition
 
@@ -72,5 +91,6 @@ factor and Frobenius convention, including exceptional cases and errata. The nex
 then encode the claim with minimal pinned imports, serialize its elaborated expression, and run the
 four required mutation classes.
 
-Until that retry condition is met, the statement phase is not genuinely self-tested to its
-completion gate. Consequently no `.stage1-worker-selftest.json` is emitted.
+Until that retry condition is met, the statement phase cannot satisfy its positive completion
+predicate. `.stage1-worker-selftest.json` hands off a self-tested negative result only: its `[_]`
+proposal remains unfinished worker state and must never be interpreted as `phase_accepted`.

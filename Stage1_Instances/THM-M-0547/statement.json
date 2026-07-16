@@ -1,0 +1,143 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0547-STATEMENT",
+  "theorem_id": "THM-M-0547",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "canonical_claim_status": "compact_integral_poincare_lefschetz_form_frozen_primary_source_fidelity_open",
+  "canonical_statement": "For every compact Hausdorff oriented n-dimensional real manifold M, possibly with boundary, cap product with the selected relative fundamental class induces for every natural q an isomorphism from compactly supported integral cohomology H_c^q(M; Z) to relative integral homology H_(n-q)(M, boundary M; Z).",
+  "statement_selection": "The repository source says only 'the duality theorem for manifolds with boundary'. This node selects the standard compact integral Poincare-Lefschetz form. Compact support equals ordinary support for the selected compact domain. Noncompact finite-type and local-coefficient generalizations are uncredited alternates, not silently folded into the target.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0547/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THM_M_0547.LefschetzDualityTarget",
+    "elaborated_expression_sha256": "f7166d14cb6a1a04db1f715a0fcbcf5598e9c7811390e8aa5d14c3f09ddbbde5",
+    "statement_file_sha256": "9407665d6bdcc3ff384daa6f16600b5555776641837fbabedc6da7b80f9a5268",
+    "fully_explicit_expression_binding": "The validator extracts the pp.universes=true, pp.explicit=true kernel print and requires its SHA-256 to equal elaborated_expression_sha256."
+  },
+  "domain_and_universes": "universes uE uH uM uA; n q : Nat; E : Type uE with real normed vector-space and finite-dimensional instances; H : Type uH with topology; I : ModelWithCorners Real E H; M : Type uM with topology and ChartedSpace H; algebraic-topology realization carriers in Type uA; target in Prop",
+  "ordered_binders": [
+    "n : Nat",
+    "E : Type uE",
+    "[NormedAddCommGroup E]",
+    "[NormedSpace Real E]",
+    "[FiniteDimensional Real E]",
+    "H : Type uH",
+    "[TopologicalSpace H]",
+    "I : ModelWithCorners Real E H",
+    "M : Type uM",
+    "[TopologicalSpace M]",
+    "[ChartedSpace H M]",
+    "X : LefschetzManifoldData n E H I M",
+    "D : LefschetzHomologyData X",
+    "D.realizesClassicalObjects",
+    "q : Nat"
+  ],
+  "hypotheses": [
+    "Module.finrank Real E = n",
+    "T2Space M",
+    "LocallyCompactSpace M",
+    "IsManifold I top M",
+    "CompactSpace M",
+    "a selected orientation represented by X.orientation and X.selectedOrientation",
+    "D realizes integral compact-support cohomology, relative homology of (M, I.boundary M), and cap product with the selected relative fundamental class"
+  ],
+  "conclusion": "For every q : Nat, D.capWithFundamentalClass q is bijective from degree-q compactly supported cohomology to degree-(n-q) relative homology.",
+  "direct_imports": [
+    "Mathlib.Geometry.Manifold.IsManifold.InteriorBoundary"
+  ],
+  "minimal_import_basis": "InteriorBoundary supplies ModelWithCorners, ChartedSpace, IsManifold, the concrete I.boundary M used by the realization contract, and transitively the required finite-dimensional/finrank interfaces. The validator deletes this sole direct import and requires elaboration failure; the five broad imports of the legacy Stage1 file are not imported.",
+  "encoding_boundary": "Pinned mathlib lacks a native topological relative singular-homology functor, compactly supported singular cohomology, cap product, relative fundamental class, and Poincare-Lefschetz theorem. LefschetzHomologyData types the two group families and the additive cap-product map. Its realizesClassicalObjects proposition identifies this data with the intended classical integral objects but contains no bijectivity, inverse, isomorphism, duality, existence, or conclusion field. The target quantifies over every faithful realization and asserts bijectivity itself.",
+  "checked_alternate_encodings": [
+    {
+      "target": "Stage1Instances.THM_M_0547.ExpandedLefschetzDualityTarget",
+      "relationship": "iff",
+      "checked_witness": "Stage1Instances.THM_M_0547.lefschetzDualityTarget_iff_expanded",
+      "boundary": "Direct expansion with identical ordered binders, realization premise, degree convention, cap-product map, and bijectivity conclusion."
+    }
+  ],
+  "uncredited_alternate_encodings": [
+    "Poincare duality restricted to boundaryless manifolds",
+    "noncompact finite-type manifolds without a checked compact-support transport",
+    "arbitrary coefficient rings or local coefficient systems",
+    "integer-graded homology without a checked Nat-index transport",
+    "an abstract package containing the desired isomorphism as input data",
+    "the legacy AwesomeTheorems.Stage1.S1_M_119.StatementShape"
+  ],
+  "degenerate_and_boundary_cases": {
+    "included": [
+      "empty boundary, yielding the closed-manifold specialization",
+      "possibly empty or disconnected compact carriers, with faithful realizations interpreted componentwise",
+      "degree q = 0",
+      "all natural q, including q > n under the recorded truncated Nat grading convention"
+    ],
+    "excluded": [
+      "noncompact manifolds",
+      "manifolds not represented by the concrete pinned ModelWithCorners/IsManifold boundary model",
+      "unreviewed local-coefficient and coefficient-ring variants"
+    ],
+    "grading_boundary": "The pinned interface is Nat-indexed and uses n - q. A native integer-graded API must provide a checked transport proving that above-dimension groups and the truncation convention agree."
+  },
+  "environment_fingerprint": {
+    "repository_base_revision": "1cc6aa61bb055a5c032297ee457905c849af7608",
+    "repository_base_tree": "dc3053b55c5724ccb2e6a247e7deffebca9dbb99",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_options": [
+      "pp.universes=true",
+      "pp.explicit=true"
+    ],
+    "dependency_mode": "automation-provided canonical pinned .lake symlink used read-only; no update, build, fetch, clone, or dependency mutation"
+  },
+  "foundation_profile": "Lean 4 dependent type theory under pinned mathlib. The statement introduces no axiom, opaque declaration, unsafe code, oracle, or proof placeholder. The definitional expansion reports only the imported foundation boundary propext, Classical.choice, and Quot.sound.",
+  "tcb_profile": "Lean kernel 4.29.0 plus pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95. No theorem body or provider acceptance is imported or credited.",
+  "computation_profile": "Noncomputable structural objects may be used by later work. No native computation, experiment, solver, oracle, generated instance, or unchecked certificate is used or credited.",
+  "mutation_tests": {
+    "validator": "Stage1_Instances/THM-M-0547/check_statement.py",
+    "killed": [
+      {
+        "kind": "removed_hypothesis",
+        "declaration": "mutationRemovedOrientation",
+        "expression_sha256": "a7bae7b8dc2a63b261c78586d5eae70b6335b7fba3347a4583408c5f5290ce8c"
+      },
+      {
+        "kind": "changed_domain",
+        "declaration": "mutationChangedToAbsoluteHomology",
+        "expression_sha256": "e5eea1b6bb26e21d772e528a3e84f267993a542fcdf8840c4ad0ca2b41a2298c"
+      },
+      {
+        "kind": "changed_binder_scope",
+        "declaration": "mutationChangedBinderScope",
+        "expression_sha256": "f79cb73595de19e225c495c329db0842eace0a907672c1eae4e76caa4d1ec2fd"
+      },
+      {
+        "kind": "boundary_case",
+        "declaration": "mutationBoundaryDegreeZeroOnly",
+        "expression_sha256": "2ea6971db47b085f1d0a21ea1ce87a62a9a3bf0438a5355c38bf08162370adad"
+      }
+    ],
+    "method": "Each mutation is separately kernel-elaborated and fully printed. Lean rejects the recorded exact-type substitutions, and the validator requires all five fully explicit expression fingerprints to be pairwise distinct."
+  },
+  "source_fidelity_boundary": "The repository gloss and intake identify the standard theorem family, but no accepted immutable primary-source edition, page, exact definition chain, coefficient convention, errata disposition, or independent H0 review exists. The compact integral form is frozen as the statement target while H0 remains open.",
+  "root_vector_before": {
+    "H": "H2",
+    "M": "M4",
+    "R": "R4"
+  },
+  "root_vector_after": {
+    "H": "H2",
+    "M": "M3",
+    "R": "R4"
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "gate_state": "worker_self_tested_pending_dependency_ordered_master_acceptance",
+  "status_boundary": "This freezes and kernel-elaborates the selected compact integral Lefschetz-duality proposition, a checked expansion, four structural mutations, the empty dependency closure, and the pinned environment only. It supplies no theorem proof, native topology transport, source H0, anchor-audit closure, M0, R0, audit completion, theorem completion, release, inherited provider acceptance, or master acceptance."
+}

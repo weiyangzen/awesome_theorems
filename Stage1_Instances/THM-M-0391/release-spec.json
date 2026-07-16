@@ -1,12 +1,12 @@
 {
   "schema_version": "stage1-release-recipe/1.0",
-  "recipe_id": "S56-M-0391-RELEASE-negative-reconciliation-v2",
+  "recipe_id": "S56-M-0391-RELEASE-negative-reconciliation-v3",
   "item_id": "S56-M-0391-RELEASE",
   "theorem_id": "THM-M-0391",
   "phase": "release",
   "intent": "release",
-  "base_revision": "c5037228977a81948bbd6119e1728b4b65b9924e",
-  "base_tree": "78b2627e717156dffe240bea12d14205af667d2a",
+  "base_revision": "1cc6aa61bb055a5c032297ee457905c849af7608",
+  "base_tree": "dc3053b55c5724ccb2e6a247e7deffebca9dbb99",
   "cwd": ".",
   "argv": [
     "/usr/bin/python3",
@@ -22,6 +22,36 @@
   "timeout_seconds": 180,
   "network_policy": "denied",
   "network_enforcement": "The validator performs only local strict-JSON, Git, byte-hash, and source-hygiene checks. It does not invoke Lean, Lake, a network client, or any dependency mutation. Narrow Lean elaboration is recorded separately as warm nonrelease worker evidence.",
+  "release_protocol_recipes": {
+    "immutable_clean_cold_offline": {
+      "required": true,
+      "available": false,
+      "argv": null,
+      "status": "blocked_missing_immutable_empty_cache_offline_snapshot",
+      "evidence_credit": false
+    },
+    "supply_chain_sbom_licenses": {
+      "required": true,
+      "available": false,
+      "argv": null,
+      "status": "blocked_missing_sbom_license_and_archive_closure",
+      "evidence_credit": false
+    },
+    "deterministic_bundle": {
+      "required": true,
+      "available": false,
+      "argv": null,
+      "status": "blocked_missing_content_addressed_release_bundle",
+      "evidence_credit": false
+    },
+    "independent_verification": {
+      "required": true,
+      "available": false,
+      "argv": null,
+      "status": "blocked_missing_two_distinct_attestations_and_minimal_verifier",
+      "evidence_credit": false
+    }
+  },
   "expected_exit": 0,
   "expected_semantic_result": {
     "schema_version": "stage1-validator-semantic-result/1.0",

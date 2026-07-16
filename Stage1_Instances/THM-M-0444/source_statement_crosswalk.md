@@ -15,13 +15,21 @@ user-supplied norm relation would be a definition-shaped tautology, not Kolyvagi
 Likewise, replacing construction with a downstream Selmer or BSD consequence would broaden or
 substitute the target.
 
-The next phase must first select a primary-source theorem by edition, theorem number and page. It
-must then transcribe every datum, ordered binder, hypothesis, relation, convention and boundary
-case; check corrections/errata; and only then propose and mutation-test a Lean expression. Until
-that work is independently reviewed, the human-source status remains `H3` and machine status `M4`.
+The statement-phase audit found no additional owned source evidence that resolves this ambiguity.
+It must first select a primary-source theorem by edition, theorem number and page, then transcribe
+every datum, ordered binder, hypothesis, relation, convention and boundary case, check corrections
+and errata, and only then propose and mutation-test a Lean expression. Until that work is
+independently reviewed, the human-source status remains `H3` and machine status `M4`.
+
+`Statement.lean` now elaborates only the two pinned adjacent interfaces
+`Field.absoluteGaloisGroup` and `IsDedekindDomain.selmerGroup`. Neither declaration expresses an
+Euler-system construction, and neither fixes the missing source choices. The legacy
+`AwesomeTheorems.Stage1.S1_M_090.StatementShape` is also excluded: it merely asks for nonemptiness
+of a caller-supplied abstract package containing the desired classes and compatibility fields.
+Consequently there is no exact premise/boundary mapping, canonical expression fingerprint, checked
+transport, or meaningful mutation result to credit in this phase.
 
 Discovery links (not immutable evidence receipts):
 
 - Kolyvagin, *Euler systems*: <https://doi.org/10.1007/978-0-8176-4575-5_11>
 - Kolyvagin, *Finiteness of E(Q) and Sha(E,Q) for a subclass of Weil curves*: <https://doi.org/10.1070/IM1989v032n03ABEH000779>
-

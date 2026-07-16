@@ -31,3 +31,25 @@ specialization. It must then elaborate that exact target and mutation-test omitt
 changed fields/orders, the central point, height scaling, and local factors before anchor evidence is
 observed. No H0, M0, or checked transport claim is made here.
 
+## Statement-phase source disambiguation
+
+The target-owned recheck at base `6bf9ee93a322e7d25cf9249226222095f95d1cff` records an
+author-hosted 96-page scan of the Gross-Zagier paper: 4,395,679 bytes with SHA-256
+`8afee839cdc0e2056c6dcbe348e39c0a6aa27344125d8c3b80dd735f2e6d9521`. The scan bytes are not
+preserved in the repository, so this identity and its transcription remain non-H0 evidence. It
+nonetheless establishes why the short catalog gloss cannot select an exact proposition:
+
+| Candidate | Source locator | Material statement boundary |
+|---|---|---|
+| General Rankin formula | Chapter I, Theorem (6.3), journal page 230 | A normalized weight-two newform and class-group character, a Rankin derivative, an isotypical Heegner-divisor component in a Jacobian, and explicit Petersson, class-number, unit-index, and discriminant factors |
+| Elliptic application | Chapter I, Theorem (7.3), journal page 231 | Under `L(E, 1) = 0`, a rational point whose canonical height gives `L'(E, 1)` up to a real period and nonzero rational factor |
+| Elliptic base-change identity | Chapter V, Theorem (2.1), journal page 311 | An explicit `L'(E/K, 1)` identity using a modular parametrization, differential norm, traced Heegner point, canonical height, unit index, and discriminant |
+
+The correction immediately after Chapter I equation (5.3), journal page 229, says Euler factors at
+primes dividing the level had not been removed in the earlier announcement. Thus even within a
+candidate family, the L-series and local-factor convention is statement material.
+
+No authoritative target record chooses among these candidates, preserves immutable source bytes,
+or supplies an independently accepted exact transcription and notation ledger. Therefore the
+canonical statement, ordered binders, normalization, Lean expression, transports, and mutation
+fixtures remain deliberately unfrozen.

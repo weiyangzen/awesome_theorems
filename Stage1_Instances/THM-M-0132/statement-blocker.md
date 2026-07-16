@@ -1,8 +1,22 @@
 # Statement gate blocker
 
-Item: `S56-M-0132-STATEMENT`  
-Theorem: `THM-M-0132`  
+Item: `S56-M-0132-STATEMENT`
+Theorem: `THM-M-0132`
 Verdict: blocked; no exact canonical Lean target is claimed.
+
+This target-owned negative result is normalized to the HEAD statement contract. The selected
+roles are `statement.json`, `Statement.lean`, `source_statement_crosswalk.md`, and exactly one
+`stage1-node-receipt/1.0` phase receipt. The validator's typed semantic result is blocked with
+`phase_accepted=false`; a successful validation run proves the blocker packet internally
+consistent, not the positive statement deliverable. No declared statement validator existed at
+the worker base, so the HEAD contract also forbids this new candidate validator from supporting
+master acceptance until an authority-owned base validator is available in a fresh claim.
+
+The v2 claim order is `(v2_execution_rank=283, phase_layer=1,
+phase_item_id=S56-M-0132-STATEMENT)`. Its complete `parent_inspection_order` is `[]`: there are no
+direct hard parents, transitive hard ancestors, reuse hints, or shared groups. The refreshed
+schema-1.1 ledger records that empty traversal. No declaration, proof body, receipt, or acceptance
+is reused or transferred.
 
 ## First failed gate
 
@@ -20,19 +34,24 @@ require a normalized weight-two newform, conductor-level equality, or any concre
 compatibility. Treating that boundary as BCDT Theorem A would strictly weaken and substitute the
 source theorem.
 
+In particular, its placeholder L-series, Frobenius-trace, and Galois-representation fields are
+not source-admitted mathematical relations. The source's Gamma1/X1 convention likewise has no
+checked transport to the available Gamma0 cusp-form surface.
+
 Defining a fresh opaque compatibility proposition would have the same defect. Consequently an
 exact normalized expression, expression hash, checked alternate transports, and meaningful
 removed-condition mutations cannot truthfully be produced with the pinned object model. The gate
 therefore remains `M3`: the mathematical claim is identified, but its exact Lean encoding is
 blocked by formalization infrastructure.
 
-`StatementInfrastructure.lean` checks only the minimal available curve and cusp-form object
-families. It introduces no canonical target, theorem proof, axiom, or proxy modularity relation.
+`Statement.lean` checks only the minimal available curve and cusp-form object families. It
+introduces no canonical target, theorem proof, axiom, or proxy modularity relation.
 
 ## Environment fingerprint
 
-- Repository base revision: `3cc156c14b467bdd20c55f17216d5770150cd6bc`.
-- Validation date: 2026-07-12.
+- Repository base revision: `1cc6aa61bb055a5c032297ee457905c849af7608` (tree
+  `dc3053b55c5724ccb2e6a247e7deffebca9dbb99`).
+- Validation date: 2026-07-17 (`Asia/Shanghai`).
 - Lean toolchain: `leanprover/lean4:v4.29.0`; Lean `4.29.0`, commit
   `98dc76e3c0a9b856c9b98726b713fb04fab16740`.
 - mathlib Lake pin and checked revision:
@@ -49,7 +68,7 @@ fetch, clone, or build command was used.
 
 | Command | Exit | Result |
 |---|---:|---|
-| `cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0132/StatementInfrastructure.lean` | 0 | Minimal pinned object-model elaborated; three expected declaration types printed |
+| `cd Formalizations/Lean && LC_ALL=C TZ=UTC lake env lean --trust=0 ../../Stage1_Instances/THM-M-0132/Statement.lean` | 0 | Minimal pinned object-model probe elaborated; four expected declaration types printed; no canonical target |
 | `cd Formalizations/Lean && lake env lean AwesomeTheorems/Stage1/S1_M_049.lean` | 0 | Legacy discovery boundary elaborated; this supplies no exact-statement credit |
 | `cd Formalizations/Lean && lake env lean --version` | 0 | Lean 4.29.0, commit `98dc76e3c0a9b856c9b98726b713fb04fab16740` |
 | `git -C Formalizations/Lean/.lake/packages/mathlib rev-parse HEAD` | 0 | Checked mathlib revision equals the manifest pin |
@@ -67,5 +86,7 @@ isomorphism transports needed for BCDT Theorem A. The statement phase can then f
 binders and conclusion, normalize and hash the elaborated expression, and run domain, hypothesis,
 binder-scope, level, weight, normalization, and compatibility mutations.
 
-Until then, statement acceptance and theorem completion are false. Because the assigned phase is
-not self-tested to its completion gate, no `.stage1-worker-selftest.json` is emitted.
+Until then, statement acceptance and theorem completion are false. The target-owned negative
+evidence is self-tested and emitted in `.stage1-worker-selftest.json` with state `[_]`, but that
+packet is only a scheduler handoff. It grants no positive statement, master acceptance, audit
+completion, or theorem-completion credit.

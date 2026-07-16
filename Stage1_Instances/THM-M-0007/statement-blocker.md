@@ -1,8 +1,9 @@
 # Statement gate blocker
 
-Item: `S56-M-0007-STATEMENT`  
-Theorem: `THM-M-0007`  
+Item: `S56-M-0007-STATEMENT`
+Theorem: `THM-M-0007`
 Verdict: blocked; no exact canonical Lean target is claimed.
+Worker base: `1cc6aa61bb055a5c032297ee457905c849af7608`.
 
 ## First failed gate
 
@@ -24,13 +25,15 @@ the intake's explicit exclusion of opaque proxy fields and would broaden the exa
 
 Therefore ordered binders, exact conclusion, definition-level source crosswalk, expression
 fingerprint, checked transports, and meaningful statement mutations cannot truthfully be frozen.
-`StatementInfrastructure.lean` checks only the noncontroversial typed substrate and deliberately
-declares no canonical theorem, axiom, placeholder, or proxy convergence predicate.
+`Statement.lean` checks only the noncontroversial typed substrate and deliberately declares no
+canonical theorem, axiom, placeholder, or proxy convergence predicate. Accordingly the positive
+statement completion predicate fails at `S02-EXACT-TARGET`; the four required `S03-MUTATIONS`
+classes cannot be executed without manufacturing a canonical expression.
 
 ## Environment fingerprint
 
-- Repository base revision: `526d1cb643888ebd37396204101ee24420b8bd95`.
-- Validation date: 2026-07-12.
+- Repository base revision: `1cc6aa61bb055a5c032297ee457905c849af7608`.
+- Validation date: 2026-07-17.
 - Lean toolchain: `leanprover/lean4:v4.29.0`; Lean `4.29.0`, commit
   `98dc76e3c0a9b856c9b98726b713fb04fab16740`.
 - mathlib Lake pin: `8a178386ffc0f5fef0b77738bb5449d50efeea95`.
@@ -42,17 +45,18 @@ update, build, fetch, or clone command was used.
 
 | Command | Exit | Result |
 |---|---:|---|
-| `lake env lean ../../Stage1_Instances/THM-M-0007/StatementInfrastructure.lean` | 0 | all four `#check` commands printed typed declarations |
+| `lake env lean --trust=0 ../../Stage1_Instances/THM-M-0007/Statement.lean` | 0 | all four `#check` commands printed typed declarations; this is substrate evidence only |
 | `lake env lean AwesomeTheorems/Stage1/S1_M_094.lean` | 0 | legacy discovery artifact elaborated; not exact-statement credit |
 | `lake env lean --version` | 0 | Lean 4.29.0, commit `98dc76e3c0a9b856c9b98726b713fb04fab16740` |
 | `git -C .lake/packages/mathlib rev-parse HEAD` | 0 | `8a178386ffc0f5fef0b77738bb5449d50efeea95` |
 | `sha256sum lean-toolchain lake-manifest.json lakefile.lean` | 0 | respectively `651c8a...81d2`, `321626...2d81`, and `43259b...4b4dcda` |
 | `rg -l "StronglyConverges\|stronglyConverges\|ConvergesTo\|convergesTo\|abutment\|Abutment" Formalizations/Lean/.lake/packages/mathlib/Mathlib/Algebra/Homology Formalizations/Lean/.lake/packages/mathlib/Mathlib/CategoryTheory -g '*.lean' \| wc -l` | 0 | `0` matching files |
-| `python3 Docs/tools/check_stage1_standard.py` | 0 | 15 assurance groups and 1546 uniform-L0 targets |
-| `python3 scripts/stage1_target.py check` | 0 | 1546 unique targets, ranks 1 through 1546 |
-| `python3 scripts/stage1_target.py show THM-M-0007` | 0 | rank 94, planned, L0/rework-required, theorem incomplete |
-| `python3 -m json.tool Stage1_Instances/THM-M-0007/{instance,task-dag}.json` (expanded to one command per file) | 0 | both inherited intake JSON files remain valid |
-| `git diff --check -- Stage1_Instances/THM-M-0007` | 0 | no output |
+| `/usr/bin/python3 -I -B Stage1_Instances/THM-M-0007/check_statement.py` | 0 | emits exactly one typed negative semantic JSON object with `phase_accepted=false`; scheduler replay still requires these validator bytes at a later worker base |
+
+The exact final command list and results are content-bound in `statement-receipt.json` and the root
+worker self-test handoff. Global v2 inventory validators are expected to report the new target-owned
+evidence inventory as stale until the master lane integrates these files and regenerates its
+read-only projection; this worker does not edit that authority.
 
 ## Retry condition
 
@@ -63,5 +67,5 @@ its complete expansion, and run source-directed hypothesis, domain, binder-scope
 mutations.
 
 Until then the statement gate remains at `M4`; statement acceptance and theorem completion are
-false. Because the assigned phase cannot be self-tested to completion, no
-`.stage1-worker-selftest.json` is emitted.
+false. The negative packet may be worker-self-tested and handed off as `[_]`, but raw `blocked`
+cannot close this positive phase and cannot be inferred as `phase_accepted` from exit code zero.

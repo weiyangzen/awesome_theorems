@@ -1,0 +1,256 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0445-STATEMENT-blocked-bootstrap-20260717-v1",
+  "item_id": "S56-M-0445-STATEMENT",
+  "theorem_id": "THM-M-0445",
+  "phase": "statement",
+  "intent": "audit",
+  "base_revision": "1cc6aa61bb055a5c032297ee457905c849af7608",
+  "base_tree": "dc3053b55c5724ccb2e6a247e7deffebca9dbb99",
+  "inputs": {
+    "task_state_authority": {
+      "path": "Docs/Stage1_Blueprint_v2.md",
+      "sha256": "fb6cd286dc5c47e22d754ab73e5162986e98a18b5bc6d8e7213ae5d39b4256d1",
+      "item_state_observed": "[ ]",
+      "attempts_observed": 0,
+      "predecessor_state_observed": "[_]"
+    },
+    "assurance_authority": {
+      "path": "Docs/Stage1_Blueprint_rev-5.6.md",
+      "sha256": "3779901013ac5e0b1f1b2bb4ea7a2ee08429f85bb1ee26c4b96905d6796c65c8"
+    },
+    "phase_acceptance_contract": {
+      "path": "Docs/Stage1_Phase_Acceptance_Contracts.json",
+      "sha256": "1e7adf0f4fae0541b3595d4b0bfbb53f7eb17e28a4a889fec14f6df969e0cec4"
+    },
+    "target_manifest": {
+      "path": "Docs/Stage1_Targets_rev-5.6.json",
+      "sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c"
+    },
+    "theorem_dag": {
+      "path": "Docs/Stage1_Theorem_DAG_v2.json",
+      "sha256": "e8472863a24609e37868f215bbf0e0654b11a62f912a403ebca5feb8de5a3b9b"
+    },
+    "dependency_context_sha256": "068170c76abd4579d643ede04d731b974412185bd285e7b40255ec4044adec5c",
+    "parent_inspection_order": [],
+    "provider_acceptance_inherited": false,
+    "dependency_reuse_ledger": {
+      "path": "Stage1_Instances/THM-M-0445/dependency-reuse-ledger.json",
+      "sha256": "d62cbb86f3bb2ece7565ed0bed7f0301be14171d0446323c413acee0e4644933",
+      "git_blob": "8f8bb269bc4193fbde68f570a249f5145c3597ae"
+    },
+    "validator_bootstrap": {
+      "path": "Stage1_Instances/THM-M-0445/check_statement.py",
+      "sha256": "d1275341446a782d330b2aa9d7732ef9d06b2a5eaa7d9874e02e2a1356a98c9c",
+      "git_blob": "e915947421b9473dd569baabc3f952fec4f0ee26",
+      "base_candidate_existed": false,
+      "authority_replay_eligible_this_run": false,
+      "contract_boundary": "The validator must be integrated unchanged and replayed from a fresh worker base before it can be selected for authority evidence."
+    },
+    "lean_toolchain": {
+      "path": "Formalizations/Lean/lean-toolchain",
+      "sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2"
+    },
+    "lake_manifest": {
+      "path": "Formalizations/Lean/lake-manifest.json",
+      "sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
+    },
+    "legacy_discovery_module": {
+      "path": "Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_091.lean",
+      "sha256": "755068effda6d0d7c2047b5b35db9376c2851f391c3543a971aafbae80bc49e5",
+      "credit": "discovery_only"
+    }
+  },
+  "support_state": "provisional_worker_selftest",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "verdict": "blocked",
+  "selftest_status": "passed",
+  "selftest_result": {
+    "exit_code": 0,
+    "commands": [
+      {
+        "argv": [
+          "python3",
+          "Docs/tools/check_stage1_standard.py"
+        ],
+        "cwd": ".",
+        "exit_code": 1,
+        "expected_failure": "Target-owned statement inventory changes make the checked-in theorem-DAG projection stale until the master integration lane regenerates it."
+      },
+      {
+        "argv": [
+          "python3",
+          "Docs/tools/check_stage1_theorem_dag_v2.py"
+        ],
+        "cwd": ".",
+        "exit_code": 1,
+        "expected_failure": "Target-owned statement inventory changes make the checked-in theorem-DAG projection stale until the master integration lane regenerates it."
+      },
+      {
+        "argv": [
+          "python3",
+          "scripts/stage1_target.py",
+          "check"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "python3",
+          "scripts/stage1_target.py",
+          "show",
+          "THM-M-0445"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "lake",
+          "env",
+          "lean",
+          "--trust=0",
+          "../../Stage1_Instances/THM-M-0445/Statement.lean"
+        ],
+        "cwd": "Formalizations/Lean",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "Stage1_Instances/THM-M-0445/check_statement.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "authority_boundary": "Local bootstrap self-test only; the validator was absent at the worker base and is ineligible for same-run authority replay."
+      },
+      {
+        "argv": [
+          "python3",
+          "-m",
+          "json.tool",
+          "Stage1_Instances/THM-M-0445/statement.json"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "python3",
+          "-m",
+          "json.tool",
+          "Stage1_Instances/THM-M-0445/statement-receipt.json"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "python3",
+          "-m",
+          "json.tool",
+          "Stage1_Instances/THM-M-0445/dependency-reuse-ledger.json"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "rg",
+          "-n",
+          "prohibited Lean declaration pattern",
+          "Stage1_Instances/THM-M-0445/Statement.lean"
+        ],
+        "cwd": ".",
+        "exit_code": 1,
+        "expected_no_match": true
+      },
+      {
+        "argv": [
+          "git",
+          "diff",
+          "--check",
+          "--",
+          "Stage1_Instances/THM-M-0445",
+          ".stage1-worker-selftest.json"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      }
+    ]
+  },
+  "known_failures": [
+    "S56-M-0445-INTAKE remains worker-self-tested [_], not master-accepted [x].",
+    "No admitted source identifies one exact Rubin or Kolyvagin theorem, so the curve domain, binders, hypotheses, conclusion, and boundary cases remain unresolved.",
+    "The canonical Lean target, expression fingerprint, canonical-target import minimality, checked transports, and all four statement mutations remain unavailable.",
+    "The candidate vocabulary probe is not a theorem and supplies no statement, proof, phase-acceptance, audit-completion, or theorem-completion credit.",
+    "No HEAD-tracked statement-validator candidate existed at the worker base. This new validator is a bootstrap artifact only and cannot support same-run authority replay or master acceptance.",
+    "The master-owned theorem-DAG inventory is expectedly stale for the new target-owned artifacts until integration regenerates it; this worker did not edit any authoritative projection."
+  ],
+  "first_failed_gate": "S02-EXACT-TARGET.exact_source_statement_identity_and_theorem_variant_selection",
+  "retry_condition": "Admit and independently review one exact primary or approved-authoritative Rubin or Kolyvagin theorem passage with stable edition, theorem/page locator, incorporated definitions, ordered hypotheses, precise conclusion, correction and errata disposition. Integrate this validator unchanged and use a fresh worker base. Then encode only the admitted claim, prove minimal pinned imports, serialize its elaborated expression and environment, check every credited transport, and run all four statement mutations.",
+  "status_boundary": "Self-tested target-owned negative statement and validator-bootstrap evidence only. The local validator proves the blocker record is internally consistent; the HEAD contract makes it ineligible for same-run authority replay because it was absent at the worker base. This receipt grants no canonical statement, proof, H0, M0, R0, AUDIT-Z, THEOREM-Z, theorem completion, phase acceptance, or master acceptance.",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "invalidation_inputs": [
+    "repository source wording, admitted primary or approved-authoritative source, translation, correction, errata, or independent source review",
+    "canonical claim, domain, binder, hypothesis, conclusion, boundary, Lean target, transport, mutation, statement record, source crosswalk, receipt, validator, or worker packet",
+    "v2 blueprint, theorem DAG, phase acceptance contract, target manifest, rev-5.6 assurance standard, Blueprint Guidelines, or execution skill",
+    "Lean/Lake executable, toolchain, Lake manifest, mathlib revision/tree/source/object vocabulary, or dependency layout"
+  ],
+  "statement_fingerprints": [],
+  "mutation_tests": {
+    "removed_hypothesis": "not_executable_without_a_canonical_statement",
+    "changed_domain": "not_executable_without_a_canonical_statement",
+    "changed_binder_scope": "not_executable_without_a_canonical_statement",
+    "boundary_case": "not_executable_without_a_canonical_statement"
+  },
+  "artifact_bindings": {
+    "statement_record": {
+      "role": "statement_record",
+      "path": "Stage1_Instances/THM-M-0445/statement.json",
+      "sha256": "589371fc313cced36bb9a7e087602d6caf5a2f828a610e028fa6fbbc55ebe16b",
+      "git_blob": "f30e77268d282f65f7d3a321676d78a5fe95506d"
+    },
+    "statement_source": {
+      "role": "statement_source",
+      "path": "Stage1_Instances/THM-M-0445/Statement.lean",
+      "sha256": "5a3590ae568c83a03fb1068dc038152303704520f3946d079201e1b098b5771e",
+      "git_blob": "18176a403619621df52eddcc15fbafe0a386b8df"
+    },
+    "source_crosswalk": {
+      "role": "source_crosswalk",
+      "path": "Stage1_Instances/THM-M-0445/source_statement_crosswalk.md",
+      "sha256": "0f223d2ee107855b1550e8fa579061c2d0e76b7a7383f36b92bc9235a51b6eb0",
+      "git_blob": "5cb54c54f32dea22263c152b0570db525b3f22fb"
+    },
+    "phase_receipt": {
+      "role": "phase_receipt",
+      "path": "Stage1_Instances/THM-M-0445/statement-receipt.json",
+      "sha256": null,
+      "git_blob": null,
+      "binding_owner": "scheduler integration lane"
+    }
+  },
+  "semantic_result": {
+    "schema_version": "stage1-validator-semantic-result/1.0",
+    "item_id": "S56-M-0445-STATEMENT",
+    "theorem_id": "THM-M-0445",
+    "phase": "statement",
+    "status": "blocked",
+    "verdict": "blocked",
+    "phase_accepted": false,
+    "audit_complete": false,
+    "theorem_complete": false,
+    "phase_predicate_proven": false,
+    "first_failed_gate": "S02-EXACT-TARGET.exact_source_statement_identity_and_theorem_variant_selection",
+    "open_obligations": 4,
+    "stale_inputs": [],
+    "blocked": true,
+    "message": "The admitted source does not select one exact Rubin or Kolyvagin theorem; the canonical Lean target and required statement mutations remain unavailable."
+  }
+}
