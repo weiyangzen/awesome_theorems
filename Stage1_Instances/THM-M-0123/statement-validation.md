@@ -1,7 +1,7 @@
 # Statement validation record
 
 Item: `S56-M-0123-STATEMENT`  
-Base revision: `2dc5a410b68eff806858fd6ed0cb33d57f6209f7`
+Base revision: `6cff7bae0e4547cf9ad8b7abaae20d1abb9fe049`
 
 ## Frozen target
 
@@ -33,8 +33,8 @@ curve binder to an existential binder, and permitting genus one. Lean rejects
 each as a term of the canonical target with `#check_failure`, and
 `check_statement.py` requires all five explicit expressions to be pairwise
 distinct. It also checks the definitional expansion, the section/slice point
-transport, the empty v2 dependency closure, the graph/context digests, the
-pinned environment, and the artifact bindings.
+transport, the empty hard-parent closure, the sole weak shared-module decision,
+the graph/context digests, the pinned environment, and the artifact bindings.
 
 ## Commands and results
 
@@ -43,16 +43,20 @@ pinned environment, and the artifact bindings.
 | repository root | `python3 scripts/stage1_target.py check` | 0 | 1546 unique uniform-L0 targets passed |
 | repository root | `python3 scripts/stage1_target.py show THM-M-0123` | 0 | rank 42, planned, legacy evidence unaccepted, theorem incomplete |
 | `Formalizations/Lean` | `LC_ALL=C TZ=UTC lake env lean ../../Stage1_Instances/THM-M-0123/Statement.lean` | 0 | exact target, three transports, four expected mutation rejections, explicit expression, and axiom reports elaborated |
-| repository root | `/usr/bin/python3 -I -B Stage1_Instances/THM-M-0123/check_statement.py` | 0 | exactly one semantic JSON result with `phase_accepted=true`; expression, source, output, dependency, and artifact bindings agreed |
+| repository root | `/usr/bin/python3 -I -B Stage1_Instances/THM-M-0123/check_statement.py` | 0 | unchanged scheduler validator emitted one typed `repair_required` JSON result because its worker-base contract pins the pre-integration `[ ]` cursor |
+| repository root | `/usr/bin/python3 -I -B Stage1_Instances/THM-M-0123/statement-head-selftest.py` | 0 | current HEAD claim order, unique immutable validator selection, weak-group decision, receipt, and worker packet agree |
 | repository root | `git diff --check -- Stage1_Instances/THM-M-0123 .stage1-worker-selftest.json` | 0 | no whitespace errors |
 
-The repository structural validator was also run and truthfully returned exit
-1: the checked-in v2 DAG differs from fresh deterministic generation because
-the new worker-owned source and receipt appear in its derived evidence
-inventory. Workers are forbidden to update that generated authority; the
-integration lane must regenerate it atomically when it accepts this packet.
-This expected integration delta does not alter the target's parent closure,
-rank, dependency-context digest, or authoritative statement state.
+The repository structural and v2 theorem-DAG validators were also run. Both
+truthfully return exit 1 because refreshing the owned receipt and ledger makes
+the checked-in, read-only evidence inventory stale; workers are forbidden to
+regenerate that authority projection. The target itself has no hard parent or
+transitive ancestor. Its sole weak shared group co-mentions the Atlas Faltings
+module with `THM-M-0122`; that member's current states, receipts, Lean bodies,
+and reusable artifacts were inspected. It has no premise-free terminal theorem,
+so the ledger records `not_applicable` and transfers no body, receipt, checkbox,
+or acceptance credit. The scheduler must reconcile the derived inventory during
+integration and replay both structural checks.
 
 The canonical explicit-expression SHA-256 is
 `9fa3c7a0bff55098e7cc234793cb06ec1628e84e003ddb273a6dc47094f58dbd`;

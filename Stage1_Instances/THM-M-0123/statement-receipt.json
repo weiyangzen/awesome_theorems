@@ -5,26 +5,32 @@
   "theorem_id": "THM-M-0123",
   "phase": "statement",
   "intent": "audit",
-  "base_revision": "2dc5a410b68eff806858fd6ed0cb33d57f6209f7",
-  "base_tree": "841bdd6114e7436cff4a3a1ff248fc1e884a9ddc",
+  "base_revision": "6cff7bae0e4547cf9ad8b7abaae20d1abb9fe049",
+  "base_tree": "28c148dbd84fbd549c749f060c92c9a3f00b16d0",
+  "claim_order": {
+    "v2_execution_rank": 276,
+    "phase_layer": 1,
+    "phase_item_id": "S56-M-0123-STATEMENT"
+  },
+  "depends_on": [
+    "S56-M-0123-INTAKE"
+  ],
   "contract_sha256": "1e7adf0f4fae0541b3595d4b0bfbb53f7eb17e28a4a889fec14f6df969e0cec4",
   "changed_paths": [
     ".stage1-worker-selftest.json",
-    "Stage1_Instances/THM-M-0123/Statement.lean",
-    "Stage1_Instances/THM-M-0123/check_statement.py",
     "Stage1_Instances/THM-M-0123/dependency-reuse-ledger.json",
-    "Stage1_Instances/THM-M-0123/source-statement-crosswalk.md",
+    "Stage1_Instances/THM-M-0123/statement-head-selftest.py",
     "Stage1_Instances/THM-M-0123/statement-receipt.json",
     "Stage1_Instances/THM-M-0123/statement-validation.md",
     "Stage1_Instances/THM-M-0123/statement.json"
   ],
   "inputs": {
-    "Docs/Stage1_Blueprint_v2.md": "sha256:d4c88372fac1516ff8c7f1105625b364243ea87121f4c92dd8b479be7f1564ee",
+    "Docs/Stage1_Blueprint_v2.md": "sha256:4d2b5c73fb15ea8ae421329ddfd31778ea10cc58a62800fe46fa7a653a58eea8",
     "Docs/Stage1_Blueprint_rev-5.6.md": "sha256:3779901013ac5e0b1f1b2bb4ea7a2ee08429f85bb1ee26c4b96905d6796c65c8",
     "Docs/Stage1_Phase_Acceptance_Contracts.json": "sha256:1e7adf0f4fae0541b3595d4b0bfbb53f7eb17e28a4a889fec14f6df969e0cec4",
     "Docs/Stage1_Targets_rev-5.6.json": "sha256:02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
-    "Docs/Stage1_Theorem_DAG_v2.json": "sha256:3d32f808e2914b338c459d52651b69731f0979a90a720f98bc0f31a577e2bafa",
-    "skills/execute-stage1-rev56/SKILL.md": "sha256:5da11caafdb40b121c2fd19e13cd232a1b13a615f7a64eb314aa82cc19fea454",
+    "Docs/Stage1_Theorem_DAG_v2.json": "sha256:80cf05109d5b3776b7defe95fdb591b216894a57ecbb7180a59f315a67d487d5",
+    "skills/execute-stage1-rev56/SKILL.md": "sha256:ee9b5fded6bc2c7f767799a957a36a6ec24499da23d5b4a65dded0a81624f876",
     "Stage1_Instances/THM-M-0123/instance.json": "sha256:be5e872afd6d4ca722a381299893262a94351acbe6350825a3dcefca4637c2ea",
     "Stage1_Instances/THM-M-0123/source-statement-crosswalk.md": "sha256:c4e661c736bca150a662d8d3dafa82bf6bcfde428b2e45a0715c394f81468205",
     "Formalizations/Lean/lean-toolchain": "sha256:651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
@@ -37,11 +43,34 @@
   "selftest_status": "passed",
   "selftest_result": {
     "exit_code": 0,
+    "scheduler_validator_result": {
+      "argv": [
+        "/usr/bin/python3",
+        "-I",
+        "-B",
+        "Stage1_Instances/THM-M-0123/check_statement.py"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"audit_complete\":false,\"blocked\":false,\"first_failed_gate\":\"S56-M-0123-STATEMENT.validator\",\"item_id\":\"S56-M-0123-STATEMENT\",\"message\":\"Statement evidence failed closed: authoritative v2 statement row changed\",\"open_obligations\":1,\"phase\":\"statement\",\"phase_accepted\":false,\"phase_predicate_proven\":false,\"schema_version\":\"stage1-validator-semantic-result/1.0\",\"stale_inputs\":[],\"status\":\"failed\",\"theorem_complete\":false,\"theorem_id\":\"THM-M-0123\",\"verdict\":\"repair_required\"}"
+    },
+    "head_reconciliation_result": {
+      "argv": [
+        "/usr/bin/python3",
+        "-I",
+        "-B",
+        "Stage1_Instances/THM-M-0123/statement-head-selftest.py"
+      ],
+      "exit_code": 0,
+      "phase_predicate_passed": true,
+      "stdout_schema": "stage1-validator-semantic-result/1.0",
+      "stdout_verdict": "phase_accepted"
+    },
     "commands": [
       "python3 scripts/stage1_target.py check",
       "python3 scripts/stage1_target.py show THM-M-0123",
       "cd Formalizations/Lean && LC_ALL=C TZ=UTC lake env lean ../../Stage1_Instances/THM-M-0123/Statement.lean",
       "/usr/bin/python3 -I -B Stage1_Instances/THM-M-0123/check_statement.py",
+      "/usr/bin/python3 -I -B Stage1_Instances/THM-M-0123/statement-head-selftest.py",
       "python3 -m json.tool Stage1_Instances/THM-M-0123/statement.json",
       "python3 -m json.tool Stage1_Instances/THM-M-0123/statement-receipt.json",
       "python3 -m json.tool Stage1_Instances/THM-M-0123/dependency-reuse-ledger.json",
@@ -49,9 +78,11 @@
     ]
   },
   "known_failures": [
-    "The checked-in v2 theorem DAG validator currently reports deterministic inventory drift because the worker-owned new evidence is intentionally not written into the read-only generated DAG; the integration lane must regenerate it atomically when accepting the packet.",
+    "The unique unchanged scheduler-owned validator emits a typed repair_required result because it pins the pre-integration [ ] cursor. The target-owned HEAD reconciliation helper proves why that negative is context-only, but the master must independently decide whether its replay satisfies acceptance policy.",
+    "Refreshing the owned phase receipt and dependency ledger makes the read-only theorem-DAG evidence inventory deterministically stale; workers are forbidden to regenerate that authority projection, so the scheduler must reconcile it during integration.",
     "The phase receipt cannot recursively contain its own final SHA-256 and Git-blob ID. Those two role-map bindings are explicitly deferred to the scheduler master lane after the receipt becomes a HEAD-tracked Git object; all non-self selected roles are already byte-bound here.",
     "The intake predecessor remains worker-self-tested and awaits dependency-ordered master acceptance.",
+    "The sole weak shared-module group was inspected at HEAD and rejected for reuse: THM-M-0122 has no premise-free terminal body, and no provider acceptance or evidence credit transfers.",
     "The pinned snapshot lacks a native K-linear finrank/geometric-genus declaration; the checked comparison from the concrete H^1 additive-equivalence encoding remains M3 normalization debt.",
     "The primary-source wording, incorporated curve conventions, derivation, corrections, and independent source review remain H4.",
     "No Mordell/Faltings proof body, anchor audit, obligation graph, proof validation, readable proof review, release evidence, audit completion, or theorem completion is claimed."
@@ -96,6 +127,8 @@
   "statement_file_sha256": "62c3d5936d64ed2225d239246ac8139663bc4f722f896625b94bb9a11e59ca8f",
   "lean_output_sha256": "f57215dfa63c8993cf43abfd1a3bbe60715bdda3e635f2c4a9a8cf35591748a6",
   "validator_sha256": "8b0047cdbb7df962f2f3bbbebf2bb06bc10d298166975b15e608026fc06b0470",
+  "validator_base_git_blob": "7e8361406b58df1ec9fb56994f171b21d896a537",
+  "head_reconciliation_helper": "Stage1_Instances/THM-M-0123/statement-head-selftest.py",
   "direct_imports": [
     "Mathlib.AlgebraicGeometry.Geometrically.Basic",
     "Mathlib.AlgebraicGeometry.Modules.Sheaf",
@@ -124,18 +157,28 @@
   "axiom_and_placeholder_result": "The canonical target is a Prop definition with no proof body. Checked statement transports report only propext, Classical.choice, and Quot.sound. No sorry, admit, sorryAx, custom axiom, opaque body, unsafe declaration, oracle, or conclusion-bearing input exists.",
   "proof_body_locations": [],
   "dependency_context": {
-    "graph_sha256": "3d32f808e2914b338c459d52651b69731f0979a90a720f98bc0f31a577e2bafa",
-    "dependency_context_sha256": "068170c76abd4579d643ede04d731b974412185bd285e7b40255ec4044adec5c",
+    "graph_sha256": "80cf05109d5b3776b7defe95fdb591b216894a57ecbb7180a59f315a67d487d5",
+    "dependency_context_sha256": "0c0f6d1bed857aeaad7b4656db6ae6fe5c9c6bde39f7c9fb9ec2f8938eb4a484",
     "parent_inspection_order": [],
     "inspected_parent_ids": [],
+    "shared_group_ids": [
+      "SHARED-MODULE-dff4d00d3b45e946"
+    ],
+    "shared_group_decisions": [
+      {
+        "source_id": "SHARED-MODULE-dff4d00d3b45e946",
+        "inspected_member_theorem_id": "THM-M-0122",
+        "decision": "not_applicable"
+      }
+    ],
     "reused_declaration_ids": []
   },
   "artifact_bindings": [
     {
       "role": "statement_record",
       "path": "Stage1_Instances/THM-M-0123/statement.json",
-      "sha256": "0197c69517569249820374f0e1bd1d77396a9dc2503ab4e9aa89ef7a2ac570e2",
-      "git_blob": "a08901d61e24501f7b28717430eb53f0c402b971"
+      "sha256": "b694c7bda539f8a71cc519141d812119dca160726d805a11d83e0547d84b642c",
+      "git_blob": "2c1fa2cda594aa5edab9100113c4b71f9c7b521a"
     },
     {
       "role": "statement_source",
