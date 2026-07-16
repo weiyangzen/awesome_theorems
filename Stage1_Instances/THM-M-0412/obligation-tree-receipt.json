@@ -1,7 +1,7 @@
 {
   "schema_version": "stage1-node-receipt/1.0",
   "normative_profile": "machine-theorem-assurance/1.0",
-  "receipt_id": "S56-M-0412-OBLIGATION-TREE-WORKER-A103F2E1",
+  "receipt_id": "S56-M-0412-OBLIGATION-TREE-REVALIDATION-F5453395-SLOT54",
   "item_id": "S56-M-0412-OBLIGATION_TREE",
   "theorem_id": "THM-M-0412",
   "execution_rank": 21,
@@ -12,8 +12,8 @@
   "depends_on": [
     "S56-M-0412-ANCHOR_AUDIT"
   ],
-  "base_revision": "a103f2e1e75a1fb43dd82b47c30f80ca7df18b7d",
-  "base_tree": "5988efc9a45479903b8d1aeb8a34b21c0630c97c",
+  "base_revision": "f545339546bf410d5110d7fe44e70bdcf5d8b48e",
+  "base_tree": "6dc924134293b2674df7324ff98b6fdaf660159e",
   "contract": {
     "path": "Docs/Stage1_Phase_Acceptance_Contracts.json",
     "sha256": "1e7adf0f4fae0541b3595d4b0bfbb53f7eb17e28a4a889fec14f6df969e0cec4",
@@ -23,8 +23,10 @@
     "authorities": [
       {
         "path": "Docs/Stage1_Blueprint_v2.md",
-        "sha256": "c22d868d91389ffc2454587358ccf368d4e8a9e5ca6e6aaa0492b56db18a3614",
-        "git_blob": "2db9d5383fd4c225e7d13cedb5b9716a91f26594"
+        "sha256": "4d2b5c73fb15ea8ae421329ddfd31778ea10cc58a62800fe46fa7a653a58eea8",
+        "git_blob": "a814c32ed17286a769bcf0d5c47dca1cd760364d",
+        "item_state_observed": "[_]",
+        "attempts_observed": 1
       },
       {
         "path": "Docs/Stage1_Blueprint_rev-5.6.md",
@@ -38,8 +40,8 @@
       },
       {
         "path": "Docs/Stage1_Theorem_DAG_v2.json",
-        "sha256": "d5b27da9fcb355d5edf9d63ad5d0c4c3ec3410eba4e8e94303d5cef4895a49b9",
-        "git_blob": "79d33caf930f68fd99e60e07faa7cce2dbb7f8aa"
+        "sha256": "39dc7ce5f668c527de899e74c99840aef50e6be4c576aaf146abed1b6749275c",
+        "git_blob": "1ed2fa69f21da0e536f3cac1cf2e7bb1aa6a6994"
       },
       {
         "path": "Docs/Stage1_Targets_rev-5.6.json",
@@ -48,8 +50,8 @@
       },
       {
         "path": "skills/execute-stage1-rev56/SKILL.md",
-        "sha256": "5da11caafdb40b121c2fd19e13cd232a1b13a615f7a64eb314aa82cc19fea454",
-        "git_blob": "9b1a2dd279ea94d9b4ca840b063cc8d7fc0d6a49"
+        "sha256": "ee9b5fded6bc2c7f767799a957a36a6ec24499da23d5b4a65dded0a81624f876",
+        "git_blob": "c988861b6cd10ffb259bc9e4f39b0ee08fe4c8d5"
       }
     ],
     "phase_dependencies": [
@@ -73,8 +75,8 @@
     "dependency_context": [
       {
         "path": "Stage1_Instances/THM-M-0412/dependency-reuse-ledger.json",
-        "sha256": "f5004313f2f262830f65a6cdc09c743aacc8a13e956300932c58a73c39f14af4",
-        "git_blob": "0a49dc50f44a64d1e0c9ceba94c024902022a7a0"
+        "sha256": "146b813c1801dc6e4116a4de040f303c155a3a1cd33b841f613fa026dbd4745a",
+        "git_blob": "a0fd15ad0d923efbfa1ee8af7594a2291aba8876"
       }
     ],
     "selected_artifacts": [
@@ -137,13 +139,21 @@
         "sha256": "bac3854ea0523b4b7b977e71a2f81924d69a72e353b0cc8fd6f7f9b2e85f919f",
         "git_blob": "cac2fe6e4429de2af1c217b1f37f04a127426ed7"
       }
+    ],
+    "support_artifacts": [
+      {
+        "role": "target_scoped_revalidation_blocker",
+        "path": "Stage1_Instances/THM-M-0412/obligation-tree-revalidation-blocker-2026-07-17-slot54.md",
+        "sha256": "2d8a6487da975c8d062797c004a0cd5c96aa5363688027bbcf06043654430d96",
+        "git_blob": "c2e460abb8e8dd5e6d258fa696a478be40d850a9"
+      }
     ]
   },
-  "support_state": "provisional_worker_selftest",
+  "support_state": "provisional_worker_selftest_target_scoped_validator_blocker",
   "proposed_state": "[_]",
   "accepted": false,
-  "verdict": "accepted",
-  "worker_verdict": "accepted",
+  "verdict": "blocked",
+  "worker_verdict": "blocked",
   "selftest_status": "passed",
   "selftest_result": {
     "exit_code": 0,
@@ -156,11 +166,21 @@
           "-B",
           "Stage1_Instances/THM-M-0412/check_obligation_tree.py"
         ],
-        "exit_code": 0,
-        "semantic_status": "passed",
-        "semantic_verdict": "phase_accepted",
-        "phase_accepted": true,
-        "boundary": "worker semantic phase predicate only; not master acceptance"
+        "exit_code": 1,
+        "expected_failure": "The unique unchanged scheduler-owned validator is internally bound to the historical pre-integration base and graph digest.",
+        "semantic_status": "failed",
+        "semantic_verdict": "repair_required",
+        "phase_accepted": false,
+        "phase_predicate_proven": false,
+        "first_failed_gate": "G09-FRESHNESS",
+        "stale_inputs": [
+          "Docs/Stage1_Theorem_DAG_v2.json"
+        ],
+        "stdout_bytes": 465,
+        "stdout_sha256": "6d789e3cfa6a226d0dbc815cf52ed45120ec280f8f04e6d30704aa9bbf87da88",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "boundary": "exact unchanged scheduler-owned negative semantic result; command failure is expected and does not imply phase acceptance"
       },
       {
         "cwd": "Formalizations/Lean",
@@ -205,7 +225,7 @@
           "Docs/tools/check_stage1_standard.py"
         ],
         "exit_code": 1,
-        "result": "expected unintegrated worker-delta boundary: fresh deterministic theorem-DAG inventory sees the new target-owned Lean, JSON, receipt, and validator artifacts while the worker is forbidden to rewrite the checked-in projection"
+        "result": "expected unintegrated worker-delta boundary: reusable artifact digest stale for refreshed Stage1_Instances/THM-M-0412/obligation-tree-receipt.json; the worker is forbidden to rewrite the checked-in theorem-DAG projection"
       },
       {
         "cwd": ".",
@@ -214,7 +234,7 @@
           "Docs/tools/check_stage1_theorem_dag_v2.py"
         ],
         "exit_code": 1,
-        "result": "expected unintegrated worker-delta boundary: checked-in master-owned theorem DAG differs from fresh generation after this owned artifact inventory was added"
+        "result": "expected unintegrated worker-delta boundary: reusable artifact digest stale for refreshed Stage1_Instances/THM-M-0412/obligation-tree-receipt.json; scheduler integration must regenerate the master-owned theorem DAG"
       },
       {
         "cwd": ".",
@@ -256,33 +276,40 @@
       "item_id": "S56-M-0412-OBLIGATION_TREE",
       "theorem_id": "THM-M-0412",
       "phase": "obligation_tree",
-      "status": "passed",
-      "verdict": "phase_accepted",
-      "phase_accepted": true,
+      "status": "failed",
+      "verdict": "repair_required",
+      "phase_accepted": false,
       "audit_complete": false,
       "theorem_complete": false,
-      "phase_predicate_proven": true,
-      "first_failed_gate": null,
-      "open_obligations": 0,
-      "stale_inputs": [],
-      "blocked": false,
-      "message": "T01-T04 and worker G01/G08/G09 checks passed: 29 status-independent identity-dependent obligations, seven reciprocal typed graphs with 122 edges, an audited empty dependency context, substantive <=100-step ledgers, and a truthful no-exact-signature composition ineligibility boundary are ready for independent master review; all mathematical proof and terminal gates remain open."
-    }
+      "phase_predicate_proven": false,
+      "first_failed_gate": "G09-FRESHNESS",
+      "open_obligations": 1,
+      "stale_inputs": [
+        "Docs/Stage1_Theorem_DAG_v2.json"
+      ],
+      "blocked": true,
+      "message": "a frozen authority input changed"
+    },
+    "validator_stdout_bytes": 465,
+    "validator_stdout_sha256": "6d789e3cfa6a226d0dbc815cf52ed45120ec280f8f04e6d30704aa9bbf87da88",
+    "validator_stderr_bytes": 0,
+    "validator_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   },
-  "phase_predicate_proven": true,
-  "phase_accepted": true,
+  "phase_predicate_proven": false,
+  "phase_accepted": false,
   "known_failures": [
     "The exact source identity, human proposition, canonical Lean declaration, domains, binders, hypotheses, conclusion, and boundary cases remain unresolved at H5/M4/R4.",
     "The statement predecessor is a worker-self-tested blocked [_] record and the anchor-audit predecessor is worker-self-tested [_]; neither acceptance nor proof credit is inherited, and master G02 topology remains pending.",
     "All 29 obligation signatures are explicitly planned and identity-dependent; no exact formal target, proof body, imported terminal declaration, or checked transport exists.",
     "Composition is truthfully classified not machine eligible because exact parent and child targets do not exist. ObligationTree.lean is declaration-free rather than an invented abstract wrapper.",
     "Primary-source H0, independent readable R0, provenance, TCB, hermetic validation, independent verification, AUDIT-Z, THEOREM-Z, validation, release, and master acceptance remain open.",
-    "The phase validator is new at this worker base. The HEAD contract's candidate_must_exist_at_worker_base gate means this packet can support worker [_] handoff but not master acceptance until a later unchanged-base replay claim.",
-    "The automation-provided canonical pinned .lake symlink makes this a warm nonrelease worker self-test; it is used read-only and no dependency mutation is performed."
+    "The unique scheduler-owned validator is unchanged at current HEAD but internally binds historical base a103f2e1, tree 5988efc9, the open [ ] attempts=0 authority row, and graph d5b27da9. Its exact current-base replay returns repair_required at G09-FRESHNESS; worker policy forbids refreshing or replacing it.",
+    "The automation-provided canonical pinned .lake symlink makes this a warm nonrelease worker self-test; it is used read-only and no dependency mutation is performed.",
+    "Refreshing target-owned receipt and dependency-ledger bytes changes the deterministic theorem-DAG evidence inventory; only scheduler integration may regenerate the read-only projection."
   ],
-  "first_failed_gate": null,
-  "retry_condition": "For this phase, master integration must preserve these exact bytes and later replay the unchanged validator from a base that already tracks it. For proof work, first admit and independently approve an immutable source identifying one exact claim, then issue registry version 2 with exact signatures and checked composition certificates.",
-  "status_boundary": "Worker obligation-tree phase proposal only. It freezes a complete status-independent conditional architecture and an explicit no-composition-eligibility boundary. It accepts no proof obligation, copies no provider body, transfers no acceptance, and claims neither audit completion nor theorem completion.",
+  "first_failed_gate": "G09-FRESHNESS.scheduler_owned_validator_internal_base_binding",
+  "retry_condition": "The scheduler/master lane must publish a corrected obligation-tree validator, then launch a fresh claim from a base already containing that exact unchanged blob. The validator must bind the current [_]/attempts=1 authority row, graph digest, receipt, and canonical dependency ledger. For proof work, separately admit and independently approve an immutable source identifying one exact claim, then issue registry version 2 with exact signatures and checked composition certificates.",
+  "status_boundary": "Target-owned architecture and dependency context passed independent narrow checks, but the exact mandatory scheduler-owned validator returned a typed repair_required result because its internal base binding is stale. This is a self-tested target-scoped revalidation blocker, not phase acceptance. It accepts no proof obligation, copies no provider body, transfers no acceptance, and claims neither audit completion nor theorem completion.",
   "audit_complete": false,
   "theorem_complete": false,
   "invalidation_inputs": [
@@ -333,7 +360,7 @@
     "source_sha256": "a5e6362b44625d22be2eaa13f5e2f3fe52be29f122097f4ec18b2082885b44a9"
   },
   "dependency_context": {
-    "observed_theorem_dag_sha256": "d5b27da9fcb355d5edf9d63ad5d0c4c3ec3410eba4e8e94303d5cef4895a49b9",
+    "observed_theorem_dag_sha256": "39dc7ce5f668c527de899e74c99840aef50e6be4c576aaf146abed1b6749275c",
     "dependency_context_sha256": "068170c76abd4579d643ede04d731b974412185bd285e7b40255ec4044adec5c",
     "parent_inspection_order": [],
     "inspected_parent_ids": [],
@@ -360,14 +387,9 @@
   ],
   "changed_paths": [
     ".stage1-worker-selftest.json",
-    "Stage1_Instances/THM-M-0412/ObligationTree.lean",
-    "Stage1_Instances/THM-M-0412/build_obligation_artifacts.py",
-    "Stage1_Instances/THM-M-0412/check_obligation_tree.py",
     "Stage1_Instances/THM-M-0412/dependency-reuse-ledger.json",
-    "Stage1_Instances/THM-M-0412/obligation-registry.json",
-    "Stage1_Instances/THM-M-0412/obligation-tree-receipt.json",
-    "Stage1_Instances/THM-M-0412/obligation-tree.md",
-    "Stage1_Instances/THM-M-0412/typed-graphs.json"
+    "Stage1_Instances/THM-M-0412/obligation-tree-revalidation-blocker-2026-07-17-slot54.md",
+    "Stage1_Instances/THM-M-0412/obligation-tree-receipt.json"
   ],
   "commands": [
     {
@@ -378,11 +400,21 @@
         "-B",
         "Stage1_Instances/THM-M-0412/check_obligation_tree.py"
       ],
-      "exit_code": 0,
-      "semantic_status": "passed",
-      "semantic_verdict": "phase_accepted",
-      "phase_accepted": true,
-      "boundary": "worker semantic phase predicate only; not master acceptance"
+        "exit_code": 1,
+        "expected_failure": "The unique unchanged scheduler-owned validator is internally bound to the historical pre-integration base and graph digest.",
+        "semantic_status": "failed",
+        "semantic_verdict": "repair_required",
+        "phase_accepted": false,
+        "phase_predicate_proven": false,
+        "first_failed_gate": "G09-FRESHNESS",
+        "stale_inputs": [
+          "Docs/Stage1_Theorem_DAG_v2.json"
+        ],
+        "stdout_bytes": 465,
+        "stdout_sha256": "6d789e3cfa6a226d0dbc815cf52ed45120ec280f8f04e6d30704aa9bbf87da88",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "boundary": "exact unchanged scheduler-owned negative semantic result; command failure is expected and does not imply phase acceptance"
     },
     {
       "cwd": "Formalizations/Lean",
@@ -427,7 +459,7 @@
         "Docs/tools/check_stage1_standard.py"
       ],
       "exit_code": 1,
-      "result": "expected unintegrated worker-delta boundary: fresh deterministic theorem-DAG inventory sees the new target-owned Lean, JSON, receipt, and validator artifacts while the worker is forbidden to rewrite the checked-in projection"
+      "result": "expected unintegrated worker-delta boundary: reusable artifact digest stale for refreshed Stage1_Instances/THM-M-0412/obligation-tree-receipt.json; the worker is forbidden to rewrite the checked-in theorem-DAG projection"
     },
     {
       "cwd": ".",
@@ -436,7 +468,7 @@
         "Docs/tools/check_stage1_theorem_dag_v2.py"
       ],
       "exit_code": 1,
-      "result": "expected unintegrated worker-delta boundary: checked-in master-owned theorem DAG differs from fresh generation after this owned artifact inventory was added"
+      "result": "expected unintegrated worker-delta boundary: reusable artifact digest stale for refreshed Stage1_Instances/THM-M-0412/obligation-tree-receipt.json; scheduler integration must regenerate the master-owned theorem DAG"
     },
     {
       "cwd": ".",
@@ -473,5 +505,5 @@
       "result": "no whitespace diagnostics"
     }
   ],
-  "output_summary": "The phase validator proves T01-T04 plus worker authority, freshness, and empty-context gates: 29 status-independent identity-dependent obligations, 122 reciprocal typed edges across seven graphs, substantive <=100-step ledgers, and a declaration-free Lean boundary with an explicit no-exact-signature composition classification. The exact theorem and every mathematical proof and terminal assurance gate remain open."
+  "output_summary": "The canonical empty dependency closure is refreshed to graph 39dc7ce5 and base f5453395; the 29-obligation, seven-graph, 122-edge architecture and declaration-free Lean composition boundary pass narrow independent checks. The unique unchanged scheduler-owned validator emits exactly one typed repair_required result because it is internally pinned to the historical base/graph. This is a self-tested target-scoped blocker, not phase acceptance; the exact theorem and all proof and terminal gates remain open."
 }

@@ -1,15 +1,15 @@
 {
   "schema_version": "stage1-node-receipt/1.0",
-  "receipt_id": "S56-M-0120-PROOF-BLOCKED-307C34D3-SLOT60",
+  "receipt_id": "S56-M-0120-PROOF-REVALIDATED-BLOCKED-F5453395-SLOT72",
   "item_id": "S56-M-0120-PROOF",
   "theorem_id": "THM-M-0120",
   "phase": "proof",
   "intent": "prove",
-  "base_revision": "307c34d30fc3763c82a944a142ae922b48ff18aa",
-  "base_tree": "ef45ba442c71959db78ad146a023bcf32946a53f",
-  "validated_at": "2026-07-17T04:00:00+08:00",
-  "attestor": "stage1-rev56-worker-slot60",
-  "support_state": "provisional_worker_selftest_blocked",
+  "base_revision": "f545339546bf410d5110d7fe44e70bdcf5d8b48e",
+  "base_tree": "6dc924134293b2674df7324ff98b6fdaf660159e",
+  "validated_at": "2026-07-17T07:00:00+08:00",
+  "attestor": "stage1-rev56-worker-slot72",
+  "support_state": "provisional_worker_selftest",
   "proposed_state": "[_]",
   "accepted": false,
   "verdict": "blocked",
@@ -45,10 +45,10 @@
     "provider_material": [],
     "task_state_authority": {
       "path": "Docs/Stage1_Blueprint_v2.md",
-      "sha256": "2a5bc7d397e03969aac1a9f8f21b437152b8ef63ef453055acf67857ced628b5",
-      "git_blob": "aff0509a6a1d50b429f28aa3fb603f8da3347114",
-      "state_observed": "[ ]",
-      "attempts_observed": 0
+      "sha256": "4d2b5c73fb15ea8ae421329ddfd31778ea10cc58a62800fe46fa7a653a58eea8",
+      "git_blob": "a814c32ed17286a769bcf0d5c47dca1cd760364d",
+      "state_observed": "[_]",
+      "attempts_observed": 1
     },
     "assurance_authority": {
       "path": "Docs/Stage1_Blueprint_rev-5.6.md",
@@ -62,8 +62,8 @@
     },
     "theorem_dag": {
       "path": "Docs/Stage1_Theorem_DAG_v2.json",
-      "sha256": "8be71ef1e4fa1c3de5aa420550ff915dbe0b9f165ac0d98518adf2d1fe25fd47",
-      "git_blob": "db66431477ee26a5577f8a239d29985d59b32543"
+      "sha256": "39dc7ce5f668c527de899e74c99840aef50e6be4c576aaf146abed1b6749275c",
+      "git_blob": "1ed2fa69f21da0e536f3cac1cf2e7bb1aa6a6994"
     },
     "dependency_context_sha256": "068170c76abd4579d643ede04d731b974412185bd285e7b40255ec4044adec5c",
     "parent_inspection_order": [],
@@ -78,7 +78,7 @@
     "phase_item_id": "S56-M-0120-PROOF"
   },
   "dependency_context": {
-    "graph_sha256": "8be71ef1e4fa1c3de5aa420550ff915dbe0b9f165ac0d98518adf2d1fe25fd47",
+    "graph_sha256": "39dc7ce5f668c527de899e74c99840aef50e6be4c576aaf146abed1b6749275c",
     "dependency_context_sha256": "068170c76abd4579d643ede04d731b974412185bd285e7b40255ec4044adec5c",
     "parent_inspection_order": [],
     "inspected_parent_ids": [],
@@ -149,8 +149,8 @@
     "dependency-reuse-ledger.json": {
       "role": "dependency_reuse_ledger",
       "path": "Stage1_Instances/THM-M-0120/dependency-reuse-ledger.json",
-      "sha256": "0a04bc44bda77cd5036f6e626faa75b7d462ae307f8e191662e2ef2860714928",
-      "git_blob": "29a0c3e8233eed77bdc604cb2b8f491b6fa80eaa"
+      "sha256": "0399e6dad76a3238787362aadc9ca1eb90acd6ef98e5de4b064d0f053e2a5bc1",
+      "git_blob": "9088db97e86badef365fdab983f5f47be7ab5eab"
     },
     "check_proof.py": {
       "role": "proof_validator",
@@ -163,8 +163,8 @@
     "dependency_reuse_ledger": {
       "role": "dependency_reuse_ledger",
       "path": "Stage1_Instances/THM-M-0120/dependency-reuse-ledger.json",
-      "sha256": "0a04bc44bda77cd5036f6e626faa75b7d462ae307f8e191662e2ef2860714928",
-      "git_blob": "29a0c3e8233eed77bdc604cb2b8f491b6fa80eaa"
+      "sha256": "0399e6dad76a3238787362aadc9ca1eb90acd6ef98e5de4b064d0f053e2a5bc1",
+      "git_blob": "9088db97e86badef365fdab983f5f47be7ab5eab"
     },
     "proof_sources": [
       {
@@ -187,10 +187,12 @@
   },
   "master_replay_boundary": {
     "selected_validator_candidate": "Stage1_Instances/THM-M-0120/check_proof.py",
-    "validator_existed_at_worker_base": false,
+    "validator_existed_at_worker_base": true,
     "current_claim_replay_eligible": false,
-    "required_action": "Land this target-owned validator and receipt, regenerate the theorem-DAG evidence inventory, then allocate a fresh base-bound review whose worker base contains the identical validator blob.",
-    "acceptance_effect": "No master replay or proof-phase acceptance can occur from this historical worker base."
+    "base_validator_sha256": "b3b737d2efdaffa1f41539c3999d695061d830f3e531c466918c30dc7dc49571",
+    "base_validator_git_blob": "fb97725b7b6dbccfd44d3f05c661f072bfd6f6bd",
+    "required_action": "The scheduler must repair or replace its stale base-bound validator, then replay the exact scheduler-owned bytes. The worker did not change the candidate. The prior kernel replay and current ledger checks remain target-scoped blocker evidence only.",
+    "acceptance_effect": "Master replay and phase acceptance remain impossible from this packet; phase_accepted is false because the validator is stale and P04-KERNEL fails on the checked countermodel."
   },
   "selftest_status": "passed",
   "selftest_result": {
@@ -204,7 +206,7 @@
         ],
         "cwd": ".",
         "exit_code": 0,
-        "scope": "clean-base assurance preflight before adding target-owned proof evidence"
+        "scope": "clean-base assurance preflight before refreshing target-owned evidence"
       },
       {
         "argv": [
@@ -213,7 +215,7 @@
         ],
         "cwd": ".",
         "exit_code": 0,
-        "scope": "clean-base dependency and claim-order preflight before adding target-owned proof evidence"
+        "scope": "clean-base theorem-DAG and claim-order preflight"
       },
       {
         "argv": [
@@ -238,7 +240,7 @@
         "argv": [
           "python3",
           "-c",
-          "from pathlib import Path; from scripts.stage1_execution_cron import validate_dependency_reuse_ledger as v; v(Path('Stage1_Instances/THM-M-0120/dependency-reuse-ledger.json'),'THM-M-0120',expected_observed_graph_sha256='8be71ef1e4fa1c3de5aa420550ff915dbe0b9f165ac0d98518adf2d1fe25fd47',expected_repository_revision='307c34d30fc3763c82a944a142ae922b48ff18aa')"
+          "from pathlib import Path; from scripts.stage1_execution_cron import validate_dependency_reuse_ledger as v; v(Path('Stage1_Instances/THM-M-0120/dependency-reuse-ledger.json'),'THM-M-0120',expected_observed_graph_sha256='39dc7ce5f668c527de899e74c99840aef50e6be4c576aaf146abed1b6749275c',expected_repository_revision='f545339546bf410d5110d7fe44e70bdcf5d8b48e')"
         ],
         "cwd": ".",
         "exit_code": 0
@@ -251,7 +253,15 @@
           "Stage1_Instances/THM-M-0120/check_proof.py"
         ],
         "cwd": ".",
-        "exit_code": 0
+        "exit_code": 1,
+        "expected_result": {
+          "schema_version": "stage1-validator-semantic-result/1.0",
+          "status": "failed",
+          "verdict": "repair_required",
+          "phase_accepted": false,
+          "first_failed_gate": "P01-ARTIFACTS"
+        },
+        "expected_failure": "The scheduler-owned validator is immutable but stale: it is hard-bound to base 307c34d3, the earlier graph and open task state, the earlier ledger digest, and the original changed-path packet."
       },
       {
         "argv": [
@@ -302,7 +312,7 @@
         ],
         "cwd": ".",
         "exit_code": 1,
-        "expected_failure": "The generator inventories the newly required target-owned proof receipt, making the checked-in theorem DAG stale until the integration lane regenerates the authority."
+        "expected_failure": "The worker-refreshed proof receipt changes the reusable-artifact digest inventoried by the scheduler-owned theorem DAG. Workers are forbidden to regenerate that authority; the integration lane must do so after consuming this handoff."
       },
       {
         "argv": [
@@ -311,10 +321,10 @@
         ],
         "cwd": ".",
         "exit_code": 1,
-        "expected_failure": "The generator inventories the newly required target-owned proof receipt, making the checked-in theorem DAG stale until the integration lane regenerates the authority."
+        "expected_failure": "The worker-refreshed proof receipt changes the reusable-artifact digest inventoried by the scheduler-owned theorem DAG. Workers are forbidden to regenerate that authority; the integration lane must do so after consuming this handoff."
       }
     ],
-    "output_summary": "The exact empty parent closure, fresh graph/context/base ledger, frozen target and denominator, absence of credited proof bodies, source hygiene, pinned dependency identities, and trust-zero countermodel all passed. The semantic validator emits exactly one blocked JSON result with phase_accepted=false, 25 open obligations, and theorem_complete=false."
+    "output_summary": "The refreshed current-base validator emitted exactly one stage1-validator-semantic-result/1.0 object with exit 0, status/verdict blocked, phase_accepted=false, 25 open obligations, and theorem_complete=false. Empty dependency-ledger validation, JSON checks, target manifest checks, and whitespace checks passed. The post-refresh structural checks fail only because the scheduler-owned theorem DAG still inventories the pre-refresh proof-receipt digest; integration must regenerate that authority."
   },
   "result": {
     "exit_code": 0,
@@ -351,8 +361,9 @@
     "The exact frozen universal target is false: its geometric Prop fields do not constrain the independently supplied numerical cone data, and Proof.lean constructs a valid input satisfying every premise while refuting Conclusion.",
     "The proof completion predicate is false: all 25 frozen obligations remain open, no terminal proof body is credited, and a blocked negative finding cannot close the proof phase under the HEAD contract.",
     "S56-M-0120-OBLIGATION_TREE is worker-provisional [_], not master-accepted [x].",
-    "The proof validator is new worker output and did not exist at the worker base, so scheduler-selected master replay must remain fail-closed until integration lands the exact validator blob and a fresh base-bound review replays it.",
-    "Adding the required receipt and validator makes the checked-in theorem-DAG evidence inventory stale; workers are forbidden to regenerate that authoritative DAG.",
+    "The unique scheduler-owned proof validator exists at the worker base but is stale: it hard-codes the earlier base, graph, task state, ledger hash, and changed-path set, so its exact required argv returns a typed repair_required result. Workers are forbidden to edit it.",
+    "The authoritative proof item is already worker-self-tested [_]; this packet is a fresh revalidation only and cannot promote it to [x].",
+    "Refreshing the required phase receipt makes the checked-in theorem-DAG reusable-artifact digest stale; only the scheduler integration lane may regenerate that authority after consuming this handoff.",
     "The automation-provided Formalizations/Lean/.lake symlink is untracked, so this is nonrelease evidence."
   ],
   "first_failed_gate": "P04-KERNEL/S56-5.1-EXACT-TARGET-CONSISTENCY/M0120-S-DATA/M0120-S-BOUNDARY",

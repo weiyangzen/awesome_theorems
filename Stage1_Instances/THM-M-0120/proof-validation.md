@@ -24,6 +24,16 @@ countermodel replay, the node receipt, and the worker handoff. Its sole stdout v
 a `stage1-validator-semantic-result/1.0` JSON object with `status: blocked`,
 `phase_accepted: false`, and `theorem_complete: false`.
 
+This fresh revalidation is bound to base revision
+`f545339546bf410d5110d7fe44e70bdcf5d8b48e`. The unique scheduler-owned proof
+validator exists at that base with Git blob
+`fb97725b7b6dbccfd44d3f05c661f072bfd6f6bd`, but it hard-codes the earlier worker
+base, graph digest, open task state, ledger digest, and changed-path set. Its exact
+required argv therefore emits a typed `repair_required` result at the current base.
+The worker did not modify, replace, rename, or add a validator candidate. Scheduler
+repair and a fresh exact replay are required; neither the stale-validator failure nor
+the checked countermodel can promote `[_]` to master-accepted `[x]`.
+
 Repair requires reopening the statement phase and replacing the unconstrained numerical
 stand-ins with intrinsic definitions or sufficient noncircular laws tied to the
 projective klt pair. The exact expression fingerprint and every downstream frozen
