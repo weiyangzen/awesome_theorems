@@ -2252,8 +2252,12 @@ class SchedulerCapacityTests(unittest.TestCase):
             "reused_with_transport",
             "consumer's own validation receipt",
             "never transfers parent acceptance",
+            "scheduler owns every declared validator candidate",
+            "never create, refresh, rename, replace, or delete any\n   validator candidate",
         ):
             self.assertIn(text, prompt)
+
+        self.assertNotIn("Produce exactly one HEAD-tracked validator", prompt)
 
     def test_parent_inspection_order_rejects_parent_after_consumer(self) -> None:
         nodes = {

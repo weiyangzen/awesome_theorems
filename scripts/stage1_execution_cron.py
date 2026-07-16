@@ -3151,13 +3151,18 @@ Required work:
 3. The HEAD phase contract at `Docs/Stage1_Phase_Acceptance_Contracts.json` is
    mandatory for new evidence. Produce exactly one phase receipt with schema
    `stage1-node-receipt/1.0`, every contract-required field, and complete
-   path/SHA-256/Git-blob bindings for every role the contract selects. Produce
-   exactly one HEAD-tracked validator at one of the phase's declared candidate
-   paths. Its stdout must be exactly one JSON object with schema
+   path/SHA-256/Git-blob bindings for every role the contract selects. The
+   scheduler owns every declared validator candidate: use the one already
+   present in HEAD, but never create, refresh, rename, replace, or delete any
+   validator candidate. Record its exact argv/result in the receipt and handoff.
+   Its stdout must be exactly one JSON object with schema
    `stage1-validator-semantic-result/1.0` and the exact fields required by the
    scheduler; legacy prose stdout, exit code zero alone, or an undeclared
-   adapter cannot support master acceptance. The worker may report a truthful
-   negative result, but must never infer `phase_accepted` from command success.
+   adapter cannot support master acceptance. If HEAD has zero or multiple
+   validator candidates, leave no self-test handoff and report the scheduler
+   ownership blocker instead of manufacturing a candidate. The worker may
+   report a truthful negative result, but must never infer `phase_accepted`
+   from command success.
 4. Run the smallest real validation available and record exact commands/results in the owned artifact.
    The worker clone reuses the canonical pinned Lean `.lake` artifacts when available. Do not run
    `lake update`, `lake build`, dependency `git clone`/`git fetch`, or otherwise mutate `.lake`;

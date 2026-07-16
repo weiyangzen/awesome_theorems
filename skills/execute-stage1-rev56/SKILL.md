@@ -147,6 +147,12 @@ must set `selftest_status: passed` and record `selftest_result.exit_code: 0` plu
 must each match a successful command record in the worker handoff packet and the committed,
 authority-bound validation specification. The integration lane replays that authoritative recipe
 before merge; a worker-created or worker-modified validator cannot satisfy the gate.
+Every phase-validator candidate declared by
+`Docs/Stage1_Phase_Acceptance_Contracts.json` is scheduler-owned and immutable in
+worker handoffs. Workers use the unique candidate already present at their HEAD;
+they never create, refresh, rename, replace, or delete a candidate. A missing or
+ambiguous candidate is a scheduler-ownership blocker, not permission for a worker
+to manufacture one.
 Provider receipts must use the rev-5.6 node-receipt schema and bind item, base revision, inputs, and
 successful accepted or normalized worker-self-tested evidence.
 During `validation`, refresh the ledger and attach the target-owned, content-bound self-test receipt
