@@ -346,6 +346,80 @@ class ContractTests(unittest.TestCase):
         with self.assertRaisesRegex(client.ProtocolError, "model reroute is forbidden"):
             connection.request("model/list", {})
 
+    def test_goal_set_retries_sqlite_lock_with_one_exact_goal_identity(self) -> None:
+        connection = mock.Mock()
+        locked = client.AppServerRequestError(
+            "thread/goal/set",
+            {
+                "code": -32603,
+                "message": (
+                    "failed to replace thread goal: error returned from database: "
+                    "(code: 5) database is locked"
+                ),
+            },
+        )
+        goal = {
+            "threadId": "thread-1",
+            "objective": "objective",
+            "status": "active",
+        }
+        connection.request.side_effect = [locked, locked, {"goal": goal}]
+        with mock.patch.object(client.time, "sleep") as sleep:
+            result = client.set_goal_with_lock_retry(
+                connection,
+                "thread-1",
+                "objective",
+                retry_delays=(0.1, 0.25),
+            )
+        self.assertEqual(result, {"goal": goal, "sqlite_lock_retries": 2})
+        expected = mock.call(
+            "thread/goal/set",
+            {"threadId": "thread-1", "objective": "objective", "status": "active"},
+        )
+        self.assertEqual(connection.request.call_args_list, [expected, expected, expected])
+        self.assertEqual(sleep.call_args_list, [mock.call(0.1), mock.call(0.25)])
+
+    def test_goal_set_non_lock_error_fails_closed_without_retry(self) -> None:
+        connection = mock.Mock()
+        denied = client.AppServerRequestError(
+            "thread/goal/set", {"code": -32603, "message": "permission denied"}
+        )
+        connection.request.side_effect = denied
+        with (
+            mock.patch.object(client.time, "sleep") as sleep,
+            self.assertRaises(client.AppServerRequestError) as raised,
+        ):
+            client.set_goal_with_lock_retry(
+                connection, "thread-1", "objective", retry_delays=(0.1,)
+            )
+        self.assertIs(raised.exception, denied)
+        connection.request.assert_called_once()
+        sleep.assert_not_called()
+
+    def test_goal_set_sqlite_lock_retry_exhaustion_fails_closed(self) -> None:
+        connection = mock.Mock()
+        locked = client.AppServerRequestError(
+            "thread/goal/set",
+            {
+                "code": -32603,
+                "message": "error returned from database: (code: 5) database is locked",
+            },
+        )
+        connection.request.side_effect = locked
+        with (
+            mock.patch.object(client.time, "sleep") as sleep,
+            self.assertRaises(client.AppServerRequestError) as raised,
+        ):
+            client.set_goal_with_lock_retry(
+                connection,
+                "thread-1",
+                "objective",
+                retry_delays=(0.1, 0.25),
+            )
+        self.assertIs(raised.exception, locked)
+        self.assertEqual(connection.request.call_count, 3)
+        self.assertEqual(sleep.call_args_list, [mock.call(0.1), mock.call(0.25)])
+
     def test_app_server_duplicate_json_members_are_rejected(self) -> None:
         connection = object.__new__(client.AppServerConnection)
         connection.process = type("Process", (), {"stdout": object()})()

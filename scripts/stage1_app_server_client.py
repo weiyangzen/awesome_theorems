@@ -147,6 +147,7 @@ TERMINAL_GOAL_STATUSES = {
 }
 SUCCESSFUL_GOAL_STATUS = "complete"
 TURN_TERMINAL_STATUSES = {"completed", "interrupted", "failed"}
+SQLITE_LOCK_RETRY_DELAYS_SECONDS = (0.1, 0.25, 0.5, 1.0, 2.0, 4.0)
 
 
 class ProtocolError(RuntimeError):
@@ -155,6 +156,15 @@ class ProtocolError(RuntimeError):
 
 class WorkerInterrupted(ProtocolError):
     """Raised after an operator signal requests orderly worker shutdown."""
+
+
+class AppServerRequestError(ProtocolError):
+    """A structured JSON-RPC error returned by the app-server."""
+
+    def __init__(self, method: str, error: Any) -> None:
+        super().__init__(f"{method} failed: {error}")
+        self.method = method
+        self.error = error
 
 
 def fail(message: str) -> NoReturn:
@@ -666,7 +676,7 @@ class AppServerConnection:
     @staticmethod
     def _response_result(method: str, message: dict[str, Any]) -> dict[str, Any]:
         if "error" in message:
-            raise ProtocolError(f"{method} failed: {message['error']}")
+            raise AppServerRequestError(method, message["error"])
         result = message.get("result")
         if not isinstance(result, dict):
             raise ProtocolError(f"{method} returned a malformed result")
@@ -1009,6 +1019,55 @@ def same_goal_identity(left: dict[str, Any], right: dict[str, Any]) -> bool:
     return all(left.get(field) == right.get(field) for field in ("threadId", "objective", "status"))
 
 
+def sqlite_database_is_locked(error: Any) -> bool:
+    """Recognize only Codex's structured SQLite busy response."""
+    if not isinstance(error, dict) or error.get("code") != -32603:
+        return False
+    message = error.get("message")
+    return (
+        isinstance(message, str)
+        and "error returned from database: (code: 5) database is locked" in message.lower()
+    )
+
+
+def set_goal_with_lock_retry(
+    connection: AppServerConnection,
+    thread_id: str,
+    objective: str,
+    *,
+    retry_delays: tuple[float, ...] = SQLITE_LOCK_RETRY_DELAYS_SECONDS,
+) -> dict[str, Any]:
+    """Persist one goal, retrying only a transient SQLite busy response.
+
+    The thread is created once and every retry carries the same exact goal
+    identity. A timeout or any other protocol error remains fail-closed.
+    """
+    params = {
+        "threadId": thread_id,
+        "objective": objective,
+        "status": ACTIVE_GOAL_STATUS,
+    }
+    retries = 0
+    while True:
+        try:
+            result = connection.request("thread/goal/set", params)
+            return {
+                "goal": require_goal(result.get("goal"), thread_id, objective),
+                "sqlite_lock_retries": retries,
+            }
+        except AppServerRequestError as exc:
+            if (
+                exc.method != "thread/goal/set"
+                or not sqlite_database_is_locked(exc.error)
+                or retries >= len(retry_delays)
+            ):
+                raise
+            delay = retry_delays[retries]
+            retries += 1
+            if delay > 0:
+                time.sleep(delay)
+
+
 def turn_params(
     thread_id: str,
     text: str,
@@ -1155,15 +1214,13 @@ def run_worker(args: argparse.Namespace) -> int:
             args.thread_id,
         )
         if args.thread_id is None:
-            set_result = connection.request(
-                "thread/goal/set",
-                {
-                    "threadId": thread_id,
-                    "objective": objective,
-                    "status": ACTIVE_GOAL_STATUS,
-                },
+            set_result = set_goal_with_lock_retry(
+                connection, thread_id, objective
             )
-            goal = require_goal(set_result.get("goal"), thread_id, objective)
+            goal = set_result["goal"]
+            state["goal_set_sqlite_lock_retries"] = set_result[
+                "sqlite_lock_retries"
+            ]
             if goal.get("status") != ACTIVE_GOAL_STATUS:
                 raise ProtocolError("thread/goal/set did not create the exact active goal")
             get_result = connection.request("thread/goal/get", {"threadId": thread_id})

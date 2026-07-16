@@ -228,6 +228,45 @@ class RevalidationPlanTests(unittest.TestCase):
             self.assertFalse(lane["acceptance_claimed"])
             self.assertFalse(lane["promotes_to_master_accepted"])
 
+    def test_required_items_are_included_without_exceeding_the_plan_bound(self) -> None:
+        fixture = Fixture()
+        self.addCleanup(fixture.close)
+        required = "S56-M-0009-RELEASE"
+        default_ids = {
+            lane["item_id"]
+            for lane in planner.build_plan(
+                fixture.root, fixture.inventory_path
+            )["lanes"]
+        }
+        self.assertNotIn(required, default_ids)
+        plan = planner.build_plan(
+            fixture.root,
+            fixture.inventory_path,
+            required_item_ids=[required],
+        )
+        self.assertEqual(plan["selected_item_count"], planner.MAX_SAMPLES)
+        self.assertEqual(plan["required_item_ids"], [required])
+        self.assertIn(required, {lane["item_id"] for lane in plan["lanes"]})
+
+    def test_required_items_must_be_unique_authoritative_rows_within_limit(self) -> None:
+        fixture = Fixture()
+        self.addCleanup(fixture.close)
+        required = "S56-M-0009-RELEASE"
+        for required_ids, message in (
+            ([required, required], "malformed, duplicated"),
+            (["S56-M-0004-RELEASE"], "not an authoritative"),
+            (["S56-M-0008-RELEASE", required], "exceed the plan limit"),
+        ):
+            with self.subTest(required_ids=required_ids), self.assertRaisesRegex(
+                planner.PlanError, message
+            ):
+                planner.build_plan(
+                    fixture.root,
+                    fixture.inventory_path,
+                    limit=1 if message == "exceed the plan limit" else 50,
+                    required_item_ids=required_ids,
+                )
+
     def test_plan_and_lane_digests_are_recomputable_and_deterministic(self) -> None:
         fixture = Fixture()
         self.addCleanup(fixture.close)

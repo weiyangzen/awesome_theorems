@@ -127,6 +127,10 @@ CLAIM_ID_RE = re.compile(r"[0-9]{8}T[0-9]{6}Z-[0-9a-f]{12}")
 GOAL_HANDSHAKE_TIMEOUT_SECONDS = 30.0
 GOAL_HANDSHAKE_POLL_SECONDS = 0.1
 GOAL_HANDSHAKE_RECOVERY_GRACE_SECONDS = 120.0
+# Fifty app-server processes share Codex's ~/.codex SQLite state. Starting all
+# of them in one burst makes initialization contend before client-level goal
+# retries can run, so launch one bounded cohort at a controlled cadence.
+APP_SERVER_LAUNCH_STAGGER_SECONDS = 0.2
 STARTED_TARGETS_ONLY = False
 CODEX_MODEL = "gpt-5.6-sol"
 CODEX_REASONING_EFFORT = "ultra"
@@ -2588,7 +2592,11 @@ def refresh_claims(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
             in {"live", "preparing", "launch_failed", "draining", "finished"}
         ):
             try:
-                current_claim_legacy_revalidation_lane(claim, item)
+                # A historical lease is content-bound to the HEAD at allocation.
+                # Ordinary checkpoint commits may advance HEAD while it runs;
+                # the immutable claim remains valid and merge conflict gates
+                # still protect the authoritative tree.
+                claim_legacy_revalidation_lane(claim, item)
             except (ValueError, SystemExit) as exc:
                 if app_server_worker_is_live(claim) or app_server_child_is_live(claim):
                     terminate_app_server_worker(claim)
@@ -3246,8 +3254,12 @@ def worker_argv(
     return argv
 
 
-def launch_app_server_worker(argv: list[str]) -> int:
+def launch_app_server_worker(argv: list[str], *, delay_seconds: float = 0.0) -> int:
     """Launch without tmux/nohup/shell and return the process-group leader."""
+    if delay_seconds < 0 or delay_seconds > APP_SERVER_LAUNCH_STAGGER_SECONDS:
+        fail("app-server launch delay is outside the bounded cohort cadence")
+    if delay_seconds:
+        time.sleep(delay_seconds)
     process = subprocess.Popen(
         argv,
         cwd=ROOT,
@@ -3258,6 +3270,12 @@ def launch_app_server_worker(argv: list[str]) -> int:
         close_fds=True,
     )
     return process.pid
+
+
+def launch_stagger_delay(started_count: int) -> float:
+    if started_count < 0:
+        fail("app-server launch sequence is negative")
+    return APP_SERVER_LAUNCH_STAGGER_SECONDS if started_count else 0.0
 
 
 def confirm_goal_handshakes(
@@ -3607,7 +3625,7 @@ def _integrate(
         try:
             if item is None:
                 raise ValueError("claim refers to unknown item")
-            revalidation_lane = current_claim_legacy_revalidation_lane(claim, item)
+            revalidation_lane = claim_legacy_revalidation_lane(claim, item)
             revalidating_historical = (
                 item["state"] == "[_]"
                 and claim.get("fresh_revalidation") is True
@@ -3715,6 +3733,25 @@ def _integrate(
                 claim["legacy_revalidation_integration_sha256"] = (
                     canonical_json_sha256(closure)
                 )
+                predecessor_ids = [
+                    candidate.get("claim_id")
+                    for candidate in claims
+                    if candidate is not claim
+                    and candidate.get("lane", IMPLEMENTATION_LANE)
+                    == IMPLEMENTATION_LANE
+                    and candidate.get("item_id") == item["id"]
+                    and candidate.get("status") == "revalidation_required"
+                ]
+                if len(predecessor_ids) > 1:
+                    raise ValueError(
+                        "historical revalidation successor has ambiguous predecessors"
+                    )
+                if predecessor_ids:
+                    claim["revalidation_predecessor_claim_id"] = predecessor_ids[0]
+                    if not supersede_revalidation_predecessors(claim, claims):
+                        raise ValueError(
+                            "historical revalidation predecessor could not be superseded"
+                        )
             accepted.append(item["id"])
             queue.append({"item_id": item["id"], "theorem_id": item["theorem_id"], "state": "[_]", "owned_paths": item["owned_paths"], "changed_paths": changed, "commands": packet.get("commands", []), "known_failures": packet.get("known_failures", [])})
             transaction.absorb(claim_transaction)
@@ -4470,6 +4507,20 @@ def legacy_revalidation_plan() -> tuple[
         or selection.get("phase_layers") != {phase: index for index, phase in enumerate(phases)}
         or selection.get("within_phase_order") != ["v2_execution_rank", "item_id"]
         or selection.get("output_order") != ["phase_layer", "v2_execution_rank", "item_id"]
+        or not isinstance(value.get("required_item_ids"), list)
+        or any(
+            not isinstance(item_id, str)
+            for item_id in value.get("required_item_ids", [])
+        )
+        or len(value.get("required_item_ids", []))
+        != len(set(value.get("required_item_ids", [])))
+        or not set(value.get("required_item_ids", [])).issubset(
+            {
+                lane.get("item_id")
+                for lane in lanes
+                if isinstance(lane, dict)
+            }
+        )
     ):
         fail("legacy revalidation plan is non-authoritative or malformed")
     expected_sources = {
@@ -4552,6 +4603,116 @@ def optional_legacy_revalidation_lanes() -> dict[str, dict[str, Any]]:
             file=sys.stderr,
         )
         return {}
+
+
+def rebuild_legacy_revalidation_plan(required_item_ids: list[str]) -> None:
+    """Publish a current-HEAD planning snapshot through scheduler-owned storage."""
+    if (
+        not required_item_ids
+        or len(required_item_ids) > 50
+        or len(required_item_ids) != len(set(required_item_ids))
+        or any(
+            not isinstance(item_id, str)
+            or re.fullmatch(
+                r"S56-M-[0-9]{4}-(?:INTAKE|STATEMENT|ANCHOR_AUDIT|OBLIGATION_TREE|PROOF|VALIDATION|RELEASE)",
+                item_id,
+            )
+            is None
+            for item_id in required_item_ids
+        )
+    ):
+        fail("required historical revalidation plan identities are invalid")
+    inventory_temporary: Path | None = None
+    plan_temporary: Path | None = None
+    try:
+        with tempfile.NamedTemporaryFile(
+            prefix="stage1-legacy-inventory-", suffix=".json", dir="/tmp", delete=False
+        ) as handle:
+            inventory_temporary = Path(handle.name)
+        with tempfile.NamedTemporaryFile(
+            prefix="stage1-legacy-plan-", suffix=".json", dir="/tmp", delete=False
+        ) as handle:
+            plan_temporary = Path(handle.name)
+        run([
+            "python3", "-B", str(ROOT / "scripts/stage1_legacy_migration_inventory.py"),
+            "--repo", str(ROOT), "--revision", "HEAD", "--output",
+            str(inventory_temporary),
+        ])
+        plan_command = [
+            "python3", "-B", str(ROOT / "scripts/stage1_legacy_revalidation_plan.py"),
+            "--repo", str(ROOT), "--revision", "HEAD", "--inventory",
+            str(inventory_temporary), "--limit", "50", "--output",
+            str(plan_temporary),
+        ]
+        for item_id in required_item_ids:
+            plan_command.extend(["--required-item", item_id])
+        run(plan_command)
+        inventory, inventory_bytes = read_exact_json_file(
+            inventory_temporary, "generated legacy migration inventory"
+        )
+        plan, plan_bytes = read_exact_json_file(
+            plan_temporary, "generated legacy revalidation plan"
+        )
+        current_revision = run(["git", "rev-parse", "HEAD^{commit}"]).stdout.strip()
+        if (
+            inventory.get("generated_from_revision") != current_revision
+            or plan.get("generated_from_revision") != current_revision
+        ):
+            fail("generated legacy revalidation plan raced with authoritative HEAD")
+        durable_write_bytes(
+            runtime_path("legacy-migration-inventory.json"), inventory_bytes
+        )
+        durable_write_bytes(runtime_path("legacy-revalidation-plan.json"), plan_bytes)
+    finally:
+        for path in (inventory_temporary, plan_temporary):
+            if path is not None:
+                path.unlink(missing_ok=True)
+
+
+def ensure_revalidation_plan_for_required_sources(
+    items: list[dict[str, Any]], claims: list[dict[str, Any]]
+) -> bool:
+    required_ids = {
+        claim.get("item_id")
+        for claim in claims
+        if claim.get("lane", IMPLEMENTATION_LANE) == IMPLEMENTATION_LANE
+        and claim.get("status") == "revalidation_required"
+    }
+    active_successors = {
+        claim.get("item_id")
+        for claim in claims
+        if claim.get("lane", IMPLEMENTATION_LANE) == IMPLEMENTATION_LANE
+        and claim.get("fresh_revalidation") is True
+        and claim.get("status")
+        in {"preparing", "live", "draining", "finished"}
+    }
+    required_ids -= active_successors
+    if not required_ids:
+        return False
+    _, nodes = theorem_dag_v2()
+    required_items = sorted(
+        (
+            item
+            for item in items
+            if item.get("id") in required_ids and item.get("state") == "[_]"
+        ),
+        key=lambda item: claim_order_key(item, nodes),
+    )
+    planned_required_ids = [item["id"] for item in required_items[:50]]
+    unresolved_ids = required_ids - set(planned_required_ids)
+    if unresolved_ids:
+        fail(
+            "required historical revalidation source is not authoritative [_] or "
+            "exceeds the bounded plan: " + ", ".join(sorted(map(str, unresolved_ids)))
+        )
+    lanes = optional_legacy_revalidation_lanes()
+    if set(planned_required_ids).issubset(lanes):
+        return False
+    rebuild_legacy_revalidation_plan(planned_required_ids)
+    refreshed = legacy_revalidation_lanes()
+    if not set(planned_required_ids).issubset(refreshed):
+        fail("rebuilt legacy revalidation plan omitted a required historical item")
+    return True
 
 
 def legacy_revalidation_item_ids() -> set[str]:
@@ -4691,6 +4852,123 @@ def post_integration_legacy_revalidation_lane(
     return verified
 
 
+def _supersede_claim(
+    claim: dict[str, Any], *, successor_claim_id: str, reason: str
+) -> bool:
+    if claim.get("status") == "superseded":
+        return False
+    claim["status"] = "superseded"
+    claim["superseded_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
+    claim["superseded_by_claim_id"] = successor_claim_id
+    claim["supersede_reason"] = reason
+    claim.pop("review_retry_after", None)
+    return True
+
+
+def supersede_revalidation_predecessors(
+    source: dict[str, Any], claims: list[dict[str, Any]]
+) -> bool:
+    """Retire the first historical pass after its current-HEAD successor lands."""
+    predecessor_id = source.get("revalidation_predecessor_claim_id")
+    successor_id = source.get("claim_id")
+    item_id = source.get("item_id")
+    if (
+        source.get("lane", IMPLEMENTATION_LANE) != IMPLEMENTATION_LANE
+        or source.get("status") != "finished_integrated"
+        or not isinstance(predecessor_id, str)
+        or not isinstance(successor_id, str)
+    ):
+        return False
+    predecessors = [
+        claim
+        for claim in claims
+        if claim.get("lane", IMPLEMENTATION_LANE) == IMPLEMENTATION_LANE
+        and claim.get("claim_id") == predecessor_id
+        and claim.get("item_id") == item_id
+        and claim.get("status") == "revalidation_required"
+    ]
+    if len(predecessors) != 1:
+        return False
+    changed = _supersede_claim(
+        predecessors[0],
+        successor_claim_id=successor_id,
+        reason="current-HEAD historical revalidation successor integrated",
+    )
+    for review in claims:
+        if (
+            review.get("lane") == REVIEW_LANE
+            and review.get("item_id") == item_id
+            and review.get("status") in {"review_failed", "review_finished"}
+        ):
+            changed |= _supersede_claim(
+                review,
+                successor_claim_id=successor_id,
+                reason="review targeted superseded historical implementation source",
+            )
+    return changed
+
+
+def reconcile_historical_revalidation_sources(
+    items: list[dict[str, Any]], claims: list[dict[str, Any]]
+) -> bool:
+    """Require a current-HEAD implementation pass when the validator is new/changed."""
+    item_by_id = {item.get("id"): item for item in items}
+    changed = False
+    for source in claims:
+        if (
+            source.get("lane", IMPLEMENTATION_LANE) != IMPLEMENTATION_LANE
+            or source.get("status") != "finished_integrated"
+            or source.get("fresh_revalidation") is not True
+        ):
+            continue
+        item = item_by_id.get(source.get("item_id"))
+        if not isinstance(item, dict) or item.get("state") != "[_]":
+            continue
+        try:
+            post_integration_legacy_revalidation_lane(source, item)
+        except (SystemExit, ValueError) as exc:
+            source["status"] = "quarantined"
+            source["quarantined_at"] = dt.datetime.now(
+                dt.timezone.utc
+            ).isoformat()
+            source["quarantine_reason"] = (
+                "historical revalidation integration closure is invalid: " + str(exc)
+            )
+            changed = True
+            continue
+        try:
+            select_review_validator(item, str(source.get("base_revision", "")))
+        except (SystemExit, ValueError) as exc:
+            reason = str(exc)
+            if not any(
+                marker in reason
+                for marker in (
+                    "selected validator did not exist at the worker base",
+                    "selected validator HEAD blob differs from worker-base blob",
+                )
+            ):
+                continue
+            source["status"] = "revalidation_required"
+            source["revalidation_required_at"] = dt.datetime.now(
+                dt.timezone.utc
+            ).isoformat()
+            source["revalidation_required_reason"] = str(exc)
+            successor_id = str(source.get("claim_id", ""))
+            for review in claims:
+                if (
+                    review.get("lane") == REVIEW_LANE
+                    and review.get("item_id") == source.get("item_id")
+                    and review.get("status") in {"review_failed", "review_finished"}
+                ):
+                    _supersede_claim(
+                        review,
+                        successor_claim_id=successor_id,
+                        reason="historical source requires a current-HEAD implementation pass",
+                    )
+            changed = True
+    return changed
+
+
 def refuse_unsafe_live_identities(claims: list[dict[str, Any]]) -> None:
     unsafe = [
         claim
@@ -4781,6 +5059,13 @@ def implementation_candidates(
             "finished_integrated", "master_accepted", "review_finished", "review_failed"
         }
     )
+    revalidation_required_ids = {
+        claim.get("item_id")
+        for claim in claims
+        if claim.get("runtime_protocol") == RUNTIME_PROTOCOL
+        and claim.get("lane", IMPLEMENTATION_LANE) == IMPLEMENTATION_LANE
+        and claim.get("status") == "revalidation_required"
+    }
     states_by_id = {item["id"]: item["state"] for item in ordered}
     started_targets = {
         item["theorem_id"]
@@ -4810,7 +5095,13 @@ def implementation_candidates(
         )
     ]
     _, nodes = theorem_dag_v2()
-    return sorted(candidates, key=lambda item: claim_order_key(item, nodes))
+    return sorted(
+        candidates,
+        key=lambda item: (
+            0 if item.get("id") in revalidation_required_ids else 1,
+            claim_order_key(item, nodes),
+        ),
+    )
 
 
 def unified_lane_candidates(
@@ -4828,7 +5119,22 @@ def unified_lane_candidates(
     if len(item_ids) != len(set(item_ids)):
         fail("one item is simultaneously eligible for implementation and review")
     _, nodes = theorem_dag_v2()
-    return sorted(records, key=lambda record: claim_order_key(record["item"], nodes))
+    required_ids = {
+        claim.get("item_id")
+        for claim in claims
+        if claim.get("lane", IMPLEMENTATION_LANE) == IMPLEMENTATION_LANE
+        and claim.get("status") == "revalidation_required"
+    }
+    return sorted(
+        records,
+        key=lambda record: (
+            0
+            if record["lane"] == IMPLEMENTATION_LANE
+            and record["item"].get("id") in required_ids
+            else 1,
+            claim_order_key(record["item"], nodes),
+        ),
+    )
 
 
 def review_source_claim(
@@ -5388,7 +5694,7 @@ def refill_reviews(
     ):
         fail("preselected review lanes exceed capacity or use occupied slots")
     timestamp = dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%SZ")
-    base_revision = run(["git", "rev-parse", "HEAD"]).stdout.strip()
+    authority_revision = run(["git", "rev-parse", "HEAD"]).stdout.strip()
     _, nodes = theorem_dag_v2()
     reservations: list[dict[str, Any]] = []
     for slot, item in zip(slots, candidates):
@@ -5409,7 +5715,8 @@ def refill_reviews(
                 "workspace": str(RUNTIME / "review-workspaces" / f"slot{slot}"),
                 "status": "review_failed",
                 "claimed_at": timestamp,
-                "base_revision": base_revision,
+                "base_revision": authority_revision,
+                "authority_revision": authority_revision,
                 "runtime_protocol": RUNTIME_PROTOCOL,
                 "review_failure_reason": "missing or ambiguous immutable implementation provenance",
                 "review_retry_after": (
@@ -5441,7 +5748,8 @@ def refill_reviews(
                     "workspace": str(RUNTIME / "review-workspaces" / f"slot{slot}"),
                     "status": "review_failed",
                     "claimed_at": timestamp,
-                    "base_revision": base_revision,
+                    "base_revision": str(implementation_claim.get("base_revision", "")),
+                    "authority_revision": authority_revision,
                     "runtime_protocol": RUNTIME_PROTOCOL,
                     "review_failure_reason": str(exc),
                     "review_retry_after": (
@@ -5450,8 +5758,9 @@ def refill_reviews(
             })
             continue
         try:
-            role_map = build_review_role_map(item, base_revision)
-            validator = select_review_validator(item, base_revision)
+            worker_base_revision = str(implementation_claim.get("base_revision", ""))
+            role_map = build_review_role_map(item, worker_base_revision)
+            validator = select_review_validator(item, worker_base_revision)
             provenance = snapshot_review_provenance(item, implementation_claim)
             provenance_path, provenance_file_sha256 = persist_review_provenance(
                 implementation_claim, provenance
@@ -5477,7 +5786,8 @@ def refill_reviews(
                 "workspace": str(RUNTIME / "review-workspaces" / f"slot{slot}"),
                 "status": "review_failed",
                 "claimed_at": timestamp,
-                "base_revision": base_revision,
+                "base_revision": str(implementation_claim.get("base_revision", "")),
+                "authority_revision": authority_revision,
                 "runtime_protocol": RUNTIME_PROTOCOL,
                 "review_failure_reason": str(exc),
                 "review_retry_after": (
@@ -5505,7 +5815,7 @@ def refill_reviews(
             item, review_input, claim_id, workspace
         )
         binding = build_review_binding(
-            claim_id, item, base_revision, prompt_text, objective, role_map, validator
+            claim_id, item, worker_base_revision, prompt_text, objective, role_map, validator
         )
         prompt_path = RUNTIME / "prompts" / f"{claim_id}.txt"
         objective_path = RUNTIME / "goals" / f"{claim_id}.txt"
@@ -5533,7 +5843,8 @@ def refill_reviews(
             "status": "preparing",
             "pid": None,
             "claimed_at": timestamp,
-            "base_revision": base_revision,
+            "base_revision": worker_base_revision,
+            "authority_revision": authority_revision,
             "output_log": str(output_path),
             "runtime_protocol": RUNTIME_PROTOCOL,
             "app_server_status": str(status_path),
@@ -5575,7 +5886,9 @@ def refill_reviews(
             cancel_reviews_for_pause(index)
             break
         try:
-            workspace = prepare_review_workspace(int(claim["slot"]), str(claim["base_revision"]))
+            workspace = prepare_review_workspace(
+                int(claim["slot"]), str(claim["authority_revision"])
+            )
             prompt_path = RUNTIME / "prompts" / f"{claim['claim_id']}.txt"
             if execution_is_paused():
                 cancel_reviews_for_pause(index)
@@ -5589,7 +5902,8 @@ def refill_reviews(
                     Path(str(claim["goal_objective_path"])),
                     lane=REVIEW_LANE,
                     binding_path=Path(str(claim["review_binding_path"])),
-                )
+                ),
+                delay_seconds=launch_stagger_delay(len(started)),
             )
             claim["pid_start_ticks"] = process_start_ticks(claim["pid"])
             if claim["pid_start_ticks"] is None:
@@ -5607,6 +5921,9 @@ def refill_workers(max_workers: int) -> int:
     """Reconcile and refill lanes without running heavyweight integration."""
     data, ordered = load_dag()
     claims = refresh_claims(ordered)
+    if reconcile_historical_revalidation_sources(ordered, claims):
+        save_claims(claims)
+    ensure_revalidation_plan_for_required_sources(ordered, claims)
     claims = enforce_worker_cap(claims, max_workers)
     space_guard(claims)
     if execution_is_paused():
@@ -5775,7 +6092,8 @@ def refill_workers(max_workers: int) -> int:
                 cancel_unstarted_for_pause()
                 break
             claim["pid"] = launch_app_server_worker(
-                worker_argv(workspace, prompt, output, status_path, objective_path)
+                worker_argv(workspace, prompt, output, status_path, objective_path),
+                delay_seconds=launch_stagger_delay(len(started)),
             )
             claim["pid_start_ticks"] = process_start_ticks(claim["pid"])
             if claim["pid_start_ticks"] is None:
@@ -5917,7 +6235,8 @@ def restart_live_workers(max_workers: int) -> None:
             worker_argv(
                 workspace, prompt, output, status_path, objective_path,
                 thread_id=thread_id,
-            )
+            ),
+            delay_seconds=launch_stagger_delay(restarted),
         )
         claim["pid_start_ticks"] = process_start_ticks(claim["pid"])
         if claim["pid_start_ticks"] is None:

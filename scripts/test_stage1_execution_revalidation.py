@@ -195,6 +195,7 @@ class HistoricalRevalidationBoundaryTests(unittest.TestCase):
                 "output_order": ["phase_layer", "v2_execution_rank", "item_id"],
                 "classification_counts_do_not_imply_acceptance": True,
             },
+            "required_item_ids": [],
             "eligible_item_count": 1,
             "selected_item_count": 1,
             "eligible_phase_counts": {
@@ -317,6 +318,29 @@ class HistoricalRevalidationBoundaryTests(unittest.TestCase):
             )
             binding = claim["legacy_revalidation_plan_binding"]
             claim["legacy_revalidation_plan_binding_sha256"] = canonical_digest(binding)
+        return claim
+
+    def integrated_historical_claim(self) -> dict[str, object]:
+        claim = self.claim(fresh=True)
+        claim["integrated_at"] = "2026-07-16T12:00:00+00:00"
+        closure = {
+            "schema_version": cron.LEGACY_REVALIDATION_INTEGRATION_SCHEMA,
+            "item_id": self.item["id"],
+            "theorem_id": self.item["theorem_id"],
+            "phase": self.item["phase"],
+            "plan_sha256": claim["legacy_revalidation_plan_sha256"],
+            "plan_file_sha256": claim["legacy_revalidation_plan_file_sha256"],
+            "plan_binding_sha256": claim[
+                "legacy_revalidation_plan_binding_sha256"
+            ],
+            "lane_sha256": claim["legacy_revalidation_lane_sha256"],
+            "base_revision": claim["base_revision"],
+            "pre_attempts": self.item["attempts"],
+            "post_attempts": self.item["attempts"] + 1,
+            "integrated_at": claim["integrated_at"],
+        }
+        claim["legacy_revalidation_integration"] = closure
+        claim["legacy_revalidation_integration_sha256"] = canonical_digest(closure)
         return claim
 
     def runtime_patches(self):
@@ -463,30 +487,11 @@ class HistoricalRevalidationBoundaryTests(unittest.TestCase):
         ):
             cron.current_claim_legacy_revalidation_lane(claim, self.item)
 
-    def test_post_integration_attempt_increment_enters_historical_review(self) -> None:
+    def test_post_integration_attempt_increment_requires_current_head_rerun(self) -> None:
         self.write_plan()
-        claim = self.claim(fresh=True)
+        claim = self.integrated_historical_claim()
         pre_attempts = self.item["attempts"]
         post_item = {**self.item, "attempts": pre_attempts + 1}
-        claim["integrated_at"] = "2026-07-16T12:00:00+00:00"
-        closure = {
-            "schema_version": cron.LEGACY_REVALIDATION_INTEGRATION_SCHEMA,
-            "item_id": self.item["id"],
-            "theorem_id": self.item["theorem_id"],
-            "phase": self.item["phase"],
-            "plan_sha256": claim["legacy_revalidation_plan_sha256"],
-            "plan_file_sha256": claim["legacy_revalidation_plan_file_sha256"],
-            "plan_binding_sha256": claim[
-                "legacy_revalidation_plan_binding_sha256"
-            ],
-            "lane_sha256": claim["legacy_revalidation_lane_sha256"],
-            "base_revision": claim["base_revision"],
-            "pre_attempts": pre_attempts,
-            "post_attempts": pre_attempts + 1,
-            "integrated_at": claim["integrated_at"],
-        }
-        claim["legacy_revalidation_integration"] = closure
-        claim["legacy_revalidation_integration_sha256"] = canonical_digest(closure)
         self.plan_path.unlink()
         self.assertEqual(
             cron.post_integration_legacy_revalidation_lane(claim, post_item),
@@ -499,6 +504,98 @@ class HistoricalRevalidationBoundaryTests(unittest.TestCase):
         )
         with self.assertRaisesRegex(ValueError, "integration closure"):
             cron.post_integration_legacy_revalidation_lane(tampered, post_item)
+
+    def test_historical_source_missing_validator_at_base_requires_rerun_not_review(self) -> None:
+        self.write_plan()
+        claim = self.integrated_historical_claim()
+        post_item = {**self.item, "attempts": self.item["attempts"] + 1}
+        old_review = {
+            "lane": cron.REVIEW_LANE,
+            "item_id": self.item["id"],
+            "status": "review_failed",
+        }
+        claims = [claim, old_review]
+        with mock.patch.object(
+            cron,
+            "select_review_validator",
+            side_effect=SystemExit("selected validator did not exist at the worker base"),
+        ):
+            self.assertTrue(
+                cron.reconcile_historical_revalidation_sources([post_item], claims)
+            )
+        self.assertEqual(claim["status"], "revalidation_required")
+        self.assertEqual(old_review["status"], "superseded")
+        self.assertEqual(old_review["superseded_by_claim_id"], claim["claim_id"])
+        with (
+            mock.patch.object(
+                cron,
+                "optional_legacy_revalidation_lanes",
+                return_value={self.item["id"]: self.lane()},
+            ),
+            mock.patch.object(cron, "theorem_dag_v2", return_value=({}, self.nodes)),
+        ):
+            self.assertEqual(
+                cron.implementation_candidates([post_item], claims), [post_item]
+            )
+            self.assertEqual(cron.review_candidates([post_item], claims), [])
+
+    def test_malformed_historical_integration_is_quarantined_not_requeued(self) -> None:
+        self.write_plan()
+        claim = self.integrated_historical_claim()
+        claim["legacy_revalidation_integration"]["post_attempts"] += 1
+        claim["legacy_revalidation_integration_sha256"] = canonical_digest(
+            claim["legacy_revalidation_integration"]
+        )
+        post_item = {**self.item, "attempts": self.item["attempts"] + 1}
+        self.assertTrue(
+            cron.reconcile_historical_revalidation_sources([post_item], [claim])
+        )
+        self.assertEqual(claim["status"], "quarantined")
+        self.assertIn("integration closure", claim["quarantine_reason"])
+
+    def test_required_source_rebuild_passes_exact_required_item_ids(self) -> None:
+        self.write_plan()
+        required_claim = self.integrated_historical_claim()
+        required_claim["status"] = "revalidation_required"
+        post_item = {**self.item, "attempts": self.item["attempts"] + 1}
+        with (
+            mock.patch.object(cron, "optional_legacy_revalidation_lanes", return_value={}),
+            mock.patch.object(cron, "rebuild_legacy_revalidation_plan") as rebuild,
+            mock.patch.object(
+                cron,
+                "legacy_revalidation_lanes",
+                return_value={self.item["id"]: self.lane()},
+            ),
+            mock.patch.object(cron, "theorem_dag_v2", return_value=({}, self.nodes)),
+        ):
+            self.assertTrue(
+                cron.ensure_revalidation_plan_for_required_sources(
+                    [post_item], [required_claim]
+                )
+            )
+        rebuild.assert_called_once_with([self.item["id"]])
+
+    def test_second_historical_pass_supersedes_old_source_and_becomes_review_source(self) -> None:
+        self.write_plan()
+        old_source = self.integrated_historical_claim()
+        old_source["status"] = "revalidation_required"
+        new_source = self.claim(fresh=True)
+        new_source["claim_id"] = "20260717T120000Z-fedcba987654"
+        new_source["base_revision"] = "d" * 40
+        new_source["legacy_revalidation_lane"]["authority_revision"] = "d" * 40
+        new_source["legacy_revalidation_plan_binding"]["generated_from_revision"] = "d" * 40
+        new_source["legacy_revalidation_plan_binding_sha256"] = canonical_digest(
+            new_source["legacy_revalidation_plan_binding"]
+        )
+        new_source["integrated_at"] = "2026-07-17T12:00:00+00:00"
+        new_source["revalidation_predecessor_claim_id"] = old_source["claim_id"]
+        claims = [old_source, new_source]
+        self.assertTrue(cron.supersede_revalidation_predecessors(new_source, claims))
+        self.assertEqual(old_source["status"], "superseded")
+        self.assertEqual(
+            old_source["superseded_by_claim_id"], new_source["claim_id"]
+        )
+        self.assertIs(cron.review_source_claim(self.item, claims), new_source)
 
     def test_resigned_claim_cannot_replace_head_owned_plan(self) -> None:
         plan = self.write_plan()
@@ -549,6 +646,19 @@ class HistoricalRevalidationBoundaryTests(unittest.TestCase):
         patches = self.runtime_patches()
         with patches[0], patches[1], patches[2], self.assertRaisesRegex(
             (SystemExit, ValueError), "binding|content-bound|malformed|authority"
+        ):
+            cron.legacy_revalidation_lanes()
+
+    def test_plan_required_ids_must_be_selected_and_digest_bound(self) -> None:
+        plan = self.plan()
+        plan["required_item_ids"] = ["S56-M-9999-INTAKE"]
+        plan["plan_sha256"] = canonical_digest(
+            {key: value for key, value in plan.items() if key != "plan_sha256"}
+        )
+        self.write_plan(plan)
+        patches = self.runtime_patches()
+        with patches[0], patches[1], patches[2], self.assertRaisesRegex(
+            SystemExit, "malformed"
         ):
             cron.legacy_revalidation_lanes()
 

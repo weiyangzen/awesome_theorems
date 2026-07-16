@@ -1671,9 +1671,12 @@ class SchedulerCapacityTests(unittest.TestCase):
                 pause.write_text("paused\n", encoding="utf-8")
             return Path("/unused")
 
-        def launch_worker(_argv: list[str]) -> int:
+        def launch_worker(
+            _argv: list[str], *, delay_seconds: float = 0.0
+        ) -> int:
             nonlocal launch_calls
             launch_calls += 1
+            events.append(f"delay:{delay_seconds}")
             events.append("popen")
             if launch_failure_at == launch_calls:
                 raise OSError("injected launch failure")
@@ -1749,6 +1752,10 @@ class SchedulerCapacityTests(unittest.TestCase):
         first_save = saved[0]
         self.assertEqual(len(first_save), 50)
         self.assertTrue(all(claim["status"] == "preparing" for claim in first_save))
+        self.assertEqual(events.count("delay:0.0"), 1)
+        self.assertEqual(
+            events.count(f"delay:{cron.APP_SERVER_LAUNCH_STAGGER_SECONDS}"), 49
+        )
 
     def test_forty_eight_live_refill_launches_exactly_two(self) -> None:
         claims, events, saved = self.run_refill_fixture(48)
@@ -2773,7 +2780,10 @@ class SchedulerCapacityTests(unittest.TestCase):
             review_workspace = runtime / "review-workspaces" / "slot1"
             review_workspace.mkdir(parents=True)
 
-            def launch(argv: list[str]) -> int:
+            def launch(
+                argv: list[str], *, delay_seconds: float = 0.0
+            ) -> int:
+                self.assertEqual(delay_seconds, 0.0)
                 launched_argv.extend(argv)
                 return 7654
 
@@ -3436,7 +3446,10 @@ class SchedulerCapacityTests(unittest.TestCase):
             }
             launched: list[list[str]] = []
 
-            def fake_launch(argv: list[str]) -> int:
+            def fake_launch(
+                argv: list[str], *, delay_seconds: float = 0.0
+            ) -> int:
+                self.assertEqual(delay_seconds, 0.0)
                 launched.append(argv)
                 return 777
 

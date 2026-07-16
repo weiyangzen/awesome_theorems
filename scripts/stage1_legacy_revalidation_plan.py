@@ -396,6 +396,8 @@ def _select_stratified(
     items: list[dict[str, Any]],
     theorem_metadata: dict[str, dict[str, Any]],
     limit: int,
+    *,
+    required_item_ids: tuple[str, ...] = (),
 ) -> list[dict[str, Any]]:
     strata: dict[str, list[dict[str, Any]]] = {phase: [] for phase in PHASES}
     for item in items:
@@ -411,14 +413,22 @@ def _select_stratified(
             )
         )
 
-    selected: list[dict[str, Any]] = []
+    by_id = {item["item_id"]: item for item in items}
+    selected = [by_id[item_id] for item_id in required_item_ids]
+    selected_ids = set(required_item_ids)
     offsets = {phase: 0 for phase in PHASES}
     while len(selected) < limit:
         advanced = False
         for phase in PHASES:
-            offset = offsets[phase]
-            if offset < len(strata[phase]):
-                selected.append(strata[phase][offset])
+            while (
+                offsets[phase] < len(strata[phase])
+                and strata[phase][offsets[phase]]["item_id"] in selected_ids
+            ):
+                offsets[phase] += 1
+            if offsets[phase] < len(strata[phase]):
+                item = strata[phase][offsets[phase]]
+                selected.append(item)
+                selected_ids.add(item["item_id"])
                 offsets[phase] += 1
                 advanced = True
                 if len(selected) == limit:
@@ -442,6 +452,7 @@ def build_plan(
     revision: str = "HEAD",
     candidate_contract: Path | None = None,
     limit: int = MAX_SAMPLES,
+    required_item_ids: list[str] | tuple[str, ...] = (),
 ) -> dict[str, Any]:
     """Validate immutable inputs and return a deterministic planning document."""
 
@@ -475,7 +486,39 @@ def build_plan(
         blueprint_rows=blueprint_rows,
         expected_authority_mode=authority_mode,
     )
-    selected = _select_stratified(verified_items, theorem_metadata, limit)
+    if not isinstance(required_item_ids, (list, tuple)):
+        fail("required item ids must be an ordered list")
+    required = tuple(required_item_ids)
+    if (
+        any(not isinstance(item_id, str) for item_id in required)
+        or len(required) != len(set(required))
+        or len(required) > limit
+    ):
+        fail("required item ids are malformed, duplicated, or exceed the plan limit")
+    verified_ids = {item["item_id"] for item in verified_items}
+    missing_required = sorted(set(required) - verified_ids)
+    if missing_required:
+        fail(
+            "required item is not an authoritative [_] inventory row: "
+            + ", ".join(missing_required)
+        )
+    required = tuple(
+        item["item_id"]
+        for item in sorted(
+            (item for item in verified_items if item["item_id"] in set(required)),
+            key=lambda item: (
+                PHASES.index(item["phase"]),
+                theorem_metadata[item["theorem_id"]]["v2_execution_rank"],
+                item["item_id"],
+            ),
+        )
+    )
+    selected = _select_stratified(
+        verified_items,
+        theorem_metadata,
+        limit,
+        required_item_ids=required,
+    )
     if not selected:
         fail("there are no authoritative [_] items to revalidate")
 
@@ -562,6 +605,7 @@ def build_plan(
             "output_order": ["phase_layer", "v2_execution_rank", "item_id"],
             "classification_counts_do_not_imply_acceptance": True,
         },
+        "required_item_ids": list(required),
         "eligible_item_count": len(verified_items),
         "selected_item_count": len(lanes),
         "eligible_phase_counts": {
@@ -625,6 +669,12 @@ def main() -> None:
     )
     parser.add_argument("--limit", type=int, default=MAX_SAMPLES)
     parser.add_argument(
+        "--required-item",
+        action="append",
+        default=[],
+        help="authoritative [_] item id that must be included within the bounded plan",
+    )
+    parser.add_argument(
         "--output",
         type=Path,
         help="optional output path outside the repository; stdout is the default",
@@ -636,6 +686,7 @@ def main() -> None:
         revision=args.revision,
         candidate_contract=args.candidate_contract,
         limit=args.limit,
+        required_item_ids=args.required_item,
     )
     payload = (
         json.dumps(plan, ensure_ascii=False, sort_keys=True, indent=2) + "\n"
