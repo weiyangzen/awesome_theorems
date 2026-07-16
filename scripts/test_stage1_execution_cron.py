@@ -39,6 +39,31 @@ def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def refresh_blueprint_progress_summary(text: str) -> str:
+    """Render the summary from the fixture rows instead of a live SSOT snapshot."""
+    body = cron.checklist_body(text)
+    counts = Counter(match["state"] for match in cron.CHECKLIST_ROW_RE.finditer(body))
+    total = sum(counts.values())
+    if total != 1546 * len(cron.PHASES):
+        raise AssertionError(f"fixture blueprint has {total} checklist rows")
+    summary = (
+        "Authoritative progress summary (derived and validated from the rows below):\n"
+        f"- `[_]` {counts['[_]']} ({100 * counts['[_]'] / total:.2f}% worker self-tested)\n"
+        f"- `[ ]` {counts['[ ]']}\n"
+        f"- `[x]` {counts['[x]']}"
+    )
+    pattern = (
+        r"Authoritative progress summary \(derived and validated from the rows below\):\n"
+        r"- `\[_\]` \d+ \([0-9.]+% worker self-tested\)\n"
+        r"- `\[ \]` \d+\n"
+        r"- `\[x\]` \d+"
+    )
+    updated, count = re.subn(pattern, summary, text, count=1)
+    if count != 1:
+        raise AssertionError("fixture blueprint progress summary is missing or ambiguous")
+    return updated
+
+
 def lean_declaration_signature(path: Path, declaration: str) -> str:
     """Extract the normalized signature used by the production gate."""
     text = path.read_text(encoding="utf-8", errors="replace")
@@ -83,8 +108,6 @@ class DependencyReuseLedgerTests(unittest.TestCase):
         self.dag_path.write_text(json.dumps(dag) + "\n", encoding="utf-8")
         self.blueprint_path = self.root / "Docs" / "Stage1_Blueprint_v2.md"
         blueprint = cron.BLUEPRINT.read_text(encoding="utf-8")
-        changed_to_x = 0
-        changed_from_selftest = 0
         for theorem_id in (PARENT, CHILD):
             for phase in cron.PHASE_NAMES:
                 item_id = cron.task_id(theorem_id, phase)
@@ -92,19 +115,8 @@ class DependencyReuseLedgerTests(unittest.TestCase):
                 match = re.search(pattern, blueprint, re.MULTILINE)
                 if match is None:
                     self.fail(f"missing SSOT fixture row: {item_id}")
-                changed_to_x += match.group(1) != "[x]"
-                changed_from_selftest += match.group(1) == "[_]"
                 blueprint = re.sub(pattern, r"- [x] \2", blueprint, count=1, flags=re.MULTILINE)
-        current_selftested = 3223 - changed_from_selftest
-        current_not_done = 7599 - (changed_to_x - changed_from_selftest)
-        blueprint = re.sub(
-            r"- `\[_\]` \d+ \([0-9.]+% worker self-tested\)",
-            f"- `[_]` {current_selftested} ({100 * current_selftested / 10822:.2f}% worker self-tested)",
-            blueprint,
-            count=1,
-        )
-        blueprint = re.sub(r"- `\[ \]` \d+", f"- `[ ]` {current_not_done}", blueprint, count=1)
-        blueprint = re.sub(r"- `\[x\]` \d+", f"- `[x]` {changed_to_x}", blueprint, count=1)
+        blueprint = refresh_blueprint_progress_summary(blueprint)
         self.blueprint_path.write_text(blueprint, encoding="utf-8")
         self.dag_patch = mock.patch.object(cron, "DAG", self.dag_path)
         self.dag_patch.start()
@@ -571,15 +583,7 @@ class DependencyReuseLedgerTests(unittest.TestCase):
                 count=1,
                 flags=re.MULTILINE,
             )
-        counts = Counter(match["state"] for match in cron.CHECKLIST_ROW_RE.finditer(blueprint))
-        blueprint = re.sub(
-            r"- `\[_\]` \d+ \([0-9.]+% worker self-tested\)",
-            f"- `[_]` {counts['[_]']} ({100 * counts['[_]'] / 10822:.2f}% worker self-tested)",
-            blueprint,
-            count=1,
-        )
-        blueprint = re.sub(r"- `\[ \]` \d+", f"- `[ ]` {counts['[ ]']}", blueprint, count=1)
-        blueprint = re.sub(r"- `\[x\]` \d+", f"- `[x]` {counts['[x]']}", blueprint, count=1)
+        blueprint = refresh_blueprint_progress_summary(blueprint)
         self.blueprint_path.write_text(blueprint, encoding="utf-8")
         parent_states = {
             item["phase"]: item["state"] for item in dag["items"] if item["theorem_id"] == parent
@@ -705,11 +709,7 @@ class DependencyReuseLedgerTests(unittest.TestCase):
                     count=1,
                     flags=re.MULTILINE,
                 )
-        blueprint_text = blueprint_text.replace(
-            "- `[_]` 3223 (29.78% worker self-tested)",
-            "- `[_]` 3209 (29.65% worker self-tested)",
-            1,
-        ).replace("- `[x]` 0", "- `[x]` 14", 1)
+        blueprint_text = refresh_blueprint_progress_summary(blueprint_text)
         status_blueprint.write_text(blueprint_text, encoding="utf-8")
         provider_source = status_root / "Stage1_Instances" / PARENT / "Proof.lean"
         consumer_source = status_root / "Stage1_Instances" / CHILD / "GeneralizedLindeberg.lean"
@@ -4420,15 +4420,24 @@ class TheoremDagRegenerationTests(unittest.TestCase):
     def test_generator_reads_state_from_blueprint_not_execution_dag(self) -> None:
         generator = self.load_generator("stage1_theorem_dag_ssot_test")
         source = cron.BLUEPRINT.read_text(encoding="utf-8")
-        mutated = source.replace("- [_] `S56-M-0387-INTAKE`", "- [ ] `S56-M-0387-INTAKE`", 1)
-        mutated = mutated.replace("- `[_]` 3223 (29.78% worker self-tested)", "- `[_]` 3222 (29.77% worker self-tested)", 1)
-        mutated = mutated.replace("- `[ ]` 7599", "- `[ ]` 7600", 1)
+        row = re.search(r"^- (\[[_x ]\]) (`S56-M-0387-INTAKE`)", source, re.MULTILINE)
+        self.assertIsNotNone(row)
+        assert row is not None
+        mutated_state = "[ ]" if row.group(1) != "[ ]" else "[_]"
+        mutated = re.sub(
+            r"^- \[[_x ]\] (`S56-M-0387-INTAKE`)",
+            f"- {mutated_state} \\1",
+            source,
+            count=1,
+            flags=re.MULTILINE,
+        )
+        mutated = refresh_blueprint_progress_summary(mutated)
         with tempfile.TemporaryDirectory() as directory:
             blueprint = Path(directory) / "Stage1_Blueprint_v2.md"
             blueprint.write_text(mutated, encoding="utf-8")
             with mock.patch.object(generator, "BLUEPRINT", blueprint):
                 items = generator.blueprint_state_items()
-        self.assertEqual(items[0]["state"], "[ ]")
+        self.assertEqual(items[0]["state"], mutated_state)
 
     def test_regeneration_and_dependency_context_digests_are_stable(self) -> None:
         generator = self.load_generator("stage1_theorem_dag_generator_under_test")
