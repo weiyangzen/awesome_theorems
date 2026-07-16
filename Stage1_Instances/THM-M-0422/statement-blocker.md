@@ -36,7 +36,18 @@ alternate transports, and meaningful removed-hypothesis/domain/scope/boundary mu
 truthfully supplied. The machine state remains `M4`. No unproved declaration, opaque proxy
 predicate, abstract witness supplied by the caller, or weaker class-group theorem was introduced.
 
-## Environment fingerprint
+## Current rev-5.6 handoff
+
+This blocker was rechecked at repository base
+`778c2db4855d48868391ea236f702e592067e798` on 2026-07-17 (Asia/Shanghai).
+The target-owned structured statement record, boundary probe, empty dependency-reuse ledger,
+node receipt, and semantic validator now bind that base. `Statement.lean` elaborates with
+`lake env lean --trust=0`; `check_statement.py` returns
+`phase_accepted=false` and the first failed gate
+`S02-EXACT-TARGET.missing_source_faithful_lean_objects`. The older 2026-07-12 evidence below is
+retained only as discovery history and is not the current receipt.
+
+## Historical environment fingerprint
 
 - Repository base revision: `2667c596819609e46936f6b65b03aef6de2db783`.
 - Validation date: 2026-07-12 (Asia/Shanghai).
@@ -73,6 +84,7 @@ The next statement run can then elaborate the intake's reciprocity and existence
 source-faithful target, serialize the expression, check alternate formulations, and mutation-test
 abelianity, finiteness, openness/index, norm direction, binder scope, and trivial extensions.
 
-Until those conditions are met, statement acceptance and theorem completion are false. Because the
-assigned phase is not self-tested to its completion gate, no `.stage1-worker-selftest.json` is
-emitted.
+Until those conditions are met, statement acceptance and theorem completion are false. At the
+historical 2026-07-12 run, no `.stage1-worker-selftest.json` was emitted. The current 2026-07-17
+packet described above self-tests this negative boundary only; it does not satisfy or claim the
+positive statement completion gate.

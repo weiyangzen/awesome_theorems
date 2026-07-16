@@ -1,0 +1,144 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "item_id": "S56-M-0108-STATEMENT",
+  "theorem_id": "THM-M-0108",
+  "execution_rank": 32,
+  "v2_execution_rank": 267,
+  "lifecycle_mode": "planned",
+  "canonical_name": "Chow's theorem",
+  "canonical_claim_status": "intake_selected_reduced_carrier_formulation_frozen_primary_source_and_structured_space_transports_open",
+  "canonical_statement": "For every natural number n and every closed complex-analytic subset Z of finite-dimensional complex projective space CP^n, there is a family of homogeneous complex polynomials whose simultaneous projective zero locus is exactly Z.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0108/Statement.lean",
+    "declaration_or_expression": "Stage1Instances.THMM0108.ChowTheoremTarget",
+    "statement_file_sha256": "cbe8852abcc4d3fe4ed87be2fcdcec848b72c9041df017fbc7d9b4cd09b39c59",
+    "elaborated_expression_sha256": "32fabc4d6654c80d342bc7705594dddae1d3e4836404d62075eb56e859978789",
+    "fully_explicit_expression": "forall (n : Nat) (Z : Set (Stage1Instances.THMM0108.ComplexProjectiveSpace n)), Stage1Instances.THMM0108.IsClosedComplexAnalyticProjectiveSubset Z -> Stage1Instances.THMM0108.IsHomogeneousPolynomialCutOut Z"
+  },
+  "domain_and_universes": "n : Nat; HomogeneousCoordinates n = Fin (n + 1) -> Complex; ComplexProjectiveSpace n is the quotient Projectivization Complex (HomogeneousCoordinates n); all carriers are in universe 0 and the target is Prop.",
+  "ordered_binders": [
+    "n : Nat",
+    "Z : Set (ComplexProjectiveSpace n)",
+    "IsClosedComplexAnalyticProjectiveSubset Z"
+  ],
+  "hypotheses": [
+    "the quotient preimage of Z in the nonzero homogeneous-coordinate cone is closed",
+    "around every point of Z, that preimage is locally the common zero locus of finitely many complex-analytic functions"
+  ],
+  "conclusion": "There exists one family of homogeneous multivariate polynomials over Complex whose simultaneous zeros on all nonzero homogeneous-coordinate representatives are exactly Z.",
+  "direct_imports": [
+    "Mathlib.Analysis.Complex.Basic",
+    "Mathlib.Analysis.Analytic.Basic",
+    "Mathlib.LinearAlgebra.Projectivization.Basic",
+    "Mathlib.RingTheory.MvPolynomial.Homogeneous"
+  ],
+  "minimal_import_basis": "The four imports separately supply Complex with its topological and normed-field instances, AnalyticOnNhd, Projectivization, and MvPolynomial.IsHomogeneous. The statement validator deletes each direct import in turn and requires Lean failure. No aggregate Mathlib import, projective-spectrum proof module, or Chow proof body is imported.",
+  "analytic_boundary_model": {
+    "carrier": "Projectivization Complex (Fin (n + 1) -> Complex)",
+    "quotient_map": "Stage1Instances.THMM0108.projectivizationMap",
+    "closedness": "IsClosed of the quotient preimage inside the punctured homogeneous-coordinate cone",
+    "analyticity": "local finite common zero loci of AnalyticOnNhd Complex functions on open subsets of the homogeneous-coordinate vector space, at every point of the subset",
+    "reducedness": "set-theoretic reduced carrier only; nilpotent analytic or algebraic structure is not encoded or credited"
+  },
+  "algebraic_boundary_model": {
+    "equations": "a Set of MvPolynomial (Fin (n + 1)) Complex",
+    "homogeneity": "each selected polynomial has some degree satisfying MvPolynomial.IsHomogeneous",
+    "zero_locus": "equality tested on every nonzero representative and therefore on the complete projective carrier",
+    "well_definedness_boundary": "The proposition quantifies over all representatives; downstream proof work may derive scaling invariance from homogeneity, but no unproved quotient-evaluation function is introduced."
+  },
+  "checked_alternate_encodings": [],
+  "uncredited_alternate_encodings": [
+    "nonreduced analytic subspaces or algebraic closed subschemes",
+    "an analytification or GAGA equivalence of structured spaces",
+    "irreducible-only variety formulations",
+    "ProjectiveSpectrum closed-zero-locus results without an analytic comparison"
+  ],
+  "degenerate_cases": {
+    "included": [
+      "n = 0",
+      "the empty analytic subset",
+      "the whole projective space",
+      "reducible reduced analytic subsets"
+    ],
+    "excluded": [
+      "nonreduced structured analytic subspaces and equality of nilpotent structure sheaves"
+    ]
+  },
+  "environment_fingerprint": {
+    "repository_base": "2dc5a410b68eff806858fd6ed0cb33d57f6209f7",
+    "repository_base_tree": "841bdd6114e7436cff4a3a1ff248fc1e884a9ddc",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "lake_version": "5.0.0-src+98dc76e",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "serialization_options": [
+      "autoImplicit=false",
+      "pp.universes=true",
+      "pp.all=true"
+    ],
+    "dependency_mode": "automation-provided canonical pinned .lake symlink used read-only"
+  },
+  "foundation_profile": "Lean 4 dependent type theory in the pinned mathlib environment. The target and its native predicate definitions report only propext, Classical.choice, and Quot.sound; no custom axiom, proof placeholder, unsafe declaration, oracle, or external computation is introduced.",
+  "tcb_profile": "Lean kernel 4.29.0 plus pinned mathlib revision 8a178386ffc0f5fef0b77738bb5449d50efeea95. This statement phase credits only elaboration and expression identity, not any theorem body or downstream transitive trust closure.",
+  "computation_profile": "No native computation, numerical experiment, oracle, solver, or unchecked certificate is used or credited.",
+  "mutation_tests": [
+    {
+      "kind": "removed_hypothesis",
+      "declaration": "mutationRemovedClosedness",
+      "expression_sha256": "cfcd4c0a0e3131a99d2b39debe3966a9d862dfdb1322cabf6c1270ceeb3e8030",
+      "result": "Lean exact-type rejection and distinct fully explicit expression"
+    },
+    {
+      "kind": "changed_domain",
+      "declaration": "mutationChangedDomain",
+      "expression_sha256": "385f16a7e292222903faeff208bb16a009a8b0c799cfd5055f597c16e14a4aaa",
+      "result": "Lean exact-type rejection and distinct affine-domain expression"
+    },
+    {
+      "kind": "changed_binder_scope",
+      "declaration": "mutationChangedBinderScope",
+      "expression_sha256": "48574a6107eae3e302130e88cc9712706c251998a0434c3df6c969f8c74ff645",
+      "result": "Lean exact-type rejection and distinct expression with one equation family outside the subset binder"
+    },
+    {
+      "kind": "boundary_case",
+      "declaration": "mutationExcludedDimensionZero",
+      "expression_sha256": "cc94ce68a8b2efeda76937dc77c44885ddef9056fe11306edcd48d8cff3f8357",
+      "result": "Lean exact-type rejection and distinct expression excluding n = 0"
+    }
+  ],
+  "source_fidelity_boundary": "The 1949 Chow paper is identified but its exact numbered result, definitions, assumptions, terminology, errata, and independent review remain open at H1. This phase freezes the intake-selected modern reduced-carrier formulation; it does not claim H0 or a checked transport to a nonreduced structured-space formulation.",
+  "dependency_context": {
+    "observed_theorem_dag_sha256": "3d32f808e2914b338c459d52651b69731f0979a90a720f98bc0f31a577e2bafa",
+    "dependency_context_sha256": "068170c76abd4579d643ede04d731b974412185bd285e7b40255ec4044adec5c",
+    "parent_inspection_order": [],
+    "direct_parent_ids": [],
+    "transitive_ancestor_ids": [],
+    "reuse_hint_ids": [],
+    "shared_group_ids": [],
+    "reuse_credit": false
+  },
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "statement_elaborated": true,
+  "theorem_proved": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "gate_state": "worker_self_tested_pending_dependency_ordered_master_acceptance",
+  "status_boundary": "Exact reduced-carrier statement elaboration, minimal imports, environment/expression fingerprints, and four structural mutation identities only. No proof body, anchor acceptance, source H0, obligation closure, audit completion, theorem completion, or master acceptance is claimed."
+}

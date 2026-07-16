@@ -1,0 +1,94 @@
+{
+  "schema_version": "stage1-statement/1.0",
+  "item_id": "S56-M-0422-STATEMENT",
+  "theorem_id": "THM-M-0422",
+  "lifecycle_mode": "planned",
+  "lifecycle": "planned",
+  "canonical_claim_status": "blocked_on_missing_source_faithful_lean_objects",
+  "canonical_statement": "For a number field K: (i) for every finite abelian extension L/K, global reciprocity induces an isomorphism from the idele class group C_K modulo the norm subgroup N_{L/K}(C_L) to Gal(L/K); and (ii) finite-index open subgroups of C_K are precisely such norm subgroups, giving the inclusion-reversing existence/classification correspondence with finite abelian extensions of K in a fixed algebraic closure.",
+  "canonical_formal_target": {
+    "backend": "lean4",
+    "module": "Stage1_Instances/THM-M-0422/Statement.lean",
+    "declaration_or_expression": null,
+    "elaborated_expression_sha256": null,
+    "statement_file_sha256": "17fc5d0fa4b78a71ccf24ccf12d670a47ad9ac401496ee90687d85249473f607",
+    "gate_state": "blocked_missing_concrete_class_field_theory_interfaces"
+  },
+  "domain_and_universes": "The mathematical scope fixes a number field K, a chosen algebraic closure of K, and finite abelian intermediate extensions L/K. Lean universes cannot be frozen until the missing idele, norm, Artin, and correspondence interfaces are supplied.",
+  "ordered_binders": [],
+  "hypotheses": [
+    "K is a number field",
+    "L/K is finite and abelian for the reciprocity component",
+    "U is an open finite-index subgroup of the correctly topologized idele class group for the existence component"
+  ],
+  "conclusion": "Both the Artin-map norm-kernel quotient isomorphism and the inclusion-reversing norm-subgroup classification hold.",
+  "direct_imports": [
+    "Mathlib.FieldTheory.Galois.Abelian",
+    "Mathlib.NumberTheory.NumberField.AdeleRing",
+    "Mathlib.Topology.Algebra.IsOpenUnits"
+  ],
+  "minimal_import_basis": "These three imports are the narrow pinned interface probe: finite abelian Galois extensions, the number-field adele ring, and mathlib's explicit warning-bearing open-units topology interface. They are not claimed to be a minimal import set for the unavailable canonical target.",
+  "checked_alternate_encodings": [],
+  "uncredited_candidate_interpretations": [
+    {
+      "candidate": "A bijection from an arbitrary caller-supplied extension type to arbitrary open finite-index subgroups",
+      "reason_uncredited": "This does not construct or characterize global reciprocity, norm groups, the Artin map, or extensions inside a fixed algebraic closure."
+    },
+    {
+      "candidate": "The profinite isomorphism between the completed idele class group and Gal(K^ab/K)",
+      "reason_uncredited": "The required maximal abelian extension and profinite-completion interfaces are absent, and no checked transport to the finite-level compound root exists."
+    },
+    {
+      "candidate": "A ray-class-field formulation",
+      "reason_uncredited": "No pinned ray class field construction or checked cofinal transport to the root is available."
+    }
+  ],
+  "degenerate_and_boundary_cases": {
+    "status": "mathematically_identified_but_not_lean_encoded",
+    "cases": [
+      "L = K must give the trivial Galois group and full norm subgroup",
+      "U = C_K must correspond to the trivial extension",
+      "K = Q is only a specialization",
+      "archimedean and ramified places remain in scope",
+      "the idele topology is not the topology induced from the adele ring"
+    ]
+  },
+  "environment_fingerprint": {
+    "repository_base_revision": "778c2db4855d48868391ea236f702e592067e798",
+    "repository_base_tree": "27abf0ec82dad50561a14d1db471126fb7ac8665",
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_version": "4.29.0",
+    "lean_commit": "98dc76e3c0a9b856c9b98726b713fb04fab16740",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b",
+    "lean_toolchain_file_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib_interface_sha256": {
+      "Mathlib/FieldTheory/Galois/Abelian.lean": "2747cc67b1e0af6a0ae3ec5213262f5adfef331c1fa00f973654a14122b121b9",
+      "Mathlib/NumberTheory/NumberField/AdeleRing.lean": "bb3b2448d9bd4febf74e78760d8927406ca49c8117362fdf2a3f752b3efebdd8",
+      "Mathlib/Topology/Algebra/IsOpenUnits.lean": "c6699fcb90e5cb3f5ac7244a39b3c23e1ce6eb24bd9ad17afdcd1e37e82188dd"
+    },
+    "dependency_mode": "existing canonical pinned .lake symlink used read-only; no update, build, fetch, clone, or dependency mutation"
+  },
+  "foundation_profile": "Lean dependent type theory with the pinned mathlib classical, quotient, algebraic-closure, and topology foundations permitted only after an exact target exists.",
+  "tcb_profile": "The boundary probe elaborates with Lean 4.29.0 and pinned mathlib. It supplies no target expression, proof, checked transport, axiom audit, or transitive trust closure.",
+  "computation_profile": "No computation, experiment, oracle, solver, native code, or unchecked certificate is used or credited.",
+  "mutation_tests": {
+    "required_kinds": [
+      "removed_hypothesis",
+      "changed_domain",
+      "changed_binder_scope",
+      "boundary_case"
+    ],
+    "executed": [],
+    "status": "blocked_without_canonical_expression",
+    "reason": "Without concrete source-faithful idele, norm, Artin, and extension-correspondence objects, a mutation suite would mutate an invented proxy rather than the canonical target."
+  },
+  "statement_elaborated": false,
+  "theorem_proved": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "first_failed_gate": "S02-EXACT-TARGET.missing_source_faithful_lean_objects",
+  "retry_condition": "Pin or implement the correctly topologized ideles and idele class group, idele norm maps, global Artin maps, finite abelian extensions in a fixed algebraic closure, and their norm-subgroup correspondence; then elaborate and fingerprint the compound root and run all four mutation classes.",
+  "status_boundary": "This record freezes a target-scoped negative statement result and a pinned interface probe. It is not an exact Lean proposition, expression fingerprint, accepted statement, proof, audit completion, or theorem completion."
+}

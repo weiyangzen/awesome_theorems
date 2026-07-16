@@ -1,0 +1,270 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "receipt_id": "S56-M-0115-PROOF-BLOCKED-WORKER-20260717",
+  "receipt_class": "provisional_worker_selftest",
+  "content_addressed": false,
+  "item_id": "S56-M-0115-PROOF",
+  "theorem_id": "THM-M-0115",
+  "phase": "proof",
+  "intent": "prove",
+  "execution_rank": 23,
+  "v2_execution_rank": 260,
+  "phase_layer": 4,
+  "depends_on": [
+    "S56-M-0115-OBLIGATION_TREE"
+  ],
+  "base_revision": "307c34d30fc3763c82a944a142ae922b48ff18aa",
+  "base_tree": "ef45ba442c71959db78ad146a023bcf32946a53f",
+  "support_state": "provisional_worker_selftest",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "acceptance_authority": "Stage1 integration lane only",
+  "verdict": "blocked",
+  "selftest_status": "passed",
+  "selftest_result": {
+    "exit_code": 0,
+    "commands": [
+      {
+        "cwd": ".",
+        "argv": [
+          "python3",
+          "Docs/tools/check_stage1_standard.py"
+        ],
+        "exit_code": 1,
+        "result": "expected worker-delta boundary: fresh theorem inventory includes the new target-owned proof artifacts while the worker is forbidden to rewrite the checked-in DAG; pre-edit execution passed all 15 assurance groups and the v2 DAG"
+      },
+      {
+        "cwd": ".",
+        "argv": [
+          "python3",
+          "Docs/tools/check_stage1_theorem_dag_v2.py"
+        ],
+        "exit_code": 1,
+        "result": "expected worker-delta boundary: checked-in theorem DAG differs from fresh deterministic generation only because the new target-owned proof inventory is unintegrated; the command passed before the owned proof delta"
+      },
+      {
+        "cwd": ".",
+        "argv": [
+          "python3",
+          "scripts/stage1_target.py",
+          "check"
+        ],
+        "exit_code": 0,
+        "result": "stage1_target: ok (1546 unique targets, ranks 1..1546, all L0/rework_required)"
+      },
+      {
+        "cwd": ".",
+        "argv": [
+          "python3",
+          "scripts/stage1_target.py",
+          "show",
+          "THM-M-0115"
+        ],
+        "exit_code": 0,
+        "result": "rank 23; lifecycle planned; L0/rework_required; theorem_complete false"
+      },
+      {
+        "cwd": ".",
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "Stage1_Instances/THM-M-0115/check_proof.py"
+        ],
+        "exit_code": 0,
+        "result": "exactly one stage1-validator-semantic-result/1.0 object; status blocked, phase_accepted false, phase_predicate_proven false, first failed gate P04-KERNEL/EXACT-TARGET-CONSISTENCY"
+      },
+      {
+        "cwd": ".",
+        "argv": [
+          "python3",
+          "-m",
+          "json.tool",
+          "Stage1_Instances/THM-M-0115/proof-receipt.json"
+        ],
+        "exit_code": 0,
+        "result": "proof receipt, proof blocker, dependency reuse ledger, and worker packet each parsed as JSON"
+      },
+      {
+        "cwd": ".",
+        "argv": [
+          "git",
+          "diff",
+          "--check",
+          "--",
+          "Stage1_Instances/THM-M-0115",
+          ".stage1-worker-selftest.json"
+        ],
+        "exit_code": 0,
+        "result": "no whitespace diagnostics"
+      }
+    ],
+    "validator_semantic_stdout": {
+      "schema_version": "stage1-validator-semantic-result/1.0",
+      "item_id": "S56-M-0115-PROOF",
+      "theorem_id": "THM-M-0115",
+      "phase": "proof",
+      "status": "blocked",
+      "verdict": "blocked",
+      "phase_accepted": false,
+      "audit_complete": false,
+      "theorem_complete": false,
+      "phase_predicate_proven": false,
+      "first_failed_gate": "P04-KERNEL/EXACT-TARGET-CONSISTENCY",
+      "open_obligations": 32,
+      "stale_inputs": [],
+      "blocked": true,
+      "message": "The exact empty dependency closure and a placeholder-free trust-zero countermodel were replayed. The frozen abstract target is false because its semantic compatibility propositions do not constrain its operations; the positive proof predicate remains unsatisfied and requires statement repair."
+    }
+  },
+  "inputs": {
+    "task_state_authority": {
+      "path": "Docs/Stage1_Blueprint_v2.md",
+      "sha256": "2a5bc7d397e03969aac1a9f8f21b437152b8ef63ef453055acf67857ced628b5",
+      "git_blob": "aff0509a6a1d50b429f28aa3fb603f8da3347114",
+      "item_state_observed": "[ ]",
+      "attempts_observed": 0
+    },
+    "assurance_authority": {
+      "path": "Docs/Stage1_Blueprint_rev-5.6.md",
+      "sha256": "3779901013ac5e0b1f1b2bb4ea7a2ee08429f85bb1ee26c4b96905d6796c65c8",
+      "git_blob": "00b304bc44f3d1c52f3723cf1553bb13a2ad4018"
+    },
+    "phase_contract": {
+      "path": "Docs/Stage1_Phase_Acceptance_Contracts.json",
+      "sha256": "1e7adf0f4fae0541b3595d4b0bfbb53f7eb17e28a4a889fec14f6df969e0cec4",
+      "git_blob": "84b92df9eaf457ab954b652c3f20f4d513cf0a88"
+    },
+    "theorem_dag": {
+      "path": "Docs/Stage1_Theorem_DAG_v2.json",
+      "sha256": "8be71ef1e4fa1c3de5aa420550ff915dbe0b9f165ac0d98518adf2d1fe25fd47",
+      "git_blob": "db66431477ee26a5577f8a239d29985d59b32543"
+    },
+    "dependency_context_sha256": "068170c76abd4579d643ede04d731b974412185bd285e7b40255ec4044adec5c",
+    "parent_inspection_order": [],
+    "provider_acceptance_inherited": false,
+    "dependency_reuse_ledger": {
+      "path": "Stage1_Instances/THM-M-0115/dependency-reuse-ledger.json",
+      "sha256": "7df2ec53f34afc9ac1f82b34a255baef5d4795568f2f2ff19e69e504e876c62d",
+      "git_blob": "ecd03527ddfe09c665ce6335c75904692e9e510d"
+    },
+    "proof_sources": [
+      {
+        "path": "Stage1_Instances/THM-M-0115/Proof.lean",
+        "sha256": "ce0ab46f7ab8815cdd22a992d6d0ec4db8d6fa6ea6d5464f5700aec24465fca9",
+        "git_blob": "a9bc6129b5b564a62b1d3341a6a401c4252d5e2a"
+      }
+    ],
+    "provider_material": [],
+    "statement": {
+      "path": "Stage1_Instances/THM-M-0115/Statement.lean",
+      "sha256": "26648a8514a0a9240c831132918c9ad0f735eb7accce33f2287a45961394d538",
+      "git_blob": "549a67286060ee9091c4751269d635d71a46c7cf"
+    },
+    "obligation_registry": {
+      "path": "Stage1_Instances/THM-M-0115/obligation-registry.json",
+      "sha256": "1259038b59ce7429205a1813b97c31f2be5075b7c6ee784f3d602110d13f37c3",
+      "git_blob": "35fdecd564804042680386ee7a0bfabb57637894"
+    },
+    "typed_graphs": {
+      "path": "Stage1_Instances/THM-M-0115/typed-graphs.json",
+      "sha256": "ccf1757734fe4f37aae3bc65bebcb9fbf63a65f6d59031f74156607df91a768a",
+      "git_blob": "8ae46f25af81916f2077a5cc93e09f9c52be41b0"
+    },
+    "proof_validator": {
+      "path": "Stage1_Instances/THM-M-0115/check_proof.py",
+      "sha256": "f5d65c79d8cc4da1ae931b79ab77bab32280f14601b052f121f72617f493b792",
+      "git_blob": "e7f38b0340a23a76fd1693f06c478911176bd1e8",
+      "existed_at_base": false,
+      "current_claim_selection_eligible": false
+    },
+    "proof_blocker": {
+      "path": "Stage1_Instances/THM-M-0115/proof-blocker.json",
+      "sha256": "6f03954a247f2331950fe524494924d4aa0b0882e99f29d09315f9273c7f7a2e",
+      "git_blob": "71235d272bb1f77bcc620d09312c2ddf2d844e53"
+    },
+    "proof_validation": {
+      "path": "Stage1_Instances/THM-M-0115/proof-validation.md",
+      "sha256": "68f429fb3594013d07814ff3481ef2fcba2bf3f3311bccb509c1a30a750b11dd",
+      "git_blob": "fac6afd7271362f5835e194f1ca2eb20c0b507b6"
+    },
+    "phase_receipt": {
+      "path": "Stage1_Instances/THM-M-0115/proof-receipt.json",
+      "sha256": "scheduler_recomputed_after_integration",
+      "git_blob": "scheduler_recomputed_after_integration"
+    }
+  },
+  "canonical_target": "Stage1Instances.THMM0115.GrothendieckRiemannRochTarget",
+  "canonical_target_expression_sha256": "eada246ab2968c378c5b6c31c2ffd84c10873d9206b499457c451ae3848c160e",
+  "exact_declarations": [
+    "Stage1Instances.THMM0115.Proof.counterexampleData_hypotheses",
+    "Stage1Instances.THMM0115.Proof.not_grothendieckRiemannRochTarget"
+  ],
+  "closed_obligation_ids": [],
+  "proof_body": {
+    "classification": "target_owned_negative_countermodel_witness",
+    "source": "Stage1_Instances/THM-M-0115/Proof.lean",
+    "source_sha256": "ce0ab46f7ab8815cdd22a992d6d0ec4db8d6fa6ea6d5464f5700aec24465fca9",
+    "negative_declaration": "Stage1Instances.THMM0115.Proof.not_grothendieckRiemannRochTarget",
+    "exact_type": "Not (Stage1Instances.THMM0115.GrothendieckRiemannRochTarget.{0, 0})",
+    "terminal_proof_body_id": null,
+    "reuse_relationship": "none",
+    "positive_proof_credit": false,
+    "mathematical_boundary": "The countermodel refutes the unconstrained abstract encoding only, not mathematical Grothendieck-Riemann-Roch."
+  },
+  "result": {
+    "exit_code": 0,
+    "semantic_verdict": "blocked",
+    "phase_predicate_proven": false,
+    "phase_accepted": false,
+    "blocked": true,
+    "root_kernel_closed": false,
+    "accepted_closed_obligation_ids": [],
+    "open_obligations": 32,
+    "stale_inputs": [],
+    "lean_output_sha256": "30974c6b4d80b58b371b8c0b2495c695bb0a35abc81818f75eb10b7572fe202b",
+    "machine_derived_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "placeholder_scan": "pass",
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "known_failures": [
+    "The exact frozen target is kernel-refuted at universes (0,0); a positive proof body would make the kernel inconsistent.",
+    "The semantic compatibility proposition fields do not constrain any operation used in the formula.",
+    "No compatible exact terminal GRR proof exists in the repository or pinned dependency closure; the audited external terminal-shaped candidate has a direct sorry and a non-exact statement.",
+    "The positive proof predicate, all 32 frozen obligation closures, validation, release, AUDIT-Z, THEOREM-Z, and master acceptance remain open.",
+    "The mandatory proof validator did not exist at the worker base. These target-owned validator bytes require integration before an unchanged-HEAD scheduler replay can select them.",
+    "The automation-provided canonical pinned .lake symlink was reused read-only for warm nonrelease validation."
+  ],
+  "first_failed_gate": "P04-KERNEL/EXACT-TARGET-CONSISTENCY",
+  "retry_condition": "Reopen S56-M-0115-STATEMENT and replace the unconstrained proposition-only semantic fields with concrete structures and laws that actually bind KZero, ChowHomologyQ, both pushforwards, both Chern characters, tangent and Todd data, and cap actions. Accept a new exact statement fingerprint, then refreeze anchor and obligation evidence before retrying proof.",
+  "invalidation_inputs": [
+    "Statement.lean or its exact expression fingerprint",
+    "statement.json or the canonical semantic boundary",
+    "obligation-registry.json or typed-graphs.json",
+    "dependency context, theorem DAG digest, or claim order",
+    "phase acceptance contract, Lean toolchain, mathlib revision, or trust profile"
+  ],
+  "root_vector_after": {
+    "H": "H4",
+    "M": "M3",
+    "R": "R4"
+  },
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "remaining_root_cut_set": [
+    "S56-M-0115-STATEMENT",
+    "S56-M-0115-ANCHOR_AUDIT",
+    "S56-M-0115-OBLIGATION_TREE",
+    "S56-M-0115-PROOF",
+    "S56-M-0115-VALIDATION",
+    "S56-M-0115-RELEASE"
+  ],
+  "status_boundary": "Self-tested target-owned negative proof evidence only. It establishes that the current frozen encoding cannot receive a positive proof body, but it does not satisfy the assigned positive proof predicate, close any positive obligation or root, transfer provider acceptance, or establish audit, theorem, validation, release, or master completion."
+}

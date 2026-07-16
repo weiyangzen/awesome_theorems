@@ -1,0 +1,277 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0122-PROOF-blocked-307c34d30fc3-slot62",
+  "item_id": "S56-M-0122-PROOF",
+  "theorem_id": "THM-M-0122",
+  "phase": "proof",
+  "intent": "prove",
+  "base_revision": "307c34d30fc3763c82a944a142ae922b48ff18aa",
+  "base_tree": "ef45ba442c71959db78ad146a023bcf32946a53f",
+  "claim_order": {
+    "v2_execution_rank": 275,
+    "phase_layer": 4,
+    "phase_item_id": "S56-M-0122-PROOF"
+  },
+  "validated_at": "2026-07-17T04:00:00+08:00",
+  "attestor": "stage1-rev56-worker-slot62",
+  "support_state": "provisional_worker_selftest",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "verdict": "blocked",
+  "selftest_status": "passed",
+  "selftest_result": {
+    "exit_code": 0,
+    "commands": [
+      {
+        "argv": [
+          "python3",
+          "Docs/tools/check_stage1_standard.py"
+        ],
+        "cwd": ".",
+        "exit_code": 1,
+        "expected_failure": "Target-owned proof artifacts make the checked-in theorem-DAG evidence inventory stale; only the integration lane may regenerate that read-only authority projection."
+      },
+      {
+        "argv": [
+          "python3",
+          "Docs/tools/check_stage1_theorem_dag_v2.py"
+        ],
+        "cwd": ".",
+        "exit_code": 1,
+        "expected_failure": "Target-owned proof artifacts make the checked-in theorem-DAG evidence inventory stale; only the integration lane may regenerate that read-only authority projection."
+      },
+      {
+        "argv": [
+          "python3",
+          "scripts/stage1_target.py",
+          "check"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "python3",
+          "scripts/stage1_target.py",
+          "show",
+          "THM-M-0122"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "lake",
+          "env",
+          "lean",
+          "--trust=0",
+          "-t0",
+          "--root=<isolated_tmp>",
+          "<isolated_tmp>/Statement.lean",
+          "-o",
+          "<isolated_tmp>/Statement.olean"
+        ],
+        "cwd": "Formalizations/Lean",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "lake",
+          "env",
+          "lean",
+          "--trust=0",
+          "-t0",
+          "--root=<isolated_tmp>",
+          "<isolated_tmp>/ObligationTree.lean",
+          "-o",
+          "<isolated_tmp>/ObligationTree.olean"
+        ],
+        "cwd": "Formalizations/Lean",
+        "exit_code": 0,
+        "environment": {
+          "LEAN_PATH_PREFIX": "<isolated_tmp>"
+        }
+      },
+      {
+        "argv": [
+          "lake",
+          "env",
+          "lean",
+          "--trust=0",
+          "-t0",
+          "--root=<isolated_tmp>",
+          "<isolated_tmp>/Proof.lean"
+        ],
+        "cwd": "Formalizations/Lean",
+        "exit_code": 0,
+        "environment": {
+          "LEAN_PATH_PREFIX": "<isolated_tmp>"
+        }
+      },
+      {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "Stage1_Instances/THM-M-0122/check_proof.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "git",
+          "diff",
+          "--check",
+          "--",
+          "Stage1_Instances/THM-M-0122",
+          ".stage1-worker-selftest.json"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      }
+    ],
+    "output_summary": "The authoritative task and v2 DAG pass; the empty dependency closure is content-bound; isolated trust-zero Lean replay proves three target-owned partial/conditional bodies sorry-free with the standard axiom profile. The complete proof predicate remains blocked at the first missing arithmetic-geometric package, and no unchanged-base proof validator candidate exists."
+  },
+  "known_failures": [
+    "No placeholder-free premise-free body inhabits the exact FaltingsTarget in the repository or pinned dependency closure.",
+    "Finite-extension normalization, Jacobian/Abel-Jacobi construction, Mordell-Weil, Mordell-Lang, no-positive-coset, and finite-intersection proof bodies remain open.",
+    "The authoritative prerequisite obligation-tree phase is worker-provisional [_], not master accepted [x]; provisional later work transfers no prerequisite acceptance.",
+    "The proof phase contract rejects partial bodies and truthful negative findings as phase completion.",
+    "No sole proof validator candidate existed at worker base, so a new validator cannot satisfy the unchanged-base HEAD selection gate for this claim.",
+    "H0, R0, provenance and trust closure, validation, release, independent verification, AUDIT-Z, THEOREM-Z, and master acceptance remain open.",
+    "The automation-provided Formalizations/Lean/.lake symlink was reused read-only for warm nonrelease validation."
+  ],
+  "first_failed_gate": "P04-KERNEL.M0122-N-FINITE-EXTENSION",
+  "retry_condition": "Resume when placeholder-free implementations of the six frozen machine root-cut packages exist in the pinned closure, or when an immutable license-reviewed exact Lean 4 Faltings implementation can be consumer-owned and checked without weakening the all-number-field scheme/cohomological target. After this handoff is integrated, the scheduler must also provide a HEAD-tracked proof validator before issuing a fresh proof claim.",
+  "status_boundary": "Self-tested target-owned partial proof and blocker evidence only. It does not satisfy the complete proof predicate, close an accepted obligation or root, transfer provider acceptance, or establish validation, release, audit completion, theorem completion, or master acceptance.",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "invalidation_inputs": [
+    "Docs/Stage1_Blueprint_v2.md or the assigned item state/attempt",
+    "Docs/Stage1_Theorem_DAG_v2.json or dependency context",
+    "Docs/Stage1_Phase_Acceptance_Contracts.json or validator selection",
+    "Statement.lean or the canonical expression fingerprint",
+    "ObligationTree.lean, obligation registry, typed graphs, or composition certificates",
+    "Proof.lean, dependency ledger, blocker, receipt, validation narrative, or worker packet",
+    "Lean toolchain, mathlib revision/tree, dependency artifacts, axiom policy, or trust profile",
+    "new exact provider material, supersession, revocation, or master acceptance"
+  ],
+  "canonical_target": "Stage1Instances.THMM0122.FaltingsTarget",
+  "canonical_target_expression_sha256": "f3e5f585b30ab9543bc47551d0d91c695523bace26fdb5484869add319ef7dac",
+  "exact_declarations": [
+    "Stage1Instances.THMM0122.Proof.finite_of_injective_to",
+    "Stage1Instances.THMM0122.Proof.finite_of_two_injections",
+    "Stage1Instances.THMM0122.Proof.faltingsTarget_of_packages"
+  ],
+  "closed_obligation_ids": [],
+  "provisional_candidate_obligation_ids": [
+    "M0122-T-RANGE-TRANSPORT",
+    "M0122-T-TERMINAL"
+  ],
+  "proof_body": {
+    "classification": "target_owned_partial_and_conditional_proof_bodies",
+    "source": "Stage1_Instances/THM-M-0122/Proof.lean",
+    "source_sha256": "07c9c730d01964dc4aeea81b2af34a8fc59a105301751e78ea0eccfa1a521e1a",
+    "terminal_proof_body_id": null,
+    "reuse_relationship": "none",
+    "scope_boundary": "Two set-theoretic finiteness transports and exact-root assembly conditional on all three frozen package premises. No arithmetic-geometric package or premise-free root is proved."
+  },
+  "inputs": {
+    "task_state_authority": {
+      "path": "Docs/Stage1_Blueprint_v2.md",
+      "sha256": "2a5bc7d397e03969aac1a9f8f21b437152b8ef63ef453055acf67857ced628b5",
+      "item_state_observed": "[ ]",
+      "attempts_observed": 0
+    },
+    "assurance_authority": {
+      "path": "Docs/Stage1_Blueprint_rev-5.6.md",
+      "sha256": "3779901013ac5e0b1f1b2bb4ea7a2ee08429f85bb1ee26c4b96905d6796c65c8"
+    },
+    "theorem_dag_sha256": "8be71ef1e4fa1c3de5aa420550ff915dbe0b9f165ac0d98518adf2d1fe25fd47",
+    "dependency_context_sha256": "068170c76abd4579d643ede04d731b974412185bd285e7b40255ec4044adec5c",
+    "phase_contract_sha256": "1e7adf0f4fae0541b3595d4b0bfbb53f7eb17e28a4a889fec14f6df969e0cec4",
+    "parent_inspection_order": [],
+    "provider_acceptance_inherited": false,
+    "accepted_receipt_ids": [],
+    "proof_sources": [
+      {
+        "path": "Stage1_Instances/THM-M-0122/Proof.lean",
+        "sha256": "07c9c730d01964dc4aeea81b2af34a8fc59a105301751e78ea0eccfa1a521e1a",
+        "git_blob": "b53a6e7f174841587c65d95f421eddcac144db70"
+      }
+    ],
+    "proof_validator": {
+      "path": "Stage1_Instances/THM-M-0122/check_proof.py",
+      "sha256": "26ffc3bbac2c1dc29eec11348f1641281c2557c2224fd3831d928cdea6eba18b",
+      "git_blob": "41facc70f16dbb572307b23dd5a347157f8dd35c"
+    },
+    "dependency_reuse_ledger": {
+      "path": "Stage1_Instances/THM-M-0122/dependency-reuse-ledger.json",
+      "sha256": "eb8858b6e9554a702800dd4e892b5e10f4c83133a116579736504d3f959d301d",
+      "git_blob": "29dcac860246c2f9e652fc9fd03e25789d1fccb0"
+    },
+    "proof_blocker": {
+      "path": "Stage1_Instances/THM-M-0122/proof-blocker.json",
+      "sha256": "3b5183c462e84be52662958fb014d72a47088f0d002ca59d96bf14ed086b369e",
+      "git_blob": "de487ea11c19109e9bfea9624173d531314bba8e"
+    },
+    "proof_validation": {
+      "path": "Stage1_Instances/THM-M-0122/proof-validation.md",
+      "sha256": "6f4f4173b02d1329f91880c525273dd4eb65fb545522eaf56833e9a6d350ad5a",
+      "git_blob": "9a8cb76c11eb82afc06b42b6002e8efc52b78b96"
+    },
+    "statement_sha256": "824c2d9410bbf3117fa6340e4259f9a3a7df6ff892c4b7cc6dad94a03ab437e8",
+    "obligation_tree_sha256": "c081ee9e08e5bf5aeb3060605ebc9c7f7926d08d04632380e105e8ff1c783c69",
+    "obligation_registry_sha256": "776919528add8197b01b864b11c71aeea85c549dbcfead8b3b9395e340a43ff0",
+    "typed_graphs_sha256": "d3d8f88bb2cb87910c63b5664e1e2695fc7641a538e52954e8cd08df9dc8e329",
+    "anchor_audit_sha256": "3da3f5c769e138a1c623eea5395483982e068a1d23c7f06fd69842f13524ac16",
+    "validation_specs_sha256": "e84f59f222c73a7cf847cc3189e59040492e915048fa3b4d29a60cab2fca4d3f",
+    "validator_candidate": {
+      "path": "Stage1_Instances/THM-M-0122/check_proof.py",
+      "sha256": "26ffc3bbac2c1dc29eec11348f1641281c2557c2224fd3831d928cdea6eba18b",
+      "git_blob": "41facc70f16dbb572307b23dd5a347157f8dd35c",
+      "existed_at_base": false,
+      "current_claim_selection_eligible": false,
+      "boundary": "The validator is supplied for integration but did not exist at the worker base, so it cannot satisfy unchanged-base selection for this claim."
+    }
+  },
+  "result": {
+    "exit_code": 0,
+    "semantic_verdict": "blocked",
+    "phase_predicate_proven": false,
+    "phase_accepted": false,
+    "blocked": true,
+    "root_kernel_closed": false,
+    "accepted_closed_obligation_ids": [],
+    "provisional_candidate_obligation_ids": [
+      "M0122-T-RANGE-TRANSPORT",
+      "M0122-T-TERMINAL"
+    ],
+    "observed_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "placeholder_scan": "pass",
+    "proof_stdout_sha256": "fb39843cb284e2a02ec84fb3449f4759358ff524799a36b5f654d3e21b967a55",
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "remaining_root_cut_set": [
+    "M0122-N-FINITE-EXTENSION",
+    "M0122-C-ABEL-JACOBI",
+    "M0122-L-MORDELL-WEIL",
+    "M0122-L-MORDELL-LANG",
+    "M0122-L-NO-POSITIVE-COSET",
+    "M0122-L-FINITE-INTERSECTION"
+  ],
+  "phase_receipt_binding": {
+    "role": "phase_receipt",
+    "path": "Stage1_Instances/THM-M-0122/proof-receipt.json",
+    "sha256": null,
+    "git_blob": null,
+    "binding_owner": "scheduler integration lane",
+    "status_boundary": "The receipt cannot bind its own final bytes without a cycle; the scheduler binds the integrated HEAD artifact."
+  }
+}

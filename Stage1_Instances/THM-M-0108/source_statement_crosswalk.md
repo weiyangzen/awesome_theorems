@@ -16,10 +16,25 @@ with this publication record and requires resolution.
 
 | Source-side component | Frozen target meaning | Intake assessment |
 |---|---|---|
-| compact complex analytic variety in projective space | closed complex-analytic subvariety of finite-dimensional `CP^n` | compact/closed equivalence and source terminology need audit |
-| algebraic character | common zero locus of homogeneous complex polynomials | exact source conclusion and reducedness convention unresolved |
-| ambient projective coordinates | projective space over `Complex`, with explicit finite `n` | native Lean model unresolved |
-| equality/equivalence of varieties | equality of carriers or structured analytic/algebraic equivalence, as the source actually states | must not be guessed at intake |
+| compact complex analytic variety in projective space | `IsClosedComplexAnalyticProjectiveSubset Z`: the quotient preimage of `Z` in the punctured homogeneous-coordinate cone is closed and is locally cut out near every point by finitely many `AnalyticOnNhd Complex` functions | the reduced modern carrier formulation is frozen; compact/closed source terminology still needs audit |
+| algebraic character | `IsHomogeneousPolynomialCutOut Z`: one family of `MvPolynomial (Fin (n + 1)) Complex`, each homogeneous of some degree, has exactly `Z` as its simultaneous projective zero locus | the reduced set-theoretic conclusion is frozen; any nonreduced structured-space strengthening remains uncredited |
+| ambient projective coordinates | `Projectivization Complex (Fin (n + 1) -> Complex)`, with `n : Nat` explicit | the quotient carrier and nonzero representative map now elaborate in `Statement.lean`; no independent projective topology instance is postulated |
+| equality/equivalence of varieties | equality of membership for every nonzero homogeneous-coordinate representative | exact for the selected reduced carrier formulation; equality or equivalence of structured analytic/algebraic spaces requires a later checked transport |
+
+## Statement-phase selection
+
+`Statement.lean` resolves the intake's primary-carrier branch rather than
+inventing an abstract analytic predicate. Analyticity has explicit local
+equation data on the homogeneous-coordinate cone, and algebraicity has
+explicit homogeneous polynomial equations. This is a reduced, set-theoretic
+formulation of the conventional theorem and includes reducible subsets, the
+empty and full subsets, and `n = 0`.
+
+The source audit remains open. In particular, this phase does not claim that
+Chow's 1949 terminology includes precisely this reduced convention, nor does
+it transport this target to nonreduced analytic subspaces, closed subschemes,
+or an analytification equivalence. Those alternatives remain visible rather
+than silently broadening the frozen target.
 
 ## Legacy crosswalk
 
@@ -35,4 +50,6 @@ close Chow's theorem, so they receive no rev-5.6 statement or proof credit.
 often stated for arbitrary closed analytic subsets. "Algebraic" may mean a
 set-theoretic homogeneous zero locus or a structured algebraic subvariety.
 These choices affect the proposition and must be settled by pinpoint source
-inspection and checked transports in later phases.
+inspection before crediting a stronger structured-space interpretation. The
+statement phase selects the reduced-carrier interpretation explicitly; it
+does not erase the remaining source-fidelity and transport debt.

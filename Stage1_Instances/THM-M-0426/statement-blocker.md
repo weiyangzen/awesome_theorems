@@ -72,5 +72,15 @@ factor, and all primitive/imprimitive and polar boundary branches. The next stat
 choose concrete pinned Lean definitions, determine minimal imports, elaborate and fingerprint the
 exact expression, and execute the mandatory mutations and checked transports.
 
-Because this assigned phase did not reach its self-tested completion gate, no
-`.stage1-worker-selftest.json` is emitted.
+## Current rev-5.6 packet
+
+The 2026-07-17 statement retry refreshes this blocker with `statement.json`, a no-target Lean
+boundary probe, an empty audited schema-1.1 dependency/reuse ledger, exactly one node receipt, and
+the contract-selected validator. The v2 node's parent/reuse inspection order is empty; no provider
+body or acceptance is consumed. The validator reports the semantic result `blocked` with
+`phase_accepted=false`, rather than inferring acceptance from successful checks.
+
+The negative packet is genuinely self-tested as a blocker handoff, not as the positive statement
+deliverable. Its root `.stage1-worker-selftest.json` therefore proposes only `[_]` review of the
+truthful blocked result. The exact target, statement fingerprint, mutation suite, statement phase
+acceptance, downstream phases, audit completion, and theorem completion remain open.

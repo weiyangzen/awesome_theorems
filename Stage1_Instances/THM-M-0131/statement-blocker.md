@@ -1,7 +1,13 @@
 # THM-M-0131 statement-phase blocker
 
-Item: `S56-M-0131-STATEMENT`  
-Base revision: `00e1e30ff33e4399bb3fdf46894103a5f67be8ab`
+Item: `S56-M-0131-STATEMENT`
+Current structured recheck base: `307c34d30fc3763c82a944a142ae922b48ff18aa`
+
+The authoritative structured negative packet is now
+`statement-blocker.json`; `statement.json`, `Statement.lean`,
+`statement-receipt.json`, and `check_statement.py` provide the exact
+contract-selected boundary, receipt, and typed semantic validator. This file
+retains the original mathematical diagnosis as the readable blocker report.
 
 ## Verdict
 
@@ -47,5 +53,6 @@ pinned Lake environment through the clone's `.lake` link; no dependency state wa
 | `cd Formalizations/Lean && lake env lean --version` | 0 | Lean 4.29.0, commit `98dc76e3c0a9b856c9b98726b713fb04fab16740` |
 | `cd Formalizations/Lean && sha256sum lean-toolchain lake-manifest.json AwesomeTheorems/Stage1/S1_M_048.lean` | 0 | SHA-256 values `651c8a...1d2`, `321626...d81`, and `5afb45...fc5` respectively |
 
-No `.stage1-worker-selftest.json` is emitted because the assigned statement phase is blocked rather
-than self-tested.
+The worker self-test handoff records only that this target-scoped negative packet is internally
+consistent. Its proposed `[_]` state is unfinished: the typed validator reports
+`phase_accepted=false`, so command success cannot become statement acceptance.

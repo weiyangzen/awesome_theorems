@@ -1,7 +1,7 @@
 # THM-M-0138 statement-phase blocker
 
 Item: `S56-M-0138-STATEMENT`  
-Base revision: `de9509a9b807a45e9fb1511465a7b957788afc54`
+Base revision: `74d4c272070069bc62df15798895293b4795940a`
 
 ## Verdict
 
@@ -30,8 +30,19 @@ when those fields hold; it neither defines the mathematical source and target ca
 constructs the Beilinson-Bernstein functors. Reusing it would substitute a conditional interface
 for the theorem and is forbidden by the rev-5.6 exact-statement gate.
 
-`StatementInfrastructure.lean` uses the smallest direct imports found for the two concrete pinned
-anchors and deliberately declares no canonical theorem, proof mechanism, or proxy predicate.
+`Statement.lean` is the phase-contract-selected boundary source. It uses the two direct imports for
+the concrete pinned anchors and deliberately declares no canonical theorem, proof mechanism, or
+proxy predicate. The older `StatementInfrastructure.lean` remains intake-era support only and is
+not selected for the statement-source role.
+
+## Dependency and reuse audit
+
+The authoritative claim-order tuple is `(288, 1, S56-M-0138-STATEMENT)`. The complete direct and
+transitive hard-parent inspection order is empty, as are the hard-edge, reuse-hint, and shared-group
+lists. `dependency-reuse-ledger.json` binds that empty audited closure to graph digest
+`cb4b83c4c4a5474fce51f98098f1421315fe7f1bd8cd52205932e57eced9f675` and dependency-context
+digest `068170c76abd4579d643ede04d731b974412185bd285e7b40255ec4044adec5c`.
+No provider declaration, body, receipt, proof credit, or acceptance is consumed or inherited.
 
 ## First failed gate
 
@@ -48,15 +59,17 @@ fetch, clone, or build command was run.
 
 | Command | Exit | Result |
 |---|---:|---|
-| `cd Formalizations/Lean && lake env lean ../../Stage1_Instances/THM-M-0138/StatementInfrastructure.lean` | 0 | generic enveloping-algebra, ordinary module-sheaf, and categorical-equivalence anchors elaborated; no canonical target was declared |
+| `cd Formalizations/Lean && lake env lean --trust=0 ../../Stage1_Instances/THM-M-0138/Statement.lean` | 0 | generic enveloping-algebra, ordinary module-sheaf, and categorical-equivalence anchors elaborated; no canonical target was declared |
 | `cd Formalizations/Lean && lake env lean AwesomeTheorems/Stage1/S1_M_054.lean` | 0 | historical abstract boundary module elaborated; this is negative mismatch evidence, not statement credit |
 | `cd Formalizations/Lean && lake env lean --version` | 0 | Lean 4.29.0, commit `98dc76e3c0a9b856c9b98726b713fb04fab16740` |
 | `cd Formalizations/Lean && git -C .lake/packages/mathlib rev-parse HEAD` | 0 | pinned mathlib revision `8a178386ffc0f5fef0b77738bb5449d50efeea95` |
 | `cd Formalizations/Lean && sha256sum lean-toolchain lake-manifest.json` | 0 | toolchain hash `651c8a...1d2`; manifest hash `321626...d81` |
-| `python3 Docs/tools/check_stage1_standard.py` | 0 | standard projection passed: 15 assurance groups and 1546 uniform-L0 Lean 4 targets |
+| `python3 Docs/tools/check_stage1_standard.py` | expected 1 after artifact creation | target-owned statement inventory makes the checked-in theorem-DAG evidence inventory stale until master regeneration |
+| `python3 Docs/tools/check_stage1_theorem_dag_v2.py` | expected 1 after artifact creation | same master-owned projection staleness; the worker did not edit it |
 | `python3 scripts/stage1_target.py check` | 0 | target manifest passed: 1546 unique targets, ranks 1 through 1546, all L0/rework-required |
 | `python3 scripts/stage1_target.py show THM-M-0138` | 0 | rank 54, planned, legacy artifacts unaccepted, theorem incomplete |
-| `git diff --check -- Stage1_Instances/THM-M-0138` | 0 | no whitespace errors |
+| `/usr/bin/python3 -I -B Stage1_Instances/THM-M-0138/check_statement.py` | 0 | emits one typed JSON object with `status=blocked` and `phase_accepted=false` |
+| `git diff --check -- Stage1_Instances/THM-M-0138 .stage1-worker-selftest.json` | 0 | no whitespace errors |
 
 ## Retry condition
 
@@ -66,5 +79,7 @@ central-character block, flag variety, twisted differential operators, and the t
 next run can then encode the exact claim, minimize imports, fingerprint its elaborated expression,
 check alternate packaging, and execute structural mutations.
 
-Because the assigned phase is blocked rather than genuinely self-tested to its completion gate, no
-`.stage1-worker-selftest.json` is emitted.
+The negative packet is genuinely self-tested as a blocker handoff, so `.stage1-worker-selftest.json`
+uses `state: "[_]"`. That state means only that the evidence packet and commands passed their worker
+self-test. The phase contract explicitly forbids a raw blocked verdict from closing the statement
+phase, and the validator reports `phase_accepted=false`.

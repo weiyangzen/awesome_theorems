@@ -2,16 +2,18 @@
 
 ## Included claim
 
-The target is the classical projective analytic-to-algebraic theorem: a closed
-complex-analytic subvariety `Z` of finite-dimensional complex projective space
-is algebraic. At statement phase, the ambient dimension, complex field,
-projective-space model, analytic-subvariety structure, closedness, homogeneous
-ideal, and equality of carriers must all be explicit.
+The selected target is the reduced, set-theoretic projective
+analytic-to-algebraic theorem. For every `n : Nat`, the ambient carrier is
+`Projectivization Complex (Fin (n + 1) -> Complex)`. A subset `Z` is required
+to have a closed quotient preimage and, near each of its points, that preimage
+must be the common zero locus of finitely many `AnalyticOnNhd Complex`
+functions on the homogeneous-coordinate vector space.
 
-The primary carrier formulation says that `Z` is the simultaneous zero set of
-a family of homogeneous complex polynomials. A scheme/subspace formulation may
-replace it only after a checked transport accounts for reducedness and the
-analytic/algebraic structure, not merely equality of underlying sets.
+The conclusion supplies one set of complex multivariate polynomials, each
+homogeneous of some degree, whose simultaneous zeros on every nonzero
+representative are exactly `Z`. Quantifying over every representative avoids
+postulating an unproved quotient-evaluation function. This formulation
+includes reducible subsets, the empty and full subsets, and `n = 0`.
 
 ## Exclusions
 
@@ -21,22 +23,21 @@ analytic/algebraic structure, not merely equality of underlying sets.
   produces this exact conclusion.
 - Compact analytic spaces not already embedded as closed subvarieties of a
   projective space.
-- Abstract predicates such as `ProjectiveAnalyticLocalModel` and
-  `HomogeneousPolynomialCutOut` when they carry no native mathematical data.
+- Abstract predicates with no native mathematical data. The local analytic
+  functions and homogeneous polynomial family in `Statement.lean` are data,
+  not uninterpreted placeholders.
 - Merely showing that the ambient projective scheme is proper.
 
 ## Required transports
 
-Later work must choose between reduced closed analytic subsets and analytic
-subspaces with nilpotents. It must check any transport among homogeneous-ideal
-zero loci, projective algebraic varieties, reduced closed subschemes, and
-analytifications. Equality of carriers alone does not establish equality of
-structured spaces.
+Nonreduced analytic subspaces, algebraic closed subschemes, and structured
+analytification/GAGA formulations are not credited alternate encodings. Any
+later use of one must bind both statement fingerprints and provide a checked
+transport accounting for nilpotent structure, not merely equality of carriers.
 
 ## Statement mutation obligations
 
-Reject variants dropping analytic structure, closedness, projective ambient
-space, finite dimension, or the complex base field. Reject conclusions giving
-only local algebraicity, constructibility, or containment in an algebraic set.
-Test the empty/full subsets and `n = 0`, and detect any silent reducedness or
-irreducibility assumption.
+The executable mutation suite removes closedness, changes the projective domain
+to an affine coordinate space, moves the equation family outside the subset
+binder, and excludes `n = 0`. Lean rejects exact-type equality for each mutant,
+and the validator requires a distinct fully explicit expression fingerprint.

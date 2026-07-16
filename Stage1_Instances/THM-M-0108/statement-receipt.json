@@ -1,0 +1,265 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "receipt_id": "S56-M-0108-STATEMENT-WORKER-20260717-SLOT35",
+  "receipt_class": "provisional_worker_selftest",
+  "content_addressed": false,
+  "item_id": "S56-M-0108-STATEMENT",
+  "theorem_id": "THM-M-0108",
+  "execution_rank": 32,
+  "v2_execution_rank": 267,
+  "phase": "statement",
+  "intent": "audit",
+  "depends_on": [
+    "S56-M-0108-INTAKE"
+  ],
+  "base_revision": "2dc5a410b68eff806858fd6ed0cb33d57f6209f7",
+  "base_tree": "841bdd6114e7436cff4a3a1ff248fc1e884a9ddc",
+  "validated_at": "2026-07-17T05:00:00+08:00",
+  "attestor": "stage1-rev56-worker-slot35",
+  "owner": "THM-M-0108 statement lane",
+  "support_state": "provisional_worker_selftest",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "acceptance_authority": "Stage1 integration lane",
+  "verdict": "no_state_change",
+  "selftest_status": "passed",
+  "selftest_result": {
+    "exit_code": 0,
+    "commands": [
+      {
+        "argv": [
+          "python3",
+          "Docs/tools/check_stage1_standard.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "timing_boundary": "pre-edit preflight"
+      },
+      {
+        "argv": [
+          "python3",
+          "Docs/tools/check_stage1_theorem_dag_v2.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "timing_boundary": "pre-edit preflight"
+      },
+      {
+        "argv": [
+          "python3",
+          "scripts/stage1_target.py",
+          "check"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "python3",
+          "scripts/stage1_target.py",
+          "show",
+          "THM-M-0108"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "lake",
+          "env",
+          "lean",
+          "../../Stage1_Instances/THM-M-0108/Statement.lean"
+        ],
+        "cwd": "Formalizations/Lean",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "Stage1_Instances/THM-M-0108/check_statement.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "git",
+          "diff",
+          "--check",
+          "--",
+          "Stage1_Instances/THM-M-0108",
+          ".stage1-worker-selftest.json"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      }
+    ],
+    "output_summary": "The canonical reduced-carrier Chow target elaborates with no metavariables or prohibited declarations. The content-bound validator proves the four direct imports are individually necessary, fingerprints the exact expression, distinguishes all four required mutation classes, verifies the empty v2 dependency closure, and emits one typed semantic JSON object."
+  },
+  "inputs": {
+    "statement_record": {
+      "path": "Stage1_Instances/THM-M-0108/statement.json",
+      "sha256": "923e56de78bb33a8965e4338bc4b1930d48d01835398aeddaf786920d1d13462",
+      "git_blob": "06d315306d9e0e3e37d53421ffba642ce70ee016"
+    },
+    "statement_source": {
+      "path": "Stage1_Instances/THM-M-0108/Statement.lean",
+      "sha256": "cbe8852abcc4d3fe4ed87be2fcdcec848b72c9041df017fbc7d9b4cd09b39c59",
+      "git_blob": "8c7ad6e90654dee85bf842395d3976e6a92a0754"
+    },
+    "source_crosswalk": {
+      "path": "Stage1_Instances/THM-M-0108/source_statement_crosswalk.md",
+      "sha256": "31f6513ae2422c87db50519a50a407509afb0a5b3abe515443f52d0a148c1125",
+      "git_blob": "424cf1fad7613cb061e4a068edb1d0c6ef851acc"
+    },
+    "dependency_reuse_ledger": {
+      "path": "Stage1_Instances/THM-M-0108/dependency-reuse-ledger.json",
+      "sha256": "0677c8bf879c502603d330f8b8a283797575923f9f56178ffe36ab232f79f1d1",
+      "git_blob": "801fa86fb89ffc880b6d57a8b94cd2ee18825914"
+    },
+    "validator": {
+      "path": "Stage1_Instances/THM-M-0108/check_statement.py",
+      "sha256": "b065466b58113f08ae2703dbb40074c8b7faf62c30e92c84f121c76965dc3fdd",
+      "git_blob": "cea36f2ee8cdf94cf640c2c8e16cc80a7861e48d"
+    },
+    "authorities": [
+      {
+        "path": "Docs/Stage1_Blueprint_v2.md",
+        "sha256": "d4c88372fac1516ff8c7f1105625b364243ea87121f4c92dd8b479be7f1564ee",
+        "git_blob": "cdb8ec9361c19fc634972dfa6f7af518a57c6762"
+      },
+      {
+        "path": "Docs/Stage1_Blueprint_rev-5.6.md",
+        "sha256": "3779901013ac5e0b1f1b2bb4ea7a2ee08429f85bb1ee26c4b96905d6796c65c8",
+        "git_blob": "00b304bc44f3d1c52f3723cf1553bb13a2ad4018"
+      },
+      {
+        "path": "Docs/Stage1_Phase_Acceptance_Contracts.json",
+        "sha256": "1e7adf0f4fae0541b3595d4b0bfbb53f7eb17e28a4a889fec14f6df969e0cec4",
+        "git_blob": "84b92df9eaf457ab954b652c3f20f4d513cf0a88"
+      },
+      {
+        "path": "Docs/Stage1_Theorem_DAG_v2.json",
+        "sha256": "3d32f808e2914b338c459d52651b69731f0979a90a720f98bc0f31a577e2bafa",
+        "git_blob": "20bddafa63cfeb800799ffa1b19ca842a874575c"
+      },
+      {
+        "path": "skills/execute-stage1-rev56/SKILL.md",
+        "sha256": "5da11caafdb40b121c2fd19e13cd232a1b13a615f7a64eb314aa82cc19fea454",
+        "git_blob": "9b1a2dd279ea94d9b4ca840b063cc8d7fc0d6a49"
+      }
+    ],
+    "supporting_surfaces": [
+      {
+        "path": "Stage1_Instances/THM-M-0108/README.md",
+        "sha256": "8b74bbb6f4dca8717aa01221dfa05a5c3f3e2dd10a2a1385e5a49cddf65c2200",
+        "git_blob": "a79290749531cea5be7d13df9452a9a02454d71a"
+      },
+      {
+        "path": "Stage1_Instances/THM-M-0108/scope.md",
+        "sha256": "c7aacc873d8d39e514ce175554e06ef3feac432105e87320b18214bbc1b071a3",
+        "git_blob": "83749b30df97b437cf3ee11470103d4e234c9180"
+      },
+      {
+        "path": "Stage1_Instances/THM-M-0108/validation.md",
+        "sha256": "ba0db509f81328db216cfc00078e680148b1a3a2082ab756131066e628cc3da9",
+        "git_blob": "e5b6fc17b0c2668653fc645e0492e322965e9170"
+      }
+    ]
+  },
+  "artifact_bindings": {
+    "statement_record": {
+      "role": "statement_record",
+      "path": "Stage1_Instances/THM-M-0108/statement.json",
+      "sha256": "923e56de78bb33a8965e4338bc4b1930d48d01835398aeddaf786920d1d13462",
+      "git_blob": "06d315306d9e0e3e37d53421ffba642ce70ee016"
+    },
+    "statement_source": {
+      "role": "statement_source",
+      "path": "Stage1_Instances/THM-M-0108/Statement.lean",
+      "sha256": "cbe8852abcc4d3fe4ed87be2fcdcec848b72c9041df017fbc7d9b4cd09b39c59",
+      "git_blob": "8c7ad6e90654dee85bf842395d3976e6a92a0754"
+    },
+    "source_crosswalk": {
+      "role": "source_crosswalk",
+      "path": "Stage1_Instances/THM-M-0108/source_statement_crosswalk.md",
+      "sha256": "31f6513ae2422c87db50519a50a407509afb0a5b3abe515443f52d0a148c1125",
+      "git_blob": "424cf1fad7613cb061e4a068edb1d0c6ef851acc"
+    },
+    "phase_receipt": {
+      "role": "phase_receipt",
+      "path": "Stage1_Instances/THM-M-0108/statement-receipt.json",
+      "sha256": "self_referential_excluded",
+      "git_blob": "self_referential_excluded",
+      "binding_boundary": "The provisional receipt cannot contain its own digest without a cycle; the integration lane binds the final HEAD receipt bytes in the scheduler-owned role map."
+    }
+  },
+  "statement_fingerprints": [
+    "sha256:32fabc4d6654c80d342bc7705594dddae1d3e4836404d62075eb56e859978789"
+  ],
+  "mutation_tests": [
+    {
+      "kind": "removed_hypothesis",
+      "declaration": "mutationRemovedClosedness",
+      "expression_sha256": "cfcd4c0a0e3131a99d2b39debe3966a9d862dfdb1322cabf6c1270ceeb3e8030",
+      "result": "Lean exact-type rejection and distinct fully explicit expression"
+    },
+    {
+      "kind": "changed_domain",
+      "declaration": "mutationChangedDomain",
+      "expression_sha256": "385f16a7e292222903faeff208bb16a009a8b0c799cfd5055f597c16e14a4aaa",
+      "result": "Lean exact-type rejection and distinct affine-domain expression"
+    },
+    {
+      "kind": "changed_binder_scope",
+      "declaration": "mutationChangedBinderScope",
+      "expression_sha256": "48574a6107eae3e302130e88cc9712706c251998a0434c3df6c969f8c74ff645",
+      "result": "Lean exact-type rejection and distinct equation-family binder scope"
+    },
+    {
+      "kind": "boundary_case",
+      "declaration": "mutationExcludedDimensionZero",
+      "expression_sha256": "cc94ce68a8b2efeda76937dc77c44885ddef9056fe11306edcd48d8cff3f8357",
+      "result": "Lean exact-type rejection and distinct expression excluding n = 0"
+    }
+  ],
+  "known_failures": [
+    "The intake predecessor is authoritative worker-self-tested [_], not master-accepted [x]; dependency-ordered master closure remains pending.",
+    "The phase validator did not exist at the worker base revision. Although it is target-owned, content-bound, self-tested, and intended to become the single HEAD candidate after integration, the current contract's candidate_must_exist_at_worker_base rule can require a fresh revalidation worker before master acceptance.",
+    "The 1949 primary-source theorem/page, incorporated definitions, assumptions, terminology, errata, and independent H0 review remain open.",
+    "The selected target is the reduced set-theoretic carrier formulation. Nonreduced analytic-subspace, closed-subscheme, and structured analytification/GAGA transports remain uncredited and open.",
+    "No proof body, anchor audit, obligation registry, composition, readable reconstruction, hermetic validation, independent verification, audit completion, theorem completion, or release is claimed."
+  ],
+  "first_failed_gate": "dependency_ordered_master_acceptance_and_validator_base_bootstrap",
+  "retry_condition": "The integration lane tracks the owned outputs, binds the final HEAD role map and Git blobs, and advances only worker state. After the intake is master accepted, run a fresh statement revalidation from a base that already contains the unchanged HEAD validator, then replay it read-only and independently review the exact reduced-carrier statement and source boundary before master acceptance.",
+  "status_boundary": "The statement deliverable is genuinely self-tested in this worker and proposes [_] only. This receipt is provisional, dirty-worktree, unsigned, nonrelease evidence. It transfers no acceptance and claims no theorem proof, H0, AUDIT-Z, THEOREM-Z, or master acceptance.",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "invalidation_inputs": [
+    "canonical claim, reducedness convention, projective carrier, analytic local-equation predicate, closedness predicate, homogeneous equation conclusion, binder order, or boundary cases",
+    "Statement.lean, statement.json, source_statement_crosswalk.md, check_statement.py, statement-receipt.json, or dependency-reuse-ledger.json",
+    "v2 blueprint state, theorem graph, dependency context, phase acceptance contract, target manifest, rev-5.6 assurance standard, or execution skill",
+    "Lean/Lake executable, toolchain, Lake manifest, mathlib revision/tree, any direct import source, foundation profile, TCB profile, or serialization options",
+    "primary-source correction, terminology decision, erratum, or accepted structured-space transport"
+  ],
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R4"
+  },
+  "audit_boundary": "Statement identity is one audit input; audit completion remains false.",
+  "theorem_boundary": "Elaborating the exact proposition is not proving it; theorem completion remains false.",
+  "accepted_receipt_ids": [],
+  "proof_body_locations": [],
+  "canonical_obligation_ids": [],
+  "typed_graph_changes": [],
+  "composition_certificates": []
+}

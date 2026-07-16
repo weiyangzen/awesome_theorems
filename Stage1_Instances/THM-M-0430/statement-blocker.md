@@ -1,7 +1,10 @@
 # THM-M-0430 statement-phase blocker
 
-Item: `S56-M-0430-STATEMENT`  
-Base revision: `8bfedc3e8fd013fc57dbc65383ae2896cdda78e5`
+Item: `S56-M-0430-STATEMENT`
+
+Current structured recheck base: `94009a6bebd743588e09c3b45bfbf18bf9b5c5e3`
+
+Historical blocker base: `8bfedc3e8fd013fc57dbc65383ae2896cdda78e5`
 
 ## Verdict
 
@@ -38,6 +41,29 @@ pins and transcribes one precise claim with all conventions and explicitly decid
 manifest item remains the conjectural general root or is re-scoped by authoritative master action.
 No theorem-completion evidence is claimed.
 
+## Current rev-5.6 packet
+
+The recheck at base `94009a6b` preserves that mathematical blocker in the HEAD phase-contract
+shape. `Statement.lean` is intentionally declaration-free, `statement.json` keeps the canonical
+target and all statement fingerprints null or empty, and `dependency-reuse-ledger.json` binds the
+exact empty parent, ancestor, hard-edge, hint, and shared-group closure. The target has no parent to
+inspect and no provider acceptance or proof body to reuse.
+
+`statement-receipt.json` is the single provisional `stage1-node-receipt/1.0` receipt. The declared
+validator `check_statement.py` emits exactly one `stage1-validator-semantic-result/1.0` JSON object
+with `status=blocked`, `phase_accepted=false`, and `phase_predicate_proven=false`. Its zero exit
+means only that this negative packet is internally consistent. It cannot close the positive
+statement phase.
+
+The root `.stage1-worker-selftest.json` now binds this exact target-owned delta and validator
+command with `state: "[_]"`. This supersedes the historical note below that no self-test packet was
+emitted. The handoff records worker-self-tested blocker evidence, not statement acceptance.
+
+The scheduler must regenerate the master-owned theorem-DAG inventory after integrating these new
+files. Separately, the current contract requires the review validator to have existed unchanged at
+the worker base, but neither declared candidate existed at `94009a6b`; master replay therefore
+requires an authority-owned validator preseed or a contract-governed bootstrap before any review.
+
 ## Commands and results
 
 All commands ran in this worker clone. Lean validation used the existing pinned Lake environment
@@ -53,5 +79,6 @@ through the clone's `.lake` link and did not modify dependency state.
 | `cd Formalizations/Lean && sha256sum lean-toolchain lake-manifest.json AwesomeTheorems/Stage1/S1_M_058.lean` | 0 | SHA-256 values `651c8a...b1d2`, `321626...2d81`, and `6bbef1...b55` respectively |
 | `git diff --check -- Stage1_Instances/THM-M-0430/statement-blocker.md` | 0 | No whitespace errors |
 
-No `.stage1-worker-selftest.json` is emitted because the assigned statement phase is blocked rather
-than self-tested.
+Historical note: that earlier run emitted no `.stage1-worker-selftest.json`. The current recheck
+does emit one because the target-scoped negative packet itself is now genuinely self-tested; it
+still reports `phase_accepted=false` and supplies no positive statement credit.

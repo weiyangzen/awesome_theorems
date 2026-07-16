@@ -19,11 +19,16 @@ The scope deliberately preserves ambiguity rather than selecting `GL_n`, a gener
 group, a mod-l correspondence, or an abstract package. Resolving the primary source is a hard
 prerequisite to the dependent statement phase.
 
-## Intake verdict
+## Current verdict
 
 Lifecycle is `planned`; provisional root vector is `[H4, M4, R4]`. The first failed gate is exact
 source identification. The metadata label `已验证` is untrusted, and the historical Lean file is
 discovery input only. No theorem completion, proof closure, or accepted receipt is claimed.
+
+The statement phase now owns a declaration-free `Statement.lean`, a null-target `statement.json`,
+a structured blocked receipt, and a semantic validator. They self-test the negative boundary and
+propose only unfinished `[_]` worker evidence. The validator reports `phase_accepted=false`; no
+canonical statement, statement acceptance, audit completion, or theorem completion is claimed.
 
 ## Validation
 

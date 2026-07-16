@@ -1,0 +1,248 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0140-STATEMENT-worker-2dc5a410b68e-blocked",
+  "item_id": "S56-M-0140-STATEMENT",
+  "theorem_id": "THM-M-0140",
+  "phase": "statement",
+  "intent": "audit",
+  "worker_verdict": "blocked",
+  "base_revision": "2dc5a410b68eff806858fd6ed0cb33d57f6209f7",
+  "base_tree": "841bdd6114e7436cff4a3a1ff248fc1e884a9ddc",
+  "inputs": {
+    "task_state_authority": {
+      "path": "Docs/Stage1_Blueprint_v2.md",
+      "sha256": "d4c88372fac1516ff8c7f1105625b364243ea87121f4c92dd8b479be7f1564ee",
+      "git_blob": "cdb8ec9361c19fc634972dfa6f7af518a57c6762",
+      "item_state_observed": "[ ]",
+      "attempts_observed": 0
+    },
+    "assurance_authority": {
+      "path": "Docs/Stage1_Blueprint_rev-5.6.md",
+      "sha256": "3779901013ac5e0b1f1b2bb4ea7a2ee08429f85bb1ee26c4b96905d6796c65c8",
+      "git_blob": "00b304bc44f3d1c52f3723cf1553bb13a2ad4018"
+    },
+    "target_manifest": {
+      "path": "Docs/Stage1_Targets_rev-5.6.json",
+      "sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+      "git_blob": "3c85586d3060c219bad5462121b85717360a0665"
+    },
+    "theorem_dag": {
+      "path": "Docs/Stage1_Theorem_DAG_v2.json",
+      "sha256": "3d32f808e2914b338c459d52651b69731f0979a90a720f98bc0f31a577e2bafa",
+      "git_blob": "20bddafa63cfeb800799ffa1b19ca842a874575c"
+    },
+    "phase_contract": {
+      "path": "Docs/Stage1_Phase_Acceptance_Contracts.json",
+      "sha256": "1e7adf0f4fae0541b3595d4b0bfbb53f7eb17e28a4a889fec14f6df969e0cec4",
+      "git_blob": "84b92df9eaf457ab954b652c3f20f4d513cf0a88"
+    },
+    "execution_skill": {
+      "path": "skills/execute-stage1-rev56/SKILL.md",
+      "sha256": "5da11caafdb40b121c2fd19e13cd232a1b13a615f7a64eb314aa82cc19fea454",
+      "git_blob": "9b1a2dd279ea94d9b4ca840b063cc8d7fc0d6a49"
+    },
+    "dependency_context_sha256": "068170c76abd4579d643ede04d731b974412185bd285e7b40255ec4044adec5c",
+    "claim_order": {
+      "v2_execution_rank": 290,
+      "phase_layer": 1,
+      "phase_item_id": "S56-M-0140-STATEMENT"
+    },
+    "dependency_state": {
+      "item_id": "S56-M-0140-INTAKE",
+      "authoritative_state": "[_]",
+      "accepted": false,
+      "assessment": "The intake predecessor is provisional and unaccepted. This negative statement audit is dependency-ordered evidence only and cannot become master-accepted before its predecessor."
+    },
+    "parent_inspection_order": [],
+    "accepted_receipt_ids": [],
+    "provider_acceptance_inherited": false,
+    "preexisting_untracked_paths": [
+      "Formalizations/Lean/.lake"
+    ],
+    "dependency_mode": "The automation-provided canonical pinned .lake symlink was used read-only; no update, build, clone, fetch, or dependency mutation was performed."
+  },
+  "artifact_bindings": {
+    "statement_record": {
+      "role": "statement_record",
+      "path": "Stage1_Instances/THM-M-0140/statement.json",
+      "sha256": "23f955de9cbd8166373e502c0cb837aac190e0a5a6388c4b4919b86035adb7cb",
+      "git_blob": "e0b85d4926befb11d4ce53c85530612c51b7e599"
+    },
+    "statement_source": {
+      "role": "statement_source",
+      "path": "Stage1_Instances/THM-M-0140/Statement.lean",
+      "sha256": "181cd5a5174d2a083498c4f34b5f950d72d44f8cd4d74cdf171db5b45eb82935",
+      "git_blob": "1c488622ad90f0453bd012c3f6ecf235448986fd"
+    },
+    "source_crosswalk": {
+      "role": "source_crosswalk",
+      "path": "Stage1_Instances/THM-M-0140/source_statement_crosswalk.md",
+      "sha256": "852cca2d8e1ae210103ccc207ebedf1df51a77c473a50ed5ecec274512fef2a7",
+      "git_blob": "47a747d9b29b554089322d3131b8666cd8451ff7"
+    },
+    "phase_receipt": {
+      "role": "phase_receipt",
+      "path": "Stage1_Instances/THM-M-0140/statement-receipt.json",
+      "sha256": "self_referential_excluded",
+      "git_blob": "self_referential_excluded"
+    }
+  },
+  "support_state": "provisional_worker_selftest",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "verdict": "blocked",
+  "selftest_status": "passed",
+  "selftest_result": {
+    "exit_code": 0,
+    "output_summary": "The target identity, empty dependency context, negative statement record, role bindings, exact receipt boundary, diagnostic Lean module, and typed semantic stdout validate. The two repository-wide projection checks report expected target-owned evidence-inventory drift because this worker cannot regenerate the read-only theorem DAG. The validator returns blocked, never phase_accepted.",
+    "commands": [
+      {
+        "argv": ["python3", "Docs/tools/check_stage1_standard.py"],
+        "exit_code": 1,
+        "result": "Expected target-owned inventory drift: the checked-in theorem DAG is read-only in the worker clone and differs from deterministic regeneration after adding statement evidence."
+      },
+      {
+        "argv": ["python3", "Docs/tools/check_stage1_theorem_dag_v2.py"],
+        "exit_code": 1,
+        "result": "Expected target-owned inventory drift; the integration lane regenerates this authority projection after preserving the blocker packet."
+      },
+      {
+        "argv": ["python3", "Docs/tools/check_stage1_phase_acceptance_contracts.py"],
+        "exit_code": 0,
+        "result": "Seven phases, twelve common gates, and twenty-three source references pass."
+      },
+      {
+        "argv": ["python3", "scripts/stage1_target.py", "check"],
+        "exit_code": 0,
+        "result": "1546 unique L0/rework-required targets at ranks 1 through 1546 pass."
+      },
+      {
+        "argv": ["python3", "scripts/stage1_target.py", "show", "THM-M-0140"],
+        "exit_code": 0,
+        "result": "Target rank 56 remains planned, rework-required, and theorem_complete false."
+      },
+      {
+        "cwd": "Formalizations/Lean",
+        "argv": ["lake", "env", "lean", "--trust=0", "../../Stage1_Instances/THM-M-0140/Statement.lean"],
+        "exit_code": 0,
+        "result": "The diagnostic module elaborates the six pinned Coxeter declarations; it declares no canonical target."
+      },
+      {
+        "argv": ["/usr/bin/python3", "-I", "-B", "Stage1_Instances/THM-M-0140/check_statement.py"],
+        "exit_code": 0,
+        "result": "One exact stage1-validator-semantic-result/1.0 JSON object reports blocked=true and phase_accepted=false."
+      },
+      {
+        "command": "Run the validator as a subprocess and pass its stdout bytes to scripts.stage1_acceptance_evidence._parse_validator_semantic_stdout through an isolated inline Python program.",
+        "exit_code": 0,
+        "result": "The scheduler's exact semantic stdout parser accepts the one-object blocked result with no stderr."
+      },
+      {
+        "command": "Load scripts/stage1_execution_cron.py and call validate_dependency_reuse_ledger for THM-M-0140 with the claim graph digest and base revision.",
+        "exit_code": 0,
+        "result": "The scheduler ledger validator accepts the exact empty context and returns empty_context_audited."
+      },
+      {
+        "command": "Load the HEAD acceptance contract and invoke resolve_role_map and select_validator_recipe at the worker base.",
+        "exit_code": 0,
+        "result": "Both checks fail closed as expected for fresh worker evidence: the phase receipt has no HEAD candidate and check_statement.py is not HEAD-owned. Integration plus a fresh base-bound retry is required before authority replay."
+      },
+      {
+        "argv": ["python3", "-m", "json.tool", "Stage1_Instances/THM-M-0140/statement.json"],
+        "exit_code": 0,
+        "result": "Statement record is valid JSON."
+      },
+      {
+        "argv": ["python3", "-m", "json.tool", "Stage1_Instances/THM-M-0140/dependency-reuse-ledger.json"],
+        "exit_code": 0,
+        "result": "Dependency-reuse ledger is valid JSON."
+      },
+      {
+        "argv": ["python3", "-m", "json.tool", "Stage1_Instances/THM-M-0140/statement-receipt.json"],
+        "exit_code": 0,
+        "result": "Phase receipt is valid JSON."
+      },
+      {
+        "argv": ["env", "PYTHONPYCACHEPREFIX=/tmp/thm-m-0140-pycache", "/usr/bin/python3", "-m", "py_compile", "Stage1_Instances/THM-M-0140/check_statement.py"],
+        "exit_code": 0,
+        "result": "Validator parses and compiles."
+      },
+      {
+        "argv": ["rg", "-n", "-i", "\\bsorry\\b|\\badmit\\b|\\baxiom\\b|\\bopaque\\b|\\bunsafe\\b|placeholder|fake results", "Stage1_Instances/THM-M-0140/Statement.lean"],
+        "exit_code": 1,
+        "result": "Expected no-match exit; the diagnostic Lean source contains no prohibited declaration or proof device."
+      },
+      {
+        "argv": ["git", "diff", "--check", "--", "Stage1_Instances/THM-M-0140", ".stage1-worker-selftest.json"],
+        "exit_code": 0,
+        "result": "No whitespace errors."
+      },
+      {
+        "argv": ["python3", "-m", "unittest", "scripts.test_stage1_acceptance_evidence", "scripts.test_stage1_phase_acceptance_contracts"],
+        "exit_code": 1,
+        "result": "The phase-contract suite's eleven tests pass. In the acceptance-evidence suite, sixteen of nineteen pass; three replay-environment cases fail because the managed home is read-only and /usr/bin/bwrap does not satisfy the suite's host ownership/permission expectation. Target semantic stdout was parsed separately."
+      }
+    ]
+  },
+  "known_failures": [
+    "The intake does not bind an immutable primary-source edition and exact existence/uniqueness result.",
+    "The parameter, quadratic relation, coefficient lattice, standard-basis normalization, bar involution, and C_w/C'_w convention are unresolved.",
+    "The pinned Lean dependency closure has no accepted concrete general-Coxeter Hecke/Bruhat model for the canonical claim.",
+    "No exact Lean proposition, elaborated expression fingerprint, credited transport, or required mutation result exists.",
+    "The intake dependency remains worker-self-tested [_] rather than master-accepted [x].",
+    "The contract's scheduler-selected validator must be HEAD-tracked and byte-identical at the worker base; check_statement.py is new at this base, so this run is self-test evidence only.",
+    "A new validator cannot satisfy the separate master replay base-identity gate until integration lands its identical blob on a fresh worker base.",
+    "The repository-wide standard and theorem-DAG checks see expected target-owned evidence-inventory drift because workers may not regenerate the read-only theorem DAG projection.",
+    "Three scheduler replay tests fail on this managed host because the home directory is read-only and /usr/bin/bwrap fails the suite's ownership/permission expectation.",
+    "Direct HEAD-contract selection confirms that the new phase receipt and validator are not authority-selectable at this worker base; this packet cannot enter master review until integration and a fresh claim."
+  ],
+  "first_failed_gate": "S02-EXACT-TARGET.source_statement_identity",
+  "retry_condition": "First integrate this blocker packet so its receipt and validator become HEAD-owned, then allocate any replay from a fresh base containing the identical validator blob. To retry the positive statement gate, additionally supply a content-bound primary-source result and convention transcription plus a concrete general-Coxeter Hecke/Bruhat Lean model; then elaborate and fingerprint that exact proposition and run all four required mutation classes.",
+  "status_boundary": "Blocked is a truthful worker verdict. The proposed [_] denotes only the self-tested handoff packet requested by the worker protocol, not satisfaction of the phase predicate. This receipt binds a negative statement audit and diagnostic Lean elaboration only. Authority semantics must remain [_] with phase_evidence_accepted=false; this cannot become master phase acceptance and claims no proof, audit completion, or theorem completion.",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "invalidation_inputs": [
+    "canonical human claim, target domain, or source interpretation",
+    "primary-source edition, exact result pinpoint, correction, or errata finding",
+    "Hecke parameter, quadratic relation, basis, bar, triangularity, or normalization convention",
+    "Lean toolchain, dependency lock, Coxeter/Hecke/Bruhat API, or imported external source",
+    "target manifest, v2 blueprint, theorem DAG, dependency context, or phase contract",
+    "any selected artifact, validator, command result, independent review, supersession, or revocation state"
+  ],
+  "root_vector_before": {
+    "H": "H1",
+    "M": "M3",
+    "R": "R3"
+  },
+  "root_vector_after": {
+    "H": "H1",
+    "M": "M5",
+    "R": "R3"
+  },
+  "debt_delta_basis": "The intake's provisional statement-shape debt is now classified as an explicit exact-target blocker: no source-faithful expression can be frozen, and the inspected external finite candidate is incompatible and contains unclosed bridges. This is a classification, not machine closure.",
+  "statement_fingerprints": [],
+  "mutation_tests": [
+    {
+      "kind": "removed_hypothesis",
+      "result": "not_run_target_identity_blocked"
+    },
+    {
+      "kind": "changed_domain",
+      "result": "not_run_target_identity_blocked"
+    },
+    {
+      "kind": "changed_binder_scope",
+      "result": "not_run_target_identity_blocked"
+    },
+    {
+      "kind": "boundary_case",
+      "result": "not_run_target_identity_blocked"
+    }
+  ],
+  "result": {
+    "semantic_verdict": "blocked",
+    "phase_accepted": false,
+    "phase_predicate_proven": false,
+    "blocked": true
+  }
+}

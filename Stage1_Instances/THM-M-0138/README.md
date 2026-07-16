@@ -15,9 +15,11 @@ Beilinson-Bernstein localization. It inherits no proof credit from the legacy St
 | Exclusions | Derived/singular, parabolic/partial-flag, positive-characteristic, quantum variants | They cannot substitute for this root |
 | Foundations | Lean kernel plus versioned mathlib and accepted category/choice policy | Fingerprint and transitive TCB remain open |
 
-The intended claim and provisional formal target are structured in `intake.json`. Source genealogy,
-claim-component mapping, and known convention risks are recorded in
-`source_statement_crosswalk.md`.
+The intended claim and provisional intake target are structured in `intake.json`. The current
+statement phase records its null canonical target and environment in `statement.json`, checks only
+adjacent pinned interfaces in `Statement.lean`, and explains the target-scoped failure in
+`statement-blocker.md`. Source genealogy, claim-component mapping, and known convention risks remain
+in `source_statement_crosswalk.md`.
 
 ## Intake verdict
 
@@ -26,7 +28,15 @@ the exact Lean statement gate: there is no normalized expression hash, environme
 concrete flag-variety/twisted-D-module model, checked transport, or mutation record. No theorem
 completion or legacy machine closure is claimed.
 
-## Validation
+## Statement boundary
+
+The complete v2 parent/reuse closure is empty and is bound in `dependency-reuse-ledger.json`; no
+provider proof or acceptance is inherited. The statement validator self-tests the structured
+negative packet and emits `phase_accepted=false`. The exact Lean target, statement fingerprint,
+checked transports, and four mutation classes remain open, so this worker claims no statement-phase
+acceptance, audit completion, or theorem completion.
+
+## Intake validation
 
 The exact intake-only checks and their results on base revision
 `478034dee4145f887a572a3c645a3a2ea81bc883` are recorded in `validation.md`.

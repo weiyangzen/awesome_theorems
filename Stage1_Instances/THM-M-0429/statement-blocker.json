@@ -7,8 +7,8 @@
   "v2_execution_rank": 308,
   "phase": "statement",
   "phase_layer": 1,
-  "base_revision": "dae1951609072752d49d111bf00e78e4512f2d14",
-  "base_tree": "9d8cc27cc0e09489c78b0bdbdeb57b15c5840f13",
+  "base_revision": "94009a6bebd743588e09c3b45bfbf18bf9b5c5e3",
+  "base_tree": "daabee9f9b2c6e98d84b6290f78a209b950485fc",
   "attempted_at": "2026-07-17",
   "timezone": "Asia/Shanghai",
   "verdict": "blocked",
@@ -65,7 +65,7 @@
     "phase_item_id": "S56-M-0429-STATEMENT"
   },
   "dependency_context": {
-    "observed_theorem_dag_sha256": "3d32f808e2914b338c459d52651b69731f0979a90a720f98bc0f31a577e2bafa",
+    "observed_theorem_dag_sha256": "eaee68bdf9fde9e311db076d1997fd8ef91919def0ba0fb399f1df77080f7153",
     "dependency_context_sha256": "ad0389ffad83587050de416b510bdf7bc9d5c045a9b95371702b155ccb2d606e",
     "parent_inspection_order": [],
     "direct_parent_ids": [],
@@ -98,6 +98,10 @@
     "the arithmetic-versus-geometric Frobenius convention and Euler-product normalization",
     "the meaning of global meromorphic continuation and the zero, trivial, reducible, and virtual-representation boundaries",
     "an exact canonical Lean expression, serialized fingerprint, minimal imports, checked transports, and all four required mutations"
+  ],
+  "claim_local_scheduler_blockers": [
+    "The sole contract-declared validator in this handoff did not exist at worker base 94009a6bebd743588e09c3b45bfbf18bf9b5c5e3, so it cannot satisfy the mandatory base-stable HEAD validator selection rule for this claim.",
+    "The target-owned Statement.lean and statement-receipt.json change the generated theorem-DAG evidence inventory, so the immutable checked-in projection is stale inside the worker clone and only the master integration lane may regenerate it."
   ],
   "environment_fingerprint": {
     "lean_toolchain": "leanprover/lean4:v4.29.0",
@@ -133,7 +137,7 @@
           "Docs/tools/check_stage1_standard.py"
         ],
         "exit_code": 1,
-        "expected_failure": "Adding the target-owned dependency ledger changes the theorem-DAG evidence inventory; the checked-in read-only projection is stale until master integration regenerates it."
+        "expected_failure": "The target-owned statement source and receipt change the theorem-DAG evidence inventory; the checked-in read-only projection is stale until master integration regenerates it."
       },
       {
         "cwd": ".",
@@ -142,7 +146,7 @@
           "Docs/tools/check_stage1_theorem_dag_v2.py"
         ],
         "exit_code": 1,
-        "expected_failure": "Adding the target-owned dependency ledger changes the theorem-DAG evidence inventory; the checked-in read-only projection is stale until master integration regenerates it."
+        "expected_failure": "The target-owned statement source and receipt change the theorem-DAG evidence inventory; the checked-in read-only projection is stale until master integration regenerates it."
       },
       {
         "cwd": ".",
@@ -199,25 +203,31 @@
       {
         "cwd": ".",
         "argv": [
-          "test",
-          "!",
-          "-e",
-          ".stage1-worker-selftest.json"
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "Stage1_Instances/THM-M-0429/check_statement.py"
         ],
-        "exit_code": 0
+        "exit_code": 0,
+        "semantic_status": "blocked",
+        "phase_accepted": false
       }
     ],
-    "output_summary": "Target membership and pinned Lean environment checks pass. The legacy scaffold elaborates but remains materially conditional. The bounded pinned-mathlib search finds no exact Artin-L-function or Brauer-induction surface. The structured blocker and complete empty-parent/weak-group ledger pass their invariant checks. Aggregate graph checks fail only because workers may not regenerate the read-only theorem-DAG projection after adding target-owned inventory."
+    "output_summary": "Target membership and pinned Lean environment checks pass. The legacy scaffold elaborates but remains materially conditional. The bounded pinned-mathlib search finds no exact Artin-L-function or Brauer-induction surface. The structured blocker and complete empty-parent/weak-group ledger pass their invariant checks. Aggregate graph checks fail only because the target-owned statement source and receipt make the read-only theorem-DAG inventory projection stale until master integration."
   },
   "artifact_roles": {
     "statement_record": {
       "path": "Stage1_Instances/THM-M-0429/statement.json",
-      "availability": "missing",
+      "availability": "present_negative_boundary",
+      "sha256": "5f5d59dd68d5d60dd0b818fc34492dece8da71a318452283122e8446a3208532",
+      "git_blob": "54dc1ba55c1940ea2ea4823c78763c0d704f70e1",
       "evidence_credit": false
     },
     "statement_source": {
       "path": "Stage1_Instances/THM-M-0429/Statement.lean",
-      "availability": "missing",
+      "availability": "present_declaration_free_boundary",
+      "sha256": "71fd743491c661b4a808db66c2ac61394d7c887359905e4a89eac0f2d53b4312",
+      "git_blob": "7ef50b5af810f59c1b3b3b4dd6ed5045e489973b",
       "evidence_credit": false
     },
     "source_crosswalk": {
@@ -228,7 +238,7 @@
     },
     "phase_receipt": {
       "path": "Stage1_Instances/THM-M-0429/statement-receipt.json",
-      "availability": "missing",
+      "availability": "present_worker_blocker",
       "evidence_credit": false
     }
   },
@@ -238,9 +248,12 @@
       "Stage1_Instances/THM-M-0429/check_statement_artifacts.py"
     ],
     "candidates_present_at_base_revision": [],
+    "candidates_present_in_worker_handoff": [
+      "Stage1_Instances/THM-M-0429/check_statement.py"
+    ],
     "candidate_must_exist_at_worker_base": true,
     "candidate_head_blob_must_equal_worker_base_blob": true,
-    "assessment": "No declared statement validator existed at the worker base. A worker-created validator would fail the scheduler-owned base-identity gate and cannot support phase acceptance."
+    "assessment": "Exactly one contract-declared target-owned validator is supplied for worker self-test, but it did not exist at base revision 94009a6bebd743588e09c3b45bfbf18bf9b5c5e3. It can establish the local consistency of the negative boundary but cannot become the required base-stable HEAD validator for scheduler review in this claim."
   },
   "proof_body_locations": [],
   "accepted_receipt_ids": [],
@@ -248,7 +261,7 @@
   "canonical_obligation_ids": [],
   "typed_graph_changes": [],
   "composition_certificates": [],
-  "worker_selftest_manifest_emitted": false,
+  "worker_selftest_manifest_emitted": true,
   "retry_condition": "Pin and independently review the exact primary-source theorem and convention set, then add concrete pinned Lean definitions for the Artin L-function data named above. A later statement worker must elaborate the source-faithful target with minimal imports, serialize its expression/environment fingerprint, check every credited transport, and kill the removed-hypothesis, changed-domain, changed-binder-scope, and boundary-case mutations.",
-  "status_boundary": "Target-scoped negative statement evidence only. It preserves the exact human scope while refusing a proxy Lean target. It grants no phase state, proof, source, debt promotion, audit completion, theorem completion, or master acceptance."
+  "status_boundary": "Target-scoped negative statement evidence only. It preserves the exact human scope while refusing a proxy Lean target. Worker-self-tested [_] records only the reproduced blocker; it grants no positive phase acceptance, proof, source, debt promotion, audit completion, theorem completion, or master acceptance."
 }

@@ -1,0 +1,204 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "normative_profile": "machine-theorem-assurance/1.0",
+  "receipt_id": "S56-M-0116-STATEMENT-blocked-307c34d30fc3-20260717T033200+0800",
+  "item_id": "S56-M-0116-STATEMENT",
+  "theorem_id": "THM-M-0116",
+  "phase": "statement",
+  "intent": "audit",
+  "base_revision": "307c34d30fc3763c82a944a142ae922b48ff18aa",
+  "base_tree": "ef45ba442c71959db78ad146a023bcf32946a53f",
+  "claim_order": {
+    "v2_execution_rank": 271,
+    "phase_layer": 1,
+    "phase_item_id": "S56-M-0116-STATEMENT"
+  },
+  "depends_on": [
+    "S56-M-0116-INTAKE"
+  ],
+  "inputs": {
+    "task_state_authority": {
+      "path": "Docs/Stage1_Blueprint_v2.md",
+      "sha256": "2a5bc7d397e03969aac1a9f8f21b437152b8ef63ef453055acf67857ced628b5",
+      "git_blob": "aff0509a6a1d50b429f28aa3fb603f8da3347114",
+      "item_state_observed": "[ ]",
+      "attempts_observed": 0
+    },
+    "assurance_authority": {
+      "path": "Docs/Stage1_Blueprint_rev-5.6.md",
+      "sha256": "3779901013ac5e0b1f1b2bb4ea7a2ee08429f85bb1ee26c4b96905d6796c65c8",
+      "git_blob": "00b304bc44f3d1c52f3723cf1553bb13a2ad4018"
+    },
+    "target_manifest": {
+      "path": "Docs/Stage1_Targets_rev-5.6.json",
+      "sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c",
+      "git_blob": "3c85586d3060c219bad5462121b85717360a0665"
+    },
+    "theorem_dag": {
+      "path": "Docs/Stage1_Theorem_DAG_v2.json",
+      "sha256": "8be71ef1e4fa1c3de5aa420550ff915dbe0b9f165ac0d98518adf2d1fe25fd47",
+      "git_blob": "db66431477ee26a5577f8a239d29985d59b32543"
+    },
+    "phase_contract": {
+      "path": "Docs/Stage1_Phase_Acceptance_Contracts.json",
+      "sha256": "1e7adf0f4fae0541b3595d4b0bfbb53f7eb17e28a4a889fec14f6df969e0cec4",
+      "git_blob": "84b92df9eaf457ab954b652c3f20f4d513cf0a88"
+    },
+    "execution_skill": {
+      "path": "skills/execute-stage1-rev56/SKILL.md",
+      "sha256": "5da11caafdb40b121c2fd19e13cd232a1b13a615f7a64eb314aa82cc19fea454",
+      "git_blob": "9b1a2dd279ea94d9b4ca840b063cc8d7fc0d6a49"
+    },
+    "dependency_reuse_ledger": {
+      "path": "Stage1_Instances/THM-M-0116/dependency-reuse-ledger.json",
+      "sha256": "bf6b8b9ee7a068165a70fc585e0563cd0deac6d4002940300560a9f222f712dc",
+      "git_blob": "dae4a2b4ba9d036c442daf7be6fbfd4b3a148946"
+    },
+    "parent_inspection_order": [],
+    "inspected_parent_ids": [],
+    "accepted_receipt_ids": [],
+    "reused_declaration_ids": [],
+    "provider_acceptance_inherited": false
+  },
+  "artifact_bindings": {
+    "statement_record": {
+      "role": "statement_record",
+      "path": "Stage1_Instances/THM-M-0116/statement.json",
+      "sha256": "1afd57928c3832167a0ded39de974b1f74fc468c69d4ecaf5d0f8167492c3d92",
+      "git_blob": "1a9fc50fa0272ea31fd7ae68f79e707ac8e5f060"
+    },
+    "statement_source": {
+      "role": "statement_source",
+      "path": "Stage1_Instances/THM-M-0116/Statement.lean",
+      "sha256": "d4eaffad0956faa2007216583512d5a7ddc1f888f6472feb040db1b987532da5",
+      "git_blob": "9407ab309c2108efea394b039188688c33b671e6"
+    },
+    "source_crosswalk": {
+      "role": "source_crosswalk",
+      "path": "Stage1_Instances/THM-M-0116/source-statement-crosswalk.md",
+      "sha256": "0afb81148a3196b36b435639a31655d98758efd7f9ac1f5f7485619f18555d5b",
+      "git_blob": "94d7a7644d834993297dbdd59890850111871d5c"
+    },
+    "phase_receipt": {
+      "role": "phase_receipt",
+      "path": "Stage1_Instances/THM-M-0116/statement-receipt.json",
+      "sha256": null,
+      "git_blob": null,
+      "binding_owner": "scheduler integration lane",
+      "status_boundary": "The receipt cannot content-bind its own final bytes without a cycle; the integration lane binds the selected HEAD receipt."
+    }
+  },
+  "support_state": "provisional_worker_selftest_blocked",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "verdict": "blocked",
+  "selftest_status": "passed",
+  "selftest_result": {
+    "exit_code": 0,
+    "phase_predicate_passed": false,
+    "commands": [
+      {
+        "argv": [
+          "python3",
+          "Docs/tools/check_stage1_standard.py"
+        ],
+        "cwd": ".",
+        "exit_code": 1,
+        "expected_failure": "The new target-owned statement artifacts make the checked-in theorem-DAG evidence inventory stale; workers are forbidden to regenerate the authoritative projection."
+      },
+      {
+        "argv": [
+          "python3",
+          "Docs/tools/check_stage1_theorem_dag_v2.py"
+        ],
+        "cwd": ".",
+        "exit_code": 1,
+        "expected_failure": "The new target-owned statement artifacts make the checked-in theorem-DAG evidence inventory stale; workers are forbidden to regenerate the authoritative projection."
+      },
+      {
+        "argv": [
+          "python3",
+          "Docs/tools/check_stage1_phase_acceptance_contracts.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "python3",
+          "scripts/stage1_target.py",
+          "check"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "python3",
+          "scripts/stage1_target.py",
+          "show",
+          "THM-M-0116"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "lake",
+          "env",
+          "lean",
+          "--trust=0",
+          "../../Stage1_Instances/THM-M-0116/Statement.lean"
+        ],
+        "cwd": "Formalizations/Lean",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "Stage1_Instances/THM-M-0116/check_statement.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      }
+    ],
+    "output_summary": "The pinned boundary source elaborated and the typed target-owned validator self-tested the negative packet. The positive phase predicate remains false because there is no exact canonical expression, fingerprint, checked transport, or mutation suite."
+  },
+  "known_failures": [
+    "The intake predecessor remains provisional [_], not master accepted [x].",
+    "Pinned mathlib lacks the complete concrete projective-surface, scheme divisor or Picard, algebraic-equivalence, and Neron-Severi quotient interfaces required to encode the received theorem without substitution.",
+    "No exact Lean target, elaborated expression fingerprint, credited alternate transport, or required semantic mutation result exists.",
+    "The legacy arbitrary-group StatementShape is discovery input only and receives no statement or proof credit.",
+    "The validator is worker output and cannot be the scheduler-selected unchanged HEAD candidate until integration tracks it.",
+    "The aggregate standard and theorem-DAG checks become expectedly stale after adding target-owned evidence; only the master may regenerate those read-only authority projections.",
+    "Statement acceptance, all downstream phases, AUDIT-Z, THEOREM-Z, and theorem completion remain open."
+  ],
+  "first_failed_gate": "S02-EXACT-TARGET.missing_projective_surface_and_concrete_neron_severi_interfaces",
+  "retry_condition": "After dependency-legal intake acceptance and independent source-definition review, pin or implement conclusion-free concrete interfaces for projectivity over the base, the chosen scheme divisor or Picard group, algebraic equivalence, and the Neron-Severi quotient. Then elaborate only the frozen claim, minimize imports, bind the expression and environment, check transports, and run all four required mutations.",
+  "status_boundary": "Target-owned, worker-self-tested negative statement evidence only. The [_] proposal records a truthful blocker handoff, while the validator reports phase_accepted=false. It grants no positive statement completion, master acceptance, provider acceptance, proof credit, audit completion, theorem completion, AUDIT-Z, or THEOREM-Z.",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "invalidation_inputs": [
+    "Docs/Stage1_Blueprint_v2.md item state or attempts",
+    "Docs/Stage1_Theorem_DAG_v2.json graph or THM-M-0116 dependency context",
+    "Docs/Stage1_Phase_Acceptance_Contracts.json",
+    "Docs/Stage1_Blueprint_rev-5.6.md or skills/execute-stage1-rev56/SKILL.md",
+    "Stage1_Instances/THM-M-0116 instance, scope, source crosswalk, statement record, source, ledger, blocker, receipt, or validator",
+    "source theorem-definition mapping or source erratum",
+    "Formalizations/Lean/lean-toolchain, lake-manifest.json, mathlib revision/tree, or direct import closure"
+  ],
+  "statement_fingerprints": [],
+  "mutation_tests": {
+    "required": [
+      "removed_hypothesis",
+      "changed_domain",
+      "changed_binder_scope",
+      "boundary_case"
+    ],
+    "executed": [],
+    "status": "blocked_without_canonical_expression",
+    "credit": false
+  }
+}

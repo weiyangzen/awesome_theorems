@@ -1,6 +1,6 @@
 # Source-statement crosswalk
 
-| Claim component | Available source anchor | Lean discovery candidate | Intake assessment |
+| Claim component | Available source anchor | Lean discovery candidate | Statement assessment |
 |---|---|---|---|
 | Theorem identity | `Docs/researches/math_theorems.md`: Chinese label, Guy Henniart / Marie-France Vigneras, 2000 | none | Insufficient to identify a primary publication or named theorem; `H4` |
 | Root claim | "p-adic群的局部朗兰兹对应" | `S1_M_063.FrozenTheoremVariant` | Broad research program, not an exact proposition; legacy candidate is expressly an abstract statement shape |
@@ -10,10 +10,10 @@
 | Correspondence properties | not stated | bijectivity plus central-character and local-factor predicates | Predicate meanings and normalization are abstract, so these fields do not establish fidelity |
 | Boundary cases | not stated | none accepted | characteristic, rank, ramification, and coefficient restrictions remain open |
 
-## Source identity blocker
+## Statement identity blocker
 
 The repository attribution is not enough to distinguish several materially different local
-Langlands results. Intake therefore does not manufacture a title, DOI, theorem number, or scope.
+Langlands results. This statement pass therefore does not manufacture a title, DOI, theorem number, or scope.
 Before statement work, a primary source must be identified and pinned, and its actual theorem must
 be crosswalked by page/theorem number, hypotheses, conclusion, normalization, and errata. The
 attributed authors and year must also be checked rather than treated as authority.
@@ -22,3 +22,8 @@ The historical file `Formalizations/Lean/AwesomeTheorems/Stage1/S1_M_063.lean` s
 `FrozenTheoremVariant` is definitionally an abstract statement shape and "not a terminal local
 Langlands proof." It is retained solely as discovery provenance. Substituting it for the unknown
 human theorem would violate the rev-5.6 exact-statement gate.
+
+The contract-selected `Statement.lean` is intentionally import-free and declaration-free. It
+elaborates only as a checked negative boundary, while `statement.json` keeps the canonical claim,
+formal expression, fingerprints, and mutation results null or unrun. This is not an alternate
+encoding and does not satisfy the positive statement gate.

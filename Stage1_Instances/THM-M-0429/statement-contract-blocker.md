@@ -23,12 +23,15 @@ reducible/virtual representation conventions unresolved. Consequently there is n
 expression to fingerprint, no minimal import set to certify, no credited transport, and no
 meaningful removed-hypothesis, changed-domain, changed-binder-scope, or boundary-case mutation.
 
-The HEAD phase contract also cannot be completed from this worker base. Neither declared validator
-candidate existed at base revision `dae1951609072752d49d111bf00e78e4512f2d14`, while the contract
-requires the scheduler-selected validator to exist there and retain the same Git blob at HEAD.
-Creating a validator now would not satisfy that identity gate. Likewise, emitting a phase receipt
-with fabricated bindings for the missing `statement.json` and `Statement.lean` would violate the
-artifact-binding gate. These missing positive artifacts are recorded, not invented.
+The HEAD phase contract cannot close positively. This handoff supplies exactly one declared
+validator candidate plus the required `statement.json`, `Statement.lean`, source crosswalk, and
+node receipt paths. The statement source is deliberately declaration-free and the record keeps the
+canonical formal target null. These artifacts make the negative boundary reviewable without
+fabricating the missing Artin-L-function construction; they do not satisfy the exact-target or
+mutation predicates. Moreover, the candidate did not exist at worker base
+`94009a6bebd743588e09c3b45bfbf18bf9b5c5e3`; the scheduler's base-identity rule therefore prevents
+this claim from supplying a review-eligible HEAD validator. Integration may preserve the blocker,
+but a fresh claim is required after that validator is authoritative at its base.
 
 The structured details are in `statement-blocker.json`. The dependency ledger records the complete
 empty hard-parent closure and rejects the sole weak shared-module group after inspecting
@@ -41,10 +44,10 @@ is well typed. No dependency update, build, clone, or fetch was run.
 
 Retry after pinning and independently reviewing the exact primary-source theorem and conventions,
 then providing concrete pinned Lean definitions for the finite-prime, inertia/Frobenius, Artin
-Euler-product, and global meromorphic-function surfaces. The integration lane must also establish a
-base-stable declared validator. A later statement run must elaborate the exact target, bind its
-environment and expression, check every transport, and kill all four mutations.
+Euler-product, and global meromorphic-function surfaces. A later statement run must elaborate the
+exact target, bind its environment and expression, check every transport, and kill all four
+mutations.
 
-This target-scoped negative artifact grants no statement phase, proof, H/M/R promotion, audit
-completion, theorem completion, or master acceptance. The phase predicate is false, so no
-`.stage1-worker-selftest.json` is emitted.
+This target-scoped negative artifact grants no statement acceptance, proof, H/M/R promotion, audit
+completion, theorem completion, or master acceptance. The worker self-test handoff records only
+that the target-scoped blocker and typed negative validator result were reproduced.

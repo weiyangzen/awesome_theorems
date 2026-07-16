@@ -16,3 +16,20 @@ or conclusion at intake.
 Primary-source selection must identify an edition or immutable file, theorem/page, all arithmetic
 assumptions, the exact claimed conclusion, and errata. Only then may the statement phase normalize
 the claim and test the legacy Lean candidate. No `H0` or machine-closure claim is made.
+
+## Statement-phase exactness boundary
+
+The four contract-selected positive identity surfaces remain unresolved:
+
+| Required surface | Source-backed value | Statement result |
+|---|---|---|
+| Ordered premises | None identified | Cannot remove or retain a hypothesis without inventing it |
+| Domain and binder scope | None identified | Cannot choose the base field, quaternion algebra, order, level, model, universes, or quantifier scope |
+| Conclusion | None identified | Cannot choose construction, algebraicity/canonical model, representability, smoothness/properness, or uniformization |
+| Boundary cases | None identified | Cannot decide split/ramified, compact/noncompact, torsion/neat, coarse/stack, or degenerate conventions |
+
+Accordingly the contract source `Statement.lean` is declaration-free and uses no imports. Its
+successful kernel elaboration validates only the fail-closed boundary. `StatementInfrastructure.lean`
+remains an adjacent API probe, and the legacy `S1_M_045` module remains unaccepted discovery input.
+Neither selects a proposition, supplies an expression fingerprint, or makes any of the four required
+mutations meaningful.

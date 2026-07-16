@@ -1,0 +1,245 @@
+{
+  "schema_version": "stage1-node-receipt/1.0",
+  "receipt_id": "S56-M-0113-PROOF-worker-94009a6bebd7-20260717-slot24",
+  "item_id": "S56-M-0113-PROOF",
+  "theorem_id": "THM-M-0113",
+  "phase": "proof",
+  "intent": "prove",
+  "base_revision": "94009a6bebd743588e09c3b45bfbf18bf9b5c5e3",
+  "base_tree": "daabee9f9b2c6e98d84b6290f78a209b950485fc",
+  "claim_order": {
+    "v2_execution_rank": 262,
+    "phase_layer": 4,
+    "phase_item_id": "S56-M-0113-PROOF"
+  },
+  "inputs": {
+    "task_state_authority": {
+      "path": "Docs/Stage1_Blueprint_v2.md",
+      "sha256": "f7f8bcf307b737c56eb7ebc77fa2192046dc07b27ce58df5876ba4fdc4f1d7fb",
+      "item_state_observed": "[ ]",
+      "attempts_observed": 0
+    },
+    "assurance_authority": {
+      "path": "Docs/Stage1_Blueprint_rev-5.6.md",
+      "sha256": "3779901013ac5e0b1f1b2bb4ea7a2ee08429f85bb1ee26c4b96905d6796c65c8"
+    },
+    "target_manifest": {
+      "path": "Docs/Stage1_Targets_rev-5.6.json",
+      "sha256": "02eec284de534dd78e1cf75f82a477ff477567dd682b7445cb7587abd137ab2c"
+    },
+    "theorem_dag_sha256": "eaee68bdf9fde9e311db076d1997fd8ef91919def0ba0fb399f1df77080f7153",
+    "dependency_context_sha256": "068170c76abd4579d643ede04d731b974412185bd285e7b40255ec4044adec5c",
+    "phase_contract_sha256": "1e7adf0f4fae0541b3595d4b0bfbb53f7eb17e28a4a889fec14f6df969e0cec4",
+    "execution_skill_sha256": "5da11caafdb40b121c2fd19e13cd232a1b13a615f7a64eb314aa82cc19fea454",
+    "parent_inspection_order": [],
+    "inspected_parent_ids": [],
+    "provider_acceptance_inherited": false,
+    "accepted_receipt_ids": [],
+    "proof_sources": [
+      {
+        "path": "Stage1_Instances/THM-M-0113/Proof.lean",
+        "sha256": "b05f2ef3eef236e026930097803c614d53eeaba65d5fa936b0293a7c4879ec6f",
+        "git_blob": "67fc13e66029364221c4cd290d7f9aadc8140167"
+      }
+    ],
+    "dependency_reuse_ledger": {
+      "path": "Stage1_Instances/THM-M-0113/dependency-reuse-ledger.json",
+      "sha256": "eef945ae086dd5fc0136ded73551aec4786d867a8a770eb5f669a9883b3ee348",
+      "git_blob": "90c31922b603650f25b96143daafa158af65fc73"
+    },
+    "statement_sha256": "73010040e7a16c02d00bfa95db270e2370440f433e8c3519e5e2ab429cd236dd",
+    "statement_record_sha256": "38fed31b8341e67729ae2f638edb595361a099a7b7ecbaa0f1e336d0b342ac22",
+    "obligation_tree_sha256": "c9fe3593539b1a3d221496ad45c3b5a9cfcd1355b3875f7b42d4012337273a95",
+    "obligation_registry_sha256": "c8f592dd2961e08782a241355e0eaf2f1d6841b8e66b325bab5d07c936847f2d",
+    "typed_graphs_sha256": "31b91ed2b0c42702819148e6ab02e222e06f801bd0e1cc9e81788d26f2606e34",
+    "anchor_audit_sha256": "96d93459b27f3a95357e041e0a9cf589d849ef5066894551e646b5dbb5027795",
+    "proof_blocker_sha256": "d4c1957692893a57358eca538fe78ab57202acb209b980570f4068cefd54dfb9",
+    "proof_validator": {
+      "path": "Stage1_Instances/THM-M-0113/check_proof.py",
+      "sha256": "d8699c95e10820abfe28df27ff5e73a1a08783aa76ce3b027d2dacc39429480c",
+      "git_blob": "ba75b9dbf37eb093f982d3f8add2c788c19e439e",
+      "existed_at_base": false,
+      "current_claim_selection_eligible": false
+    },
+    "lean_toolchain": "leanprover/lean4:v4.29.0",
+    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+    "lake_manifest_sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81",
+    "mathlib_revision": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "mathlib_tree": "bdc39a3123201dae413a9d9be56ec242c19e5c2b"
+  },
+  "support_state": "provisional_worker_selftest",
+  "proposed_state": "[_]",
+  "accepted": false,
+  "verdict": "blocked",
+  "selftest_status": "passed",
+  "selftest_result": {
+    "exit_code": 0,
+    "commands": [
+      {
+        "argv": [
+          "python3",
+          "Docs/tools/check_stage1_standard.py"
+        ],
+        "cwd": ".",
+        "exit_code": 1,
+        "expected_failure": "The repository-wide standard check delegates to theorem DAG regeneration, which intentionally sees the same worker-local target evidence inventory drift recorded by the next command."
+      },
+      {
+        "argv": [
+          "python3",
+          "Docs/tools/check_stage1_theorem_dag_v2.py"
+        ],
+        "cwd": ".",
+        "exit_code": 1,
+        "expected_failure": "The target-owned proof receipt and validator are new worker artifacts not yet represented in the read-only theorem DAG evidence inventory; the integration lane regenerates that projection after merge."
+      },
+      {
+        "argv": [
+          "python3",
+          "scripts/stage1_target.py",
+          "check"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "python3",
+          "scripts/stage1_target.py",
+          "show",
+          "THM-M-0113"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "python3",
+          "Stage1_Instances/THM-M-0113/check_anchor_audit.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "python3",
+          "Stage1_Instances/THM-M-0113/check_obligation_tree.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "Stage1_Instances/THM-M-0113/check_proof.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "git",
+          "diff",
+          "--check",
+          "--",
+          "Stage1_Instances/THM-M-0113",
+          ".stage1-worker-selftest.json"
+        ],
+        "cwd": ".",
+        "exit_code": 0
+      }
+    ],
+    "output_summary": "The standard, target manifest, frozen anchor and obligation artifacts, exact empty dependency closure, target-owned receipt, placeholder policy, and trust-zero Lean countermodel replay passed. The semantic validator emitted exactly one typed blocked result with phase_accepted=false. The theorem DAG inventory check has the expected worker-local drift until integration regenerates the read-only projection."
+  },
+  "known_failures": [
+    "The exact frozen positive proposition is false at universe specialization {0,0,0,0}: HodgeData.isKahler does not constrain the arbitrary cohomology and hodgePiece fields.",
+    "The checked negative declaration refutes only the frozen abstract encoding, not the mathematical Hodge decomposition theorem, and closes zero positive obligations.",
+    "S56-M-0113-OBLIGATION_TREE remains worker-provisional [_], not master-accepted [x].",
+    "The statement mutation fixtures elaborate alternate propositions rather than demonstrating that every required non-equivalent mutation is rejected; MutationRemovedCompactness still includes CompactSpace M.",
+    "A positive proof cannot proceed without reopening and accepting S56-M-0113-STATEMENT, repairing the exact target, and freshly freezing all dependent phases.",
+    "The HEAD proof validator candidate did not exist at worker base 94009a6b; the current claim cannot satisfy unchanged-base master validator selection until integration lands the bytes and a fresh claim replays the identical HEAD-tracked blob.",
+    "The automation-provided Formalizations/Lean/.lake symlink was reused read-only for warm nonrelease validation."
+  ],
+  "first_failed_gate": "P04-KERNEL/S56-5.1-EXACT-TARGET-CONSISTENCY/M0113-S-DATA",
+  "retry_condition": "Reopen S56-M-0113-STATEMENT; replace the disconnected isKahler proposition and arbitrary cohomology/Hodge-piece fields with faithful native constructions or noncircular law-bearing hypotheses; accept a new statement fingerprint and mutation-failure evidence; then freshly freeze and accept anchor-audit and obligation-tree artifacts before resuming positive proof execution. Alternatively redirect the item explicitly to the checked counterexample target.",
+  "status_boundary": "Self-tested target-owned negative proof evidence only. It establishes that the current frozen encoding has no positive universe-polymorphic proof, but it does not satisfy the assigned positive proof predicate, close any positive obligation or root, transfer provider acceptance, or establish proof-phase acceptance, validation, release, audit completion, theorem completion, or master acceptance.",
+  "audit_complete": false,
+  "theorem_complete": false,
+  "invalidation_inputs": [
+    "Docs/Stage1_Blueprint_v2.md",
+    "Docs/Stage1_Execution_DAG_rev-5.6.json",
+    "Docs/Stage1_Theorem_DAG_v2.json",
+    "Docs/Stage1_Phase_Acceptance_Contracts.json",
+    "Stage1_Instances/THM-M-0113/Statement.lean",
+    "Stage1_Instances/THM-M-0113/statement.json",
+    "Stage1_Instances/THM-M-0113/AnchorAudit.lean",
+    "Stage1_Instances/THM-M-0113/anchor-audit.json",
+    "Stage1_Instances/THM-M-0113/ObligationTree.lean",
+    "Stage1_Instances/THM-M-0113/obligation-registry.json",
+    "Stage1_Instances/THM-M-0113/typed-graphs.json",
+    "Stage1_Instances/THM-M-0113/Proof.lean",
+    "Stage1_Instances/THM-M-0113/dependency-reuse-ledger.json",
+    "Stage1_Instances/THM-M-0113/check_proof.py",
+    "Lean toolchain, Lake manifest, mathlib revision/tree, or dependency cache"
+  ],
+  "canonical_target": "Stage1Instances.THMM0113.HodgeDecompositionTarget",
+  "canonical_target_expression_sha256": "483a37eb70184d0596b11301c4e15018629fd00bbd8a601fdc6ad7691dcd7e84",
+  "exact_declarations": [
+    "Stage1Instances.THMM0113.not_hodgeDecompositionTarget"
+  ],
+  "closed_obligation_ids": [],
+  "proof_body": {
+    "classification": "target_owned_negative_countermodel_witness",
+    "source": "Stage1_Instances/THM-M-0113/Proof.lean",
+    "source_sha256": "b05f2ef3eef236e026930097803c614d53eeaba65d5fa936b0293a7c4879ec6f",
+    "declaration": "Stage1Instances.THMM0113.not_hodgeDecompositionTarget",
+    "exact_type": "Not Stage1Instances.THMM0113.HodgeDecompositionTarget.{0, 0, 0, 0}",
+    "terminal_proof_body_id": null,
+    "reuse_relationship": "none",
+    "positive_proof_credit": false
+  },
+  "result": {
+    "exit_code": 0,
+    "semantic_verdict": "blocked",
+    "phase_predicate_proven": false,
+    "phase_accepted": false,
+    "blocked": true,
+    "root_kernel_closed": false,
+    "accepted_closed_obligation_ids": [],
+    "observed_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "placeholder_scan": "pass",
+    "audit_complete": false,
+    "theorem_complete": false
+  },
+  "root_vector_before": {
+    "H": "H4",
+    "M": "M4",
+    "R": "R4"
+  },
+  "root_vector_after": {
+    "H": "H4",
+    "M": "M4",
+    "R": "R4"
+  },
+  "remaining_root_cut_set": [
+    "M0113-S-DATA",
+    "fresh statement mutation and transport acceptance",
+    "dependency-ordered predecessor acceptance",
+    "positive proof bodies and child-to-parent composition certificates",
+    "validation, release, source, readability, trust, and independent-verification gates"
+  ],
+  "phase_receipt_binding": {
+    "role": "phase_receipt",
+    "path": "Stage1_Instances/THM-M-0113/proof-receipt.json",
+    "sha256": null,
+    "git_blob": null,
+    "binding_owner": "scheduler integration lane",
+    "status_boundary": "The receipt cannot content-bind its own final bytes without a cycle; the scheduler binds the integrated HEAD file when resolving the phase_receipt role."
+  }
+}

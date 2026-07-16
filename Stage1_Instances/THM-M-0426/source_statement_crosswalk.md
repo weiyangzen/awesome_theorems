@@ -34,3 +34,23 @@ target in `intake.json` with an elaborated Lean expression and environment finge
 
 No human-proof closure, machine closure, or source fidelity is claimed here.
 
+## Current statement attempt (2026-07-17)
+
+The current rev-5.6 statement attempt did not select either discovery lead as authority. The
+repository record still provides only the title, Hecke attribution, 1917 date, and one-line gloss;
+Stage0 explicitly leaves exact definitions and premises open. No immutable source bytes, exact
+theorem or displayed-formula locator, complete transcription, correction/errata review, or
+independent source approval is present in the repository.
+
+The attempt also inspected the distinct target `THM-M-0022`, whose source wording is semantically
+indistinguishable and whose owned blocker records the same unresolved Hecke-functional-equation
+family. That file is discovery evidence only: the v2 DAG declares no hard edge, reuse hint, or
+shared group between the targets, and no accepted alias, deduplication, or canonical-root ownership
+decision exists. This target therefore consumes no declaration, receipt, state, or proof credit
+from `THM-M-0022`.
+
+`Statement.lean` checks only generic weak/strong functional-equation machinery, the primitive
+Dirichlet-character specialization, and number-field adele/product-formula APIs. The legacy
+`S1_M_080.lean` module remains an abstract caller-supplied interface. Neither surface defines the
+received Hecke character, completed L-function, or source normalization, so neither can serve as
+the canonical target or support meaningful mutations. The exact-statement gate remains blocked.

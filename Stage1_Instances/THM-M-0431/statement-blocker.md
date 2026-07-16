@@ -4,6 +4,23 @@ Item: `S56-M-0431-STATEMENT`
 Theorem: `THM-M-0431`  
 Verdict: blocked; no exact canonical Lean target is claimed.
 
+## Current contract normalization (2026-07-17)
+
+The blocker has been replayed at repository base
+`94009a6bebd743588e09c3b45bfbf18bf9b5c5e3` under the HEAD statement contract. The v2 claim key is
+`(v2_execution_rank=293, phase_layer=1, phase_item_id=S56-M-0431-STATEMENT)`. The theorem-level
+`parent_inspection_order` is exactly `[]`; the schema-1.1 dependency ledger records that empty
+closure, so no provider declaration, body, receipt, or acceptance was reused. The intra-theorem
+predecessor `S56-M-0431-INTAKE` was separately inspected: its authoritative state is `[_]`, it has
+no phase receipt or Lean declaration body, and its dossier is guidance only rather than accepted
+scope.
+
+The required negative roles now exist as `statement.json`, `Statement.lean`, the source crosswalk,
+and exactly one `stage1-node-receipt/1.0` statement receipt. The target-owned validator emits one
+`stage1-validator-semantic-result/1.0` object with `phase_accepted=false`. That validates only the
+truth of this blocker; the contract says classified negative findings cannot complete the positive
+statement deliverable.
+
 ## First failed gate
 
 The authoritative source record identifies only "local Langlands correspondence" and gives the
@@ -36,6 +53,21 @@ placeholder predicate, abstract proxy statement, or substituted theorem was intr
 
 ## Environment fingerprint
 
+Current replay:
+
+- Repository base revision: `94009a6bebd743588e09c3b45bfbf18bf9b5c5e3`; base tree:
+  `daabee9f9b2c6e98d84b6290f78a209b950485fc`.
+- Validation date: 2026-07-17 (Asia/Shanghai).
+- v2 theorem DAG SHA-256:
+  `eaee68bdf9fde9e311db076d1997fd8ef91919def0ba0fb399f1df77080f7153`.
+- Dependency-context SHA-256:
+  `068170c76abd4579d643ede04d731b974412185bd285e7b40255ec4044adec5c`.
+- Statement-contract SHA-256:
+  `1e7adf0f4fae0541b3595d4b0bfbb53f7eb17e28a4a889fec14f6df969e0cec4`.
+
+The following older fingerprint is retained as historical discovery evidence and is superseded for
+the current replay wherever its repository base differs:
+
 - Repository base revision: `8bfedc3e8fd013fc57dbc65383ae2896cdda78e5`.
 - Validation date: 2026-07-12 (Asia/Shanghai).
 - Lean toolchain: `leanprover/lean4:v4.29.0`; Lean `4.29.0`, commit
@@ -49,6 +81,15 @@ placeholder predicate, abstract proxy statement, or substituted theorem was intr
   `8df3d5f5bb1ee57509be2c352ebc13cab9bffa961809bddee973871372c7faad`.
 
 ## Validation evidence
+
+The current replay uses
+`LC_ALL=C TZ=UTC lake env lean --trust=0 ../../Stage1_Instances/THM-M-0431/Statement.lean` from
+`Formalizations/Lean`. It elaborates only the concrete local-field, `GL_n`, and ordinary
+representation interface probe. The semantic validator is the authoritative worker result for this
+packet and reports the positive statement predicate blocked. Exact current commands and exits are
+bound in `statement-receipt.json` and `.stage1-worker-selftest.json`.
+
+Historical commands below remain useful discovery context but do not replace the current receipt:
 
 Commands ran from this worker clone using only the existing canonical pinned `.lake` artifacts.
 No update, build, fetch, or clone command was used.
@@ -74,6 +115,7 @@ and every claimed compatibility law. The next statement run can then elaborate a
 exact expression and mutation-test its rank, characteristic, semisimplicity, and normalization
 hypotheses.
 
-Until those conditions are met, statement acceptance and theorem completion are false. Because the
-assigned phase is not self-tested to its completion gate, no `.stage1-worker-selftest.json` is
-emitted.
+Until those conditions are met, statement acceptance and theorem completion are false. A
+`.stage1-worker-selftest.json` packet is emitted only to hand off the self-tested negative evidence
+with state `[_]`; its semantic result remains blocked and `phase_accepted=false`, so it grants no
+statement acceptance.

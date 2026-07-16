@@ -27,3 +27,20 @@ node-specific review. The statement phase must separately build or locate the Le
 elaborate the exact expression, check alternate parameter encodings, and mutation-test field
 characteristic, rank, binder scope, semisimplicity, and all normalization laws.
 
+## Statement-phase determination (2026-07-17)
+
+The source wording remains too coarse to select the intake candidate as canonical. In particular,
+the separate Harris-Taylor metadata record in `Docs/researches/math_theorems.md` does not say that
+this target is that record, and neither repository record supplies a theorem/page or a complete
+normalization package. The characteristic-zero `GL_n` claim in `intake.json` is therefore useful
+scope guidance, not an accepted source identity.
+
+The target-owned `Statement.lean` checks only three concrete pinned interfaces:
+`IsNonarchimedeanLocalField`, `Matrix.GeneralLinearGroup`, and `Representation`. None supplies the
+missing smooth/admissible quotient or the Weil-Deligne parameter quotient and compatibility laws.
+The historical `LocalLanglandsStatementShape` instead makes both parameter types and their defining
+predicates caller-supplied fields; nonemptiness of that interface can encode unrelated data and is
+not a checked transport of the source theorem. It receives no statement credit.
+
+Accordingly every premise-to-binder mapping remains open rather than guessed. No canonical Lean
+expression, expression fingerprint, alternate transport, or meaningful mutation result is claimed.
