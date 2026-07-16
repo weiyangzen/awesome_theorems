@@ -5415,7 +5415,11 @@ def review_candidates(
             and isinstance(claim.get("fresh_revalidation"), bool)
         ):
             item = ordered_by_id.get(claim.get("item_id"))
-            if isinstance(item, dict) and review_source_claim(item, [claim]) is not None:
+            if (
+                isinstance(item, dict)
+                and item.get("state") == "[_]"
+                and review_source_claim(item, [claim]) is not None
+            ):
                 source_claims_by_item.setdefault(claim.get("item_id"), []).append(claim)
     candidates = [
         item for item in ordered
