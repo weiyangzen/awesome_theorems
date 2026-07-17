@@ -3507,6 +3507,14 @@ class SchedulerCapacityTests(unittest.TestCase):
                     cron, "verify_review_evidence_bundle",
                     return_value=(review_output, manifest, role_map, validator, {}),
                 ),
+                mock.patch.object(
+                    cron, "require_review_compatible_with_current_head",
+                    return_value="a" * 40,
+                ),
+                mock.patch.object(
+                    cron, "authoritative_head_revision", return_value="a" * 40
+                ),
+                mock.patch.object(cron, "review_authority_contract_record", return_value={}),
                 mock.patch.object(cron.acceptance_evidence, "replay_validator", return_value=replay),
                 mock.patch.object(
                     cron.acceptance_evidence, "evaluate_replay_semantics", return_value=decision
@@ -3528,6 +3536,282 @@ class SchedulerCapacityTests(unittest.TestCase):
             self.assertEqual(sha256(receipt), claim["master_receipt_sha256"])
             write_projection.assert_called_once()
             write_derived.assert_called_once()
+
+    def test_review_compatibility_allows_unrelated_head_drift(self) -> None:
+        item = {
+            "id": "S56-M-0001-INTAKE", "theorem_id": "THM-M-0001",
+            "phase": "intake", "state": "[_]", "attempts": 1,
+        }
+        role_map = {
+            "schema_version": "role-map", "item_id": item["id"],
+            "theorem_id": item["theorem_id"], "phase": item["phase"],
+            "base_revision": "a" * 40, "contract_sha256": "c" * 64,
+            "contract_git_blob": "d" * 40, "phase_receipt_path": "receipt.json",
+            "phase_receipt_sha256": "e" * 64, "artifacts": [{"path": "artifact"}],
+        }
+        validator = {
+            "item_id": item["id"], "theorem_id": item["theorem_id"],
+            "phase": item["phase"], "base_revision": "a" * 40,
+            "contract_sha256": "c" * 64, "validator_path": "check.py",
+            "validator_sha256": "f" * 64, "validator_git_blob": "1" * 40,
+            "validator_git_mode": "100644", "argv": ["/usr/bin/python3", "check.py"],
+            "cwd": ".", "network_policy": "denied", "repo_write_access": False,
+            "isolated_scratch_write_access": True, "shell_interpolation": False,
+        }
+        node = {"theorem_id": item["theorem_id"], "v2_execution_rank": 1}
+        manifest = {
+            "authority_revision": "b" * 40, "base_revision": "a" * 40,
+            "blueprint_sha256": "2" * 64,
+            "contract": {
+                "path": "Docs/Stage1_Phase_Acceptance_Contracts.json",
+                "sha256": "c" * 64, "git_blob": "d" * 40,
+            },
+        }
+        select_validator = mock.Mock(return_value={
+            **validator, "authority_revision": "9" * 40,
+        })
+        with (
+            mock.patch.object(cron, "PHASE_ACCEPTANCE_CONTRACT_SHA256", "c" * 64),
+            mock.patch.object(cron, "phase_acceptance_contract_record", return_value={
+                "revision": "9" * 40,
+                "path": manifest["contract"]["path"],
+                "sha256": "c" * 64, "git_blob": "d" * 40,
+            }),
+            mock.patch.object(cron, "sha256_file", return_value="2" * 64),
+            mock.patch.object(cron, "build_review_role_map", return_value={
+                **role_map, "authority_revision": "9" * 40,
+            }),
+            mock.patch.object(cron, "select_review_validator", select_validator),
+            mock.patch.object(cron, "theorem_dag_v2", return_value=({
+                "hard_edges": [], "reuse_hints": [], "shared_lemma_groups": [],
+            }, {
+                item["theorem_id"]: node,
+            })),
+            mock.patch.object(cron, "git_object_bytes", return_value=json.dumps({
+                "theorems": [node], "hard_edges": [], "reuse_hints": [],
+                "shared_lemma_groups": [],
+            }).encode()),
+            mock.patch.object(
+                cron, "authoritative_head_revision", return_value="9" * 40
+            ),
+        ):
+            compatible_head = cron.require_review_compatible_with_current_head(
+                item, manifest, role_map, validator
+            )
+        self.assertEqual(compatible_head, "9" * 40)
+        select_validator.assert_called_once_with(
+            item, "a" * 40, require_base_blob_match=False
+        )
+
+    def test_review_compatibility_rejects_target_artifact_or_dag_drift(self) -> None:
+        item = {
+            "id": "S56-M-0001-INTAKE", "theorem_id": "THM-M-0001",
+            "phase": "intake", "state": "[_]",
+        }
+        role_map = {
+            "schema_version": "role-map", "item_id": item["id"],
+            "theorem_id": item["theorem_id"], "phase": item["phase"],
+            "base_revision": "a" * 40, "contract_sha256": "c" * 64,
+            "contract_git_blob": "d" * 40, "phase_receipt_path": "receipt.json",
+            "phase_receipt_sha256": "e" * 64, "artifacts": [{"path": "artifact"}],
+        }
+        validator = {
+            "item_id": item["id"], "theorem_id": item["theorem_id"],
+            "phase": item["phase"], "base_revision": "a" * 40,
+            "contract_sha256": "c" * 64, "validator_path": "check.py",
+            "validator_sha256": "f" * 64, "validator_git_blob": "1" * 40,
+            "validator_git_mode": "100644", "argv": ["/usr/bin/python3", "check.py"],
+            "cwd": ".", "network_policy": "denied", "repo_write_access": False,
+            "isolated_scratch_write_access": True, "shell_interpolation": False,
+        }
+        manifest = {
+            "authority_revision": "b" * 40, "base_revision": "a" * 40,
+            "blueprint_sha256": "2" * 64,
+            "contract": {
+                "path": "Docs/Stage1_Phase_Acceptance_Contracts.json",
+                "sha256": "c" * 64, "git_blob": "d" * 40,
+            },
+        }
+        with (
+            self.assertRaisesRegex(ValueError, "artifacts or validator"),
+            mock.patch.object(cron, "PHASE_ACCEPTANCE_CONTRACT_SHA256", "c" * 64),
+            mock.patch.object(cron, "phase_acceptance_contract_record", return_value={
+                "revision": "9" * 40,
+                "path": manifest["contract"]["path"],
+                "sha256": "c" * 64, "git_blob": "d" * 40,
+            }),
+            mock.patch.object(cron, "sha256_file", return_value="2" * 64),
+            mock.patch.object(cron, "select_review_validator", return_value=validator),
+            mock.patch.object(cron, "build_review_role_map", return_value={
+                **role_map, "artifacts": [{"path": "changed"}],
+            }),
+            mock.patch.object(
+                cron, "authoritative_head_revision", return_value="9" * 40
+            ),
+        ):
+            cron.require_review_compatible_with_current_head(
+                item, manifest, role_map, validator
+            )
+
+    def test_review_compatibility_rejects_related_dag_row_drift(self) -> None:
+        item = {
+            "id": "S56-M-0001-INTAKE", "theorem_id": "THM-M-0001",
+            "phase": "intake", "state": "[_]",
+        }
+        role_map = {
+            "schema_version": "role-map", "item_id": item["id"],
+            "theorem_id": item["theorem_id"], "phase": item["phase"],
+            "base_revision": "a" * 40, "contract_sha256": "c" * 64,
+            "contract_git_blob": "d" * 40, "phase_receipt_path": "receipt.json",
+            "phase_receipt_sha256": "e" * 64, "artifacts": [{"path": "artifact"}],
+        }
+        validator = {
+            "item_id": item["id"], "theorem_id": item["theorem_id"],
+            "phase": item["phase"], "base_revision": "a" * 40,
+            "contract_sha256": "c" * 64, "validator_path": "check.py",
+            "validator_sha256": "f" * 64, "validator_git_blob": "1" * 40,
+            "validator_git_mode": "100644", "argv": ["/usr/bin/python3", "check.py"],
+            "cwd": ".", "network_policy": "denied", "repo_write_access": False,
+            "isolated_scratch_write_access": True, "shell_interpolation": False,
+        }
+        node = {
+            "theorem_id": item["theorem_id"], "v2_execution_rank": 1,
+            "topological_layer": 0, "direct_hard_parents": [],
+            "transitive_hard_ancestors": [], "direct_reuse_hint_ids": [],
+            "shared_lemma_group_ids": ["G1"], "dependency_context_sha256": "2" * 64,
+        }
+        authority_group = {
+            "group_id": "G1", "member_theorem_ids": [item["theorem_id"], "THM-M-0002"],
+            "blocking": False, "reuse_boundary": "frozen",
+        }
+        current_group = {**authority_group, "reuse_boundary": "changed"}
+        manifest = {
+            "authority_revision": "b" * 40, "base_revision": "a" * 40,
+            "contract": {
+                "path": "Docs/Stage1_Phase_Acceptance_Contracts.json",
+                "sha256": "c" * 64, "git_blob": "d" * 40,
+            },
+        }
+        with (
+            self.assertRaisesRegex(ValueError, "shared_lemma_groups changed"),
+            mock.patch.object(cron, "PHASE_ACCEPTANCE_CONTRACT_SHA256", "c" * 64),
+            mock.patch.object(cron, "phase_acceptance_contract_record", return_value={
+                "revision": "9" * 40,
+                "path": manifest["contract"]["path"], "sha256": "c" * 64,
+                "git_blob": "d" * 40,
+            }),
+            mock.patch.object(cron, "build_review_role_map", return_value=role_map),
+            mock.patch.object(cron, "select_review_validator", return_value=validator),
+            mock.patch.object(cron, "theorem_dag_v2", return_value=({
+                "hard_edges": [], "reuse_hints": [],
+                "shared_lemma_groups": [current_group],
+            }, {item["theorem_id"]: node})),
+            mock.patch.object(cron, "git_object_bytes", return_value=json.dumps({
+                "theorems": [node], "hard_edges": [], "reuse_hints": [],
+                "shared_lemma_groups": [authority_group],
+            }).encode()),
+            mock.patch.object(
+                cron, "authoritative_head_revision", return_value="9" * 40
+            ),
+        ):
+            cron.require_review_compatible_with_current_head(
+                item, manifest, role_map, validator
+            )
+
+    def test_review_compatibility_rejects_head_change_during_check(self) -> None:
+        item = {
+            "id": "S56-M-0001-INTAKE", "theorem_id": "THM-M-0001",
+            "phase": "intake", "state": "[_]",
+        }
+        role_map = {
+            "schema_version": "role-map", "item_id": item["id"],
+            "theorem_id": item["theorem_id"], "phase": item["phase"],
+            "base_revision": "a" * 40, "contract_sha256": "c" * 64,
+            "contract_git_blob": "d" * 40, "phase_receipt_path": "receipt.json",
+            "phase_receipt_sha256": "e" * 64, "artifacts": [],
+        }
+        validator = {
+            "item_id": item["id"], "theorem_id": item["theorem_id"],
+            "phase": item["phase"], "base_revision": "a" * 40,
+            "contract_sha256": "c" * 64, "validator_path": "check.py",
+            "validator_sha256": "f" * 64, "validator_git_blob": "1" * 40,
+            "validator_git_mode": "100644", "argv": ["python3", "check.py"],
+            "cwd": ".", "network_policy": "denied", "repo_write_access": False,
+            "isolated_scratch_write_access": True, "shell_interpolation": False,
+        }
+        node = {"theorem_id": item["theorem_id"], "v2_execution_rank": 1}
+        manifest = {
+            "authority_revision": "b" * 40, "base_revision": "a" * 40,
+            "contract": {
+                "path": "Docs/Stage1_Phase_Acceptance_Contracts.json",
+                "sha256": "c" * 64, "git_blob": "d" * 40,
+            },
+        }
+        with (
+            self.assertRaisesRegex(ValueError, "HEAD changed"),
+            mock.patch.object(cron, "PHASE_ACCEPTANCE_CONTRACT_SHA256", "c" * 64),
+            mock.patch.object(cron, "phase_acceptance_contract_record", return_value={
+                "revision": "9" * 40,
+                "path": manifest["contract"]["path"], "sha256": "c" * 64,
+                "git_blob": "d" * 40,
+            }),
+            mock.patch.object(cron, "build_review_role_map", return_value=role_map),
+            mock.patch.object(cron, "select_review_validator", return_value=validator),
+            mock.patch.object(cron, "theorem_dag_v2", return_value=({
+                "hard_edges": [], "reuse_hints": [], "shared_lemma_groups": [],
+            }, {item["theorem_id"]: node})),
+            mock.patch.object(cron, "git_object_bytes", return_value=json.dumps({
+                "theorems": [node], "hard_edges": [], "reuse_hints": [],
+                "shared_lemma_groups": [],
+            }).encode()),
+            mock.patch.object(
+                cron, "authoritative_head_revision",
+                side_effect=["9" * 40, "8" * 40],
+            ),
+        ):
+            cron.require_review_compatible_with_current_head(
+                item, manifest, role_map, validator
+            )
+
+    def test_review_authority_contract_reloads_manifest_revision(self) -> None:
+        authority = "a" * 40
+        manifest = {
+            "authority_revision": authority,
+            "authority_tree": "b" * 40,
+            "contract": {
+                "path": "Docs/Stage1_Phase_Acceptance_Contracts.json",
+                "sha256": "c" * 64,
+                "git_blob": "d" * 40,
+            },
+        }
+        record = {
+            "revision": authority,
+            "git_tree": manifest["authority_tree"],
+            **manifest["contract"],
+            "contract": {"phase_order": []},
+        }
+        with (
+            mock.patch.object(cron, "PHASE_ACCEPTANCE_CONTRACT_SHA256", "c" * 64),
+            mock.patch.object(
+                cron.acceptance_evidence, "load_head_contract", return_value=record
+            ) as load_contract,
+        ):
+            self.assertEqual(
+                cron.review_authority_contract_record(manifest), record
+            )
+        load_contract.assert_called_once_with(
+            cron.ROOT, "c" * 64, revision=authority
+        )
+
+        with (
+            self.assertRaisesRegex(ValueError, "snapshot is stale"),
+            mock.patch.object(cron, "PHASE_ACCEPTANCE_CONTRACT_SHA256", "c" * 64),
+            mock.patch.object(
+                cron.acceptance_evidence, "load_head_contract",
+                return_value={**record, "git_tree": "e" * 40},
+            ),
+        ):
+            cron.review_authority_contract_record(manifest)
 
     def test_master_acceptance_rejects_legacy_hard_edge_evidence(self) -> None:
         item = {
@@ -3778,6 +4062,11 @@ class SchedulerCapacityTests(unittest.TestCase):
                     cron, "verify_review_evidence_bundle",
                     return_value=(output, manifest, role_map, validator, {}),
                 ),
+                mock.patch.object(
+                    cron, "require_review_compatible_with_current_head",
+                    return_value="a" * 40,
+                ),
+                mock.patch.object(cron, "review_authority_contract_record", return_value={}),
                 mock.patch.object(cron.acceptance_evidence, "replay_validator", side_effect=replay),
                 mock.patch.object(cron, "write_projection") as write_projection,
             ):

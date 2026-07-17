@@ -294,6 +294,39 @@ class ContractAndBindingTests(unittest.TestCase):
                 base_revision=worker_base,
             )
 
+    def test_current_head_compatibility_selection_ignores_only_old_base_blob(self) -> None:
+        fixture = GitFixture()
+        self.addCleanup(fixture.close)
+        worker_base = fixture.head
+        validator = fixture.instance / "check_0.py"
+        validator.write_text("print('current validator')\n", encoding="utf-8")
+        run(fixture.root, "git", "add", ".")
+        run(fixture.root, "git", "commit", "-m", "change validator")
+        loaded = fixture.loaded()
+        recipe = evidence.select_validator_recipe(
+            fixture.root,
+            loaded,
+            item_id="S56-M-0001-INTAKE",
+            theorem_id="THM-M-0001",
+            phase="intake",
+            base_revision=worker_base,
+            require_base_blob_match=False,
+        )
+        self.assertEqual(recipe["validator_sha256"], digest(validator))
+        self.assertEqual(recipe["authority_revision"], run(fixture.root, "git", "rev-parse", "HEAD"))
+
+        validator.write_text("print('dirty replacement')\n", encoding="utf-8")
+        with self.assertRaisesRegex(evidence.EvidenceError, "differs from authoritative HEAD"):
+            evidence.select_validator_recipe(
+                fixture.root,
+                loaded,
+                item_id="S56-M-0001-INTAKE",
+                theorem_id="THM-M-0001",
+                phase="intake",
+                base_revision=worker_base,
+                require_base_blob_match=False,
+            )
+
     def test_role_map_binds_every_selected_head_blob(self) -> None:
         fixture = GitFixture(receipt_bound=True)
         self.addCleanup(fixture.close)

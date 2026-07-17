@@ -3215,6 +3215,143 @@ def phase_acceptance_contract_record() -> dict[str, Any]:
     return _phase_acceptance_contract_record_at(authoritative_head_revision())
 
 
+def review_authority_contract_record(review_manifest: dict[str, Any]) -> dict[str, Any]:
+    """Reload the immutable contract snapshot bound by one completed review."""
+    authority = review_manifest.get("authority_revision")
+    manifest_contract = review_manifest.get("contract")
+    if (
+        not isinstance(authority, str)
+        or re.fullmatch(r"[0-9a-f]{40}", authority) is None
+        or not isinstance(manifest_contract, dict)
+        or manifest_contract.get("path")
+        != PHASE_ACCEPTANCE_CONTRACTS.relative_to(ROOT).as_posix()
+        or manifest_contract.get("sha256") != PHASE_ACCEPTANCE_CONTRACT_SHA256
+    ):
+        raise ValueError("review manifest lacks an exact contract authority binding")
+    try:
+        record = acceptance_evidence.load_head_contract(
+            ROOT, PHASE_ACCEPTANCE_CONTRACT_SHA256, revision=authority
+        )
+    except acceptance_evidence.EvidenceError as exc:
+        raise ValueError(str(exc)) from exc
+    if (
+        record.get("revision") != authority
+        or record.get("git_tree") != review_manifest.get("authority_tree")
+        or record.get("path") != manifest_contract.get("path")
+        or record.get("sha256") != manifest_contract.get("sha256")
+        or record.get("git_blob") != manifest_contract.get("git_blob")
+    ):
+        raise ValueError("review manifest contract authority snapshot is stale")
+    return record
+
+
+def require_review_compatible_with_current_head(
+    item: dict[str, Any],
+    review_manifest: dict[str, Any],
+    role_map: dict[str, Any],
+    validator: dict[str, Any],
+) -> str:
+    """Permit unrelated commits while rejecting every target-relevant drift."""
+    compatible_head = authoritative_head_revision()
+    current_contract = phase_acceptance_contract_record()
+    manifest_contract = review_manifest.get("contract")
+    if (
+        current_contract.get("revision") != compatible_head
+        or not isinstance(manifest_contract, dict)
+        or current_contract.get("path") != manifest_contract.get("path")
+        or current_contract.get("sha256") != manifest_contract.get("sha256")
+        or current_contract.get("git_blob") != manifest_contract.get("git_blob")
+    ):
+        raise ValueError("review authority contract changed after review allocation")
+    current_role_map = build_review_role_map(item, str(review_manifest.get("base_revision", "")))
+    current_validator = select_review_validator(
+        item,
+        str(review_manifest.get("base_revision", "")),
+        require_base_blob_match=False,
+    )
+    role_fields = {
+        "schema_version", "item_id", "theorem_id", "phase", "base_revision",
+        "contract_sha256", "contract_git_blob", "phase_receipt_path",
+        "phase_receipt_sha256", "artifacts",
+    }
+    validator_fields = {
+        "item_id", "theorem_id", "phase", "base_revision", "contract_sha256",
+        "validator_path", "validator_sha256", "validator_git_blob",
+        "validator_git_mode", "argv", "cwd", "network_policy",
+        "repo_write_access", "isolated_scratch_write_access", "shell_interpolation",
+    }
+    if (
+        {field: current_role_map.get(field) for field in role_fields}
+        != {field: role_map.get(field) for field in role_fields}
+        or {field: current_validator.get(field) for field in validator_fields}
+        != {field: validator.get(field) for field in validator_fields}
+    ):
+        raise ValueError("review target artifacts or validator changed after review allocation")
+    current_graph, nodes = theorem_dag_v2()
+    current_node = nodes.get(item.get("theorem_id"))
+    authority_dag = json.loads(
+        git_object_bytes(
+            f"{review_manifest.get('authority_revision')}:{THEOREM_DAG_V2.relative_to(ROOT).as_posix()}"
+        )
+    )
+    authority_nodes = {
+        node.get("theorem_id"): node
+        for node in authority_dag.get("theorems", [])
+        if isinstance(node, dict)
+    }
+    node_fields = {
+        "theorem_id", "v2_execution_rank", "topological_layer",
+        "direct_hard_parents", "transitive_hard_ancestors",
+        "direct_reuse_hint_ids", "shared_lemma_group_ids",
+        "dependency_context_sha256",
+    }
+    authority_node = authority_nodes.get(item.get("theorem_id"))
+    if (
+        not isinstance(current_node, dict)
+        or not isinstance(authority_node, dict)
+        or {key: current_node.get(key) for key in node_fields}
+        != {key: authority_node.get(key) for key in node_fields}
+    ):
+        raise ValueError("review target DAG node changed after review allocation")
+    theorem_id = item.get("theorem_id")
+    related_specs = (
+        ("hard_edges", "edge_id", ("parent_theorem_id", "child_theorem_id")),
+        ("reuse_hints", "hint_id", ("provider_theorem_id", "consumer_theorem_id")),
+        ("shared_lemma_groups", "group_id", ("member_theorem_ids",)),
+    )
+    for table, identity, relation_fields in related_specs:
+        current_rows = current_graph.get(table, [])
+        authority_rows = authority_dag.get(table, [])
+        if not isinstance(current_rows, list) or not isinstance(authority_rows, list):
+            raise ValueError(f"review target DAG {table} table is malformed")
+
+        def related(row: Any) -> bool:
+            if not isinstance(row, dict):
+                return False
+            return any(
+                theorem_id in row.get(field, [])
+                if isinstance(row.get(field), list)
+                else row.get(field) == theorem_id
+                for field in relation_fields
+            )
+
+        current_related = {
+            row.get(identity): row for row in current_rows if related(row)
+        }
+        authority_related = {
+            row.get(identity): row for row in authority_rows if related(row)
+        }
+        if (
+            None in current_related
+            or None in authority_related
+            or current_related != authority_related
+        ):
+            raise ValueError(f"review target DAG {table} changed after review allocation")
+    if authoritative_head_revision() != compatible_head:
+        raise ValueError("authoritative HEAD changed during review compatibility check")
+    return compatible_head
+
+
 def phase_acceptance_contract() -> dict[str, Any]:
     return phase_acceptance_contract_record()["contract"]
 
@@ -3319,7 +3456,9 @@ def build_review_role_map(item: dict[str, Any], base_revision: str) -> dict[str,
         fail(str(exc))
 
 
-def select_review_validator(item: dict[str, Any], base_revision: str) -> dict[str, Any]:
+def select_review_validator(
+    item: dict[str, Any], base_revision: str, *, require_base_blob_match: bool = True
+) -> dict[str, Any]:
     try:
         return acceptance_evidence.select_validator_recipe(
             ROOT,
@@ -3328,6 +3467,7 @@ def select_review_validator(item: dict[str, Any], base_revision: str) -> dict[st
             theorem_id=item["theorem_id"],
             phase=item["phase"],
             base_revision=base_revision,
+            require_base_blob_match=require_base_blob_match,
         )
     except acceptance_evidence.EvidenceError as exc:
         fail(str(exc))
@@ -5972,6 +6112,10 @@ def consume_review_finished(
             )
             if output.get("review_verdict") != "phase_accepted":
                 raise ValueError("independent review did not return typed phase_accepted")
+            compatible_head = require_review_compatible_with_current_head(
+                item, manifest, role_map, validator
+            )
+            review_contract = review_authority_contract_record(manifest)
             if execution_is_paused():
                 fail("master acceptance refused: operator pause before authority replay")
             replay = acceptance_evidence.replay_validator(
@@ -5982,7 +6126,7 @@ def consume_review_finished(
                 fail("master acceptance refused: operator pause after authority replay")
             decision = acceptance_evidence.evaluate_replay_semantics(
                 replay,
-                contract_record=phase_acceptance_contract_record(),
+                contract_record=review_contract,
                 review_manifest=manifest,
                 role_map=role_map,
                 validator_recipe=validator,
@@ -6038,14 +6182,14 @@ def consume_review_finished(
             authoritative = {row["id"]: row for row in load_blueprint_items()}
             current = authoritative.get(item["id"])
             if (
-                current is None
+                authoritative_head_revision() != compatible_head
+                or current is None
                 or current.get("state") != "[_]"
                 or current.get("attempts") != item.get("attempts")
                 or any(
                     authoritative.get(dependency, {}).get("state") != "[x]"
                     for dependency in item.get("depends_on", [])
                 )
-                or manifest.get("blueprint_sha256") != blueprint_sha256_at_start
                 or sha256_file(BLUEPRINT) != blueprint_sha256_at_start
             ):
                 raise ValueError("SSOT CAS source changed during master acceptance")

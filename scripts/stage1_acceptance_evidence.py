@@ -597,8 +597,15 @@ def select_validator_recipe(
     theorem_id: str,
     phase: str,
     base_revision: str,
+    require_base_blob_match: bool = True,
 ) -> dict[str, Any]:
-    """Select exactly one validator and derive argv only from HEAD contract."""
+    """Select exactly one validator and derive argv only from HEAD contract.
+
+    ``require_base_blob_match=False`` is reserved for rechecking whether a
+    completed review still names the unchanged current-HEAD recipe. Review
+    allocation keeps the strict default and binds the validator to its worker
+    base.
+    """
 
     root = _repository_root(repo)
     head = _git_text(root, "rev-parse", "--verify", "HEAD^{commit}")
@@ -625,12 +632,15 @@ def select_validator_recipe(
         _fail(f"validator requires exactly one HEAD candidate, found {len(matches)}")
     candidate, relative, data, mode = matches[0]
     head_blob = _blob_oid(root, head, relative, "validator")
-    base_result = _run_git(root, ["rev-parse", "--verify", f"{base}:{relative}"], check=False)
-    if base_result.returncode:
-        _fail("selected validator did not exist at the worker base")
-    base_blob = base_result.stdout.decode("ascii", "strict").strip()
-    if base_blob != head_blob:
-        _fail("selected validator HEAD blob differs from worker-base blob")
+    if require_base_blob_match:
+        base_result = _run_git(
+            root, ["rev-parse", "--verify", f"{base}:{relative}"], check=False
+        )
+        if base_result.returncode:
+            _fail("selected validator did not exist at the worker base")
+        base_blob = base_result.stdout.decode("ascii", "strict").strip()
+        if base_blob != head_blob:
+            _fail("selected validator HEAD blob differs from worker-base blob")
     _require_worktree_matches_head(root, relative, data, "validator")
 
     template = candidate.get("argv_template")
