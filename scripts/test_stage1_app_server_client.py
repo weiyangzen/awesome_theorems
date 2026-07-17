@@ -610,15 +610,26 @@ class ScriptedAppServer:
                             "threadId": thread_id,
                             "turn": {{"id": turn_id, "status": "completed", "items": []}},
                         }}}})
-                elif method == "thread/turns/list":
+                elif method == "thread/read":
                     turns = []
                     for index, recorded_id in enumerate(turn_ids):
                         items = []
                         if index == 0:
                             items.append({{
                                 "id": "user-1", "type": "userMessage",
-                                "content": [{{"type": "text", "text": prompt}}],
+                                "content": [{{
+                                    "type": "text", "text": prompt, "text_elements": [],
+                                }}],
                             }})
+                            if history_mode in {{"valid", "malformed_intrinsic", "trailing_activity"}}:
+                                items.extend([
+                                    {{
+                                        "id": "subagent-1", "type": "subAgentActivity",
+                                        "kind": "started", "agentThreadId": "agent-thread-1",
+                                        "agentPath": "/root/evidence_audit",
+                                    }},
+                                    {{"id": "compaction-1", "type": "contextCompaction"}},
+                                ])
                         if index == len(turn_ids) - 1:
                             items.append({{
                                 "id": "agent-1", "type": "agentMessage",
@@ -642,20 +653,26 @@ class ScriptedAppServer:
                         turns.append({{
                             "id": recorded_id,
                             "status": "completed",
-                            "itemsView": "summary" if history_mode == "summary" else "full",
+                            "itemsView": ("summary" if history_mode == "summary" else
+                                          "notLoaded" if history_mode == "not_loaded" else "full"),
                             "items": items,
                         }})
                     if history_mode == "bad_output":
                         turns[-1]["items"][-1]["text"] = "not json"
                     if history_mode == "intermediate_final":
                         turns[0]["items"].append(turns[-1]["items"].pop())
-                    send({{"id": request_id, "result": {{
-                        "data": turns,
-                        "nextCursor": "more" if history_mode == "paginated" else None,
-                        "backwardsCursor": ("earlier"
-                                            if history_mode == "backwards_paginated"
-                                            else None),
-                    }}}})
+                    if history_mode == "malformed_intrinsic":
+                        turns[0]["items"][1]["unexpected"] = True
+                    if history_mode == "trailing_activity":
+                        turns[-1]["items"].append({{
+                            "id": "subagent-after-final", "type": "subAgentActivity",
+                            "kind": "started", "agentThreadId": "agent-thread-2",
+                            "agentPath": "/root/late",
+                        }})
+                    send({{"id": request_id, "result": {{"thread": {{
+                        "id": ("wrong-thread" if history_mode == "wrong_thread" else thread_id),
+                        "turns": turns,
+                    }}}}}})
         """
         path.write_text(textwrap.dedent(source), encoding="utf-8")
         path.chmod(0o755)
@@ -964,11 +981,11 @@ class FlowTests(unittest.TestCase):
         self.assertNotIn("writableRoots", turn["params"]["sandboxPolicy"])
         self.assertEqual(turn["params"]["outputSchema"], client.REVIEW_OUTPUT_JSON_SCHEMA)
         history_request = next(
-            message for message in transcript if message.get("method") == "thread/turns/list"
+            message for message in transcript if message.get("method") == "thread/read"
         )
-        self.assertEqual(history_request["params"]["itemsView"], "full")
-        self.assertEqual(history_request["params"]["sortDirection"], "asc")
-        self.assertEqual(history_request["params"]["limit"], 1)
+        self.assertEqual(
+            history_request["params"], {"threadId": "thread-1", "includeTurns": True}
+        )
 
         prompt = "Implement the assigned item.\n"
         objective = "Complete exactly S56-M-0001-INTAKE."
@@ -996,6 +1013,21 @@ class FlowTests(unittest.TestCase):
         self.assertEqual(
             state["full_turn_history_sha256"],
             sha256_text(client.canonical_json(state["full_turn_history"])),
+        )
+
+    def test_review_lane_accepts_one_exact_final_after_server_continuation(self) -> None:
+        result, state, transcript = self.run_flow(
+            lane=client.REVIEW_LANE, continue_once=True,
+        )
+        self.assertEqual(result, 0)
+        self.assertEqual(state["turn_ids"], ["turn-1", "turn-2"])
+        self.assertEqual(
+            [turn["id"] for turn in state["full_turn_history"]],
+            state["turn_ids"],
+        )
+        self.assertEqual(
+            [message["method"] for message in transcript if message.get("method") == "thread/read"],
+            ["thread/read"],
         )
 
     def test_review_lane_rejects_missing_binding_before_starting_server(self) -> None:
@@ -1040,9 +1072,11 @@ class FlowTests(unittest.TestCase):
             ("reasoning", "non-read-only item"),
             ("commentary", "commentary or unphased"),
             ("summary", "identity or status mismatch"),
+            ("not_loaded", "identity or status mismatch"),
             ("bad_output", "not JSON"),
-            ("paginated", "complete turn page"),
-            ("backwards_paginated", "complete turn page"),
+            ("wrong_thread", "exact review thread history"),
+            ("malformed_intrinsic", "malformed sub-agent metadata"),
+            ("trailing_activity", "must end with exactly one final_answer"),
         ):
             with self.subTest(mode=mode), self.assertRaisesRegex(
                 client.ProtocolError, message
@@ -1089,16 +1123,23 @@ class FlowTests(unittest.TestCase):
                     "status": "completed",
                     "itemsView": "full",
                     "items": [
-                        {"type": "userMessage", "content": [{"type": "text", "text": prompt}]},
-                        {"type": "agentMessage", "phase": "final_answer", "text": encoded},
+                        {
+                            "id": "user-1", "type": "userMessage",
+                            "content": [{"type": "text", "text": prompt}],
+                        },
+                        {
+                            "id": "agent-1", "type": "agentMessage",
+                            "phase": "final_answer", "text": encoded,
+                        },
                     ],
                 }
             ],
-            "nextCursor": None,
-            "backwardsCursor": None,
         }
         with self.assertRaisesRegex(client.ProtocolError, "duplicate JSON name"):
-            client.require_full_review_history(history, ["turn-1"], prompt, binding)
+            client.require_full_review_history(
+                {"thread": {"id": "thread-1", "turns": history["data"]}},
+                "thread-1", ["turn-1"], prompt, binding,
+            )
 
     def test_recorded_app_server_continuation_is_not_client_started(self) -> None:
         first_id = "619e2d6b-cd13-4d92-8f3f-16804c86e154"

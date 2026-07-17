@@ -448,22 +448,30 @@ def require_review_output(value: Any, binding: dict[str, Any]) -> dict[str, Any]
 
 
 def require_full_review_history(
-    result: dict[str, Any], turn_ids: list[str], prompt: str, binding: dict[str, Any]
+    result: dict[str, Any],
+    thread_id: str,
+    turn_ids: list[str],
+    prompt: str,
+    binding: dict[str, Any],
 ) -> tuple[list[dict[str, Any]], dict[str, Any], str]:
-    turns = result.get("data")
+    thread = result.get("thread")
     if (
-        not isinstance(turns, list)
-        or "nextCursor" not in result
-        or result["nextCursor"] is not None
-        or "backwardsCursor" not in result
-        or result["backwardsCursor"] is not None
+        not isinstance(thread, dict)
+        or thread.get("id") != thread_id
+        or not isinstance(thread.get("turns"), list)
     ):
-        raise ProtocolError("thread/turns/list did not return one complete turn page")
+        raise ProtocolError("thread/read did not return the exact review thread history")
+    if (
+        not turn_ids
+        or any(not isinstance(turn_id, str) or not turn_id for turn_id in turn_ids)
+        or len(set(turn_ids)) != len(turn_ids)
+    ):
+        raise ProtocolError("recorded review turn identities are malformed")
+    turns = thread["turns"]
     if len(turns) != len(turn_ids):
         raise ProtocolError("full review turn history has missing or extra turns")
-    expected_input = [{"type": "text", "text": prompt}]
-    allowed_item_types = {"userMessage", "agentMessage"}
-    final_messages: list[tuple[int, dict[str, Any]]] = []
+    final_messages: list[tuple[int, int, dict[str, Any]]] = []
+    seen_item_ids: set[str] = set()
     for index, (turn, turn_id) in enumerate(zip(turns, turn_ids)):
         if (
             not isinstance(turn, dict)
@@ -476,17 +484,56 @@ def require_full_review_history(
         items = turn["items"]
         if any(not isinstance(item, dict) or not isinstance(item.get("type"), str) for item in items):
             raise ProtocolError("full review turn history contains a malformed item")
-        if any(item["type"] not in allowed_item_types for item in items):
-            raise ProtocolError("read-only review history contains a non-read-only item")
+        for item in items:
+            item_type = item["type"]
+            item_id = item.get("id")
+            if not isinstance(item_id, str) or not item_id:
+                raise ProtocolError("full review turn history contains a malformed item identity")
+            if item_id in seen_item_ids:
+                raise ProtocolError("full review turn history contains a duplicate item identity")
+            seen_item_ids.add(item_id)
+            if item_type == "subAgentActivity":
+                if (
+                    set(item) != {"type", "id", "kind", "agentThreadId", "agentPath"}
+                    or item.get("kind") not in {"started", "interacted", "interrupted"}
+                    or not isinstance(item.get("agentThreadId"), str)
+                    or not item["agentThreadId"]
+                    or not isinstance(item.get("agentPath"), str)
+                    or not item["agentPath"]
+                ):
+                    raise ProtocolError("review history contains malformed sub-agent metadata")
+            elif item_type == "contextCompaction":
+                if set(item) != {"type", "id"}:
+                    raise ProtocolError("review history contains malformed compaction metadata")
+            elif item_type == "userMessage":
+                if not set(item).issubset({"type", "id", "content", "clientId"}):
+                    raise ProtocolError("review history contains malformed user input metadata")
+            elif item_type == "agentMessage":
+                if (
+                    not set(item).issubset({"type", "id", "text", "phase", "memoryCitation"})
+                    or item.get("memoryCitation") is not None
+                ):
+                    raise ProtocolError("review history contains malformed final answer metadata")
+            else:
+                raise ProtocolError("read-only review history contains a non-read-only item")
         user_messages = [item for item in items if item["type"] == "userMessage"]
         if index == 0:
-            if len(user_messages) != 1 or user_messages[0].get("content") != expected_input:
+            content = user_messages[0].get("content") if len(user_messages) == 1 else None
+            input_item = content[0] if isinstance(content, list) and len(content) == 1 else None
+            if (
+                not isinstance(input_item, dict)
+                or not set(input_item).issubset({"type", "text", "text_elements"})
+                or input_item.get("type") != "text"
+                or input_item.get("text") != prompt
+                or "text_elements" in input_item
+                and input_item["text_elements"] != []
+            ):
                 raise ProtocolError("full review history does not bind the exact turn input")
         elif user_messages:
             raise ProtocolError("server-created review continuation contains unexpected user input")
         final_messages.extend(
-            (index, item)
-            for item in items
+            (index, item_index, item)
+            for item_index, item in enumerate(items)
             if item["type"] == "agentMessage" and item.get("phase") == "final_answer"
         )
         if any(item["type"] == "agentMessage" and item.get("phase") != "final_answer" for item in items):
@@ -494,10 +541,12 @@ def require_full_review_history(
     if (
         len(final_messages) != 1
         or final_messages[0][0] != len(turns) - 1
-        or not isinstance(final_messages[0][1].get("text"), str)
+        or final_messages[0][1] != len(turns[-1]["items"]) - 1
+        or not isinstance(final_messages[0][2].get("text"), str)
+        or not final_messages[0][2]["text"]
     ):
-        raise ProtocolError("review must emit exactly one final_answer in the last turn")
-    output_text = final_messages[0][1]["text"]
+        raise ProtocolError("review must end with exactly one final_answer in the last turn")
+    output_text = final_messages[0][2]["text"]
     try:
         parsed = json.loads(output_text, object_pairs_hook=object_without_duplicate_names)
     except json.JSONDecodeError as exc:
@@ -1294,16 +1343,10 @@ def run_worker(args: argparse.Namespace) -> int:
                 if args.lane == REVIEW_LANE and goal_after.get("status") == SUCCESSFUL_GOAL_STATUS:
                     assert binding is not None
                     history = connection.request(
-                        "thread/turns/list",
-                        {
-                            "threadId": thread_id,
-                            "itemsView": "full",
-                            "sortDirection": "asc",
-                            "limit": max(len(turn_ids), 1),
-                        },
+                        "thread/read", {"threadId": thread_id, "includeTurns": True}
                     )
                     turns, review_output, output_text = require_full_review_history(
-                        history, turn_ids, prompt, binding
+                        history, thread_id, turn_ids, prompt, binding
                     )
                     state.update(
                         {
