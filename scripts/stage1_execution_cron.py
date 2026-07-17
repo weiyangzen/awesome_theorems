@@ -3287,8 +3287,22 @@ def require_review_compatible_with_current_head(
         != {field: validator.get(field) for field in validator_fields}
     ):
         raise ValueError("review target artifacts or validator changed after review allocation")
-    current_graph, nodes = theorem_dag_v2()
-    current_node = nodes.get(item.get("theorem_id"))
+    try:
+        current_graph = json.loads(
+            git_object_bytes(
+                f"{compatible_head}:{THEOREM_DAG_V2.relative_to(ROOT).as_posix()}"
+            )
+        )
+    except json.JSONDecodeError as exc:
+        raise ValueError("current authoritative theorem DAG is malformed") from exc
+    if not isinstance(current_graph, dict):
+        raise ValueError("current authoritative theorem DAG is malformed")
+    current_nodes = {
+        node.get("theorem_id"): node
+        for node in current_graph.get("theorems", [])
+        if isinstance(node, dict)
+    }
+    current_node = current_nodes.get(item.get("theorem_id"))
     authority_dag = json.loads(
         git_object_bytes(
             f"{review_manifest.get('authority_revision')}:{THEOREM_DAG_V2.relative_to(ROOT).as_posix()}"

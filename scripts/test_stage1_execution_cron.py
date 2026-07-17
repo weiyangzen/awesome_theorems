@@ -3582,15 +3582,16 @@ class SchedulerCapacityTests(unittest.TestCase):
                 **role_map, "authority_revision": "9" * 40,
             }),
             mock.patch.object(cron, "select_review_validator", select_validator),
-            mock.patch.object(cron, "theorem_dag_v2", return_value=({
-                "hard_edges": [], "reuse_hints": [], "shared_lemma_groups": [],
-            }, {
-                item["theorem_id"]: node,
-            })),
-            mock.patch.object(cron, "git_object_bytes", return_value=json.dumps({
-                "theorems": [node], "hard_edges": [], "reuse_hints": [],
-                "shared_lemma_groups": [],
-            }).encode()),
+            mock.patch.object(cron, "git_object_bytes", side_effect=[
+                json.dumps({
+                    "theorems": [node], "hard_edges": [], "reuse_hints": [],
+                    "shared_lemma_groups": [],
+                }).encode(),
+                json.dumps({
+                    "theorems": [node], "hard_edges": [], "reuse_hints": [],
+                    "shared_lemma_groups": [],
+                }).encode(),
+            ]),
             mock.patch.object(
                 cron, "authoritative_head_revision", return_value="9" * 40
             ),
@@ -3702,14 +3703,16 @@ class SchedulerCapacityTests(unittest.TestCase):
             }),
             mock.patch.object(cron, "build_review_role_map", return_value=role_map),
             mock.patch.object(cron, "select_review_validator", return_value=validator),
-            mock.patch.object(cron, "theorem_dag_v2", return_value=({
-                "hard_edges": [], "reuse_hints": [],
-                "shared_lemma_groups": [current_group],
-            }, {item["theorem_id"]: node})),
-            mock.patch.object(cron, "git_object_bytes", return_value=json.dumps({
-                "theorems": [node], "hard_edges": [], "reuse_hints": [],
-                "shared_lemma_groups": [authority_group],
-            }).encode()),
+            mock.patch.object(cron, "git_object_bytes", side_effect=[
+                json.dumps({
+                    "theorems": [node], "hard_edges": [], "reuse_hints": [],
+                    "shared_lemma_groups": [current_group],
+                }).encode(),
+                json.dumps({
+                    "theorems": [node], "hard_edges": [], "reuse_hints": [],
+                    "shared_lemma_groups": [authority_group],
+                }).encode(),
+            ]),
             mock.patch.object(
                 cron, "authoritative_head_revision", return_value="9" * 40
             ),
@@ -3757,13 +3760,16 @@ class SchedulerCapacityTests(unittest.TestCase):
             }),
             mock.patch.object(cron, "build_review_role_map", return_value=role_map),
             mock.patch.object(cron, "select_review_validator", return_value=validator),
-            mock.patch.object(cron, "theorem_dag_v2", return_value=({
-                "hard_edges": [], "reuse_hints": [], "shared_lemma_groups": [],
-            }, {item["theorem_id"]: node})),
-            mock.patch.object(cron, "git_object_bytes", return_value=json.dumps({
-                "theorems": [node], "hard_edges": [], "reuse_hints": [],
-                "shared_lemma_groups": [],
-            }).encode()),
+            mock.patch.object(cron, "git_object_bytes", side_effect=[
+                json.dumps({
+                    "theorems": [node], "hard_edges": [], "reuse_hints": [],
+                    "shared_lemma_groups": [],
+                }).encode(),
+                json.dumps({
+                    "theorems": [node], "hard_edges": [], "reuse_hints": [],
+                    "shared_lemma_groups": [],
+                }).encode(),
+            ]),
             mock.patch.object(
                 cron, "authoritative_head_revision",
                 side_effect=["9" * 40, "8" * 40],
