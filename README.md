@@ -40,11 +40,12 @@ Stage1 rev-5.6 tracks three independent axes. A paper, a kernel check, and a rea
 | `M` machine-proof debt | Whether the exact node is kernel-checked under the accepted axiom policy, distinguishing local bodies, mathlib wrappers, and pinned external bodies. | `M0-L`, `M0-W`, or `M0-P` |
 | `R` readability debt | Whether the route, formal map, trust boundary, composition, and leaf ledger are publicly readable. | `R0` |
 
-Evidence is graded separately as `E0` through `E5`. [`Docs/Stage1_Blueprint_rev-5.6.md`](./Docs/Stage1_Blueprint_rev-5.6.md) is the theorem-generic assurance standard; each theorem must keep scope, typed execution state, and content-addressed validation evidence in separate instance artifacts. For the retained THM-M-0387 compatibility run, its legacy checklist and exact node vectors remain in the rev-5.6 document and [`THM-M-0387/proof_units.json`](./THM-M-0387/proof_units.json), but those historical checks do not retroactively satisfy newly generalized release gates.
+Evidence is graded separately as `E0` through `E5`. [`Docs/Stage1_Blueprint_v2.md`](./Docs/Stage1_Blueprint_v2.md) is the sole current Stage1 requirements, ordering, and task-state blueprint. [`Docs/Stage1_Assurance_Standard_rev-5.6.md`](./Docs/Stage1_Assurance_Standard_rev-5.6.md) is supporting gate guidance, not a second blueprint or progress cursor. Each theorem keeps scope and content-addressed validation evidence in its instance artifacts, while all current `[ ]`, `[_]`, and `[x]` progress remains in the v2 blueprint.
 
-For this repository, rev-5.6 covers exactly the `1546` metadata-screened Lean 4 targets in
-[`Docs/Stage1_Blueprint_Applicable_Theorems.md`](./Docs/Stage1_Blueprint_Applicable_Theorems.md),
-not all `1601` deduplicated mathematics records. All `1546` targets now start uniformly at
+For this repository, Stage1 covers exactly the `1546` metadata-screened Lean 4 targets in
+[`Docs/Stage1_Targets_rev-5.6.json`](./Docs/Stage1_Targets_rev-5.6.json),
+not all `1601` deduplicated mathematics records. The target manifest is a membership input to the
+v2 blueprint, never an alternative requirements or progress authority. All `1546` targets started at
 `L0 / rework_required`; the former 300 priority-slot artifacts are retained only as legacy discovery
 inputs and confer no higher assurance or proof credit. The other `55` mathematics records remain
 outside the rev-5.6 target set.
@@ -86,9 +87,9 @@ In short: this repo is for people who do not just want to read theorems, but wan
 
 ### 1. Start from the blueprint
 
-Read [`Docs/Stage1_Blueprint_rev-5.6.md`](./Docs/Stage1_Blueprint_rev-5.6.md) for the theorem-generic machine-proof assurance standard, [`Docs/Stage1_Blueprint.md`](./Docs/Stage1_Blueprint.md) for the generated Lean 4 candidate queue, then [`Docs/Stage0_Blueprint.md`](./Docs/Stage0_Blueprint.md) for the broader catalog.
+Read [`Docs/Stage1_Blueprint_v2.md`](./Docs/Stage1_Blueprint_v2.md) first. It is the only current Stage1 blueprint and the only writable Stage1 task-state source. The target JSON and DAG files are derived or membership surfaces, and the assurance standard is supporting guidance only. [`Docs/Stage0_Blueprint.md`](./Docs/Stage0_Blueprint.md) is the upstream Stage0 catalog snapshot, not a competing Stage1 execution source.
 
-The standard defines requirements; per-theorem structured instance/state/evidence artifacts establish execution status. Generated queues and Markdown summaries are not completion authority.
+The v2 blueprint defines requirements and execution status. Per-theorem evidence supports acceptance but cannot override its checklist; generated DAGs and todo snapshots are not completion authority.
 
 ### 2. Use the source collections for raw coverage
 

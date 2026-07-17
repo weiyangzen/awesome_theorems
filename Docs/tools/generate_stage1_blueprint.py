@@ -13,10 +13,8 @@ import sys
 
 
 ROOT = Path(__file__).resolve().parents[2]
-OUTPUT_FILE = ROOT / "Docs" / "Stage1_Blueprint.md"
-APPLICABLE_FILE = ROOT / "Docs" / "Stage1_Blueprint_Applicable_Theorems.md"
 TARGET_MANIFEST_FILE = ROOT / "Docs" / "Stage1_Targets_rev-5.6.json"
-STANDARD_FILE = ROOT / "Docs" / "Stage1_Blueprint_rev-5.6.md"
+STANDARD_FILE = ROOT / "Docs" / "Stage1_Assurance_Standard_rev-5.6.md"
 TOP_N = 300
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -371,247 +369,6 @@ def stage1_lane(item: stage0.Theorem) -> str:
     return "hard_statement_first_partial_verification"
 
 
-def machine_debt(item: stage0.Theorem) -> str:
-    bucket = stage0.formal_status_bucket(item)
-    if item.name == "费马大定理":
-        return "regular primes 的 `repo_local_integration_debt` 已还清；完整 Wiles/Taylor-Wiles 主线保留 `formalization_debt`；无 active repo-local integration debt。"
-    if bucket == "partial":
-        return "允许存在 `formalization_debt` 或局部分支数学债；若发现外部 Lean 4 机器证明，必须立即 pin/import/check，不能留下 `repo_local_integration_debt`。"
-    return "默认按 `formalization_debt` 处理，直到 primary-source audit 证明已有 Lean 4 机器证明；一旦发现外部 Lean 4 closure，必须转入 pinned dependency / wrapper 整合，不能作为 completed 留下 repo-local integration debt。"
-
-
-def render_item(index: int, item: stage0.Theorem) -> list[str]:
-    profile = profile_for(item)
-    bucket = stage0.formal_status_bucket(item)
-    score = difficulty_score(item)
-    lane = stage1_lane(item)
-    lines: list[str] = []
-    lines.append(f"### S1-M-{index:03d} / {item.uid} {item.name}")
-    lines.append("")
-    lines.append("- Stage1 状态: `[ ] open`")
-    lines.append(f"- 来源分类: `{item.subcategory}`")
-    lines.append(f"- 源文档形式化状态: `{item.formal_status}`；Stage0 bucket: `{bucket}`")
-    lines.append(f"- 难度分: `{score}`；Stage1 lane: `{lane}`；profile: `{profile.key}`")
-    lines.append(f"- 定理内容: {item.statement}")
-    lines.append("- 目标形式系统: `Lean 4 + mathlib` only；非 Lean4 路线不计入本 Stage1 slot。")
-    lines.append(f"- Lean 4 可部分验证依据: {profile.lean_basis}")
-    lines.append(f"- Stage1 partial verification scope: {profile.partial_scope}")
-    lines.append(f"- 机器证明债分类: {machine_debt(item)}")
-    lines.append("- repo-local 整合债规则: 若 anchor audit 发现外部 Lean 4 proof 已存在，本条不得保持 anchor-only；必须 pin/import/check 或显式列为 integration blocker，完成态不允许残留 `repo_local_integration_debt`。")
-    lines.append("- Lean 4 陈述规范化任务: 把源陈述改写成带显式 universe、变量域、前提条件、结论类型的 theorem statement；优先生成 `Stage1.<uid>.StatementShape : Prop` 或等价 namespace wrapper。")
-    lines.append("- mathlib / external anchor audit: 先查 mathlib module/theorem，再查公开 Lean 4 external project；记录 exact module、theorem name、commit/revision、是否能进入 Lake dependency closure。")
-    lines.append(f"- theorem-tree seed: {profile.theorem_tree}")
-    lines.append("- proof-package 初始切分:")
-    lines.append("  1. statement normalization / notation freeze")
-    lines.append("  2. mathlib object model and imported theorem audit")
-    lines.append("  3. core reduction or bridge lemma package")
-    lines.append("  4. high-risk leaf discovery and `<=100` local ledger")
-    lines.append("  5. repo-local wrapper / pinned dependency / local proof-body closure gate")
-    lines.append(f"- 形式化阻塞点: {profile.blockers}")
-    lines.append("- Stage1 assurance gate: 必须按 `Docs/Stage1_Blueprint_rev-5.6.md` 实例化 canonical statement fingerprint、frozen obligation registry、typed proof/provenance/workflow graphs、structured validation specs、content-addressed receipts、source-boundary/unique coverage、node-specific H/R review、hermetic Lean 4 replay 与独立验收；`<=100` 只作为 leaf split threshold。")
-    lines.append("- 当前完成判定: `not completed`; Stage1 selection 不是 proof completion。")
-    lines.append("")
-    return lines
-
-
-def render_blueprint(selected: list[stage0.Theorem], all_items: list[stage0.Theorem], removed_count: int) -> str:
-    math_items = [item for item in all_items if item.discipline == "数学"]
-    eligible = [item for item in math_items if is_stage1_eligible(item)]
-    excluded_by_bucket = Counter(
-        stage0.formal_status_bucket(item)
-        for item in math_items
-        if stage0.formal_status_bucket(item) in EXCLUDED_BUCKETS
-    )
-    excluded_conjectural = [
-        item
-        for item in math_items
-        if item.discipline == "数学"
-        and (
-            "声称证明" in item.formal_status
-            or (
-                any(marker in item.name for marker in CONJECTURE_MARKERS)
-                and not any(status in item.formal_status for status in ACCEPTED_THEOREM_STATUSES)
-            )
-        )
-    ]
-    selected_subcats = Counter(item.subcategory for item in selected)
-    selected_lanes = Counter(stage1_lane(item) for item in selected)
-
-    lines: list[str] = []
-    lines.append("# Stage1 Blueprint")
-    lines.append("")
-    lines.append("## 定位")
-    lines.append("")
-    lines.append("- 本文件是 Stage1 的 Lean 4-only 数学高难度 proof blueprint。")
-    lines.append("- 本文件是生成的候选队列，不是 theorem completion 或 live execution-state authority。")
-    lines.append("- 每个条目的规范 authority 是 `Docs/Stage1_Blueprint_rev-5.6.md`；仓库级选取规则服从 `Docs/Blueprint_Guidelines.md`。")
-    lines.append("- `THM-M-0387` 是历史兼容 fixture，不是允许硬编码定理、路径、指标、公理或状态的模板。")
-    lines.append(f"- rev-5.6 的规范 cover 是 `Docs/Stage1_Blueprint_Applicable_Theorems.md` 中且仅其中的 `{len(eligible)}` 个目标 ID；全部统一为 `L0 / rework_required`。")
-    lines.append(f"- 本文件保留的 `{len(selected)}` 个旧 slot 只用于发现历史文件和安排返工；不提供更高 assurance、proof credit 或门禁豁免，其余 `{len(eligible) - len(selected)}` 个目标同样按完整标准执行。")
-    lines.append("- 非数学条目、非 Lean4 路线、纯实验/模型检验路线、以及当前主命题仍为 open / independent / refuted / undecidable 的条目不进入本 Stage1 主队列。")
-    lines.append("- Stage1 入选只表示进入 Lean 4 proof execution queue，不表示该 theorem 已 repo-local machine-checked。")
-    lines.append("")
-    lines.append("## 仓库级债务规则")
-    lines.append("")
-    lines.append("- `mathematical_debt`: 允许存在，用于组织未来猜想或 open-problem 研究；但本 Stage1 主队列默认排除主命题未闭合的条目。")
-    lines.append("- `formalization_debt`: 允许存在，是本 Stage1 的主要工作对象；含义是人类证明已知但 Lean 4 kernel closure 尚未完成。")
-    lines.append("- `repo_local_integration_debt`: 不允许作为完成态存在；若外部 Lean 4 机器证明存在，必须 pin/import/check 或列为 integration blocker。")
-    lines.append("- 完成态只允许 `local_proof_body`、`local_wrapper_upstream_mathlib`、`external_upstream_pinned`；anchor-only URL/theorem name 不计完成。")
-    lines.append("")
-    lines.append("## 选择算法")
-    lines.append("")
-    lines.append(f"- Stage0 去重后总条目: `{len(all_items)}`；去重移除: `{removed_count}`。")
-    lines.append(f"- Stage0 数学条目: `{len(math_items)}`。")
-    lines.append(f"- Stage1 eligible 数学条目: `{len(eligible)}`。")
-    lines.append(f"- Stage1 selected 数学条目: `{len(selected)}`。")
-    lines.append(f"- 排除的数学债/非主队列 bucket: `{dict(excluded_by_bucket)}`。")
-    lines.append(f"- 排除的 conjecture-named / 声称证明条目: `{len(excluded_conjectural)}`。")
-    lines.append("- 难度分由领域权重、形式化状态、命名关键词、陈述复杂度与 M0387 flagship override 合成；同一子类设置 soft cap，避免单一领域挤满 300 个 slot。")
-    lines.append("- 本选择算法是 execution triage，不是数学价值排名；后续执行可因 primary-source audit 结果调整 lane。")
-    lines.append("")
-    lines.append("## Stage1 Lane 统计")
-    lines.append("")
-    lines.append("| lane | count |")
-    lines.append("|---|---:|")
-    for lane, count in selected_lanes.most_common():
-        lines.append(f"| `{lane}` | {count} |")
-    lines.append("")
-    lines.append("## 入选子类统计")
-    lines.append("")
-    lines.append("| 子类 | count |")
-    lines.append("|---|---:|")
-    for subcat, count in selected_subcats.most_common():
-        lines.append(f"| {subcat} | {count} |")
-    lines.append("")
-    lines.append("## Completion Gate")
-    lines.append("")
-    lines.append("此生成文件中的 `[ ]` 是候选队列标记。条目只有在独立的结构化 instance/state/evidence bundle 中通过下列门禁后，才可在对应 authority 中升级；不得直接编辑本生成文件制造完成态：")
-    lines.append("")
-    lines.append("1. canonical Lean 4 target 已 elaboration/fingerprint，等价形式有 checked transport。")
-    lines.append("2. obligation universe 在观察状态前冻结，typed proof/refinement/provenance/trust/workflow graphs 通过验证。")
-    lines.append("3. wrapper、terminal body、axiom/TCB 与全传递依赖来源已解析；unique coverage 不受 alias/refactor 影响。")
-    lines.append("4. structured node recipes 在 immutable clean snapshot 中执行，生成 content-addressed receipts。")
-    lines.append("5. clean empty-cache cold build、network-denied offline replay、dependency cleanliness/SBOM/license 门禁通过。")
-    lines.append("6. 每个 leaf 有 substantive semantic ledger；`<=100` 只决定是否继续拆分。")
-    lines.append("7. required H/R 节点有 pinpoint source crosswalk、unique readable anchor 和独立 review。")
-    lines.append("8. 第二个独立 runner 和 independently implemented minimal verifier 同意结果。")
-    lines.append("9. deterministic evidence bundle 生成 README/meta/audit/status；audit 与 theorem completion 分开决定。")
-    lines.append("")
-    lines.append("## Selected Theorems")
-    lines.append("")
-
-    grouped: OrderedDict[str, list[stage0.Theorem]] = OrderedDict()
-    for item in selected:
-        grouped.setdefault(item.subcategory, []).append(item)
-
-    index = 1
-    for subcategory, items in grouped.items():
-        lines.append(f"## {subcategory}")
-        lines.append("")
-        for item in items:
-            lines.extend(render_item(index, item))
-            index += 1
-
-    return "\n".join(lines).rstrip() + "\n"
-
-
-def render_applicable_list(
-    selected: list[stage0.Theorem], all_items: list[stage0.Theorem], removed_count: int
-) -> str:
-    math_items = [item for item in all_items if item.discipline == "数学"]
-    eligible = [item for item in math_items if is_stage1_eligible(item)]
-    excluded = [item for item in math_items if not is_stage1_eligible(item)]
-    excluded_dispositions = Counter(blueprint_disposition(item)[0] for item in excluded)
-    target_lanes = Counter(stage1_lane(item) for item in eligible)
-    grouped: OrderedDict[str, list[stage0.Theorem]] = OrderedDict()
-    for item in selected:
-        grouped.setdefault(item.subcategory, []).append(item)
-    selected_order = [item for items in grouped.values() for item in items]
-    selected_slots = {item.uid: index for index, item in enumerate(selected_order, start=1)}
-    selected_ids = set(selected_slots)
-    remaining_order = sorted(
-        (item for item in eligible if item.uid not in selected_ids),
-        key=lambda item: (-difficulty_score(item), item.subcategory, item.uid),
-    )
-    target_order = selected_order + remaining_order
-    target_set_payload = "\n".join(sorted(item.uid for item in eligible)) + "\n"
-    target_set_hash = hashlib.sha256(target_set_payload.encode("utf-8")).hexdigest()
-    lines = [
-        "# Stage1 rev-5.6 Lean 4 Target Theorems",
-        "",
-        "> Generated from `Docs/tools/generate_stage1_blueprint.py`",
-        "> Normative target scope: exactly the 1546 metadata-screened Lean 4 theorem-proof candidates",
-        "> The 55 non-eligible mathematical records are not covered by Stage1 rev-5.6",
-        "> Inclusion is an intake decision, never a statement-elaboration or proof-completion claim",
-        "",
-        "## Scope Contract",
-        "",
-        f"- Stage0 records after deduplication: `{len(all_items)}`; removed duplicates: `{removed_count}`",
-        f"- Stage0 mathematical records after deduplication: `{len(math_items)}`",
-        f"- **Stage1 rev-5.6 covered target IDs: `{len(eligible)}`**",
-        f"- Canonical sorted target-ID set SHA-256: `{target_set_hash}`",
-        f"- Stage0 mathematical records outside this standard: `{len(excluded)}`",
-        f"- Selected for the bounded priority queue: `{len(selected)}`",
-        f"- Covered but not yet selected for that queue: `{len(eligible) - len(selected)}`",
-        "",
-        f"The table below contains all and only the `{len(eligible)}` covered theorem IDs. The "
-        f"`{len(excluded)}` excluded records do not receive a Stage1 rev-5.6 target row, slot, lane, "
-        "or conformance status. Open-problem, independence, refutation, undecidability, claimed-proof, "
-        "partial-result-family, and low-priority work requires a separate standard or an explicit "
-        "re-intake decision.",
-        "",
-        "## Uniform Rework Baseline",
-        "",
-        "All 1546 targets start uniformly at `L0 / rework_required`. Historical Stage1 files, slots, "
-        "wrappers, source labels, and build results are discovery inputs only: they confer no higher "
-        "assurance, accepted task state, proof credit, or exemption from the rev-5.6 gates.",
-        "",
-        "A target leaves this baseline only through its independent theorem instance state and "
-        "accepted evidence receipts. The target manifest never stores a promoted assurance level.",
-        "",
-        "## Target Lane Summary",
-        "",
-        "| Lane | Count | Interpretation |",
-        "|---|---:|---|",
-        f"| `flagship_deep_formalization_debt` | {target_lanes['flagship_deep_formalization_debt']} | existing flagship dossier; deepest expansion |",
-        f"| `known_partial_branch_deepening` | {target_lanes['known_partial_branch_deepening']} | partial formal evidence or branch structure worth deepening |",
-        f"| `frontier_deep_formalization_debt` | {target_lanes['frontier_deep_formalization_debt']} | high-value, deep theorem architecture; large formalization debt |",
-        f"| `hard_mathlib_anchor_and_wrapper` | {target_lanes['hard_mathlib_anchor_and_wrapper']} | start with exact statement and mathlib/external anchor audit |",
-        f"| `hard_statement_first_partial_verification` | {target_lanes['hard_statement_first_partial_verification']} | stabilize the formal target before deeper proof planning |",
-        "",
-        "## Excluded Source Population",
-        "",
-        "These counts document the Stage0-to-Stage1 boundary only. They are not Stage1 targets.",
-        "",
-        "| Exclusion reason | Count |",
-        "|---|---:|",
-    ]
-    for disposition, count in excluded_dispositions.most_common():
-        lines.append(f"| `{disposition}` | {count} |")
-    lines.extend([
-        "",
-        "## Covered Target List",
-        "",
-        "Execution rank is total and contiguous across all 1546 targets. Ranks 1-300 preserve the "
-        "existing diversity-capped priority queue; ranks 301-1546 order the remaining covered "
-        "targets by intake score, category, and stable theorem ID. Rank is scheduling metadata, not "
-        "a mathematical-value or proof-completion score.",
-        "",
-        "| Execution rank | Legacy slot | Theorem ID | Name | Category | Source status (untrusted) | Baseline | Target lane | Intake score |",
-        "|---:|---:|---|---|---|---|---|---|---:|",
-    ])
-    for rank, item in enumerate(target_order, start=1):
-        slot = selected_slots.get(item.uid)
-        slot_text = f"S1-M-{slot:03d}" if slot is not None else "-"
-        display_name = item.name.replace("|", "\\|")
-        formal_status = item.formal_status.replace("|", "\\|")
-        lines.append(
-            f"| {rank} | {slot_text} | `{item.uid}` | {display_name} | {item.subcategory} | "
-            f"{formal_status} | `L0 / rework_required` | `{stage1_lane(item)}` | {difficulty_score(item)} |"
-        )
-    return "\n".join(lines).rstrip() + "\n"
-
-
 def build_target_manifest(
     selected: list[stage0.Theorem], all_items: list[stage0.Theorem], removed_count: int
 ) -> dict[str, object]:
@@ -655,8 +412,8 @@ def build_target_manifest(
         )
     return {
         "schema_version": "stage1-target-set/5.6.2",
-        "standard": "Docs/Stage1_Blueprint_rev-5.6.md",
-        "generated_projection": "Docs/Stage1_Blueprint_Applicable_Theorems.md",
+        "standard": "Docs/Stage1_Assurance_Standard_rev-5.6.md",
+        "task_state_authority": "Docs/Stage1_Blueprint_v2.md",
         "scope": {
             "stage0_records": len(all_items),
             "stage0_removed_duplicates": removed_count,
@@ -690,8 +447,6 @@ def main() -> None:
     selected = select_items(items)
     if len(selected) != TOP_N:
         raise RuntimeError(f"expected {TOP_N} selected items, got {len(selected)}")
-    OUTPUT_FILE.write_text(render_blueprint(selected, items, removed_count))
-    APPLICABLE_FILE.write_text(render_applicable_list(selected, items, removed_count))
     TARGET_MANIFEST_FILE.write_text(
         json.dumps(build_target_manifest(selected, items, removed_count), ensure_ascii=False, indent=2)
         + "\n",
@@ -702,8 +457,6 @@ def main() -> None:
         cwd=ROOT,
         check=True,
     )
-    print(f"Wrote {OUTPUT_FILE.relative_to(ROOT)}")
-    print(f"Wrote {APPLICABLE_FILE.relative_to(ROOT)}")
     print(f"Wrote {TARGET_MANIFEST_FILE.relative_to(ROOT)}")
     print(
         f"Generated {len([item for item in items if is_stage1_eligible(item)])} uniform L0 targets; "

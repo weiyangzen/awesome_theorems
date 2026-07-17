@@ -59,7 +59,8 @@ def contract() -> dict[str, object]:
                     }
                 ],
                 "phase_receipt_required_fields": [],
-                "validator_candidates": [],
+                "validator_authorities": [],
+                "superseded_validator_sources": [],
             }
             for phase in planner.PHASES
         ],
@@ -119,7 +120,7 @@ class Fixture:
         theorem_dag = {
             "schema_version": "stage1-theorem-dag/2.0",
             "requirements_source": planner.BLUEPRINT_PATH,
-            "legacy_state_snapshot": {
+            "blueprint_state_snapshot": {
                 "authoritative_blueprint": planner.BLUEPRINT_PATH,
                 "authoritative_blueprint_sha256": blueprint_sha,
                 "item_count": sum(state_counts.values()),

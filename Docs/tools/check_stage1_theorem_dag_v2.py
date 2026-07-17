@@ -128,7 +128,7 @@ def load_generator() -> Any:
     return module
 
 
-def validate_legacy_state(data: dict[str, Any], target_ids: set[str]) -> tuple[dict[str, dict[str, Any]], dict[str, str]]:
+def validate_blueprint_state(data: dict[str, Any], target_ids: set[str]) -> tuple[dict[str, dict[str, Any]], dict[str, str]]:
     """Validate both JSON projections against the blueprint's sole cursor."""
     generator = load_generator()
     items = generator.blueprint_state_items()
@@ -157,8 +157,8 @@ def validate_legacy_state(data: dict[str, Any], target_ids: set[str]) -> tuple[d
         {"id": item["id"], "state": item["state"], "attempts": item.get("attempts", 0)}
         for item in sorted(items, key=lambda row: row["id"])
     ]
-    snapshot = data.get("legacy_state_snapshot")
-    require(isinstance(snapshot, dict), "legacy_state_snapshot must be an object")
+    snapshot = data.get("blueprint_state_snapshot")
+    require(isinstance(snapshot, dict), "blueprint_state_snapshot must be an object")
     require(snapshot.get("authoritative_blueprint") == "Docs/Stage1_Blueprint_v2.md", "state snapshot authority is stale")
     require(snapshot.get("authoritative_blueprint_sha256") == sha256(BLUEPRINT), "authoritative blueprint digest is stale")
     require(snapshot.get("item_count") == 10822, "blueprint state snapshot item count is stale")
@@ -483,7 +483,7 @@ def main() -> None:
     require(data.get("generated_by") == "Docs/tools/generate_stage1_theorem_dag_v2.py", "generated_by is stale")
     require(data.get("requirements_source") == "Docs/Stage1_Blueprint_v2.md", "requirements_source must be the v2 blueprint")
     require(data.get("target_manifest") == "Docs/Stage1_Targets_rev-5.6.json", "target_manifest is stale")
-    require(data.get("legacy_execution_dag") == "Docs/Stage1_Execution_DAG_rev-5.6.json", "derived execution DAG path is stale")
+    require(data.get("execution_dag_projection") == "Docs/Stage1_Execution_DAG_rev-5.6.json", "derived execution DAG path is stale")
     require(data.get("state_protocol") == {"not_done": "[ ]", "worker_self_tested": "[_]", "master_accepted": "[x]"}, "state protocol changed")
     require(data.get("completion_bucket_order") == list(BUCKET_ORDER), "completion bucket order changed")
     require(data.get("execution_contract") == EXECUTION_CONTRACT, "execution contract is incomplete or stale")
@@ -497,7 +497,7 @@ def main() -> None:
     require(len(target_ids) == 1546 and None not in target_ids, "target theorem IDs must be unique")
     expected_id_hash = targets_data.get("scope", {}).get("canonical_sorted_target_id_set_sha256")
     require(data.get("target_id_set_sha256") == expected_id_hash, "target ID-set digest changed")
-    by_target, _ = validate_legacy_state(data, target_ids)
+    by_target, _ = validate_blueprint_state(data, target_ids)
 
     rows = data.get("theorems")
     require(isinstance(rows, list) and len(rows) == 1546, "theorems must contain exactly 1546 nodes")

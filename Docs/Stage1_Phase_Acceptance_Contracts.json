@@ -1,7 +1,7 @@
 {
   "schema_version": "stage1-phase-acceptance-contracts/1.0",
   "authority_id": "stage1-v2-seven-phase-master-acceptance",
-  "requirements_authority": "Docs/Stage1_Blueprint_rev-5.6.md",
+  "requirements_authority": "Docs/Stage1_Blueprint_v2.md",
   "task_state_authority": "Docs/Stage1_Blueprint_v2.md",
   "phase_order": [
     "intake",
@@ -119,11 +119,15 @@
   },
   "validator_selection": {
     "owner": "scheduler_master_lane",
-    "selection_source": "this_contract_at_authoritative_head",
+    "selection_source": "validator_authorities_at_authoritative_head",
+    "required_authority_generation": "stage1-v2",
+    "required_requirements_authority": "Docs/Stage1_Blueprint_v2.md",
     "worker_or_reviewer_may_select_argv": false,
-    "require_exactly_one_candidate": true,
-    "candidate_must_exist_at_worker_base": true,
-    "candidate_head_blob_must_equal_worker_base_blob": true,
+    "require_exactly_one_current_authority": true,
+    "current_authority_must_exist_at_worker_base": true,
+    "current_authority_head_blob_must_equal_worker_base_blob": true,
+    "superseded_sources_are_history_only": true,
+    "superseded_sources_can_accept": false,
     "argv_templates": {
       "python": [
         "/usr/bin/python3",
@@ -269,21 +273,21 @@
   "source_references": [
     {
       "reference_id": "rev56-authorities",
-      "path": "Docs/Stage1_Blueprint_rev-5.6.md",
-      "line_start": 72,
-      "line_end": 87,
+      "path": "Docs/Stage1_Assurance_Standard_rev-5.6.md",
+      "line_start": 71,
+      "line_end": 88,
       "required_phrases": [
-        "normative requirements authority",
-        "scope and obligation authority",
-        "task-state authority",
-        "validation authority"
+        "owns requirements",
+        "membership input",
+        "supporting gate vocabulary",
+        "not an authority"
       ]
     },
     {
       "reference_id": "rev56-verdicts",
-      "path": "Docs/Stage1_Blueprint_rev-5.6.md",
-      "line_start": 98,
-      "line_end": 119,
+      "path": "Docs/Stage1_Assurance_Standard_rev-5.6.md",
+      "line_start": 90,
+      "line_end": 116,
       "required_phrases": [
         "accepted_audit_only",
         "blocked` is a valid truthful result",
@@ -292,9 +296,9 @@
     },
     {
       "reference_id": "rev56-terminal-boundary",
-      "path": "Docs/Stage1_Blueprint_rev-5.6.md",
-      "line_start": 141,
-      "line_end": 152,
+      "path": "Docs/Stage1_Assurance_Standard_rev-5.6.md",
+      "line_start": 133,
+      "line_end": 144,
       "required_phrases": [
         "AUDIT-Z",
         "THEOREM-Z",
@@ -304,9 +308,9 @@
     },
     {
       "reference_id": "rev56-intake-statement",
-      "path": "Docs/Stage1_Blueprint_rev-5.6.md",
-      "line_start": 318,
-      "line_end": 369,
+      "path": "Docs/Stage1_Assurance_Standard_rev-5.6.md",
+      "line_start": 310,
+      "line_end": 361,
       "required_phrases": [
         "Theorem Intake Contract",
         "Lean 4 Statement Gate",
@@ -316,9 +320,9 @@
     },
     {
       "reference_id": "rev56-tree-composition",
-      "path": "Docs/Stage1_Blueprint_rev-5.6.md",
-      "line_start": 373,
-      "line_end": 565,
+      "path": "Docs/Stage1_Assurance_Standard_rev-5.6.md",
+      "line_start": 365,
+      "line_end": 557,
       "required_phrases": [
         "Canonical Obligation Registry",
         "Typed Graph Contract",
@@ -328,9 +332,9 @@
     },
     {
       "reference_id": "rev56-discovery-proof",
-      "path": "Docs/Stage1_Blueprint_rev-5.6.md",
-      "line_start": 573,
-      "line_end": 655,
+      "path": "Docs/Stage1_Assurance_Standard_rev-5.6.md",
+      "line_start": 565,
+      "line_end": 647,
       "required_phrases": [
         "Discovery Protocol",
         "Search Order",
@@ -340,9 +344,9 @@
     },
     {
       "reference_id": "rev56-readable-source",
-      "path": "Docs/Stage1_Blueprint_rev-5.6.md",
-      "line_start": 684,
-      "line_end": 725,
+      "path": "Docs/Stage1_Assurance_Standard_rev-5.6.md",
+      "line_start": 676,
+      "line_end": 717,
       "required_phrases": [
         "Human-Readable Reconstruction Standard",
         "Human-Source `H0` Contract",
@@ -351,9 +355,9 @@
     },
     {
       "reference_id": "rev56-receipts",
-      "path": "Docs/Stage1_Blueprint_rev-5.6.md",
-      "line_start": 763,
-      "line_end": 779,
+      "path": "Docs/Stage1_Assurance_Standard_rev-5.6.md",
+      "line_start": 755,
+      "line_end": 771,
       "required_phrases": [
         "canonical machine-readable data",
         "content-addressed bundle",
@@ -362,9 +366,9 @@
     },
     {
       "reference_id": "rev56-dual-cursor",
-      "path": "Docs/Stage1_Blueprint_rev-5.6.md",
-      "line_start": 783,
-      "line_end": 812,
+      "path": "Docs/Stage1_Assurance_Standard_rev-5.6.md",
+      "line_start": 775,
+      "line_end": 804,
       "required_phrases": [
         "Workers may write only `[_]`",
         "report_open_state",
@@ -373,9 +377,9 @@
     },
     {
       "reference_id": "rev56-worker-packet",
-      "path": "Docs/Stage1_Blueprint_rev-5.6.md",
-      "line_start": 814,
-      "line_end": 832,
+      "path": "Docs/Stage1_Assurance_Standard_rev-5.6.md",
+      "line_start": 806,
+      "line_end": 824,
       "required_phrases": [
         "Every `[_]` handoff",
         "content-addressed recipe/receipt ids",
@@ -384,9 +388,9 @@
     },
     {
       "reference_id": "rev56-master-acceptance",
-      "path": "Docs/Stage1_Blueprint_rev-5.6.md",
-      "line_start": 834,
-      "line_end": 847,
+      "path": "Docs/Stage1_Assurance_Standard_rev-5.6.md",
+      "line_start": 826,
+      "line_end": 839,
       "required_phrases": [
         "master must independently",
         "Re-run structured node checks",
@@ -396,11 +400,11 @@
     },
     {
       "reference_id": "rev56-structured-recipes",
-      "path": "Docs/Stage1_Blueprint_rev-5.6.md",
-      "line_start": 849,
-      "line_end": 869,
+      "path": "Docs/Stage1_Assurance_Standard_rev-5.6.md",
+      "line_start": 841,
+      "line_end": 861,
       "required_phrases": [
-        "Normative validation commands are never shell strings",
+        "Release-supporting validation commands are never shell strings",
         "argv",
         "without shell interpolation",
         "passing aggregate build"
@@ -408,9 +412,9 @@
     },
     {
       "reference_id": "rev56-release",
-      "path": "Docs/Stage1_Blueprint_rev-5.6.md",
-      "line_start": 871,
-      "line_end": 910,
+      "path": "Docs/Stage1_Assurance_Standard_rev-5.6.md",
+      "line_start": 863,
+      "line_end": 902,
       "required_phrases": [
         "Hermetic Lean 4 Reproduction",
         "Independent Verification and CI",
@@ -420,9 +424,9 @@
     },
     {
       "reference_id": "rev56-generic-dag",
-      "path": "Docs/Stage1_Blueprint_rev-5.6.md",
-      "line_start": 942,
-      "line_end": 978,
+      "path": "Docs/Stage1_Assurance_Standard_rev-5.6.md",
+      "line_start": 934,
+      "line_end": 970,
       "required_phrases": [
         "stable gate IDs",
         "full frozen-inventory classification; proof may remain open",
@@ -431,9 +435,9 @@
     },
     {
       "reference_id": "rev56-final-audit",
-      "path": "Docs/Stage1_Blueprint_rev-5.6.md",
-      "line_start": 1270,
-      "line_end": 1322,
+      "path": "Docs/Stage1_Assurance_Standard_rev-5.6.md",
+      "line_start": 1264,
+      "line_end": 1316,
       "required_phrases": [
         "Final Master Audit",
         "Any \"no,\"",
@@ -446,15 +450,15 @@
       "line_start": 35,
       "line_end": 60,
       "required_phrases": [
-        "only writable task-state cursor",
+        "only current Stage1 blueprint and writable task-state cursor",
         "validation claims",
-        "execution cron treats this file as its single global"
+        "There is one blueprint authority"
       ]
     },
     {
       "reference_id": "v2-parent-reuse",
       "path": "Docs/Stage1_Blueprint_v2.md",
-      "line_start": 326,
+      "line_start": 325,
       "line_end": 469,
       "required_phrases": [
         "Mandatory Parent and Ancestor Inspection",
@@ -466,8 +470,8 @@
     {
       "reference_id": "v2-dual-cursor",
       "path": "Docs/Stage1_Blueprint_v2.md",
-      "line_start": 481,
-      "line_end": 504,
+      "line_start": 480,
+      "line_end": 503,
       "required_phrases": [
         "Only the master may accept `[_] -> [x]`",
         "are unfinished. Regeneration preserves marks",
@@ -477,8 +481,8 @@
     {
       "reference_id": "v2-frontiers",
       "path": "Docs/Stage1_Blueprint_v2.md",
-      "line_start": 506,
-      "line_end": 520,
+      "line_start": 505,
+      "line_end": 519,
       "required_phrases": [
         "all intra-theorem dependencies to be `[x]`",
         "state_semantics",
@@ -488,8 +492,8 @@
     {
       "reference_id": "v2-master-acceptance",
       "path": "Docs/Stage1_Blueprint_v2.md",
-      "line_start": 522,
-      "line_end": 538,
+      "line_start": 521,
+      "line_end": 537,
       "required_phrases": [
         "all transitive ancestors",
         "consumer reuse ledger",
@@ -500,7 +504,7 @@
     {
       "reference_id": "v2-structural-only",
       "path": "Docs/Stage1_Blueprint_v2.md",
-      "line_start": 540,
+      "line_start": 539,
       "line_end": 570,
       "required_phrases": [
         "Positive validation proves structural conformance only",
@@ -510,7 +514,7 @@
     {
       "reference_id": "v2-projections",
       "path": "Docs/Stage1_Blueprint_v2.md",
-      "line_start": 586,
+      "line_start": 585,
       "line_end": 594,
       "required_phrases": [
         "phase state and stable task identity come only from this file",
@@ -520,11 +524,11 @@
     {
       "reference_id": "v2-cleanup",
       "path": "Docs/Stage1_Blueprint_v2.md",
-      "line_start": 596,
+      "line_start": 595,
       "line_end": 611,
       "required_phrases": [
         "zero `[ ]` and zero `[_]`",
-        "valid rev-5.6 terminal evidence",
+        "valid terminal evidence",
         "blockers is not completion"
       ]
     }
@@ -676,7 +680,8 @@
         "/invalidation_inputs",
         "/lifecycle_after"
       ],
-      "validator_candidates": [
+      "validator_authorities": [],
+      "superseded_validator_sources": [
         {
           "path_pattern": "Stage1_Instances/{theorem_id}/check_intake.py",
           "language": "python",
@@ -686,7 +691,11 @@
             "-B",
             "{validator_path}"
           ],
-          "candidate_only": true
+          "authority_generation": "pre-v2",
+          "status": "superseded",
+          "allowed_use": "historical_negative_observation_only",
+          "positive_acceptance_capable": false,
+          "superseded_by": "Docs/Stage1_Blueprint_v2.md"
         }
       ],
       "semantic_gates": [
@@ -866,7 +875,8 @@
         "/statement_fingerprints",
         "/mutation_tests"
       ],
-      "validator_candidates": [
+      "validator_authorities": [],
+      "superseded_validator_sources": [
         {
           "path_pattern": "Stage1_Instances/{theorem_id}/check_statement.py",
           "language": "python",
@@ -876,7 +886,11 @@
             "-B",
             "{validator_path}"
           ],
-          "candidate_only": true
+          "authority_generation": "pre-v2",
+          "status": "superseded",
+          "allowed_use": "historical_negative_observation_only",
+          "positive_acceptance_capable": false,
+          "superseded_by": "Docs/Stage1_Blueprint_v2.md"
         },
         {
           "path_pattern": "Stage1_Instances/{theorem_id}/check_statement_artifacts.py",
@@ -887,7 +901,11 @@
             "-B",
             "{validator_path}"
           ],
-          "candidate_only": true
+          "authority_generation": "pre-v2",
+          "status": "superseded",
+          "allowed_use": "historical_negative_observation_only",
+          "positive_acceptance_capable": false,
+          "superseded_by": "Docs/Stage1_Blueprint_v2.md"
         }
       ],
       "semantic_gates": [
@@ -1072,7 +1090,8 @@
         "/discovery_protocol_sha256",
         "/candidate_inventory_result"
       ],
-      "validator_candidates": [
+      "validator_authorities": [],
+      "superseded_validator_sources": [
         {
           "path_pattern": "Stage1_Instances/{theorem_id}/check_anchor_audit.py",
           "language": "python",
@@ -1082,7 +1101,11 @@
             "-B",
             "{validator_path}"
           ],
-          "candidate_only": true
+          "authority_generation": "pre-v2",
+          "status": "superseded",
+          "allowed_use": "historical_negative_observation_only",
+          "positive_acceptance_capable": false,
+          "superseded_by": "Docs/Stage1_Blueprint_v2.md"
         },
         {
           "path_pattern": "Stage1_Instances/{theorem_id}/check_anchor.py",
@@ -1093,7 +1116,11 @@
             "-B",
             "{validator_path}"
           ],
-          "candidate_only": true
+          "authority_generation": "pre-v2",
+          "status": "superseded",
+          "allowed_use": "historical_negative_observation_only",
+          "positive_acceptance_capable": false,
+          "superseded_by": "Docs/Stage1_Blueprint_v2.md"
         }
       ],
       "semantic_gates": [
@@ -1308,7 +1335,8 @@
         "/canonical_obligation_ids",
         "/composition_certificates"
       ],
-      "validator_candidates": [
+      "validator_authorities": [],
+      "superseded_validator_sources": [
         {
           "path_pattern": "Stage1_Instances/{theorem_id}/check_obligation_tree.py",
           "language": "python",
@@ -1318,7 +1346,11 @@
             "-B",
             "{validator_path}"
           ],
-          "candidate_only": true
+          "authority_generation": "pre-v2",
+          "status": "superseded",
+          "allowed_use": "historical_negative_observation_only",
+          "positive_acceptance_capable": false,
+          "superseded_by": "Docs/Stage1_Blueprint_v2.md"
         },
         {
           "path_pattern": "Stage1_Instances/{theorem_id}/validate_obligation_tree.py",
@@ -1329,7 +1361,11 @@
             "-B",
             "{validator_path}"
           ],
-          "candidate_only": true
+          "authority_generation": "pre-v2",
+          "status": "superseded",
+          "allowed_use": "historical_negative_observation_only",
+          "positive_acceptance_capable": false,
+          "superseded_by": "Docs/Stage1_Blueprint_v2.md"
         }
       ],
       "semantic_gates": [
@@ -1523,7 +1559,8 @@
         "/proof_body",
         "/result/exit_code"
       ],
-      "validator_candidates": [
+      "validator_authorities": [],
+      "superseded_validator_sources": [
         {
           "path_pattern": "Stage1_Instances/{theorem_id}/check_proof.py",
           "language": "python",
@@ -1533,7 +1570,11 @@
             "-B",
             "{validator_path}"
           ],
-          "candidate_only": true
+          "authority_generation": "pre-v2",
+          "status": "superseded",
+          "allowed_use": "historical_negative_observation_only",
+          "positive_acceptance_capable": false,
+          "superseded_by": "Docs/Stage1_Blueprint_v2.md"
         },
         {
           "path_pattern": "Stage1_Instances/{theorem_id}/check_proof.sh",
@@ -1542,7 +1583,11 @@
             "/usr/bin/bash",
             "{validator_path}"
           ],
-          "candidate_only": true
+          "authority_generation": "pre-v2",
+          "status": "superseded",
+          "allowed_use": "historical_negative_observation_only",
+          "positive_acceptance_capable": false,
+          "superseded_by": "Docs/Stage1_Blueprint_v2.md"
         }
       ],
       "semantic_gates": [
@@ -1788,7 +1833,8 @@
         "/provenance",
         "/independent_validation"
       ],
-      "validator_candidates": [
+      "validator_authorities": [],
+      "superseded_validator_sources": [
         {
           "path_pattern": "Stage1_Instances/{theorem_id}/check_validation.py",
           "language": "python",
@@ -1798,7 +1844,11 @@
             "-B",
             "{validator_path}"
           ],
-          "candidate_only": true
+          "authority_generation": "pre-v2",
+          "status": "superseded",
+          "allowed_use": "historical_negative_observation_only",
+          "positive_acceptance_capable": false,
+          "superseded_by": "Docs/Stage1_Blueprint_v2.md"
         },
         {
           "path_pattern": "Stage1_Instances/{theorem_id}/check_validation.sh",
@@ -1807,7 +1857,11 @@
             "/usr/bin/bash",
             "{validator_path}"
           ],
-          "candidate_only": true
+          "authority_generation": "pre-v2",
+          "status": "superseded",
+          "allowed_use": "historical_negative_observation_only",
+          "positive_acceptance_capable": false,
+          "superseded_by": "Docs/Stage1_Blueprint_v2.md"
         }
       ],
       "semantic_gates": [
@@ -2058,7 +2112,8 @@
         "/independent_attestations",
         "/result/semantic_verdict"
       ],
-      "validator_candidates": [
+      "validator_authorities": [],
+      "superseded_validator_sources": [
         {
           "path_pattern": "Stage1_Instances/{theorem_id}/check_release.py",
           "language": "python",
@@ -2068,7 +2123,11 @@
             "-B",
             "{validator_path}"
           ],
-          "candidate_only": true
+          "authority_generation": "pre-v2",
+          "status": "superseded",
+          "allowed_use": "historical_negative_observation_only",
+          "positive_acceptance_capable": false,
+          "superseded_by": "Docs/Stage1_Blueprint_v2.md"
         },
         {
           "path_pattern": "Stage1_Instances/{theorem_id}/check_release.sh",
@@ -2077,7 +2136,11 @@
             "/usr/bin/bash",
             "{validator_path}"
           ],
-          "candidate_only": true
+          "authority_generation": "pre-v2",
+          "status": "superseded",
+          "allowed_use": "historical_negative_observation_only",
+          "positive_acceptance_capable": false,
+          "superseded_by": "Docs/Stage1_Blueprint_v2.md"
         },
         {
           "path_pattern": "Stage1_Instances/{theorem_id}/validate_release.py",
@@ -2088,7 +2151,11 @@
             "-B",
             "{validator_path}"
           ],
-          "candidate_only": true
+          "authority_generation": "pre-v2",
+          "status": "superseded",
+          "allowed_use": "historical_negative_observation_only",
+          "positive_acceptance_capable": false,
+          "superseded_by": "Docs/Stage1_Blueprint_v2.md"
         }
       ],
       "semantic_gates": [

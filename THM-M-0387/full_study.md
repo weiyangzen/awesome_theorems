@@ -22,9 +22,10 @@
 - [`Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/Sample.lean`](../Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/Sample.lean)
 
 本文档保留 rev-5.6 之前积累的 special-branch 长篇解释，并按照
-`Docs/Stage1_Blueprint_rev-5.6.md` 的 H/M/R 与证据边界解释其地位。
-rev-5.6 的唯一执行进度权威是该蓝图；本文件中的历史 checklist 只是 dated legacy
-readability inventory，不授权改动 rev-5.6 状态。本文按照仓库 `README.md` 对单个定理的字段要求，
+`Docs/Stage1_Assurance_Standard_rev-5.6.md` 的 H/M/R 与证据边界解释其地位。
+`Docs/Stage1_Blueprint_v2.md` 是唯一 requirements 和执行进度权威；本文件中的历史
+checklist 只是 dated legacy readability inventory，不授权改动 Stage1 状态。本文按照仓库
+`README.md` 对单个定理的字段要求，
 对“费马大定理”做一次 expanded Lean 4 reconstruction study，并给出 `Lean 4 + mathlib`
 生态中的可检查样例。默认短路线图是 `proof_outline.md`；本文件保留更长的数学说明、
 proof-process 展开和状态账本。

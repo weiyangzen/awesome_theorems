@@ -44,7 +44,6 @@ def configure_child_scheduler(root: Path) -> None:
     cron.ROOT = root
     cron.DOCS = docs
     cron.BLUEPRINT = docs / "Stage1_Blueprint_v2.md"
-    cron.ASSURANCE_BLUEPRINT = docs / "Stage1_Blueprint_rev-5.6.md"
     cron.TARGETS = docs / "Stage1_Targets_rev-5.6.json"
     cron.DAG = docs / "Stage1_Execution_DAG_rev-5.6.json"
     cron.THEOREM_DAG_V2 = docs / "Stage1_Theorem_DAG_v2.json"

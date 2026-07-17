@@ -153,21 +153,22 @@ remain machine-open. Consequently:
 exact root kernel closure: no
 root machine debt: M2
 theorem completion: blocked
-audit completion: accepted by master validation
+audit completion: accepted by the 2026-07-10 local review (historical evidence only)
 ```
 
-## Master Acceptance
+## Historical Local Review
 
-The supervising master independently reran the canonical seven-stage command,
+The 2026-07-10 supervising integrator independently reran the canonical seven-stage command,
 inspected the exact-root search, recomputed the DAG/leaf/coverage counts, and
 rechecked the public-status lint after the worker handoff. The result remained
 `132` classified nodes, `101` final leaves with no budget above `100`, `29/93`
 machine closure, and no placeholder-free local declaration of exact type
 `FermatLastTheorem`.
 
-The authoritative rev-5.6 checklist therefore has `35` master-accepted items
-and `6` intentionally open items. The open set is exact and not an audit
-failure:
+The retired rev-5.6 local checklist historically recorded `35` checked items
+and `6` open items. Those counts are legacy evidence observations, not current
+Stage1 phase marks or master acceptance; current state is represented only in
+`Docs/Stage1_Blueprint_v2.md`. The historical open set was:
 
 - `H02`, `H03`, and `H04`: exact page/theorem/assumption crosswalks for the
   historical special-case and Kummer sources remain incomplete, so all nodes
@@ -177,6 +178,7 @@ failure:
 - `V07`: theorem completion is not accepted because the exact root is still
   `M2`.
 
-This closes the attainable rev-5.6 audit while preserving the remaining human
-source debt and exact-root machine blocker as explicit work rather than
-manufacturing completion.
+This historically closed the attainable local rev-5.6 audit while preserving
+the remaining human-source debt and exact-root machine blocker as explicit
+work. It does not close or update any current v2 phase; only current master
+acceptance recorded in `Docs/Stage1_Blueprint_v2.md` can do that.

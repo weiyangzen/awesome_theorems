@@ -1,7 +1,8 @@
 # THM-M-0387 rev-5.6 proof outline
 
 This is the short reader route through the proof tree required by
-`Docs/Stage1_Blueprint_rev-5.6.md`. It reports mathematical evidence (`H`),
+`Docs/Stage1_Blueprint_v2.md`, using the supporting gate vocabulary in
+`Docs/Stage1_Assurance_Standard_rev-5.6.md`. It reports mathematical evidence (`H`),
 kernel evidence (`M`), and readable reconstruction (`R`) independently. The
 long Wiles--Taylor--Wiles plan is in
 `THM-M-0387/readable/wiles_taylor_wiles_process.md`; machine-closed entries are

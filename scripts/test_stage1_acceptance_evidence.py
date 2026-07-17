@@ -34,16 +34,28 @@ def digest(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def contract(*, candidates: int = 1, receipt_bound: bool = False) -> dict[str, object]:
-    validator_candidates = [
+def contract(*, authorities: int = 1, receipt_bound: bool = False) -> dict[str, object]:
+    validator_authorities = [
         {
-            "path_pattern": f"Stage1_Instances/{{theorem_id}}/check_{index}.py",
+            "path_pattern": f"scripts/stage1_phase_validators/check_{index}.py",
             "language": "python",
             "argv_template": ["/usr/bin/python3", "-I", "-B", "{validator_path}"],
-            "candidate_only": True,
+            "authority_generation": "stage1-v2",
+            "requirements_authority": "Docs/Stage1_Blueprint_v2.md",
+            "positive_acceptance_capable": True,
         }
-        for index in range(candidates)
+        for index in range(authorities)
     ]
+    superseded_validator_sources = [{
+        "path_pattern": "Stage1_Instances/{theorem_id}/check_intake.py",
+        "language": "python",
+        "argv_template": ["/usr/bin/python3", "-I", "-B", "{validator_path}"],
+        "authority_generation": "pre-v2",
+        "status": "superseded",
+        "allowed_use": "historical_negative_observation_only",
+        "positive_acceptance_capable": False,
+        "superseded_by": "Docs/Stage1_Blueprint_v2.md",
+    }]
     roles: list[dict[str, object]] = [
         {
             "role": "instance_manifest",
@@ -77,6 +89,8 @@ def contract(*, candidates: int = 1, receipt_bound: bool = False) -> dict[str, o
     return {
         "schema_version": evidence.CONTRACT_SCHEMA,
         "authority_id": "test",
+        "requirements_authority": "Docs/Stage1_Blueprint_v2.md",
+        "task_state_authority": "Docs/Stage1_Blueprint_v2.md",
         "phase_order": ["intake"],
         "artifact_resolution": {
             "per_item_role_map_owner": "scheduler_master_lane",
@@ -85,10 +99,15 @@ def contract(*, candidates: int = 1, receipt_bound: bool = False) -> dict[str, o
         },
         "validator_selection": {
             "owner": "scheduler_master_lane",
+            "selection_source": "validator_authorities_at_authoritative_head",
+            "required_authority_generation": "stage1-v2",
+            "required_requirements_authority": "Docs/Stage1_Blueprint_v2.md",
             "worker_or_reviewer_may_select_argv": False,
-            "require_exactly_one_candidate": True,
-            "candidate_must_exist_at_worker_base": True,
-            "candidate_head_blob_must_equal_worker_base_blob": True,
+            "require_exactly_one_current_authority": True,
+            "current_authority_must_exist_at_worker_base": True,
+            "current_authority_head_blob_must_equal_worker_base_blob": True,
+            "superseded_sources_are_history_only": True,
+            "superseded_sources_can_accept": False,
             "argv_templates": {
                 "python": ["/usr/bin/python3", "-I", "-B", "{validator_path}"],
                 "bash": ["/usr/bin/bash", "{validator_path}"],
@@ -115,7 +134,8 @@ def contract(*, candidates: int = 1, receipt_bound: bool = False) -> dict[str, o
                 "audit_boundary": {"allowed_audit_complete_values": [False]},
                 "theorem_boundary": {"allowed_theorem_complete_values": [False]},
                 "required_artifact_roles": roles,
-                "validator_candidates": validator_candidates,
+                "validator_authorities": validator_authorities,
+                "superseded_validator_sources": superseded_validator_sources,
             }
         ],
     }
@@ -125,7 +145,7 @@ class GitFixture:
     def __init__(
         self,
         *,
-        candidates: int = 1,
+        authorities: int = 1,
         receipt_bound: bool = False,
         validator_body: str | None = None,
     ) -> None:
@@ -136,10 +156,14 @@ class GitFixture:
         run(self.root, "git", "config", "user.name", "Stage1 Tests")
         self.docs = self.root / "Docs"
         self.instance = self.root / "Stage1_Instances" / "THM-M-0001"
+        self.validators = self.root / "scripts" / "stage1_phase_validators"
         self.docs.mkdir()
         self.instance.mkdir(parents=True)
+        self.validators.mkdir(parents=True)
         self.contract_path = self.docs / "Stage1_Phase_Acceptance_Contracts.json"
-        self.contract_path.write_text(json.dumps(contract(candidates=candidates, receipt_bound=receipt_bound)), encoding="utf-8")
+        self.blueprint_path = self.docs / "Stage1_Blueprint_v2.md"
+        self.contract_path.write_text(json.dumps(contract(authorities=authorities, receipt_bound=receipt_bound)), encoding="utf-8")
+        self.blueprint_path.write_text("# Test Stage1 v2 SSOT\n", encoding="utf-8")
         instance_bytes = b'{"theorem_id":"THM-M-0001"}\n'
         (self.instance / "instance.json").write_bytes(instance_bytes)
         inputs: dict[str, object] = {}
@@ -163,8 +187,11 @@ class GitFixture:
             "theorem_complete": False,
         }
         (self.instance / "intake-receipt.json").write_text(json.dumps(receipt), encoding="utf-8")
-        for index in range(candidates):
-            (self.instance / f"check_{index}.py").write_text(
+        (self.instance / "check_intake.py").write_text(
+            "print('historical only')\n", encoding="utf-8"
+        )
+        for index in range(authorities):
+            (self.validators / f"check_{index}.py").write_text(
                 validator_body
                 or "import json, pathlib\n"
                 "assert not pathlib.Path('forbidden-write').exists()\n"
@@ -216,7 +243,10 @@ class GitFixture:
             loaded,
             role_map,
             recipe,
-            blueprint_sha256="1" * 64,
+            blueprint_sha256=digest(self.blueprint_path),
+            blueprint_git_blob=run(
+                self.root, "git", "rev-parse", "HEAD:Docs/Stage1_Blueprint_v2.md"
+            ),
             theorem_dag_sha256="2" * 64,
             worker_claim_sha256="3" * 64,
             worker_status_sha256="4" * 64,
@@ -239,13 +269,49 @@ class ContractAndBindingTests(unittest.TestCase):
         with self.assertRaisesRegex(evidence.EvidenceError, "differs from authoritative HEAD"):
             evidence.load_head_contract(fixture.root, loaded["sha256"])
 
-    def test_zero_and_two_validator_candidates_fail_closed(self) -> None:
+    def test_zero_and_two_current_validator_authorities_fail_closed(self) -> None:
         for count in (0, 2):
             with self.subTest(count=count):
-                fixture = GitFixture(candidates=count)
+                fixture = GitFixture(authorities=count)
                 try:
-                    with self.assertRaisesRegex(evidence.EvidenceError, "exactly one HEAD candidate"):
+                    message = (
+                        "no current stage1-v2 validator authority"
+                        if count == 0
+                        else "exactly one current stage1-v2 authority"
+                    )
+                    with self.assertRaisesRegex(evidence.EvidenceError, message):
                         fixture.recipe()
+                finally:
+                    fixture.close()
+
+    def test_superseded_legacy_source_is_never_selected(self) -> None:
+        fixture = GitFixture(authorities=0)
+        self.addCleanup(fixture.close)
+        self.assertTrue((fixture.instance / "check_intake.py").is_file())
+        with self.assertRaisesRegex(
+            evidence.EvidenceError, "legacy validator sources are superseded"
+        ):
+            fixture.recipe()
+
+    def test_current_authority_requires_v2_generation_and_ssot_binding(self) -> None:
+        for field, replacement in (
+            ("authority_generation", "pre-v2"),
+            ("requirements_authority", "Docs/Stage1_Blueprint_rev-5.6.md"),
+            ("positive_acceptance_capable", False),
+        ):
+            with self.subTest(field=field):
+                fixture = GitFixture()
+                try:
+                    value = json.loads(fixture.contract_path.read_text())
+                    value["phases"][0]["validator_authorities"][0][field] = replacement
+                    fixture.contract_path.write_text(json.dumps(value), encoding="utf-8")
+                    run(fixture.root, "git", "add", ".")
+                    run(fixture.root, "git", "commit", "-m", f"bad-{field}")
+                    loaded = fixture.loaded()
+                    with self.assertRaisesRegex(
+                        evidence.EvidenceError, "not bound to the stage1-v2 SSOT"
+                    ):
+                        fixture.recipe(loaded)
                 finally:
                     fixture.close()
 
@@ -280,7 +346,7 @@ class ContractAndBindingTests(unittest.TestCase):
         fixture = GitFixture()
         self.addCleanup(fixture.close)
         worker_base = fixture.head
-        (fixture.instance / "check_0.py").write_text("print('changed')\n", encoding="utf-8")
+        (fixture.validators / "check_0.py").write_text("print('changed')\n", encoding="utf-8")
         run(fixture.root, "git", "add", ".")
         run(fixture.root, "git", "commit", "-m", "change validator")
         loaded = fixture.loaded()
@@ -298,7 +364,7 @@ class ContractAndBindingTests(unittest.TestCase):
         fixture = GitFixture()
         self.addCleanup(fixture.close)
         worker_base = fixture.head
-        validator = fixture.instance / "check_0.py"
+        validator = fixture.validators / "check_0.py"
         validator.write_text("print('current validator')\n", encoding="utf-8")
         run(fixture.root, "git", "add", ".")
         run(fixture.root, "git", "commit", "-m", "change validator")
@@ -407,6 +473,7 @@ class ContractAndBindingTests(unittest.TestCase):
             role_map,
             recipe,
             blueprint_sha256="1" * 64,
+            blueprint_git_blob="a" * 40,
             theorem_dag_sha256="2" * 64,
             worker_claim_sha256="3" * 64,
             worker_status_sha256="4" * 64,
@@ -415,9 +482,66 @@ class ContractAndBindingTests(unittest.TestCase):
             worker_handoff_sha256="7" * 64,
         )
         self.assertEqual(manifest["authority_revision"], fixture.head)
+        self.assertEqual(
+            manifest["blueprint"],
+            {
+                "path": "Docs/Stage1_Blueprint_v2.md",
+                "sha256": "1" * 64,
+                "git_blob": "a" * 40,
+            },
+        )
         self.assertEqual(manifest["role_map_sha256"], role_map["manifest_sha256"])
         self.assertEqual(manifest["validator_recipe_sha256"], recipe["recipe_sha256"])
         self.assertEqual(len(manifest["manifest_sha256"]), 64)
+
+    def test_review_manifest_rejects_malformed_blueprint_blob(self) -> None:
+        fixture = GitFixture()
+        self.addCleanup(fixture.close)
+        loaded = fixture.loaded()
+        role_map = fixture.role_map(loaded)
+        recipe = fixture.recipe(loaded)
+        with self.assertRaisesRegex(evidence.EvidenceError, "blueprint Git blob"):
+            evidence.build_review_manifest(
+                loaded,
+                role_map,
+                recipe,
+                blueprint_sha256="1" * 64,
+                blueprint_git_blob="not-a-git-oid",
+                theorem_dag_sha256="2" * 64,
+                worker_claim_sha256="3" * 64,
+                worker_status_sha256="4" * 64,
+                worker_prompt_sha256="5" * 64,
+                worker_goal_sha256="6" * 64,
+                worker_handoff_sha256="7" * 64,
+            )
+
+    def test_blueprint_authority_binding_rejects_wrong_path_sha_blob_and_revision(self) -> None:
+        fixture = GitFixture()
+        self.addCleanup(fixture.close)
+        _loaded, role_map, recipe_with_manifest = fixture.review_inputs()
+        manifest = recipe_with_manifest.pop("_review_manifest")
+        recipe = recipe_with_manifest
+        mutations = {
+            "path": lambda value: value["blueprint"].update(path="Docs/other.md"),
+            "sha": lambda value: (
+                value["blueprint"].update(sha256="0" * 64),
+                value.update(blueprint_sha256="0" * 64),
+            ),
+            "blob": lambda value: value["blueprint"].update(git_blob="0" * 40),
+            "revision": lambda value: value.update(authority_revision="0" * 40),
+        }
+        for name, mutate in mutations.items():
+            with self.subTest(name=name):
+                forged = json.loads(json.dumps(manifest))
+                mutate(forged)
+                forged.pop("manifest_sha256")
+                forged["manifest_sha256"] = evidence.sha256_bytes(
+                    evidence.canonical_json(forged)
+                )
+                with self.assertRaises(evidence.EvidenceError):
+                    evidence._require_blueprint_authority_binding(
+                        fixture.root, forged
+                    )
 
 
 class ReplayAndSemanticTests(unittest.TestCase):
@@ -427,7 +551,11 @@ class ReplayAndSemanticTests(unittest.TestCase):
         recipe = fixture.recipe(loaded)
         manifest = evidence.build_review_manifest(
             loaded, role_map, recipe,
-            blueprint_sha256="1" * 64, theorem_dag_sha256="2" * 64,
+            blueprint_sha256=digest(fixture.blueprint_path),
+            blueprint_git_blob=run(
+                fixture.root, "git", "rev-parse", "HEAD:Docs/Stage1_Blueprint_v2.md"
+            ),
+            theorem_dag_sha256="2" * 64,
             worker_claim_sha256="3" * 64, worker_status_sha256="4" * 64,
             worker_prompt_sha256="5" * 64, worker_goal_sha256="6" * 64,
             worker_handoff_sha256="7" * 64,
@@ -527,7 +655,7 @@ class ReplayAndSemanticTests(unittest.TestCase):
         replay["result_sha256"] = evidence.sha256_bytes(evidence.canonical_json(unhashed))
         with self.assertRaisesRegex(evidence.EvidenceError, "semantic digest"):
             evidence.evaluate_replay_semantics(
-                replay, contract_record=loaded, review_manifest=manifest,
+                replay, fixture.root, contract_record=loaded, review_manifest=manifest,
                 role_map=role_map, validator_recipe=recipe,
                 worker_verdict="accepted", review_verdict="phase_accepted",
                 audit_complete=False, theorem_complete=False,
@@ -542,7 +670,7 @@ class ReplayAndSemanticTests(unittest.TestCase):
             fixture, loaded, role_map, recipe, manifest, semantic
         )
         decision = evidence.evaluate_replay_semantics(
-            replay, contract_record=loaded, review_manifest=manifest,
+            replay, fixture.root, contract_record=loaded, review_manifest=manifest,
             role_map=role_map, validator_recipe=recipe,
             worker_verdict="no_state_change", review_verdict="phase_accepted",
             audit_complete=False, theorem_complete=False,
@@ -562,7 +690,7 @@ class ReplayAndSemanticTests(unittest.TestCase):
             fixture, loaded, role_map, recipe, manifest, semantic
         )
         decision = evidence.evaluate_replay_semantics(
-            replay, contract_record=loaded, review_manifest=manifest,
+            replay, fixture.root, contract_record=loaded, review_manifest=manifest,
             role_map=role_map, validator_recipe=recipe,
             worker_verdict="accepted", review_verdict="phase_accepted",
             audit_complete=True, theorem_complete=False,
@@ -583,7 +711,7 @@ class ReplayAndSemanticTests(unittest.TestCase):
         )
         with self.assertRaisesRegex(evidence.EvidenceError, "semantic schema is not exact"):
             evidence.evaluate_replay_semantics(
-                replay, contract_record=loaded, review_manifest=manifest,
+                replay, fixture.root, contract_record=loaded, review_manifest=manifest,
                 role_map=role_map, validator_recipe=recipe,
                 worker_verdict="accepted", review_verdict="phase_accepted",
                 audit_complete=False, theorem_complete=False,
@@ -664,6 +792,7 @@ class ReplayAndSemanticTests(unittest.TestCase):
                         fixture, loaded, role_map, recipe, manifest,
                         self.semantic(**mutation),
                     ),
+                    fixture.root,
                     contract_record=loaded,
                     review_manifest=manifest,
                     role_map=role_map,
@@ -682,7 +811,7 @@ class ReplayAndSemanticTests(unittest.TestCase):
         loaded, role_map, recipe, manifest = self.inputs(fixture)
         replay = self.replay_result(fixture, loaded, role_map, recipe, manifest)
         blocked = evidence.evaluate_replay_semantics(
-            replay,
+            replay, fixture.root,
             contract_record=loaded,
             review_manifest=manifest,
             role_map=role_map,
@@ -694,7 +823,7 @@ class ReplayAndSemanticTests(unittest.TestCase):
         )
         self.assertFalse(blocked["phase_evidence_accepted"])
         positive = evidence.evaluate_replay_semantics(
-            replay,
+            replay, fixture.root,
             contract_record=loaded,
             review_manifest=manifest,
             role_map=role_map,

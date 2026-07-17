@@ -105,6 +105,104 @@ class PhaseAcceptanceContractTests(unittest.TestCase):
             "worker-selected argv is forbidden",
         )
 
+    def test_all_legacy_validator_patterns_are_explicitly_superseded(self) -> None:
+        rows = [
+            row
+            for phase in self.contract["phases"]
+            for row in phase["superseded_validator_sources"]
+        ]
+        self.assertEqual(len(rows), 14)
+        self.assertTrue(
+            all(not phase["validator_authorities"] for phase in self.contract["phases"])
+        )
+        self.assertTrue(all(row["authority_generation"] == "pre-v2" for row in rows))
+        self.assertTrue(all(row["status"] == "superseded" for row in rows))
+        self.assertTrue(all(row["positive_acceptance_capable"] is False for row in rows))
+        self.assertTrue(
+            all(row["superseded_by"] == "Docs/Stage1_Blueprint_v2.md" for row in rows)
+        )
+
+    def test_all_723_retired_path_python_files_are_non_authoritative(self) -> None:
+        output = subprocess.run(
+            [
+                "git",
+                "grep",
+                "-l",
+                "-E",
+                (
+                    r"Docs/Stage1_Blueprint_rev-5\.6\.md|"
+                    r"Docs/Stage1_Blueprint_Applicable_Theorems\.md"
+                ),
+                "HEAD",
+                "--",
+                "Stage1_Instances/*/*.py",
+            ],
+            cwd=ROOT,
+            check=True,
+            text=True,
+            capture_output=True,
+        ).stdout.splitlines()
+        retired = {line.removeprefix("HEAD:") for line in output}
+        current_patterns = {
+            row["path_pattern"]
+            for phase in self.contract["phases"]
+            for row in phase["validator_authorities"]
+        }
+        superseded_patterns = {
+            row["path_pattern"]
+            for phase in self.contract["phases"]
+            for row in phase["superseded_validator_sources"]
+        }
+        matched_superseded = {
+            path
+            for path in retired
+            if any(
+                path == pattern.replace(
+                    "{theorem_id}", Path(path).parent.name
+                )
+                for pattern in superseded_patterns
+            )
+        }
+        self.assertEqual(len(retired), 723)
+        self.assertEqual(current_patterns, set())
+        self.assertEqual(len(matched_superseded), 719)
+        self.assertEqual(
+            {Path(path).name for path in retired - matched_superseded},
+            {"build_obligation_artifacts.py"},
+        )
+
+    def test_superseded_validator_cannot_be_promoted_by_field_mutation(self) -> None:
+        self.assert_rejected(
+            lambda value: value["phases"][0]["superseded_validator_sources"][0].update(
+                positive_acceptance_capable=True
+            ),
+            "superseded validator could accept a phase",
+        )
+        self.assert_rejected(
+            lambda value: value["validator_selection"].update(
+                required_authority_generation="pre-v2"
+            ),
+            "validator authority generation is not stage1-v2",
+        )
+
+    def test_current_authority_must_be_central_and_v2_bound(self) -> None:
+        def add_legacy_current(value):
+            value["phases"][0]["validator_authorities"] = [{
+                "path_pattern": "Stage1_Instances/{theorem_id}/check_intake.py",
+                "language": "python",
+                "argv_template": [
+                    "/usr/bin/python3", "-I", "-B", "{validator_path}"
+                ],
+                "authority_generation": "stage1-v2",
+                "requirements_authority": "Docs/Stage1_Blueprint_v2.md",
+                "positive_acceptance_capable": True,
+            }]
+
+        self.assert_rejected(
+            add_legacy_current,
+            "current validator is outside the scheduler namespace",
+        )
+
     def test_aliases_do_not_imply_artifact_compliance(self) -> None:
         self.assert_rejected(
             lambda value: value["artifact_resolution"].update(
@@ -160,7 +258,14 @@ class PhaseAcceptanceContractTests(unittest.TestCase):
                 return subprocess.CompletedProcess(argv, 73, "", "synthetic contract failure")
             return subprocess.CompletedProcess(argv, 0, "", "")
 
-        with mock.patch.object(standard.subprocess, "run", side_effect=fail_phase_validator):
+        with (
+            mock.patch.object(standard.subprocess, "run", side_effect=fail_phase_validator),
+            mock.patch.object(
+                standard.subprocess,
+                "check_output",
+                return_value="Docs/Stage1_Blueprint_v2.md\n",
+            ),
+        ):
             with self.assertRaisesRegex(
                 SystemExit,
                 "phase acceptance contract validator failed: synthetic contract failure",

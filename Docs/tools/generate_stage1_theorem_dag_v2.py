@@ -747,9 +747,9 @@ def build() -> dict[str, Any]:
         "generated_by": "Docs/tools/generate_stage1_theorem_dag_v2.py",
         "requirements_source": "Docs/Stage1_Blueprint_v2.md",
         "target_manifest": "Docs/Stage1_Targets_rev-5.6.json",
-        # Compatibility projection path. It contains no independently writable
+        # Read-only projection path. It contains no independently writable
         # state; all marks and attempts originate in the v2 blueprint.
-        "legacy_execution_dag": "Docs/Stage1_Execution_DAG_rev-5.6.json",
+        "execution_dag_projection": "Docs/Stage1_Execution_DAG_rev-5.6.json",
         "target_id_set_sha256": target_manifest["scope"]["canonical_sorted_target_id_set_sha256"],
         "state_protocol": {"not_done": "[ ]", "worker_self_tested": "[_]", "master_accepted": "[x]"},
         "completion_bucket_order": list(BUCKET_ORDER),
@@ -761,7 +761,7 @@ def build() -> dict[str, Any]:
             "hard_dependency_worker_policy": "before proof work, inspect every direct and transitive hard parent plus its reusable artifacts",
             "reuse_hint_worker_policy": "inspect hints opportunistically; hints never block claims, acceptance, or transfer checkbox state",
         },
-        "legacy_state_snapshot": {
+        "blueprint_state_snapshot": {
             "authoritative_blueprint": "Docs/Stage1_Blueprint_v2.md",
             "authoritative_blueprint_sha256": file_sha256(BLUEPRINT),
             "item_count": len(items),

@@ -1,6 +1,6 @@
 ---
 name: execute-stage1-rev56
-description: Execute, audit, validate, or release one of the 1546 covered Lean 4 theorem targets under the repository's Stage1 rev-5.6 assurance standard and v2 theorem-dependency/reuse overlay. Use when asked to expand a target such as THM-M-0387, create or improve its theorem dossier, inspect direct or transitive parent results, reuse accepted theorem or shared-lemma artifacts, implement proof obligations, run Lean validation, classify H/M/R debt, or decide audit/theorem completion without overstating machine closure.
+description: Execute, audit, validate, or release one of the 1546 covered Lean 4 theorem targets under the repository's sole Stage1 v2 blueprint, using the rev-5.6 assurance standard as supporting gate vocabulary. Use when asked to expand a target such as THM-M-0387, create or improve its theorem dossier, inspect direct or transitive parent results, reuse accepted theorem or shared-lemma artifacts, implement proof obligations, run Lean validation, classify H/M/R debt, or decide audit/theorem completion without overstating machine closure.
 metadata:
   short-description: Execute rev-5.6 Lean theorem dossiers
 ---
@@ -18,13 +18,15 @@ improve proof work. Do not ask for information discoverable from the repository.
 
 Read, in order:
 
-1. `Docs/Stage1_Targets_rev-5.6.json` for membership, execution rank, lane, and the uniform L0 rework baseline.
-2. `Docs/Stage1_Blueprint_v2.md` for global theorem ordering, dependency inspection, and reuse rules.
+1. `Docs/Stage1_Blueprint_v2.md` for the sole current requirements, global theorem ordering,
+   dependency inspection, reuse rules, and task state.
+2. `Docs/Stage1_Targets_rev-5.6.json` as the membership input, including execution rank, lane, and
+   the uniform L0 rework baseline.
 3. The target node in `Docs/Stage1_Theorem_DAG_v2.json`, including every direct parent and the complete transitive-ancestor closure.
 4. The generated checklist in `Docs/Stage1_Blueprint_v2.md` for the current seven-phase dual-cursor
-   state. It is the task-state SSOT; `Docs/Stage1_Execution_DAG_rev-5.6.json` is its read-only JSON
-   projection.
-5. `Docs/Stage1_Blueprint_rev-5.6.md` for normative assurance gates, especially sections 0, 3, 5-11, and 14.
+   state. It is the requirements and task-state SSOT; `Docs/Stage1_Execution_DAG_rev-5.6.json` is its
+   read-only JSON projection.
+5. `Docs/Stage1_Assurance_Standard_rev-5.6.md` for supporting assurance gates, especially sections 0, 3, 5-11, and 14.
 6. `Docs/Blueprint_Guidelines.md` for repository publication and debt rules.
 7. Existing theorem dossier, Lean modules, dependency pins, validation scripts, and dependency-reuse ledger for the target and its ancestors.
 8. `THM-M-0387` only as a quality floor and conformance fixture, never as status to copy.
@@ -66,8 +68,9 @@ Hard stop conditions:
 
 ## Phase 2: Freeze The Target
 
-Before proof search or implementation, create or verify the theorem intake record required by
-section 5. Freeze the exact human claim, domains, universes, ordered binders, hypotheses, conclusion,
+Before proof search or implementation, create or verify the theorem intake record required by the
+v2 blueprint, applying section 5 of the supporting assurance standard. Freeze the exact human claim,
+domains, universes, ordered binders, hypotheses, conclusion,
 degenerate cases, foundation/TCB/computation profiles, Lean module and declaration/expression, and
 environment fingerprint.
 

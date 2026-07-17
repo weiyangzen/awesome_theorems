@@ -2,14 +2,15 @@
 
 > Assessment date: `2026-07-11 Asia/Shanghai`
 > Repository: `awesome_theorems`
-> Standard assessed: `Docs/Stage1_Blueprint_rev-5.6.md`
+> Historical standard assessed: `Docs/Stage1_Assurance_Standard_rev-5.6.md`
+> Status: superseded planning assessment; not a current authority or execution instruction
 > Execution framework intended by the user: b3ehive `execution-cron-builder`
 > Reference instance: `THM-M-0387`
 > Decision: do not start an unbounded or multi-Lean-worker execution cron on the current disk
 
 ## 1. Executive Decision
 
-`Docs/Stage1_Blueprint_rev-5.6.md` is a strong theorem-assurance specification, but it is not yet a
+The document now named `Docs/Stage1_Assurance_Standard_rev-5.6.md` is a theorem-assurance specification, but it was not itself a
 complete b3ehive execution cron. It does not currently provide the single authoritative 1546-target
 checkbox DAG, daily todo generator, isolated automation-clone lifecycle, claim ledger, integration
 queue, scheduler guard, installer, or cleanup program required by `execution-cron-builder`.
@@ -48,11 +49,10 @@ The b3ehive execution model requires at least:
 9. bounded logs, workspace TTL, cron-root limits, and disk checks before worker spawn;
 10. automatic cron removal only after both `[ ]` and `[_]` counts reach zero and validation passes.
 
-Current rev-5.6 artifacts split normative requirements, target-set data, generated lists, and legacy
-slots across several files. That separation is useful for assurance, but b3ehive still needs one
-unambiguous execution-state authority. Before cron installation, the 1546-target execution DAG must
-be rooted in `Docs/Stage1_Blueprint_rev-5.6.md`, while JSON and Markdown target lists remain generated
-or validated projections rather than competing checkbox-state authorities.
+This assessment predates the v2 migration. The migration established
+`Docs/Stage1_Blueprint_v2.md` as the sole current Stage1 requirements and execution-state authority.
+The target manifest, JSON DAGs, assurance standard, and daily todo remain supporting inputs or
+derived projections and must never feed state back into that blueprint.
 
 ## 3. Current Storage Measurements
 
@@ -218,7 +218,7 @@ Recommended capacity milestones:
 ## 9. Required Remediation Before Cron Installation
 
 1. Use b3ehive `execution-cron-builder`, not the repository helper skill, to construct the cron.
-2. Make `Docs/Stage1_Blueprint_rev-5.6.md` the single authoritative execution-checklist source.
+2. Superseded: `Docs/Stage1_Blueprint_v2.md` is now the single authoritative execution-checklist source.
 3. Bootstrap the 1546-target DAG with `[ ]`, `[_]`, `[x]`, stable IDs, dependencies, owned paths,
    validation gates, and explicit parent/child closure rules.
 4. Keep `Docs/Stage1_Targets_rev-5.6.json` and generated lists as projections or membership inputs,

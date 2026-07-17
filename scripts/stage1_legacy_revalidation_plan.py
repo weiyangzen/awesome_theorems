@@ -201,7 +201,7 @@ def _parse_theorem_dag(
         fail("theorem DAG schema is unsupported")
     if dag.get("requirements_source") != BLUEPRINT_PATH:
         fail("theorem DAG names the wrong authoritative blueprint")
-    snapshot = dag.get("legacy_state_snapshot")
+    snapshot = dag.get("blueprint_state_snapshot")
     if not isinstance(snapshot, dict):
         fail("theorem DAG lacks its authoritative state snapshot")
     if snapshot.get("authoritative_blueprint") != BLUEPRINT_PATH:

@@ -389,6 +389,9 @@ class DurableWorkerHandoffTests(unittest.TestCase):
 class DependencyReuseLedgerTests(unittest.TestCase):
     def setUp(self) -> None:
         cron.theorem_dag_v2.cache_clear()
+        source_graph, source_nodes = cron.theorem_dag_v2()
+        self.fixture_graph = copy.deepcopy(source_graph)
+        self.fixture_nodes = copy.deepcopy(source_nodes)
         self.temporary = tempfile.TemporaryDirectory()
         self.root = Path(self.temporary.name)
         self.addCleanup(self.temporary.cleanup)
@@ -425,9 +428,6 @@ class DependencyReuseLedgerTests(unittest.TestCase):
         self.blueprint_patch = mock.patch.object(cron, "BLUEPRINT", self.blueprint_path)
         self.blueprint_patch.start()
         self.addCleanup(self.blueprint_patch.stop)
-        graph, nodes = cron.theorem_dag_v2()
-        self.fixture_graph = copy.deepcopy(graph)
-        self.fixture_nodes = copy.deepcopy(nodes)
         fixture_edge = next(edge for edge in self.fixture_graph["hard_edges"] if edge["edge_id"] == EDGE)
         fixture_edge["material_contract"] = {
             "contract_kind": "cross_target_import_and_proof_receipt_input",
@@ -1622,21 +1622,25 @@ class IntegrationTransactionTests(unittest.TestCase):
             cron.validate_dag(data)
         self.assertEqual((self.master / self.existing_relative).read_bytes(), self.master_existing)
 
-    def test_phase_validator_guard_rejects_every_contract_candidate(self) -> None:
-        candidates = [
+    def test_phase_validator_guard_rejects_current_and_superseded_sources(self) -> None:
+        superseded = [
             f"{self.owner}/check_intake.py",
             f"{self.owner}/validate_intake.py",
         ]
         contract = {
-            "validator_candidates": [
+            "validator_authorities": [{
+                "path_pattern": "scripts/stage1_phase_validators/intake.py"
+            }],
+            "superseded_validator_sources": [
                 {
                     "path_pattern": candidate.replace(
                         self.item["theorem_id"], "{theorem_id}"
                     )
                 }
-                for candidate in candidates
+                for candidate in superseded
             ]
         }
+        candidates = ["scripts/stage1_phase_validators/intake.py", *superseded]
         with mock.patch.object(cron, "phase_contract", return_value=contract):
             self.assertEqual(
                 cron.phase_validator_candidate_paths(self.item), set(candidates)
@@ -1728,6 +1732,34 @@ class IntegrationTransactionTests(unittest.TestCase):
         ):
             with self.assertRaisesRegex(SystemExit, "unsafe path"):
                 cron.recover_integration_wal()
+
+    def test_integration_wal_rejects_retired_blueprint_path(self) -> None:
+        wal = self.runtime / "integration_wal.json"
+        wal.write_text(
+            json.dumps({
+                "schema_version": "stage1-integration-wal/1.0",
+                "state": "prepared",
+                "base_revision": "test-revision",
+                "files": [{
+                    "path": "Docs/Stage1_Blueprint_rev-5.6.md",
+                    "kind": "missing",
+                    "mode": None,
+                }],
+                "created_dirs": [],
+            }) + "\n"
+        )
+        with (
+            mock.patch.object(cron, "ROOT", self.master),
+            mock.patch.object(cron, "RUNTIME", self.runtime),
+            mock.patch.object(
+                cron,
+                "run",
+                return_value=subprocess.CompletedProcess([], 0, "test-revision\n", ""),
+            ),
+            self.assertRaisesRegex(SystemExit, "unsafe path"),
+        ):
+            cron.recover_integration_wal()
+        self.assertTrue(wal.exists())
 
     def test_integration_wal_removes_canonical_master_receipt_directories(self) -> None:
         root = self.sandbox / "receipt-recovery-master"
@@ -2605,6 +2637,8 @@ class SchedulerCapacityTests(unittest.TestCase):
             ["THM-M-0001", "THM-M-0002", "THM-M-0003"],
         )
         for text in (
+            "Docs/Stage1_Blueprint_v2.md",
+            "sole requirements and task-state authority",
             "reused_exact",
             "reused_with_transport",
             "consumer's own validation receipt",
@@ -2614,6 +2648,7 @@ class SchedulerCapacityTests(unittest.TestCase):
         ):
             self.assertIn(text, prompt)
 
+        self.assertNotIn("Stage1_Blueprint_rev-5.6.md", prompt)
         self.assertNotIn("Produce exactly one HEAD-tracked validator", prompt)
 
     def test_parent_inspection_order_rejects_parent_after_consumer(self) -> None:
@@ -3361,7 +3396,7 @@ class SchedulerCapacityTests(unittest.TestCase):
                     return_value=(runtime / "worker-provenance" / "impl.json", "6" * 64),
                 ),
                 mock.patch.object(cron, "build_scheduler_review_manifest", return_value={
-                    "schema_version": "stage1-master-review-input/1.0",
+                    "schema_version": cron.acceptance_evidence.REVIEW_MANIFEST_SCHEMA,
                     "manifest_sha256": "7" * 64,
                 }),
                 mock.patch.object(
@@ -3404,6 +3439,61 @@ class SchedulerCapacityTests(unittest.TestCase):
         self.assertIn("\"manifest_sha256\": \"" + "7" * 64 + "\"", prompt)
         self.assertEqual(launched_argv[launched_argv.index("--lane") + 1], cron.REVIEW_LANE)
         self.assertIn("--binding", launched_argv)
+
+    def test_refill_reviews_records_missing_current_validator_as_revalidation_required(self) -> None:
+        item = {
+            "id": "S56-M-0001-INTAKE", "theorem_id": "THM-M-0001",
+            "phase": "intake", "layer": 0, "state": "[_]", "attempts": 1,
+            "depends_on": [], "owned_paths": ["Stage1_Instances/THM-M-0001"],
+        }
+        source_claim = {
+            "lane": cron.IMPLEMENTATION_LANE, "item_id": item["id"],
+            "theorem_id": item["theorem_id"], "base_revision": "b" * 40,
+            "status": "finished_integrated", "runtime_protocol": cron.RUNTIME_PROTOCOL,
+            "fresh_revalidation": False,
+        }
+        saved: list[list[dict[str, object]]] = []
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            runtime = root / ".cron/runtime"
+            with (
+                mock.patch.object(cron, "ROOT", root),
+                mock.patch.object(cron, "RUNTIME", runtime),
+                mock.patch.object(cron, "PAUSE_FILE", root / "PAUSED"),
+                mock.patch.object(cron, "active_lane_leases", return_value=[]),
+                mock.patch.object(cron, "review_source_claim", return_value=source_claim),
+                mock.patch.object(cron, "claim_legacy_revalidation_lane", return_value=None),
+                mock.patch.object(cron, "build_review_role_map", return_value={"artifacts": []}),
+                mock.patch.object(
+                    cron, "select_review_validator",
+                    side_effect=SystemExit(
+                        "no current stage1-v2 validator authority is registered; "
+                        "legacy validator sources are superseded and cannot accept this phase"
+                    ),
+                ),
+                mock.patch.object(cron, "theorem_dag_v2", return_value=({}, {
+                    item["theorem_id"]: {"v2_execution_rank": 1},
+                })),
+                mock.patch.object(
+                    cron, "run",
+                    return_value=subprocess.CompletedProcess([], 0, "a" * 40 + "\n", ""),
+                ),
+                mock.patch.object(
+                    cron, "save_claims",
+                    side_effect=lambda rows: saved.append(copy.deepcopy(rows)),
+                ),
+                mock.patch.object(cron, "launch_app_server_worker") as launch,
+            ):
+                count = cron.refill_reviews(
+                    1, data={"items": [item]}, ordered=[item], claims=[source_claim],
+                    selected_items=[item], selected_slots=[1],
+                )
+        self.assertEqual(count, 0)
+        row = saved[-1][-1]
+        self.assertEqual(row["status"], "revalidation_required")
+        self.assertIn("no current stage1-v2", row["revalidation_required_reason"])
+        self.assertNotIn("review_retry_after", row)
+        launch.assert_not_called()
 
     def test_review_pause_after_prepare_persists_all_unstarted_cancellations(self) -> None:
         items = [
@@ -3572,7 +3662,12 @@ class SchedulerCapacityTests(unittest.TestCase):
         node = {"theorem_id": item["theorem_id"], "v2_execution_rank": 1}
         manifest = {
             "authority_revision": "b" * 40, "base_revision": "a" * 40,
-            "blueprint_sha256": "2" * 64,
+            "blueprint_sha256": hashlib.sha256(b"2" * 64).hexdigest(),
+            "blueprint": {
+                "path": "Docs/Stage1_Blueprint_v2.md",
+                "sha256": hashlib.sha256(b"2" * 64).hexdigest(),
+                "git_blob": hashlib.sha1(b"blob 64\0" + b"2" * 64).hexdigest(),
+            },
             "contract": {
                 "path": "Docs/Stage1_Phase_Acceptance_Contracts.json",
                 "sha256": "c" * 64, "git_blob": "d" * 40,
@@ -3594,6 +3689,7 @@ class SchedulerCapacityTests(unittest.TestCase):
             }),
             mock.patch.object(cron, "select_review_validator", select_validator),
             mock.patch.object(cron, "git_object_bytes", side_effect=[
+                b"2" * 64,
                 json.dumps({
                     "theorems": [node], "hard_edges": [], "reuse_hints": [],
                     "shared_lemma_groups": [],
@@ -3638,7 +3734,12 @@ class SchedulerCapacityTests(unittest.TestCase):
         }
         manifest = {
             "authority_revision": "b" * 40, "base_revision": "a" * 40,
-            "blueprint_sha256": "2" * 64,
+            "blueprint_sha256": hashlib.sha256(b"2" * 64).hexdigest(),
+            "blueprint": {
+                "path": "Docs/Stage1_Blueprint_v2.md",
+                "sha256": hashlib.sha256(b"2" * 64).hexdigest(),
+                "git_blob": hashlib.sha1(b"blob 64\0" + b"2" * 64).hexdigest(),
+            },
             "contract": {
                 "path": "Docs/Stage1_Phase_Acceptance_Contracts.json",
                 "sha256": "c" * 64, "git_blob": "d" * 40,
@@ -3653,6 +3754,7 @@ class SchedulerCapacityTests(unittest.TestCase):
                 "sha256": "c" * 64, "git_blob": "d" * 40,
             }),
             mock.patch.object(cron, "sha256_file", return_value="2" * 64),
+            mock.patch.object(cron, "git_object_bytes", return_value=b"2" * 64),
             mock.patch.object(cron, "select_review_validator", return_value=validator),
             mock.patch.object(cron, "build_review_role_map", return_value={
                 **role_map, "artifacts": [{"path": "changed"}],
@@ -3699,6 +3801,12 @@ class SchedulerCapacityTests(unittest.TestCase):
         current_group = {**authority_group, "reuse_boundary": "changed"}
         manifest = {
             "authority_revision": "b" * 40, "base_revision": "a" * 40,
+            "blueprint_sha256": hashlib.sha256(b"2" * 64).hexdigest(),
+            "blueprint": {
+                "path": "Docs/Stage1_Blueprint_v2.md",
+                "sha256": hashlib.sha256(b"2" * 64).hexdigest(),
+                "git_blob": hashlib.sha1(b"blob 64\0" + b"2" * 64).hexdigest(),
+            },
             "contract": {
                 "path": "Docs/Stage1_Phase_Acceptance_Contracts.json",
                 "sha256": "c" * 64, "git_blob": "d" * 40,
@@ -3715,6 +3823,7 @@ class SchedulerCapacityTests(unittest.TestCase):
             mock.patch.object(cron, "build_review_role_map", return_value=role_map),
             mock.patch.object(cron, "select_review_validator", return_value=validator),
             mock.patch.object(cron, "git_object_bytes", side_effect=[
+                b"2" * 64,
                 json.dumps({
                     "theorems": [node], "hard_edges": [], "reuse_hints": [],
                     "shared_lemma_groups": [current_group],
@@ -3756,6 +3865,12 @@ class SchedulerCapacityTests(unittest.TestCase):
         node = {"theorem_id": item["theorem_id"], "v2_execution_rank": 1}
         manifest = {
             "authority_revision": "b" * 40, "base_revision": "a" * 40,
+            "blueprint_sha256": hashlib.sha256(b"2" * 64).hexdigest(),
+            "blueprint": {
+                "path": "Docs/Stage1_Blueprint_v2.md",
+                "sha256": hashlib.sha256(b"2" * 64).hexdigest(),
+                "git_blob": hashlib.sha1(b"blob 64\0" + b"2" * 64).hexdigest(),
+            },
             "contract": {
                 "path": "Docs/Stage1_Phase_Acceptance_Contracts.json",
                 "sha256": "c" * 64, "git_blob": "d" * 40,
@@ -3772,6 +3887,7 @@ class SchedulerCapacityTests(unittest.TestCase):
             mock.patch.object(cron, "build_review_role_map", return_value=role_map),
             mock.patch.object(cron, "select_review_validator", return_value=validator),
             mock.patch.object(cron, "git_object_bytes", side_effect=[
+                b"2" * 64,
                 json.dumps({
                     "theorems": [node], "hard_edges": [], "reuse_hints": [],
                     "shared_lemma_groups": [],
@@ -3955,6 +4071,7 @@ class SchedulerCapacityTests(unittest.TestCase):
             manifest = {
                 "manifest_sha256": "a" * 64, "base_revision": "r",
                 "blueprint_sha256": "s", "theorem_dag_sha256": "t",
+                "blueprint": {"git_blob": "u"},
             }
             role_map = {"artifacts": [{
                 "role": "phase_receipt",
@@ -3988,6 +4105,7 @@ class SchedulerCapacityTests(unittest.TestCase):
                 },
                 "validator_recipe_sha256s": [validator["recipe_sha256"]],
                 "base_revision": "r", "blueprint_sha256": "s",
+                "blueprint_git_blob": "u",
                 "theorem_dag_sha256": "t",
             }
             output = {
@@ -4492,6 +4610,20 @@ class SchedulerCapacityTests(unittest.TestCase):
         self.assertEqual(data["items"], items)
         self.assertEqual(len(ordered), 10822)
 
+    def test_authoritative_state_never_falls_back_to_derived_dag(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            docs = root / "Docs"
+            docs.mkdir()
+            (docs / "Stage1_Execution_DAG_rev-5.6.json").write_text(
+                json.dumps({"items": [{"id": "forged", "state": "[x]"}]}),
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(
+                ValueError, "authoritative Stage1 v2 blueprint is missing"
+            ):
+                cron.authoritative_state_items(root)
+
     def test_derived_dag_divergence_fails_closed(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             dag = Path(directory) / "dag.json"
@@ -4520,6 +4652,53 @@ class SchedulerCapacityTests(unittest.TestCase):
                 cron.write_todo(forged, forged["items"], [])
             order.assert_not_called()
             self.assertEqual(list(docs.iterdir()), [])
+
+    def test_todo_projects_newest_claim_attempt_independent_of_ledger_order(self) -> None:
+        item = {
+            "id": "S56-M-0001-INTAKE",
+            "theorem_id": "THM-M-0001",
+            "execution_rank": 1,
+            "phase": "intake",
+            "layer": 0,
+            "state": "[_]",
+            "depends_on": [],
+            "owned_paths": ["Stage1_Instances/THM-M-0001"],
+            "deliverable": "test",
+            "completion_gate": "test",
+            "attempts": 2,
+        }
+        data = {"items": [item]}
+        older = {
+            "item_id": item["id"],
+            "claim_id": "20260716T120000Z-aaaaaaaaaaaa",
+            "status": "blocked",
+            "worker_id": "older",
+        }
+        newer = {
+            "item_id": item["id"],
+            "claim_id": "20260717T120000Z-bbbbbbbbbbbb",
+            "status": "revalidation_required",
+            "worker_id": "newer",
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            docs = Path(directory) / "Docs"
+            docs.mkdir()
+            destination = docs / "todos_20260717.md"
+            with (
+                mock.patch.object(cron, "DOCS", docs),
+                mock.patch.object(cron, "load_blueprint_items", return_value=[item]),
+                mock.patch.object(cron, "order_by_v2", return_value=[item]),
+                mock.patch.object(cron, "BLUEPRINT", Path(__file__)),
+            ):
+                _, first = cron.render_todo(
+                    data, [item], [newer, older], destination=destination
+                )
+                _, second = cron.render_todo(
+                    data, [item], [older, newer], destination=destination
+                )
+        self.assertEqual(first, second)
+        self.assertIn("revalidation_required:newer", first)
+        self.assertNotIn("blocked:older", first)
 
     def test_refresh_quarantines_unknown_claim_before_side_effects(self) -> None:
         item = {

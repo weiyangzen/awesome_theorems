@@ -102,6 +102,7 @@ class HistoricalRevalidationBoundaryTests(unittest.TestCase):
                 "legacy_receipt": "unknown",
                 "phase_mismatch": "unknown",
                 "missing_or_ambiguous_role": "unknown",
+                "validator_authority_superseded": "unknown",
                 "validator_base_mismatch": "unknown",
                 "validator_stdout_mismatch": "unknown",
                 "sandbox_incompatible": "unknown",
@@ -581,6 +582,31 @@ class HistoricalRevalidationBoundaryTests(unittest.TestCase):
                 cron.implementation_candidates([post_item], claims), [post_item]
             )
             self.assertEqual(cron.review_candidates([post_item], claims), [])
+
+    def test_historical_source_without_current_v2_validator_requires_revalidation(self) -> None:
+        self.write_plan()
+        claim = self.integrated_historical_claim()
+        post_item = {**self.item, "attempts": self.item["attempts"] + 1}
+        old_review = {
+            "lane": cron.REVIEW_LANE,
+            "item_id": self.item["id"],
+            "status": "review_failed",
+        }
+        claims = [claim, old_review]
+        with mock.patch.object(
+            cron,
+            "select_review_validator",
+            side_effect=SystemExit(
+                "no current stage1-v2 validator authority is registered; "
+                "legacy validator sources are superseded and cannot accept this phase"
+            ),
+        ):
+            self.assertTrue(
+                cron.reconcile_historical_revalidation_sources([post_item], claims)
+            )
+        self.assertEqual(claim["status"], "revalidation_required")
+        self.assertIn("no current stage1-v2", claim["revalidation_required_reason"])
+        self.assertEqual(old_review["status"], "superseded")
 
     def test_historical_successor_validator_mismatch_is_quarantined_not_requeued(self) -> None:
         self.write_plan()

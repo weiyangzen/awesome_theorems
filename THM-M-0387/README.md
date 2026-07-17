@@ -4,9 +4,10 @@
 
 目标不是只保存一篇长文，而是把“形式化验证 + 机器证明边界记录（可证明部分）”条目可直接复用的结构固定下来。
 
-截至 `2026-07-10`，本目录是 rev-5.6 theorem dossier。唯一执行进度权威是
-`Docs/Stage1_Blueprint_rev-5.6.md`；`proof_units.json` 是可重算的 proof-tree/debt manifest，
-而 `full_study.md` 中的旧 checklist 仅是历史 readability inventory。
+截至 `2026-07-10`，本目录是 rev-5.6 theorem dossier。唯一 requirements、排序和执行进度权威是
+`Docs/Stage1_Blueprint_v2.md`；`Docs/Stage1_Assurance_Standard_rev-5.6.md` 只提供 supporting
+assurance gates，`proof_units.json` 是可重算的 proof-tree/debt manifest，而 `full_study.md`
+中的旧 checklist 仅是历史 readability inventory。
 `bash THM-M-0387/run_local_validation.sh` 是本地统一验证入口；
 但该验证只覆盖本仓库中实际纳入 Lean 工程的 wrappers、pinned dependencies 与样例入口，不表示完整 FLT
 已经在本仓库完成 repo-local formal closure。

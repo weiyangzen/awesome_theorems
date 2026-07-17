@@ -68,9 +68,9 @@
    - 可以给读者加 alias、标题化标签、budget alias
    - 但这些 alias 不能演变成第二套 competing canonical node system
 20. 任何自动生成后准备进入公开主稿的材料，都应去掉过程性措辞，例如“本轮 worker”“slot 3”“下一轮继续”“当前 frontier”等，最后公开版只保留静态结论、状态表、budget ledger 与可复核内容。
-21. 若同一 theorem folder 内存在 `full_study.md`、`machine_checked_audit.md`、`process_audit.md`、`eligibles/`、`README.md`、`meta.json` 等多层公开材料，必须指定一个 authoritative progress / status surface；其他文件只能解释它，不能与它产生 `checked` / `missing`、`completed` / `open`、`13/18` / `18/18` 这类冲突。
-22. 公开 checklist 是 completion gate，不是叙事摘要。若 checklist 中某 unit 仍为 `missing`、`open` 或未勾选，则其他公开稿不得把同一 unit、同一 package、或同一 leaf 写成已经完全 `checked/completed`，除非同一 patch 同步更新 checklist 并给出公开 merge target 与 ledger anchor。
-23. 反过来，若审计稿或人类可读稿已经声明某 unit 的 machine anchor、人类展开、`<=100` local ledger 均已闭合，则 authoritative checklist、README 摘要、`meta.json` 以及任何进度汇总必须同步更新；不得留下陈旧的 `missing`、`0/18`、`13/18` 等旧状态。
+21. 若同一 theorem folder 内存在 `full_study.md`、`machine_checked_audit.md`、`process_audit.md`、`eligibles/`、`README.md`、`meta.json` 等多层公开材料，必须指定一个 canonical evidence/status summary surface；其他文件只能解释它，不能与它产生 `checked` / `missing`、`completed` / `open`、`13/18` / `18/18` 这类证据描述冲突。该 theorem-local surface 不是 Stage1 progress authority；Stage1 requirements、排序及 `[ ]` / `[_]` / `[x]` 状态只由 `Docs/Stage1_Blueprint_v2.md` 决定。
+22. theorem-local 公开 checklist 只能作为历史 evidence inventory 或局部 deliverable gate，不是 Stage1 completion/state gate。若其中某 unit 仍为 `missing` 或 `open`，其他公开稿不得把同一局部 evidence unit 写成已经完全 `checked/completed`，除非同一 patch 同步更新该历史投影并给出公开 merge target 与 ledger anchor；这类同步不得直接改变 v2 phase marks。
+23. 反过来，若审计稿或人类可读稿已经声明某 unit 的 machine anchor、人类展开、`<=100` local ledger 均已闭合，则 theorem-local evidence summary、README、`meta.json` 以及任何局部证据汇总必须同步更新；不得留下陈旧的 `missing`、`0/18`、`13/18` 等旧描述。只有 master acceptance 可依据这些证据更新 v2，theorem-local 文件不得自行制造 Stage1 `[x]`。
 24. `meta.json`、README 入口、表格摘要里的 `status_detail` 必须保留与正文同等重要的边界信息。尤其当某分支只是“上游已 machine-checked、本仓库仅 anchor-only”时，不能在机器可读摘要里压缩成“本仓库已 machine-checked”。
 25. `build_validation.md` 必须区分“历史上某日期通过”与“当前环境可复现通过”。若复跑失败，必须记录失败日期、命令、错误摘要与待修复条件；在复跑成功前，不得把当前状态继续写成“已通过”。
 26. 本地验证脚本本身也属于验证 surface：必须说明推荐调用方式，并保证要么脚本具备可执行权限且 `./path/script.sh` 可运行，要么文档统一写成 `bash path/script.sh`。不能让 README 推荐一种当前会 `Permission denied` 的调用方式。
@@ -118,16 +118,17 @@
 
 ## Stage1 Lean 4 队列
 
-`Stage1_Blueprint.md` 只服务 Lean 4 theorem proving 执行队列，不再覆盖所有可形式化工具路线。生成 Stage1 前必须已经完成本 guideline 的同步，且 Stage1 生成器必须把下面规则写入生成结果：
+`Docs/Stage1_Blueprint_v2.md` 是 Stage1 唯一现行蓝图，同时承载 requirements、DAG 顺序规则和
+`[ ]` / `[_]` / `[x]` task-state checklist。生成 Stage1 前必须已经完成本 guideline 的同步；任何
+todo、JSON DAG、target manifest、assurance 文档或实例 receipt 都只能单向派生、约束或举证，不能
+成为第二个 requirements/progress authority。
 
-`Docs/Stage1_Blueprint_rev-5.6.md` 是每个 Stage1 定理实例的规范 assurance standard；
-`Stage1_Blueprint.md` 只是由生成器产生的 300 条候选队列，不再兼任 live execution-state、
-evidence 或 theorem-completion authority。`THM-M-0387` 是历史兼容 fixture，不是允许把定理 ID、
-路径、指标、公理集合或状态硬编码进通用 validator 的模板。
+`Docs/Stage1_Assurance_Standard_rev-5.6.md` 是 supporting assurance guidance，不是蓝图或状态源。
+`THM-M-0387` 是历史兼容 fixture，不是允许把定理 ID、路径、指标、公理集合或状态硬编码进通用
+validator 的模板。已删除的 300-slot queue 和 Markdown target projection 不得由生成器重新生成。
 
-rev-5.6 在本仓库的目标集合必须冻结为
-`Docs/Stage1_Blueprint_Applicable_Theorems.md` 中且仅其中的 `1546` 个 Lean 4 metadata-screened
-候选。Stage0 的 `1601` 个去重数学记录不是 Stage1 cover 数；其余 `55` 个不得出现在目标表、
+Stage1 目标集合以 `Docs/Stage1_Targets_rev-5.6.json` 的 `1546` 个 Lean 4 metadata-screened 候选
+作为 membership input，并由 v2 蓝图 checklist 固化。Stage0 的 `1601` 个去重数学记录不是 Stage1 cover 数；其余 `55` 个不得出现在目标表、
 不得取得 Stage1 lane/slot/conformance 状态，也不得计入覆盖率。目标表不得再以历史 300-slot
 文件的存在区分 assurance level。全部 `1546` 个目标统一从 `L0 / rework_required` 开始；旧 slot、
 旧 wrapper、旧 statement、旧 build result 和旧 source label 只能作为 discovery input，不提供
@@ -157,7 +158,7 @@ provenance、trust、freshness 和 receipt 规则重新接纳。
    - `<=100` 叶子证明步数预算要求。
    - 机器证明债分类与当前 lane。
 
-`Stage1_Blueprint.md` 的 300 条数学高难度队列还必须额外满足：
+Stage1 的历史 300 条高优先级发现输入仍必须满足：
 
 - 只从 Stage0 的数学条目中选取，保留 Stage0 原 UID。
 - 只纳入 Lean 4 / mathlib 可以承担部分验证任务的条目；非 Lean4 路线不进入 Stage1。
@@ -167,7 +168,7 @@ provenance、trust、freshness 和 receipt 规则重新接纳。
 - 对每一条，即使源文档写作 `已验证`，Stage1 也不得直接把它计为 repo-local completed；必须先完成 mathlib / external Lean 4 anchor 搜索、wrapper / dependency 整合、本地 build validation、`<=100` leaf budget ledger 与公开 merge target。
 - 若 Stage1 执行时发现外部 Lean 4 证明已经存在，不能留下 `repo_local_integration_debt`；必须 pin/import/check 或显式标为 integration blocker，不能勾选完成。
 
-每个 Stage1 实例还必须满足 rev-5.6 通用 assurance 门槛：
+每个 Stage1 实例还必须满足 supporting assurance standard 的通用门槛：
 
 1. 对 canonical Lean target 做 elaboration、environment fingerprint 与等价形式 checked transport。
 2. 在观察机器闭合状态前冻结 canonical obligation registry、eligibility、exclusion 与 denominator。
@@ -197,7 +198,8 @@ provenance、trust、freshness 和 receipt 规则重新接纳。
    - 叶子节点必须是不再引用其他 theorem / lemma 的最小证明单元。
    - 每个叶子节点的“证明过程”上限是 `100` 步。
 5. 超步数处理
-   - 若某叶子节点超过 `100` 步，后续 checklist 不得标记为收敛，必须继续拆分。
+   - 若某叶子节点超过 `100` 步，局部 evidence projection 不得标记为收敛，v2 对应 phase 也不得
+     由 master 接受，必须继续拆分。
 6. 审计要求
    - 对已 machine-checked 的部分，要优先按上游源码里的 theorem / lemma / case structure 对齐。
    - 对尚未 machine-checked 的部分，可以先给出树形占位，但不能跳过分叉节点。
@@ -370,8 +372,9 @@ provenance、trust、freshness 和 receipt 规则重新接纳。
     必须在同节明确写出它们只是 alias，不构成第二套 competing canonical node system；
     跨文件同步仍以上游 machine/process surface 的 canonical package / leaf 名为准。
 14. 若 canonical package / high-risk leaf / package-level subitem 的 naming sync
-    已完成，但这些节点还没有各自独立的 `<=100`-step ledger，则对应 checklist 项必须继续保持
-    open，并明确写成“proof-budget closure 尚未完成”，不能回退成“命名尚未对齐”。
+    已完成，但这些节点还没有各自独立的 `<=100`-step ledger，则 theorem-local 历史 evidence
+    inventory 中的对应项必须继续保持 open，并明确写成“proof-budget closure 尚未完成”，不能
+    回退成“命名尚未对齐”；Stage1 phase mark 仍只由 v2 与 master acceptance 决定。
 15. regular primes 的人类可读 closure 若显式固定边界句，应保留为：
     `upstream theorem closure: yes / repo-local checked dependency closure: yes / repo-local vendored proof-body copy: no`；
     其中第二段表示本仓库已经 pin `flt-regular` 并通过 `regularPrimesPath` 检查该分支，
@@ -388,7 +391,7 @@ provenance、trust、freshness 和 receipt 规则重新接纳。
 19. 若自动执行确实需要把 `18` 个 execution unit 拆成独立 runtime ledger，
     这些 ledger 必须放在私有路径（例如 `.cron/results/hr18/`）下；
     公开蓝图里只能显示它们最终 merge 回的主稿位置，而不能把私有 runtime 文件当成公开归档面。
-20. `full_study.md` 一类 authoritative blueprint 若要显示进度，只能显示：
+20. `full_study.md` 一类人类可读 supporting plan 若要显示进度，只能显示：
     - unit 名称
     - 公开 merge target
     - 当前 closure 状态
@@ -400,9 +403,11 @@ provenance、trust、freshness 和 receipt 规则重新接纳。
 22. 若自动执行已经成功把某批 unit merge 回现有 `eligibles` 主稿，
     后续 blueprint / README / case study 必须统一改口到新的公开归档面，
     不得继续引用已经废弃的执行中间层目录。
-23. `THM-M-0387/full_study.md` 中的 `Execution Checklist` 是该条目的人类可读展开 authoritative progress surface。
-    若它仍显示某个 `FLT-HR-*` 为 `missing`，则 `machine_checked_audit.md`、`process_audit.md`、`eligibles/*.md`、README 与 `meta.json`
-    都不得把同一 execution unit 叙述为已经完成；若确已完成，必须在同一轮同步回写 `Execution Checklist`。
+23. `THM-M-0387/full_study.md` 中的 `Execution Checklist` 只是该条目的人类可读历史 evidence
+    inventory；Stage1 当前状态仍只能由 `Docs/Stage1_Blueprint_v2.md` 决定。若它仍显示某个
+    `FLT-HR-*` 为 `missing`，则 `machine_checked_audit.md`、`process_audit.md`、`eligibles/*.md`、
+    README 与 `meta.json` 都不得把同一局部 evidence unit 叙述为已经完成；若确已完成，必须在
+    同一轮同步该历史投影。该同步不构成 Stage1 状态变更，v2 只能由 master acceptance 更新。
 24. `THM-M-0387` 的 `regular primes` 分支必须始终保留三段边界：
     - upstream theorem closure: yes
     - repo-local checked dependency closure: yes
@@ -414,9 +419,11 @@ provenance、trust、freshness 和 receipt 规则重新接纳。
 26. `THM-M-0387` 的 `run_local_validation.sh` 必须与文档调用方式一致：
     - 若文档写 `./THM-M-0387/run_local_validation.sh`，脚本必须有 executable bit；
     - 若不保证 executable bit，则文档统一写 `bash THM-M-0387/run_local_validation.sh`。
-27. `THM-M-0387` 若出现 `n = 4` / `regular primes` 的 package-level `checked` 声明，必须能追溯到：
-    machine anchor、公开 merge target、独立 `<=100` local ledger、以及 authoritative checklist 同步勾选。
-    任一项缺失时，状态必须保持 `open/missing` 或写成“审计稿已草拟，completion gate 未通过”。
+27. `THM-M-0387` 若出现 `n = 4` / `regular primes` 的 package-level `checked` evidence 声明，
+    必须能追溯到 machine anchor、公开 merge target、独立 `<=100` local ledger，以及一致的
+    theorem-local 历史 evidence projection。任一项缺失时，局部 evidence 描述必须保持
+    `open/missing` 或写成“审计稿已草拟，local deliverable gate 未通过”；Stage1 phase 状态仍只
+    能由 v2 中的 master acceptance 表示。
 28. `THM-M-0387` 必须明确写出当前 proof debt：
     - 已还清的 `repo_local_integration_debt`：`regularPrimesPath` 通过 pinned `flt-regular` dependency 检查 regular primes branch。
     - 仍未还清的 `formalization_debt`：完整 Wiles/Taylor-Wiles / Ribet / Frey curve / modularity 主线尚未形成可由本仓库验证的 Lean 4 完整证明。

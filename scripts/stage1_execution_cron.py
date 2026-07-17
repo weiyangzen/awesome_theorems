@@ -55,13 +55,12 @@ except ModuleNotFoundError:  # Support importlib-based focused tests from repo r
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "Docs"
 BLUEPRINT = DOCS / "Stage1_Blueprint_v2.md"
-ASSURANCE_BLUEPRINT = DOCS / "Stage1_Blueprint_rev-5.6.md"
 TARGETS = DOCS / "Stage1_Targets_rev-5.6.json"
 DAG = DOCS / "Stage1_Execution_DAG_rev-5.6.json"
 THEOREM_DAG_V2 = DOCS / "Stage1_Theorem_DAG_v2.json"
 PHASE_ACCEPTANCE_CONTRACTS = DOCS / "Stage1_Phase_Acceptance_Contracts.json"
 PHASE_ACCEPTANCE_CONTRACT_SHA256 = (
-    "1bd6739c15fb424c53095401553ca3224f1398c9ba5a84e8a9a6382daed8b849"
+    "511d7d64fa075d654d716af2de194bc65d7b937dfba93016017943c916f89d96"
 )
 LEGACY_RUNTIME = ROOT / ".cron" / "stage1-rev56"
 RUNTIME = ROOT / ".cron" / "stage1-v2-app-server"
@@ -149,7 +148,7 @@ REQUIRED_RUNTIME_CONFIG = {
 IMPLEMENTATION_LANE = "implementation"
 REVIEW_LANE = "review"
 LANES = {IMPLEMENTATION_LANE, REVIEW_LANE}
-REVIEW_BINDING_SCHEMA = "stage1-app-server-review-binding/1.0"
+REVIEW_BINDING_SCHEMA = "stage1-app-server-review-binding/1.1"
 REVIEW_OUTPUT_SCHEMA = "stage1-master-review-output/1.0"
 ROLE_MAP_SCHEMA = "stage1-phase-artifact-role-map/1.0"
 MASTER_ACCEPTANCE_RECEIPT_SCHEMA = "stage1-master-phase-acceptance/1.0"
@@ -177,6 +176,7 @@ LEGACY_INVENTORY_CLASSIFICATIONS = {
     "legacy_receipt",
     "phase_mismatch",
     "missing_or_ambiguous_role",
+    "validator_authority_superseded",
     "validator_base_mismatch",
     "validator_stdout_mismatch",
     "sandbox_incompatible",
@@ -556,7 +556,6 @@ def recover_integration_wal() -> None:
                 and not allowed_runtime_evidence(relative)
                 and relative not in {
                     "Docs/Stage1_Blueprint_v2.md",
-                    "Docs/Stage1_Blueprint_rev-5.6.md",
                     "Docs/Stage1_Execution_DAG_rev-5.6.json",
                     "Docs/Stage1_Theorem_DAG_v2.json",
                 }
@@ -658,8 +657,19 @@ def target_rows() -> list[dict[str, Any]]:
 
 @functools.lru_cache(maxsize=1)
 def theorem_dag_v2() -> tuple[dict[str, Any], dict[str, dict[str, Any]]]:
-    """Load the v2 theorem-order overlay without replacing rev-5.6 task state."""
+    """Load the blueprint-derived v2 theorem-order projection."""
     data = read_json(THEOREM_DAG_V2)
+    if data.get("requirements_source") != "Docs/Stage1_Blueprint_v2.md":
+        fail("v2 theorem DAG requirements source is stale")
+    if data.get("execution_dag_projection") != "Docs/Stage1_Execution_DAG_rev-5.6.json":
+        fail("v2 theorem DAG execution projection path is stale")
+    snapshot = data.get("blueprint_state_snapshot")
+    if (
+        not isinstance(snapshot, dict)
+        or snapshot.get("authoritative_blueprint") != "Docs/Stage1_Blueprint_v2.md"
+        or snapshot.get("authoritative_blueprint_sha256") != sha256_file(BLUEPRINT)
+    ):
+        fail("v2 theorem DAG blueprint state snapshot is stale")
     nodes = data.get("theorems")
     if not isinstance(nodes, list) or len(nodes) != 1546:
         fail("v2 theorem DAG must contain exactly 1546 nodes")
@@ -1827,7 +1837,7 @@ def load_blueprint_items() -> list[dict[str, Any]]:
 
 
 def authoritative_state_items(authoritative_root: Path = ROOT) -> list[dict[str, Any]]:
-    """Load the SSOT under the selected authority root, including test clones."""
+    """Load the v2 SSOT under the selected authority root, including test clones."""
     if authoritative_root.resolve() == ROOT.resolve():
         return load_blueprint_items()
     blueprint = authoritative_root / "Docs" / "Stage1_Blueprint_v2.md"
@@ -1838,14 +1848,7 @@ def authoritative_state_items(authoritative_root: Path = ROOT) -> list[dict[str,
             return load_blueprint_items()
         finally:
             globals()["BLUEPRINT"] = original
-    # Test-clone and one-time migration compatibility only. Production ROOT
-    # must always possess the blueprint SSOT and never reaches this fallback.
-    dag = authoritative_root / "Docs" / "Stage1_Execution_DAG_rev-5.6.json"
-    if dag.is_file():
-        items = read_json(dag).get("items")
-        if isinstance(items, list):
-            return items
-    raise ValueError("authoritative Stage1 state source is missing")
+    raise ValueError("authoritative Stage1 v2 blueprint is missing")
 
 
 def project_dag(items: list[dict[str, Any]]) -> dict[str, Any]:
@@ -1865,28 +1868,6 @@ def write_derived_surfaces(data: dict[str, Any]) -> None:
     atomic_write(DAG, json.dumps(projection, ensure_ascii=False, indent=2) + "\n")
 
 
-def retire_assurance_checklist() -> None:
-    """Remove the obsolete second checkbox surface after SSOT migration."""
-    text = ASSURANCE_BLUEPRINT.read_text(encoding="utf-8")
-    begin_count = text.count(CHECKLIST_BEGIN)
-    end_count = text.count(CHECKLIST_END)
-    if begin_count == end_count == 0:
-        return
-    if begin_count != 1 or end_count != 1:
-        fail("assurance blueprint has malformed legacy checklist markers")
-    replacement = (
-        "## 13. Stage1 v2 Execution State\n\n"
-        "The former generated phase checklist was migrated without state loss to "
-        "`Docs/Stage1_Blueprint_v2.md`. That v2 checklist is the only writable task-state "
-        "authority; the execution DAG and daily todo are derived projections.\n"
-    )
-    pattern = re.escape(CHECKLIST_BEGIN) + r".*?" + re.escape(CHECKLIST_END) + r"\n?"
-    updated, count = re.subn(pattern, replacement, text, count=1, flags=re.DOTALL)
-    if count != 1:
-        fail("assurance blueprint legacy checklist markers are ambiguous")
-    atomic_write(ASSURANCE_BLUEPRINT, updated)
-
-
 def bootstrap() -> None:
     if CHECKLIST_BEGIN in BLUEPRINT.read_text(encoding="utf-8"):
         data = project_dag(load_blueprint_items())
@@ -1898,7 +1879,6 @@ def bootstrap() -> None:
     validate_dag(data)
     write_projection(data)
     write_derived_surfaces(data)
-    retire_assurance_checklist()
     run(["python3", "Docs/tools/generate_stage1_theorem_dag_v2.py"])
     theorem_dag_v2.cache_clear()
     run(["python3", "Docs/tools/check_stage1_theorem_dag_v2.py"])
@@ -3254,14 +3234,29 @@ def require_review_compatible_with_current_head(
     compatible_head = authoritative_head_revision()
     current_contract = phase_acceptance_contract_record()
     manifest_contract = review_manifest.get("contract")
+    manifest_blueprint = review_manifest.get("blueprint")
+    blueprint_relative = BLUEPRINT.relative_to(ROOT).as_posix()
+    current_blueprint_bytes = git_object_bytes(
+        f"{compatible_head}:{blueprint_relative}"
+    )
+    current_blueprint_blob = hashlib.sha1(
+        f"blob {len(current_blueprint_bytes)}\0".encode() + current_blueprint_bytes
+    ).hexdigest()
     if (
         current_contract.get("revision") != compatible_head
         or not isinstance(manifest_contract, dict)
         or current_contract.get("path") != manifest_contract.get("path")
         or current_contract.get("sha256") != manifest_contract.get("sha256")
         or current_contract.get("git_blob") != manifest_contract.get("git_blob")
+        or not isinstance(manifest_blueprint, dict)
+        or manifest_blueprint.get("path") != blueprint_relative
+        or manifest_blueprint.get("sha256")
+        != hashlib.sha256(current_blueprint_bytes).hexdigest()
+        or manifest_blueprint.get("git_blob") != current_blueprint_blob
+        or review_manifest.get("blueprint_sha256")
+        != manifest_blueprint.get("sha256")
     ):
-        raise ValueError("review authority contract changed after review allocation")
+        raise ValueError("review authority contract or v2 blueprint changed after review allocation")
     current_role_map = build_review_role_map(item, str(review_manifest.get("base_revision", "")))
     current_validator = select_review_validator(
         item,
@@ -3380,10 +3375,15 @@ def phase_contract(item: dict[str, Any]) -> dict[str, Any]:
 
 
 def phase_validator_candidate_paths(item: dict[str, Any]) -> set[str]:
-    """Resolve every validator path protected by the item's HEAD contract."""
-    candidates = phase_contract(item).get("validator_candidates")
-    if not isinstance(candidates, list) or not candidates:
-        raise ValueError("phase contract lacks validator candidates")
+    """Resolve current and superseded validator paths protected by the contract."""
+    row = phase_contract(item)
+    current = row.get("validator_authorities")
+    superseded = row.get("superseded_validator_sources")
+    if not isinstance(current, list) or not isinstance(superseded, list):
+        raise ValueError("phase contract lacks validator authority registries")
+    candidates = [*current, *superseded]
+    if not candidates:
+        raise ValueError("phase contract has no protected validator sources")
     paths: set[str] = set()
     for candidate in candidates:
         pattern = candidate.get("path_pattern") if isinstance(candidate, dict) else None
@@ -3397,12 +3397,15 @@ def phase_validator_candidate_paths(item: dict[str, Any]) -> set[str]:
             or path.is_absolute()
             or ".." in path.parts
             or path.as_posix() != relative
-            or not relative.startswith(str(item["owned_paths"][0]).rstrip("/") + "/")
+            or not (
+                relative.startswith(str(item["owned_paths"][0]).rstrip("/") + "/")
+                or relative.startswith("scripts/stage1_phase_validators/")
+            )
         ):
-            raise ValueError("phase contract validator candidate escapes item ownership")
+            raise ValueError("phase contract validator source escapes protected namespaces")
         paths.add(relative)
     if len(paths) != len(candidates):
-        raise ValueError("phase contract contains duplicate validator candidates")
+        raise ValueError("phase contract contains duplicate validator sources")
     return paths
 
 
@@ -3512,9 +3515,8 @@ Do not edit the scheduler's authoritative checkout directly: {ROOT}
 
 This thread has a real persisted Codex `/goal`, created through app-server
 `thread/goal/set`, for exactly the assigned item below. `Docs/Stage1_Blueprint_v2.md`
-is the sole task-state authority. `Docs/Stage1_Blueprint_rev-5.6.md` is assurance
-authority only. Do not claim theorem completion without every rev-5.6 gate and
-kernel evidence.
+is the sole requirements and task-state authority. Do not claim theorem completion
+without every gate and kernel evidence defined there.
 
 Resume the active `/goal` now. If your current context has reached capacity,
 write the required target-scoped artifact or self-test handoff immediately and
@@ -3528,7 +3530,7 @@ The authoritative v2 dependency/reuse context for this theorem is:
 {dependency_context}
 
 Required work:
-1. Read Docs/Stage1_Blueprint_v2.md, Docs/Stage1_Blueprint_rev-5.6.md, skills/execute-stage1-rev56/SKILL.md, the target manifest entry, and the target node in Docs/Stage1_Theorem_DAG_v2.json.
+1. Read Docs/Stage1_Blueprint_v2.md, skills/execute-stage1-rev56/SKILL.md, the target manifest entry, and the target node in Docs/Stage1_Theorem_DAG_v2.json.
 2. Complete the assigned phase with real source, Lean, and/or evidence artifacts under the item's owned path. You may inspect shared read-only sources, but never modify another target's owned path. Never use sorry, axiom, placeholder, fake results, or a broadened/substituted theorem.
    Before proof work, traverse every ID in `parent_inspection_order` exactly once and in that order; it is the complete direct/transitive closure in ascending v2 rank, not only the nearest parents. Inspect each parent's authoritative phase state, receipts, declaration bodies, and reusable artifacts. Accepted reuse is only `reused_exact` or `reused_with_transport`. Prefer an exact already-proved body over reproving it: import it when possible; otherwise copy only the minimal proof term/declaration into the consumer-owned path and record both the original provider bytes and the consumer copy/checked transport. A checked transport must bind both statement fingerprints, the provider source bytes, the consumer-owned import/wrapper bytes, and the consumer's own validation receipt. Re-elaborate the consumer and bind both byte hashes. Provider checkbox/receipt state is observation only: copying never transfers parent acceptance or evidence credit, and a `[_]` parent is guidance only unless the hard edge's material contract permits provisional consumption.
    Create or refresh the target-owned dependency-reuse-ledger.json required by the execution skill. Use schema {DEPENDENCY_LEDGER_SCHEMA} and exactly the graph digest/context IDs above. The ledger must include inspections, reuse_decisions, and unresolved_compatibility_obligations as specified by the skill. Empty parent/hint/group closure still requires an empty audited ledger. A reuse_hint or [_] ancestor is informative only and cannot transfer proof credit.
@@ -3553,7 +3555,7 @@ Required work:
    those actions are neither a pinned validation nor valid worker evidence. Use the existing
    toolchain with `lake env lean` for narrowly scoped elaboration checks, and record a missing
    artifact as a blocker rather than fetching a moving dependency.
-5. Do not edit Docs/Stage1_Execution_DAG_rev-5.6.json, Docs/Stage1_Theorem_DAG_v2.json, either blueprint, the generated checklist, or any item state. You are a worker, never the master.
+5. Do not edit Docs/Stage1_Execution_DAG_rev-5.6.json, Docs/Stage1_Theorem_DAG_v2.json, the blueprint, the generated checklist, or any item state. You are a worker, never the master.
 6. If and only if your assigned phase is genuinely self-tested, write `.stage1-worker-selftest.json` at the workspace root with item_id, changed_paths, commands, output_summary, base_revision, known_failures, and `state: "[_]"`. Otherwise leave no self-test manifest and explain the blocker in an owned artifact.
 7. Do not commit, push, launch tmux, launch `codex exec`, create nested agents, or modify unrelated targets. The app-server integration lane will inspect this clone.
 """
@@ -3625,6 +3627,9 @@ def build_review_binding(
         "phase": item["phase"],
         "base_revision": base_revision,
         "blueprint_sha256": sha256_file(BLUEPRINT),
+        "blueprint_git_blob": run(
+            ["git", "rev-parse", f"HEAD:{BLUEPRINT.relative_to(ROOT).as_posix()}"]
+        ).stdout.strip(),
         "theorem_dag_sha256": sha256_file(THEOREM_DAG_V2),
         "prompt_sha256": hashlib.sha256(prompt_text.encode()).hexdigest(),
         "objective_sha256": hashlib.sha256(objective.encode()).hexdigest(),
@@ -3791,7 +3796,7 @@ def prepare_workspace(slot: int) -> Path:
         fail("prepared worker workspace escaped scheduler storage")
     for relative in (
         "Docs/Stage1_Blueprint_v2.md", "Docs/Stage1_Theorem_DAG_v2.json",
-        "Docs/Stage1_Blueprint_rev-5.6.md", "Docs/Stage1_Execution_DAG_rev-5.6.json",
+        "Docs/Stage1_Execution_DAG_rev-5.6.json",
         "Docs/Stage1_Targets_rev-5.6.json", "skills/execute-stage1-rev56/SKILL.md",
     ):
         source, destination = ROOT / relative, workspace / relative
@@ -3860,7 +3865,17 @@ def render_todo(
             theorem_counts["unstarted"] += 1
         else:
             theorem_counts["partial"] += 1
-    claim_by_item = {claim.get("item_id"): claim for claim in claims}
+    # The claim ledger is append-only attempt history. Pick the newest attempt
+    # explicitly instead of depending on incidental JSON array order.
+    claim_by_item: dict[str, dict[str, Any]] = {}
+    for claim in claims:
+        item_id = claim.get("item_id")
+        claim_id = claim.get("claim_id")
+        if not isinstance(item_id, str) or not isinstance(claim_id, str):
+            continue
+        current = claim_by_item.get(item_id)
+        if current is None or claim_id > str(current.get("claim_id", "")):
+            claim_by_item[item_id] = claim
     ready = []
     workers = []
     for item in ordered:
@@ -3890,10 +3905,15 @@ def render_todo(
     state_sha256 = hashlib.sha256(
         json.dumps(state_records, ensure_ascii=True, sort_keys=True, separators=(",", ":")).encode("utf-8")
     ).hexdigest()
+    live_claim_count = sum(
+        claim.get("status") == "live"
+        and (app_server_worker_is_live(claim) or app_server_child_is_live(claim))
+        for claim in claims
+    )
     lines = [
-        "# Stage1 rev-5.6 Execution Todo",
+        "# Stage1 v2 Execution Todo",
         "",
-        "SSOT: `Docs/Stage1_Blueprint_v2.md`; this file is today's derived task snapshot. Assurance: `Docs/Stage1_Blueprint_rev-5.6.md`; derived DAG/order: `Docs/Stage1_Execution_DAG_rev-5.6.json`, `Docs/Stage1_Theorem_DAG_v2.json`.",
+        "SSOT: `Docs/Stage1_Blueprint_v2.md`; this file is today's derived task snapshot. Derived DAG/order: `Docs/Stage1_Execution_DAG_rev-5.6.json`, `Docs/Stage1_Theorem_DAG_v2.json`.",
         f"SSOT blueprint SHA-256: `{blueprint_sha256}`",
         f"Phase state/attempts SHA-256: `{state_sha256}`",
         f"Not done: {counts['[ ]']}",
@@ -3905,7 +3925,7 @@ def render_todo(
         f"Theorems partial [_]/[ ]: {theorem_counts['partial']}",
         f"Theorems unstarted [ ] x7: {theorem_counts['unstarted']}",
         "DAG cycle check: passed.",
-        f"Claim ledger: `{RUNTIME.relative_to(ROOT) / 'claims.json'}`; live worker claims: {sum(c.get('status') == 'live' for c in claims)}.",
+        f"Claim ledger: `{RUNTIME.relative_to(ROOT) / 'claims.json'}`; process-backed live worker claims: {live_claim_count}.",
         "",
         "## Worker Claim Frontier",
         "",
@@ -3956,7 +3976,6 @@ def validate_only() -> None:
     print("validate-only: ok")
     print("requirements_source=Docs/Stage1_Blueprint_v2.md")
     print(
-        "assurance_source=Docs/Stage1_Blueprint_rev-5.6.md "
         "theorem_dag=Docs/Stage1_Theorem_DAG_v2.json "
         f"hard_edges={len(theorem_graph.get('hard_edges', []))} "
         f"reuse_hints={len(theorem_graph.get('reuse_hints', []))}"
@@ -4110,9 +4129,9 @@ def _integrate(
             if not source.is_dir():
                 raise ValueError("worker source missing")
             reject_mutable_dependency_operations(item["id"])
-            validator_candidates = phase_validator_candidate_paths(item)
+            protected_validator_paths = phase_validator_candidate_paths(item)
             changed = worker_changed_paths(
-                workspace, owner, protected_paths=validator_candidates
+                workspace, owner, protected_paths=protected_validator_paths
             )
             if not changed:
                 raise ValueError("worker made no owned-path changes")
@@ -5423,6 +5442,29 @@ def reconcile_historical_revalidation_sources(
             select_review_validator(item, str(source.get("base_revision", "")))
         except (SystemExit, ValueError) as exc:
             reason = str(exc)
+            if (
+                "no current stage1-v2 validator authority" in reason
+                or "exactly one current stage1-v2 authority" in reason
+            ):
+                source["status"] = "revalidation_required"
+                source["revalidation_required_at"] = dt.datetime.now(
+                    dt.timezone.utc
+                ).isoformat()
+                source["revalidation_required_reason"] = reason
+                successor_id = str(source.get("claim_id", ""))
+                for review in claims:
+                    if (
+                        review.get("lane") == REVIEW_LANE
+                        and review.get("item_id") == source.get("item_id")
+                        and review.get("status") in {"review_failed", "review_finished"}
+                    ):
+                        _supersede_claim(
+                            review,
+                            successor_claim_id=successor_id,
+                            reason="current v2 validator authority is unavailable",
+                        )
+                changed = True
+                continue
             if not any(
                 marker in reason
                 for marker in (
@@ -5847,6 +5889,9 @@ def build_scheduler_review_manifest(
             role_map,
             validator,
             blueprint_sha256=sha256_file(BLUEPRINT),
+            blueprint_git_blob=run(
+                ["git", "rev-parse", f"HEAD:{BLUEPRINT.relative_to(ROOT).as_posix()}"]
+            ).stdout.strip(),
             theorem_dag_sha256=sha256_file(THEOREM_DAG_V2),
             worker_claim_sha256=str(provenance.get("claim_sha256")),
             worker_status_sha256=str(provenance.get("status_sha256")),
@@ -6035,6 +6080,8 @@ def verify_review_evidence_bundle(
     if (
         binding.get("base_revision") != manifest.get("base_revision")
         or binding.get("blueprint_sha256") != manifest.get("blueprint_sha256")
+        or binding.get("blueprint_git_blob")
+        != manifest.get("blueprint", {}).get("git_blob")
         or binding.get("theorem_dag_sha256") != manifest.get("theorem_dag_sha256")
         or binding.get("artifact_digests")
         != {row["path"]: row["sha256"] for row in role_map.get("artifacts", [])}
@@ -6139,6 +6186,7 @@ def consume_review_finished(
                 fail("master acceptance refused: operator pause after authority replay")
             decision = acceptance_evidence.evaluate_replay_semantics(
                 replay,
+                ROOT,
                 contract_record=review_contract,
                 review_manifest=manifest,
                 role_map=role_map,
@@ -6283,32 +6331,73 @@ def refill_reviews(
     authority_revision = run(["git", "rev-parse", "HEAD"]).stdout.strip()
     _, nodes = theorem_dag_v2()
     reservations: list[dict[str, Any]] = []
+
+    def record_review_preflight_failure(
+        item: dict[str, Any],
+        *,
+        slot: int,
+        claim_id: str,
+        reason: str,
+        implementation_claim: dict[str, Any] | None = None,
+    ) -> None:
+        """Persist a fail-closed review row without crashing the scheduler tick."""
+        validator_unavailable = (
+            "no current stage1-v2 validator authority" in reason
+            or "exactly one current stage1-v2 authority" in reason
+        )
+        claims.append({
+            "lane": REVIEW_LANE,
+            "item_id": item["id"],
+            "theorem_id": item["theorem_id"],
+            "depends_on": item["depends_on"],
+            "owned_paths": item["owned_paths"],
+            "claim_id": claim_id,
+            "worker_id": (
+                f"stage1app-review-{slot}-"
+                f"{nodes[item['theorem_id']]['v2_execution_rank']:04d}-{claim_id[-12:]}"
+            ),
+            "slot": slot,
+            "workspace": str(RUNTIME / "review-workspaces" / f"slot{slot}"),
+            "status": (
+                "revalidation_required" if validator_unavailable else "review_failed"
+            ),
+            "claimed_at": timestamp,
+            "base_revision": str(
+                implementation_claim.get("base_revision", "")
+                if isinstance(implementation_claim, dict)
+                else authority_revision
+            ),
+            "authority_revision": authority_revision,
+            "runtime_protocol": RUNTIME_PROTOCOL,
+            "review_failure_reason": reason,
+            **(
+                {
+                    "revalidation_required_at": dt.datetime.now(
+                        dt.timezone.utc
+                    ).isoformat(),
+                    "revalidation_required_reason": reason,
+                }
+                if validator_unavailable
+                else {
+                    "review_retry_after": (
+                        dt.datetime.now(dt.timezone.utc) + dt.timedelta(minutes=15)
+                    ).isoformat()
+                }
+            ),
+        })
+
     for slot, item in zip(slots, candidates):
         if execution_is_paused():
             break
         claim_id = f"{timestamp}-{os.urandom(6).hex()}"
         implementation_claim = review_source_claim(item, claims)
         if implementation_claim is None:
-            claims.append({
-                "lane": REVIEW_LANE,
-                "item_id": item["id"],
-                "theorem_id": item["theorem_id"],
-                "depends_on": item["depends_on"],
-                "owned_paths": item["owned_paths"],
-                "claim_id": claim_id,
-                "worker_id": f"stage1app-review-{slot}-{nodes[item['theorem_id']]['v2_execution_rank']:04d}-{claim_id[-12:]}",
-                "slot": slot,
-                "workspace": str(RUNTIME / "review-workspaces" / f"slot{slot}"),
-                "status": "review_failed",
-                "claimed_at": timestamp,
-                "base_revision": authority_revision,
-                "authority_revision": authority_revision,
-                "runtime_protocol": RUNTIME_PROTOCOL,
-                "review_failure_reason": "missing or ambiguous immutable implementation provenance",
-                "review_retry_after": (
-                    dt.datetime.now(dt.timezone.utc) + dt.timedelta(minutes=15)
-                ).isoformat(),
-            })
+            record_review_preflight_failure(
+                item,
+                slot=slot,
+                claim_id=claim_id,
+                reason="missing or ambiguous immutable implementation provenance",
+            )
             continue
         try:
             revalidation_lane = (
@@ -6322,26 +6411,13 @@ def refill_reviews(
             ):
                 raise ValueError("historical review source lacks a fresh revalidation lane")
         except ValueError as exc:
-            claims.append({
-                    "lane": REVIEW_LANE,
-                    "item_id": item["id"],
-                    "theorem_id": item["theorem_id"],
-                    "depends_on": item["depends_on"],
-                    "owned_paths": item["owned_paths"],
-                    "claim_id": claim_id,
-                    "worker_id": f"stage1app-review-{slot}-{nodes[item['theorem_id']]['v2_execution_rank']:04d}-{claim_id[-12:]}",
-                    "slot": slot,
-                    "workspace": str(RUNTIME / "review-workspaces" / f"slot{slot}"),
-                    "status": "review_failed",
-                    "claimed_at": timestamp,
-                    "base_revision": str(implementation_claim.get("base_revision", "")),
-                    "authority_revision": authority_revision,
-                    "runtime_protocol": RUNTIME_PROTOCOL,
-                    "review_failure_reason": str(exc),
-                    "review_retry_after": (
-                        dt.datetime.now(dt.timezone.utc) + dt.timedelta(minutes=15)
-                    ).isoformat(),
-            })
+            record_review_preflight_failure(
+                item,
+                slot=slot,
+                claim_id=claim_id,
+                reason=str(exc),
+                implementation_claim=implementation_claim,
+            )
             continue
         try:
             worker_base_revision = str(implementation_claim.get("base_revision", ""))
@@ -6360,26 +6436,13 @@ def refill_reviews(
         except (SystemExit, ValueError) as exc:
             # A malformed historical `[_]` must not stop all other reviews or
             # manufacture acceptance. Preserve a scheduler-owned negative row.
-            claims.append({
-                "lane": REVIEW_LANE,
-                "item_id": item["id"],
-                "theorem_id": item["theorem_id"],
-                "depends_on": item["depends_on"],
-                "owned_paths": item["owned_paths"],
-                "claim_id": claim_id,
-                "worker_id": f"stage1app-review-{slot}-{nodes[item['theorem_id']]['v2_execution_rank']:04d}-{claim_id[-12:]}",
-                "slot": slot,
-                "workspace": str(RUNTIME / "review-workspaces" / f"slot{slot}"),
-                "status": "review_failed",
-                "claimed_at": timestamp,
-                "base_revision": str(implementation_claim.get("base_revision", "")),
-                "authority_revision": authority_revision,
-                "runtime_protocol": RUNTIME_PROTOCOL,
-                "review_failure_reason": str(exc),
-                "review_retry_after": (
-                    dt.datetime.now(dt.timezone.utc) + dt.timedelta(minutes=15)
-                ).isoformat(),
-            })
+            record_review_preflight_failure(
+                item,
+                slot=slot,
+                claim_id=claim_id,
+                reason=str(exc),
+                implementation_claim=implementation_claim,
+            )
             continue
         objective = review_goal_objective(item)
         workspace = RUNTIME / "review-workspaces" / f"slot{slot}"

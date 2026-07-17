@@ -79,7 +79,13 @@ def contract() -> dict[str, object]:
                     },
                 ],
                 "phase_receipt_required_fields": common_fields,
-                "validator_candidates": [
+                "validator_authorities": [
+                    {
+                        "path_pattern": "scripts/stage1_phase_validators/check_intake.py",
+                        "language": "python",
+                    }
+                ],
+                "superseded_validator_sources": [
                     {
                         "path_pattern": "Stage1_Instances/{theorem_id}/check_intake.py",
                         "language": "python",
@@ -147,8 +153,10 @@ class Fixture:
         run(self.root, "git", "config", "user.email", "inventory@example.invalid")
         docs = self.root / "Docs"
         self.instance = self.root / "Stage1_Instances" / "THM-M-0001"
+        self.validator = self.root / "scripts" / "stage1_phase_validators"
         docs.mkdir()
         self.instance.mkdir(parents=True)
+        self.validator.mkdir(parents=True)
         (docs / "Stage1_Blueprint_v2.md").write_text(
             "- [_] `S56-M-0001-INTAKE` / `THM-M-0001` / `intake`: fixture {attempts=1}\n",
             encoding="utf-8",
@@ -159,6 +167,9 @@ class Fixture:
             '{"theorem_id":"THM-M-0001"}\n', encoding="utf-8"
         )
         (self.instance / "check_intake.py").write_text(
+            SEMANTIC_VALIDATOR, encoding="utf-8"
+        )
+        (self.validator / "check_intake.py").write_text(
             SEMANTIC_VALIDATOR, encoding="utf-8"
         )
         run(self.root, "git", "add", ".")
@@ -207,7 +218,8 @@ class InventoryTests(unittest.TestCase):
         self.assertEqual(classes["missing_receipt"]["status"], "blocked")
         self.assertEqual(classes["legacy_receipt"]["status"], "unknown")
         self.assertEqual(classes["phase_mismatch"]["status"], "unknown")
-        self.assertEqual(classes["validator_base_mismatch"]["status"], "unknown")
+        self.assertEqual(classes["validator_authority_superseded"]["status"], "blocked")
+        self.assertEqual(classes["validator_base_mismatch"]["status"], "blocked")
         self.assertEqual(classes["validator_stdout_mismatch"]["status"], "unknown")
         self.assertEqual(classes["sandbox_incompatible"]["status"], "unknown")
         self.assertFalse(item["migration_ready"])
@@ -238,7 +250,8 @@ class InventoryTests(unittest.TestCase):
         self.assertEqual(classes["missing_receipt"]["status"], "clear")
         self.assertEqual(classes["legacy_receipt"]["status"], "clear")
         self.assertEqual(classes["phase_mismatch"]["status"], "clear")
-        self.assertEqual(classes["validator_base_mismatch"]["status"], "clear")
+        self.assertEqual(classes["validator_authority_superseded"]["status"], "blocked")
+        self.assertEqual(classes["validator_base_mismatch"]["status"], "blocked")
         self.assertEqual(classes["validator_stdout_mismatch"]["status"], "unknown")
         self.assertEqual(classes["sandbox_incompatible"]["status"], "unknown")
         self.assertFalse(item["migration_ready"])

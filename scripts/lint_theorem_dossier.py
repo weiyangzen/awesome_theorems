@@ -21,7 +21,8 @@ from typing import Any, NoReturn
 
 
 SCHEMA_VERSION = "5.6"
-BLUEPRINT_PATH = "Docs/Stage1_Blueprint_rev-5.6.md"
+BLUEPRINT_PATH = "Docs/Stage1_Blueprint_v2.md"
+ASSURANCE_STANDARD_PATH = "Docs/Stage1_Assurance_Standard_rev-5.6.md"
 THEOREM_ID = "THM-M-0387"
 NODE_FIELDS = {
     "node_id",
@@ -575,13 +576,23 @@ def assert_public_status_consistency(
         missing = [label for label, pattern in required_patterns.items() if pattern.search(text) is None]
         ensure(not missing, f"{rel} is missing final public status fields: {missing}")
 
-    checklist = (repo_root / BLUEPRINT_PATH).read_text(encoding="utf-8")
-    checklist_section = checklist.split("### 12.3 Authoritative", 1)[-1].split("## 13.", 1)[0]
-    checklist_rows = re.findall(
-        r"^- \[([ _xX])\] `S56-M0387-[A-Z0-9]+`", checklist_section, re.MULTILINE
+    standard = (repo_root / ASSURANCE_STANDARD_PATH).read_text(encoding="utf-8")
+    historical_section = standard.split(
+        "### 12.3 Historical `THM-M-0387` Execution Record", 1
+    )[-1].split("## 13.", 1)[0]
+    historical_rows = re.findall(
+        r"^- Historically (?:checked|open): `S56-M0387-[A-Z0-9]+`",
+        historical_section,
+        re.MULTILINE,
     )
-    ensure(len(checklist_rows) == 41,
-           "authoritative checklist must contain exactly 41 valid dual-cursor rows")
+    ensure(
+        len(historical_rows) == 41,
+        "supporting assurance standard must retain exactly 41 historical records",
+    )
+    ensure(
+        re.search(r"^\s*[-*] \[[ _xX]\]", standard, re.MULTILINE) is None,
+        "supporting assurance standard must not contain a live checkbox checklist",
+    )
 
 
 def assert_public_surfaces(manifest: dict[str, Any], nodes: list[dict[str, Any]], repo_root: Path) -> set[Path]:

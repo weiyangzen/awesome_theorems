@@ -1,31 +1,30 @@
-# Stage 1 Machine-Theorem Proof Standard rev-5.6
+# Stage 1 Machine-Theorem Assurance Standard rev-5.6
 
-> Document type: normative, theorem-generic assurance standard plus a retained first instance
+> Document type: supporting theorem-generic assurance gate standard plus a retained historical instance
 > Revision family: `5.6`; generalized assurance update: `2026-07-11`
-> Normative profile: `machine-theorem-assurance/1.0`; retained instance schema: `5.6`
+> Supporting profile: `machine-theorem-assurance/1.0`; retained instance schema: `5.6`
 > Original instance: `THM-M-0387` / Fermat's Last Theorem
 > Primary profile: mathematical theorems in `Lean 4 + mathlib`
-> Repository target scope: exactly the `1546` IDs generated in
-> `Docs/Stage1_Blueprint_Applicable_Theorems.md`; the other `55` deduplicated mathematical records
-> are outside Stage1 rev-5.6
+> Historical repository target scope: the `1546` IDs retained as membership input in
+> `Docs/Stage1_Targets_rev-5.6.json`; current requirements and ordering come only from
+> `Docs/Stage1_Blueprint_v2.md`
 > Portability: the generic core is prover-neutral; prover-specific claims require a conforming adapter
-> Status rule: changing this standard creates requirements only. It does not validate a theorem,
-> upgrade an old dossier, or promote any execution item without fresh evidence and acceptance.
+> Status rule: changing this supporting standard creates no requirements or state. It does not
+> validate a theorem, upgrade an old dossier, or promote any execution item.
 
-## 0. Scope, Lifecycle, and Authority
+## 0. Scope, Lifecycle, and Supporting Role
 
-This document specifies how a theorem project defines its target, proof obligations, human-source
-status, kernel evidence, readable reconstruction, execution state, release evidence, and long-term
-maintenance. It applies to each theorem independently. The `THM-M-0387` section is retained as a
-historical first instance and compatibility fixture; no FLT-specific literal is a generic rule.
+This document supplies assurance gate vocabulary for how a theorem project describes its target,
+proof obligations, human-source status, kernel evidence, readable reconstruction, release evidence,
+and long-term maintenance. It applies only when `Docs/Stage1_Blueprint_v2.md` incorporates a gate;
+it is not a requirements, ordering, or task-state authority. The `THM-M-0387` section is retained as
+a historical first instance and compatibility fixture; no FLT-specific literal is a generic rule.
 
-Within this repository, the standard applies only to the closed target-ID set in
-`Docs/Stage1_Blueprint_Applicable_Theorems.md`: `1546` metadata-screened Lean 4 theorem-proof
-candidates. The surrounding Stage0 mathematics population has `1601` deduplicated records, but the
-other `55` are not Stage1 rev-5.6 instances and MUST NOT receive a Stage1 slot, lane, conformance
-status, or coverage credit. Their exclusion categories may be reported only as intake-boundary
-provenance. Adding or removing a target requires regenerating the exact ID set, publishing the
-eligibility delta and rationale, and rerunning the structural validator.
+The historical scope represented here was the `1546` metadata-screened Lean 4 theorem-proof
+candidates now retained in `Docs/Stage1_Targets_rev-5.6.json` as membership input. The surrounding
+Stage0 mathematics population had `1601` deduplicated records, with `55` outside that historical
+scope. Current inclusion, exclusion, requirements, ordering, and structural validation rules are
+defined only by `Docs/Stage1_Blueprint_v2.md`.
 
 Membership in the `1546`-ID set is only metadata-level intake eligibility. It does not assert that
 the source wording has been elaborated as an exact Lean proposition, that current mathlib contains
@@ -39,9 +38,9 @@ accepted state, proof credit, or grandfathered gate. Each target, including `THM
 re-evaluated through its own rev-5.6 instance; valid old evidence may be re-admitted only after its
 exact scope, inputs, provenance, trust closure, freshness, and receipts pass the current gates.
 
-An implementation conforms only when its machine-readable artifacts and validators enforce the
-normative `MUST`, `MUST NOT`, `SHALL`, and `SHALL NOT` clauses below. Prose that describes a gate
-without executing it is a design requirement, not evidence that the gate passed.
+An implementation may claim conformance with a gate only when machine-readable artifacts and
+validators enforce the corresponding `MUST`, `MUST NOT`, `SHALL`, and `SHALL NOT` language below
+as incorporated by the current blueprint. Prose that describes a gate is not evidence that it passed.
 
 Every standard artifact declares exactly one lifecycle mode:
 
@@ -64,33 +63,26 @@ windows, and deterministic idempotent migrations. Breaking semantics increment t
 Migrations preserve prior evidence and status history, emit a semantic delta, and classify every
 ambiguous legacy field as `needs_review`; they never infer or manufacture acceptance.
 
-The normative profile version is distinct from a theorem dossier's data-schema version. Existing
+The supporting profile version is distinct from a theorem dossier's data-schema version. Existing
 rev-5.6 instance data remains schema `5.6` and legacy evidence; conforming new artifacts adopt the
 new schemas explicitly. This document does not relabel old schema-5.6 data as if a breaking migration
 had already occurred.
 
-Authority is separated to prevent one Markdown file from being specification, database, receipt,
-and public summary simultaneously:
+Current authority is deliberately singular: `Docs/Stage1_Blueprint_v2.md` owns requirements,
+ordering, and task state. `Docs/Stage1_Targets_rev-5.6.json` is a membership input; typed DAGs are
+machine-readable projections; theorem instance artifacts and content-addressed receipts are scoped
+evidence. This file only supplies supporting gate vocabulary and cannot override the blueprint,
+set membership, change state, or manufacture acceptance.
 
-1. This file is the **normative requirements authority**.
-2. `Docs/Stage1_Targets_rev-5.6.json` is the repository **target-set and execution-order authority**;
-   its 1546 IDs and target-set digest must agree with the generator and validator.
-3. A versioned theorem instance manifest is the per-theorem **scope and obligation authority**.
-4. The Stage1 v2 blueprint checklist is the **task-state authority**; the typed execution-state DAG
-   is its machine-readable projection.
-5. Content-addressed receipts and evidence packets are the **validation authority**.
-6. Human-readable Markdown and metadata are generated or reconciled projections; they cannot
-   override structured authority.
-
-For the retained rev-5.6 FLT instance only, the section 12 checklist remains its compatibility
-execution cursor until migrated. Its checked boxes are historical instance state, not template
-defaults. New theorem instances MUST start with structured state and no accepted items.
+The section 12 FLT records are superseded historical observations. They have no checkbox syntax and
+no execution-cursor role. Current FLT state, like every other theorem's state, lives only in the v2
+blueprint.
 
 ### 0.1 Executable-Skill Contract
 
-The standard is operated through the repository skill at
-`skills/execute-stage1-rev56/SKILL.md`. The skill is an execution adapter, not another authority:
-it MUST read this standard and the machine target manifest, invoke the checked scripts, create or
+The supporting gates are applied through the repository skill at
+`skills/execute-stage1-rev56/SKILL.md`. The skill is an execution adapter, not an authority:
+it MUST read the v2 blueprint, this standard, and the membership input, invoke the checked scripts, create or
 update only one theorem dossier per invocation unless batch mode is explicitly requested, and stop
 at the first failed hard gate. An agent's narration, checklist edit, or successful unrelated build
 cannot change lifecycle, assurance, debt, audit, or theorem-completion state.
@@ -347,7 +339,7 @@ formal_system: <backend and adapter version; Lean 4 + mathlib is primary>
 source_revisions: <toolchain, libraries, and complete dependency lock>
 obligation_registry_hash: <frozen before status discovery>
 discovery_protocol_hash: <precommitted search inventory and cutoff>
-authoritative_blueprint: Docs/Stage1_Blueprint_rev-5.6.md
+assurance_standard: Docs/Stage1_Assurance_Standard_rev-5.6.md
 public_merge_targets: <stable repo-relative paths>
 owners_and_reviewers: <accountable identities or roles>
 freshness_and_revocation_policy: <review due, invalidation inputs, incident path>
@@ -558,7 +550,7 @@ dependencies. Workflow acceptance then follows:
 ```text
 P may become [_] only after all required Ci are at least [_] and a provisional composition check passes.
 P may become [x] only after all required Ci are [x], the composition declaration is checked in the
-authoritative checkout, debt/status surfaces are reconciled, and the master records validation evidence.
+integration checkout, debt/status surfaces are reconciled, and the master records validation evidence.
 ```
 
 If any child is `[ ]`, the parent is `[ ]`. If no child is `[ ]` but one is `[_]`, the parent may be
@@ -724,7 +716,7 @@ to a famous paper, a secondary exposition, or a resolved URL is not `H0`. Machin
 completeness, locators, hashes, and consistency; a qualified source reviewer validates mathematical
 fidelity. Source/version drift invalidates the affected `H0` packet.
 
-## 9. Artifact and Authority Contract
+## 9. Artifact and Evidence Contract
 
 An instantiated theorem should converge on these roles. Existing repository names may be reused;
 do not create parallel files when a stable surface already owns the role.
@@ -746,13 +738,13 @@ do not create parallel files when a stable surface already owns the role.
 | build validation | dated commands, environment, results, failures, scope boundary |
 | formal source tree | proof bodies, wrappers, integrations, and checked composition declarations |
 
-Authority rules:
+Role boundaries:
 
-- This standard is requirements authority; it stores no new theorem's live status.
-- The instance manifest/registry is scope authority; the v2 checklist is execution-state authority,
-  and the typed state DAG is its derived machine projection.
-- Signed, content-addressed receipts are evidence authority. `H/M/R`, metrics, and terminal decisions
-  are computed projections, not editable truth.
+- The v2 blueprint is the sole requirements, ordering, and task-state authority; this standard only
+  supplies supporting assurance gates and stores no theorem's live status.
+- Instance manifests and registries are scoped evidence; typed state DAGs are derived projections.
+- Signed, content-addressed receipts are validation evidence. `H/M/R`, metrics, and terminal
+  decisions are computed projections, not editable truth.
 - The human-source ledger and signed reviews supply `H` evidence; structured readable entries and
   signed reviews supply `R` evidence. Neither overrides kernel evidence.
 - Public summaries MUST be generated from the accepted deterministic evidence bundle or checked by
@@ -782,11 +774,11 @@ policy invalidates the packet and its dependent states automatically.
 
 ### 10.1 Dual-Cursor State
 
-The normative state machine is structured data. Markdown may render these compatibility symbols:
+The v2 blueprint defines the state machine. Markdown may render these compatibility symbols:
 
 - `[ ]`: unclaimed, unimplemented, failed, or otherwise not done.
 - `[_]`: worker implementation and self-test exist, but master integration/validation is pending.
-- `[x]`: master accepted in the authoritative checkout after dependency, validation, evidence, and
+- `[x]`: master accepted in the integration checkout after dependency, validation, evidence, and
   reconciliation gates passed.
 
 Workers may write only `[_]`. Only the master/integration lane may write `[x]`. Both `[ ]` and `[_]`
@@ -796,7 +788,7 @@ with an unfinished transitive prerequisite is invalid unless its typed task kind
 
 ### 10.2 DAG and Layer Order
 
-- Every checklist item has a unique id, dependency ids, owned path scopes, deliverables, evidence,
+- Every blueprint task item has a unique id, dependency ids, owned path scopes, deliverables, evidence,
   and a completion gate.
 - Duplicate ids or cycles are hard failures.
 - Work proceeds from statement/source audit to tree, leaf machine work, readable reconstruction,
@@ -848,7 +840,7 @@ The master must independently:
 
 ### 10.5 Structured Validation Specification
 
-Normative validation commands are never shell strings. Each recipe is:
+Release-supporting validation commands are never shell strings. Each recipe is:
 
 ```yaml
 recipe_id: <stable id>
@@ -904,7 +896,7 @@ High-assurance theorem release requires:
 Disagreement blocks release. Re-running the same validator in the same workspace is not independent.
 
 The repository maintains positive and negative dossiers, mutation tests, differential fuzzing, and
-metamorphic tests for every normative P0 gate. At minimum it tests statement weakening, illegal task
+metamorphic tests for every blueprint-incorporated P0 gate. At minimum it tests statement weakening, illegal task
 state, denominator removal, alias multiplication, invalid composition, wrapper/body lies, hidden
 axioms/placeholders/unsafe code, dirty and transitive dependencies, malformed recipes, stale or
 tampered receipts, cache poisoning, missing readable/source records, and false public summaries.
@@ -939,12 +931,12 @@ source paths, root result, unique metrics, readable/source hashes, performance, 
 availability. Unexplained semantic or trust drift fails the upgrade; accepted changes publish a
 migration decision and rollback artifact.
 
-## 11. Generic Instantiation Checklist
+## 11. Generic Instantiation Gate Template
 
-When applying this standard, create structured tasks below with unique IDs, typed dependencies,
-deliverables, covered obligation IDs, owned sources, validation specs, and stable gate IDs. The table
-is a readable projection, not state authority. Every new theorem starts in `planned` mode with no
-accepted task or inherited evidence.
+When the v2 blueprint incorporates these gates, its structured tasks may use the template below for
+unique IDs, typed dependencies, deliverables, covered obligation IDs, owned sources, validation
+specs, and stable gate IDs. The table is descriptive vocabulary, not a checklist or source of
+requirements/state. Every new theorem starts in `planned` mode with no accepted inherited evidence.
 
 | Template id | Required action | Depends on | Required acceptance evidence |
 |---|---|---|---|
@@ -1099,65 +1091,67 @@ The tree is a mandatory minimum architecture. Source/code audit may add nodes. I
 `W02`-`W06` into prose phrases or one-step leaves. Each `expand` package must be recursively split
 until the rev-5.6 leaf stop rule is met.
 
-### 12.3 Authoritative `THM-M-0387` Execution Checklist
+### 12.3 Historical `THM-M-0387` Execution Record
 
-Compatibility note: this checklist began as the first rev-5.6 execution instance and now contains
-historical accepted/open state. It is not the reusable template and its `[x]` marks do not prove
-conformance with the generalized gates added in sections 0-11. `Depends`, deliverables, and evidence
-remain part of each legacy item. A future schema migration MUST preserve these marks as historical
-evidence, recompute dependency legality, and use `needs_review` rather than inventing new acceptance.
+Compatibility note: this record began as the first rev-5.6 execution instance. Its former checkbox
+states are retained below only as the words `historically checked` and `historically open`; they are
+not a live checklist, writable cursor, or reusable template, and they do not prove conformance with
+the generalized gates added in sections 0-11. `Docs/Stage1_Blueprint_v2.md` is the sole requirements,
+ordering, and task-state authority. `Depends`, deliverables, and evidence remain part of each legacy record. A future schema
+migration MUST preserve these historical observations, recompute dependency legality, and use
+`needs_review` rather than inventing new acceptance.
 
 #### A. Governance and Statement Freeze
 
-- [x] `S56-M0387-A01` Freeze the exact natural-number root statement and its quantifiers.
+- Historically checked: `S56-M0387-A01` Freeze the exact natural-number root statement and its quantifiers.
   Depends: none. Deliverable: legacy intake record. Evidence: comparison with the selected Lean
   declaration under the original rev-5.6 gate. Generalized gate still requires an elaborated
   expression/environment fingerprint and statement mutation fixtures.
-- [x] `S56-M0387-A02` Freeze the natural/integer/rational, primitive, and exponent-specific
+- Historically checked: `S56-M0387-A02` Freeze the natural/integer/rational, primitive, and exponent-specific
   equivalence directions.
   Depends: `S56-M0387-A01`. Deliverable: equivalence map. Evidence: primary source or checked declarations in
   both required directions. Gate: no prose-only equivalence.
-- [x] `S56-M0387-A03` Freeze the accepted axiom/foundation policy and disallowed placeholder policy.
+- Historically checked: `S56-M0387-A03` Freeze the accepted axiom/foundation policy and disallowed placeholder policy.
   Depends: `S56-M0387-A01`. Deliverable: axiom policy. Evidence: explicit accepted baseline and commands for
   reporting deviations. Gate: `sorryAx` and unreviewed custom axioms are disallowed.
-- [x] `S56-M0387-A04` Freeze stable public roles and the proof-unit node schema without creating a
+- Historically checked: `S56-M0387-A04` Freeze stable public roles and the proof-unit node schema without creating a
   second progress authority.
   Depends: `S56-M0387-A01`. Deliverable: artifact map. Evidence: path/role table. Gate: runtime paths excluded.
 
 #### B. Independent Human-Proof Debt Audit
 
-- [x] `S56-M0387-H01` Audit the exact human proof status of the root FLT statement, including accepted
+- Historically checked: `S56-M0387-H01` Audit the exact human proof status of the root FLT statement, including accepted
   Wiles/Taylor-Wiles sources, corrections, and assumption match.
   Depends: `S56-M0387-A01`, `S56-M0387-A03`. Deliverable: root `H` classification. Evidence: primary sources and crosswalk.
-- [ ] `S56-M0387-H02` Audit human sources for exponent reduction, `n = 3`, and `n = 4`.
+- Historically open: `S56-M0387-H02` Audit human sources for exponent reduction, `n = 3`, and `n = 4`.
   Depends: `S56-M0387-A02`. Deliverable: branch-level `H` records. Evidence: exact sources and statement match.
-- [ ] `S56-M0387-H03` Audit the Kummer regular-prime human proof and match Case I/II terminology to
+- Historically open: `S56-M0387-H03` Audit the Kummer regular-prime human proof and match Case I/II terminology to
   the formal source tree.
   Depends: `S56-M0387-A02`. Deliverable: regular-prime `H` record. Evidence: primary proof/source crosswalk.
-- [ ] `S56-M0387-H04` Assign `H0`-`H5` independently to every final proof-tree node.
+- Historically open: `S56-M0387-H04` Assign `H0`-`H5` independently to every final proof-tree node.
   Depends: `S56-M0387-H01`, `S56-M0387-H02`, `S56-M0387-H03`, `S56-M0387-T03`. Deliverable: complete human-debt ledger. Gate: `100%` of
   required nodes classified; no machine status used as a substitute for human-source evidence.
 
 #### C. Machine Artifact Discovery and Re-Audit
 
-- [x] `S56-M0387-M01` Re-audit repo-local FLT modules, wrappers, samples, manifests, and validation
+- Historically checked: `S56-M0387-M01` Re-audit repo-local FLT modules, wrappers, samples, manifests, and validation
   entrypoints from source rather than metadata claims.
   Depends: `S56-M0387-A01`, `S56-M0387-A03`. Deliverable: local candidate ledger. Evidence: exact files/declarations.
-- [x] `S56-M0387-M02` Re-audit pinned mathlib statement/reduction, `n = 3`, `n = 4`, transport, and
+- Historically checked: `S56-M0387-M02` Re-audit pinned mathlib statement/reduction, `n = 3`, `n = 4`, transport, and
   monotonicity declarations at the actual manifest revision.
   Depends: `S56-M0387-M01`. Deliverable: mathlib candidate ledger. Evidence: module, declaration, revision,
   normalized type, proof-body boundary, and axiom report.
-- [x] `S56-M0387-M03` Re-audit `flt-regular` pin, transitive modules, terminal theorem, proof-body
+- Historically checked: `S56-M0387-M03` Re-audit `flt-regular` pin, transitive modules, terminal theorem, proof-body
   location, placeholder state, compatibility, and repo-local wrapper.
   Depends: `S56-M0387-M01`. Deliverable: external-pinned ledger. Evidence: immutable revision and local closure.
-- [x] `S56-M0387-M04` Re-audit every known full-FLT Lean 4 project, including the previously reported
+- Historically checked: `S56-M0387-M04` Re-audit every known full-FLT Lean 4 project, including the previously reported
   `ImperialCollegeLondon/FLT` candidate, at fresh immutable revisions.
   Depends: `S56-M0387-A01`, `S56-M0387-A03`. Deliverable: external full-FLT ledger. Evidence: exact terminal type,
   `#print axioms`, placeholder scan, toolchain pin, and reproducibility result.
-- [x] `S56-M0387-M05` Search for additional Lean 4 FLT formalizations, aliases, forks, extracted
+- Historically checked: `S56-M0387-M05` Search for additional Lean 4 FLT formalizations, aliases, forks, extracted
   proof bodies, and compatible modularity/level-lowering components.
   Depends: `S56-M0387-A01`. Deliverable: dated search ledger, including negative queries/access limits.
-- [x] `S56-M0387-M06` Classify all discovered candidates as `M0-L/W/P`, `M1`, `M2`, `M3`, `M4`, or
+- Historically checked: `S56-M0387-M06` Classify all discovered candidates as `M0-L/W/P`, `M1`, `M2`, `M3`, `M4`, or
   `M5`; generate an integration task for each `M1` and reopening condition for each `M5`.
   Depends: `S56-M0387-M01`, `S56-M0387-M02`, `S56-M0387-M03`, `S56-M0387-M04`,
   `S56-M0387-M05`, `S56-M0387-T03`. Deliverable: complete machine-debt ledger. Gate: no anchor-only
@@ -1165,104 +1159,104 @@ evidence, recompute dependency legality, and use `needs_review` rather than inve
 
 #### D. Full Tree Expansion
 
-- [x] `S56-M0387-T01` Materialize `M0387-S` and `M0387-R` with exact formal targets, edges, and
+- Historically checked: `S56-M0387-T01` Materialize `M0387-S` and `M0387-R` with exact formal targets, edges, and
   boundary cases.
   Depends: `S56-M0387-A01`, `S56-M0387-A02`, `S56-M0387-A03`, `S56-M0387-M02`.
   Deliverable: statement/reduction subtree. Gate: exact root assembly edge.
-- [x] `S56-M0387-T02` Materialize the `B3`, `B4`, and `RP` trees from actual formal source structure,
+- Historically checked: `S56-M0387-T02` Materialize the `B3`, `B4`, and `RP` trees from actual formal source structure,
   preserving every high-risk imported theorem as a bridge node.
   Depends: `S56-M0387-M02`, `S56-M0387-M03`. Deliverable: special-branch subtrees. Gate: no package exceeds leaf rules.
-- [x] `S56-M0387-T03` Materialize and recursively expand `M0387-WTW` from primary human proof
+- Historically checked: `S56-M0387-T03` Materialize and recursively expand `M0387-WTW` from primary human proof
   architecture and all located formal components.
   Depends: `S56-M0387-H01`, `S56-M0387-M04`, `S56-M0387-M05`. Deliverable: full modern-proof subtree. Gate: W02-W06 and all
   source-identified high-risk packages expanded; no "standard" black boxes.
-- [x] `S56-M0387-T04` Add explicit external/automation/computation/axiom boundary nodes across the
+- Historically checked: `S56-M0387-T04` Add explicit external/automation/computation/axiom boundary nodes across the
   complete tree.
   Depends: `S56-M0387-T01`, `S56-M0387-T02`, `S56-M0387-T03`. Deliverable:
   trust-boundary overlay. Gate: every nonlocal or automated edge named.
-- [x] `S56-M0387-T05` Produce independent `<=100` logical-step ledgers for all final leaves and split
+- Historically checked: `S56-M0387-T05` Produce independent `<=100` logical-step ledgers for all final leaves and split
   every oversized node.
   Depends: `S56-M0387-T04`. Deliverable: leaf ledgers. Gate: no hidden major theorem counted as one step.
-- [x] `S56-M0387-T06` Validate tree identity, edge completeness, exhaustiveness, parent composition,
+- Historically checked: `S56-M0387-T06` Validate tree identity, edge completeness, exhaustiveness, parent composition,
   unique ids, and DAG acyclicity.
   Depends: `S56-M0387-T05`. Deliverable: tree audit. Gate: classification denominator frozen at `100%` discovered nodes.
 
 #### E. Machine-Coverage Maximization Work Queue
 
-- [x] `S56-M0387-C01` Re-establish exact repo-local checked closure for statement/reduction APIs,
+- Historically checked: `S56-M0387-C01` Re-establish exact repo-local checked closure for statement/reduction APIs,
   without claiming root closure.
   Depends: `S56-M0387-M02`, `S56-M0387-T01`, `S56-M0387-T06`. Evidence: node-scoped kernel checks and axiom reports.
-- [x] `S56-M0387-C02` Re-establish `n = 3` exact branch closure and classify proof-body boundary.
+- Historically checked: `S56-M0387-C02` Re-establish `n = 3` exact branch closure and classify proof-body boundary.
   Depends: `S56-M0387-M02`, `S56-M0387-T02`, `S56-M0387-T06`. Evidence: terminal type, wrapper check, axiom report.
-- [x] `S56-M0387-C03` Re-establish `n = 4`, integer transport, and divisible-exponent derivative
+- Historically checked: `S56-M0387-C03` Re-establish `n = 4`, integer transport, and divisible-exponent derivative
   closure; separately classify every node.
   Depends: `S56-M0387-M02`, `S56-M0387-T02`, `S56-M0387-T06`. Evidence: node-scoped checks; no wrapper/body conflation.
-- [x] `S56-M0387-C04` Re-establish regular-prime closure through the pinned dependency and local
+- Historically checked: `S56-M0387-C04` Re-establish regular-prime closure through the pinned dependency and local
   wrapper, preserving `upstream proof body / repo-local checked dependency / not vendored`.
   Depends: `S56-M0387-M03`, `S56-M0387-T02`, `S56-M0387-T06`. Evidence: dependency pin, terminal theorem, wrapper and axiom checks.
-- [x] `S56-M0387-C05` Integrate every eligible placeholder-free `M1` component found for the general
+- Historically checked: `S56-M0387-C05` Integrate every eligible placeholder-free `M1` component found for the general
   odd-prime branch; record concrete blockers for incompatible candidates.
   Depends: `S56-M0387-M04`, `S56-M0387-M05`, `S56-M0387-M06`, `S56-M0387-T03`,
   `S56-M0387-T06`. Evidence: pin/import/check or explicit blocker.
-- [ ] `S56-M0387-C06` Implement or import the remaining W01-W06 leaves in dependency order, splitting
+- Historically open: `S56-M0387-C06` Implement or import the remaining W01-W06 leaves in dependency order, splitting
   any item that cannot converge within its budget.
   Depends: `S56-M0387-C05`, `S56-M0387-T05`. Evidence: `M0-*` packet per leaf. Gate: no proof placeholder.
-- [ ] `S56-M0387-C07` Check W07-W09 composition: contradiction, all odd-prime closure, and root
+- Historically open: `S56-M0387-C07` Check W07-W09 composition: contradiction, all odd-prime closure, and root
   recomposition.
   Depends: `S56-M0387-C03`, `S56-M0387-C06`. Evidence: exact checked composition declarations and root axiom report.
-- [x] `S56-M0387-C08` Compute truthful machine coverage metrics and root status.
+- Historically checked: `S56-M0387-C08` Compute truthful machine coverage metrics and root status.
   Depends: `S56-M0387-C01`, `S56-M0387-C02`, `S56-M0387-C03`, `S56-M0387-C04`,
   `S56-M0387-C05`, `S56-M0387-C06`, `S56-M0387-C07`. Deliverable: numerator/denominator
   ledger. Gate: root reported independently.
 
-`C01`-`C08` are compatibility instance tasks. Their checkmarks report the legacy rev-5.6 cursor;
-they do not satisfy the new immutable-snapshot, typed-graph, semantic-ledger, hermetic-release, or
-independent-verifier gates unless corresponding new receipts are produced.
+`C01`-`C08` are superseded compatibility records. Their `Historically checked` labels report only
+the former rev-5.6 cursor; they do not satisfy immutable-snapshot, typed-graph, semantic-ledger,
+hermetic-release, or independent-verifier gates unless corresponding new receipts are produced.
 
 #### F. Readability-Debt Clearance
 
-- [x] `S56-M0387-R01` Produce the short whole-tree proof outline with exact machine boundaries.
+- Historically checked: `S56-M0387-R01` Produce the short whole-tree proof outline with exact machine boundaries.
   Depends: `S56-M0387-T06`, `S56-M0387-M06`. Gate: reader can see root, branches, debts, and formal anchors in one route.
-- [x] `S56-M0387-R02` Reconstruct every `M0-*` statement/reduction, `n = 3`, and `n = 4` node from
+- Historically checked: `S56-M0387-R02` Reconstruct every `M0-*` statement/reduction, `n = 3`, and `n = 4` node from
   machine evidence using the ten-part readable entry standard.
   Depends: `S56-M0387-C01`, `S56-M0387-C02`, `S56-M0387-C03`, `S56-M0387-T05`.
   Gate: all such nodes reach `R0` or retain explicit lower status.
-- [x] `S56-M0387-R03` Reconstruct every `M0-*` regular-prime node from pinned machine evidence,
+- Historically checked: `S56-M0387-R03` Reconstruct every `M0-*` regular-prime node from pinned machine evidence,
   including Case I/II branch logic and upstream/local boundary.
   Depends: `S56-M0387-C04`, `S56-M0387-T05`. Gate: no upstream proof described as a repo-local body.
-- [x] `S56-M0387-R04` Reconstruct every machine-closed Wiles/Taylor-Wiles node and describe every
+- Historically checked: `S56-M0387-R04` Reconstruct every machine-closed Wiles/Taylor-Wiles node and describe every
   machine-open node only as a proof plan or blocker.
   Depends: `S56-M0387-C05`, `S56-M0387-C06`, `S56-M0387-C07`, `S56-M0387-C08`,
   `S56-M0387-T05`. Gate: grammatical and status boundary prevents completion overclaim.
-- [x] `S56-M0387-R05` Assign `R0`-`R4` independently to every required public node and clear all
+- Historically checked: `S56-M0387-R05` Assign `R0`-`R4` independently to every required public node and clear all
   readability debt required for release.
   Depends: `S56-M0387-R01`, `S56-M0387-R02`, `S56-M0387-R03`, `S56-M0387-R04`.
   Gate: `100%` readable classification; every `M0-*` release node is `R0`.
-- [x] `S56-M0387-R06` Verify canonical names, links, dates, equations, hypotheses, and status vectors
+- Historically checked: `S56-M0387-R06` Verify canonical names, links, dates, equations, hypotheses, and status vectors
   across short and long reader routes.
   Depends: `S56-M0387-R05`. Gate: no competing node vocabulary or stale runtime reference.
 
 #### G. Validation, Reconciliation, and Final Decision
 
-- [x] `S56-M0387-V01` Run node-scoped checks for every proposed `M0-*` classification.
+- Historically checked: `S56-M0387-V01` Run node-scoped checks for every proposed `M0-*` classification.
   Depends: `S56-M0387-C08`. Evidence: dated command/result per node or coherent covered batch.
-- [x] `S56-M0387-V02` Run full local aggregate validation in the pinned environment.
+- Historically checked: `S56-M0387-V02` Run full local aggregate validation in the pinned environment.
   Depends: `S56-M0387-V01`. Evidence: toolchain/library/external revisions, command, exit result, covered modules.
-- [x] `S56-M0387-V03` Run placeholder, axiom, declaration-type, dependency-pin, and proof-body-location
+- Historically checked: `S56-M0387-V03` Run placeholder, axiom, declaration-type, dependency-pin, and proof-body-location
   audits after the aggregate build.
   Depends: `S56-M0387-V02`. Gate: no disallowed placeholder/axiom and no statement mismatch.
-- [x] `S56-M0387-V04` Reconcile blueprint, proof-unit manifest, metadata, README, machine audit,
+- Historically checked: `S56-M0387-V04` Reconcile blueprint, proof-unit manifest, metadata, README, machine audit,
   process audit, readable surfaces, and validation record in one master-owned integration step.
-  Depends: `S56-M0387-H04`, `S56-M0387-M06`, `S56-M0387-R06`, `S56-M0387-V03`. Gate: all summaries derive from authoritative evidence.
-- [x] `S56-M0387-V05` Report all four legacy node-row coverage metrics, every remaining `H/M/R` debt, and exact root
+  Depends: `S56-M0387-H04`, `S56-M0387-M06`, `S56-M0387-R06`, `S56-M0387-V03`. Gate: all summaries derive from accepted evidence.
+- Historically checked: `S56-M0387-V05` Report all four legacy node-row coverage metrics, every remaining `H/M/R` debt, and exact root
   vector with absolute date.
   Depends: `S56-M0387-V04`. Gate: no combined percentage or vague global "verified" label. These
   legacy metrics do not replace the generalized unique-obligation, distinct-body, source-boundary,
   critical-path, and cut-set metrics.
-- [x] `S56-M0387-V06` Decide audit completion.
+- Historically checked: `S56-M0387-V06` Decide audit completion.
   Depends: `S56-M0387-V05`. Gate: tree/source/debt classification coverage is `100%`; blockers may remain but
   must be concrete. This does not imply theorem completion.
-- [ ] `S56-M0387-V07` Decide theorem completion.
+- Historically open: `S56-M0387-V07` Decide theorem completion.
   Depends: `S56-M0387-V06`. Gate: exact root is `M0-*`, required readable nodes are `R0`, human status is
   independently recorded, all root dependencies are master-accepted, and no disallowed axiom,
   placeholder, open integration debt, `[ ]`, or `[_]` remains in the root completion DAG.
@@ -1333,6 +1327,8 @@ passed. Complete FLT may be marked theorem-complete only when its exact root and
 above close. No partial coverage, duplicate wrappers, polished prose, historical mathematical
 certainty, or successful framework lint substitutes for that checked and attested root.
 
-## 13. Stage1 v2 Execution State
+## 15. Stage1 v2 Execution-State Pointer
 
-The former generated phase checklist was migrated without state loss to `Docs/Stage1_Blueprint_v2.md`. That v2 checklist is the only writable task-state authority; the execution DAG and daily todo are derived projections.
+The former generated phase checklist was migrated without state loss to
+`Docs/Stage1_Blueprint_v2.md`. That file is the sole requirements, ordering, and task-state
+authority; the execution DAG and daily todo are derived projections. This section is only a pointer.

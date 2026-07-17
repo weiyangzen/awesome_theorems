@@ -1,9 +1,9 @@
 # Stage1 v2 Theorem Dependency and Reuse Blueprint
 
-> Document type: global orchestration overlay
+> Document type: sole current Stage1 blueprint
 > Version: `stage1-orchestration/2.0`
-> Assurance authority: `Docs/Stage1_Blueprint_rev-5.6.md`
-> Target authority: `Docs/Stage1_Targets_rev-5.6.json`
+> Supporting assurance standard: `Docs/Stage1_Assurance_Standard_rev-5.6.md`
+> Target membership input: `Docs/Stage1_Targets_rev-5.6.json`
 > Requirements and phase-state SSOT: `Docs/Stage1_Blueprint_v2.md`
 > Derived phase-DAG projection: `Docs/Stage1_Execution_DAG_rev-5.6.json`
 > Theorem-DAG projection: `Docs/Stage1_Theorem_DAG_v2.json`
@@ -13,8 +13,8 @@
 
 ## 0. Purpose and Non-Goals
 
-This blueprint adds a repository-wide theorem dependency and reuse order over the existing Stage1
-rev-5.6 work. It has three purposes:
+This is the repository-wide Stage1 requirements, theorem dependency, reuse-order, and task-state
+blueprint. It has three purposes:
 
 1. represent every one of the `1546` covered theorems exactly once in a typed theorem DAG;
 2. schedule proved parent results and reusable lemma bodies before consumers while keeping unrelated
@@ -22,8 +22,8 @@ rev-5.6 work. It has three purposes:
 3. require every new pure proof run to inspect its complete direct and transitive parent context
    before implementing another proof of material that is already available.
 
-This is the orchestration and task-state blueprint, not a replacement assurance standard. It does
-not weaken, duplicate, or relabel rev-5.6 evidence. In particular, v2:
+The supporting assurance standard supplies gate vocabulary but is not a second requirements or
+progress authority. This blueprint does not weaken or relabel historical evidence. In particular, v2:
 
 - carries the generated `1546 x 7` checklist as its sole writable phase-state cursor;
 - does not create a second set of phase item IDs or permit a JSON/todo projection to write state;
@@ -37,42 +37,42 @@ todo count, are derived from the authoritative checklist in this file and never 
 
 ## 1. Authority and Compatibility
 
-Authority remains deliberately separated:
+There is one blueprint authority. Supporting inputs and evidence have narrower roles:
 
 | Concern | Authority | v2 rule |
 |---|---|---|
-| theorem assurance, H/M/R debt, exact statement, trust, receipts, `AUDIT-Z`, `THEOREM-Z` | `Docs/Stage1_Blueprint_rev-5.6.md` | unchanged |
-| membership and original execution rank | `Docs/Stage1_Targets_rev-5.6.json` | all 1546 IDs and the digest are preserved |
-| seven phase items and `[ ]` / `[_]` / `[x]` state | this file's generated checklist | the only writable task-state cursor |
+| Stage1 requirements, ordering rules, seven phase items, and `[ ]` / `[_]` / `[x]` state | this file | the only current Stage1 blueprint and writable task-state cursor |
+| assurance gate vocabulary, H/M/R debt, trust, receipts, `AUDIT-Z`, `THEOREM-Z` | `Docs/Stage1_Assurance_Standard_rev-5.6.md` | supporting standard; cannot set requirements or state |
+| membership and original execution rank | `Docs/Stage1_Targets_rev-5.6.json` | membership input only; all 1546 IDs and the digest are preserved |
 | machine-readable phase DAG | `Docs/Stage1_Execution_DAG_rev-5.6.json` | read-only projection generated from this file |
 | cross-theorem order and reusable-context discovery | `Docs/Stage1_Theorem_DAG_v2.json` | new v2 projection |
 | per-theorem scope and obligations | versioned theorem instance artifacts | unchanged |
 | validation claims | content-addressed receipts and accepted evidence packets | unchanged |
 
-`Docs/Stage1_Blueprint.md` remains a legacy generated 300-slot discovery queue. It is neither the v2
-order nor live state. `Docs/Stage1_Blueprint_Applicable_Theorems.md` remains a readable target-set
-projection. The other 55 Stage0 mathematical records remain outside this blueprint.
+The retired 300-slot Markdown queue and applicable-theorems Markdown projection were deleted so
+they cannot be mistaken for blueprints. Historical mentions are audit provenance only. The other
+55 Stage0 mathematical records remain outside this blueprint.
 
 The repository skill at `skills/execute-stage1-rev56/SKILL.md` remains the compatible theorem
-executor. It MUST continue to enforce rev-5.6 assurance and MUST use this v2 overlay only for parent
-inspection, context reuse, and scheduling. The execution cron treats this file as its single global
-requirements and phase-state authority. The structured rev-5.6 DAG and daily todo are independently
-reproducible, read-only projections.
+executor. It MUST read requirements and current state only from this blueprint and apply supporting
+assurance gates without promoting the standard to authority. The execution DAG and daily todo are
+independently reproducible, read-only projections.
 
 ## 2. Migration Without Rework
 
 The v2 migration is deterministic and state-preserving.
 
 1. Import all and only the theorem IDs from `Docs/Stage1_Targets_rev-5.6.json`.
-2. Import every theorem's seven phase states once from the legacy execution DAG by stable phase item
-   ID, then persist and update them only in this file's authoritative checklist.
+2. Preserve every theorem's seven migrated phase states by stable phase item ID, then persist and
+   update them only in this file's authoritative checklist. The execution DAG is now derived from
+   these rows and is never a state input.
 3. Preserve each original execution rank as `original_execution_rank`.
 4. Inventory existing dossiers, Lean declarations, obligation IDs, terminal proof-body identities,
    receipts, source crosswalks, blockers, and public artifacts without changing acceptance.
 5. Derive a theorem completion bucket from the seven authoritative marks.
 6. Add typed dependency and reuse records with evidence and explicit boundaries.
 7. Compute the v2 topological order. Reordering changes only scheduling metadata.
-8. Record the imported state digest in `legacy_state_snapshot` so regeneration cannot silently
+8. Record the authoritative state digest in `blueprint_state_snapshot` so regeneration cannot silently
    reset, upgrade, or lose work.
 
 Existing work is handled as follows:
@@ -97,8 +97,8 @@ The theorem-level buckets use this closed vocabulary:
 | `partial` | at least one phase is started, but neither complete condition above holds |
 | `unstarted` | all seven authoritative phase items are `[ ]` |
 
-These are scheduling summaries only. Even `master_complete` does not replace the rev-5.6 terminal
-receipt and `THEOREM-Z` decision from which the marks must have been accepted.
+These are scheduling summaries only. Even `master_complete` does not replace the supporting
+terminal receipt and `THEOREM-Z` evidence from which the marks must have been accepted.
 
 ## 3. Theorem DAG Contract
 
@@ -109,9 +109,9 @@ schema_version
 generated_by
 requirements_source
 target_manifest
-legacy_execution_dag
+execution_dag_projection
 target_id_set_sha256
-legacy_state_snapshot
+blueprint_state_snapshot
 edge_policy
 state_protocol
 completion_bucket_order
@@ -539,7 +539,7 @@ acceptance follows typed dependency semantics, never merely the longest textual 
 
 ## 9. Validation Contract
 
-Run the v2 graph validator together with the existing assurance and state validators:
+Run the v2 graph validator together with the supporting assurance and state validators:
 
 ```bash
 python3 Docs/tools/check_stage1_standard.py
@@ -581,7 +581,7 @@ validation remains mandatory.
 Breaking field or edge semantics increment the schema major version. Existing JSON, receipts, and
 status history remain available as immutable migration inputs. A generator must never rewrite a
 historical receipt, delete a failed reuse decision to improve metrics, or downgrade an authoritative
-state without rev-5.6 invalidation evidence.
+state without explicit invalidation evidence admitted under this blueprint.
 
 Daily todo views are generated from this blueprint and the dependency projection:
 
@@ -602,7 +602,7 @@ settings, isolate worker workspaces, and keep the master as the only integration
 Cron cleanup is allowed only when all of the following are true:
 
 1. this blueprint's authoritative checklist contains zero `[ ]` and zero `[_]` items;
-2. every one of the 1546 theorem nodes is `master_complete` with valid rev-5.6 terminal evidence;
+2. every one of the 1546 theorem nodes is `master_complete` with valid terminal evidence;
 3. the latest todo reports unfinished zero;
 4. both graph validators and all required release gates pass;
 5. no live worker, finished handoff, pending integration, or checkpoint remains; and
@@ -615,7 +615,7 @@ An empty ready frontier caused by blockers is not completion and must not trigge
 The full 1546-node graph is machine-readable JSON. Its semantics can be summarized as:
 
 ```text
-rev-5.6 assurance and receipts
+supporting assurance gates and receipts
              |
              v
   accepted or content-bound provider body --hard dependency--> consumer theorem

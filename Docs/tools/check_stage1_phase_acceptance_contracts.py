@@ -12,7 +12,7 @@ from typing import Any, NoReturn
 
 ROOT = Path(__file__).resolve().parents[2]
 CONTRACT = ROOT / "Docs" / "Stage1_Phase_Acceptance_Contracts.json"
-CONTRACT_SHA256 = "1bd6739c15fb424c53095401553ca3224f1398c9ba5a84e8a9a6382daed8b849"
+CONTRACT_SHA256 = "511d7d64fa075d654d716af2de194bc65d7b937dfba93016017943c916f89d96"
 
 PHASES = (
     "intake",
@@ -119,7 +119,8 @@ PHASE_KEYS = {
     "theorem_boundary",
     "required_artifact_roles",
     "phase_receipt_required_fields",
-    "validator_candidates",
+    "validator_authorities",
+    "superseded_validator_sources",
     "semantic_gates",
     "source_reference_ids",
 }
@@ -353,10 +354,14 @@ def validate_validator_selection(value: Any) -> None:
         {
             "owner",
             "selection_source",
+            "required_authority_generation",
+            "required_requirements_authority",
             "worker_or_reviewer_may_select_argv",
-            "require_exactly_one_candidate",
-            "candidate_must_exist_at_worker_base",
-            "candidate_head_blob_must_equal_worker_base_blob",
+            "require_exactly_one_current_authority",
+            "current_authority_must_exist_at_worker_base",
+            "current_authority_head_blob_must_equal_worker_base_blob",
+            "superseded_sources_are_history_only",
+            "superseded_sources_can_accept",
             "argv_templates",
             "cwd",
             "shell_interpolation",
@@ -370,13 +375,32 @@ def validate_validator_selection(value: Any) -> None:
         "validator_selection",
     )
     require(row["owner"] == "scheduler_master_lane", "validator owner is not the master lane")
-    require(row["selection_source"] == "this_contract_at_authoritative_head", "validator source is mutable")
-    require(row["worker_or_reviewer_may_select_argv"] is False, "worker-selected argv is forbidden")
-    require(row["require_exactly_one_candidate"] is True, "validator selection is ambiguous")
-    require(row["candidate_must_exist_at_worker_base"] is True, "worker-created validator could be accepted")
     require(
-        row["candidate_head_blob_must_equal_worker_base_blob"] is True,
+        row["selection_source"] == "validator_authorities_at_authoritative_head",
+        "validator source is mutable",
+    )
+    require(
+        row["required_authority_generation"] == "stage1-v2",
+        "validator authority generation is not stage1-v2",
+    )
+    require(
+        row["required_requirements_authority"] == "Docs/Stage1_Blueprint_v2.md",
+        "validator requirements authority is not the v2 SSOT",
+    )
+    require(row["worker_or_reviewer_may_select_argv"] is False, "worker-selected argv is forbidden")
+    require(row["require_exactly_one_current_authority"] is True, "validator selection is ambiguous")
+    require(row["current_authority_must_exist_at_worker_base"] is True, "worker-created validator could be accepted")
+    require(
+        row["current_authority_head_blob_must_equal_worker_base_blob"] is True,
         "worker-modified validator could be accepted",
+    )
+    require(
+        row["superseded_sources_are_history_only"] is True,
+        "superseded validators are not history-only",
+    )
+    require(
+        row["superseded_sources_can_accept"] is False,
+        "superseded validator could accept a phase",
     )
     templates = row["argv_templates"]
     require(
@@ -479,23 +503,30 @@ def validate_artifact_roles(value: Any, phase: str) -> None:
     require("phase_receipt" in roles, f"{phase} lacks a phase receipt role")
 
 
-def validate_validator_candidates(value: Any, phase: str, selection: dict[str, Any]) -> None:
-    require(isinstance(value, list) and value, f"{phase} validator candidates must be nonempty")
+def validate_validator_authorities(value: Any, phase: str, selection: dict[str, Any]) -> None:
+    require(isinstance(value, list), f"{phase} validator authorities must be a list")
     seen: set[str] = set()
     for index, item in enumerate(value):
         row = exact_keys(
             item,
-            {"path_pattern", "language", "argv_template", "candidate_only"},
-            f"{phase}.validator_candidates[{index}]",
+            {
+                "path_pattern",
+                "language",
+                "argv_template",
+                "authority_generation",
+                "requirements_authority",
+                "positive_acceptance_capable",
+            },
+            f"{phase}.validator_authorities[{index}]",
         )
         path = row["path_pattern"]
         require(isinstance(path, str) and path not in seen, f"{phase} validator path is invalid or duplicate")
         seen.add(path)
         expanded = PurePosixPath(path.format(theorem_id="THM-M-0001"))
         require(
-            tuple(expanded.parts[:2]) == ("Stage1_Instances", "THM-M-0001")
+            tuple(expanded.parts[:2]) == ("scripts", "stage1_phase_validators")
             and ".." not in expanded.parts,
-            f"{phase} validator escapes theorem ownership",
+            f"{phase} current validator is outside the scheduler namespace",
         )
         language = row["language"]
         require(language in {"python", "bash"}, f"{phase} validator language is invalid")
@@ -503,7 +534,72 @@ def validate_validator_candidates(value: Any, phase: str, selection: dict[str, A
             row["argv_template"] == selection["argv_templates"][language],
             f"{phase} validator argv is not scheduler-derived",
         )
-        require(row["candidate_only"] is True, f"{phase} validator filename implies authority")
+        require(
+            row["authority_generation"] == selection["required_authority_generation"],
+            f"{phase} validator authority generation is not current",
+        )
+        require(
+            row["requirements_authority"] == selection["required_requirements_authority"],
+            f"{phase} validator does not bind the v2 SSOT",
+        )
+        require(
+            row["positive_acceptance_capable"] is True,
+            f"{phase} current validator is not positive-capable",
+        )
+
+
+def validate_superseded_validator_sources(
+    value: Any, phase: str, selection: dict[str, Any], current_paths: set[str]
+) -> None:
+    require(isinstance(value, list) and value, f"{phase} superseded validator sources must be nonempty")
+    seen: set[str] = set()
+    for index, item in enumerate(value):
+        row = exact_keys(
+            item,
+            {
+                "path_pattern",
+                "language",
+                "argv_template",
+                "authority_generation",
+                "status",
+                "allowed_use",
+                "positive_acceptance_capable",
+                "superseded_by",
+            },
+            f"{phase}.superseded_validator_sources[{index}]",
+        )
+        path = row["path_pattern"]
+        require(
+            isinstance(path, str) and path not in seen and path not in current_paths,
+            f"{phase} superseded validator path is invalid, duplicate, or current",
+        )
+        seen.add(path)
+        expanded = PurePosixPath(path.format(theorem_id="THM-M-0001"))
+        require(
+            tuple(expanded.parts[:2]) == ("Stage1_Instances", "THM-M-0001")
+            and ".." not in expanded.parts,
+            f"{phase} superseded validator escapes theorem history",
+        )
+        language = row["language"]
+        require(language in {"python", "bash"}, f"{phase} superseded validator language is invalid")
+        require(
+            row["argv_template"] == selection["argv_templates"][language],
+            f"{phase} superseded validator argv is malformed",
+        )
+        require(row["authority_generation"] == "pre-v2", f"{phase} superseded generation is not historical")
+        require(row["status"] == "superseded", f"{phase} historical validator is not superseded")
+        require(
+            row["allowed_use"] == "historical_negative_observation_only",
+            f"{phase} superseded validator use is too broad",
+        )
+        require(
+            row["positive_acceptance_capable"] is False,
+            f"{phase} superseded validator could accept a phase",
+        )
+        require(
+            row["superseded_by"] == selection["required_requirements_authority"],
+            f"{phase} superseded validator does not name the v2 replacement",
+        )
 
 
 def validate_semantic_gates(value: Any, phase: str, references: dict[str, Any]) -> None:
@@ -607,7 +703,15 @@ def validate_phase(
     validate_artifact_roles(row["required_artifact_roles"], expected_phase)
     phase_fields = set(string_list(row["phase_receipt_required_fields"], f"{expected_phase} receipt fields"))
     require(REQUIRED_RECEIPT_FIELDS <= phase_fields, f"{expected_phase} receipt drops common authority fields")
-    validate_validator_candidates(row["validator_candidates"], expected_phase, selection)
+    validate_validator_authorities(row["validator_authorities"], expected_phase, selection)
+    current_paths = {
+        item["path_pattern"]
+        for item in row["validator_authorities"]
+        if isinstance(item, dict) and isinstance(item.get("path_pattern"), str)
+    }
+    validate_superseded_validator_sources(
+        row["superseded_validator_sources"], expected_phase, selection, current_paths
+    )
     validate_semantic_gates(row["semantic_gates"], expected_phase, references)
     validate_reference_ids(row["source_reference_ids"], references, f"{expected_phase} source references")
 
@@ -648,7 +752,10 @@ def validate_contract(data: Any, *, root: Path = ROOT) -> dict[str, Any]:
     contract = exact_keys(data, TOP_LEVEL_KEYS, "contract")
     require(contract["schema_version"] == "stage1-phase-acceptance-contracts/1.0", "schema version changed")
     require(contract["authority_id"] == "stage1-v2-seven-phase-master-acceptance", "authority id changed")
-    require(contract["requirements_authority"] == "Docs/Stage1_Blueprint_rev-5.6.md", "requirements authority changed")
+    require(
+        contract["requirements_authority"] == "Docs/Stage1_Blueprint_v2.md",
+        "requirements authority changed",
+    )
     require(contract["task_state_authority"] == "Docs/Stage1_Blueprint_v2.md", "task-state authority changed")
     require(tuple(contract["phase_order"]) == PHASES, "phase order changed")
     references = source_reference_map(contract, root)

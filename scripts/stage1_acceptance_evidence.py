@@ -25,7 +25,7 @@ from typing import Any, Mapping, NoReturn, Sequence
 CONTRACT_PATH = "Docs/Stage1_Phase_Acceptance_Contracts.json"
 CONTRACT_SCHEMA = "stage1-phase-acceptance-contracts/1.0"
 ROLE_MAP_SCHEMA = "stage1-phase-artifact-role-map/1.0"
-REVIEW_MANIFEST_SCHEMA = "stage1-master-review-input/1.0"
+REVIEW_MANIFEST_SCHEMA = "stage1-master-review-input/1.1"
 REPLAY_RESULT_SCHEMA = "stage1-authority-replay-result/1.0"
 SEMANTIC_RESULT_SCHEMA = "stage1-replay-semantic-decision/1.0"
 VALIDATOR_SEMANTIC_SCHEMA = "stage1-validator-semantic-result/1.0"
@@ -347,6 +347,11 @@ def load_head_contract(
     contract = _json_object(data, "phase acceptance contract")
     if contract.get("schema_version") != CONTRACT_SCHEMA:
         _fail("phase acceptance contract schema is unsupported")
+    if (
+        contract.get("requirements_authority") != "Docs/Stage1_Blueprint_v2.md"
+        or contract.get("task_state_authority") != "Docs/Stage1_Blueprint_v2.md"
+    ):
+        _fail("phase acceptance contract is not bound to the v2 blueprint SSOT")
     phases = contract.get("phases")
     order = contract.get("phase_order")
     if not isinstance(phases, list) or not isinstance(order, list):
@@ -362,7 +367,17 @@ def load_head_contract(
         or artifact_policy.get("selected_files_must_not_be_symlinks") is not True
         or validator_policy.get("owner") != "scheduler_master_lane"
         or validator_policy.get("worker_or_reviewer_may_select_argv") is not False
-        or validator_policy.get("require_exactly_one_candidate") is not True
+        or validator_policy.get("selection_source")
+        != "validator_authorities_at_authoritative_head"
+        or validator_policy.get("required_authority_generation") != "stage1-v2"
+        or validator_policy.get("required_requirements_authority")
+        != "Docs/Stage1_Blueprint_v2.md"
+        or validator_policy.get("require_exactly_one_current_authority") is not True
+        or validator_policy.get("current_authority_must_exist_at_worker_base") is not True
+        or validator_policy.get("current_authority_head_blob_must_equal_worker_base_blob")
+        is not True
+        or validator_policy.get("superseded_sources_are_history_only") is not True
+        or validator_policy.get("superseded_sources_can_accept") is not False
         or validator_policy.get("shell_interpolation") is not False
         or validator_policy.get("network_policy") != "denied"
     ):
@@ -615,21 +630,65 @@ def select_validator_recipe(
     phase_row = _phase_contract(contract_record, phase)
     _require_item_identity(item_id, theorem_id, phase_row)
     _require_ancestor(root, base, head, "worker base")
+    current = phase_row.get("validator_authorities")
+    superseded = phase_row.get("superseded_validator_sources")
+    if not isinstance(current, list):
+        _fail("phase validator authorities must be a list")
+    if not isinstance(superseded, list):
+        _fail("phase superseded validator sources must be a list")
+    if not current:
+        _fail(
+            "no current stage1-v2 validator authority is registered; "
+            "legacy validator sources are superseded and cannot accept this phase"
+        )
+    policy = _require_object(
+        _require_object(contract_record.get("contract"), "contract").get("validator_selection"),
+        "validator policy",
+    )
     matches: list[tuple[dict[str, Any], str, bytes, str]] = []
-    for raw in phase_row.get("validator_candidates", []):
-        candidate = _require_object(raw, "validator candidate")
+    current_paths: set[str] = set()
+    for raw in current:
+        candidate = _require_object(raw, "current validator authority")
+        if (
+            candidate.get("authority_generation")
+            != policy.get("required_authority_generation")
+            or candidate.get("requirements_authority")
+            != policy.get("required_requirements_authority")
+            or candidate.get("positive_acceptance_capable") is not True
+        ):
+            _fail("current validator authority is not bound to the stage1-v2 SSOT")
         pattern = candidate.get("path_pattern")
         if not isinstance(pattern, str):
-            _fail("validator candidate path pattern is malformed")
-        relative = _render_theorem_path(pattern, theorem_id, "validator candidate")
+            _fail("current validator authority path pattern is malformed")
+        relative = _render_theorem_path(pattern, theorem_id, "current validator authority")
+        pure = PurePosixPath(relative)
+        if tuple(pure.parts[:2]) != ("scripts", "stage1_phase_validators"):
+            _fail("current validator authority is outside the scheduler namespace")
+        current_paths.add(relative)
         result = _run_git(root, ["show", f"{head}:{relative}"], check=False)
         if result.returncode == 0:
             mode = _head_mode(root, head, relative, "validator")
             matches.append((candidate, relative, result.stdout, mode))
         elif (root / relative).exists() or (root / relative).is_symlink():
-            _fail("validator candidate exists in the worktree but is not HEAD-owned")
+            _fail("current validator authority exists in the worktree but is not HEAD-owned")
+    for raw in superseded:
+        source = _require_object(raw, "superseded validator source")
+        if (
+            source.get("status") != "superseded"
+            or source.get("authority_generation") != "pre-v2"
+            or source.get("allowed_use") != "historical_negative_observation_only"
+            or source.get("positive_acceptance_capable") is not False
+            or source.get("superseded_by") != policy.get("required_requirements_authority")
+        ):
+            _fail("superseded validator source has unsafe authority semantics")
+        pattern = source.get("path_pattern")
+        if not isinstance(pattern, str):
+            _fail("superseded validator source path pattern is malformed")
+        relative = _render_theorem_path(pattern, theorem_id, "superseded validator source")
+        if relative in current_paths:
+            _fail("validator source is both current and superseded")
     if len(matches) != 1:
-        _fail(f"validator requires exactly one HEAD candidate, found {len(matches)}")
+        _fail(f"validator requires exactly one current stage1-v2 authority, found {len(matches)}")
     candidate, relative, data, mode = matches[0]
     head_blob = _blob_oid(root, head, relative, "validator")
     if require_base_blob_match:
@@ -654,10 +713,6 @@ def select_validator_recipe(
     argv = [part.replace("{validator_path}", relative) for part in template]
     if any("{" in part or "}" in part for part in argv):
         _fail("validator argv contains an unresolved contract placeholder")
-    policy = _require_object(
-        _require_object(contract_record.get("contract"), "contract").get("validator_selection"),
-        "validator policy",
-    )
     language = candidate.get("language")
     expected_template = _require_object(policy.get("argv_templates"), "argv templates").get(language)
     if template != expected_template:
@@ -671,6 +726,9 @@ def select_validator_recipe(
         "base_revision": base,
         "authority_revision": head,
         "contract_sha256": contract_record.get("sha256"),
+        "validator_authority_generation": candidate.get("authority_generation"),
+        "requirements_authority": candidate.get("requirements_authority"),
+        "positive_acceptance_capable": candidate.get("positive_acceptance_capable"),
         "validator_path": relative,
         "validator_sha256": sha256_bytes(data),
         "validator_git_blob": head_blob,
@@ -700,6 +758,7 @@ def build_review_manifest(
     validator_recipe: Mapping[str, Any],
     *,
     blueprint_sha256: str,
+    blueprint_git_blob: str,
     theorem_dag_sha256: str,
     worker_claim_sha256: str,
     worker_status_sha256: str,
@@ -720,6 +779,8 @@ def build_review_manifest(
     }
     if any(not SHA256_RE.fullmatch(value) for value in digests.values()):
         _fail("review manifest contains a malformed input digest")
+    if not GIT_OID_RE.fullmatch(blueprint_git_blob):
+        _fail("review manifest contains a malformed blueprint Git blob")
     identity = (role_map.get("item_id"), role_map.get("theorem_id"), role_map.get("phase"))
     if identity != (
         validator_recipe.get("item_id"),
@@ -729,6 +790,20 @@ def build_review_manifest(
         _fail("role map and validator recipe identify different items")
     _require_embedded_digest(role_map, "manifest_sha256", "role map")
     _require_embedded_digest(validator_recipe, "recipe_sha256", "validator recipe")
+    policy = _require_object(
+        _require_object(contract_record.get("contract"), "contract record").get(
+            "validator_selection"
+        ),
+        "validator policy",
+    )
+    if (
+        validator_recipe.get("validator_authority_generation")
+        != policy.get("required_authority_generation")
+        or validator_recipe.get("requirements_authority")
+        != policy.get("required_requirements_authority")
+        or validator_recipe.get("positive_acceptance_capable") is not True
+    ):
+        _fail("review manifest validator is not a current stage1-v2 positive authority")
     if role_map.get("base_revision") != validator_recipe.get("base_revision"):
         _fail("role map and validator recipe use different worker bases")
     if (
@@ -750,6 +825,11 @@ def build_review_manifest(
             "path": contract_record.get("path"),
             "sha256": contract_record.get("sha256"),
             "git_blob": contract_record.get("git_blob"),
+        },
+        "blueprint": {
+            "path": "Docs/Stage1_Blueprint_v2.md",
+            "sha256": blueprint_sha256,
+            "git_blob": blueprint_git_blob,
         },
         "role_map_sha256": role_map.get("manifest_sha256"),
         "validator_recipe_sha256": validator_recipe.get("recipe_sha256"),
@@ -794,6 +874,30 @@ def _require_review_manifest_bindings(
     if not all(isinstance(value, str) for value in identity):
         _fail("review manifest identity is malformed")
     return str(identity[0]), str(identity[1]), str(identity[2])
+
+
+def _require_blueprint_authority_binding(
+    root: Path, review_manifest: Mapping[str, Any]
+) -> None:
+    """Bind the v2 blueprint to the manifest's immutable authority commit."""
+    authority = review_manifest.get("authority_revision")
+    if not isinstance(authority, str) or not GIT_OID_RE.fullmatch(authority):
+        _fail("review manifest lacks an immutable blueprint authority revision")
+    blueprint = _require_object(review_manifest.get("blueprint"), "manifest blueprint")
+    if blueprint.get("path") != "Docs/Stage1_Blueprint_v2.md":
+        _fail("review manifest blueprint path is not the v2 SSOT")
+    data = _head_bytes(
+        root, authority, "Docs/Stage1_Blueprint_v2.md", "v2 blueprint"
+    )
+    blob = _blob_oid(
+        root, authority, "Docs/Stage1_Blueprint_v2.md", "v2 blueprint"
+    )
+    if (
+        blueprint.get("sha256") != sha256_bytes(data)
+        or blueprint.get("git_blob") != blob
+        or review_manifest.get("blueprint_sha256") != blueprint.get("sha256")
+    ):
+        _fail("review manifest v2 blueprint authority binding is stale")
 
 
 @dataclass(frozen=True)
@@ -977,6 +1081,13 @@ def replay_validator(
         _fail("bubblewrap executable ownership or permissions are unsafe")
     if validator_recipe.get("shell_interpolation") is not False:
         _fail("shell-based validator replay is forbidden")
+    if (
+        validator_recipe.get("validator_authority_generation") != "stage1-v2"
+        or validator_recipe.get("requirements_authority")
+        != "Docs/Stage1_Blueprint_v2.md"
+        or validator_recipe.get("positive_acceptance_capable") is not True
+    ):
+        _fail("validator recipe is not a current stage1-v2 positive authority")
     argv = validator_recipe.get("argv")
     if (
         not isinstance(argv, list)
@@ -1001,6 +1112,7 @@ def replay_validator(
     item_id, theorem_id, phase = _require_review_manifest_bindings(
         review_manifest, role_map, validator_recipe
     )
+    _require_blueprint_authority_binding(root, review_manifest)
     relative = _safe_relative(validator_recipe.get("validator_path"), "validator path")
     expected_argv = (
         ["/usr/bin/python3", "-I", "-B", relative]
@@ -1226,6 +1338,7 @@ def _semantic_tokens(value: Any) -> set[str]:
 
 def evaluate_replay_semantics(
     replay_result: Mapping[str, Any],
+    repo: Path | str,
     *,
     contract_record: Mapping[str, Any],
     review_manifest: Mapping[str, Any],
@@ -1244,9 +1357,11 @@ def evaluate_replay_semantics(
         _fail("review verdict is outside the closed vocabulary")
     if not isinstance(audit_complete, bool) or not isinstance(theorem_complete, bool):
         _fail("terminal flags must be booleans")
+    root = _repository_root(repo)
     item_id, theorem_id, phase = _require_review_manifest_bindings(
         review_manifest, role_map, validator_recipe
     )
+    _require_blueprint_authority_binding(root, review_manifest)
     replay_value = dict(replay_result)
     replay_digest = replay_value.pop("result_sha256", None)
     if (
@@ -1258,6 +1373,17 @@ def evaluate_replay_semantics(
     phase_row = _phase_contract(contract_record, phase)
     _require_item_identity(item_id, theorem_id, phase_row)
     contract = _require_object(contract_record.get("contract"), "contract record")
+    validator_policy = _require_object(
+        contract.get("validator_selection"), "validator policy"
+    )
+    if (
+        validator_recipe.get("validator_authority_generation")
+        != validator_policy.get("required_authority_generation")
+        or validator_recipe.get("requirements_authority")
+        != validator_policy.get("required_requirements_authority")
+        or validator_recipe.get("positive_acceptance_capable") is not True
+    ):
+        _fail("semantic evaluation received a superseded or unbound validator recipe")
     if (
         contract_record.get("revision") != review_manifest.get("authority_revision")
         or contract_record.get("sha256")

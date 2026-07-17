@@ -1,7 +1,7 @@
 # THM-M-0387 rev-5.6 Process And Tree Audit
 
 > Audit date: `2026-07-10` (`Asia/Shanghai`)
-> Authority: `Docs/Stage1_Blueprint_rev-5.6.md`
+> Assurance standard: `Docs/Stage1_Assurance_Standard_rev-5.6.md`
 
 This stable audit records proof-tree structure, readable routing, and the
 boundary between checked proof bodies and machine-open plans. It contains no
@@ -11,7 +11,8 @@ worker, scheduler, process, private-path, or runtime evidence.
 
 | role | stable path | authority boundary |
 |---|---|---|
-| execution requirements and cursor | `Docs/Stage1_Blueprint_rev-5.6.md` | only progress authority |
+| execution requirements and cursor | `Docs/Stage1_Blueprint_v2.md` | sole requirements and progress authority |
+| supporting assurance gates | `Docs/Stage1_Assurance_Standard_rev-5.6.md` | H/M/R and evidence vocabulary, not task state |
 | proof DAG and debt ledger | `THM-M-0387/proof_units.json` | derived evidence manifest, not a second checklist |
 | short route | `THM-M-0387/proof_outline.md` | root-to-terminal reader map |
 | checked-node reconstruction | `THM-M-0387/readable/machine_closed_nodes.md` | ten-part entries for `M0-*` nodes |
@@ -137,7 +138,7 @@ completion is blocked until an exact local `FermatLastTheorem` declaration
 passes the kernel, type, axiom, placeholder, pin, and composition gates without
 disallowed axioms.
 
-The remaining checklist blockers are dependency-specific:
+The remaining blockers in the retired theorem-local record were dependency-specific:
 
 - `H02` remains open because exponent reduction and `n=3/n=4` still lack an
   exact primary human-source statement/assumption crosswalk.
@@ -151,7 +152,8 @@ The remaining checklist blockers are dependency-specific:
 - Exact theorem completion remains blocked at `[H1, M2, R0]`; the Imperial
   candidate is only `M5/E3` and cannot satisfy the root gate.
 
-The worker cursor therefore advances only the dependency-valid prefix through
-`C05` and `R03`. Although the final validation command itself passed, `V01`
-depends on still-open `C08`; the successful command is durable evidence, not
-permission to bypass the authoritative dependency DAG.
+The retired theorem-local cursor historically advanced only the dependency-valid
+prefix through `C05` and `R03`; it is evidence provenance, not current Stage1
+state. Although the final validation command itself passed, `V01` depended on
+still-open `C08`; the successful command remains durable evidence, not permission
+to bypass the current v2 dependency DAG or master acceptance.

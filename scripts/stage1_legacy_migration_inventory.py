@@ -39,6 +39,7 @@ CLASSIFICATIONS = (
     "legacy_receipt",
     "phase_mismatch",
     "missing_or_ambiguous_role",
+    "validator_authority_superseded",
     "validator_base_mismatch",
     "validator_stdout_mismatch",
     "sandbox_incompatible",
@@ -421,21 +422,53 @@ def inventory_item(
         sorted(selected_role_bindings, key=lambda value: (value["role"], value["path"])),
     )
 
-    validators: list[GitBlob] = []
-    for candidate in phase_contract.get("validator_candidates", []):
+    current_authorities = phase_contract.get("validator_authorities", [])
+    superseded_sources = phase_contract.get("superseded_validator_sources", [])
+    if not isinstance(current_authorities, list) or not isinstance(
+        superseded_sources, list
+    ):
+        fail("phase contract lacks validator authority registries")
+    current_validators: list[GitBlob] = []
+    for candidate in current_authorities:
         if not isinstance(candidate, dict):
             continue
         blob = reader.blob(
-            render(candidate.get("path_pattern"), row["theorem"], "validator candidate")
+            render(candidate.get("path_pattern"), row["theorem"], "current validator authority")
         )
         if blob is not None:
-            validators.append(blob)
-    validator_bindings = [blob.binding() for blob in validators]
+            current_validators.append(blob)
+    superseded_validators: list[GitBlob] = []
+    for source in superseded_sources:
+        if not isinstance(source, dict):
+            continue
+        blob = reader.blob(
+            render(source.get("path_pattern"), row["theorem"], "superseded validator source")
+        )
+        if blob is not None:
+            superseded_validators.append(blob)
+    superseded_bindings = [blob.binding() for blob in superseded_validators]
+    classes["validator_authority_superseded"] = classification(
+        "validator_authority_superseded",
+        "blocked" if superseded_validators else "clear",
+        (
+            [
+                "pre-v2 validator source is historical negative-observation evidence only; "
+                "it cannot provide current positive acceptance"
+            ]
+            if superseded_validators
+            else []
+        ),
+        superseded_bindings,
+    )
+    validator_bindings = [blob.binding() for blob in current_validators]
     base_reasons: list[str] = []
     base_unknown: list[str] = []
-    selected_validator = validators[0] if len(validators) == 1 else None
-    if len(validators) != 1:
-        base_reasons.append(f"expected exactly one HEAD validator, found {len(validators)}")
+    selected_validator = current_validators[0] if len(current_validators) == 1 else None
+    if len(current_validators) != 1:
+        base_reasons.append(
+            "expected exactly one current stage1-v2 HEAD validator authority, "
+            f"found {len(current_validators)}"
+        )
     elif receipt is None:
         base_unknown.append("worker base cannot be read without a selected receipt")
     else:
