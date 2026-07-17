@@ -116,20 +116,19 @@ EXECUTION_CONTRACT = {
     "provider_acceptance_inherited": False,
     "consumer_acceptance_required": True,
 }
-# App-server workers are deliberately bounded to one 50-thread cohort.  The
-# integration budget is independent because a refill may drain older evidence.
-MAX_WORKERS = 50
-DEFAULT_WORKERS = 50
-MAX_INTEGRATION_LIMIT = 80
-DEFAULT_INTEGRATION_LIMIT = 50
+# The operator-facing lane/refill/concurrency setting is currently zero.
+# Existing process-backed workers are grandfathered and may finish naturally.
+MAX_WORKERS = 0
+DEFAULT_WORKERS = 0
+MAX_INTEGRATION_LIMIT = 0
+DEFAULT_INTEGRATION_LIMIT = 0
 MAX_SLOT_ID = 1546 * len(PHASES)
 CLAIM_ID_RE = re.compile(r"[0-9]{8}T[0-9]{6}Z-[0-9a-f]{12}")
 GOAL_HANDSHAKE_TIMEOUT_SECONDS = 30.0
 GOAL_HANDSHAKE_POLL_SECONDS = 0.1
 GOAL_HANDSHAKE_RECOVERY_GRACE_SECONDS = 120.0
-# Fifty app-server processes share Codex's ~/.codex SQLite state. Starting all
-# of them in one burst makes initialization contend before client-level goal
-# retries can run, so launch one bounded cohort at a controlled cadence.
+# Concurrent app-server processes share Codex's ~/.codex SQLite state. When
+# allocation is enabled, start each bounded cohort at a controlled cadence.
 APP_SERVER_LAUNCH_STAGGER_SECONDS = 0.2
 # A five-minute scheduler cadence must not turn one refill into an unbounded
 # retry loop.  The pre-integration cohort gets three measured attempts within

@@ -2080,7 +2080,7 @@ class SchedulerCapacityTests(unittest.TestCase):
                 ):
                     stack.enter_context(mock.patch.object(cron, name, **kwargs))
                 stack.enter_context(contextlib.redirect_stdout(io.StringIO()))
-                cron.refill_workers(cron.MAX_WORKERS)
+                cron.refill_workers(50)
         return (saved[-1] if saved else existing), events, saved
 
     def test_finished_handoffs_do_not_consume_live_capacity(self) -> None:
@@ -2089,7 +2089,7 @@ class SchedulerCapacityTests(unittest.TestCase):
         claims = live + finished
         reservations = [claim for claim in claims if claim["status"] in {"live", "finished"}]
         occupied = {claim["slot"] for claim in reservations}
-        capacity = max(0, cron.MAX_WORKERS - len(live))
+        capacity = max(0, 50 - len(live))
         available = [
             slot
             for slot in range(1, cron.MAX_SLOT_ID + 1)
@@ -2172,7 +2172,7 @@ class SchedulerCapacityTests(unittest.TestCase):
                 mock.patch.object(cron, "launch_app_server_worker") as launch_worker,
                 contextlib.redirect_stdout(io.StringIO()),
             ):
-                launched = cron.refill_workers(cron.MAX_WORKERS)
+                launched = cron.refill_workers(50)
         self.assertEqual(launched, 0)
         prepare.assert_not_called()
         launch_worker.assert_not_called()
@@ -2190,13 +2190,13 @@ class SchedulerCapacityTests(unittest.TestCase):
         self.assertEqual(sum(claim.get("status") == "cancelled" for claim in claims), 50)
         self.assertEqual(sum(claim.get("status") in {"live", "preparing"} for claim in claims), 0)
 
-    def test_worker_cap_above_fifty_fails_before_refill_side_effects(self) -> None:
+    def test_worker_cap_above_zero_fails_before_refill_side_effects(self) -> None:
         with (
             mock.patch.object(cron, "recover_integration_wal") as recover,
             mock.patch.object(cron, "refill_workers") as refill,
-            self.assertRaisesRegex(SystemExit, "0..50"),
+            self.assertRaisesRegex(SystemExit, "0..0"),
         ):
-            cron.launch(51)
+            cron.launch(1)
         recover.assert_not_called()
         refill.assert_not_called()
 
@@ -2206,7 +2206,7 @@ class SchedulerCapacityTests(unittest.TestCase):
             mock.patch.object(cron, "refill_workers") as refill,
             self.assertRaisesRegex(SystemExit, "--limit must be"),
         ):
-            cron.launch(50, cron.MAX_INTEGRATION_LIMIT + 1)
+            cron.launch(0, 1)
         recover.assert_not_called()
         refill.assert_not_called()
 
@@ -2215,6 +2215,8 @@ class SchedulerCapacityTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             runtime = Path(directory) / "runtime"
             with (
+                mock.patch.object(cron, "MAX_WORKERS", 20),
+                mock.patch.object(cron, "MAX_INTEGRATION_LIMIT", 73),
                 mock.patch.object(cron, "RUNTIME", runtime),
                 mock.patch.object(cron, "PAUSE_FILE", Path(directory) / "PAUSED"),
                 mock.patch.object(cron, "recover_integration_wal", side_effect=lambda: events.append("recover")),
@@ -2241,6 +2243,8 @@ class SchedulerCapacityTests(unittest.TestCase):
             runtime.mkdir()
             (runtime / "pending_checkpoint.json").write_text("{}\n", encoding="utf-8")
             with (
+                mock.patch.object(cron, "MAX_WORKERS", 20),
+                mock.patch.object(cron, "MAX_INTEGRATION_LIMIT", 47),
                 mock.patch.object(cron, "RUNTIME", runtime),
                 mock.patch.object(cron, "PAUSE_FILE", Path(directory) / "PAUSED"),
                 mock.patch.object(cron, "recover_integration_wal", side_effect=lambda: events.append("recover")),
@@ -2323,6 +2327,8 @@ class SchedulerCapacityTests(unittest.TestCase):
         pause_states = iter([False, False, True])
         with tempfile.TemporaryDirectory() as directory:
             with (
+                mock.patch.object(cron, "MAX_WORKERS", 20),
+                mock.patch.object(cron, "MAX_INTEGRATION_LIMIT", 20),
                 mock.patch.object(cron, "RUNTIME", Path(directory) / "runtime"),
                 mock.patch.object(cron, "execution_is_paused", side_effect=pause_states),
                 mock.patch.object(cron, "recover_integration_wal"),
@@ -2809,7 +2815,11 @@ class SchedulerCapacityTests(unittest.TestCase):
             ),
             mock.patch.object(cron, "app_server_child_is_live", return_value=False),
         ):
-            self.assertEqual(len(cron.active_lane_leases(claims)), cron.MAX_WORKERS)
+            self.assertEqual(len(cron.active_lane_leases(claims)), 50)
+        self.assertEqual(cron.MAX_WORKERS, 0)
+        self.assertEqual(cron.DEFAULT_WORKERS, 0)
+        self.assertEqual(cron.MAX_INTEGRATION_LIMIT, 0)
+        self.assertEqual(cron.DEFAULT_INTEGRATION_LIMIT, 0)
 
     def test_quarantined_live_identity_blocks_lane_allocation(self) -> None:
         claims = [{"runtime_protocol": cron.RUNTIME_PROTOCOL, "status": "quarantined"}]
@@ -4286,6 +4296,7 @@ class SchedulerCapacityTests(unittest.TestCase):
                 return 777
 
             with (
+                mock.patch.object(cron, "MAX_WORKERS", 1),
                 mock.patch.object(cron, "ROOT", root),
                 mock.patch.object(cron, "RUNTIME", runtime),
                 mock.patch.object(cron, "PAUSE_FILE", root / "PAUSED"),
@@ -4328,6 +4339,7 @@ class SchedulerCapacityTests(unittest.TestCase):
             claim["workspace"] = str(workspace)
             terminate = mock.Mock(return_value=True)
             with (
+                mock.patch.object(cron, "MAX_WORKERS", 1),
                 mock.patch.object(cron, "ROOT", root),
                 mock.patch.object(cron, "RUNTIME", root / "runtime"),
                 mock.patch.object(cron, "PAUSE_FILE", root / "PAUSED"),
@@ -4374,7 +4386,7 @@ class SchedulerCapacityTests(unittest.TestCase):
                 cron.install("*/5 * * * *")
         run.assert_not_called()
 
-    def test_default_install_is_five_minute_fifty_worker_cron(self) -> None:
+    def test_default_install_keeps_all_new_work_budgets_at_zero(self) -> None:
         captured: dict[str, str] = {}
 
         def write_crontab(command: list[str], **kwargs):
@@ -4396,7 +4408,7 @@ class SchedulerCapacityTests(unittest.TestCase):
         line = captured["input"].strip()
         self.assertTrue(line.startswith("*/5 * * * * "))
         self.assertIn(f"{sys.executable} {root / 'scripts' / 'stage1_execution_cron.py'}", line)
-        self.assertIn("--tick --workers 50 --limit 50", line)
+        self.assertIn("--tick --workers 0 --limit 0", line)
         self.assertIn("stage1-v2-app-server/keepalive.log", line)
 
     def test_integrate_refuses_persistent_pause_before_recovery(self) -> None:
@@ -4404,6 +4416,7 @@ class SchedulerCapacityTests(unittest.TestCase):
             pause_file = Path(directory) / "PAUSED"
             pause_file.write_text("paused\n", encoding="utf-8")
             with (
+                mock.patch.object(cron, "MAX_INTEGRATION_LIMIT", 1),
                 mock.patch.object(cron, "PAUSE_FILE", pause_file),
                 mock.patch.object(cron, "recover_integration_wal") as recover,
                 self.assertRaisesRegex(SystemExit, "paused"),
