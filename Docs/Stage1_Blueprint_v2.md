@@ -658,15 +658,15 @@ This appendix is the single writable task-state authority. The execution DAG and
 generated, read-only projections of these stable rows; they never override this checklist.
 
 Authoritative progress summary (derived and validated from the rows below):
-- `[_]` 3301 (30.50% worker self-tested)
+- `[_]` 3300 (30.49% worker self-tested)
 - `[ ]` 7521
-- `[x]` 0
+- `[x]` 1
 
 Every target is expanded into seven dependency-ordered phases: intake, statement, anchor audit,
 obligation tree, proof, validation, and release. `[ ]` and `[_]` are unfinished; only the master
 integration lane may render `[x]` after all rev-5.6 receipts and gates pass.
 
-- [_] `S56-M-0387-INTAKE` / `THM-M-0387` / `intake`: Create the theorem dossier, scope map, and source-statement crosswalk. {attempts=5}
+- [x] `S56-M-0387-INTAKE` / `THM-M-0387` / `intake`: Create the theorem dossier, scope map, and source-statement crosswalk. {attempts=5}
   Depends: none. Owned paths: `Stage1_Instances/THM-M-0387`. Gate: rev-5.6 node-specific receipt and master acceptance.
 - [_] `S56-M-0387-STATEMENT` / `THM-M-0387` / `statement`: Elaborate the exact Lean 4 target with the minimal pinned imports. {attempts=1}
   Depends: `S56-M-0387-INTAKE`. Owned paths: `Stage1_Instances/THM-M-0387`. Gate: rev-5.6 node-specific receipt and master acceptance.
