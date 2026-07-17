@@ -1,0 +1,287 @@
+{
+  "schema_version": "stage1-target-scoped-blocker/1.0",
+  "blocker_id": "S56-M-0122-OBLIGATION_TREE-validator-authority-blocker-20260717-head-d25efdf-slot87-v1",
+  "item_id": "S56-M-0122-OBLIGATION_TREE",
+  "theorem_id": "THM-M-0122",
+  "phase": "obligation_tree",
+  "intent": "audit",
+  "recorded_at": "2026-07-17T08:30:00+08:00",
+  "timezone": "Asia/Shanghai",
+  "base_revision": "d25efdf450b6236f4750b2eea2cd4f545944d084",
+  "base_tree": "4674db99ea873d6879a1fa73110c7af3f0884937",
+  "owned_path": "Stage1_Instances/THM-M-0122",
+  "claim_order": {
+    "v2_execution_rank": 275,
+    "phase_layer": 3,
+    "phase_item_id": "S56-M-0122-OBLIGATION_TREE"
+  },
+  "authoritative_state_observed": "[_]",
+  "authoritative_attempts_observed": 1,
+  "predecessor": {
+    "item_id": "S56-M-0122-ANCHOR_AUDIT",
+    "state_observed": "[_]",
+    "receipt_path": "Stage1_Instances/THM-M-0122/anchor-audit-receipt.json",
+    "receipt_id": "S56-M-0122-ANCHOR-AUDIT-WORKER-20260717",
+    "receipt_sha256": "78ca0f4099b681ddbff6f90148d0380763510e915788fa628cddf1d6b82bcaff",
+    "receipt_accepted": false,
+    "master_accepted": false
+  },
+  "verdict": "blocked",
+  "proposed_state": null,
+  "phase_self_tested": false,
+  "phase_predicate_proven": false,
+  "phase_accepted": false,
+  "audit_complete": false,
+  "theorem_complete": false,
+  "accepted_receipt_ids": [],
+  "changed_paths": [
+    "Stage1_Instances/THM-M-0122/dependency-reuse-ledger-obligation-tree-head-d25efdf-slot87.json",
+    "Stage1_Instances/THM-M-0122/obligation-tree-validator-authority-blocker-20260717-head-d25efdf-slot87.json",
+    "Stage1_Instances/THM-M-0122/obligation-tree-validator-authority-blocker-20260717-head-d25efdf-slot87.md"
+  ],
+  "first_failed_gate": {
+    "gate_id": "G05-AUTHORITY-REPLAY.validator_base_and_context_binding_stale",
+    "reason": "Exactly one scheduler-owned obligation-tree validator candidate exists unchanged at HEAD, but it hard-binds an obsolete repository base, tree, theorem-DAG digest, dependency-context digest, task state, attempt count, and empty shared-group context. The exact contract-selected replay returns a typed repair_required result before validating the current packet. The worker is forbidden to refresh, replace, rename, or delete the validator."
+  },
+  "authority_bindings": {
+    "task_state_authority": {
+      "path": "Docs/Stage1_Blueprint_v2.md",
+      "sha256": "619c7fc25a554fd9db8d19f7e1ed4c1da99584b94a553e1c71d89f6fbdea4c4f",
+      "git_blob": "78ed68e95acb3c7348353f8ecdf53a3688318b40"
+    },
+    "assurance_authority": {
+      "path": "Docs/Stage1_Blueprint_rev-5.6.md",
+      "git_blob": "00b304bc44f3d1c52f3723cf1553bb13a2ad4018"
+    },
+    "phase_acceptance_contract": {
+      "path": "Docs/Stage1_Phase_Acceptance_Contracts.json",
+      "sha256": "1e7adf0f4fae0541b3595d4b0bfbb53f7eb17e28a4a889fec14f6df969e0cec4",
+      "git_blob": "84b92df9eaf457ab954b652c3f20f4d513cf0a88"
+    },
+    "theorem_dag": {
+      "path": "Docs/Stage1_Theorem_DAG_v2.json",
+      "sha256": "441c96e3905667f769f2377a70cff6cfd78835d6a92c3862ce6ccbc3bcf505fe",
+      "git_blob": "731bd919e0c87bc9c98261dc8773b6503e7396a8"
+    },
+    "target_manifest": {
+      "path": "Docs/Stage1_Targets_rev-5.6.json",
+      "git_blob": "3c85586d3060c219bad5462121b85717360a0665"
+    },
+    "execution_skill": {
+      "path": "skills/execute-stage1-rev56/SKILL.md",
+      "git_blob": "c988861b6cd10ffb259bc9e4f39b0ee08fe4c8d5"
+    },
+    "dependency_context_sha256": "0c0f6d1bed857aeaad7b4656db6ae6fe5c9c6bde39f7c9fb9ec2f8938eb4a484"
+  },
+  "validator_selection": {
+    "required_cardinality": "exactly_one",
+    "owner": "scheduler_master_lane",
+    "declared_candidates": [
+      {
+        "path": "Stage1_Instances/THM-M-0122/check_obligation_tree.py",
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "Stage1_Instances/THM-M-0122/check_obligation_tree.py"
+        ],
+        "exists_at_worker_base": true,
+        "sha256": "7ad5b4a29d947ed40f6d740a8aefb9fef3347ea24d4a3dac448af55b62e90f4c",
+        "git_blob": "0e4dce455d894d03c300c65a11b531b3b652c8c5",
+        "unchanged_from_HEAD": true
+      },
+      {
+        "path": "Stage1_Instances/THM-M-0122/validate_obligation_tree.py",
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "Stage1_Instances/THM-M-0122/validate_obligation_tree.py"
+        ],
+        "exists_at_worker_base": false
+      }
+    ],
+    "existing_candidate_count": 1,
+    "selected_argv": [
+      "/usr/bin/python3",
+      "-I",
+      "-B",
+      "Stage1_Instances/THM-M-0122/check_obligation_tree.py"
+    ],
+    "required_stdout_schema": "stage1-validator-semantic-result/1.0",
+    "worker_edit_permitted": false,
+    "worker_validator_change_made": false,
+    "selftest_handoff_permitted": false,
+    "stale_embedded_bindings": {
+      "base_revision": "2dc5a410b68eff806858fd6ed0cb33d57f6209f7",
+      "base_tree": "841bdd6114e7436cff4a3a1ff248fc1e884a9ddc",
+      "theorem_dag_sha256": "3d32f808e2914b338c459d52651b69731f0979a90a720f98bc0f31a577e2bafa",
+      "dependency_context_sha256": "068170c76abd4579d643ede04d731b974412185bd285e7b40255ec4044adec5c"
+    },
+    "semantic_replay": {
+      "cwd": ".",
+      "shell_interpolation": false,
+      "exit_code": 1,
+      "stderr": "",
+      "stdout_object_count": 1,
+      "stdout": {
+        "audit_complete": false,
+        "blocked": false,
+        "first_failed_gate": "OBLIGATION-TREE-SEMANTIC-CHECK",
+        "item_id": "S56-M-0122-OBLIGATION_TREE",
+        "message": "repository base revision drift",
+        "open_obligations": 23,
+        "phase": "obligation_tree",
+        "phase_accepted": false,
+        "phase_predicate_proven": false,
+        "schema_version": "stage1-validator-semantic-result/1.0",
+        "stale_inputs": [],
+        "status": "failed",
+        "theorem_complete": false,
+        "theorem_id": "THM-M-0122",
+        "verdict": "repair_required"
+      }
+    }
+  },
+  "dependency_reuse_audit": {
+    "required_schema": "stage1-dependency-reuse-ledger/1.1",
+    "canonical_ledger_path": "Stage1_Instances/THM-M-0122/dependency-reuse-ledger.json",
+    "canonical_ledger_status": "stale_integrated_evidence",
+    "current_audit_snapshot_path": "Stage1_Instances/THM-M-0122/dependency-reuse-ledger-obligation-tree-head-d25efdf-slot87.json",
+    "parent_inspection_order": [],
+    "direct_parent_ids": [],
+    "transitive_ancestor_ids": [],
+    "hard_edge_ids": [],
+    "reuse_hint_ids": [],
+    "shared_group_ids": [
+      "SHARED-MODULE-dff4d00d3b45e946"
+    ],
+    "parent_inspection_result": "The complete direct/transitive hard-parent order is empty and was traversed exactly once before proof work. No provider declaration, receipt, body, artifact, checkbox, or acceptance was consumed.",
+    "shared_group_decisions": [
+      {
+        "source_id": "SHARED-MODULE-dff4d00d3b45e946",
+        "inspected_member": "THM-M-0123",
+        "decision": "not_applicable",
+        "reason": "This is only an Atlas module co-mention. The common faltings_theorem body is directly by sorry and materially mismatched, and THM-M-0123 supplies no proof body."
+      }
+    ],
+    "accepted_reuse": [],
+    "provider_acceptance_inherited": false,
+    "unresolved_compatibility_obligations": [],
+    "canonical_refresh_boundary": "The canonical ledger cannot be truthfully paired with a current successful receipt or worker handoff while the immutable scheduler validator rejects the current base. The current schema-1.1 audit is preserved as a target-owned snapshot instead of overwriting integrated proof-phase evidence with an unvalidated canonical packet."
+  },
+  "artifact_boundary": {
+    "existing_registry_denominator_sha256": "fa58b3f6f5f390a8fd776a0d789158582ec5ded0f22616a94460d6eb0306a508",
+    "canonical_obligation_count": 23,
+    "typed_graph_family_count": 7,
+    "typed_edge_count": 56,
+    "composition_source_sha256": "c081ee9e08e5bf5aeb3060605ebc9c7f7926d08d04632380e105e8ff1c783c69",
+    "architecture_bytes_changed": false,
+    "reason": "The integrated architecture remains a substantial candidate, but current phase self-testing is unproven because the mandatory validator fails before semantic validation. No later provisional proof receipt is used to infer obligation-tree acceptance."
+  },
+  "known_failures": [
+    "The mandatory scheduler-owned validator returns typed repair_required for repository base revision drift and cannot validate the current graph, context, phase attempt, or weak shared-group decision.",
+    "The worker is forbidden to refresh, replace, rename, or delete the only validator candidate, so no lawful current phase receipt or worker self-test handoff can be produced.",
+    "The anchor-audit predecessor is [_], not master accepted [x]; its receipt and checkbox transfer no acceptance.",
+    "The integrated canonical dependency-reuse ledger binds an older graph, context, phase claim, and repository revision. The current target-owned schema-1.1 snapshot is blocker evidence, not a successful canonical phase packet.",
+    "No placeholder-free Faltings terminal body is available; the arithmetic-geometric proof cut remains open.",
+    "Primary-source H0, independently reviewed R0, provenance and trust closure, validation, release, AUDIT-Z, THEOREM-Z, theorem completion, and master acceptance remain open."
+  ],
+  "bounded_validation": {
+    "commands": [
+      {
+        "argv": [
+          "python3",
+          "Docs/tools/check_stage1_standard.py"
+        ],
+        "exit_code": 1,
+        "result": "Expected worker/integration boundary after adding target-owned blocker evidence: the checked-in authority-owned theorem DAG differs from fresh deterministic evidence inventory."
+      },
+      {
+        "argv": [
+          "python3",
+          "Docs/tools/check_stage1_theorem_dag_v2.py"
+        ],
+        "exit_code": 1,
+        "result": "Expected worker/integration boundary after adding target-owned blocker evidence: the worker may not regenerate the authority-owned theorem DAG."
+      },
+      {
+        "argv": [
+          "python3",
+          "Docs/tools/check_stage1_phase_acceptance_contracts.py"
+        ],
+        "exit_code": 0,
+        "result": "Seven phases, twelve common gates, and twenty-three source references passed."
+      },
+      {
+        "argv": [
+          "python3",
+          "scripts/stage1_target.py",
+          "check"
+        ],
+        "exit_code": 0,
+        "result": "1546 unique ordered L0/rework-required targets passed."
+      },
+      {
+        "argv": [
+          "python3",
+          "scripts/stage1_target.py",
+          "show",
+          "THM-M-0122"
+        ],
+        "exit_code": 0,
+        "result": "Rank 41, planned lifecycle, legacy evidence unaccepted, theorem incomplete."
+      },
+      {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "Stage1_Instances/THM-M-0122/check_obligation_tree.py"
+        ],
+        "exit_code": 1,
+        "result": "Exactly one typed stage1-validator-semantic-result/1.0 object; verdict repair_required, phase_accepted=false, message repository base revision drift."
+      },
+      {
+        "argv": [
+          "python3",
+          "-m",
+          "json.tool",
+          "Stage1_Instances/THM-M-0122/dependency-reuse-ledger-obligation-tree-head-d25efdf-slot87.json"
+        ],
+        "exit_code": 0,
+        "result": "Current dependency/reuse audit snapshot is valid JSON."
+      },
+      {
+        "argv": [
+          "python3",
+          "-m",
+          "json.tool",
+          "Stage1_Instances/THM-M-0122/obligation-tree-validator-authority-blocker-20260717-head-d25efdf-slot87.json"
+        ],
+        "exit_code": 0,
+        "result": "Target-scoped blocker is valid JSON."
+      },
+      {
+        "argv": [
+          "git",
+          "diff",
+          "--check",
+          "--",
+          "Stage1_Instances/THM-M-0122"
+        ],
+        "exit_code": 0,
+        "result": "No whitespace errors in owned-path changes."
+      }
+    ],
+    "network_used": false,
+    "lake_update_run": false,
+    "lake_build_run": false,
+    "dependency_clone_or_fetch_run": false,
+    "lake_mutated_by_worker": false
+  },
+  "retry_condition": "The scheduler/master lane must publish a HEAD-tracked check_obligation_tree.py whose immutable bindings match a fresh claim base, graph 441c96e3905667f769f2377a70cff6cfd78835d6a92c3862ce6ccbc3bcf505fe, context 0c0f6d1bed857aeaad7b4656db6ae6fe5c9c6bde39f7c9fb9ec2f8938eb4a484, authoritative [_]/attempt-1 phase state, and the weak shared-group decision. A fresh worker can then refresh the canonical ledger and single receipt, replay the unchanged candidate, and write the handoff.",
+  "worker_selftest_manifest_written": false,
+  "phase_receipt_written": false,
+  "status_boundary": "Target-scoped scheduler-ownership blocker evidence only. It proves the exact empty hard-parent traversal and weak shared-group non-reuse audit, but it does not self-test or accept the obligation-tree phase, alter the frozen architecture, propose a state change, transfer provider acceptance, close proof debt, establish audit or theorem completion, or confer master acceptance."
+}
