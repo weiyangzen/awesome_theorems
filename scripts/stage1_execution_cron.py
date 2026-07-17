@@ -61,7 +61,7 @@ DAG = DOCS / "Stage1_Execution_DAG_rev-5.6.json"
 THEOREM_DAG_V2 = DOCS / "Stage1_Theorem_DAG_v2.json"
 PHASE_ACCEPTANCE_CONTRACTS = DOCS / "Stage1_Phase_Acceptance_Contracts.json"
 PHASE_ACCEPTANCE_CONTRACT_SHA256 = (
-    "1e7adf0f4fae0541b3595d4b0bfbb53f7eb17e28a4a889fec14f6df969e0cec4"
+    "1bd6739c15fb424c53095401553ca3224f1398c9ba5a84e8a9a6382daed8b849"
 )
 LEGACY_RUNTIME = ROOT / ".cron" / "stage1-rev56"
 RUNTIME = ROOT / ".cron" / "stage1-v2-app-server"

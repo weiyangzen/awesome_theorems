@@ -1473,6 +1473,7 @@ class IntegrationTransactionTests(unittest.TestCase):
         projection = write_projection_then_fail if failure_point == "projection" else mock.Mock()
         expected_exception = RuntimeError if failure_point == "projection" else SystemExit
         with contextlib.ExitStack() as stack:
+            stack.enter_context(mock.patch.object(cron, "MAX_INTEGRATION_LIMIT", 1))
             stack.enter_context(mock.patch.object(cron, "ROOT", self.master))
             stack.enter_context(mock.patch.object(cron, "DOCS", self.docs))
             stack.enter_context(mock.patch.object(cron, "DAG", self.dag))
