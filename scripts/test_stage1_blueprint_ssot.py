@@ -184,6 +184,18 @@ class Stage1BlueprintSsotTests(unittest.TestCase):
         )
         self.assertIn("Candidate filtering alone is insufficient", policy)
         self.assertIn("editing them cannot admit work", policy)
+        self.assertIn(
+            "Both `exact_pinned_closure` and `exact_external_unintegrated` MUST carry",
+            policy,
+        )
+        self.assertIn(
+            "Pinning a proof after the cutoff cannot retroactively establish",
+            policy,
+        )
+        self.assertIn(
+            "current execution\nauthority for a pinned proof remains exclusively",
+            policy,
+        )
 
     def test_v2_policy_has_exact_two_axis_vocabularies(self) -> None:
         blueprint = (ROOT / "Docs/Stage1_Blueprint_v2.md").read_text(encoding="utf-8")

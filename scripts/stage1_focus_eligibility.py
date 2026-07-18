@@ -55,10 +55,13 @@ TARGET_MEMBERSHIP_ID_SET_SHA256 = (
 SCHEMA_RELATIVE_PATH = "Docs/Stage1_Focus_Eligibility_Schema.json"
 TRUST_ANCHORS_RELATIVE_PATH = "Docs/Stage1_Focus_Trust_Anchors.json"
 TRUST_ANCHORS_SHA256 = "d482cc8ac1fd0362f9a5c96ddfbc2df5e5b5399b0a50fa5935c17536f874182f"
-FOCUS_SCHEMA_SHA256 = "6e4b74356b500c9605c96a28adbb18d1279a196f04dd58b8c77c4e2545ff4ad4"
+FOCUS_SCHEMA_SHA256 = "1082484487f994b111f33ab84faa58b1dca842348b802ab3d1ec6209928dad48"
 RECEIPT_NAME = "focus-eligibility.json"
 THEOREM_RE = re.compile(r"^THM-M-[0-9]{4}$")
 SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
+CHECKLIST_BEGIN = "<!-- STAGE1-EXECUTION-CHECKLIST:BEGIN -->"
+CHECKLIST_END = "<!-- STAGE1-EXECUTION-CHECKLIST:END -->"
+MASTER_ACCEPTANCE_RECEIPT_SCHEMA = "stage1-master-phase-acceptance/1.0"
 PHASES = (
     "intake",
     "statement",
@@ -141,6 +144,7 @@ TRANSPORT_PROVIDER_OLEAN = f"{TRANSPORT_PROVIDER_MODULE}.olean"
 TRANSPORT_REPLAY_SOURCE = "Stage1FocusMachineTransport.lean"
 EXTERNAL_PROVENANCE_SCHEMA = "stage1-external-proof-provenance/1.0"
 EXTERNAL_PROVENANCE_ROLE = "pre_stage1_machine_provenance"
+FRONTIER_REVIEW_INPUT_SCHEMA = "stage1-frontier-independent-review-input/1.0"
 TIMESTAMP_TOKEN_SCHEMA = "stage1-independent-publication-timestamp/1.0"
 TIMESTAMP_SIGNATURE_PAYLOAD_SCHEMA = (
     "stage1-independent-publication-timestamp-signature-payload/1.0"
@@ -522,7 +526,7 @@ def _reject_authoritative_external_identity(
             _fail("external machine proof source blob is part of the authoritative history")
 
 
-def _validate_external_pre_stage1_provenance(
+def _validate_machine_pre_stage1_provenance(
     root: Path, receipt: Mapping[str, Any], source: Mapping[str, Any]
 ) -> None:
     theorem_id = str(receipt.get("theorem_id", ""))
@@ -531,7 +535,7 @@ def _validate_external_pre_stage1_provenance(
         if isinstance(row, Mapping) and row.get("role") == EXTERNAL_PROVENANCE_ROLE
     ]
     if len(rows) != 1:
-        _fail("exact external source requires one typed pre-Stage1 provenance report")
+        _fail("exact machine source requires one typed pre-Stage1 provenance report")
     binding = rows[0]
     base = _resolve_base_revision(root, receipt.get("repository_base_revision"))
     _safe_bound_file(
@@ -759,6 +763,180 @@ def _canonical_json(value: Any) -> bytes:
         value, ensure_ascii=True, sort_keys=True, separators=(",", ":"),
         allow_nan=False,
     ).encode("utf-8")
+
+
+def _canonical_digest(value: Any, field: str, label: str) -> str:
+    if not isinstance(value, Mapping):
+        _fail(f"{label} is malformed")
+    expected = value.get(field)
+    unhashed = dict(value)
+    unhashed.pop(field, None)
+    observed = _sha256_bytes(_master_canonical_json(unhashed))
+    if not isinstance(expected, str) or expected != observed:
+        _fail(f"{label} {field} is stale or malformed")
+    return expected
+
+
+def _master_canonical_json(value: Any) -> bytes:
+    return json.dumps(
+        value, ensure_ascii=False, sort_keys=True, separators=(",", ":"),
+        allow_nan=False,
+    ).encode("utf-8")
+
+
+def _current_release_state(root: Path, theorem_id: str) -> str:
+    """Read the unique RELEASE cursor from the current v2 Blueprint SSOT."""
+
+    blueprint = _safe_repository_file(
+        root, REQUIREMENTS_AUTHORITY, "Stage1 v2 Blueprint SSOT"
+    )
+    head = _git_text(root, ["rev-parse", "--verify", "HEAD^{commit}"], "current HEAD")
+    _require_file_at_revision(
+        root, head, REQUIREMENTS_AUTHORITY, "Stage1 v2 Blueprint SSOT"
+    )
+    try:
+        text = blueprint.read_text(encoding="utf-8")
+    except (OSError, UnicodeDecodeError) as exc:
+        raise EligibilityError("Stage1 v2 Blueprint SSOT is unreadable") from exc
+    if text.count(CHECKLIST_BEGIN) != 1 or text.count(CHECKLIST_END) != 1:
+        _fail("Stage1 v2 Blueprint SSOT lacks one checklist boundary")
+    begin = text.index(CHECKLIST_BEGIN) + len(CHECKLIST_BEGIN)
+    end = text.index(CHECKLIST_END, begin)
+    item_id = f"S56-{theorem_id.removeprefix('THM-')}-RELEASE"
+    pattern = re.compile(
+        rf"^- (?P<state>\[[_x ]\]) `{re.escape(item_id)}` / "
+        rf"`{re.escape(theorem_id)}` / `release`: .+ \{{attempts=\d+\}}$",
+        re.MULTILINE,
+    )
+    matches = list(pattern.finditer(text[begin:end]))
+    if len(matches) != 1:
+        _fail("Stage1 v2 Blueprint SSOT lacks one canonical target RELEASE row")
+    return matches[0]["state"]
+
+
+def _content_bound_release_decision(
+    root: Path, theorem_id: str, receipt: Mapping[str, Any]
+) -> Mapping[str, Any]:
+    bindings = [
+        row
+        for row in receipt.get("artifact_bindings", [])
+        if isinstance(row, Mapping) and row.get("role") == "release_decision"
+    ]
+    if len(bindings) != 1:
+        _fail("master RELEASE receipt lacks one content-bound release decision")
+    binding = bindings[0]
+    relative = binding.get("path")
+    expected = binding.get("sha256")
+    if (
+        not isinstance(relative, str)
+        or not relative.startswith(f"Stage1_Instances/{theorem_id}/")
+        or not isinstance(expected, str)
+        or SHA256_RE.fullmatch(expected) is None
+    ):
+        _fail("master RELEASE decision binding is malformed or outside theorem ownership")
+    path = _safe_repository_file(root, relative, "master RELEASE decision")
+    head = _git_text(root, ["rev-parse", "--verify", "HEAD^{commit}"], "current HEAD")
+    _require_file_at_revision(root, head, relative, "master RELEASE decision")
+    payload = path.read_bytes()
+    if _sha256_bytes(payload) != expected:
+        _fail("master RELEASE decision binding is stale")
+    decision = _strict_json_object(payload, "master RELEASE decision")
+    if (
+        decision.get("theorem_id") != theorem_id
+        or decision.get("item_id") != f"S56-{theorem_id.removeprefix('THM-')}-RELEASE"
+        or decision.get("verdict") != "accepted"
+        or decision.get("remaining_root_cut_set") != []
+        or not isinstance(decision.get("terminal_decisions"), Mapping)
+        or decision["terminal_decisions"].get("audit_complete") is not True
+        or decision["terminal_decisions"].get("theorem_complete") is not True
+        or not isinstance(decision.get("root_vector"), Mapping)
+        or decision["root_vector"].get("M") not in {"M0-L", "M0-W", "M0-P"}
+    ):
+        _fail("master RELEASE decision does not prove exact terminal root closure")
+    return decision
+
+
+def _validate_master_release_receipt(
+    root: Path, theorem_id: str, path: Path
+) -> None:
+    payload = path.read_bytes()
+    digest = _sha256_bytes(payload)
+    if path.name != f"{digest}.json":
+        _fail("master RELEASE receipt path is not content-addressed by its bytes")
+    relative = path.relative_to(root).as_posix()
+    head = _git_text(root, ["rev-parse", "--verify", "HEAD^{commit}"], "current HEAD")
+    _require_file_at_revision(root, head, relative, "master RELEASE receipt")
+    receipt = _strict_json_object(payload, "master RELEASE receipt")
+    if payload != _master_canonical_json(receipt) + b"\n":
+        _fail("master RELEASE receipt is not canonical JSON")
+    item_id = f"S56-{theorem_id.removeprefix('THM-')}-RELEASE"
+    semantic_decision = receipt.get("semantic_decision")
+    replay = receipt.get("replay_result")
+    semantic_result = replay.get("semantic_result") if isinstance(replay, Mapping) else None
+    if not isinstance(semantic_decision, Mapping) or not isinstance(semantic_result, Mapping):
+        _fail("master RELEASE receipt lacks semantic acceptance evidence")
+    _canonical_digest(semantic_decision, "decision_sha256", "master RELEASE decision")
+    _canonical_digest(replay, "result_sha256", "master RELEASE replay")
+    if (
+        receipt.get("schema_version") != MASTER_ACCEPTANCE_RECEIPT_SCHEMA
+        or receipt.get("item_id") != item_id
+        or receipt.get("theorem_id") != theorem_id
+        or receipt.get("phase") != "release"
+        or receipt.get("phase_evidence_accepted") is not True
+        or receipt.get("worker_verdict") != "accepted"
+        or receipt.get("review_verdict") != "phase_accepted"
+        or receipt.get("audit_complete") is not True
+        or receipt.get("theorem_complete") is not True
+        or semantic_decision.get("decision") != "phase_accepted"
+        or semantic_decision.get("phase_evidence_accepted") is not True
+        or semantic_decision.get("audit_complete") is not True
+        or semantic_decision.get("theorem_complete") is not True
+        or receipt.get("semantic_decision_sha256")
+        != semantic_decision.get("decision_sha256")
+        or receipt.get("replay_result_sha256") != replay.get("result_sha256")
+        or semantic_result.get("verdict") != "accepted"
+        or semantic_result.get("audit_complete") is not True
+        or semantic_result.get("theorem_complete") is not True
+        or replay.get("semantic_result_sha256")
+        != _sha256_bytes(_master_canonical_json(semantic_result))
+    ):
+        _fail("master RELEASE receipt does not prove exact terminal root acceptance")
+    _content_bound_release_decision(root, theorem_id, receipt)
+
+
+def current_master_release_acceptance(
+    repo_root: Path | str, theorem_id: str
+) -> bool:
+    """Return current master acceptance, failing closed on an invalid `[x]`."""
+
+    if not isinstance(theorem_id, str) or THEOREM_RE.fullmatch(theorem_id) is None:
+        _fail("theorem_id is malformed")
+    root = _repo_root(repo_root)
+    state = _current_release_state(root, theorem_id)
+    if state != "[x]":
+        return False
+    directory = root / "Stage1_Instances" / theorem_id / "master-acceptance" / "release"
+    if directory.is_symlink() or not directory.is_dir():
+        _fail("master-accepted RELEASE lacks its content-addressed receipt directory")
+    paths = list(directory.iterdir())
+    if (
+        len(paths) != 1
+        or paths[0].is_symlink()
+        or not paths[0].is_file()
+        or re.fullmatch(r"[0-9a-f]{64}\.json", paths[0].name) is None
+    ):
+        _fail("master-accepted RELEASE lacks one canonical master receipt")
+    _validate_master_release_receipt(root, theorem_id, paths[0])
+    return True
+
+
+def require_integration_root_unaccepted(
+    repo_root: Path | str, theorem_id: str
+) -> None:
+    """Reject ordinary integration once the current SSOT root is accepted."""
+
+    if current_master_release_acceptance(repo_root, theorem_id):
+        _fail("already master-accepted root is outside ordinary integration focus")
 
 
 def _receipt_signature_payload(receipt: Mapping[str, Any]) -> dict[str, Any]:
@@ -2172,6 +2350,7 @@ def _validate_admission_authority(root: Path, receipt: Mapping[str, Any]) -> Non
         != source.get("terminal_proof_body", {}).get("sha256")
     ):
         _fail("external replay identity differs from the receipt source")
+    _validate_machine_pre_stage1_provenance(root, receipt, source)
     if evidence_class == "exact_pinned_closure":
         pinned_provider = _pinned_manifest_provider(
             root,
@@ -2210,7 +2389,6 @@ def _validate_admission_authority(root: Path, receipt: Mapping[str, Any]) -> Non
             _fail("pinned provider authority is not the current root Lake closure")
     else:
         _reject_authoritative_external_identity(root, source.get("repository"))
-        _validate_external_pre_stage1_provenance(root, receipt, source)
         replayed_external = _replay_external_authority(
             source, authoritative_root=root
         )
@@ -2530,6 +2708,7 @@ def _validate_exact_integration(root: Path, receipt: Mapping[str, Any]) -> None:
         _fail("integration disposition lacks exact machine evidence")
     if receipt.get("frontier_exception") is not None:
         _fail("integration disposition must not carry a frontier exception")
+    require_integration_root_unaccepted(root, str(receipt.get("theorem_id", "")))
     human = receipt.get("human_proof", {})
     target = receipt.get("target_binding", {})
     target_fingerprint = target.get("declaration_type_sha256")
@@ -2708,10 +2887,10 @@ def _validate_frontier_exception(receipt: Mapping[str, Any], *, as_of: datetime)
     author = _actor(receipt.get("admission_review", {}).get("author"), "admission author")
     assigned_worker = _actor(exception.get("assigned_worker"), "assigned frontier worker")
     estimator = _actor(exception.get("estimator"), "frontier estimator")
-    reviewer = _actor(
-        exception.get("independent_review", {}).get("reviewer"),
-        "frontier exception reviewer",
-    )
+    review = exception.get("independent_review")
+    if not isinstance(review, Mapping):
+        _fail("frontier exception lacks durable independent review evidence")
+    reviewer = _actor(review.get("reviewer"), "frontier exception reviewer")
     if assigned_worker.get("role") != "proof_worker":
         _fail("frontier exception lacks a canonical assigned proof worker")
     if _is_worker_actor(estimator) or estimator.get("role") != "scheduler_estimator":
@@ -2724,19 +2903,68 @@ def _validate_frontier_exception(receipt: Mapping[str, Any], *, as_of: datetime)
     _require_distinct_actors(assigned_worker, reviewer, "frontier exception reviewer")
     _require_distinct_actors(assigned_worker, author, "frontier admission author")
 
-    if exception.get("independent_review", {}).get("decision") != "approved":
+    if review.get("decision") != "approved":
         _fail("frontier exception was not approved")
     if receipt.get("admission_review", {}).get("decision") != "admit_frontier_exception":
         _fail("admission review did not admit the frontier exception")
     estimated_at = _parse_timestamp(exception.get("estimated_at"), "frontier estimated_at")
-    reviewed_at = _parse_timestamp(
-        exception.get("independent_review", {}).get("reviewed_at"),
-        "frontier reviewed_at",
+    authored_at = _parse_timestamp(
+        review.get("authored_at"), "frontier review authored_at"
     )
+    reviewed_at = _parse_timestamp(review.get("reviewed_at"), "frontier reviewed_at")
     evidence_as_of = _parse_timestamp(receipt.get("evidence_as_of"), "evidence_as_of")
     generated_at = _parse_timestamp(receipt.get("generated_at"), "generated_at")
-    if estimated_at < evidence_as_of or estimated_at > reviewed_at or reviewed_at > generated_at:
+    if (
+        estimated_at < evidence_as_of
+        or estimated_at > authored_at
+        or authored_at > reviewed_at
+        or reviewed_at > generated_at
+    ):
         _fail("frontier estimate/review timestamps are out of order")
+    review_input = {key: value for key, value in review.items() if key != "reviewed_at"}
+    review_digest = review.get("review_input_sha256")
+    if (
+        review.get("schema_version") != FRONTIER_REVIEW_INPUT_SCHEMA
+        or review.get("theorem_id") != receipt.get("theorem_id")
+        or review.get("candidate_sha256")
+        != receipt.get("issuance_authority", {}).get("candidate_sha256")
+        or not isinstance(review_digest, str)
+        or not SHA256_RE.fullmatch(review_digest)
+    ):
+        _fail("frontier independent review identity is malformed")
+    _embedded_digest(
+        review_input,
+        "review_input_sha256",
+        "frontier independent review input",
+    )
+    assessed_probability = review.get("assessed_completion_probability")
+    comparables = review.get("comparables")
+    findings = review.get("findings")
+    if (
+        not isinstance(assessed_probability, (int, float))
+        or isinstance(assessed_probability, bool)
+        or not 0.70 <= float(assessed_probability) <= 1.0
+        or not isinstance(review.get("estimation_method_assessment"), str)
+        or not review["estimation_method_assessment"].strip()
+        or not isinstance(comparables, list)
+        or not comparables
+        or any(not isinstance(row, str) or not row.strip() for row in comparables)
+        or not isinstance(findings, list)
+        or not findings
+        or any(not isinstance(row, str) or not row.strip() for row in findings)
+    ):
+        _fail("frontier independent review is not substantive or below 0.70")
+    expected_control_assessments = {
+        "budget_assessment": exception.get("budget"),
+        "milestone_assessment": exception.get("milestones"),
+        "validator_assessment": exception.get("validator"),
+        "stop_condition_assessment": exception.get("stop_conditions"),
+    }
+    if any(
+        review.get(key) != expected
+        for key, expected in expected_control_assessments.items()
+    ):
+        _fail("frontier independent review does not bind the authorized controls")
     root_obligation = exception.get("root_obligation", {})
     if root_obligation.get("statement_fingerprint") != receipt.get("human_proof", {}).get(
         "statement_fingerprint"
@@ -3111,6 +3339,10 @@ def _semantic_validate(
     runtime_root: Path | str | None,
     require_issuance: bool,
 ) -> None:
+    if receipt.get("execution_disposition") == "organize_or_integrate":
+        # Current acceptance outranks historical receipt facts and is checked
+        # before their base-revision bindings can report a generic stale view.
+        require_integration_root_unaccepted(root, theorem_id)
     _validate_common(
         root,
         theorem_id,

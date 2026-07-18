@@ -213,7 +213,15 @@ class Fixture:
             check=True,
         )
         blueprint = self.root / "Docs" / "Stage1_Blueprint_v2.md"
-        blueprint.write_text("# Test Stage1 v2 authority\n", encoding="utf-8")
+        blueprint.write_text(
+            "# Test Stage1 v2 authority\n\n"
+            f"{focus.CHECKLIST_BEGIN}\n"
+            "## Test execution checklist\n"
+            f"- [ ] `S56-M-0001-RELEASE` / `{THEOREM}` / `release`: "
+            "Reconcile release evidence. {attempts=0}\n"
+            f"{focus.CHECKLIST_END}\n",
+            encoding="utf-8",
+        )
         membership = copy.deepcopy(
             json.loads(
                 (ROOT / focus.TARGET_MEMBERSHIP_RELATIVE_PATH).read_text(
@@ -301,18 +309,77 @@ class Fixture:
     def configure_pinned_transport_receipt(self, receipt: dict) -> dict:
         receipt["machine_evidence_class"] = "exact_pinned_closure"
         receipt["repository_gap"]["local_presence"] = "pinned_dependency"
-        source = receipt["machine_proof"]["source"]
-        source["pre_stage1_provenance"] = None
-        receipt["evidence_bindings"] = [
-            row for row in receipt["evidence_bindings"]
-            if row["role"] != focus.EXTERNAL_PROVENANCE_ROLE
-        ]
         receipt["evidence_bindings"][0] = {
             "path": f"Stage1_Instances/{THEOREM}/{self.human_review.name}",
             "sha256": self.digest(self.human_review),
             "role": "human_source_review",
         }
         return receipt
+
+    def rewrite_machine_provenance_timestamp(
+        self, receipt: dict, *, issued_at: str, reviewed_at: str
+    ) -> None:
+        source = receipt["machine_proof"]["source"]
+        report = json.loads(self.external_provenance.read_text(encoding="utf-8"))
+        subject = {
+            "kind": "external_machine_proof",
+            "immutable_id": report["publication"]["immutable_id"],
+            "repository": source["repository"],
+            "revision": source["revision"],
+            "tree_or_archive_sha256": source["tree_or_archive_sha256"],
+            "file_path": source["file_path"],
+            "file_sha256": source["file_sha256"],
+            "declaration": source["declaration"],
+            "declaration_type_sha256": source["declaration_type_sha256"],
+            "terminal_proof_body_sha256": source["terminal_proof_body"]["sha256"],
+        }
+        report["source"] = {key: value for key, value in subject.items() if key not in {
+            "kind", "immutable_id"
+        }}
+        report["publication"]["timestamp"] = self.timestamp_token(
+            subject,
+            issued_at=issued_at,
+            token_id="fixture-machine-proof-publication-rewritten",
+        )
+        report["reviewed_at"] = reviewed_at
+        report.pop("provenance_sha256", None)
+        report["provenance_sha256"] = hashlib.sha256(
+            json.dumps(report, ensure_ascii=True, sort_keys=True,
+                       separators=(",", ":")).encode()
+        ).hexdigest()
+        self.external_provenance.write_text(
+            json.dumps(report, ensure_ascii=True, indent=2) + "\n", encoding="utf-8"
+        )
+        subprocess.run(
+            ["git", "add", self.external_provenance.relative_to(self.root).as_posix()],
+            cwd=self.root, check=True,
+        )
+        subprocess.run(
+            ["git", "commit", "-q", "-m", "rewrite exact proof publication timestamp"],
+            cwd=self.root, check=True,
+        )
+        self.base_revision = subprocess.run(
+            ["git", "rev-parse", "HEAD"], cwd=self.root, check=True,
+            text=True, capture_output=True,
+        ).stdout.strip()
+        receipt["repository_base_revision"] = self.base_revision
+        binding = next(
+            row for row in receipt["evidence_bindings"]
+            if row["role"] == focus.EXTERNAL_PROVENANCE_ROLE
+        )
+        binding["sha256"] = self.digest(self.external_provenance)
+        source["pre_stage1_provenance"] = {
+            "path": binding["path"],
+            "sha256": binding["sha256"],
+            "provenance_sha256": report["provenance_sha256"],
+        }
+
+    def rebind_machine_provenance(self, receipt: dict) -> None:
+        self.rewrite_machine_provenance_timestamp(
+            receipt,
+            issued_at="2026-05-30T20:00:00Z",
+            reviewed_at="2026-05-31T18:30:00Z",
+        )
 
     def write_machine_transport_receipt(self, **updates: object) -> None:
         relative = lambda path: f"Stage1_Instances/{THEOREM}/{path.name}"
@@ -943,6 +1010,64 @@ class Fixture:
             "reviewed_at": "2026-05-31T23:30:00Z",
             "decision": "admit_frontier_exception",
         }
+        review_input = {
+            "schema_version": focus.FRONTIER_REVIEW_INPUT_SCHEMA,
+            "candidate_sha256": SHA_A,
+            "theorem_id": THEOREM,
+            "reviewer": {
+                "id": "frontier-reviewer-1",
+                "role": "independent_reviewer",
+            },
+            "authored_at": "2026-05-31T23:00:00Z",
+            "decision": "approved",
+            "assessed_completion_probability": 0.70,
+            "estimation_method_assessment": (
+                "Independent calibration against recorded bounded proof attempts."
+            ),
+            "comparables": ["bounded-attempt-a", "bounded-attempt-b"],
+            "budget_assessment": {
+                "scope": "exact root theorem and declared wrapper only",
+                "wall_clock_seconds": 28800,
+                "token_limit": 200000,
+                "compute_seconds": 14400,
+                "disk_bytes": 1073741824,
+                "concurrency_limit": 1,
+            },
+            "milestone_assessment": [
+                {
+                    "id": "close_root",
+                    "deadline_at": "2026-06-01T08:00:00Z",
+                    "evidence_role": "root_proof_closure",
+                },
+                {
+                    "id": "replay_root",
+                    "deadline_at": "2026-06-01T20:00:00Z",
+                    "evidence_role": "kernel_replay",
+                },
+            ],
+            "validator_assessment": {
+                "path": f"Stage1_Instances/{THEOREM}/{self.bound.name}",
+                "sha256": self.digest(self.bound),
+                "command": [
+                    "python3",
+                    f"Stage1_Instances/{THEOREM}/{self.bound.name}",
+                ],
+            },
+            "stop_condition_assessment": sorted(
+                focus.REQUIRED_FRONTIER_STOP_CONDITIONS
+            ),
+            "findings": [
+                "The bounded controls support an assessed probability at threshold."
+            ],
+        }
+        review_input["review_input_sha256"] = hashlib.sha256(
+            json.dumps(
+                review_input,
+                ensure_ascii=True,
+                sort_keys=True,
+                separators=(",", ":"),
+            ).encode("utf-8")
+        ).hexdigest()
         receipt["frontier_exception"] = {
             "scheduler_owner": "scheduler_master_lane",
             "root_obligation": {
@@ -988,12 +1113,8 @@ class Fixture:
             "lease_expires_at": "2026-06-02T00:00:00Z",
             "revocation_route": "scheduler_master_lane",
             "independent_review": {
-                "reviewer": {
-                    "id": "frontier-reviewer-1",
-                    "role": "independent_reviewer",
-                },
-                "reviewed_at": "2026-05-31T23:00:00Z",
-                "decision": "approved",
+                **review_input,
+                "reviewed_at": "2026-05-31T23:30:00Z",
             },
         }
         return receipt
@@ -1002,6 +1123,106 @@ class Fixture:
         path = self.instance / "focus-eligibility.json"
         path.write_text(json.dumps(receipt, ensure_ascii=True, indent=2) + "\n", encoding="utf-8")
         return self.digest(path)
+
+    def set_release_state(self, state: str) -> None:
+        text = (self.root / focus.REQUIREMENTS_AUTHORITY).read_text(encoding="utf-8")
+        text = text.replace(
+            "- [ ] `S56-M-0001-RELEASE`",
+            f"- {state} `S56-M-0001-RELEASE`",
+        )
+        (self.root / focus.REQUIREMENTS_AUTHORITY).write_text(text, encoding="utf-8")
+        subprocess.run(
+            ["git", "add", focus.REQUIREMENTS_AUTHORITY], cwd=self.root, check=True
+        )
+        subprocess.run(
+            ["git", "commit", "-q", "-m", f"set release cursor {state}"],
+            cwd=self.root,
+            check=True,
+        )
+        self.base_revision = subprocess.run(
+            ["git", "rev-parse", "HEAD"], cwd=self.root, check=True,
+            text=True, capture_output=True,
+        ).stdout.strip()
+
+    def write_master_release_acceptance(self) -> Path:
+        release_decision = {
+            "schema_version": "stage1-release-decision/1.0",
+            "item_id": "S56-M-0001-RELEASE",
+            "theorem_id": THEOREM,
+            "verdict": "accepted",
+            "terminal_decisions": {
+                "audit_complete": True,
+                "theorem_complete": True,
+            },
+            "remaining_root_cut_set": [],
+            "root_vector": {"M": "M0-L"},
+        }
+        decision_path = self.instance / "release-decision.json"
+        decision_path.write_text(
+            json.dumps(release_decision, ensure_ascii=True, indent=2) + "\n",
+            encoding="utf-8",
+        )
+        semantic_result = {
+            "verdict": "accepted",
+            "audit_complete": True,
+            "theorem_complete": True,
+        }
+        replay = {
+            "semantic_result": semantic_result,
+            "semantic_result_sha256": hashlib.sha256(
+                focus._master_canonical_json(semantic_result)
+            ).hexdigest(),
+        }
+        replay["result_sha256"] = hashlib.sha256(
+            focus._master_canonical_json(replay)
+        ).hexdigest()
+        semantic = {
+            "decision": "phase_accepted",
+            "phase_evidence_accepted": True,
+            "audit_complete": True,
+            "theorem_complete": True,
+        }
+        semantic["decision_sha256"] = hashlib.sha256(
+            focus._master_canonical_json(semantic)
+        ).hexdigest()
+        receipt = {
+            "schema_version": focus.MASTER_ACCEPTANCE_RECEIPT_SCHEMA,
+            "item_id": "S56-M-0001-RELEASE",
+            "theorem_id": THEOREM,
+            "phase": "release",
+            "worker_verdict": "accepted",
+            "review_verdict": "phase_accepted",
+            "phase_evidence_accepted": True,
+            "audit_complete": True,
+            "theorem_complete": True,
+            "artifact_bindings": [{
+                "path": f"Stage1_Instances/{THEOREM}/release-decision.json",
+                "sha256": self.digest(decision_path),
+                "role": "release_decision",
+            }],
+            "replay_result": replay,
+            "replay_result_sha256": replay["result_sha256"],
+            "semantic_decision": semantic,
+            "semantic_decision_sha256": semantic["decision_sha256"],
+        }
+        payload = focus._master_canonical_json(receipt) + b"\n"
+        digest = hashlib.sha256(payload).hexdigest()
+        path = self.instance / "master-acceptance" / "release" / f"{digest}.json"
+        path.parent.mkdir(parents=True)
+        path.write_bytes(payload)
+        subprocess.run(
+            ["git", "add", decision_path.relative_to(self.root).as_posix(),
+             path.relative_to(self.root).as_posix()], cwd=self.root, check=True,
+        )
+        subprocess.run(
+            ["git", "commit", "-q", "-m", "freeze master release acceptance"],
+            cwd=self.root, check=True,
+        )
+        self.base_revision = subprocess.run(
+            ["git", "rev-parse", "HEAD"], cwd=self.root, check=True,
+            text=True, capture_output=True,
+        ).stdout.strip()
+        return path
 
     def evaluate(self, receipt: dict | None = None, expected: str | None = None) -> dict:
         if receipt is not None:
@@ -1511,11 +1732,6 @@ class FocusEligibilityTests(unittest.TestCase):
         receipt = fixture.exact_receipt()
         receipt["machine_evidence_class"] = "exact_pinned_closure"
         receipt["repository_gap"]["local_presence"] = "pinned_dependency"
-        receipt["machine_proof"]["source"]["pre_stage1_provenance"] = None
-        receipt["evidence_bindings"] = [
-            row for row in receipt["evidence_bindings"]
-            if row["role"] != focus.EXTERNAL_PROVENANCE_ROLE
-        ]
         manifest_sha = fixture.digest(fixture.manifest)
         for principal in ("scheduler_verification", "reviewer_verification"):
             authority = receipt["admission_authority"][principal][
@@ -1554,6 +1770,44 @@ class FocusEligibilityTests(unittest.TestCase):
         self.assertFalse(focus.phase_allowed(result, "proof"))
         self.assertIn("verified_lake_manifest", "_".join(result["reason_codes"]))
 
+    def test_exact_pinned_closure_requires_pre_cutoff_proof_bytes(self) -> None:
+        fixture = self.fixture()
+        receipt = fixture.configure_pinned_transport_receipt(fixture.exact_receipt())
+        receipt["admission_authority"] = fixture.authority_for(receipt)
+        self.assertTrue(fixture.evaluate(receipt)["valid"])
+
+        missing = copy.deepcopy(receipt)
+        del missing["machine_proof"]["source"]["pre_stage1_provenance"]
+        missing["evidence_bindings"] = [
+            row for row in missing["evidence_bindings"]
+            if row["role"] != focus.EXTERNAL_PROVENANCE_ROLE
+        ]
+        result = fixture.evaluate(missing)
+        self.assertFalse(result["valid"])
+        self.assertIn("schema_invalid", result["reason_codes"])
+
+        fixture = self.fixture()
+        post_cutoff = fixture.configure_pinned_transport_receipt(fixture.exact_receipt())
+        fixture.rewrite_machine_provenance_timestamp(
+            post_cutoff,
+            issued_at="2026-07-15T20:32:22Z",
+            reviewed_at="2026-07-15T20:32:23Z",
+        )
+        post_cutoff["evidence_as_of"] = "2026-07-15T20:32:24Z"
+        post_cutoff["generated_at"] = "2026-07-15T20:32:25Z"
+        post_cutoff["admission_review"]["reviewed_at"] = "2026-07-15T20:32:24Z"
+        post_cutoff["admission_authority"] = fixture.authority_for(post_cutoff)
+        fixture.write(post_cutoff)
+        with self.assertRaisesRegex(
+            focus.EligibilityError, "issued after the Stage1 provenance cutoff"
+        ):
+            with mock.patch.object(focus, "TRUST_ANCHORS_SHA256", fixture.trust_anchor_sha):
+                focus._validate_machine_pre_stage1_provenance(
+                    fixture.root,
+                    post_cutoff,
+                    post_cutoff["machine_proof"]["source"],
+                )
+
     def test_probability_below_threshold_is_rejected(self) -> None:
         fixture = self.fixture()
         receipt = fixture.frontier_receipt()
@@ -1561,6 +1815,60 @@ class FocusEligibilityTests(unittest.TestCase):
         result = fixture.evaluate(receipt)
         self.assertFalse(result["valid"])
         self.assertIn("schema_invalid", result["reason_codes"])
+
+    def test_frontier_review_probability_and_substance_are_durable(self) -> None:
+        fixture = self.fixture()
+        receipt = fixture.frontier_receipt()
+        review = receipt["frontier_exception"]["independent_review"]
+        self.assertEqual(review["assessed_completion_probability"], 0.70)
+        self.assertEqual(len(review["comparables"]), 2)
+        self.assertTrue(review["findings"])
+        self.assertEqual(
+            review["budget_assessment"],
+            receipt["frontier_exception"]["budget"],
+        )
+        self.assertTrue(fixture.evaluate(receipt)["valid"])
+
+        for field, replacement in (
+            ("assessed_completion_probability", 0.69),
+            ("comparables", []),
+            ("findings", []),
+        ):
+            with self.subTest(field=field):
+                tampered = copy.deepcopy(receipt)
+                tampered["frontier_exception"]["independent_review"][field] = replacement
+                result = fixture.evaluate(tampered)
+                self.assertFalse(result["valid"])
+                self.assertFalse(focus.phase_allowed(result, "proof"))
+
+    def test_frontier_review_digest_and_control_assessments_are_revalidated(self) -> None:
+        fixture = self.fixture()
+        receipt = fixture.frontier_receipt()
+        for field, replacement in (
+            ("review_input_sha256", SHA_B),
+            (
+                "budget_assessment",
+                {
+                    **receipt["frontier_exception"]["budget"],
+                    "token_limit": 1,
+                },
+            ),
+            ("milestone_assessment", []),
+            (
+                "validator_assessment",
+                {
+                    **receipt["frontier_exception"]["validator"],
+                    "sha256": SHA_B,
+                },
+            ),
+            ("stop_condition_assessment", ["scheduler_revoked"]),
+        ):
+            with self.subTest(field=field):
+                tampered = copy.deepcopy(receipt)
+                tampered["frontier_exception"]["independent_review"][field] = replacement
+                result = fixture.evaluate(tampered)
+                self.assertFalse(result["valid"])
+                self.assertFalse(focus.phase_allowed(result, "proof"))
 
     def test_nonfinite_probability_is_not_valid_json_evidence(self) -> None:
         fixture = self.fixture()
@@ -1715,6 +2023,7 @@ class FocusEligibilityTests(unittest.TestCase):
         source = receipt["machine_proof"]["source"]
         source["match_kind"] = "checked_transport"
         source["declaration_type_sha256"] = SHA_C
+        fixture.rebind_machine_provenance(receipt)
         transport = fixture.machine_transport_evidence()
         source["transport_evidence"] = [transport]
         receipt["evidence_bindings"].append(
@@ -1739,6 +2048,7 @@ class FocusEligibilityTests(unittest.TestCase):
         source = receipt["machine_proof"]["source"]
         source["match_kind"] = "checked_transport"
         source["declaration_type_sha256"] = SHA_C
+        fixture.rebind_machine_provenance(receipt)
         transport = fixture.machine_transport_evidence()
         source["transport_evidence"] = [transport]
         receipt["evidence_bindings"].append(
@@ -1757,6 +2067,7 @@ class FocusEligibilityTests(unittest.TestCase):
         source = receipt["machine_proof"]["source"]
         source["match_kind"] = "checked_transport"
         source["declaration_type_sha256"] = SHA_C
+        fixture.rebind_machine_provenance(receipt)
         transport = fixture.machine_transport_evidence()
         source["transport_evidence"] = [transport]
         receipt["evidence_bindings"].append(
@@ -1827,6 +2138,7 @@ class FocusEligibilityTests(unittest.TestCase):
         source = receipt["machine_proof"]["source"]
         source["match_kind"] = "checked_transport"
         source["declaration_type_sha256"] = SHA_C
+        fixture.rebind_machine_provenance(receipt)
         transport = fixture.machine_transport_evidence()
         transport["path"] = f"Stage1_Instances/{THEOREM}/{fixture.bound.name}"
         transport["sha256"] = fixture.digest(fixture.bound)
@@ -1849,6 +2161,7 @@ class FocusEligibilityTests(unittest.TestCase):
             source = receipt["machine_proof"]["source"]
             source["match_kind"] = "checked_transport"
             source["declaration_type_sha256"] = SHA_C
+            fixture.rebind_machine_provenance(receipt)
             transport = fixture.machine_transport_evidence()
             source["transport_evidence"] = [transport]
             receipt["evidence_bindings"].append(
@@ -2019,6 +2332,56 @@ class FocusEligibilityTests(unittest.TestCase):
         result = fixture.evaluate(receipt)
         self.assertFalse(result["valid"])
         self.assertFalse(focus.phase_allowed(result, "release"))
+
+    def test_current_master_release_acceptance_blocks_ordinary_integration(self) -> None:
+        fixture = self.fixture()
+        receipt = fixture.exact_receipt()
+        fixture.write_master_release_acceptance()
+        fixture.set_release_state("[x]")
+        result = fixture.evaluate(receipt)
+        self.assertFalse(result["valid"])
+        self.assertIn("already_master_accepted_root", "_".join(result["reason_codes"]))
+
+    def test_release_x_without_master_receipt_fails_closed(self) -> None:
+        fixture = self.fixture()
+        receipt = fixture.exact_receipt()
+        fixture.set_release_state("[x]")
+        result = fixture.evaluate(receipt)
+        self.assertFalse(result["valid"])
+        self.assertIn("content_addressed_receipt", "_".join(result["reason_codes"]))
+
+    def test_master_receipt_without_release_x_does_not_manufacture_acceptance(self) -> None:
+        fixture = self.fixture()
+        fixture.write_master_release_acceptance()
+        self.assertFalse(focus.current_master_release_acceptance(fixture.root, THEOREM))
+
+    def test_historical_worker_release_decision_is_not_master_acceptance(self) -> None:
+        fixture = self.fixture()
+        (fixture.instance / "release-decision.json").write_text(
+            json.dumps({"verdict": "accepted"}, ensure_ascii=True, indent=2) + "\n",
+            encoding="utf-8",
+        )
+        subprocess.run(
+            ["git", "add", f"Stage1_Instances/{THEOREM}/release-decision.json"],
+            cwd=fixture.root, check=True,
+        )
+        subprocess.run(
+            ["git", "commit", "-q", "-m", "historical worker decision"],
+            cwd=fixture.root, check=True,
+        )
+        self.assertFalse(focus.current_master_release_acceptance(fixture.root, THEOREM))
+
+    def test_tampered_master_release_receipt_fails_closed(self) -> None:
+        fixture = self.fixture()
+        path = fixture.write_master_release_acceptance()
+        fixture.set_release_state("[x]")
+        value = json.loads(path.read_text(encoding="utf-8"))
+        value["theorem_complete"] = False
+        path.write_bytes(focus._master_canonical_json(value) + b"\n")
+        with self.assertRaisesRegex(
+            focus.EligibilityError, "content-addressed"
+        ):
+            focus.current_master_release_acceptance(fixture.root, THEOREM)
 
     def test_exact_machine_source_must_match_target_type(self) -> None:
         fixture = self.fixture()

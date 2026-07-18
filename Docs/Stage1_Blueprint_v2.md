@@ -106,7 +106,7 @@ axes answer different questions and MUST NOT be collapsed into one status.
 
 | Value | Exact meaning |
 |---|---|
-| `exact_pinned_closure` | an exact kernel-checked proof is in the immutable dependency closure available to the declared repository toolchain, but repository-local binding, wrapper, validation, or acceptance remains |
+| `exact_pinned_closure` | an exact kernel-checked proof whose exact source and terminal proof-body bytes independently existed before the Stage1 v2 cutoff is in the immutable dependency closure available to the declared repository toolchain, but repository-local binding, wrapper, validation, or acceptance remains |
 | `exact_external_unintegrated` | an exact content-bound external machine proof, published and independently reviewed before the Stage1 v2 cutoff, exists outside the authoritative repository and is replayable under a declared formal-system/TCB boundary, but it is not yet in the accepted local integration closure |
 | `no_exact_candidate_as_of` | a recorded bounded search found no usable exact machine-proof candidate as of its date and query/source set |
 | `unknown` | evidence is absent, malformed, stale, ambiguous, only partial, or insufficient to establish another class |
@@ -125,6 +125,12 @@ exact class.
 | `defer_frontier` | completing the exact machine proof would be frontier work and no current exception authorizes it |
 | `research_required` | only intake, exact-statement, human-source, and formal-candidate audit work is authorized; proof construction is not |
 | `exclude_scope` | the target is not a current Stage1 integration target, including an unproved/conjectural human claim, non-exact umbrella, already locally accepted root, or unusable legal/technical boundary |
+
+At eligibility evaluation and at each ordinary focus-admission prepare, independent-review, and
+publish boundary, `organize_or_integrate` MUST re-read the current tracked Blueprint RELEASE cursor
+and its tracked content-addressed master acceptance receipt. RELEASE `[x]` with valid terminal
+acceptance rejects ordinary integration as already accepted; `[x]` with missing, stale, malformed, or
+inconsistent receipt evidence fails closed, and a receipt without RELEASE `[x]` grants no acceptance.
 
 The allowed combinations are fail-closed:
 
@@ -174,20 +180,25 @@ workers cannot declare their own receipt accepted. At minimum it binds:
    them; and
 8. for a negative search, the bounded source/query/date inventory and candidate rejection reasons.
 
-For `exact_external_unintegrated`, the source MUST be genuinely external: neither the authoritative
-repository path, any configured authoritative remote, nor a mirror whose remote resolves to either is
-admissible. Admission MUST also compare Git object identity: a candidate sharing any reachable commit,
-history object, source tree, or proof-source blob with the authoritative history is a mirror/repackage
-even when every URL and remote was changed. One canonical `stage1-external-proof-provenance/1.0`
-report MUST bind the exact repository, revision, tree/archive, file, declaration, declaration type, and
-terminal proof-body bytes to an Ed25519 token from the repository-pinned independent
+Both `exact_pinned_closure` and `exact_external_unintegrated` MUST carry one canonical
+`stage1-external-proof-provenance/1.0` report binding the exact repository, revision, tree/archive,
+file, declaration, declaration type, and terminal proof-body bytes to an Ed25519 token from the
+repository-pinned independent
 `publication_timestamp` authority dated no later than `2026-07-15T20:32:21Z`, the first Stage1 v2
 authority cutoff. The token signs a canonical digest of that complete source identity; neither a JSON
 `published_at` field, repository-local prose, Git author/committer time, nor a signature made by a key
 whose anchored validity began after its alleged issue time proves pre-existence.
 An independent reviewer MUST accept that report after publication and no later than the receipt's
 evidence snapshot. A role label, mutable URL, post-cutoff artifact, or unbound prose claim is not
-pre-existing proof evidence.
+pre-existing proof evidence. Pinning a proof after the cutoff cannot retroactively establish that its
+exact bytes existed before the cutoff and cannot turn newly authored root mathematics into ordinary
+integration work.
+
+For `exact_external_unintegrated`, the source MUST additionally be genuinely external: neither the
+authoritative repository path, any configured authoritative remote, nor a mirror whose remote resolves
+to either is admissible. Admission MUST also compare Git object identity: a candidate sharing any
+reachable commit, history object, source tree, or proof-source blob with the authoritative history is a
+mirror/repackage even when every URL and remote was changed.
 
 The human-proof side is likewise byte authority, not a reviewer assertion. The typed human source
 review MUST bind a replayable theorem-owned copy of the immutable publication/archive bytes, its
@@ -205,6 +216,9 @@ imports the admitted provider module from that scheduler-owned local package in 
 network-denied environment and checks the exact provider declaration and axiom closure. Copying the
 provider source into a temporary file, replaying only a separately cloned upstream checkout, trusting
 compiled cache names, or merely observing matching hashes cannot establish pinned closure.
+The pre-cutoff provenance report proves only prior existence and exact byte identity; current execution
+authority for a pinned proof remains exclusively the authoritative root manifest and its independently
+verified live package/cache closure, never the provenance report or an external checkout.
 
 A nonidentical machine source may use `checked_transport` only after its provider is pinned into the
 authoritative root Lake closure, and then only through a canonical
@@ -233,12 +247,15 @@ incompatibility. The focus validator cross-checks those facts against the enclos
 
 For `frontier_exception`, the same receipt additionally binds the exact root obligation, probability
 in `[0,1]`, estimation method and comparable evidence, an estimator who is not the assigned worker,
-independent reviewer approval, finite wall-clock/token/compute/disk/concurrency limits, structured
+and the independent reviewer's own assessed probability, estimation-method assessment, concrete
+comparables, findings, and exact assessments of the authorized budget, milestones, validator, and
+stop conditions. It also binds finite wall-clock/token/compute/disk/concurrency limits, structured
 milestone IDs/deadlines/evidence roles, the validator, the complete closed set of hard stop conditions,
 an attempt limit, lease expiry, and scheduler-owned revocation route. The
 estimator and reviewer must be independent of the worker output being authorized. A worker's own
 claim, a model confidence string, or a probability added after work began is invalid. The threshold is
-inclusive: `0.70` passes; any value below `0.70` fails.
+inclusive for both estimates: `0.70` passes; either value below `0.70` fails. A reviewer approval label
+or digest without that substantive assessment is not an independent frontier review.
 
 "Finite" is operational, not merely mathematical. One receipt may authorize at most 30 days of wall
 clock, 50,000,000 tokens, 30 days of compute, 1 TiB of incremental disk, concurrency 100, 100
@@ -253,11 +270,16 @@ Changing a statement, source, proof body, revision, toolchain, TCB, license, int
 reviewer decision, or invalidation input revokes the old permission until a new review passes.
 
 Admission authority is durable repository evidence, not private scheduler memory. The canonical
-focus receipt embeds the content-addressed scheduler issuance, independent review, and their replay
+focus receipt embeds the complete substantive frontier review, content-addressed scheduler issuance,
+and their replay
 results; every referenced proposal, decision, source review, transport replay, and evidence artifact
 is committed under the theorem-owned directory. Runtime candidate, log, and work files may be cached
 under `.cron`, but deleting that cache or cloning the repository elsewhere cannot invalidate an
 otherwise current receipt. Conversely, a runtime-only record can never authorize a tracked receipt.
+For a frontier exception, the receipt's reviewer and scheduler Ed25519 signatures cover the complete
+review object, including the reviewer's probability, comparables, findings, and control assessments;
+eligibility revalidates those fields directly from the theorem-owned receipt without consulting
+`.cron`.
 The repository-pinned Ed25519 trust root binds each issuance key to one exact role and principal ID;
 the signed `scheduler_issuer.id` and `reviewer.id` must match those bindings. Active keys have no
 expiry, retired keys have a finite `not_after` and verify only historical in-window issuance, and

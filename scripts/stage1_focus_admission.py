@@ -1396,7 +1396,7 @@ def _reject_authoritative_external_identity(
             )
 
 
-def _verify_external_pre_stage1_provenance(
+def _verify_machine_pre_stage1_provenance(
     root: Path,
     receipt_facts: Mapping[str, Any],
     source: Mapping[str, Any],
@@ -1405,7 +1405,7 @@ def _verify_external_pre_stage1_provenance(
     verifier: Mapping[str, Any] | None = None,
     authority_revision: str | None = None,
 ) -> dict[str, Any]:
-    """Revalidate immutable, independent provenance for an external proof."""
+    """Revalidate immutable, independent provenance for exact proof bytes."""
 
     theorem_id = str(receipt_facts.get("theorem_id", ""))
     rows = [
@@ -1414,7 +1414,7 @@ def _verify_external_pre_stage1_provenance(
         if isinstance(row, Mapping) and row.get("role") == EXTERNAL_PROVENANCE_ROLE
     ]
     if len(rows) != 1:
-        _fail("exact external source requires one typed pre-Stage1 provenance report")
+        _fail("exact machine source requires one typed pre-Stage1 provenance report")
     binding = rows[0]
     path = _safe_relative(binding.get("path"), "external proof provenance")
     if not path.startswith(f"Stage1_Instances/{theorem_id}/"):
@@ -1496,7 +1496,7 @@ def _verify_external_pre_stage1_provenance(
         "sha256": binding.get("sha256"),
         "provenance_sha256": report.get("provenance_sha256"),
     }:
-        _fail("external machine source does not bind the typed provenance report")
+        _fail("exact machine source does not bind the typed provenance report")
     return {
         "path": path,
         "sha256": str(binding.get("sha256")),
@@ -2701,6 +2701,14 @@ def verify_external_machine_source(
     evidence_class = receipt_facts.get("machine_evidence_class")
     pinned_provider: dict[str, str] | None = None
     pinned_authority_result: dict[str, Any] | None = None
+    if evidence_class in {"exact_pinned_closure", "exact_external_unintegrated"}:
+        _verify_machine_pre_stage1_provenance(
+            repo_root,
+            receipt_facts,
+            source,
+            verifier=actor,
+            authority_revision=_git_text(repo_root, "rev-parse", "HEAD^{commit}"),
+        )
     if evidence_class == "exact_pinned_closure":
         pinned_provider = _pinned_manifest_provider(
             repo_root,
@@ -2721,13 +2729,6 @@ def verify_external_machine_source(
                 "pin the provider into the authoritative root closure first"
             )
         _reject_authoritative_external_identity(repo_root, source.get("repository"))
-        _verify_external_pre_stage1_provenance(
-            repo_root,
-            receipt_facts,
-            source,
-            verifier=actor,
-            authority_revision=_git_text(repo_root, "rev-parse", "HEAD^{commit}"),
-        )
     if source.get("formal_system") != "Lean 4":
         _fail("automatic focus admission supports only independently replayed Lean 4 sources")
     repository = source.get("repository")
@@ -3200,6 +3201,15 @@ def _load_frontier_review_input(
     return value
 
 
+def _durable_frontier_review(
+    review_input: Mapping[str, Any], *, reviewed_at: str
+) -> dict[str, Any]:
+    """Embed the complete substantive review in the signed theorem receipt."""
+    durable = json.loads(json.dumps(review_input, ensure_ascii=True, allow_nan=False))
+    durable["reviewed_at"] = reviewed_at
+    return durable
+
+
 def _issuance_path(runtime: Path, candidate_sha256: str) -> Path:
     return runtime / "focus-admission" / "issuances" / f"{candidate_sha256}.json"
 
@@ -3289,6 +3299,13 @@ def prepare_focus_admission(
     expected_decision = ALLOWED_ADMISSION_DECISIONS[str(proposal["execution_disposition"])]
     if decision.get("admission_decision") != expected_decision:
         _fail("scheduler decision does not match the proposed disposition")
+    if proposal.get("execution_disposition") == "organize_or_integrate":
+        try:
+            focus_eligibility.require_integration_root_unaccepted(
+                root, str(proposal["theorem_id"])
+            )
+        except focus_eligibility.EligibilityError as exc:
+            raise AdmissionError(f"ordinary integration is no longer admissible: {exc}") from exc
     verified_bindings, evidence_digests = _verify_bound_evidence(
         root, authority, str(proposal["theorem_id"]), proposal["evidence_bindings"]
     )
@@ -3297,10 +3314,11 @@ def prepare_focus_admission(
     facts = _receipt_facts(proposal, decision)
     source = facts.get("machine_proof", {}).get("source")
     if (
-        facts.get("machine_evidence_class") == "exact_external_unintegrated"
+        facts.get("machine_evidence_class")
+        in {"exact_pinned_closure", "exact_external_unintegrated"}
         and isinstance(source, Mapping)
     ):
-        _verify_external_pre_stage1_provenance(
+        _verify_machine_pre_stage1_provenance(
             root,
             facts,
             source,
@@ -3492,6 +3510,13 @@ def review_focus_admission(
     _distinct(actor, proposal["author"], "proposal reviewer")
     _distinct(actor, candidate["scheduler_issuer"], "admission reviewer")
     facts = candidate["receipt_facts"]
+    if facts.get("execution_disposition") == "organize_or_integrate":
+        try:
+            focus_eligibility.require_integration_root_unaccepted(
+                root, str(candidate["theorem_id"])
+            )
+        except focus_eligibility.EligibilityError as exc:
+            raise AdmissionError(f"ordinary integration is no longer admissible: {exc}") from exc
     human_source_review = _human_source_review(
         root,
         str(candidate["authority_revision"]),
@@ -3730,11 +3755,22 @@ def _final_receipt_payload(
     }
     facts["issuance_authority"] = None
     if facts.get("execution_disposition") == "frontier_exception":
-        facts["frontier_exception"]["independent_review"] = {
-            "reviewer": review["reviewer"],
-            "reviewed_at": reviewed_at,
-            "decision": "approved",
-        }
+        review_input = review.get("frontier_review_input")
+        if not isinstance(review_input, Mapping):
+            _fail("frontier receipt lacks its substantive independent review")
+        durable_review = _durable_frontier_review(
+            review_input, reviewed_at=reviewed_at
+        )
+        if (
+            durable_review.get("reviewer") != review.get("reviewer")
+            or durable_review.get("decision") != "approved"
+            or _timestamp(
+                durable_review.get("authored_at"), "frontier review authored_at"
+            )
+            > _timestamp(reviewed_at, "frontier reviewed_at")
+        ):
+            _fail("frontier review envelope and substantive review disagree")
+        facts["frontier_exception"]["independent_review"] = durable_review
     return facts
 
 
@@ -4057,6 +4093,13 @@ def publish_focus_admission(
     runtime = _canonical_runtime(root, runtime_root)
     recover_focus_admission_wal(root, runtime)
     candidate, proposal = _reload_candidate(root, runtime, Path(candidate_path))
+    if candidate.get("receipt_facts", {}).get("execution_disposition") == "organize_or_integrate":
+        try:
+            focus_eligibility.require_integration_root_unaccepted(
+                root, str(candidate["theorem_id"])
+            )
+        except focus_eligibility.EligibilityError as exc:
+            raise AdmissionError(f"ordinary integration is no longer admissible: {exc}") from exc
     try:
         focus_eligibility.require_frozen_target_member(
             root, str(candidate["theorem_id"])

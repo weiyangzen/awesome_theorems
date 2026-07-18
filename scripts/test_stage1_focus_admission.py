@@ -195,7 +195,15 @@ class Fixture:
             self.root / "stage1_focus_eligibility.py",
         )
         self.blueprint = docs / "Stage1_Blueprint_v2.md"
-        self.blueprint.write_text("# immutable checklist bytes\n", encoding="utf-8")
+        self.blueprint.write_text(
+            "# immutable checklist bytes\n\n"
+            f"{focus.CHECKLIST_BEGIN}\n"
+            "## Test execution checklist\n"
+            f"- [ ] `S56-M-0001-RELEASE` / `{THEOREM}` / `release`: "
+            "Reconcile release evidence. {attempts=0}\n"
+            f"{focus.CHECKLIST_END}\n",
+            encoding="utf-8",
+        )
         membership = copy.deepcopy(
             json.loads(
                 (ROOT / focus.TARGET_MEMBERSHIP_RELATIVE_PATH).read_text(
@@ -434,6 +442,17 @@ class Fixture:
         self.proposal_path.write_text(canonical(self.proposal), encoding="utf-8")
         run(self.root, "git", "add", str(self.proposal_path.relative_to(self.root)))
         run(self.root, "git", "commit", "-m", "worker research proposal")
+        self.authority = run(self.root, "git", "rev-parse", "HEAD")
+
+    def set_release_state(self, state: str) -> None:
+        text = self.blueprint.read_text(encoding="utf-8")
+        text = text.replace(
+            "- [ ] `S56-M-0001-RELEASE`",
+            f"- {state} `S56-M-0001-RELEASE`",
+        )
+        self.blueprint.write_text(text, encoding="utf-8")
+        run(self.root, "git", "add", str(self.blueprint.relative_to(self.root)))
+        run(self.root, "git", "commit", "-m", f"set release cursor {state}")
         self.authority = run(self.root, "git", "rev-parse", "HEAD")
 
     def timestamp_token(
@@ -685,11 +704,7 @@ class Fixture:
         self.proposal["repository_base_revision"] = self.base
         self.proposal["machine_evidence_class"] = "exact_pinned_closure"
         self.proposal["repository_gap"]["local_presence"] = "pinned_dependency"
-        source["pre_stage1_provenance"] = None
-        self.proposal["evidence_bindings"] = [
-            row for row in self.proposal["evidence_bindings"]
-            if row["role"] != admission.EXTERNAL_PROVENANCE_ROLE
-        ]
+        self.write_external_provenance()
         self.write_proposal()
 
     def configure_checked_transport(self, *, depend_on_provider: bool = True) -> None:
@@ -918,7 +933,8 @@ class Fixture:
             "pin provider and retain the checked local transport"
         ]
         self.write_external_provenance()
-        run(self.root, "git", "commit", "-m", "refresh external proof provenance")
+        if run(self.root, "git", "diff", "--cached", "--name-only"):
+            run(self.root, "git", "commit", "-m", "refresh external proof provenance")
         self.base = run(self.root, "git", "rev-parse", "HEAD")
         self.proposal["repository_base_revision"] = self.base
         self.write_proposal()
@@ -1126,6 +1142,47 @@ class FocusAdmissionTests(unittest.TestCase):
         fixture = Fixture()
         self.addCleanup(fixture.close)
         return fixture
+
+    def test_prepare_rejects_current_master_accepted_release(self) -> None:
+        fixture = self.fixture()
+        with mock.patch.object(
+            admission.focus_eligibility,
+            "current_master_release_acceptance",
+            return_value=True,
+        ), self.assertRaisesRegex(
+            admission.AdmissionError, "already master-accepted root"
+        ):
+            fixture.prepare()
+
+    def test_review_rechecks_release_acceptance_after_prepare(self) -> None:
+        fixture = self.fixture()
+        candidate = fixture.prepare()
+        with mock.patch.object(
+            admission.focus_eligibility,
+            "current_master_release_acceptance",
+            return_value=True,
+        ), self.assertRaisesRegex(
+            admission.AdmissionError, "already master-accepted root"
+        ):
+            fixture.review(candidate)
+
+    def test_publish_rechecks_release_acceptance_after_review(self) -> None:
+        fixture = self.fixture()
+        candidate = fixture.prepare()
+        review = fixture.review(candidate)
+        with mock.patch.object(
+            admission.focus_eligibility,
+            "current_master_release_acceptance",
+            return_value=True,
+        ), self.assertRaisesRegex(
+            admission.AdmissionError, "already master-accepted root"
+        ):
+            fixture.publish(
+                candidate,
+                review,
+                regenerate=fixture.regenerate,
+                validate_graph=lambda _root: None,
+            )
 
     @staticmethod
     def write_wal(
@@ -2556,6 +2613,28 @@ class FocusAdmissionTests(unittest.TestCase):
             review_input["review_input_sha256"],
         )
         self.assertEqual(review_value["decision"], "approved")
+        receipt_payload = admission._final_receipt_payload(
+            candidate_value, review_value
+        )
+        durable = receipt_payload["frontier_exception"]["independent_review"]
+        self.assertEqual(
+            durable["assessed_completion_probability"],
+            review_input["assessed_completion_probability"],
+        )
+        self.assertEqual(durable["comparables"], review_input["comparables"])
+        self.assertEqual(durable["findings"], review_input["findings"])
+        self.assertEqual(durable["budget_assessment"], frontier["budget"])
+        self.assertEqual(durable["milestone_assessment"], frontier["milestones"])
+        self.assertEqual(durable["validator_assessment"], frontier["validator"])
+        self.assertEqual(
+            durable["stop_condition_assessment"], frontier["stop_conditions"]
+        )
+        self.assertEqual(durable["authored_at"], review_input["authored_at"])
+        self.assertEqual(durable["reviewed_at"], review_value["reviewed_at"])
+        self.assertEqual(
+            review_value["receipt_payload_sha256"],
+            admission._digest(admission._canonical_json(receipt_payload)),
+        )
 
     def test_publication_and_dag_failure_restore_receipt_graph_and_blueprint(self) -> None:
         for failure in ("regenerate", "validate"):

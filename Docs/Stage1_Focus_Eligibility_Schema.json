@@ -1095,14 +1095,8 @@
           }
         },
         "pre_stage1_provenance": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "$ref": "#/$defs/externalProofProvenanceBinding"
-            }
-          ]
+          "$ref": "#/$defs/externalProofProvenanceBinding",
+          "description": "Required for every exact machine-proof class, including exact_pinned_closure: independently timestamped, content-bound proof-byte provenance no later than the Stage1 v2 cutoff. A later manifest pin does not establish earlier existence."
         },
         "terminal_proof_body": {
           "type": "object",
@@ -2314,129 +2308,16 @@
           }
         },
         "budget": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": [
-            "scope",
-            "wall_clock_seconds",
-            "token_limit",
-            "compute_seconds",
-            "disk_bytes",
-            "concurrency_limit"
-          ],
-          "properties": {
-            "scope": {
-              "type": "string",
-              "minLength": 1
-            },
-            "wall_clock_seconds": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 2592000
-            },
-            "token_limit": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 50000000
-            },
-            "compute_seconds": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 2592000
-            },
-            "disk_bytes": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 1099511627776
-            },
-            "concurrency_limit": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 100
-            }
-          }
+          "$ref": "#/$defs/frontierBudget"
         },
         "milestones": {
-          "type": "array",
-          "minItems": 1,
-          "uniqueItems": true,
-          "items": {
-            "type": "object",
-            "additionalProperties": false,
-            "required": [
-              "id",
-              "deadline_at",
-              "evidence_role"
-            ],
-            "properties": {
-              "id": {
-                "type": "string",
-                "pattern": "^[a-z][a-z0-9_]{0,63}$"
-              },
-              "deadline_at": {
-                "$ref": "#/$defs/timestamp"
-              },
-              "evidence_role": {
-                "enum": [
-                  "statement_closure",
-                  "root_proof_closure",
-                  "kernel_replay",
-                  "trust_audit"
-                ]
-              }
-            }
-          }
+          "$ref": "#/$defs/frontierMilestones"
         },
         "validator": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": [
-            "path",
-            "sha256",
-            "command"
-          ],
-          "properties": {
-            "path": {
-              "type": "string",
-              "pattern": "^Stage1_Instances/THM-M-[0-9]{4}/.+$"
-            },
-            "sha256": {
-              "$ref": "#/$defs/sha256"
-            },
-            "command": {
-              "type": "array",
-              "minItems": 2,
-              "maxItems": 2,
-              "prefixItems": [
-                {
-                  "const": "python3"
-                },
-                {
-                  "type": "string",
-                  "pattern": "^Stage1_Instances/THM-M-[0-9]{4}/.+$"
-                }
-              ],
-              "items": false
-            }
-          }
+          "$ref": "#/$defs/frontierValidator"
         },
         "stop_conditions": {
-          "type": "array",
-          "minItems": 8,
-          "maxItems": 8,
-          "uniqueItems": true,
-          "items": {
-            "enum": [
-              "lease_expired",
-              "any_resource_budget_exhausted",
-              "attempt_limit_reached",
-              "statement_or_source_mismatch",
-              "validator_failure",
-              "milestone_deadline_missed",
-              "probability_below_threshold",
-              "scheduler_revoked"
-            ]
-          }
+          "$ref": "#/$defs/frontierStopConditions"
         },
         "attempt_limit": {
           "type": "integer",
@@ -2450,35 +2331,229 @@
           "const": "scheduler_master_lane"
         },
         "independent_review": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": [
-            "reviewer",
-            "reviewed_at",
-            "decision"
-          ],
-          "properties": {
-            "reviewer": {
-              "allOf": [
-                {
-                  "$ref": "#/$defs/actor"
-                },
-                {
-                  "properties": {
-                    "role": {
-                      "const": "independent_reviewer"
-                    }
-                  }
-                }
-              ]
-            },
-            "reviewed_at": {
-              "$ref": "#/$defs/timestamp"
-            },
-            "decision": {
-              "const": "approved"
-            }
+          "$ref": "#/$defs/frontierIndependentReview"
+        }
+      }
+    },
+    "frontierBudget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scope",
+        "wall_clock_seconds",
+        "token_limit",
+        "compute_seconds",
+        "disk_bytes",
+        "concurrency_limit"
+      ],
+      "properties": {
+        "scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "wall_clock_seconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2592000
+        },
+        "token_limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50000000
+        },
+        "compute_seconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2592000
+        },
+        "disk_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1099511627776
+        },
+        "concurrency_limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        }
+      }
+    },
+    "frontierMilestones": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "deadline_at",
+          "evidence_role"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]{0,63}$"
+          },
+          "deadline_at": {
+            "$ref": "#/$defs/timestamp"
+          },
+          "evidence_role": {
+            "enum": [
+              "statement_closure",
+              "root_proof_closure",
+              "kernel_replay",
+              "trust_audit"
+            ]
           }
+        }
+      }
+    },
+    "frontierValidator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256",
+        "command"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "pattern": "^Stage1_Instances/THM-M-[0-9]{4}/.+$"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "command": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "prefixItems": [
+            {
+              "const": "python3"
+            },
+            {
+              "type": "string",
+              "pattern": "^Stage1_Instances/THM-M-[0-9]{4}/.+$"
+            }
+          ],
+          "items": false
+        }
+      }
+    },
+    "frontierStopConditions": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "lease_expired",
+          "any_resource_budget_exhausted",
+          "attempt_limit_reached",
+          "statement_or_source_mismatch",
+          "validator_failure",
+          "milestone_deadline_missed",
+          "probability_below_threshold",
+          "scheduler_revoked"
+        ]
+      }
+    },
+    "frontierIndependentReview": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "candidate_sha256",
+        "theorem_id",
+        "reviewer",
+        "authored_at",
+        "reviewed_at",
+        "decision",
+        "assessed_completion_probability",
+        "estimation_method_assessment",
+        "comparables",
+        "budget_assessment",
+        "milestone_assessment",
+        "validator_assessment",
+        "stop_condition_assessment",
+        "findings",
+        "review_input_sha256"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "stage1-frontier-independent-review-input/1.0"
+        },
+        "candidate_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "theorem_id": {
+          "type": "string",
+          "pattern": "^THM-M-[0-9]{4}$"
+        },
+        "reviewer": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/actor"
+            },
+            {
+              "properties": {
+                "role": {
+                  "const": "independent_reviewer"
+                }
+              }
+            }
+          ]
+        },
+        "authored_at": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "reviewed_at": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "decision": {
+          "const": "approved"
+        },
+        "assessed_completion_probability": {
+          "type": "number",
+          "minimum": 0.7,
+          "maximum": 1.0
+        },
+        "estimation_method_assessment": {
+          "type": "string",
+          "minLength": 1
+        },
+        "comparables": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "budget_assessment": {
+          "$ref": "#/$defs/frontierBudget"
+        },
+        "milestone_assessment": {
+          "$ref": "#/$defs/frontierMilestones"
+        },
+        "validator_assessment": {
+          "$ref": "#/$defs/frontierValidator"
+        },
+        "stop_condition_assessment": {
+          "$ref": "#/$defs/frontierStopConditions"
+        },
+        "findings": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "review_input_sha256": {
+          "$ref": "#/$defs/sha256"
         }
       }
     },
