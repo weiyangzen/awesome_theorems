@@ -21,8 +21,7 @@
 - [`Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/RegularPrimesPath.lean`](../Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/RegularPrimesPath.lean)
 - [`Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/Sample.lean`](../Formalizations/Lean/AwesomeTheorems/NumberTheory/THM_M_0387/Sample.lean)
 
-本文档保留 rev-5.6 之前积累的 special-branch 长篇解释，并按照
-`Docs/Stage1_Assurance_Standard_rev-5.6.md` 的 H/M/R 与证据边界解释其地位。
+本文档保留早期积累的 special-branch 长篇解释，并按照历史 H/M/R 与证据边界解释其地位。
 `Docs/Stage1_Blueprint_v2.md` 是唯一 requirements 和执行进度权威；本文件中的历史
 checklist 只是 dated legacy readability inventory，不授权改动 Stage1 状态。本文按照仓库
 `README.md` 对单个定理的字段要求，
@@ -133,7 +132,7 @@ while explicitly declining tutorial-style expansion of routine arithmetic prelim
 截至 `2026-04-24`，本节只追踪 `n = 4` 与 `regular primes` 的人类可读展开进度。
 
 - 下方 `Execution Checklist` 是 `2026-04-24` 的 legacy readability inventory；它不是
-  rev-5.6 progress authority，也不表示列出的 proof-tree nodes 已通过 H/M/R gates。
+  当前 progress authority，也不表示列出的 proof-tree nodes 已通过 H/M/R gates。
 - 这 `18` 个 execution unit 已经直接拆到最小公开归档粒度，因此不再对这 `18` 项自动二次拆分。
 - 最终对外归档面只有 [`eligibles/n4_proof_process.md`](./eligibles/n4_proof_process.md)
   与 [`eligibles/regular_primes_proof_process.md`](./eligibles/regular_primes_proof_process.md) 这两份主稿；
@@ -146,7 +145,7 @@ while explicitly declining tutorial-style expansion of routine arithmetic prelim
 - `n = 4`: `7/7`
 - `regular primes`: `11/11`
 - legacy 解释: `completed` / `Completion Gate = passed` 只表示旧版公开展开与预算账本已归档；
-  它不映射为 rev-5.6 `[x]`，也不证明 machine closure。
+  它不映射为当前 `[x]`，也不证明 machine closure。
 - 这 `18` 个 unit 已经是最细公开执行层；不再对这 `18` 项自动二次拆分。
 <!-- EXECUTION_PROGRESS_SUMMARY_END -->
 

@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Validate a rev-5.6 theorem dossier and its claimed Lean evidence.
+"""Validate the historical THM-M-0387 dossier fixture.
 
-This is deliberately a fail-closed release gate.  The JSON manifest remains
-human-editable, but every machine-closure claim is rechecked from its exact
-type, axiom report, source boundary, dependency pin, and public-tree context.
+This compatibility validator can replay the retained dossier's internal claims,
+but it has no current Stage1 v2 phase, admission, acceptance, or release
+authority. Current requirements and task state come only from the v2 blueprint.
 """
 
 from __future__ import annotations
@@ -22,7 +22,6 @@ from typing import Any, NoReturn
 
 SCHEMA_VERSION = "5.6"
 BLUEPRINT_PATH = "Docs/Stage1_Blueprint_v2.md"
-ASSURANCE_STANDARD_PATH = "Docs/Stage1_Assurance_Standard_rev-5.6.md"
 THEOREM_ID = "THM-M-0387"
 NODE_FIELDS = {
     "node_id",
@@ -48,7 +47,7 @@ NODE_FIELDS = {
     "status_boundary",
     "dependencies",
     "owned_paths",
-    # Rev-5.6 execution fields made explicit by this instance.
+    # Historical execution fields made explicit by this instance.
     "title",
     "evidence_refs",
     "axiom_report",
@@ -411,7 +410,7 @@ def assert_node_shape(node: Any, index: int) -> None:
         ensure(node["targets"]["machine"], f"{node_id}: every M0-* node must count as a machine target")
         ensure(node["blocker"] is None, f"{node_id}: machine-closed node cannot carry a blocker")
         ensure(node["readability_debt"] == "R0",
-               f"{node_id}: every released M0-* node must be R0 under the rev-5.6 gate")
+               f"{node_id}: every released M0-* node must be R0 under the historical gate")
         ensure(isinstance(node["lean4"], dict), f"{node_id}: {m_debt} requires a lean4 evidence object")
     else:
         ensure(node["lean4"] is None, f"{node_id}: only M0-* nodes may carry local Lean closure evidence")
@@ -575,25 +574,6 @@ def assert_public_status_consistency(
         text = (repo_root / rel).read_text(encoding="utf-8")
         missing = [label for label, pattern in required_patterns.items() if pattern.search(text) is None]
         ensure(not missing, f"{rel} is missing final public status fields: {missing}")
-
-    standard = (repo_root / ASSURANCE_STANDARD_PATH).read_text(encoding="utf-8")
-    historical_section = standard.split(
-        "### 12.3 Historical `THM-M-0387` Execution Record", 1
-    )[-1].split("## 13.", 1)[0]
-    historical_rows = re.findall(
-        r"^- Historically (?:checked|open): `S56-M0387-[A-Z0-9]+`",
-        historical_section,
-        re.MULTILINE,
-    )
-    ensure(
-        len(historical_rows) == 41,
-        "supporting assurance standard must retain exactly 41 historical records",
-    )
-    ensure(
-        re.search(r"^\s*[-*] \[[ _xX]\]", standard, re.MULTILINE) is None,
-        "supporting assurance standard must not contain a live checkbox checklist",
-    )
-
 
 def assert_public_surfaces(manifest: dict[str, Any], nodes: list[dict[str, Any]], repo_root: Path) -> set[Path]:
     surfaces = manifest["public_surfaces"]
@@ -905,7 +885,7 @@ def assert_lean_evidence(nodes: list[dict[str, Any]], repo_root: Path) -> int:
             "",
         ])
 
-    fd, raw_path = tempfile.mkstemp(prefix="m0387-rev56-probe-", suffix=".lean", dir=lean_root)
+    fd, raw_path = tempfile.mkstemp(prefix="m0387-historical-probe-", suffix=".lean", dir=lean_root)
     probe_path = Path(raw_path)
     try:
         with os.fdopen(fd, "w", encoding="utf-8") as handle:
@@ -948,7 +928,7 @@ def main(argv: list[str]) -> int:
     theorem_dir = (repo_root / theorem_arg).resolve()
     ensure(theorem_dir.is_dir() and theorem_dir.parent == repo_root,
            f"{theorem_arg!r} must name a direct theorem directory under the repository root")
-    ensure(theorem_dir.name == THEOREM_ID, f"this rev-5.6 lint instance is scoped to {THEOREM_ID}")
+    ensure(theorem_dir.name == THEOREM_ID, f"this historical lint instance is scoped to {THEOREM_ID}")
 
     meta = load_json(theorem_dir / "meta.json")
     manifest = load_json(theorem_dir / "proof_units.json")

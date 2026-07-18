@@ -1,7 +1,7 @@
-# THM-M-0387 rev-5.6 Process And Tree Audit
+# THM-M-0387 Historical Process And Tree Audit
 
 > Audit date: `2026-07-10` (`Asia/Shanghai`)
-> Assurance standard: `Docs/Stage1_Assurance_Standard_rev-5.6.md`
+> Current authority: `Docs/Stage1_Blueprint_v2.md`; older assurance material is Git-history provenance only
 
 This stable audit records proof-tree structure, readable routing, and the
 boundary between checked proof bodies and machine-open plans. It contains no
@@ -12,7 +12,7 @@ worker, scheduler, process, private-path, or runtime evidence.
 | role | stable path | authority boundary |
 |---|---|---|
 | execution requirements and cursor | `Docs/Stage1_Blueprint_v2.md` | sole requirements and progress authority |
-| supporting assurance gates | `Docs/Stage1_Assurance_Standard_rev-5.6.md` | H/M/R and evidence vocabulary, not task state |
+| historical assurance vocabulary | retained dossier fields and Git history | provenance only; not current requirements or task state |
 | proof DAG and debt ledger | `THM-M-0387/proof_units.json` | derived evidence manifest, not a second checklist |
 | short route | `THM-M-0387/proof_outline.md` | root-to-terminal reader map |
 | checked-node reconstruction | `THM-M-0387/readable/machine_closed_nodes.md` | ten-part entries for `M0-*` nodes |
@@ -133,7 +133,7 @@ presented as the historical Ribet `W05/W06` route.
 
 Audit completion and theorem completion are separate decisions. A fully
 classified DAG, a complete source-boundary ledger, and readable plans can
-finish the rev-5.6 audit while the exact root remains machine-open. Theorem
+finish the historical audit while the exact root remains machine-open. Theorem
 completion is blocked until an exact local `FermatLastTheorem` declaration
 passes the kernel, type, axiom, placeholder, pin, and composition gates without
 disallowed axioms.

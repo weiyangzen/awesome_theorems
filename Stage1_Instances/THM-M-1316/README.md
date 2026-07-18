@@ -6,7 +6,7 @@
 - Lifecycle: `planned`
 - Root vector: `H1 / M4 / R3`
 - Theorem complete: `false`
-- Authoritative execution standard: `Docs/Stage1_Blueprint_rev-5.6.md`
+- Current requirements and task-state authority: `Docs/Stage1_Blueprint_v2.md`
 
 This dossier freezes the intended scope for intake. The repository metadata phrase
 `ADM质量非负` is not itself a source-quality theorem statement, and its historical

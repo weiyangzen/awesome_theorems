@@ -52,7 +52,7 @@
       "allowed_phases": [
         "release"
       ],
-      "phase_can_close": true,
+      "phase_can_close": false,
       "audit_complete": true,
       "theorem_complete": false
     },
@@ -176,7 +176,7 @@
       "requirement": "Require every intra-theorem predecessor [x] and every cross-theorem hard edge to satisfy its typed state_semantics; never use a longest-prefix heuristic.",
       "source_reference_ids": [
         "v2-frontiers",
-        "rev56-master-acceptance"
+        "v2-hermetic-independent-release"
       ],
       "failure_action": "remain_[_]"
     },
@@ -184,8 +184,8 @@
       "gate_id": "G03-ARTIFACT-BINDING",
       "requirement": "Resolve an authority-owned per-item role map and bind every selected HEAD artifact by role, path, sha256, and Git blob; names and aliases are not evidence.",
       "source_reference_ids": [
-        "rev56-authorities",
-        "rev56-receipts"
+        "v2-assurance-authority",
+        "v2-evidence-trust-freshness"
       ],
       "failure_action": "remain_[_]"
     },
@@ -193,8 +193,7 @@
       "gate_id": "G04-INDEPENDENT-REVIEW",
       "requirement": "Bind one independent read-only Codex app-server /goal review to the exact item, base, contract, prompt, status, worker packet, receipt, and artifact hashes.",
       "source_reference_ids": [
-        "rev56-master-acceptance",
-        "rev56-release"
+        "v2-hermetic-independent-release"
       ],
       "failure_action": "remain_[_]"
     },
@@ -202,7 +201,7 @@
       "gate_id": "G05-AUTHORITY-REPLAY",
       "requirement": "Select argv from this HEAD contract, replay the unchanged base validator without shell interpolation in a read-only repository plus isolated scratch, and bind complete output.",
       "source_reference_ids": [
-        "rev56-structured-recipes"
+        "v2-worker-validation"
       ],
       "failure_action": "remain_[_]"
     },
@@ -210,18 +209,17 @@
       "gate_id": "G06-SEMANTIC-VERDICT",
       "requirement": "Interpret the validator's typed semantic result; exit zero alone never changes blocked, rejected, failed, open, stale, audit_complete, or theorem_complete semantics.",
       "source_reference_ids": [
-        "rev56-verdicts",
-        "rev56-terminal-boundary",
+        "v2-lifecycle-verdicts",
         "v2-structural-only"
       ],
       "failure_action": "remain_[_]"
     },
     {
-      "gate_id": "G07-REV56-RECOMPUTE",
-      "requirement": "Independently recompute every applicable lifecycle, statement, obligation, composition, provenance, trust, source, readability, metric, and terminal decision gate.",
+      "gate_id": "G07-V2-ASSURANCE-RECOMPUTE",
+      "requirement": "Independently recompute every applicable v2 lifecycle, statement, mutation, obligation, composition, discovery, provenance, trust, human-source, readability, receipt, freshness, replay, review, metric, and terminal-decision gate.",
       "source_reference_ids": [
-        "rev56-master-acceptance",
-        "rev56-final-audit"
+        "v2-hermetic-independent-release",
+        "v2-assurance-recompute"
       ],
       "failure_action": "remain_[_]"
     },
@@ -237,7 +235,7 @@
       "gate_id": "G09-FRESHNESS",
       "requirement": "Fail on changed, expired, superseded, revoked, stale, cross-target, or unbound evidence and preserve all invalidation inputs in the acceptance receipt.",
       "source_reference_ids": [
-        "rev56-receipts"
+        "v2-evidence-trust-freshness"
       ],
       "failure_action": "remain_[_]"
     },
@@ -245,7 +243,7 @@
       "gate_id": "G10-RECONCILIATION",
       "requirement": "Regenerate task and public projections from accepted evidence and require a clean diff without rewriting the worker verdict or terminal booleans.",
       "source_reference_ids": [
-        "rev56-master-acceptance",
+        "v2-hermetic-independent-release",
         "v2-projections"
       ],
       "failure_action": "remain_[_]"
@@ -263,192 +261,18 @@
       "gate_id": "G12-MASTER-RECEIPT",
       "requirement": "Write a content-addressed master receipt that separately preserves worker_verdict, review_verdict, phase_evidence_accepted, audit_complete, theorem_complete, all artifact hashes, replay result, review identity, and status boundary.",
       "source_reference_ids": [
-        "rev56-verdicts",
-        "rev56-terminal-boundary",
-        "rev56-receipts"
+        "v2-lifecycle-verdicts",
+        "v2-evidence-trust-freshness"
       ],
       "failure_action": "rollback_and_remain_[_]"
     }
   ],
   "source_references": [
     {
-      "reference_id": "rev56-authorities",
-      "path": "Docs/Stage1_Assurance_Standard_rev-5.6.md",
-      "line_start": 71,
-      "line_end": 88,
-      "required_phrases": [
-        "owns requirements",
-        "membership input",
-        "supporting gate vocabulary",
-        "not an authority"
-      ]
-    },
-    {
-      "reference_id": "rev56-verdicts",
-      "path": "Docs/Stage1_Assurance_Standard_rev-5.6.md",
-      "line_start": 90,
-      "line_end": 116,
-      "required_phrases": [
-        "accepted_audit_only",
-        "blocked` is a valid truthful result",
-        "theorem_complete=false"
-      ]
-    },
-    {
-      "reference_id": "rev56-terminal-boundary",
-      "path": "Docs/Stage1_Assurance_Standard_rev-5.6.md",
-      "line_start": 133,
-      "line_end": 144,
-      "required_phrases": [
-        "AUDIT-Z",
-        "THEOREM-Z",
-        "audit_complete=true",
-        "theorem_complete=false"
-      ]
-    },
-    {
-      "reference_id": "rev56-intake-statement",
-      "path": "Docs/Stage1_Assurance_Standard_rev-5.6.md",
-      "line_start": 310,
-      "line_end": 361,
-      "required_phrases": [
-        "Theorem Intake Contract",
-        "Lean 4 Statement Gate",
-        "elaborated_expression_hash",
-        "mutation-test"
-      ]
-    },
-    {
-      "reference_id": "rev56-tree-composition",
-      "path": "Docs/Stage1_Assurance_Standard_rev-5.6.md",
-      "line_start": 365,
-      "line_end": 557,
-      "required_phrases": [
-        "Canonical Obligation Registry",
-        "Typed Graph Contract",
-        "Parent Closure and Composition Certificate",
-        "P may become [x] only after all required Ci are [x]"
-      ]
-    },
-    {
-      "reference_id": "rev56-discovery-proof",
-      "path": "Docs/Stage1_Assurance_Standard_rev-5.6.md",
-      "line_start": 565,
-      "line_end": 647,
-      "required_phrases": [
-        "Discovery Protocol",
-        "Search Order",
-        "Formal Candidate and Provenance Audit",
-        "Lean 4 Trust and Foundation Profile"
-      ]
-    },
-    {
-      "reference_id": "rev56-readable-source",
-      "path": "Docs/Stage1_Assurance_Standard_rev-5.6.md",
-      "line_start": 676,
-      "line_end": 717,
-      "required_phrases": [
-        "Human-Readable Reconstruction Standard",
-        "Human-Source `H0` Contract",
-        "identified independent"
-      ]
-    },
-    {
-      "reference_id": "rev56-receipts",
-      "path": "Docs/Stage1_Assurance_Standard_rev-5.6.md",
-      "line_start": 755,
-      "line_end": 771,
-      "required_phrases": [
-        "canonical machine-readable data",
-        "content-addressed bundle",
-        "invalidation inputs"
-      ]
-    },
-    {
-      "reference_id": "rev56-dual-cursor",
-      "path": "Docs/Stage1_Assurance_Standard_rev-5.6.md",
-      "line_start": 775,
-      "line_end": 804,
-      "required_phrases": [
-        "Workers may write only `[_]`",
-        "report_open_state",
-        "master closure remains dependency ordered"
-      ]
-    },
-    {
-      "reference_id": "rev56-worker-packet",
-      "path": "Docs/Stage1_Assurance_Standard_rev-5.6.md",
-      "line_start": 806,
-      "line_end": 824,
-      "required_phrases": [
-        "Every `[_]` handoff",
-        "content-addressed recipe/receipt ids",
-        "known failures"
-      ]
-    },
-    {
-      "reference_id": "rev56-master-acceptance",
-      "path": "Docs/Stage1_Assurance_Standard_rev-5.6.md",
-      "line_start": 826,
-      "line_end": 839,
-      "required_phrases": [
-        "master must independently",
-        "Re-run structured node checks",
-        "Recompute unique metrics",
-        "no longest-prefix heuristic"
-      ]
-    },
-    {
-      "reference_id": "rev56-structured-recipes",
-      "path": "Docs/Stage1_Assurance_Standard_rev-5.6.md",
-      "line_start": 841,
-      "line_end": 861,
-      "required_phrases": [
-        "Release-supporting validation commands are never shell strings",
-        "argv",
-        "without shell interpolation",
-        "passing aggregate build"
-      ]
-    },
-    {
-      "reference_id": "rev56-release",
-      "path": "Docs/Stage1_Assurance_Standard_rev-5.6.md",
-      "line_start": 863,
-      "line_end": 902,
-      "required_phrases": [
-        "Hermetic Lean 4 Reproduction",
-        "Independent Verification and CI",
-        "two signed attestations",
-        "independently implemented verifier"
-      ]
-    },
-    {
-      "reference_id": "rev56-generic-dag",
-      "path": "Docs/Stage1_Assurance_Standard_rev-5.6.md",
-      "line_start": 934,
-      "line_end": 970,
-      "required_phrases": [
-        "stable gate IDs",
-        "full frozen-inventory classification; proof may remain open",
-        "exact root plus all root-critical release gates"
-      ]
-    },
-    {
-      "reference_id": "rev56-final-audit",
-      "path": "Docs/Stage1_Assurance_Standard_rev-5.6.md",
-      "line_start": 1264,
-      "line_end": 1316,
-      "required_phrases": [
-        "Final Master Audit",
-        "Any \"no,\"",
-        "audit is complete, the theorem is not"
-      ]
-    },
-    {
       "reference_id": "v2-authority",
       "path": "Docs/Stage1_Blueprint_v2.md",
-      "line_start": 35,
-      "line_end": 60,
+      "line_start": 7,
+      "line_end": 55,
       "required_phrases": [
         "only current Stage1 blueprint and writable task-state cursor",
         "validation claims",
@@ -458,10 +282,9 @@
     {
       "reference_id": "v2-parent-reuse",
       "path": "Docs/Stage1_Blueprint_v2.md",
-      "line_start": 325,
-      "line_end": 469,
+      "line_start": 598,
+      "line_end": 691,
       "required_phrases": [
-        "Mandatory Parent and Ancestor Inspection",
         "dependency-reuse-ledger.json",
         "selftest_status: passed",
         "Reuse proof content, not acceptance"
@@ -470,19 +293,19 @@
     {
       "reference_id": "v2-dual-cursor",
       "path": "Docs/Stage1_Blueprint_v2.md",
-      "line_start": 480,
-      "line_end": 503,
+      "line_start": 729,
+      "line_end": 730,
       "required_phrases": [
         "Only the master may accept `[_] -> [x]`",
         "are unfinished. Regeneration preserves marks",
-        "RELEASE"
+        "Workers may only propose `[ ] -> [_]`"
       ]
     },
     {
       "reference_id": "v2-frontiers",
       "path": "Docs/Stage1_Blueprint_v2.md",
-      "line_start": 505,
-      "line_end": 519,
+      "line_start": 392,
+      "line_end": 1067,
       "required_phrases": [
         "all intra-theorem dependencies to be `[x]`",
         "state_semantics",
@@ -492,8 +315,8 @@
     {
       "reference_id": "v2-master-acceptance",
       "path": "Docs/Stage1_Blueprint_v2.md",
-      "line_start": 521,
-      "line_end": 537,
+      "line_start": 766,
+      "line_end": 777,
       "required_phrases": [
         "all transitive ancestors",
         "consumer reuse ledger",
@@ -504,18 +327,18 @@
     {
       "reference_id": "v2-structural-only",
       "path": "Docs/Stage1_Blueprint_v2.md",
-      "line_start": 539,
-      "line_end": 570,
+      "line_start": 821,
+      "line_end": 823,
       "required_phrases": [
-        "Positive validation proves structural conformance only",
-        "THEOREM-Z"
+        "Positive validation proves structural and admission conformance only",
+        "terminal acceptance"
       ]
     },
     {
       "reference_id": "v2-projections",
       "path": "Docs/Stage1_Blueprint_v2.md",
-      "line_start": 585,
-      "line_end": 594,
+      "line_start": 843,
+      "line_end": 849,
       "required_phrases": [
         "phase state and stable task identity come only from this file",
         "derived copies"
@@ -524,12 +347,151 @@
     {
       "reference_id": "v2-cleanup",
       "path": "Docs/Stage1_Blueprint_v2.md",
-      "line_start": 595,
-      "line_end": 611,
+      "line_start": 873,
+      "line_end": 886,
       "required_phrases": [
-        "zero `[ ]` and zero `[_]`",
-        "valid terminal evidence",
-        "blockers is not completion"
+        "eligible-target completion or cleanup",
+        "terminal current disposition",
+        "blockers, unknown evidence, or deferred frontier work is not itself"
+      ]
+    },
+    {
+      "reference_id": "v2-assurance-authority",
+      "path": "Docs/Stage1_Blueprint_v2.md",
+      "line_start": 941,
+      "line_end": 945,
+      "required_phrases": [
+        "complete current normative source",
+        "every source reference",
+        "neither incorporated by reference"
+      ]
+    },
+    {
+      "reference_id": "v2-lifecycle-verdicts",
+      "path": "Docs/Stage1_Blueprint_v2.md",
+      "line_start": 949,
+      "line_end": 1160,
+      "required_phrases": [
+        "Every artifact declares exactly one lifecycle mode",
+        "Worker verdicts use exactly",
+        "`AUDIT-Z` and `THEOREM-Z` are separate terminal decisions",
+        "`theorem_complete=false`"
+      ]
+    },
+    {
+      "reference_id": "v2-evidence-trust-freshness",
+      "path": "Docs/Stage1_Blueprint_v2.md",
+      "line_start": 987,
+      "line_end": 1118,
+      "required_phrases": [
+        "Every selected artifact",
+        "Canonical receipts bind",
+        "invalidation inputs",
+        "No proof credit is granted",
+        "Authority-derived metrics publish numerator and denominator ID sets"
+      ]
+    },
+    {
+      "reference_id": "v2-intake-statement",
+      "path": "Docs/Stage1_Blueprint_v2.md",
+      "line_start": 1019,
+      "line_end": 1032,
+      "required_phrases": [
+        "`INTAKE` accepts",
+        "`STATEMENT` accepts",
+        "normalized elaborated-expression hash",
+        "removed-hypothesis"
+      ]
+    },
+    {
+      "reference_id": "v2-obligation-composition",
+      "path": "Docs/Stage1_Blueprint_v2.md",
+      "line_start": 443,
+      "line_end": 1181,
+      "required_phrases": [
+        "canonical obligation",
+        "reciprocal graphs",
+        "checked composition certificate",
+        "every required child is `[x]`"
+      ]
+    },
+    {
+      "reference_id": "v2-discovery-provenance",
+      "path": "Docs/Stage1_Blueprint_v2.md",
+      "line_start": 284,
+      "line_end": 1178,
+      "required_phrases": [
+        "`ANCHOR_AUDIT`",
+        "It searches, in order",
+        "Each formal candidate",
+        "first blocker and reopen condition"
+      ]
+    },
+    {
+      "reference_id": "v2-source-readability",
+      "path": "Docs/Stage1_Blueprint_v2.md",
+      "line_start": 1089,
+      "line_end": 1100,
+      "required_phrases": [
+        "Human-source acceptance",
+        "identified independent qualified reviewer",
+        "Every required readable node",
+        "does not establish readability"
+      ]
+    },
+    {
+      "reference_id": "v2-worker-validation",
+      "path": "Docs/Stage1_Blueprint_v2.md",
+      "line_start": 1104,
+      "line_end": 1127,
+      "required_phrases": [
+        "Ordinary `PROOF` work",
+        "Every `[_]` worker packet",
+        "literal argv array",
+        "without shell interpolation",
+        "semantic result"
+      ]
+    },
+    {
+      "reference_id": "v2-hermetic-independent-release",
+      "path": "Docs/Stage1_Blueprint_v2.md",
+      "line_start": 1129,
+      "line_end": 1160,
+      "required_phrases": [
+        "Release-grade replay",
+        "The master independently verifies",
+        "two signed attestations",
+        "independently implemented minimal verifier",
+        "An accepted release always establishes both `AUDIT-Z` and `THEOREM-Z`",
+        "leaves RELEASE `[_]`"
+      ]
+    },
+    {
+      "reference_id": "v2-assurance-recompute",
+      "path": "Docs/Stage1_Blueprint_v2.md",
+      "line_start": 566,
+      "line_end": 1190,
+      "required_phrases": [
+        "`G07-V2-ASSURANCE-RECOMPUTE`",
+        "worker-packet",
+        "`AUDIT-Z`",
+        "`THEOREM-Z`"
+      ]
+    },
+    {
+      "reference_id": "v2-seven-phase-predicates",
+      "path": "Docs/Stage1_Blueprint_v2.md",
+      "line_start": 284,
+      "line_end": 1187,
+      "required_phrases": [
+        "The seven positive phase predicates",
+        "`INTAKE`",
+        "`STATEMENT`",
+        "`ANCHOR_AUDIT`",
+        "`OBLIGATION_TREE`",
+        "`PROOF`",
+        "`VALIDATION`",
+        "`RELEASE`"
       ]
     }
   ],
@@ -680,7 +642,21 @@
         "/invalidation_inputs",
         "/lifecycle_after"
       ],
-      "validator_authorities": [],
+      "validator_authorities": [
+        {
+          "path_pattern": "scripts/stage1_phase_validators/current.py",
+          "language": "python",
+          "argv_template": [
+            "/usr/bin/python3",
+            "-I",
+            "-B",
+            "{validator_path}"
+          ],
+          "authority_generation": "stage1-v2",
+          "requirements_authority": "Docs/Stage1_Blueprint_v2.md",
+          "positive_acceptance_capable": true
+        }
+      ],
       "superseded_validator_sources": [
         {
           "path_pattern": "Stage1_Instances/{theorem_id}/check_intake.py",
@@ -712,7 +688,7 @@
             ]
           },
           "source_reference_ids": [
-            "rev56-intake-statement"
+            "v2-intake-statement"
           ]
         },
         {
@@ -723,8 +699,8 @@
             "theorem_complete": false
           },
           "source_reference_ids": [
-            "rev56-intake-statement",
-            "rev56-verdicts"
+            "v2-intake-statement",
+            "v2-lifecycle-verdicts"
           ]
         },
         {
@@ -734,14 +710,14 @@
             "required_semantics": "section_5_intake_or_explicit_open_boundary"
           },
           "source_reference_ids": [
-            "rev56-intake-statement"
+            "v2-intake-statement"
           ]
         }
       ],
       "source_reference_ids": [
-        "rev56-verdicts",
-        "rev56-intake-statement",
-        "rev56-worker-packet",
+        "v2-lifecycle-verdicts",
+        "v2-intake-statement",
+        "v2-worker-validation",
         "v2-dual-cursor"
       ]
     },
@@ -875,7 +851,21 @@
         "/statement_fingerprints",
         "/mutation_tests"
       ],
-      "validator_authorities": [],
+      "validator_authorities": [
+        {
+          "path_pattern": "scripts/stage1_phase_validators/current.py",
+          "language": "python",
+          "argv_template": [
+            "/usr/bin/python3",
+            "-I",
+            "-B",
+            "{validator_path}"
+          ],
+          "authority_generation": "stage1-v2",
+          "requirements_authority": "Docs/Stage1_Blueprint_v2.md",
+          "positive_acceptance_capable": true
+        }
+      ],
       "superseded_validator_sources": [
         {
           "path_pattern": "Stage1_Instances/{theorem_id}/check_statement.py",
@@ -921,7 +911,7 @@
             ]
           },
           "source_reference_ids": [
-            "rev56-intake-statement"
+            "v2-intake-statement"
           ]
         },
         {
@@ -934,7 +924,7 @@
             "all_credited_transports": true
           },
           "source_reference_ids": [
-            "rev56-intake-statement"
+            "v2-intake-statement"
           ]
         },
         {
@@ -949,14 +939,14 @@
             ]
           },
           "source_reference_ids": [
-            "rev56-intake-statement"
+            "v2-intake-statement"
           ]
         }
       ],
       "source_reference_ids": [
-        "rev56-intake-statement",
-        "rev56-worker-packet",
-        "rev56-master-acceptance",
+        "v2-intake-statement",
+        "v2-worker-validation",
+        "v2-hermetic-independent-release",
         "v2-dual-cursor"
       ]
     },
@@ -1090,7 +1080,21 @@
         "/discovery_protocol_sha256",
         "/candidate_inventory_result"
       ],
-      "validator_authorities": [],
+      "validator_authorities": [
+        {
+          "path_pattern": "scripts/stage1_phase_validators/current.py",
+          "language": "python",
+          "argv_template": [
+            "/usr/bin/python3",
+            "-I",
+            "-B",
+            "{validator_path}"
+          ],
+          "authority_generation": "stage1-v2",
+          "requirements_authority": "Docs/Stage1_Blueprint_v2.md",
+          "positive_acceptance_capable": true
+        }
+      ],
       "superseded_validator_sources": [
         {
           "path_pattern": "Stage1_Instances/{theorem_id}/check_anchor_audit.py",
@@ -1135,7 +1139,7 @@
             ]
           },
           "source_reference_ids": [
-            "rev56-discovery-proof"
+            "v2-discovery-provenance"
           ]
         },
         {
@@ -1153,7 +1157,7 @@
             ]
           },
           "source_reference_ids": [
-            "rev56-discovery-proof"
+            "v2-discovery-provenance"
           ]
         },
         {
@@ -1173,13 +1177,13 @@
             "negative_findings_are_classifications_not_failures": true
           },
           "source_reference_ids": [
-            "rev56-discovery-proof"
+            "v2-discovery-provenance"
           ]
         }
       ],
       "source_reference_ids": [
-        "rev56-discovery-proof",
-        "rev56-worker-packet",
+        "v2-discovery-provenance",
+        "v2-worker-validation",
         "v2-dual-cursor"
       ]
     },
@@ -1335,7 +1339,21 @@
         "/canonical_obligation_ids",
         "/composition_certificates"
       ],
-      "validator_authorities": [],
+      "validator_authorities": [
+        {
+          "path_pattern": "scripts/stage1_phase_validators/current.py",
+          "language": "python",
+          "argv_template": [
+            "/usr/bin/python3",
+            "-I",
+            "-B",
+            "{validator_path}"
+          ],
+          "authority_generation": "stage1-v2",
+          "requirements_authority": "Docs/Stage1_Blueprint_v2.md",
+          "positive_acceptance_capable": true
+        }
+      ],
       "superseded_validator_sources": [
         {
           "path_pattern": "Stage1_Instances/{theorem_id}/check_obligation_tree.py",
@@ -1381,7 +1399,7 @@
             ]
           },
           "source_reference_ids": [
-            "rev56-tree-composition"
+            "v2-obligation-composition"
           ]
         },
         {
@@ -1393,7 +1411,7 @@
             "leaf_step_limit": 100
           },
           "source_reference_ids": [
-            "rev56-tree-composition"
+            "v2-obligation-composition"
           ]
         },
         {
@@ -1406,7 +1424,7 @@
             "no_untyped_semantics": true
           },
           "source_reference_ids": [
-            "rev56-tree-composition"
+            "v2-obligation-composition"
           ]
         },
         {
@@ -1418,14 +1436,14 @@
             "no_undeclared_inputs": true
           },
           "source_reference_ids": [
-            "rev56-tree-composition"
+            "v2-obligation-composition"
           ]
         }
       ],
       "source_reference_ids": [
-        "rev56-tree-composition",
-        "rev56-readable-source",
-        "rev56-generic-dag",
+        "v2-obligation-composition",
+        "v2-source-readability",
+        "v2-seven-phase-predicates",
         "v2-dual-cursor"
       ]
     },
@@ -1433,7 +1451,10 @@
       "phase": "proof",
       "layer": 4,
       "item_suffix": "PROOF",
-      "intent": "prove",
+      "intent": {
+        "organize_or_integrate": "integrate",
+        "frontier_exception": "frontier_prove"
+      },
       "completion_semantics": "Accept the exact requested proof bodies, imports, or checked consumer-owned transports with complete dependency context, provenance, trust, placeholder, axiom, and child-composition evidence.",
       "phase_acceptance_claim": "Every proof obligation claimed closed has an exact kernel-checked body under the selected profile, and accepted parent material is reused by content without inheriting acceptance.",
       "phase_acceptance_does_not_claim": [
@@ -1522,7 +1543,9 @@
           "aliases_are_candidates_only": true,
           "content_requirements": [
             "stage1-node-receipt/1.0",
-            "intent prove",
+            "intent integrate for organize_or_integrate",
+            "intent frontier_prove for frontier_exception",
+            "intent must agree with current focus disposition",
             "exact declarations and closed obligation ids",
             "proof source and dependency hashes",
             "kernel axiom placeholder provenance and composition results"
@@ -1559,7 +1582,21 @@
         "/proof_body",
         "/result/exit_code"
       ],
-      "validator_authorities": [],
+      "validator_authorities": [
+        {
+          "path_pattern": "scripts/stage1_phase_validators/current.py",
+          "language": "python",
+          "argv_template": [
+            "/usr/bin/python3",
+            "-I",
+            "-B",
+            "{validator_path}"
+          ],
+          "authority_generation": "stage1-v2",
+          "requirements_authority": "Docs/Stage1_Blueprint_v2.md",
+          "positive_acceptance_capable": true
+        }
+      ],
       "superseded_validator_sources": [
         {
           "path_pattern": "Stage1_Instances/{theorem_id}/check_proof.py",
@@ -1628,7 +1665,7 @@
               "reused_with_transport"
             ],
             "inherit_provider_acceptance": false,
-            "consumer_validation_required_for_transport": true
+            "consumer_validation_required_for_transport": false
           },
           "source_reference_ids": [
             "v2-parent-reuse"
@@ -1644,8 +1681,8 @@
             "complete_assigned_phase_predicate": true
           },
           "source_reference_ids": [
-            "rev56-discovery-proof",
-            "rev56-final-audit"
+            "v2-discovery-provenance",
+            "v2-assurance-recompute"
           ]
         },
         {
@@ -1663,7 +1700,7 @@
             ]
           },
           "source_reference_ids": [
-            "rev56-final-audit"
+            "v2-assurance-recompute"
           ]
         },
         {
@@ -1674,13 +1711,13 @@
             "consume_exact_required_children": true
           },
           "source_reference_ids": [
-            "rev56-tree-composition"
+            "v2-obligation-composition"
           ]
         }
       ],
       "source_reference_ids": [
-        "rev56-discovery-proof",
-        "rev56-tree-composition",
+        "v2-discovery-provenance",
+        "v2-obligation-composition",
         "v2-parent-reuse",
         "v2-master-acceptance"
       ]
@@ -1833,7 +1870,21 @@
         "/provenance",
         "/independent_validation"
       ],
-      "validator_authorities": [],
+      "validator_authorities": [
+        {
+          "path_pattern": "scripts/stage1_phase_validators/current.py",
+          "language": "python",
+          "argv_template": [
+            "/usr/bin/python3",
+            "-I",
+            "-B",
+            "{validator_path}"
+          ],
+          "authority_generation": "stage1-v2",
+          "requirements_authority": "Docs/Stage1_Blueprint_v2.md",
+          "positive_acceptance_capable": true
+        }
+      ],
       "superseded_validator_sources": [
         {
           "path_pattern": "Stage1_Instances/{theorem_id}/check_validation.py",
@@ -1876,7 +1927,7 @@
             ]
           },
           "source_reference_ids": [
-            "rev56-structured-recipes"
+            "v2-worker-validation"
           ]
         },
         {
@@ -1890,7 +1941,7 @@
             "exit_zero_only_rejected": true
           },
           "source_reference_ids": [
-            "rev56-structured-recipes",
+            "v2-worker-validation",
             "v2-structural-only"
           ]
         },
@@ -1904,8 +1955,8 @@
             "source_and_dependency_boundaries": true
           },
           "source_reference_ids": [
-            "rev56-master-acceptance",
-            "rev56-final-audit"
+            "v2-hermetic-independent-release",
+            "v2-assurance-recompute"
           ]
         },
         {
@@ -1923,8 +1974,8 @@
         }
       ],
       "source_reference_ids": [
-        "rev56-master-acceptance",
-        "rev56-structured-recipes",
+        "v2-hermetic-independent-release",
+        "v2-worker-validation",
         "v2-parent-reuse",
         "v2-structural-only"
       ]
@@ -1934,35 +1985,33 @@
       "layer": 6,
       "item_suffix": "RELEASE",
       "intent": "release",
-      "completion_semantics": "Accept one immutable terminal reconciliation that completes AUDIT-Z and independently records whether THEOREM-Z is true or false; accepted_audit_only closes this phase with theorem_complete=false.",
-      "phase_acceptance_claim": "The complete frozen inventory, typed graphs, evidence states, source boundaries, debts, open cut set, public projections, and release evidence are reconciled, and the root-completion boolean is supported without hiding an open premise.",
+      "completion_semantics": "Accept one immutable terminal reconciliation that establishes both AUDIT-Z and THEOREM-Z with theorem_complete=true; accepted_audit_only records AUDIT-Z evidence but cannot close this phase.",
+      "phase_acceptance_claim": "The complete frozen inventory, typed graphs, evidence states, source boundaries, debts, public projections, and release evidence are reconciled, the exact root is closed, the root cut set is empty, and theorem_complete is true.",
       "phase_acceptance_does_not_claim": [
-        "release_phase_x_always_means_theorem_z",
+        "audit_z_alone_closes_release",
         "audit_only_means_machine_root_closed",
         "blocked_release_attempt_is_terminal_acceptance"
       ],
       "worker_verdicts_eligible_for_review": [
         "accepted",
-        "accepted_audit_only",
         "no_state_change"
       ],
       "raw_blocked_can_close_phase": false,
-      "classified_negative_findings_may_satisfy_deliverable": true,
-      "truthful_negative_boundary": "A fully reconciled audit may accept an honestly open M1-M5 root through accepted_audit_only with audit_complete=true and theorem_complete=false; a raw blocked release recipe or incomplete audit cannot close release.",
+      "classified_negative_findings_may_satisfy_deliverable": false,
+      "truthful_negative_boundary": "A fully reconciled audit may record an honestly open M1-M5 root through accepted_audit_only with audit_complete=true and theorem_complete=false, but it remains [_]; a raw blocked release recipe, incomplete audit, or audit-only result cannot close release.",
       "audit_boundary": {
         "phase_acceptance_implies_audit_complete": true,
         "allowed_audit_complete_values": [
           true
         ],
-        "condition": "Every accepted release, including accepted_audit_only, must establish AUDIT-Z."
+        "condition": "Every accepted release must establish AUDIT-Z; accepted_audit_only may establish AUDIT-Z without release acceptance."
       },
       "theorem_boundary": {
-        "phase_acceptance_implies_theorem_complete": false,
+        "phase_acceptance_implies_theorem_complete": true,
         "allowed_theorem_complete_values": [
-          false,
           true
         ],
-        "condition": "accepted_audit_only requires false; accepted may set true only after exact M0 root and every root-critical release gate."
+        "condition": "Release phase acceptance requires accepted, exact M0 root closure, every root-critical release gate, and theorem_complete true; accepted_audit_only is non-closing."
       },
       "required_artifact_roles": [
         {
@@ -2112,7 +2161,21 @@
         "/independent_attestations",
         "/result/semantic_verdict"
       ],
-      "validator_authorities": [],
+      "validator_authorities": [
+        {
+          "path_pattern": "scripts/stage1_phase_validators/current.py",
+          "language": "python",
+          "argv_template": [
+            "/usr/bin/python3",
+            "-I",
+            "-B",
+            "{validator_path}"
+          ],
+          "authority_generation": "stage1-v2",
+          "requirements_authority": "Docs/Stage1_Blueprint_v2.md",
+          "positive_acceptance_capable": true
+        }
+      ],
       "superseded_validator_sources": [
         {
           "path_pattern": "Stage1_Instances/{theorem_id}/check_release.py",
@@ -2174,8 +2237,8 @@
             ]
           },
           "source_reference_ids": [
-            "rev56-receipts",
-            "rev56-release"
+            "v2-evidence-trust-freshness",
+            "v2-hermetic-independent-release"
           ]
         },
         {
@@ -2191,8 +2254,8 @@
             "independent_minimal_verifier": true
           },
           "source_reference_ids": [
-            "rev56-release",
-            "rev56-final-audit"
+            "v2-hermetic-independent-release",
+            "v2-assurance-recompute"
           ]
         },
         {
@@ -2201,14 +2264,15 @@
           "parameters": {
             "audit_complete_required": true,
             "accepted_audit_only_requires_theorem_complete_false": true,
+            "accepted_audit_only_cannot_close_release": true,
+            "release_acceptance_requires_theorem_complete_true": true,
             "theorem_complete_true_requires_exact_m0_root": true,
             "raw_blocked_rejected": true,
             "preserve_open_cut_set": true
           },
           "source_reference_ids": [
-            "rev56-verdicts",
-            "rev56-terminal-boundary",
-            "rev56-final-audit"
+            "v2-lifecycle-verdicts",
+            "v2-assurance-recompute"
           ]
         },
         {
@@ -2221,17 +2285,16 @@
             "preserve_terminal_booleans": true
           },
           "source_reference_ids": [
-            "rev56-master-acceptance",
+            "v2-hermetic-independent-release",
             "v2-projections"
           ]
         }
       ],
       "source_reference_ids": [
-        "rev56-verdicts",
-        "rev56-terminal-boundary",
-        "rev56-receipts",
-        "rev56-release",
-        "rev56-final-audit",
+        "v2-lifecycle-verdicts",
+        "v2-evidence-trust-freshness",
+        "v2-hermetic-independent-release",
+        "v2-assurance-recompute",
         "v2-master-acceptance"
       ]
     }

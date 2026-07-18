@@ -15,13 +15,14 @@ import heapq
 import json
 from pathlib import Path
 import re
+import sys
 from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[2]
-TARGETS = ROOT / "Docs" / "Stage1_Targets_rev-5.6.json"
+TARGETS = ROOT / "Docs" / "Stage1_Target_Membership_v2.json"
 BLUEPRINT = ROOT / "Docs" / "Stage1_Blueprint_v2.md"
-LEGACY_DAG = ROOT / "Docs" / "Stage1_Execution_DAG_rev-5.6.json"
+PHASE_DAG = ROOT / "Docs" / "Stage1_Phase_DAG_v2.json"
 OUTPUT = ROOT / "Docs" / "Stage1_Theorem_DAG_v2.json"
 PHASES = ("intake", "statement", "anchor_audit", "obligation_tree", "proof", "validation", "release")
 PHASE_DELIVERABLES = {
@@ -29,7 +30,7 @@ PHASE_DELIVERABLES = {
     "statement": "Elaborate the exact Lean 4 target with the minimal pinned imports.",
     "anchor_audit": "Audit mathlib and external Lean 4 candidates at immutable revisions.",
     "obligation_tree": "Freeze the obligation registry and typed proof/provenance/workflow graphs.",
-    "proof": "Implement or pin/import the required proof bodies without placeholders.",
+    "proof": "Integrate and replay the admitted exact machine proof; new root proof content requires an active frontier exception.",
     "validation": "Run hermetic kernel, trust, provenance, and independent validation gates.",
     "release": "Reconcile evidence and decide the exact theorem-completion verdict.",
 }
@@ -61,7 +62,7 @@ EXECUTION_CONTRACT = {
         "content_bound_provider_source",
         "provider_and_consumer_statement_fingerprints",
         "consumer_owned_import_or_wrapper",
-        "consumer_validation_receipt",
+        "consumer_kernel_replay",
     ],
     "provider_checkbox_state_is_observation_only": True,
     "provider_acceptance_inherited": False,
@@ -97,6 +98,14 @@ LEAN_RESERVED_SEGMENTS = {
     "section", "structure", "syntax", "theorem", "then", "universe", "variable", "where",
     "with",
 }
+TRANSIENT_INSTANCE_DIR_PREFIXES = (
+    "ValidatorReplay",
+    "ValidatorSiblings",
+    "stage1-lean-probe-",
+)
+
+sys.path.insert(0, str(ROOT / "scripts"))
+import stage1_focus_eligibility as focus_eligibility  # noqa: E402
 
 
 def load_json(path: Path) -> dict[str, Any]:
@@ -149,6 +158,21 @@ def material_source(path: str, declarations: list[str]) -> dict[str, Any]:
     }
 
 
+def durable_instance_file(path: Path, owner: Path) -> bool:
+    """Exclude validator scratch trees that can briefly exist under an owner."""
+    if not path.is_file():
+        return False
+    try:
+        relative = path.relative_to(owner)
+    except ValueError:
+        return False
+    return not any(
+        component.startswith(prefix)
+        for component in relative.parts[:-1]
+        for prefix in TRANSIENT_INSTANCE_DIR_PREFIXES
+    )
+
+
 def phase_bucket(states: list[str]) -> str:
     if all(state == "[x]" for state in states):
         return "master_complete"
@@ -195,7 +219,7 @@ def blueprint_state_items() -> list[dict[str, Any]]:
         dependency = "none" if phase_index == 0 else f"`S56-{theorem_id.removeprefix('THM-')}-{PHASES[phase_index - 1].upper()}`"
         expected_detail = (
             f"  Depends: {dependency}. Owned paths: `Stage1_Instances/{theorem_id}`. "
-            "Gate: rev-5.6 node-specific receipt and master acceptance."
+            "Gate: current v2 focus permission, replayed phase evidence, and master acceptance."
         )
         if (
             item["id"] != expected_id
@@ -223,7 +247,9 @@ def discover_cross_target_imports(target_ids: set[str]) -> list[tuple[str, str, 
         if not source.is_dir() or source.name not in target_ids:
             continue
         child = source.name
-        for lean_path in sorted(source.rglob("*.lean")):
+        for lean_path in sorted(
+            path for path in source.rglob("*.lean") if durable_instance_file(path, source)
+        ):
             text = lean_path.read_text(encoding="utf-8", errors="replace")
             for match in IMPORT_RE.finditer(text):
                 parent = match.group(1)
@@ -510,7 +536,9 @@ def shared_lemma_groups(target_ids: set[str]) -> list[dict[str, Any]]:
         directory = ROOT / "Stage1_Instances" / theorem_id
         if not directory.is_dir():
             continue
-        for path in sorted(directory.rglob("*.json")):
+        for path in sorted(
+            path for path in directory.rglob("*.json") if durable_instance_file(path, directory)
+        ):
             # Reuse ledgers are derived consumers of this graph. Including
             # them as discovery inputs would make a proof handoff mutate its
             # own dependency context and create a self-invalidating cycle.
@@ -572,9 +600,21 @@ def inventory(theorem_id: str) -> tuple[dict[str, Any], list[dict[str, str]]]:
             },
             [],
         )
-    lean = sorted(rel(path) for path in directory.rglob("*.lean") if path.is_file())
-    receipts = sorted(rel(path) for path in directory.rglob("*receipt*.json") if path.is_file())
-    structured = sorted(rel(path) for path in directory.rglob("*.json") if path.is_file())
+    lean = sorted(
+        rel(path)
+        for path in directory.rglob("*.lean")
+        if durable_instance_file(path, directory)
+    )
+    receipts = sorted(
+        rel(path)
+        for path in directory.rglob("*receipt*.json")
+        if durable_instance_file(path, directory)
+    )
+    structured = sorted(
+        rel(path)
+        for path in directory.rglob("*.json")
+        if durable_instance_file(path, directory)
+    )
     reusable_paths = sorted(set(lean + receipts + [path for path in structured if "source" in Path(path).name.lower()]))
     reusable = []
     for path in reusable_paths:
@@ -650,7 +690,7 @@ def build() -> dict[str, Any]:
     by_target: dict[str, dict[str, dict[str, Any]]] = defaultdict(dict)
     for item in items:
         if item.get("theorem_id") not in target_ids or item.get("phase") not in PHASES:
-            raise RuntimeError(f"invalid legacy item: {item.get('id')}")
+            raise RuntimeError(f"invalid stable phase item: {item.get('id')}")
         if item.get("state") not in VALID_STATES or item["phase"] in by_target[item["theorem_id"]]:
             raise RuntimeError(f"invalid or duplicate blueprint phase: {item.get('id')}")
         by_target[item["theorem_id"]][item["phase"]] = item
@@ -682,11 +722,14 @@ def build() -> dict[str, Any]:
     group_by_id = {group["group_id"]: group for group in shared_groups}
 
     theorem_rows = []
+    focus_rows: dict[str, dict[str, Any]] = {}
     for theorem_id in order:
         target = target_by_id[theorem_id]
         phase_states = {phase: by_target[theorem_id][phase]["state"] for phase in PHASES}
         phase_attempts = {phase: by_target[theorem_id][phase].get("attempts", 0) for phase in PHASES}
         evidence_inventory, reusable_artifacts = inventory(theorem_id)
+        focus = focus_eligibility.evaluate_target(ROOT, theorem_id)
+        focus_rows[theorem_id] = focus
         if parents[theorem_id]:
             audit_status = "audited_hard_dependency_found"
         elif hints_by_consumer[theorem_id] or groups_by_theorem[theorem_id]:
@@ -732,6 +775,7 @@ def build() -> dict[str, Any]:
                 "shared_lemma_group_ids": sorted(groups_by_theorem[theorem_id]),
                 "dependency_context_sha256": canonical_sha256(dependency_context),
                 "dependency_audit_status": audit_status,
+                "focus_eligibility": focus,
                 "evidence_inventory": evidence_inventory,
                 "reusable_artifacts": reusable_artifacts,
             }
@@ -742,18 +786,39 @@ def build() -> dict[str, Any]:
         for item in sorted(items, key=lambda row: row["id"])
     ]
     bucket_counts = Counter(buckets.values())
+    disposition_counts = Counter(
+        row["execution_disposition"] for row in focus_rows.values()
+    )
+    machine_class_counts = Counter(
+        row["machine_evidence_class"] for row in focus_rows.values()
+    )
+    phase_eligible_counts = {
+        phase: sum(row["phase_permissions"][phase] for row in focus_rows.values())
+        for phase in PHASES
+    }
     return {
-        "schema_version": "stage1-theorem-dag/2.0",
+        "schema_version": "stage1-theorem-dag/2.1",
         "generated_by": "Docs/tools/generate_stage1_theorem_dag_v2.py",
         "requirements_source": "Docs/Stage1_Blueprint_v2.md",
-        "target_manifest": "Docs/Stage1_Targets_rev-5.6.json",
+        "target_manifest": "Docs/Stage1_Target_Membership_v2.json",
         # Read-only projection path. It contains no independently writable
         # state; all marks and attempts originate in the v2 blueprint.
-        "execution_dag_projection": "Docs/Stage1_Execution_DAG_rev-5.6.json",
+        "execution_dag_projection": "Docs/Stage1_Phase_DAG_v2.json",
         "target_id_set_sha256": target_manifest["scope"]["canonical_sorted_target_id_set_sha256"],
         "state_protocol": {"not_done": "[ ]", "worker_self_tested": "[_]", "master_accepted": "[x]"},
         "completion_bucket_order": list(BUCKET_ORDER),
         "execution_contract": EXECUTION_CONTRACT,
+        "focus_policy": {
+            "requirements_source": "Docs/Stage1_Blueprint_v2.md",
+            "receipt_schema": "stage1-focus-eligibility/1.0",
+            "receipt_path_pattern": "Stage1_Instances/<THEOREM-ID>/focus-eligibility.json",
+            "schema_contract": "Docs/Stage1_Focus_Eligibility_Schema.json",
+            "validator": "scripts/stage1_focus_eligibility.py",
+            "default_disposition": "research_required",
+            "unknown_or_invalid_fails_closed": True,
+            "frontier_exception_minimum_probability": 0.70,
+            "worker_self_assessment_authorizes_exception": False,
+        },
         "edge_policy": {
             "hard_edge_admission": "exact cross-target Lean import plus content-bound receipt, or structured source theorem/path hashes consumed by a replay validator",
             "reuse_hint_admission": "named provider theorem/declaration/module with reviewable evidence but no checked target-local import/transport",
@@ -778,6 +843,13 @@ def build() -> dict[str, Any]:
             "max_topological_layer": max(layers.values(), default=0),
             "completion_bucket_counts": {bucket: bucket_counts[bucket] for bucket in BUCKET_ORDER},
             "dependency_audit_status_counts": dict(sorted(Counter(row["dependency_audit_status"] for row in theorem_rows).items())),
+        },
+        "focus_eligibility_summary": {
+            "receipt_present_count": sum(row["present"] for row in focus_rows.values()),
+            "receipt_valid_count": sum(row["valid"] for row in focus_rows.values()),
+            "machine_evidence_class_counts": dict(sorted(machine_class_counts.items())),
+            "execution_disposition_counts": dict(sorted(disposition_counts.items())),
+            "phase_eligible_counts": phase_eligible_counts,
         },
         "hard_edges": hard,
         "reuse_hints": hints,

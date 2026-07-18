@@ -1,6 +1,6 @@
-# THM-M-0012 rev-5.6 Dossier
+# THM-M-0012 Historical Dossier
 
-`THM-M-0012` is a rev-5.6 `planned` instance for the fundamental theorem of algebra:
+`THM-M-0012` is a retained `planned` instance for the fundamental theorem of algebra:
 every nonconstant univariate complex polynomial has a complex root. The statement phase freezes
 that conventional repository scope as
 `Stage1Instances.THM_M_0012.FundamentalTheoremOfAlgebraTarget`, with nonconstant meaning outside
@@ -27,7 +27,7 @@ candidate theorem body, provenance, trust closure, and source fidelity receive n
 | `S56-M-0012-STATEMENT` | Elaborate the exact target and mutation-test its scope | self-tested; master acceptance pending |
 | `S56-M-0012-ANCHOR_AUDIT` | Audit formal candidates, bodies, revisions, imports, and trust boundaries | open; depends on statement |
 | `S56-M-0012-OBLIGATION_TREE` | Freeze obligations and typed graphs before closure metrics | open; depends on audit |
-| `S56-M-0012-PROOF` | Implement or integrate genuine proof bodies | open; depends on tree |
+| `S56-M-0012-PROOF` | Integrate and replay an admitted exact machine proof; new root work requires an active reviewed frontier exception | open; depends on tree and focus permission |
 | `S56-M-0012-VALIDATION` | Run hermetic kernel, provenance, trust, and independent gates | open; depends on proof |
 | `S56-M-0012-RELEASE` | Independently reconcile audit and theorem completion | open; depends on validation |
 

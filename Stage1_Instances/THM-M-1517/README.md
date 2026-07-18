@@ -1,6 +1,6 @@
-# THM-M-1517 rev-5.6 intake
+# THM-M-1517 Historical Intake
 
-This directory is the rev-5.6 `planned` instance for "Lagrangian mechanics". The source label is a
+This directory is the retained `planned` instance for "Lagrangian mechanics". The source label is a
 theory-sized topic rather than a uniquely quantified theorem, so the intake does not pretend that
 an exact root has already been recovered.
 
@@ -20,8 +20,9 @@ an exact root has already been recovered.
 
 `STATEMENT` must resolve the source ambiguity and elaborate one exact target. `ANCHOR_AUDIT` then
 searches mathlib and immutable external Lean sources. `OBLIGATION_TREE` freezes the typed proof and
-provenance graphs; only afterward may `PROOF`, `VALIDATION`, and `RELEASE` proceed. These are the
-dependent nodes listed in the authoritative rev-5.6 execution DAG; none is accepted here.
+provenance graphs; only afterward may focus-permitted `PROOF`, `VALIDATION`, and `RELEASE` proceed.
+Their current state and permission come only from the v2 blueprint and focus receipt; older DAG
+records, when encountered in historical evidence, are provenance only. None is accepted here.
 
 ## Intake verdict
 

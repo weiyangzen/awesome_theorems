@@ -203,7 +203,6 @@ class DurableWorkerHandoffTests(unittest.TestCase):
             "base_revision": "b" * 40,
             "status": "finished_integrated",
             "runtime_protocol": cron.RUNTIME_PROTOCOL,
-            "fresh_revalidation": False,
             "goal_objective": "implement",
             "goal_objective_path": str(self.runtime / "goals" / "impl.txt"),
             "app_server_status": str(self.runtime / "app-server" / "impl.json"),
@@ -212,6 +211,8 @@ class DurableWorkerHandoffTests(unittest.TestCase):
             "selftest_manifest": str(
                 self.runtime / "workers" / "slot1" / ".stage1-worker-selftest.json"
             ),
+            "focus_eligibility": {"valid": True},
+            "focus_execution": {"focus_contract_sha256": "f" * 64},
         }
         self.payload = (
             json.dumps({
@@ -227,6 +228,9 @@ class DurableWorkerHandoffTests(unittest.TestCase):
         with (
             mock.patch.object(cron, "ROOT", self.root),
             mock.patch.object(cron, "RUNTIME", self.runtime),
+            mock.patch.object(
+                cron, "require_claim_focus_runtime_current", return_value={"valid": True}
+            ),
         ):
             path, digest, size = cron.persist_worker_handoff(
                 self.claim, self.payload
@@ -249,11 +253,29 @@ class DurableWorkerHandoffTests(unittest.TestCase):
         with (
             mock.patch.object(cron, "ROOT", self.root),
             mock.patch.object(cron, "RUNTIME", self.runtime),
+            mock.patch.object(
+                cron, "require_claim_focus_runtime_current", return_value={"valid": True}
+            ),
         ):
             data, digest, loaded = cron.read_persisted_worker_handoff(self.claim)
             self.assertIs(cron.review_source_claim(self.item, [self.claim]), self.claim)
         self.assertEqual((data, loaded), (self.payload, path))
         self.assertEqual(digest, hashlib.sha256(self.payload).hexdigest())
+
+    def test_review_source_rejects_every_unsupported_runtime_field(self) -> None:
+        self.archive()
+        with (
+            mock.patch.object(cron, "ROOT", self.root),
+            mock.patch.object(cron, "RUNTIME", self.runtime),
+            mock.patch.object(
+                cron, "require_claim_focus_runtime_current", return_value={"valid": True}
+            ),
+        ):
+            for field in cron.UNSUPPORTED_RUNTIME_CLAIM_FIELDS:
+                with self.subTest(field=field):
+                    claim = copy.deepcopy(self.claim)
+                    claim[field] = False
+                    self.assertIsNone(cron.review_source_claim(self.item, [claim]))
 
     def test_review_provenance_binds_original_archived_bytes(self) -> None:
         path = self.archive()
@@ -276,6 +298,9 @@ class DurableWorkerHandoffTests(unittest.TestCase):
         with (
             mock.patch.object(cron, "ROOT", self.root),
             mock.patch.object(cron, "RUNTIME", self.runtime),
+            mock.patch.object(
+                cron, "require_claim_focus_runtime_current", return_value={"valid": True}
+            ),
         ):
             source, record = cron.validate_review_provenance_handoff(
                 self.item, provenance
@@ -352,7 +377,7 @@ class DurableWorkerHandoffTests(unittest.TestCase):
             (self.runtime / "worker-handoffs" / f"{self.CLAIM_ID}.json").exists()
         )
 
-    def test_reconcile_is_bounded_and_excludes_unmigrated_sources_from_review(self) -> None:
+    def test_reconcile_parks_unmigrated_sources_and_excludes_them_from_review(self) -> None:
         items: list[dict[str, object]] = []
         claims: list[dict[str, object]] = []
         nodes: dict[str, dict[str, int]] = {}
@@ -381,8 +406,12 @@ class DurableWorkerHandoffTests(unittest.TestCase):
                 cron.reconcile_finished_implementation_handoffs(items, claims)
             )
             self.assertEqual(
-                sum(row["status"] == "revalidation_required" for row in claims), 50
+                sum(row["status"] == "quarantined" for row in claims), 81
             )
+            self.assertTrue(all(
+                "v2 does not rerun historical work" in row["quarantine_reason"]
+                for row in claims
+            ))
             self.assertEqual(cron.review_candidates(items, claims), [])
 
 
@@ -403,7 +432,7 @@ class DependencyReuseLedgerTests(unittest.TestCase):
         self.consumer_import.write_text("theorem consumeProvider : True := by trivial\n", encoding="utf-8")
         self.parent_receipt = self.write_receipt(PARENT, "proof", accepted=True)
         self.consumer_receipt = self.write_receipt(CHILD, "validation", accepted=True)
-        self.dag_path = self.root / "Docs" / "Stage1_Execution_DAG_rev-5.6.json"
+        self.dag_path = self.root / "Docs" / "Stage1_Phase_DAG_v2.json"
         self.dag_path.parent.mkdir(parents=True, exist_ok=True)
         dag = copy.deepcopy(cron.read_json(cron.DAG))
         for item in dag["items"]:
@@ -576,7 +605,7 @@ class DependencyReuseLedgerTests(unittest.TestCase):
         docs = root / "Docs"
         docs.mkdir(parents=True, exist_ok=True)
         (docs / "Stage1_Blueprint_v2.md").write_bytes(self.blueprint_path.read_bytes())
-        (docs / "Stage1_Execution_DAG_rev-5.6.json").write_bytes(self.dag_path.read_bytes())
+        (docs / "Stage1_Phase_DAG_v2.json").write_bytes(self.dag_path.read_bytes())
 
     def decision(self) -> dict[str, object]:
         return next(row for row in self.ledger["reuse_decisions"] if row["source_id"] == EDGE)
@@ -784,10 +813,25 @@ class DependencyReuseLedgerTests(unittest.TestCase):
         decision = self.decision()
         decision["decision"] = "reused_with_transport"
         decision["relationship"] = "checked_transport"
+        decision["provider_import_module"] = "Proof"
         self.ledger["inspections"][0]["compatibility"] = "checked_transport"
         decision["consumer_required_fingerprint"] = hashlib.sha256(b"True").hexdigest()
         self.write_ledger()
         self.validate()
+
+        original = copy.deepcopy(self.ledger)
+        self.decision().pop("provider_import_module")
+        self.write_ledger()
+        with self.assertRaisesRegex(ValueError, "provider import module"):
+            self.validate()
+        self.ledger = original
+
+        original = copy.deepcopy(self.ledger)
+        self.decision()["provider_import_module"] = "not/a/module"
+        self.write_ledger()
+        with self.assertRaisesRegex(ValueError, "provider import module"):
+            self.validate()
+        self.ledger = original
 
         for field in ("consumer_import_source", "consumer_validation_receipts"):
             with self.subTest(field=field):
@@ -993,7 +1037,7 @@ class DependencyReuseLedgerTests(unittest.TestCase):
         real_graph = cron.read_json(cron.THEOREM_DAG_V2)
         real_nodes = {row["theorem_id"]: row for row in real_graph["theorems"]}
         status_root = self.root / "todo-status"
-        status_dag = status_root / "Docs" / "Stage1_Execution_DAG_rev-5.6.json"
+        status_dag = status_root / "Docs" / "Stage1_Phase_DAG_v2.json"
         status_graph = status_root / "Docs" / "Stage1_Theorem_DAG_v2.json"
         status_blueprint = status_root / "Docs" / "Stage1_Blueprint_v2.md"
         status_dag.parent.mkdir(parents=True)
@@ -1054,6 +1098,7 @@ class DependencyReuseLedgerTests(unittest.TestCase):
         )
         decision["decision"] = "reused_with_transport"
         decision["relationship"] = "checked_transport"
+        decision["provider_import_module"] = "Proof"
         status_ledger["inspections"][0]["compatibility"] = "checked_transport"
         decision.pop("consumer_validation_receipts", None)
         ledger_path.write_text(json.dumps(status_ledger, indent=2) + "\n", encoding="utf-8")
@@ -1352,6 +1397,21 @@ class DependencyReuseLedgerTests(unittest.TestCase):
 
 class IntegrationTransactionTests(unittest.TestCase):
     def setUp(self) -> None:
+        focus_patch = mock.patch.object(
+            cron, "require_item_focus_phase_allowed", return_value={"valid": True}
+        )
+        focus_patch.start()
+        self.addCleanup(focus_patch.stop)
+        decision_patch = mock.patch.object(
+            cron, "focus_decision_for_item", return_value={"valid": True}
+        )
+        decision_patch.start()
+        self.addCleanup(decision_patch.stop)
+        runtime_focus_patch = mock.patch.object(
+            cron, "require_claim_focus_runtime_current", return_value={"valid": True}
+        )
+        runtime_focus_patch.start()
+        self.addCleanup(runtime_focus_patch.stop)
         cron.theorem_dag_v2.cache_clear()
         self.temporary = tempfile.TemporaryDirectory()
         self.addCleanup(self.temporary.cleanup)
@@ -1393,7 +1453,6 @@ class IntegrationTransactionTests(unittest.TestCase):
             "slot": 1,
             "runtime_protocol": cron.RUNTIME_PROTOCOL,
             "output_log": str(self.runtime / "logs" / "test.out"),
-            "fresh_revalidation": False,
         }
         (self.workspace / ".stage1-worker-selftest.json").write_text(
             json.dumps(
@@ -1410,7 +1469,7 @@ class IntegrationTransactionTests(unittest.TestCase):
             encoding="utf-8",
         )
         self.docs.mkdir(parents=True)
-        self.dag = self.docs / "Stage1_Execution_DAG_rev-5.6.json"
+        self.dag = self.docs / "Stage1_Phase_DAG_v2.json"
         self.theorem_dag = self.docs / "Stage1_Theorem_DAG_v2.json"
         self.blueprint = self.docs / "Stage1_Blueprint_v2.md"
         self.dag.write_text(json.dumps(self.data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
@@ -1506,6 +1565,7 @@ class IntegrationTransactionTests(unittest.TestCase):
             stack.enter_context(mock.patch.object(cron, "theorem_dag_v2", return_value=({}, {self.item["theorem_id"]: {"v2_execution_rank": 1}})))
             stack.enter_context(mock.patch.object(cron, "refresh_claims", return_value=[self.claim]))
             stack.enter_context(mock.patch.object(cron, "goal_runtime_is_verified", return_value=True))
+            self.claim["focus_eligibility"] = {"valid": True}
             stack.enter_context(
                 mock.patch.object(
                     cron,
@@ -1519,6 +1579,11 @@ class IntegrationTransactionTests(unittest.TestCase):
             )
             stack.enter_context(mock.patch.object(
                 cron, "phase_validator_candidate_paths", return_value=set()
+            ))
+            stack.enter_context(mock.patch.object(
+                cron,
+                "build_staged_worker_role_map",
+                return_value={"manifest_sha256": "b" * 64, "artifacts": []},
             ))
             stack.enter_context(mock.patch.object(cron, "write_projection", side_effect=projection))
             stack.enter_context(mock.patch.object(cron, "load_blueprint_items", return_value=[self.item]))
@@ -1956,6 +2021,37 @@ class IntegrationTransactionTests(unittest.TestCase):
 
 class SchedulerCapacityTests(unittest.TestCase):
     def setUp(self) -> None:
+        allowed_patch = mock.patch.object(
+            cron, "item_focus_phase_allowed", return_value=True
+        )
+        allowed_patch.start()
+        self.addCleanup(allowed_patch.stop)
+        require_patch = mock.patch.object(
+            cron, "require_item_focus_phase_allowed", return_value={"valid": True}
+        )
+        require_patch.start()
+        self.addCleanup(require_patch.stop)
+        decision_patch = mock.patch.object(
+            cron, "focus_decision_for_item", return_value={"valid": True}
+        )
+        decision_patch.start()
+        self.addCleanup(decision_patch.stop)
+        execution_patch = mock.patch.object(
+            cron,
+            "focus_execution_contract",
+            return_value={
+                "focus_contract_sha256": "f" * 64,
+                "execution_disposition": "research_required",
+                "receipt_sha256": None,
+            },
+        )
+        execution_patch.start()
+        self.addCleanup(execution_patch.stop)
+        runtime_focus_patch = mock.patch.object(
+            cron, "require_claim_focus_runtime_current", return_value={"valid": True}
+        )
+        runtime_focus_patch.start()
+        self.addCleanup(runtime_focus_patch.stop)
         # Focused refresh tests commonly replace only the claim ledger. Give
         # them an empty synthetic /proc tree so a live scheduler cohort on the
         # host cannot be mistaken for unledgered fixture processes. Tests of
@@ -2020,9 +2116,29 @@ class SchedulerCapacityTests(unittest.TestCase):
                 "depends_on": [],
                 "owned_paths": [f"Stage1_Instances/{theorem_id}"],
             })
+            focus_projection = {
+                "receipt_path": (
+                    f"Stage1_Instances/{theorem_id}/focus-eligibility.json"
+                ),
+                "present": False,
+                "valid": False,
+                "theorem_id": theorem_id,
+                "machine_evidence_class": "unknown",
+                "execution_disposition": "research_required",
+                "phase_permissions": {
+                    phase: phase in cron.focus_eligibility.RESEARCH_PHASES
+                    for phase in cron.focus_eligibility.PHASES
+                },
+                "reason_codes": ["receipt_missing"],
+                "receipt_sha256": None,
+                "evidence_as_of": None,
+                "expires_at": None,
+                "frontier_policy": None,
+            }
             nodes[theorem_id] = {
                 "v2_execution_rank": index,
                 "dependency_context_sha256": f"{index:064x}"[-64:],
+                "focus_eligibility": focus_projection,
             }
         existing: list[dict[str, object]] = []
         for index in range(live_count):
@@ -2062,9 +2178,11 @@ class SchedulerCapacityTests(unittest.TestCase):
             return Path("/unused")
 
         def launch_worker(
-            _argv: list[str], *, delay_seconds: float = 0.0
+            _argv: list[str], *, delay_seconds: float = 0.0,
+            scratch: Path | None = None,
         ) -> int:
             nonlocal launch_calls
+            self.assertIsNone(scratch)
             launch_calls += 1
             events.append(f"delay:{delay_seconds}")
             events.append("popen")
@@ -2078,6 +2196,29 @@ class SchedulerCapacityTests(unittest.TestCase):
                 claim["status"] = "live"
             save(_claims)
             return len(cohort)
+
+        def focus_decision(item: dict[str, object]) -> dict[str, object]:
+            decision = nodes[str(item["theorem_id"])]["focus_eligibility"]
+            assert isinstance(decision, dict)
+            return decision
+
+        def focus_allowed(
+            item: dict[str, object],
+            _theorem_nodes: dict[str, dict[str, object]] | None = None,
+        ) -> bool:
+            return cron.focus_eligibility.phase_allowed(
+                focus_decision(item), str(item["phase"])
+            )
+
+        def require_focus_allowed(
+            item: dict[str, object],
+            _theorem_nodes: dict[str, dict[str, object]] | None = None,
+        ) -> dict[str, object]:
+            decision = focus_decision(item)
+            cron.focus_eligibility.require_phase_allowed(
+                decision, str(item["phase"])
+            )
+            return decision
 
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -2101,6 +2242,10 @@ class SchedulerCapacityTests(unittest.TestCase):
                     ("app_server_child_is_live", {"return_value": False}),
                     ("refill_reviews", {"return_value": 0}),
                     ("theorem_dag_v2", {"return_value": ({}, nodes)}),
+                    ("item_focus_phase_allowed", {"side_effect": focus_allowed}),
+                    ("require_item_focus_phase_allowed", {
+                        "side_effect": require_focus_allowed
+                    }),
                     ("graph_sha256", {"return_value": "a" * 64}),
                     ("run", {"return_value": subprocess.CompletedProcess([], 0, "b" * 40 + "\n", "")}),
                     ("save_claims", {"side_effect": save}),
@@ -2137,6 +2282,12 @@ class SchedulerCapacityTests(unittest.TestCase):
         self.assertEqual(len(new_claims), 50)
         self.assertEqual(len({claim["claim_id"] for claim in new_claims}), 50)
         self.assertEqual(len({claim["slot"] for claim in new_claims}), 50)
+        self.assertTrue(
+            all(
+                not cron.UNSUPPORTED_RUNTIME_CLAIM_FIELDS.intersection(claim)
+                for claim in new_claims
+            )
+        )
         self.assertLess(events.index("save"), events.index("prepare"))
         self.assertLess(events.index("save"), events.index("popen"))
         first_save = saved[0]
@@ -2622,11 +2773,19 @@ class SchedulerCapacityTests(unittest.TestCase):
         with (
             mock.patch.object(cron, "theorem_dag_v2", return_value=(graph, nodes)),
             mock.patch.object(cron, "graph_sha256", return_value="b" * 64),
+            mock.patch.object(
+                cron,
+                "focus_decision_for_item",
+                return_value={
+                    "execution_disposition": "organize_or_integrate",
+                    "valid": True,
+                },
+            ),
         ):
             prompt = cron.task_prompt(item, Path("/repo/worker"))
         context_text = prompt.split(
             "The authoritative v2 dependency/reuse context for this theorem is:\n", 1
-        )[1].split("\n\nRequired work:", 1)[0]
+        )[1].split("\n\nThe scheduler-validated focus admission", 1)[0]
         context = json.loads(context_text)
         self.assertEqual(
             context["parent_inspection_order"],
@@ -2638,10 +2797,13 @@ class SchedulerCapacityTests(unittest.TestCase):
         )
         for text in (
             "Docs/Stage1_Blueprint_v2.md",
+            "skills/execute-stage1-v2/SKILL.md",
             "sole requirements and task-state authority",
+            "Missing eligibility and `research_required` permit discovery only through anchor audit",
+            "worker-authored probability never authorizes it",
             "reused_exact",
             "reused_with_transport",
-            "consumer's own validation receipt",
+            "must not invent the later consumer-validation receipt",
             "never transfers parent acceptance",
             "scheduler owns every declared validator candidate",
             "never create, refresh, rename, replace, or delete any\n   validator candidate",
@@ -2650,6 +2812,16 @@ class SchedulerCapacityTests(unittest.TestCase):
 
         self.assertNotIn("Stage1_Blueprint_rev-5.6.md", prompt)
         self.assertNotIn("Produce exactly one HEAD-tracked validator", prompt)
+        assigned_text = prompt.split(
+            "Your assigned item is the only item you may claim:\n", 1
+        )[1].split("\n\nThe authoritative v2 dependency", 1)[0]
+        assigned = json.loads(assigned_text)
+        self.assertIn("Pin, import, wrap, or checked-transport", assigned["deliverable"])
+        self.assertNotIn("Implement or pin/import", assigned["deliverable"])
+        self.assertEqual(
+            assigned["deliverable_interpretation"],
+            "current_v2_focus_policy_override",
+        )
 
     def test_parent_inspection_order_rejects_parent_after_consumer(self) -> None:
         nodes = {
@@ -2728,50 +2900,21 @@ class SchedulerCapacityTests(unittest.TestCase):
                 cron.integrate(cron.MAX_INTEGRATION_LIMIT + 1)
         refresh.assert_not_called()
 
-    def test_app_server_runtime_is_isolated_from_legacy_claim_ledger(self) -> None:
-        self.assertNotEqual(cron.RUNTIME, cron.LEGACY_RUNTIME)
+    def test_app_server_runtime_and_pause_are_v2_only(self) -> None:
         self.assertEqual(cron.RUNTIME.name, "stage1-v2-app-server")
         self.assertEqual(cron.PAUSE_FILE, cron.RUNTIME / "PAUSED")
-        self.assertEqual(cron.LEGACY_PAUSE_FILE, cron.LEGACY_RUNTIME / "PAUSED")
 
-    def test_current_and_legacy_pause_markers_both_freeze_execution(self) -> None:
+    def test_only_current_pause_marker_freezes_execution(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             current = root / "current" / "PAUSED"
-            legacy = root / "legacy" / "PAUSED"
             with (
                 mock.patch.object(cron, "RUNTIME", current.parent),
-                mock.patch.object(cron, "LEGACY_RUNTIME", legacy.parent),
                 mock.patch.object(cron, "PAUSE_FILE", current),
-                mock.patch.object(cron, "LEGACY_PAUSE_FILE", legacy),
             ):
                 self.assertFalse(cron.execution_is_paused())
-                legacy.parent.mkdir(parents=True)
-                legacy.write_text("paused\n", encoding="utf-8")
-                self.assertTrue(cron.execution_is_paused())
-                legacy.unlink()
                 current.parent.mkdir(parents=True)
                 current.write_text("paused\n", encoding="utf-8")
-                self.assertTrue(cron.execution_is_paused())
-
-    def test_legacy_pause_is_migrated_without_clearing_the_freeze(self) -> None:
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            runtime = root / ".cron" / "current"
-            legacy_runtime = root / ".cron" / "legacy"
-            current = runtime / "PAUSED"
-            legacy = legacy_runtime / "PAUSED"
-            legacy.parent.mkdir(parents=True)
-            legacy.write_text("frozen-boundary\n", encoding="utf-8")
-            with (
-                mock.patch.object(cron, "RUNTIME", runtime),
-                mock.patch.object(cron, "LEGACY_RUNTIME", legacy_runtime),
-                mock.patch.object(cron, "PAUSE_FILE", current),
-                mock.patch.object(cron, "LEGACY_PAUSE_FILE", legacy),
-            ):
-                self.assertTrue(cron.migrate_pause_marker())
-                self.assertEqual(current.read_text(encoding="utf-8"), "frozen-boundary\n")
-                self.assertTrue(legacy.exists())
                 self.assertTrue(cron.execution_is_paused())
 
     def test_worker_argv_binds_exact_ultra_default_runtime_contract(self) -> None:
@@ -2828,6 +2971,491 @@ class SchedulerCapacityTests(unittest.TestCase):
                 Path("/repo/status"), Path("/repo/objective"), thread_id="bad thread",
             )
 
+    def test_review_principal_rejects_absent_current_root_and_unknown_uid(self) -> None:
+        account = type("Account", (), {"pw_name": "reviewer", "pw_uid": 1234})()
+        cases = [
+            ({}, 1000, account, None, "not configured"),
+            ({"STAGE1_REVIEWER_UID": "1000"}, 1000, account, None, "distinct non-root"),
+            ({"STAGE1_REVIEWER_UID": "0"}, 1000, account, None, "distinct non-root"),
+            ({"STAGE1_REVIEWER_UID": "1234"}, 1000, None, KeyError(1234), "does not exist"),
+        ]
+        for environment, current_uid, lookup, lookup_error, message in cases:
+            with self.subTest(message=message), mock.patch.dict(
+                cron.os.environ, environment, clear=True
+            ), mock.patch.object(cron.os, "geteuid", return_value=current_uid), mock.patch.object(
+                cron.pwd, "getpwuid", side_effect=lookup_error, return_value=lookup,
+            ), self.assertRaisesRegex(ValueError, message):
+                cron.scheduler_review_principal_id()
+
+    def test_review_principal_binds_existing_distinct_uid(self) -> None:
+        account = type("Account", (), {"pw_name": "reviewer", "pw_uid": 1234})()
+        expected = "stage1-independent-reviewer"
+        with (
+            mock.patch.dict(
+                cron.os.environ,
+                {
+                    "STAGE1_REVIEWER_UID": "1234",
+                    "STAGE1_REVIEWER_PRINCIPAL_ID": expected,
+                },
+                clear=True,
+            ),
+            mock.patch.object(cron.os, "geteuid", return_value=1000),
+            mock.patch.object(cron.pwd, "getpwuid", return_value=account),
+            mock.patch.object(cron, "scheduler_worker_principal_id", return_value="worker"),
+            mock.patch.object(
+                cron.Path,
+                "read_text",
+                return_value="fixture-machine-id",
+            ),
+            mock.patch.object(
+                cron.focus_eligibility,
+                "_trust_anchor",
+                return_value=("key", expected, object()),
+            ),
+        ):
+            principal, uid = cron.scheduler_review_principal()
+        self.assertEqual(uid, 1234)
+        self.assertEqual(principal, expected)
+
+    def test_review_launch_refuses_unprivileged_same_uid_fallback(self) -> None:
+        with (
+            mock.patch.object(cron.os, "geteuid", return_value=1000),
+            mock.patch.object(cron, "provision_review_access") as provision,
+            mock.patch.object(cron.subprocess, "Popen") as popen,
+            self.assertRaisesRegex(SystemExit, "root-owned supervisor"),
+        ):
+            cron.launch_review_app_server_worker(
+                ["/usr/bin/python3"], reviewer_uid=1234,
+                workspace=Path("/review"), read_paths=[], write_paths=[],
+                claim={}, claims=[],
+            )
+        provision.assert_not_called()
+        popen.assert_not_called()
+
+    def test_focus_review_refuses_scheduler_uid_in_process_fallback(self) -> None:
+        with (
+            mock.patch.object(cron.os, "geteuid", return_value=1000),
+            mock.patch.object(cron.focus_admission, "review_focus_admission") as direct,
+            mock.patch.object(cron.subprocess, "Popen") as popen,
+            self.assertRaisesRegex(SystemExit, "synchronous scheduler-UID review is forbidden"),
+        ):
+            cron._run_focus_review_job_as_principal(
+                Path("/job.json"), Path("/result.json"), 1234
+            )
+        direct.assert_not_called()
+        popen.assert_not_called()
+
+    def test_focus_review_key_gets_narrow_temporary_acl_and_is_restored(self) -> None:
+        process = mock.Mock(pid=4242, returncode=0)
+        process.communicate.return_value = (b"", b"")
+        snapshots = {Path("/scheduler/reviewer.pem"): b"prior-acl"}
+        with tempfile.TemporaryDirectory() as directory:
+            runtime = Path(directory)
+            job = runtime / "job" / "job.json"
+            result = runtime / "result" / "result.json"
+            key = runtime / "reviewer.pem"
+            job.parent.mkdir()
+            job.write_text("{}\n", encoding="utf-8")
+            key.write_text("key\n", encoding="utf-8")
+            key.chmod(0o600)
+            with (
+                mock.patch.object(cron.os, "geteuid", return_value=0),
+                mock.patch.object(
+                    cron.Path,
+                    "stat",
+                    return_value=type("Stat", (), {"st_mode": 0o100600, "st_uid": 0})(),
+                ),
+                mock.patch.object(
+                    cron.focus_admission,
+                    "DEFAULT_REVIEWER_SIGNING_KEY",
+                    key,
+                ),
+                mock.patch.dict(cron.os.environ, {}, clear=True),
+                mock.patch.object(
+                    cron, "provision_review_access", return_value=snapshots
+                ) as provision,
+                mock.patch.object(cron, "restore_review_access") as restore,
+                mock.patch.object(cron.subprocess, "Popen", return_value=process),
+                mock.patch.object(cron, "require_process_effective_uid"),
+            ):
+                cron._run_focus_review_job_as_principal(job, result, 1234)
+        read_paths = provision.call_args.kwargs["read_paths"]
+        self.assertIn(key, read_paths)
+        self.assertEqual(provision.call_args.kwargs["write_paths"], [result])
+        restore.assert_called_once_with(snapshots)
+
+    def test_review_acl_snapshot_round_trip_is_durable_and_idempotent(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / "repo"
+            runtime = root / ".cron" / "stage1-v2-app-server"
+            target = runtime / "review-workspaces" / "slot1" / "input"
+            target.parent.mkdir(parents=True)
+            target.write_text("input\n", encoding="utf-8")
+            claim = {
+                "lane": cron.REVIEW_LANE,
+                "claim_id": "20260716T120000Z-0123456789ab",
+                "item_id": "S56-M-0001-INTAKE",
+                "runtime_principal_id": "uid:1234:reviewer@0123456789abcdef",
+                "runtime_principal_uid": 1234,
+            }
+            with (
+                mock.patch.object(cron, "ROOT", root),
+                mock.patch.object(cron, "RUNTIME", runtime),
+                mock.patch.object(cron, "review_claim_processes_are_dead", return_value=True),
+                mock.patch.object(cron, "restore_review_access") as restore,
+            ):
+                snapshot_path = cron.persist_review_acl_snapshot(
+                    claim, {target: b"prior-acl\n"}, reviewer_uid=1234
+                )
+                self.assertEqual(snapshot_path.stat().st_mode & 0o777, 0o600)
+                self.assertTrue(cron.restore_review_acl_for_claim(claim))
+                self.assertFalse(cron.restore_review_acl_for_claim(claim))
+            restore.assert_called_once_with({target: b"prior-acl\n"})
+            self.assertTrue(snapshot_path.exists())
+            self.assertEqual(claim["review_acl_snapshot_state"], "restored")
+            self.assertEqual(
+                claim["review_acl_snapshot_consumed_sha256"],
+                claim["review_acl_snapshot_sha256"],
+            )
+
+    def test_review_acl_restore_rejects_live_process_and_preserves_snapshot(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / "repo"
+            runtime = root / ".cron" / "stage1-v2-app-server"
+            target = runtime / "review-workspaces" / "slot1" / "input"
+            target.parent.mkdir(parents=True)
+            target.write_text("input\n", encoding="utf-8")
+            claim = {
+                "lane": cron.REVIEW_LANE,
+                "claim_id": "20260716T120000Z-0123456789ab",
+                "item_id": "S56-M-0001-INTAKE",
+                "runtime_principal_id": "uid:1234:reviewer@0123456789abcdef",
+                "runtime_principal_uid": 1234,
+            }
+            with (
+                mock.patch.object(cron, "ROOT", root),
+                mock.patch.object(cron, "RUNTIME", runtime),
+                mock.patch.object(cron, "review_claim_processes_are_dead", return_value=False),
+                mock.patch.object(cron, "restore_review_access") as restore,
+            ):
+                snapshot_path = cron.persist_review_acl_snapshot(
+                    claim, {target: b"prior-acl\n"}, reviewer_uid=1234
+                )
+                with self.assertRaisesRegex(ValueError, "while review process is live"):
+                    cron.restore_review_acl_for_claim(claim)
+            restore.assert_not_called()
+            self.assertTrue(snapshot_path.exists())
+            self.assertEqual(claim["review_acl_snapshot_state"], "active")
+
+    def test_review_acl_dead_check_refuses_recorded_live_client_or_child(self) -> None:
+        claim = {
+            "pid": 4242,
+            "pid_start_ticks": 99,
+            "app_server_status": "/unused",
+        }
+        with (
+            mock.patch.object(cron, "worker_status", return_value=None),
+            mock.patch.object(cron, "process_start_ticks", return_value=99),
+        ):
+            self.assertFalse(cron.review_claim_processes_are_dead(claim))
+        claim["pid"] = None
+        claim["pid_start_ticks"] = None
+        with (
+            mock.patch.object(
+                cron, "worker_status",
+                return_value={"app_server_pid": 5252, "app_server_start_ticks": 101},
+            ),
+            mock.patch.object(cron, "process_start_ticks", return_value=101),
+        ):
+            self.assertFalse(cron.review_claim_processes_are_dead(claim))
+        with (
+            mock.patch.object(cron, "worker_status", return_value=None),
+            mock.patch.object(cron, "process_start_ticks", return_value=None),
+            mock.patch.object(cron, "app_server_worker_is_live", return_value=False),
+            mock.patch.object(cron, "app_server_child_is_live", return_value=False),
+        ):
+            self.assertTrue(cron.review_claim_processes_are_dead(claim))
+
+    def test_review_acl_restore_rejects_tampering_missing_and_symlink_snapshot(self) -> None:
+        for mutation in ("tampered", "missing", "symlink"):
+            with self.subTest(mutation=mutation), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory) / "repo"
+                runtime = root / ".cron" / "stage1-v2-app-server"
+                target = runtime / "review-workspaces" / "slot1" / "input"
+                target.parent.mkdir(parents=True)
+                target.write_text("input\n", encoding="utf-8")
+                claim = {
+                    "lane": cron.REVIEW_LANE,
+                    "claim_id": "20260716T120000Z-0123456789ab",
+                    "item_id": "S56-M-0001-INTAKE",
+                    "runtime_principal_id": "uid:1234:reviewer@0123456789abcdef",
+                    "runtime_principal_uid": 1234,
+                }
+                with (
+                    mock.patch.object(cron, "ROOT", root),
+                    mock.patch.object(cron, "RUNTIME", runtime),
+                    mock.patch.object(
+                        cron, "review_claim_processes_are_dead", return_value=True
+                    ),
+                    mock.patch.object(cron, "restore_review_access") as restore,
+                ):
+                    path = cron.persist_review_acl_snapshot(
+                        claim, {target: b"prior-acl\n"}, reviewer_uid=1234
+                    )
+                    if mutation == "tampered":
+                        path.write_text("{}\n", encoding="utf-8")
+                    elif mutation == "missing":
+                        path.unlink()
+                    else:
+                        outside = root / "outside.json"
+                        outside.write_text("{}\n", encoding="utf-8")
+                        path.unlink()
+                        path.symlink_to(outside)
+                    with self.assertRaisesRegex(ValueError, "snapshot"):
+                        cron.restore_review_acl_for_claim(claim)
+                restore.assert_not_called()
+
+    def test_review_launch_failure_restores_durable_acl_snapshot(self) -> None:
+        process = mock.Mock(pid=4242)
+        snapshots = {Path("/review/input"): b"prior-acl"}
+        claim = {
+            "lane": cron.REVIEW_LANE,
+            "claim_id": "20260716T120000Z-0123456789ab",
+            "item_id": "S56-M-0001-INTAKE",
+            "runtime_principal_id": "uid:1234:reviewer@0123456789abcdef",
+            "runtime_principal_uid": 1234,
+        }
+        claims = [claim]
+
+        def provision(**kwargs: object) -> dict[Path, bytes]:
+            callback = kwargs["snapshot_callback"]
+            assert callable(callback)
+            callback(snapshots)
+            return snapshots
+
+        def persist(*args: object, **kwargs: object) -> None:
+            claim["review_acl_snapshot_state"] = "active"
+
+        with (
+            mock.patch.object(cron.os, "geteuid", return_value=0),
+            mock.patch.object(cron, "provision_review_access", side_effect=provision),
+            mock.patch.object(
+                cron, "persist_review_acl_snapshot", side_effect=persist
+            ) as persist_mock,
+            mock.patch.object(cron, "save_claims") as save,
+            mock.patch.object(cron.Path, "is_file", return_value=True),
+            mock.patch.object(cron.subprocess, "Popen", return_value=process),
+            mock.patch.object(cron, "process_start_ticks", return_value=999),
+            mock.patch.object(
+                cron, "require_process_effective_uid", side_effect=ValueError("wrong uid")
+            ),
+            mock.patch.object(cron, "restore_stopped_review_acl", return_value=True) as restore,
+            mock.patch.object(cron.os, "killpg"),
+            self.assertRaisesRegex(ValueError, "wrong uid"),
+        ):
+            cron.launch_review_app_server_worker(
+                ["/usr/bin/python3"], reviewer_uid=1234,
+                workspace=Path("/review"), read_paths=[], write_paths=[],
+                claim=claim, claims=claims,
+            )
+        persist_mock.assert_called_once_with(claim, snapshots, reviewer_uid=1234)
+        restore.assert_called_once_with(claim)
+        self.assertGreaterEqual(save.call_count, 2)
+
+    def test_review_acl_snapshot_is_durable_before_first_acl_grant(self) -> None:
+        events: list[str] = []
+        snapshots = {Path("/review/input"): b"prior-acl"}
+        claim = {
+            "lane": cron.REVIEW_LANE,
+            "claim_id": "20260716T120000Z-0123456789ab",
+            "item_id": "S56-M-0001-INTAKE",
+            "runtime_principal_id": "uid:1234:reviewer@0123456789abcdef",
+            "runtime_principal_uid": 1234,
+        }
+        claims = [claim]
+
+        def provision(**kwargs: object) -> dict[Path, bytes]:
+            callback = kwargs["snapshot_callback"]
+            assert callable(callback)
+            callback(snapshots)
+            events.append("first_acl_grant")
+            raise ValueError("grant failed")
+
+        def persist(*args: object, **kwargs: object) -> None:
+            events.append("snapshot_persisted")
+            claim["review_acl_snapshot_state"] = "active"
+
+        with (
+            mock.patch.object(cron.os, "geteuid", return_value=0),
+            mock.patch.object(cron, "provision_review_access", side_effect=provision),
+            mock.patch.object(cron, "persist_review_acl_snapshot", side_effect=persist),
+            mock.patch.object(cron, "save_claims", side_effect=lambda rows: events.append("claim_saved")),
+            mock.patch.object(cron, "restore_stopped_review_acl", return_value=True),
+            self.assertRaisesRegex(ValueError, "grant failed"),
+        ):
+            cron.launch_review_app_server_worker(
+                ["/usr/bin/python3"], reviewer_uid=1234,
+                workspace=Path("/review"), read_paths=[], write_paths=[],
+                claim=claim, claims=claims,
+            )
+        self.assertEqual(
+            events[:3], ["snapshot_persisted", "claim_saved", "first_acl_grant"]
+        )
+
+    def test_focus_review_acl_finally_remains_independent_of_durable_review_snapshot(self) -> None:
+        source = inspect.getsource(cron._run_focus_review_job_as_principal)
+        self.assertIn("finally:", source)
+        self.assertIn("restore_review_access(access_snapshots)", source)
+        self.assertNotIn("persist_review_acl_snapshot", source)
+
+    def test_refresh_recovers_dead_review_acl_after_scheduler_crash(self) -> None:
+        item = {
+            "id": "S56-M-0001-INTAKE",
+            "theorem_id": "THM-M-0001",
+            "owned_paths": ["Stage1_Instances/THM-M-0001"],
+            "state": "[_]",
+        }
+        claim = self.canonical_claim(item, "review_failed")
+        review_worker_id = str(claim["worker_id"]).replace(
+            "stage1app-", "stage1app-review-", 1
+        )
+        claim.update({
+            "lane": cron.REVIEW_LANE,
+            "worker_id": review_worker_id,
+            "workspace": str(cron.RUNTIME / "review-workspaces" / "slot1"),
+            "review_acl_snapshot_state": "active",
+            "review_binding_path": str(
+                cron.RUNTIME / "review-bindings" / f"{claim['claim_id']}.json"
+            ),
+            "review_binding_sha256": "a" * 64,
+            "review_binding_file_sha256": "b" * 64,
+            "review_input_path": str(
+                cron.RUNTIME / "review-inputs" / f"{claim['claim_id']}.json"
+            ),
+            "review_input_sha256": "c" * 64,
+            "review_manifest_path": str(
+                cron.RUNTIME / "review-manifests" / f"{claim['claim_id']}.json"
+            ),
+            "review_manifest_file_sha256": "d" * 64,
+            "review_manifest_sha256": "e" * 64,
+            "review_provenance_path": "Stage1_Instances/THM-M-0001/provenance.json",
+            "review_provenance_sha256": "f" * 64,
+            "runtime_principal_id": "uid:1234:reviewer@0123456789abcdef",
+            "runtime_principal_uid": 1234,
+        })
+        with (
+            mock.patch.object(cron, "load_claims", return_value=[claim]),
+            mock.patch.object(
+                cron, "run", return_value=subprocess.CompletedProcess([], 0, "base\n", "")
+            ),
+            mock.patch.object(cron, "app_server_worker_is_live", return_value=False),
+            mock.patch.object(cron, "app_server_child_is_live", return_value=False),
+            mock.patch.object(cron, "restore_review_acl_for_claim", return_value=True) as restore,
+            mock.patch.object(cron, "save_claims"),
+        ):
+            result = cron.refresh_claims([item])
+        self.assertEqual(result[0]["status"], "review_failed")
+        restore.assert_called_once_with(claim)
+
+    def test_refresh_does_not_restore_draining_review_acl_while_process_lives(self) -> None:
+        item = {
+            "id": "S56-M-0001-INTAKE",
+            "theorem_id": "THM-M-0001",
+            "owned_paths": ["Stage1_Instances/THM-M-0001"],
+            "state": "[_]",
+        }
+        claim = self.canonical_claim(item, "draining")
+        review_worker_id = str(claim["worker_id"]).replace(
+            "stage1app-", "stage1app-review-", 1
+        )
+        claim.update({
+            "lane": cron.REVIEW_LANE,
+            "worker_id": review_worker_id,
+            "workspace": str(cron.RUNTIME / "review-workspaces" / "slot1"),
+            "review_acl_snapshot_state": "active",
+            "review_binding_path": str(
+                cron.RUNTIME / "review-bindings" / f"{claim['claim_id']}.json"
+            ),
+            "review_binding_sha256": "a" * 64,
+            "review_binding_file_sha256": "b" * 64,
+            "review_input_path": str(
+                cron.RUNTIME / "review-inputs" / f"{claim['claim_id']}.json"
+            ),
+            "review_input_sha256": "c" * 64,
+            "review_manifest_path": str(
+                cron.RUNTIME / "review-manifests" / f"{claim['claim_id']}.json"
+            ),
+            "review_manifest_file_sha256": "d" * 64,
+            "review_manifest_sha256": "e" * 64,
+            "review_provenance_path": "Stage1_Instances/THM-M-0001/provenance.json",
+            "review_provenance_sha256": "f" * 64,
+            "runtime_principal_id": "uid:1234:reviewer@0123456789abcdef",
+            "runtime_principal_uid": 1234,
+        })
+        with (
+            mock.patch.object(cron, "load_claims", return_value=[claim]),
+            mock.patch.object(
+                cron, "run", return_value=subprocess.CompletedProcess([], 0, "base\n", "")
+            ),
+            mock.patch.object(cron, "app_server_worker_is_live", return_value=True),
+            mock.patch.object(cron, "app_server_child_is_live", return_value=False),
+            mock.patch.object(cron, "terminate_app_server_worker", return_value=False),
+            mock.patch.object(cron, "restore_review_acl_for_claim") as restore,
+            mock.patch.object(cron, "save_claims"),
+        ):
+            result = cron.refresh_claims([item])
+        self.assertEqual(result[0]["status"], "draining")
+        restore.assert_not_called()
+
+    def test_review_output_binds_launched_process_identity_and_live_uid(self) -> None:
+        output = {
+            "schema_version": cron.REVIEW_OUTPUT_SCHEMA,
+            "claim_id": "20260716T120000Z-0123456789ab",
+            "item_id": "S56-M-0001-INTAKE", "theorem_id": "THM-M-0001",
+            "phase": "intake", "worker_verdict": "no_state_change",
+            "review_verdict": "phase_accepted", "audit_complete": False,
+            "theorem_complete": False, "root_state": None, "first_failed_gate": None,
+            "retry_condition": None, "status_boundary": "phase",
+            "artifact_findings": [], "reviewed_artifact_sha256s": {},
+            "validator_recipe_sha256s": [], "focus_review": {},
+        }
+        text = json.dumps(output)
+        claim = {
+            "claim_id": output["claim_id"], "item_id": output["item_id"],
+            "theorem_id": output["theorem_id"], "runtime_principal_uid": 1234,
+            "runtime_principal_id": "uid:1234:reviewer@0123456789abcdef",
+            "pid": 4242, "pid_start_ticks": 999,
+        }
+        status = {
+            "review_output": output, "review_output_text": text,
+            "review_output_sha256": hashlib.sha256(text.encode()).hexdigest(),
+            "review_output_canonical_sha256": cron.canonical_json_sha256(output),
+            "worker_principal": claim["runtime_principal_id"],
+            "client_pid": 4242, "client_start_ticks": 999,
+        }
+        binding = {
+            "phase": "intake", "artifact_digests": {},
+            "validator_recipe_sha256s": [], "focus_execution": {},
+        }
+        with (
+            mock.patch.object(cron, "process_start_ticks", return_value=999),
+            mock.patch.object(cron, "process_effective_uid", return_value=1000),
+            self.assertRaisesRegex(ValueError, "authenticated UID"),
+        ):
+            cron.require_review_output(claim, status, binding)
+        with (
+            mock.patch.object(cron, "process_start_ticks", return_value=None),
+            mock.patch.object(cron, "process_effective_uid") as uid,
+        ):
+            self.assertEqual(cron.require_review_output(claim, status, binding), output)
+        uid.assert_not_called()
+        forged = copy.deepcopy(status)
+        forged["client_start_ticks"] = 1000
+        with mock.patch.object(cron, "process_start_ticks", return_value=None), self.assertRaisesRegex(
+            ValueError, "identity"
+        ):
+            cron.require_review_output(claim, forged, binding)
+
     def test_active_lease_budget_is_shared_by_implementation_and_review(self) -> None:
         claims = [
             {
@@ -2874,6 +3502,7 @@ class SchedulerCapacityTests(unittest.TestCase):
         *,
         parent: int = 1,
         start_ticks: int = 12345,
+        effective_uid: int | None = None,
     ) -> None:
         entry = proc_root / str(pid)
         entry.mkdir(parents=True)
@@ -2886,6 +3515,11 @@ class SchedulerCapacityTests(unittest.TestCase):
         entry.joinpath("stat").write_text(
             f"{pid} (stage1-fixture) " + " ".join(fields) + "\n",
             encoding="utf-8",
+        )
+        uid = cron.os.geteuid() if effective_uid is None else effective_uid
+        entry.joinpath("status").write_text(
+            f"Name:\tstage1-fixture\nUid:\t{uid}\t{uid}\t{uid}\t{uid}\n",
+            encoding="ascii",
         )
 
     def process_inventory_fixture(
@@ -2941,6 +3575,37 @@ class SchedulerCapacityTests(unittest.TestCase):
                 changed = cron.reconcile_process_inventory([claim])
             self.assertTrue(changed)
             self.assertEqual((claim["pid"], claim["pid_start_ticks"]), (4242, 98765))
+
+    def test_proc_inventory_rejects_live_client_owned_by_unsupported_claim(self) -> None:
+        for field, value in (
+            ("runtime_protocol", "pre-v2-runtime"),
+            ("fresh_revalidation", False),
+            ("legacy_revalidation_plan_sha256", "a" * 64),
+        ):
+            with self.subTest(field=field), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory) / "repo"
+                proc_root = Path(directory) / "proc"
+                proc_root.mkdir()
+                claim: dict[str, object] = {
+                    "claim_id": "20260716T120000Z-0123456789ab",
+                }
+                runtime, command = self.process_inventory_fixture(root, claim)
+                claim[field] = value
+                self.write_proc_entry(proc_root, 4242, command)
+                with (
+                    mock.patch.object(cron, "ROOT", root),
+                    mock.patch.object(cron, "RUNTIME", runtime),
+                    mock.patch.object(
+                        cron, "APP_SERVER_CLIENT",
+                        root / "scripts" / "stage1_app_server_client.py",
+                    ),
+                    mock.patch.object(cron, "PROC_ROOT", proc_root),
+                    self.assertRaisesRegex(
+                        SystemExit,
+                        "unsupported Stage1 claim owns a live app-server client",
+                    ),
+                ):
+                    cron.reconcile_process_inventory([claim])
 
     def test_refresh_reconciles_process_identity_before_claim_mutation(self) -> None:
         item = {
@@ -3135,7 +3800,6 @@ class SchedulerCapacityTests(unittest.TestCase):
                 "lane": cron.IMPLEMENTATION_LANE,
                 "status": "finished_integrated",
                 "runtime_protocol": cron.RUNTIME_PROTOCOL,
-                "fresh_revalidation": False,
             }
             for item in (first, second)
         ]
@@ -3180,7 +3844,6 @@ class SchedulerCapacityTests(unittest.TestCase):
             source = {
                 "item_id": item["id"], "lane": cron.IMPLEMENTATION_LANE,
                 "status": "finished_integrated", "runtime_protocol": cron.RUNTIME_PROTOCOL,
-                "fresh_revalidation": False,
             }
             self.assertEqual(
                 cron.review_candidates([item], [source, {
@@ -3217,12 +3880,10 @@ class SchedulerCapacityTests(unittest.TestCase):
             intake_source = {
                 "item_id": intake["id"], "lane": cron.IMPLEMENTATION_LANE,
                 "status": "finished_integrated", "runtime_protocol": cron.RUNTIME_PROTOCOL,
-                "fresh_revalidation": False,
             }
             statement_source = {
                 "item_id": statement["id"], "lane": cron.IMPLEMENTATION_LANE,
                 "status": "finished_integrated", "runtime_protocol": cron.RUNTIME_PROTOCOL,
-                "fresh_revalidation": False,
             }
             self.assertEqual(
                 cron.review_candidates([intake, statement], [intake_source, statement_source]),
@@ -3234,7 +3895,7 @@ class SchedulerCapacityTests(unittest.TestCase):
                 [statement],
             )
 
-    def test_historical_self_tested_item_requires_content_bound_revalidation_plan(self) -> None:
+    def test_historical_self_tested_item_is_parked_not_reclaimed(self) -> None:
         historical = {
             "id": "S56-M-0001-INTAKE", "theorem_id": "THM-M-0001",
             "phase": "intake", "layer": 0, "state": "[_]", "attempts": 1,
@@ -3250,25 +3911,12 @@ class SchedulerCapacityTests(unittest.TestCase):
             historical["theorem_id"]: {"v2_execution_rank": 1},
             open_item["theorem_id"]: {"v2_execution_rank": 2},
         }
-        with (
-            mock.patch.object(cron, "legacy_revalidation_lanes", return_value={}),
-            mock.patch.object(cron, "theorem_dag_v2", return_value=({}, nodes)),
-        ):
+        with mock.patch.object(cron, "theorem_dag_v2", return_value=({}, nodes)):
             self.assertEqual(cron.implementation_candidates([historical, open_item], []), [open_item])
-        lane = {
-            "schema_version": "stage1-legacy-revalidation-lane/1.0",
-            "item_id": historical["id"], "theorem_id": historical["theorem_id"],
-            "phase": historical["phase"], "authoritative_state": "[_]",
-        }
-        with (
-            mock.patch.object(
-                cron, "legacy_revalidation_lanes", return_value={historical["id"]: lane}
-            ),
-            mock.patch.object(cron, "theorem_dag_v2", return_value=({}, nodes)),
-        ):
+        with mock.patch.object(cron, "theorem_dag_v2", return_value=({}, nodes)):
             self.assertEqual(
                 cron.implementation_candidates([open_item, historical], []),
-                [historical, open_item],
+                [open_item],
             )
 
     def test_review_frontier_excludes_historical_marker_without_fresh_source(self) -> None:
@@ -3288,7 +3936,6 @@ class SchedulerCapacityTests(unittest.TestCase):
                 cron.review_candidates([item], [{
                     "item_id": item["id"], "lane": cron.IMPLEMENTATION_LANE,
                     "status": "finished_integrated", "runtime_protocol": cron.RUNTIME_PROTOCOL,
-                    "fresh_revalidation": False,
                 }]),
                 [item],
             )
@@ -3343,9 +3990,11 @@ class SchedulerCapacityTests(unittest.TestCase):
             review_workspace.mkdir(parents=True)
 
             def launch(
-                argv: list[str], *, delay_seconds: float = 0.0
+                argv: list[str], **kwargs: object
             ) -> int:
-                self.assertEqual(delay_seconds, 0.0)
+                self.assertEqual(kwargs["delay_seconds"], 0.0)
+                self.assertEqual(kwargs["reviewer_uid"], 1234)
+                self.assertEqual(kwargs["workspace"], review_workspace)
                 launched_argv.extend(argv)
                 return 7654
 
@@ -3360,7 +4009,6 @@ class SchedulerCapacityTests(unittest.TestCase):
                 "owned_paths": item["owned_paths"],
                 "status": "finished_integrated",
                 "runtime_protocol": cron.RUNTIME_PROTOCOL,
-                "fresh_revalidation": False,
                 "claim_id": "20260716T120000Z-0123456789ab",
                 "base_revision": "b" * 40,
                 "goal_objective": "implement",
@@ -3410,7 +4058,11 @@ class SchedulerCapacityTests(unittest.TestCase):
                 mock.patch.object(cron, "run", return_value=subprocess.CompletedProcess([], 0, "b" * 40 + "\n", "")),
                 mock.patch.object(cron, "save_claims", side_effect=lambda rows: saved.append(copy.deepcopy(rows))),
                 mock.patch.object(cron, "prepare_review_workspace", return_value=review_workspace),
-                mock.patch.object(cron, "launch_app_server_worker", side_effect=launch),
+                mock.patch.object(
+                    cron, "scheduler_review_principal",
+                    return_value=("uid:1234:reviewer@0123456789abcdef", 1234),
+                ),
+                mock.patch.object(cron, "launch_review_app_server_worker", side_effect=launch),
                 mock.patch.object(cron, "process_start_ticks", return_value=99),
                 mock.patch.object(cron, "confirm_goal_handshakes", side_effect=confirm),
             ]
@@ -3440,7 +4092,7 @@ class SchedulerCapacityTests(unittest.TestCase):
         self.assertEqual(launched_argv[launched_argv.index("--lane") + 1], cron.REVIEW_LANE)
         self.assertIn("--binding", launched_argv)
 
-    def test_refill_reviews_records_missing_current_validator_as_revalidation_required(self) -> None:
+    def test_refill_reviews_records_missing_current_validator_as_review_failed(self) -> None:
         item = {
             "id": "S56-M-0001-INTAKE", "theorem_id": "THM-M-0001",
             "phase": "intake", "layer": 0, "state": "[_]", "attempts": 1,
@@ -3450,7 +4102,6 @@ class SchedulerCapacityTests(unittest.TestCase):
             "lane": cron.IMPLEMENTATION_LANE, "item_id": item["id"],
             "theorem_id": item["theorem_id"], "base_revision": "b" * 40,
             "status": "finished_integrated", "runtime_protocol": cron.RUNTIME_PROTOCOL,
-            "fresh_revalidation": False,
         }
         saved: list[list[dict[str, object]]] = []
         with tempfile.TemporaryDirectory() as directory:
@@ -3461,8 +4112,11 @@ class SchedulerCapacityTests(unittest.TestCase):
                 mock.patch.object(cron, "RUNTIME", runtime),
                 mock.patch.object(cron, "PAUSE_FILE", root / "PAUSED"),
                 mock.patch.object(cron, "active_lane_leases", return_value=[]),
+                mock.patch.object(
+                    cron, "scheduler_review_principal",
+                    return_value=("uid:1234:reviewer@0123456789abcdef", 1234),
+                ),
                 mock.patch.object(cron, "review_source_claim", return_value=source_claim),
-                mock.patch.object(cron, "claim_legacy_revalidation_lane", return_value=None),
                 mock.patch.object(cron, "build_review_role_map", return_value={"artifacts": []}),
                 mock.patch.object(
                     cron, "select_review_validator",
@@ -3482,7 +4136,7 @@ class SchedulerCapacityTests(unittest.TestCase):
                     cron, "save_claims",
                     side_effect=lambda rows: saved.append(copy.deepcopy(rows)),
                 ),
-                mock.patch.object(cron, "launch_app_server_worker") as launch,
+                mock.patch.object(cron, "launch_review_app_server_worker") as launch,
             ):
                 count = cron.refill_reviews(
                     1, data={"items": [item]}, ordered=[item], claims=[source_claim],
@@ -3490,9 +4144,9 @@ class SchedulerCapacityTests(unittest.TestCase):
                 )
         self.assertEqual(count, 0)
         row = saved[-1][-1]
-        self.assertEqual(row["status"], "revalidation_required")
-        self.assertIn("no current stage1-v2", row["revalidation_required_reason"])
-        self.assertNotIn("review_retry_after", row)
+        self.assertEqual(row["status"], "review_failed")
+        self.assertIn("no current stage1-v2", row["review_failure_reason"])
+        self.assertIn("review_retry_after", row)
         launch.assert_not_called()
 
     def test_review_pause_after_prepare_persists_all_unstarted_cancellations(self) -> None:
@@ -3523,15 +4177,18 @@ class SchedulerCapacityTests(unittest.TestCase):
                 "lane": cron.IMPLEMENTATION_LANE, "item_id": item["id"],
                 "theorem_id": item["theorem_id"], "owned_paths": item["owned_paths"],
                 "status": "finished_integrated", "runtime_protocol": cron.RUNTIME_PROTOCOL,
-                "fresh_revalidation": False,
             } for item in items]
             # Exercise only the post-reservation launch gate by replacing the
             # expensive evidence builders with canonical fixture values.
-            with (
+            patches = (
                 mock.patch.object(cron, "ROOT", root),
                 mock.patch.object(cron, "RUNTIME", runtime),
                 mock.patch.object(cron, "PAUSE_FILE", pause),
                 mock.patch.object(cron, "active_lane_leases", return_value=[]),
+                mock.patch.object(
+                    cron, "scheduler_review_principal",
+                    return_value=("uid:1234:reviewer@0123456789abcdef", 1234),
+                ),
                 mock.patch.object(cron, "review_candidates", return_value=items),
                 mock.patch.object(cron, "run", return_value=subprocess.CompletedProcess([], 0, "b" * 40 + "\n", "")),
                 mock.patch.object(cron, "theorem_dag_v2", return_value=({}, {
@@ -3548,10 +4205,13 @@ class SchedulerCapacityTests(unittest.TestCase):
                 mock.patch.object(cron, "phase_contract", return_value={}),
                 mock.patch.object(cron, "build_review_binding", return_value={}),
                 mock.patch.object(cron, "prepare_review_workspace", side_effect=prepare),
-                mock.patch.object(cron, "launch_app_server_worker") as launch,
+                mock.patch.object(cron, "launch_review_app_server_worker"),
                 mock.patch.object(cron, "confirm_goal_handshakes", side_effect=add_reservations),
                 mock.patch.object(cron, "save_claims", side_effect=lambda rows: saved.append(copy.deepcopy(rows))),
-            ):
+            )
+            with contextlib.ExitStack() as stack:
+                for patcher in patches:
+                    stack.enter_context(patcher)
                 cron.refill_reviews(
                     2, data={"items": items}, ordered=items, claims=source_claims,
                     selected_items=items, selected_slots=[1, 2],
@@ -3559,7 +4219,6 @@ class SchedulerCapacityTests(unittest.TestCase):
         review_rows = [row for row in saved[-1] if row.get("lane") == cron.REVIEW_LANE]
         self.assertEqual([row["status"] for row in review_rows], ["cancelled", "cancelled"])
         self.assertTrue(all("cancelled_at" in row for row in review_rows))
-        launch.assert_not_called()
 
     def test_master_acceptance_replays_receipts_and_cas_closes_phase(self) -> None:
         item = {
@@ -3637,6 +4296,68 @@ class SchedulerCapacityTests(unittest.TestCase):
             self.assertEqual(sha256(receipt), claim["master_receipt_sha256"])
             write_projection.assert_called_once()
             write_derived.assert_called_once()
+
+    def test_release_cas_rejects_accepted_audit_only_and_stays_self_tested(self) -> None:
+        item = {
+            "id": "S56-M-0001-RELEASE", "theorem_id": "THM-M-0001",
+            "phase": "release", "layer": 6, "state": "[_]", "attempts": 1,
+            "depends_on": [], "owned_paths": ["Stage1_Instances/THM-M-0001"],
+        }
+        review_output = {
+            "worker_verdict": "accepted_audit_only",
+            "review_verdict": "phase_accepted",
+            "audit_complete": True,
+            "theorem_complete": False,
+            "status_boundary": "AUDIT-Z only; theorem root remains open.",
+        }
+        manifest = {
+            "authority_revision": "a" * 40, "authority_tree": "b" * 40,
+            "blueprint_sha256": "", "manifest_sha256": "c" * 64,
+        }
+        role_map = {"manifest_sha256": "d" * 64, "artifacts": []}
+        validator = {"recipe_sha256": "e" * 64}
+        replay = {"result_sha256": "f" * 64}
+        decision = {
+            "decision": "phase_accepted", "phase_evidence_accepted": True,
+            "audit_complete": True, "theorem_complete": False,
+            "decision_sha256": "1" * 64,
+        }
+        claim = {
+            "lane": cron.REVIEW_LANE, "status": "review_finished",
+            "item_id": item["id"], "claim_id": "20260716T120000Z-abcdef123456",
+            "review_binding_sha256": "2" * 64,
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            blueprint = root / "Docs" / "Stage1_Blueprint_v2.md"
+            blueprint.parent.mkdir(parents=True)
+            blueprint.write_text("frozen [_] authority\n", encoding="utf-8")
+            manifest["blueprint_sha256"] = sha256(blueprint)
+            transaction = cron.FileTransaction()
+            with (
+                mock.patch.object(cron, "ROOT", root),
+                mock.patch.object(cron, "BLUEPRINT", blueprint),
+                mock.patch.object(cron, "PAUSE_FILE", root / "PAUSED"),
+                mock.patch.object(cron, "theorem_dag_v2", return_value=({}, {
+                    item["theorem_id"]: {"v2_execution_rank": 1},
+                })),
+                mock.patch.object(cron, "hard_edge_gate_status", return_value=("not_applicable", [])),
+                mock.patch.object(cron, "verify_review_evidence_bundle", return_value=(
+                    review_output, manifest, role_map, validator, {},
+                )),
+                mock.patch.object(cron, "require_review_compatible_with_current_head", return_value="a" * 40),
+                mock.patch.object(cron, "review_authority_contract_record", return_value={}),
+                mock.patch.object(cron.acceptance_evidence, "replay_validator", return_value=replay),
+                mock.patch.object(cron.acceptance_evidence, "evaluate_replay_semantics", return_value=decision),
+            ):
+                accepted, rejected = cron.consume_review_finished(
+                    {"items": [item]}, [item], [claim], transaction, limit=1
+                )
+            self.assertEqual(accepted, [])
+            self.assertEqual(rejected, [item["id"]])
+            self.assertEqual(item["state"], "[_]")
+            self.assertEqual(claim["status"], "review_failed")
+            self.assertIn("THEOREM-Z", claim["review_rejection_reason"])
 
     def test_review_compatibility_allows_unrelated_head_drift(self) -> None:
         item = {
@@ -4045,10 +4766,18 @@ class SchedulerCapacityTests(unittest.TestCase):
             }
             for path in paths.values():
                 path.parent.mkdir(parents=True, exist_ok=True)
-            receipt = {"worker_verdict": "no_state_change"}
+            receipt = {
+                "item_id": item["id"],
+                "theorem_id": item["theorem_id"],
+                "phase": item["phase"],
+                "intent": "research",
+                "worker_verdict": "no_state_change",
+            }
             paths["receipt"].write_text(json.dumps(receipt), encoding="utf-8")
             handoff_bytes = json.dumps({"worker_verdict": "no_state_change"}).encode()
             handoff_sha256 = hashlib.sha256(handoff_bytes).hexdigest()
+            focus_decision = {"valid": True}
+            focus_contract = {"focus_contract_sha256": "f" * 64}
             implementation_claim = {
                 "claim_id": "20260716T110000Z-0123456789ab",
                 "item_id": item["id"],
@@ -4056,6 +4785,8 @@ class SchedulerCapacityTests(unittest.TestCase):
                 "worker_handoff_path": str(runtime / "worker-handoffs" / "impl.json"),
                 "worker_handoff_sha256": handoff_sha256,
                 "worker_handoff_size": len(handoff_bytes),
+                "focus_eligibility": focus_decision,
+                "focus_execution": focus_contract,
             }
             provenance = {
                 "schema_version": cron.WORKER_PROVENANCE_SCHEMA,
@@ -4072,6 +4803,8 @@ class SchedulerCapacityTests(unittest.TestCase):
                 "manifest_sha256": "a" * 64, "base_revision": "r",
                 "blueprint_sha256": "s", "theorem_dag_sha256": "t",
                 "blueprint": {"git_blob": "u"},
+                "focus_execution": focus_contract,
+                "focus_contract_sha256": cron.canonical_json_sha256(focus_contract),
             }
             role_map = {"artifacts": [{
                 "role": "phase_receipt",
@@ -4091,6 +4824,8 @@ class SchedulerCapacityTests(unittest.TestCase):
                 "review_manifest_file_sha256": "m",
                 "role_map": role_map,
                 "validator_recipe": validator,
+                "focus_eligibility": focus_decision,
+                "focus_execution": focus_contract,
             }
             objective = cron.review_goal_objective(item)
             prompt = cron.review_prompt(item, review_input, claim_id, runtime / "review-workspaces/slot1")
@@ -4107,6 +4842,8 @@ class SchedulerCapacityTests(unittest.TestCase):
                 "base_revision": "r", "blueprint_sha256": "s",
                 "blueprint_git_blob": "u",
                 "theorem_dag_sha256": "t",
+                "focus_execution": focus_contract,
+                "focus_contract_sha256": cron.canonical_json_sha256(focus_contract),
             }
             output = {
                 "schema_version": cron.REVIEW_OUTPUT_SCHEMA, "claim_id": claim_id,
@@ -4118,10 +4855,13 @@ class SchedulerCapacityTests(unittest.TestCase):
                 "status_boundary": "phase", "artifact_findings": [],
                 "reviewed_artifact_sha256s": binding["artifact_digests"],
                 "validator_recipe_sha256s": binding["validator_recipe_sha256s"],
+                "focus_review": focus_contract,
             }
             status = {
                 "state": "finished", "review_output": output,
                 "review_output_text": json.dumps(output),
+                "worker_principal": "uid:2001:reviewer@0123456789abcdef",
+                "client_pid": 4242, "client_start_ticks": 123,
             }
             status["review_output_sha256"] = hashlib.sha256(
                 status["review_output_text"].encode()
@@ -4135,6 +4875,11 @@ class SchedulerCapacityTests(unittest.TestCase):
                 "review_binding_path": str(paths["binding"]),
                 "review_provenance_path": str(paths["provenance"]),
                 "review_manifest_sha256": manifest["manifest_sha256"],
+                "focus_eligibility": focus_decision,
+                "focus_execution": focus_contract,
+                "runtime_principal_id": "uid:2001:reviewer@0123456789abcdef",
+                "runtime_principal_uid": 2001,
+                "pid": 4242, "pid_start_ticks": 123,
             }
             claim["review_provenance_sha256"] = "p"
             claim["review_manifest_file_sha256"] = "m"
@@ -4153,6 +4898,18 @@ class SchedulerCapacityTests(unittest.TestCase):
                     cron, "review_source_claim", return_value=implementation_claim
                 ),
                 mock.patch.object(cron, "worker_status", return_value=status),
+                mock.patch.object(cron, "process_start_ticks", return_value=123),
+                mock.patch.object(cron, "process_effective_uid", return_value=2001),
+                mock.patch.object(
+                    cron, "require_item_focus_phase_allowed", return_value=focus_decision
+                ),
+                mock.patch.object(
+                    cron, "focus_execution_contract", return_value=focus_contract
+                ),
+                mock.patch.object(
+                    cron, "require_phase_receipt_focus_semantics",
+                    return_value=receipt,
+                ),
             ):
                 with self.assertRaisesRegex(ValueError, "differs from immutable"):
                     cron.verify_review_evidence_bundle(item, claim)
@@ -4408,9 +5165,11 @@ class SchedulerCapacityTests(unittest.TestCase):
             launched: list[list[str]] = []
 
             def fake_launch(
-                argv: list[str], *, delay_seconds: float = 0.0
+                argv: list[str], *, delay_seconds: float = 0.0,
+                scratch: Path | None = None,
             ) -> int:
                 self.assertEqual(delay_seconds, 0.0)
+                self.assertIsNone(scratch)
                 launched.append(argv)
                 return 777
 
@@ -4421,6 +5180,7 @@ class SchedulerCapacityTests(unittest.TestCase):
                 mock.patch.object(cron, "PAUSE_FILE", root / "PAUSED"),
                 mock.patch.object(cron, "sync_guard"),
                 mock.patch.object(cron, "load_dag", return_value=(data, [item])),
+                mock.patch.object(cron, "task_prompt", return_value="restart prompt\n"),
                 mock.patch.object(cron, "refresh_claims", return_value=[claim]),
                 mock.patch.object(cron, "worker_status", return_value=old_status),
                 mock.patch.object(cron, "app_server_worker_is_live", return_value=True),
@@ -4481,7 +5241,6 @@ class SchedulerCapacityTests(unittest.TestCase):
             pause_file.write_text("paused\n", encoding="utf-8")
             with (
                 mock.patch.object(cron, "PAUSE_FILE", pause_file),
-                mock.patch.object(cron, "LEGACY_PAUSE_FILE", pause_file),
                 mock.patch.object(cron, "recover_integration_wal") as recover,
                 mock.patch.object(cron, "sync_guard") as sync,
                 mock.patch.object(cron, "integrate") as integrate,
@@ -4498,12 +5257,176 @@ class SchedulerCapacityTests(unittest.TestCase):
             pause_file.write_text("paused\n", encoding="utf-8")
             with (
                 mock.patch.object(cron, "PAUSE_FILE", pause_file),
-                mock.patch.object(cron, "LEGACY_PAUSE_FILE", pause_file),
                 mock.patch.object(cron, "run") as run,
                 self.assertRaisesRegex(SystemExit, "paused"),
             ):
                 cron.install("*/5 * * * *")
         run.assert_not_called()
+
+    def test_focus_admission_runs_maintenance_while_execution_is_paused(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            runtime = root / "runtime"
+            pause_file = runtime / "PAUSED"
+            runtime.mkdir()
+            pause_file.write_text("paused\n", encoding="utf-8")
+            blueprint = root / "Docs" / "Stage1_Blueprint_v2.md"
+            blueprint.parent.mkdir()
+            blueprint.write_bytes(b"frozen checklist bytes\n")
+            before = blueprint.read_bytes()
+            candidate = runtime / "candidate.json"
+            review = runtime / "review.json"
+            issuance = runtime / "issuance.json"
+            with (
+                mock.patch.object(cron, "ROOT", root),
+                mock.patch.object(cron, "RUNTIME", runtime),
+                mock.patch.object(cron, "PAUSE_FILE", pause_file),
+                mock.patch.object(
+                    cron.focus_admission,
+                    "load_scheduler_decision",
+                    return_value={
+                        "admission_decision": "admit_integration",
+                        "reviewer": {
+                            "id": "reviewer-1",
+                            "role": "independent_reviewer",
+                        },
+                    },
+                ) as load_decision,
+                mock.patch.object(
+                    cron.focus_admission,
+                    "prepare_focus_admission",
+                    return_value=candidate,
+                ) as prepare,
+                mock.patch.object(
+                    cron, "scheduler_review_principal",
+                    return_value=("reviewer-1", 1234),
+                ),
+                mock.patch.object(
+                    cron, "_write_focus_review_job",
+                    return_value=(runtime / "job.json", runtime / "result.json"),
+                ),
+                mock.patch.object(cron, "_run_focus_review_job_as_principal") as run_review,
+                mock.patch.object(
+                    cron, "_load_focus_review_result", return_value=review,
+                ) as load_review,
+                mock.patch.object(
+                    cron.focus_admission,
+                    "publish_focus_admission",
+                    return_value=issuance,
+                ) as publish,
+                mock.patch.object(cron, "launch_app_server_worker") as launch_worker,
+                mock.patch.object(cron, "integrate") as integrate,
+                contextlib.redirect_stdout(io.StringIO()),
+            ):
+                cron.issue_focus_admission(
+                    Path("proposal.json"),
+                    Path("decision.json"),
+                    reject=False,
+                    frontier_review_input=None,
+                )
+            self.assertTrue(pause_file.is_file())
+            self.assertEqual(blueprint.read_bytes(), before)
+        load_decision.assert_called_once_with(runtime, Path("decision.json"))
+        prepare.assert_called_once()
+        run_review.assert_called_once()
+        load_review.assert_called_once()
+        publish.assert_called_once_with(root, runtime, candidate, review)
+        launch_worker.assert_not_called()
+        integrate.assert_not_called()
+
+    def test_frontier_focus_review_requires_separately_authored_input(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            runtime = Path(directory)
+            candidate_root = runtime / "focus-admission" / "candidates"
+            candidate_root.mkdir(parents=True)
+            candidate = candidate_root / "candidate.json"
+            candidate_value = {
+                "candidate_sha256": "a" * 64,
+                "receipt_facts": {
+                    "frontier_exception": {"estimated_success_probability": 0.70}
+                },
+            }
+            candidate.write_text(
+                json.dumps(candidate_value, indent=2) + "\n", encoding="utf-8"
+            )
+            with (
+                mock.patch.object(cron, "RUNTIME", runtime),
+                self.assertRaisesRegex(
+                    SystemExit, "separately authored reviewer input"
+                ),
+            ):
+                cron._write_focus_review_job(
+                    candidate,
+                    "reviewer-1",
+                    1234,
+                    reject=False,
+                    frontier_review_input=None,
+                )
+
+    def test_issue_focus_cli_is_serialized_under_pause_without_execution(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            runtime = root / "runtime"
+            runtime.mkdir()
+            pause_file = runtime / "PAUSED"
+            pause_file.write_text("paused\n", encoding="utf-8")
+            argv = [
+                "stage1_execution_cron.py", "--issue-focus",
+                "--focus-proposal", "proposal.json",
+                "--focus-decision", "decision.json",
+            ]
+            lock_observations: list[bool] = []
+
+            def observe_lock(_fd: int, _mode: int) -> None:
+                lock_observations.append(pause_file.is_file())
+
+            with (
+                mock.patch.object(cron, "ROOT", root),
+                mock.patch.object(cron, "RUNTIME", runtime),
+                mock.patch.object(cron, "PAUSE_FILE", pause_file),
+                mock.patch.object(cron.sys, "argv", argv),
+                mock.patch.object(cron.fcntl, "flock", side_effect=observe_lock),
+                mock.patch.object(cron, "issue_focus_admission") as issue,
+                mock.patch.object(cron, "launch") as launch,
+                mock.patch.object(cron, "integrate") as integrate,
+            ):
+                cron.main()
+        self.assertEqual(lock_observations, [True])
+        issue.assert_called_once_with(
+            Path("proposal.json"), Path("decision.json"),
+            reject=False,
+            frontier_review_input=None,
+        )
+        launch.assert_not_called()
+        integrate.assert_not_called()
+
+    def test_paused_cli_refuses_every_execution_mutation_before_dispatch(self) -> None:
+        dispatchers = {
+            "--bootstrap": "bootstrap",
+            "--integrate": "integrate",
+            "--cleanup": "cleanup",
+            "--restart-live": "restart_live_workers",
+            "--install": "install",
+        }
+        for mode, dispatcher_name in dispatchers.items():
+            with self.subTest(mode=mode), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                runtime = root / "runtime"
+                runtime.mkdir()
+                pause_file = runtime / "PAUSED"
+                pause_file.write_text("paused\n", encoding="utf-8")
+                argv = ["stage1_execution_cron.py", mode]
+                dispatcher = mock.Mock()
+                with (
+                    mock.patch.object(cron, "ROOT", root),
+                    mock.patch.object(cron, "RUNTIME", runtime),
+                    mock.patch.object(cron, "PAUSE_FILE", pause_file),
+                    mock.patch.object(cron.sys, "argv", argv),
+                    mock.patch.object(cron, dispatcher_name, dispatcher),
+                    self.assertRaisesRegex(SystemExit, "execution is paused"),
+                ):
+                    cron.main()
+                dispatcher.assert_not_called()
 
     def test_default_install_keeps_all_new_work_budgets_at_zero(self) -> None:
         captured: dict[str, str] = {}
@@ -4562,13 +5485,12 @@ class SchedulerCapacityTests(unittest.TestCase):
 
     def test_pause_cli_bypasses_busy_scheduler_lock(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
-            runtime = Path(directory) / ".cron" / "stage1-rev56"
+            runtime = Path(directory) / ".cron" / "stage1-v2-app-server"
             pause_file = runtime / "PAUSED"
             argv = ["stage1_execution_cron.py", "--pause"]
             with (
                 mock.patch.object(cron, "RUNTIME", runtime),
                 mock.patch.object(cron, "PAUSE_FILE", pause_file),
-                mock.patch.object(cron, "LEGACY_PAUSE_FILE", pause_file),
                 mock.patch.object(cron.sys, "argv", argv),
                 mock.patch.object(cron, "pause") as pause,
             ):
@@ -4578,7 +5500,7 @@ class SchedulerCapacityTests(unittest.TestCase):
     def test_pause_persists_intent_before_waiting_for_active_tick(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            runtime = root / ".cron" / "stage1-rev56"
+            runtime = root / ".cron" / "stage1-v2-app-server"
             pause_file = runtime / "PAUSED"
             calls: list[bool] = []
 
@@ -4589,7 +5511,6 @@ class SchedulerCapacityTests(unittest.TestCase):
                 mock.patch.object(cron, "ROOT", root),
                 mock.patch.object(cron, "RUNTIME", runtime),
                 mock.patch.object(cron, "PAUSE_FILE", pause_file),
-                mock.patch.object(cron, "LEGACY_PAUSE_FILE", pause_file),
                 mock.patch.object(cron, "validate_runtime_root"),
                 mock.patch.object(
                     cron,
@@ -4615,7 +5536,7 @@ class SchedulerCapacityTests(unittest.TestCase):
             root = Path(directory)
             docs = root / "Docs"
             docs.mkdir()
-            (docs / "Stage1_Execution_DAG_rev-5.6.json").write_text(
+            (docs / "Stage1_Phase_DAG_v2.json").write_text(
                 json.dumps({"items": [{"id": "forged", "state": "[x]"}]}),
                 encoding="utf-8",
             )
@@ -4633,6 +5554,31 @@ class SchedulerCapacityTests(unittest.TestCase):
             with mock.patch.object(cron, "DAG", dag):
                 with self.assertRaisesRegex(SystemExit, "disagrees with the v2 blueprint SSOT"):
                     cron.load_dag()
+
+    def test_bootstrap_never_recovers_missing_ssot_from_derived_dag(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            docs = root / "Docs"
+            docs.mkdir()
+            blueprint = docs / "Stage1_Blueprint_v2.md"
+            original = b"# Damaged v2 blueprint without its checklist\n"
+            blueprint.write_bytes(original)
+            forged = cron.project_dag(cron.load_blueprint_items())
+            forged["items"][0]["state"] = "[x]"
+            dag = docs / "Stage1_Phase_DAG_v2.json"
+            dag.write_text(json.dumps(forged), encoding="utf-8")
+            with (
+                mock.patch.object(cron, "ROOT", root),
+                mock.patch.object(cron, "BLUEPRINT", blueprint),
+                mock.patch.object(cron, "DAG", dag),
+                mock.patch.object(cron, "write_derived_surfaces") as write_derived,
+                mock.patch.object(cron, "run") as run,
+                self.assertRaisesRegex(SystemExit, "exactly one execution checklist marker pair"),
+            ):
+                cron.bootstrap()
+            self.assertEqual(blueprint.read_bytes(), original)
+            write_derived.assert_not_called()
+            run.assert_not_called()
 
     def test_todo_rejects_non_ssot_state_before_writing_snapshot(self) -> None:
         authoritative = cron.load_blueprint_items()
@@ -4689,6 +5635,20 @@ class SchedulerCapacityTests(unittest.TestCase):
                 mock.patch.object(cron, "load_blueprint_items", return_value=[item]),
                 mock.patch.object(cron, "order_by_v2", return_value=[item]),
                 mock.patch.object(cron, "BLUEPRINT", Path(__file__)),
+                mock.patch.object(
+                    cron,
+                    "theorem_dag_v2",
+                    return_value=(
+                        {},
+                        {
+                            item["theorem_id"]: {
+                                "focus_eligibility": {
+                                    "execution_disposition": "research_required"
+                                }
+                            }
+                        },
+                    ),
+                ),
             ):
                 _, first = cron.render_todo(
                     data, [item], [newer, older], destination=destination
@@ -4726,6 +5686,71 @@ class SchedulerCapacityTests(unittest.TestCase):
         is_live.assert_not_called()
         snapshot.assert_not_called()
         save.assert_called_once()
+
+    def test_refresh_keeps_current_claim_without_unsupported_fields(self) -> None:
+        item = {
+            "id": "S56-M-0001-INTAKE",
+            "theorem_id": "THM-M-0001",
+            "owned_paths": ["Stage1_Instances/THM-M-0001"],
+            "state": "[ ]",
+        }
+        claim = self.canonical_claim(item, "live")
+        with (
+            mock.patch.object(cron, "load_claims", return_value=[claim]),
+            mock.patch.object(
+                cron, "run",
+                return_value=subprocess.CompletedProcess([], 0, "base\n", ""),
+            ),
+            mock.patch.object(cron, "app_server_worker_is_live", return_value=True),
+            mock.patch.object(cron, "goal_runtime_is_verified", return_value=True),
+            mock.patch.object(cron, "save_claims"),
+        ):
+            result = cron.refresh_claims([item])
+        self.assertIs(result[0], claim)
+        self.assertEqual(result[0]["status"], "live")
+        self.assertFalse(cron.UNSUPPORTED_RUNTIME_CLAIM_FIELDS.intersection(result[0]))
+
+    def test_refresh_quarantines_unsupported_claims_without_side_effects(self) -> None:
+        item = {
+            "id": "S56-M-0001-INTAKE",
+            "theorem_id": "THM-M-0001",
+            "owned_paths": ["Stage1_Instances/THM-M-0001"],
+            "state": "[ ]",
+        }
+        cases = (
+            ("runtime_protocol", "pre-v2-runtime"),
+            ("fresh_revalidation", False),
+            ("legacy_revalidation_lane", {}),
+            ("legacy_revalidation_plan_binding_sha256", "a" * 64),
+        )
+        for field, value in cases:
+            with self.subTest(field=field):
+                claim = self.canonical_claim(item, "live")
+                claim[field] = value
+                with (
+                    mock.patch.object(cron, "load_claims", return_value=[claim]),
+                    mock.patch.object(
+                        cron, "run",
+                        return_value=subprocess.CompletedProcess([], 0, "base\n", ""),
+                    ),
+                    mock.patch.object(cron, "app_server_worker_is_live") as is_live,
+                    mock.patch.object(cron, "app_server_child_is_live") as child_live,
+                    mock.patch.object(cron, "terminate_app_server_worker") as terminate,
+                    mock.patch.object(cron, "snapshot_blocked_worker") as snapshot,
+                    mock.patch.object(cron, "restore_stopped_review_acl") as restore,
+                    mock.patch.object(cron, "save_claims"),
+                ):
+                    result = cron.refresh_claims([item])
+                self.assertEqual(result[0]["status"], "quarantined")
+                self.assertEqual(
+                    result[0]["quarantine_reason"],
+                    "claim is not current Stage1 v2 runtime state",
+                )
+                is_live.assert_not_called()
+                child_live.assert_not_called()
+                terminate.assert_not_called()
+                snapshot.assert_not_called()
+                restore.assert_not_called()
 
     def test_blocked_snapshot_rejects_unsafe_item_id_before_removal(self) -> None:
         claim = {
@@ -4826,6 +5851,7 @@ class SchedulerCapacityTests(unittest.TestCase):
             with (
                 mock.patch.object(cron, "ROOT", root),
                 mock.patch.object(cron, "DOCS", docs),
+                mock.patch.object(cron, "RUNTIME", root / ".cron" / "stage1-v2-app-server"),
                 mock.patch.object(cron, "validate_runtime_root"),
                 mock.patch.object(cron, "run"),
                 mock.patch.object(cron, "load_dag", return_value=(data, [])),
@@ -4860,6 +5886,7 @@ class SchedulerCapacityTests(unittest.TestCase):
             with (
                 mock.patch.object(cron, "ROOT", root),
                 mock.patch.object(cron, "DOCS", docs),
+                mock.patch.object(cron, "RUNTIME", root / ".cron" / "stage1-v2-app-server"),
                 mock.patch.object(cron, "validate_runtime_root"),
                 mock.patch.object(cron, "run"),
                 mock.patch.object(cron, "load_dag", return_value=(data, [])),
@@ -4884,7 +5911,7 @@ class SchedulerCapacityTests(unittest.TestCase):
             write.assert_not_called()
             self.assertIn("status=current", output.getvalue())
 
-    def test_validate_only_main_does_not_create_runtime_or_migrate_pause(self) -> None:
+    def test_validate_only_main_does_not_create_runtime(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             runtime = root / ".cron" / "stage1-v2-app-server"
@@ -4893,14 +5920,12 @@ class SchedulerCapacityTests(unittest.TestCase):
                 mock.patch.object(cron, "ROOT", root),
                 mock.patch.object(cron, "RUNTIME", runtime),
                 mock.patch.object(cron.sys, "argv", argv),
-                mock.patch.object(cron, "migrate_pause_marker") as migrate,
                 mock.patch.object(cron, "validate_only") as validate,
                 mock.patch.object(cron, "runtime_path") as runtime_path,
                 mock.patch.object(cron.fcntl, "flock") as flock,
             ):
                 cron.main()
             validate.assert_called_once_with()
-            migrate.assert_not_called()
             runtime_path.assert_not_called()
             flock.assert_not_called()
             self.assertFalse(runtime.exists())
@@ -5063,7 +6088,7 @@ class SchedulerCapacityTests(unittest.TestCase):
         claim = self.canonical_claim(item, "launch_failed")
         with tempfile.TemporaryDirectory() as directory:
             test_root = Path(directory)
-            test_runtime = test_root / ".cron" / "stage1-rev56"
+            test_runtime = test_root / ".cron" / "stage1-v2-app-server"
             claim["workspace"] = str(test_runtime / "workers" / "slot1")
             claim_id = str(claim["claim_id"])
             claim["output_log"] = str(test_runtime / "logs" / f"{claim_id}.out")
@@ -5103,7 +6128,7 @@ class SchedulerCapacityTests(unittest.TestCase):
     def test_prepare_workspace_rejects_symlink_slot_before_removal(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory) / "repo"
-            runtime = root / ".cron" / "stage1-rev56"
+            runtime = root / ".cron" / "stage1-v2-app-server"
             outside = Path(directory) / "outside"
             (runtime / "workers").mkdir(parents=True)
             outside.mkdir()
@@ -5178,7 +6203,7 @@ class CheckpointManifestTests(unittest.TestCase):
         subprocess.run(["git", "commit", "-qm", "base"], cwd=self.root, check=True)
         subprocess.run(["git", "remote", "add", "origin", str(self.remote)], cwd=self.root, check=True)
         subprocess.run(["git", "push", "-qu", "origin", "main"], cwd=self.root, check=True)
-        self.runtime = self.root / ".cron" / "stage1-rev56"
+        self.runtime = self.root / ".cron" / "stage1-v2-app-server"
         self.runtime.mkdir(parents=True)
         self.pause = self.sandbox / "PAUSED"
         pause_patcher = mock.patch.object(cron, "PAUSE_FILE", self.pause)
@@ -5477,6 +6502,32 @@ class TheoremDagRegenerationTests(unittest.TestCase):
                 items = generator.blueprint_state_items()
         self.assertEqual(items[0]["state"], mutated_state)
 
+    def test_transient_validator_directories_never_enter_dag_inventory(self) -> None:
+        generator = self.load_generator("stage1_theorem_dag_transient_inventory_test")
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            owner = root / "Stage1_Instances" / "THM-M-0001"
+            owner.mkdir(parents=True)
+            durable = owner / "Proof.lean"
+            durable.write_text("theorem durable : True := by trivial\n", encoding="utf-8")
+            transient = owner / "ValidatorReplay123" / "Proof.lean"
+            transient.parent.mkdir()
+            transient.write_text("theorem transient : True := by trivial\n", encoding="utf-8")
+            transient_json = owner / "stage1-lean-probe-123" / "receipt.json"
+            transient_json.parent.mkdir()
+            transient_json.write_text("{}\n", encoding="utf-8")
+            with mock.patch.object(generator, "ROOT", root):
+                evidence_inventory, reusable = generator.inventory("THM-M-0001")
+        self.assertEqual(
+            evidence_inventory["lean_sources"],
+            ["Stage1_Instances/THM-M-0001/Proof.lean"],
+        )
+        self.assertEqual(evidence_inventory["structured_json_files"], [])
+        self.assertEqual(
+            [row["path"] for row in reusable],
+            ["Stage1_Instances/THM-M-0001/Proof.lean"],
+        )
+
     def test_regeneration_and_dependency_context_digests_are_stable(self) -> None:
         generator = self.load_generator("stage1_theorem_dag_generator_under_test")
         with tempfile.TemporaryDirectory() as directory:
@@ -5544,10 +6595,872 @@ class TheoremDagRegenerationTests(unittest.TestCase):
         self.assertTrue(contract["proof_parent_inspection"]["complete_closure_required"])
         self.assertIn("checked_transport", contract["accepted_reuse_relationships"])
         self.assertIn("consumer_owned_import_or_wrapper", contract["checked_transport_requires"])
-        self.assertIn("consumer_validation_receipt", contract["checked_transport_requires"])
+        self.assertIn("consumer_kernel_replay", contract["checked_transport_requires"])
+        self.assertNotIn("consumer_validation_receipt", contract["checked_transport_requires"])
         self.assertTrue(contract["provider_checkbox_state_is_observation_only"])
         self.assertFalse(contract["provider_acceptance_inherited"])
         self.assertTrue(contract["consumer_acceptance_required"])
+
+
+class FocusEligibilitySchedulerGateTests(unittest.TestCase):
+    def item(self, phase: str) -> dict[str, object]:
+        return {
+            "id": f"S56-M-0001-{phase.upper()}",
+            "theorem_id": "THM-M-0001",
+            "phase": phase,
+            "layer": next(i for i, row in enumerate(cron.PHASES) if row[0] == phase),
+            "state": "[ ]",
+            "depends_on": [],
+            "owned_paths": ["Stage1_Instances/THM-M-0001"],
+        }
+
+    @staticmethod
+    def decision(*, allowed: set[str], valid: bool = False, present: bool = False) -> dict[str, object]:
+        return {
+            "receipt_path": "Stage1_Instances/THM-M-0001/focus-eligibility.json",
+            "present": present,
+            "valid": valid,
+            "theorem_id": "THM-M-0001",
+            "machine_evidence_class": "unknown",
+            "execution_disposition": "research_required",
+            "phase_permissions": {phase: phase in allowed for phase in cron.focus_eligibility.PHASES},
+            "reason_codes": ["receipt_missing"] if not present else ["schema_invalid"],
+            "receipt_sha256": None,
+            "evidence_as_of": None,
+            "expires_at": None,
+        }
+
+    def frontier_policy(
+        self,
+        *,
+        expiry: dt.datetime | None = None,
+        probability: float = 0.70,
+        validator_sha256: str = "a" * 64,
+        milestones: list[dict[str, object]] | None = None,
+    ) -> dict[str, object]:
+        validator_path = "Stage1_Instances/THM-M-0001/frontier-validator.py"
+        policy: dict[str, object] = {
+            "schema_version": "stage1-frontier-runtime-policy/1.0",
+            "assigned_worker_id": "proof-worker-1",
+            "completion_probability": probability,
+            "lease_expires_at": (
+                expiry
+                or dt.datetime.now(dt.timezone.utc) + dt.timedelta(hours=1)
+            ).isoformat(),
+            "attempt_limit": 1,
+            "budget": {
+                "scope": "exact admitted root",
+                "wall_clock_seconds": 60,
+                "token_limit": 100,
+                "compute_seconds": 60,
+                "disk_bytes": 1024,
+                "concurrency_limit": 1,
+            },
+            "milestones": [] if milestones is None else milestones,
+            "validator": {
+                "path": validator_path,
+                "sha256": validator_sha256,
+                "command": ["python3", validator_path],
+            },
+            "stop_conditions": sorted(
+                cron.focus_eligibility.REQUIRED_FRONTIER_STOP_CONDITIONS
+            ),
+        }
+        policy["policy_sha256"] = cron.canonical_json_sha256(policy)
+        return policy
+
+    @staticmethod
+    def frontier_validator_result(
+        item: dict[str, object],
+        policy: dict[str, object],
+        *,
+        boundary: str = "runtime_refresh",
+        valid: bool = True,
+        probability: float | None = None,
+        statement_source_match: bool = True,
+        scheduler_revoked: bool = False,
+    ) -> dict[str, object]:
+        return {
+            "schema_version": cron.FRONTIER_VALIDATOR_RESULT_SCHEMA,
+            "theorem_id": item["theorem_id"],
+            "item_id": item["id"],
+            "phase": item["phase"],
+            "boundary": boundary,
+            "policy_sha256": policy["policy_sha256"],
+            "valid": valid,
+            "completion_probability": (
+                policy["completion_probability"]
+                if probability is None
+                else probability
+            ),
+            "statement_source_match": statement_source_match,
+            "scheduler_revoked": scheduler_revoked,
+            "reason_codes": [],
+        }
+
+    @staticmethod
+    def frontier_ledger(policy: dict[str, object]) -> dict[str, object]:
+        return {
+            "schema_version": cron.FRONTIER_RUNTIME_LEDGER_SCHEMA,
+            "theorem_id": "THM-M-0001",
+            "assigned_worker_id": policy["assigned_worker_id"],
+            "policy_sha256": policy["policy_sha256"],
+            "attempts_started": 1,
+            "active_claim_id": None,
+            "completed_milestones": [],
+            "triggered_stop_conditions": [],
+            "triggered_stop_condition_codes": [],
+            "committed_usage": {
+                "wall_clock_seconds": 0,
+                "token_count": 0,
+                "compute_seconds": 0,
+                "disk_bytes": 0,
+            },
+            "attempt_usage": {
+                "wall_clock_seconds": 0,
+                "token_count": 0,
+                "compute_seconds": 0,
+                "disk_bytes": 0,
+            },
+        }
+
+    def test_missing_receipt_admits_only_research_bootstrap_phases(self) -> None:
+        projection = self.decision(allowed={"intake", "statement", "anchor_audit"})
+        nodes = {"THM-M-0001": {"v2_execution_rank": 1, "focus_eligibility": projection}}
+        with (
+            mock.patch.object(cron, "theorem_dag_v2", return_value=({}, nodes)),
+            mock.patch.object(cron.focus_eligibility, "load_focus_eligibility", return_value=projection),
+        ):
+            selected = cron.implementation_candidates(
+                [self.item("intake"), self.item("proof"), self.item("validation"), self.item("release")],
+                [],
+            )
+        self.assertEqual([row["phase"] for row in selected], ["intake"])
+
+    def test_present_malformed_receipt_fails_closed_at_selection(self) -> None:
+        projection = self.decision(allowed=set(), present=True)
+        nodes = {"THM-M-0001": {"v2_execution_rank": 1, "focus_eligibility": projection}}
+        with (
+            mock.patch.object(cron, "theorem_dag_v2", return_value=({}, nodes)),
+            mock.patch.object(cron.focus_eligibility, "load_focus_eligibility", return_value=projection),
+        ):
+            self.assertEqual(cron.implementation_candidates([self.item("intake")], []), [])
+
+    def test_stale_projection_fails_closed_even_when_live_receipt_allows_phase(self) -> None:
+        projection = self.decision(allowed=set(), present=True)
+        live = self.decision(allowed={"intake"}, valid=True, present=True)
+        nodes = {"THM-M-0001": {"v2_execution_rank": 1, "focus_eligibility": projection}}
+        with mock.patch.object(cron.focus_eligibility, "load_focus_eligibility", return_value=live):
+            self.assertFalse(cron.item_focus_phase_allowed(self.item("intake"), nodes))
+            with self.assertRaisesRegex(ValueError, "projection is stale"):
+                cron.require_item_focus_phase_allowed(self.item("intake"), nodes)
+
+    def test_claim_without_exact_focus_execution_contract_fails_closed(self) -> None:
+        projection = self.decision(allowed={"intake"})
+        item = self.item("intake")
+        nodes = {"THM-M-0001": {"focus_eligibility": projection}}
+        with (
+            mock.patch.object(
+                cron.focus_eligibility,
+                "load_focus_eligibility",
+                return_value=projection,
+            ),
+            mock.patch.object(
+                cron,
+                "focus_execution_contract",
+                return_value={
+                    "focus_contract_sha256": "f" * 64,
+                    "execution_disposition": "research_required",
+                    "receipt_sha256": None,
+                },
+            ),
+        ):
+            with self.assertRaisesRegex(ValueError, "missing or changed"):
+                cron.require_claim_focus_current(
+                    item,
+                    {"focus_eligibility": projection},
+                    nodes,
+                )
+
+    def test_valid_exact_or_exception_projection_can_admit_proof(self) -> None:
+        for disposition in ("organize_or_integrate", "frontier_exception"):
+            with self.subTest(disposition=disposition):
+                projection = self.decision(
+                    allowed=set(cron.focus_eligibility.PHASES), valid=True, present=True
+                )
+                projection["execution_disposition"] = disposition
+                projection["machine_evidence_class"] = (
+                    "exact_external_unintegrated"
+                    if disposition == "organize_or_integrate"
+                    else "no_exact_candidate_as_of"
+                )
+                nodes = {"THM-M-0001": {"focus_eligibility": projection}}
+                with mock.patch.object(
+                    cron.focus_eligibility, "load_focus_eligibility", return_value=projection
+                ):
+                    self.assertTrue(cron.item_focus_phase_allowed(self.item("proof"), nodes))
+
+    def test_sub_threshold_or_worker_authored_exception_cannot_enter_proof(self) -> None:
+        projection = self.decision(allowed=set(), present=True)
+        projection["machine_evidence_class"] = "no_exact_candidate_as_of"
+        projection["execution_disposition"] = "frontier_exception"
+        nodes = {"THM-M-0001": {"v2_execution_rank": 1, "focus_eligibility": projection}}
+        for reason in (
+            "frontier_exception_completion_probability_is_below_0_70",
+            "worker_authored_probability_cannot_authorize_a_frontier_exception",
+        ):
+            with self.subTest(reason=reason):
+                rejected = dict(projection)
+                rejected["reason_codes"] = [reason]
+                nodes["THM-M-0001"]["focus_eligibility"] = rejected
+                with mock.patch.object(
+                    cron.focus_eligibility,
+                    "load_focus_eligibility",
+                    return_value=rejected,
+                ):
+                    self.assertFalse(
+                        cron.item_focus_phase_allowed(self.item("proof"), nodes)
+                    )
+
+    def test_worker_cannot_modify_scheduler_owned_focus_receipt(self) -> None:
+        owner = "Stage1_Instances/THM-M-0001/"
+        receipt = owner + "focus-eligibility.json"
+        with (
+            mock.patch.object(
+                cron,
+                "run",
+                side_effect=[
+                    subprocess.CompletedProcess([], 0, f"M\t{receipt}\n", ""),
+                    subprocess.CompletedProcess([], 0, f"{receipt}\n", ""),
+                    subprocess.CompletedProcess([], 0, "", ""),
+                ],
+            ),
+            self.assertRaisesRegex(ValueError, "focus eligibility receipt"),
+        ):
+            cron.worker_changed_paths(Path("/worker"), owner)
+
+    def test_frontier_policy_lease_expiry_is_inclusive_on_restart_and_acceptance(self) -> None:
+        item = self.item("proof")
+        now = dt.datetime.now(dt.timezone.utc)
+
+        def decision(expiry: dt.datetime) -> dict[str, object]:
+            policy = self.frontier_policy(expiry=expiry)
+            return {
+                "execution_disposition": "frontier_exception",
+                "frontier_policy": policy,
+            }
+
+        for label, expiry, create in (
+            ("restart", now - dt.timedelta(seconds=1), True),
+            ("acceptance", now, False),
+        ):
+            with self.subTest(label=label):
+                focus = decision(expiry)
+                ledger = self.frontier_ledger(focus["frontier_policy"])
+                persisted: list[dict[str, object]] = []
+                with (
+                    mock.patch.object(cron, "_read_frontier_runtime", return_value=copy.deepcopy(ledger)),
+                    mock.patch.object(
+                        cron, "_persist_frontier_runtime",
+                        side_effect=lambda _theorem_id, value: persisted.append(copy.deepcopy(value)),
+                    ),
+                    self.assertRaisesRegex(ValueError, "policy lease is expired"),
+                ):
+                    cron._require_frontier_runtime(
+                        item,
+                        focus,
+                        claim={"claim_id": "claim-1"} if create else None,
+                        create=create,
+                    )
+                self.assertIn(
+                    "frontier policy lease is expired",
+                    persisted[-1]["triggered_stop_conditions"],
+                )
+
+    def test_frontier_policy_lease_before_boundary_remains_eligible(self) -> None:
+        future = dt.datetime.now(dt.timezone.utc) + dt.timedelta(minutes=5)
+        policy = self.frontier_policy(expiry=future)
+        focus = {
+            "execution_disposition": "frontier_exception",
+            "frontier_policy": policy,
+        }
+        ledger = self.frontier_ledger(policy)
+        with (
+            mock.patch.object(cron, "_read_frontier_runtime", return_value=ledger),
+            mock.patch.object(cron, "_require_frontier_validator", return_value={}),
+        ):
+            self.assertIs(cron._require_frontier_runtime(self.item("proof"), focus, claim=None), ledger)
+
+    def test_frontier_scratch_and_workspace_share_one_disk_budget(self) -> None:
+        policy = self.frontier_policy()
+        focus = {
+            "execution_disposition": "frontier_exception",
+            "frontier_policy": policy,
+        }
+        item = self.item("proof")
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            runtime = root / "runtime"
+            workspace = runtime / "workers" / "slot1"
+            workspace.mkdir(parents=True)
+            (workspace / "baseline").write_bytes(b"b" * 100)
+            claim_id = "20260718T120000Z-abcdef123456"
+            scratch = runtime / cron.FRONTIER_SCRATCH_DIRECTORY / claim_id
+            claim = {
+                "claim_id": claim_id,
+                "workspace": str(workspace),
+                "frontier_scratch": str(scratch),
+                "frontier_attempt_started_at": dt.datetime.now(
+                    dt.timezone.utc
+                ).isoformat(),
+                "frontier_disk_baseline_bytes": 100,
+                "frontier_assigned_worker_id": "proof-worker-1",
+                "runtime_principal_id": "proof-worker-1",
+                "frontier_policy_sha256": policy["policy_sha256"],
+                "lane": cron.IMPLEMENTATION_LANE,
+                "status": "preparing",
+            }
+            ledger = self.frontier_ledger(policy)
+            ledger["active_claim_id"] = claim_id
+            persisted: list[dict[str, object]] = []
+            with mock.patch.object(cron, "RUNTIME", runtime):
+                cron.prepare_frontier_scratch(claim)
+                (workspace / "new").write_bytes(b"w" * 400)
+                (scratch / "tmp-output").write_bytes(b"s" * 623)
+                with mock.patch.object(cron, "worker_status", return_value={}), mock.patch.object(
+                    cron, "_read_frontier_runtime", return_value=ledger
+                ), mock.patch.object(
+                    cron, "_require_frontier_validator", return_value={}
+                ), mock.patch.object(
+                    cron, "scheduler_worker_principal_id", return_value="proof-worker-1"
+                ), mock.patch.object(
+                    cron,
+                    "_persist_frontier_runtime",
+                    side_effect=lambda _theorem, value: persisted.append(copy.deepcopy(value)),
+                ):
+                    self.assertEqual(cron._frontier_observed_usage(claim)["disk_bytes"], 1023)
+                    cron._require_frontier_runtime(item, focus, claim=claim)
+                    (scratch / "one-more-byte").write_bytes(b"x")
+                    with self.assertRaisesRegex(ValueError, "disk_bytes budget is exhausted"):
+                        cron._require_frontier_runtime(item, focus, claim=claim)
+            self.assertIn(
+                "any_resource_budget_exhausted",
+                persisted[-1]["triggered_stop_condition_codes"],
+            )
+
+    def test_frontier_settlement_cleans_claim_scratch_after_accounting(self) -> None:
+        policy = self.frontier_policy()
+        item = self.item("proof")
+        focus = {
+            "execution_disposition": "frontier_exception",
+            "frontier_policy": policy,
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            runtime = Path(directory) / "runtime"
+            workspace = runtime / "workers" / "slot1"
+            workspace.mkdir(parents=True)
+            claim_id = "20260718T120000Z-abcdef123456"
+            claim = {
+                "claim_id": claim_id,
+                "workspace": str(workspace),
+                "frontier_scratch": str(
+                    runtime / cron.FRONTIER_SCRATCH_DIRECTORY / claim_id
+                ),
+                "frontier_attempt_started_at": dt.datetime.now(
+                    dt.timezone.utc
+                ).isoformat(),
+                "frontier_disk_baseline_bytes": 0,
+                "focus_eligibility": focus,
+            }
+            ledger = self.frontier_ledger(policy)
+            ledger["active_claim_id"] = claim_id
+            with mock.patch.object(cron, "RUNTIME", runtime):
+                scratch = cron.prepare_frontier_scratch(claim)
+                (scratch / "temporary").write_bytes(b"1234")
+                with mock.patch.object(cron, "worker_status", return_value={}), mock.patch.object(
+                    cron, "_read_frontier_runtime", return_value=ledger
+                ), mock.patch.object(cron, "_persist_frontier_runtime"):
+                    cron.settle_frontier_claim(item, claim, reason="test complete")
+                self.assertFalse(scratch.exists())
+
+    def test_frontier_compute_uses_elapsed_upper_bound_for_process_tree(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            runtime = Path(directory) / "runtime"
+            workspace = runtime / "workers" / "slot1"
+            workspace.mkdir(parents=True)
+            claim_id = "20260718T120000Z-abcdef123456"
+            claim = {
+                "claim_id": claim_id,
+                "workspace": str(workspace),
+                "frontier_scratch": str(
+                    runtime / cron.FRONTIER_SCRATCH_DIRECTORY / claim_id
+                ),
+                "frontier_attempt_started_at": (
+                    dt.datetime.now(dt.timezone.utc) - dt.timedelta(seconds=7)
+                ).isoformat(),
+                "frontier_disk_baseline_bytes": 0,
+                "pid": 123,
+                "pid_start_ticks": 456,
+            }
+            with mock.patch.object(cron, "RUNTIME", runtime):
+                cron.prepare_frontier_scratch(claim)
+                with mock.patch.object(
+                    cron,
+                    "worker_status",
+                    return_value={"goal": {"tokensUsed": 1, "timeUsedSeconds": 2}},
+                ), mock.patch.object(
+                    cron, "_proc_process_tree_usage", return_value=3.2
+                ):
+                    usage = cron._frontier_observed_usage(claim)
+            self.assertGreaterEqual(usage["compute_seconds"], 7)
+
+    def test_ordinary_integration_worker_has_no_frontier_scratch_contract(self) -> None:
+        argv = cron.worker_argv(
+            Path("/repo/worker"),
+            Path("/repo/prompt"),
+            Path("/repo/log"),
+            Path("/repo/status"),
+            Path("/repo/objective"),
+        )
+        self.assertNotIn("--scratch", argv)
+
+    def test_frontier_policy_requires_probability_stops_and_validator(self) -> None:
+        policy = self.frontier_policy()
+        for field in ("completion_probability", "stop_conditions", "validator"):
+            with self.subTest(field=field):
+                tampered = copy.deepcopy(policy)
+                tampered.pop(field)
+                tampered.pop("policy_sha256")
+                tampered["policy_sha256"] = cron.canonical_json_sha256(tampered)
+                with self.assertRaisesRegex(ValueError, "malformed or unbound"):
+                    cron._frontier_policy({
+                        "execution_disposition": "frontier_exception",
+                        "frontier_policy": tampered,
+                    })
+        below = self.frontier_policy(probability=0.699)
+        with self.assertRaisesRegex(ValueError, "malformed or unbound"):
+            cron._frontier_policy({
+                "execution_disposition": "frontier_exception",
+                "frontier_policy": below,
+            })
+
+    def test_frontier_validator_is_content_bound_and_sandboxed(self) -> None:
+        item = self.item("proof")
+        source = b"print('bound validator')\n"
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            relative = Path("Stage1_Instances/THM-M-0001/frontier-validator.py")
+            validator = root / relative
+            validator.parent.mkdir(parents=True)
+            validator.write_bytes(source)
+            policy = self.frontier_policy(
+                validator_sha256=hashlib.sha256(source).hexdigest()
+            )
+            decision = {
+                "execution_disposition": "frontier_exception",
+                "receipt_sha256": "b" * 64,
+                "frontier_policy": policy,
+            }
+            output = self.frontier_validator_result(item, policy)
+            completed = subprocess.CompletedProcess(
+                [], 0, json.dumps(output).encode("utf-8"), b""
+            )
+            with (
+                mock.patch.object(cron, "ROOT", root),
+                mock.patch.object(cron.subprocess, "run", return_value=completed) as run,
+            ):
+                self.assertEqual(
+                    cron._run_frontier_validator(
+                        item, decision, policy, None, boundary="runtime_refresh"
+                    ),
+                    output,
+                )
+            argv = run.call_args.args[0]
+            self.assertIn("--unshare-all", argv)
+            self.assertIn("--ro-bind", argv)
+            self.assertIn(str(root.resolve()), argv)
+            self.assertNotIn("--share-net", argv)
+
+            validator.write_bytes(b"tampered\n")
+            with self.assertRaisesRegex(ValueError, "missing|unsafe|stale"):
+                cron._run_frontier_validator(
+                    item, decision, policy, None, boundary="runtime_refresh"
+                )
+
+    def test_frontier_validator_failures_persist_canonical_stop_codes(self) -> None:
+        item = self.item("proof")
+        source = b"print('bound validator')\n"
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            relative = Path("Stage1_Instances/THM-M-0001/frontier-validator.py")
+            validator = root / relative
+            validator.parent.mkdir(parents=True)
+            validator.write_bytes(source)
+            policy = self.frontier_policy(
+                validator_sha256=hashlib.sha256(source).hexdigest()
+            )
+            decision = {
+                "execution_disposition": "frontier_exception",
+                "frontier_policy": policy,
+            }
+            cases = (
+                (
+                    "probability_below_threshold",
+                    self.frontier_validator_result(item, policy, probability=0.69),
+                ),
+                (
+                    "statement_or_source_mismatch",
+                    self.frontier_validator_result(
+                        item, policy, statement_source_match=False
+                    ),
+                ),
+                (
+                    "scheduler_revoked",
+                    self.frontier_validator_result(
+                        item, policy, scheduler_revoked=True
+                    ),
+                ),
+                (
+                    "validator_failure",
+                    self.frontier_validator_result(item, policy, valid=False),
+                ),
+            )
+            for expected_code, output in cases:
+                with self.subTest(expected_code=expected_code):
+                    ledger = self.frontier_ledger(policy)
+                    persisted: list[dict[str, object]] = []
+                    completed = subprocess.CompletedProcess(
+                        [], 0, json.dumps(output).encode("utf-8"), b""
+                    )
+                    with (
+                        mock.patch.object(cron, "ROOT", root),
+                        mock.patch.object(
+                            cron.subprocess, "run", return_value=completed
+                        ),
+                        mock.patch.object(
+                            cron,
+                            "_persist_frontier_runtime",
+                            side_effect=lambda _theorem, value: persisted.append(
+                                copy.deepcopy(value)
+                            ),
+                        ),
+                        self.assertRaises(ValueError),
+                    ):
+                        cron._require_frontier_validator(
+                            item,
+                            decision,
+                            policy,
+                            ledger,
+                            boundary="runtime_refresh",
+                        )
+                    self.assertIn(
+                        expected_code,
+                        persisted[-1]["triggered_stop_condition_codes"],
+                    )
+
+    def test_frontier_validator_nonzero_and_timeout_fail_closed(self) -> None:
+        item = self.item("proof")
+        source = b"print('bound validator')\n"
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            relative = Path("Stage1_Instances/THM-M-0001/frontier-validator.py")
+            validator = root / relative
+            validator.parent.mkdir(parents=True)
+            validator.write_bytes(source)
+            policy = self.frontier_policy(
+                validator_sha256=hashlib.sha256(source).hexdigest()
+            )
+            decision = {
+                "execution_disposition": "frontier_exception",
+                "frontier_policy": policy,
+            }
+            for label, side_effect in (
+                (
+                    "nonzero",
+                    subprocess.CompletedProcess([], 23, b"", b"rejected"),
+                ),
+                (
+                    "timeout",
+                    subprocess.TimeoutExpired(["validator"], 60),
+                ),
+            ):
+                with (
+                    self.subTest(label=label),
+                    mock.patch.object(cron, "ROOT", root),
+                    mock.patch.object(
+                        cron.subprocess,
+                        "run",
+                        return_value=side_effect
+                        if isinstance(side_effect, subprocess.CompletedProcess)
+                        else mock.DEFAULT,
+                        side_effect=side_effect
+                        if isinstance(side_effect, subprocess.TimeoutExpired)
+                        else None,
+                    ),
+                    self.assertRaisesRegex(ValueError, "failed|timed out"),
+                ):
+                    cron._run_frontier_validator(
+                        item, decision, policy, None, boundary="runtime_refresh"
+                    )
+
+    def test_triggered_frontier_stop_persists_across_all_runtime_boundaries(self) -> None:
+        item = self.item("proof")
+        policy = self.frontier_policy()
+        decision = {
+            "execution_disposition": "frontier_exception",
+            "frontier_policy": policy,
+        }
+        ledger = self.frontier_ledger(policy)
+        ledger["triggered_stop_conditions"] = ["frontier validator rejected"]
+        ledger["triggered_stop_condition_codes"] = ["validator_failure"]
+        for boundary in (
+            "runtime_refresh",
+            "restart_preflight",
+            "review_selection",
+            "review_launch",
+            "integration",
+            "master_acceptance_preflight",
+            "master_acceptance_cas",
+        ):
+            with (
+                self.subTest(boundary=boundary),
+                mock.patch.object(cron, "_read_frontier_runtime", return_value=ledger),
+                self.assertRaisesRegex(ValueError, "already been triggered"),
+            ):
+                cron._require_frontier_runtime(
+                    item, decision, claim=None, boundary=boundary
+                )
+
+    def test_integration_source_semantics_apply_only_to_proof_source_phase(self) -> None:
+        focus = {
+            "focus_contract_sha256": "a" * 64,
+            "execution_disposition": "organize_or_integrate",
+            "receipt_sha256": "b" * 64,
+            "machine_evidence_class": "exact_external_unintegrated",
+            "exact_machine_source": {"file_sha256": "c" * 64},
+            "exact_machine_source_used": True,
+            "introduced_root_critical_proof": False,
+        }
+        statement = self.item("statement")
+        role_map = {"artifacts": [{"role": "phase_receipt"}]}
+        with mock.patch.object(
+            cron, "require_phase_receipt_focus_semantics", return_value={}
+        ):
+            self.assertEqual(
+                cron.require_integration_only_source_evidence(
+                    statement, focus, role_map
+                ),
+                {},
+            )
+
+        proof = self.item("proof")
+        proof_roles = {
+            "artifacts": [
+                {"role": "proof_sources"},
+                {"role": "phase_receipt"},
+            ]
+        }
+        with mock.patch.object(
+            cron,
+            "require_phase_receipt_focus_semantics",
+            return_value={"inputs": {"proof_sources": []}},
+        ), self.assertRaisesRegex(ValueError, "exact-source evidence"):
+            cron.require_integration_only_source_evidence(proof, focus, proof_roles)
+
+    def test_frontier_milestone_completion_is_master_owned_and_idempotent(self) -> None:
+        item = self.item("proof")
+        item["id"] = "S56-M-0001-PROOF"
+        item["state"] = "[x]"
+        policy = self.frontier_policy(milestones=[{
+                "id": "close_root",
+                "deadline_at": (
+                    dt.datetime.now(dt.timezone.utc) + dt.timedelta(minutes=30)
+                ).isoformat(),
+                "evidence_role": "root_proof_closure",
+            }])
+        decision = {
+            "execution_disposition": "frontier_exception",
+            "frontier_policy": policy,
+        }
+        ledger = self.frontier_ledger(policy)
+        claim = {
+            "lane": cron.REVIEW_LANE,
+            "status": "master_accepted",
+            "claim_id": "20260716T120000Z-abcdef123456",
+            "item_id": item["id"],
+        }
+        persisted: list[dict[str, object]] = []
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            receipt = root / "Stage1_Instances/THM-M-0001/master.json"
+            receipt.parent.mkdir(parents=True)
+            receipt.write_text("accepted\n", encoding="utf-8")
+            relative = receipt.relative_to(root).as_posix()
+            digest_value = sha256(receipt)
+            claim.update({
+                "master_receipt_path": relative,
+                "master_receipt_sha256": digest_value,
+            })
+            with (
+                mock.patch.object(cron, "ROOT", root),
+                mock.patch.object(
+                    cron, "require_item_focus_phase_allowed", return_value=decision
+                ),
+                mock.patch.object(cron, "_read_frontier_runtime", return_value=ledger),
+                mock.patch.object(
+                    cron,
+                    "_persist_frontier_runtime",
+                    side_effect=lambda _theorem, value: persisted.append(
+                        copy.deepcopy(value)
+                    ),
+                ),
+            ):
+                self.assertEqual(
+                    cron.record_frontier_milestone_completion(
+                        item,
+                        claim,
+                        evidence_path=relative,
+                        evidence_sha256=digest_value,
+                    ),
+                    ["close_root"],
+                )
+                self.assertEqual(
+                    cron.record_frontier_milestone_completion(
+                        item,
+                        claim,
+                        evidence_path=relative,
+                        evidence_sha256=digest_value,
+                    ),
+                    [],
+                )
+                forged = dict(claim, status="review_finished")
+                with self.assertRaisesRegex(ValueError, "master-owned"):
+                    cron.record_frontier_milestone_completion(
+                        item,
+                        forged,
+                        evidence_path=relative,
+                        evidence_sha256=digest_value,
+                    )
+        self.assertEqual(len(persisted), 1)
+        self.assertEqual(
+            persisted[0]["completed_milestones"][0]["milestone_id"],
+            "close_root",
+        )
+
+    def test_cleanup_never_treats_research_required_as_terminal(self) -> None:
+        item = self.item("intake")
+        item["state"] = "[x]"
+        node = {
+            "completion_bucket": "partial",
+            "focus_eligibility": {
+                "execution_disposition": "research_required",
+                "valid": True,
+                "present": True,
+            },
+        }
+        with (
+            mock.patch.object(
+                cron, "theorem_dag_v2", return_value=({"focus_eligibility_summary": {}}, {
+                    item["theorem_id"]: node
+                })
+            ),
+            self.assertRaisesRegex(SystemExit, "research-required target is nonterminal"),
+        ):
+            cron.require_cleanup_completion({"items": [item]}, [item], [])
+
+    def test_cleanup_allows_terminal_exclusion_without_fabricating_phase_x(self) -> None:
+        item = self.item("intake")
+        item["state"] = "[ ]"
+        focus = {
+            "execution_disposition": "exclude_scope",
+            "valid": True,
+            "present": True,
+        }
+        node = {"completion_bucket": "unstarted", "focus_eligibility": focus}
+        graph = {"focus_eligibility_summary": {"receipt_valid_count": 1}}
+        receipt = {"admission_review": {"decision": "exclude"}}
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            docs = root / "Docs"
+            docs.mkdir()
+            todo = docs / f"todos_{dt.date.today():%Y%m%d}.md"
+            projection = "terminal projection\nActionable unfinished: 0\n"
+            todo.write_text(projection, encoding="utf-8")
+            with (
+                mock.patch.object(cron, "ROOT", root),
+                mock.patch.object(cron, "DOCS", docs),
+                mock.patch.object(cron, "RUNTIME", root / ".cron" / "stage1-v2-app-server"),
+                mock.patch.object(cron, "theorem_dag_v2", return_value=(graph, {item["theorem_id"]: node})),
+                mock.patch.object(cron, "_focus_receipt", return_value=receipt),
+                mock.patch.object(cron, "render_todo", return_value=(todo, projection)),
+                mock.patch.object(cron, "run", return_value=subprocess.CompletedProcess([], 0, "", "")),
+            ):
+                cron.require_cleanup_completion({"items": [item]}, [item], [])
+
+    def test_cleanup_rejects_audit_only_release_for_eligible_target(self) -> None:
+        phases = []
+        for phase, _description in cron.PHASES:
+            item = self.item(phase)
+            item["state"] = "[x]"
+            phases.append(item)
+        release = phases[-1]
+        focus = {
+            "execution_disposition": "organize_or_integrate",
+            "valid": True,
+            "present": True,
+        }
+        node = {"completion_bucket": "master_complete", "focus_eligibility": focus}
+        graph = {"focus_eligibility_summary": {"receipt_valid_count": 1}}
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            docs = root / "Docs"
+            docs.mkdir()
+            todo = docs / f"todos_{dt.date.today():%Y%m%d}.md"
+            projection = "terminal projection\nActionable unfinished: 0\n"
+            todo.write_text(projection, encoding="utf-8")
+            receipt = {
+                "schema_version": cron.MASTER_ACCEPTANCE_RECEIPT_SCHEMA,
+                "item_id": release["id"],
+                "theorem_id": release["theorem_id"],
+                "phase": "release",
+                "phase_evidence_accepted": True,
+                "worker_verdict": "accepted_audit_only",
+                "review_verdict": "phase_accepted",
+                "audit_complete": True,
+                "theorem_complete": False,
+                "artifact_bindings": [],
+                "semantic_decision": {},
+                "replay_result": {"semantic_result": {}},
+            }
+            payload = cron.acceptance_evidence.canonical_json(receipt) + b"\n"
+            digest = hashlib.sha256(payload).hexdigest()
+            relative = cron.master_acceptance_receipt_path(
+                release["theorem_id"], "release", digest
+            )
+            path = root / relative
+            path.parent.mkdir(parents=True)
+            path.write_bytes(payload)
+            claim = {
+                "item_id": release["id"],
+                "status": "master_accepted",
+                "master_receipt_path": relative,
+                "master_receipt_sha256": digest,
+            }
+            with (
+                mock.patch.object(cron, "ROOT", root),
+                mock.patch.object(cron, "DOCS", docs),
+                mock.patch.object(cron, "RUNTIME", root / ".cron" / "stage1-v2-app-server"),
+                mock.patch.object(cron, "theorem_dag_v2", return_value=(graph, {release["theorem_id"]: node})),
+                mock.patch.object(cron, "render_todo", return_value=(todo, projection)),
+                mock.patch.object(cron, "run", return_value=subprocess.CompletedProcess([], 0, "", "")),
+                mock.patch.object(
+                    cron,
+                    "revalidate_cleanup_release_acceptance",
+                    return_value=({}, {}),
+                ),
+                self.assertRaisesRegex(SystemExit, "THEOREM-Z/M0"),
+            ):
+                cron.require_cleanup_completion({"items": phases}, phases, [claim])
 
 
 if __name__ == "__main__":

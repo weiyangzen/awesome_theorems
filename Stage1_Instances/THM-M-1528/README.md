@@ -1,6 +1,6 @@
-# THM-M-1528 rev-5.6 intake
+# THM-M-1528 Historical Intake
 
-This directory is the rev-5.6 `planned` instance for the Einstein field equations. It treats the
+This directory is the retained `planned` instance for the Einstein field equations. It treats the
 generated phrase "the basic equations of general relativity" as a theorem-family label, not as a
 proof or as a uniquely specified theorem. Historical Stage1 artifacts are discovery inputs only.
 
@@ -26,7 +26,7 @@ predicate with explicit conventions or keep `M3/M4` and report the ambiguity.
 
 ## Open task DAG
 
-`statement -> anchor audit -> obligation tree -> proof -> validation -> release`. Each edge is the
-corresponding dependency in `Docs/Stage1_Blueprint_rev-5.6.md`; this intake closes none of those
-nodes. Source and statement decisions are itemized in `source_statement_crosswalk.md`.
-
+`statement -> anchor audit -> obligation tree -> proof -> validation -> release`. The current
+dependency and permission boundary is `Docs/Stage1_Blueprint_v2.md`; the retired blueprint path in
+older evidence is provenance only. This intake closes none of those nodes. Source and statement
+decisions are itemized in `source_statement_crosswalk.md`.

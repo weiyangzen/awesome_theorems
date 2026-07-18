@@ -2,7 +2,7 @@
 
 ## Status boundary
 
-This is a rev-5.6 `planned` intake instance at `L0 / rework_required`. It contains no accepted proof state, no Lean closure, and no theorem-completion claim. The repository label `已验证` is explicitly untrusted metadata.
+This is a retained `planned` intake instance at `L0 / rework_required`. It contains no accepted proof state, no Lean closure, and no theorem-completion claim. The repository label `已验证` is explicitly untrusted metadata.
 
 ## Scope map
 
@@ -20,8 +20,8 @@ The target domain is provisionally `ℤ` because the source explicitly says inte
 |---|---|---|---|
 | `Docs/Stage0_Blueprint.md`, THM-M-0389 | `x²+y²+z²=3xyz的整数解`; proposer Andrey Markov; status `已验证` | Identifies equation and integer domain only | No exact conclusion, hypotheses, or primary citation; H4/M3 |
 | `Docs/Stage1_Blueprint.md`, S1-M-020 | Same wording; Lean 4 + mathlib lane; historical `closed` bucket | Discovery and scheduling provenance only | Legacy status grants no proof credit |
-| `Docs/Stage1_Targets_rev-5.6.json`, rank 20 | Membership, lane, planned lifecycle, uniform L0 baseline | Authorizes creation of this planned dossier | Does not establish mathematical fidelity or closure |
-| `Docs/Stage1_Blueprint_rev-5.6.md`, S56-M-0389 nodes | Intake followed by statement, audit, graph, proof, validation, release | Fixes workflow boundary | All later nodes remain open/blocked |
+| `Docs/Stage1_Target_Membership_v2.json`, rank 20 | Membership, discovery metadata, planned lifecycle, uniform L0 baseline | Identifies this frozen Stage1 member | Does not establish mathematical fidelity, focus eligibility, or closure |
+| `Docs/Stage1_Blueprint_v2.md`, S56-M-0389 nodes | Current identity and state for intake followed by statement, audit, graph, integration, validation, release | Sole requirements and task-state boundary | All later nodes remain open/blocked |
 
 No primary mathematical source is cited in the repository records. Primary-source theorem/page identification and the choice of exact classification statement belong to the subsequent statement/source audit work and are not claimed here.
 

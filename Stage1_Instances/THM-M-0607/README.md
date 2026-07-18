@@ -1,6 +1,6 @@
-# THM-M-0607 rev-5.6 intake
+# THM-M-0607 Historical Intake
 
-This directory is the `planned` rev-5.6 instance for the generated entry "光滑结构存在性"
+This directory is the retained `planned` instance for the generated entry "光滑结构存在性"
 (existence of smooth structures). It starts from `L0 / rework_required` and inherits no proof
 credit from the legacy queue's untrusted `已验证` label.
 
@@ -31,7 +31,7 @@ source or obtain an authoritative precise formulation.
 | Check alternate encodings and mutation probes | elaborated expression | open |
 | Audit mathlib and external Lean candidates | statement acceptance | open |
 | Freeze obligation and typed evidence/provenance/workflow graphs | anchor audit | open |
-| Implement or integrate proof bodies | obligation registry | open |
+| Integrate and replay an admitted exact machine proof; new root work requires an active reviewed frontier exception | obligation registry plus focus admission | open |
 | Run hermetic and independent release gates | proof closure | open |
 
 ## Intake verdict

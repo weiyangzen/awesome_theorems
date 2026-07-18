@@ -114,7 +114,12 @@
 
 例如 `THM-M-0387` 中，regular primes 原先属于 `repo_local_integration_debt`，在 pin `flt-regular` 并检查 `regularPrimesPath` 后已还清；完整 Wiles/Taylor-Wiles 主线属于 `formalization_debt`，因为人类数学证明已知，但公开 Lean kernel-checked 完整链仍未闭合。
 
-仓库级 acceptance 规则固定为：`repo_local_integration_debt` 不允许作为完成态残留；`mathematical_debt` 与 `formalization_debt` 可以存在，因为它们分别用于组织未来的新数学证明与新机器形式化工作。
+仓库级 acceptance 规则固定为：`repo_local_integration_debt` 不允许作为完成态残留。
+`mathematical_debt` 与 `formalization_debt` 可以作为历史证据或调查分类保留，但不是 Stage1 v2 的普通执行
+lane：前者应 `exclude_scope`，后者在未找到精确现有机器证明时应停在
+`research_required` 或 `defer_frontier`。任何新的根证明或补齐机器形式化的工作，只能由
+current scheduler-owned、独立复核、有界且成功概率 `>= 0.70` 的 `frontier_exception`
+授权。
 
 ## Stage1 Lean 4 队列
 
@@ -123,16 +128,19 @@
 todo、JSON DAG、target manifest、assurance 文档或实例 receipt 都只能单向派生、约束或举证，不能
 成为第二个 requirements/progress authority。
 
-`Docs/Stage1_Assurance_Standard_rev-5.6.md` 是 supporting assurance guidance，不是蓝图或状态源。
+旧 Stage1 assurance 文档只保留在 Git 历史中，不是现行 guidance、蓝图、输入或 gate。任何当前
+命令、validator、admission、acceptance 或 release 不得要求或读取它。
 `THM-M-0387` 是历史兼容 fixture，不是允许把定理 ID、路径、指标、公理集合或状态硬编码进通用
 validator 的模板。已删除的 300-slot queue 和 Markdown target projection 不得由生成器重新生成。
 
-Stage1 目标集合以 `Docs/Stage1_Targets_rev-5.6.json` 的 `1546` 个 Lean 4 metadata-screened 候选
-作为 membership input，并由 v2 蓝图 checklist 固化。Stage0 的 `1601` 个去重数学记录不是 Stage1 cover 数；其余 `55` 个不得出现在目标表、
+Stage1 目标集合以 `Docs/Stage1_Target_Membership_v2.json` 的 `1546` 个 Lean 4 metadata-screened 候选
+作为只读 membership 投影，并由 v2 蓝图 checklist 固化。Stage0 的 `1601` 个去重数学记录不是 Stage1 cover 数；其余 `55` 个不得出现在目标表、
 不得取得 Stage1 lane/slot/conformance 状态，也不得计入覆盖率。目标表不得再以历史 300-slot
 文件的存在区分 assurance level。全部 `1546` 个目标统一从 `L0 / rework_required` 开始；旧 slot、
 旧 wrapper、旧 statement、旧 build result 和旧 source label 只能作为 discovery input，不提供
-proof credit、accepted state 或门禁豁免。任何历史证据都必须按当前 rev-5.6 的 exact scope、
+proof credit、accepted state 或门禁豁免。manifest 中的 `execution_rank`、`target_lane`、
+`intake_score` 与历史 slot 都是 membership/discovery-only 兼容元数据，不能决定 v2 focus、认领顺序、
+phase permission 或例外。任何历史证据都必须按当前 v2 focus policy 的 exact scope、
 provenance、trust、freshness 和 receipt 规则重新接纳。
 
 目标集合发生增删时，必须发布 exact ID delta、eligibility 理由并重新运行结构检查；不能通过
@@ -143,7 +151,7 @@ provenance、trust、freshness 和 receipt 规则重新接纳。
    - 已知更适合 TLA+ / SPIN / NuSMV / 专用模型检验、或只应作为实验数据 pipeline 的条目，不进入 Stage1。
 2. 太难先延后
    - 若条目本身仍是 open problem、独立性命题、已否证命题、不可形式化命题，或当前连数学陈述与 formal target 都无法稳定，则不得进入 Stage1 主执行队列。
-   - 人类数学证明已知但 Lean 4 基础设施明显未闭合的条目可以进入 Stage1，但必须标为 `deep_formalization_debt` 或更高难度 lane，不能伪装成短 proof task。
+   - 人类数学证明已知但精确机器证明未定位、不完整或尚不存在的条目，只能作调查并标为 `research_required` / `defer_frontier`；不得从历史 `deep_formalization_debt` 或难度 lane 获得 proof 权限。只有有效的 scheduler-owned、独立复核、有界 `>= 0.70` `frontier_exception` 可以授权新根证明。
 3. 太简单不占主队列
    - 若条目只是定义展开、低重要性事实、或不具备作为后续样本的 proof-tree 价值，应进入 `deferred_too_simple`，而不是占用 Stage1 主队列。
 4. 物理条目口径
@@ -156,7 +164,7 @@ provenance、trust、freshness 和 receipt 规则重新接纳。
    - theorem-tree / proof-package 拆分任务。
    - repo-local wrapper / pinned dependency / local proof body 三选一的闭合目标。
    - `<=100` 叶子证明步数预算要求。
-   - 机器证明债分类与当前 lane。
+   - 机器证明债分类，以及显式标为 inert 的历史 discovery lane；当前执行权限只来自 v2 focus receipt。
 
 Stage1 的历史 300 条高优先级发现输入仍必须满足：
 
@@ -168,7 +176,7 @@ Stage1 的历史 300 条高优先级发现输入仍必须满足：
 - 对每一条，即使源文档写作 `已验证`，Stage1 也不得直接把它计为 repo-local completed；必须先完成 mathlib / external Lean 4 anchor 搜索、wrapper / dependency 整合、本地 build validation、`<=100` leaf budget ledger 与公开 merge target。
 - 若 Stage1 执行时发现外部 Lean 4 证明已经存在，不能留下 `repo_local_integration_debt`；必须 pin/import/check 或显式标为 integration blocker，不能勾选完成。
 
-每个 Stage1 实例还必须满足 supporting assurance standard 的通用门槛：
+以下是已由 v2 蓝图吸收的现行实例证据要求；其 authority 仅来自 v2，而非旧 standard：
 
 1. 对 canonical Lean target 做 elaboration、environment fingerprint 与等价形式 checked transport。
 2. 在观察机器闭合状态前冻结 canonical obligation registry、eligibility、exclusion 与 denominator。

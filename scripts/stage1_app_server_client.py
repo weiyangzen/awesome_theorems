@@ -31,10 +31,42 @@ RUNTIME_SERVICE_TIER = "default"
 IMPLEMENTATION_LANE = "implementation"
 REVIEW_LANE = "review"
 LANES = {IMPLEMENTATION_LANE, REVIEW_LANE}
-REVIEW_BINDING_SCHEMA = "stage1-app-server-review-binding/1.0"
-REVIEW_OUTPUT_SCHEMA = "stage1-master-review-output/1.0"
+REVIEW_BINDING_SCHEMA = "stage1-app-server-review-binding/1.2"
+REVIEW_OUTPUT_SCHEMA = "stage1-master-review-output/1.1"
 REVIEW_VERDICTS = {"phase_accepted", "repair_required", "rejected"}
 WORKER_VERDICTS = {"accepted", "accepted_audit_only", "no_state_change", "blocked", "rejected"}
+EXECUTION_DISPOSITIONS = {
+    "organize_or_integrate",
+    "frontier_exception",
+    "research_required",
+    "defer_frontier",
+    "exclude_scope",
+}
+FOCUS_EXECUTION_FIELDS = {
+    "focus_contract_sha256",
+    "execution_disposition",
+    "receipt_sha256",
+}
+INTEGRATION_FOCUS_EXECUTION_FIELDS = FOCUS_EXECUTION_FIELDS | {
+    "machine_evidence_class",
+    "exact_machine_source",
+    "exact_machine_source_used",
+    "introduced_root_critical_proof",
+}
+EXACT_MACHINE_SOURCE_FIELDS = {
+    "formal_system",
+    "repository",
+    "revision",
+    "tree_or_archive_sha256",
+    "file_path",
+    "file_sha256",
+    "module",
+    "declaration",
+    "declaration_type_sha256",
+    "match_kind",
+    "transport_evidence",
+    "terminal_proof_body",
+}
 REVIEW_BINDING_FIELDS = {
     "schema_version",
     "claim_id",
@@ -43,11 +75,14 @@ REVIEW_BINDING_FIELDS = {
     "phase",
     "base_revision",
     "blueprint_sha256",
+    "blueprint_git_blob",
     "theorem_dag_sha256",
     "prompt_sha256",
     "objective_sha256",
     "artifact_digests",
     "validator_recipe_sha256s",
+    "focus_execution",
+    "focus_contract_sha256",
     "output_schema",
 }
 REVIEW_OUTPUT_FIELDS = {
@@ -67,6 +102,30 @@ REVIEW_OUTPUT_FIELDS = {
     "artifact_findings",
     "reviewed_artifact_sha256s",
     "validator_recipe_sha256s",
+    "focus_review",
+}
+FOCUS_EXECUTION_JSON_SCHEMA = {
+    "type": "object",
+    "additionalProperties": False,
+    "required": sorted(FOCUS_EXECUTION_FIELDS),
+    "properties": {
+        "focus_contract_sha256": {"type": "string", "pattern": r"^[0-9a-f]{64}$"},
+        "execution_disposition": {
+            "type": "string",
+            "enum": sorted(EXECUTION_DISPOSITIONS),
+        },
+        "receipt_sha256": {
+            "type": ["string", "null"],
+            "pattern": r"^[0-9a-f]{64}$",
+        },
+        "machine_evidence_class": {
+            "type": "string",
+            "enum": ["exact_pinned_closure", "exact_external_unintegrated"],
+        },
+        "exact_machine_source": {"type": "object"},
+        "exact_machine_source_used": {"type": "boolean"},
+        "introduced_root_critical_proof": {"type": "boolean"},
+    },
 }
 REVIEW_OUTPUT_JSON_SCHEMA = {
     "$schema": "http://json-schema.org/draft-07/schema#",
@@ -113,6 +172,7 @@ REVIEW_OUTPUT_JSON_SCHEMA = {
             "type": "array",
             "items": {"type": "string", "pattern": r"^[0-9a-f]{64}$"},
         },
+        "focus_review": FOCUS_EXECUTION_JSON_SCHEMA,
     },
 }
 IMPLEMENTATION_SANDBOX = "workspace-write"
@@ -133,6 +193,13 @@ IMPLEMENTATION_SANDBOX_CONTRACT = {
     "networkAccess": False,
     "excludeTmpdirEnvVar": False,
     "excludeSlashTmp": False,
+}
+FRONTIER_SANDBOX_CONTRACT = {
+    "type": "workspaceWrite",
+    "writableRoots": [],
+    "networkAccess": False,
+    "excludeTmpdirEnvVar": False,
+    "excludeSlashTmp": True,
 }
 REVIEW_SANDBOX_CONTRACT = {"type": "readOnly", "networkAccess": False}
 # Compatibility names retained for the implementation scheduler.
@@ -345,6 +412,104 @@ def canonical_artifact_path(value: Any) -> str | None:
     return path.as_posix()
 
 
+def require_focus_execution(value: Any) -> dict[str, Any]:
+    """Validate the exact scheduler-owned focus handoff shape."""
+    if not isinstance(value, dict):
+        raise ProtocolError("review focus execution contract is not an object")
+    disposition = value.get("execution_disposition")
+    expected_fields = (
+        INTEGRATION_FOCUS_EXECUTION_FIELDS
+        if disposition == "organize_or_integrate"
+        else FOCUS_EXECUTION_FIELDS
+    )
+    if set(value) != expected_fields:
+        raise ProtocolError("review focus execution fields are not canonical")
+    receipt_sha256 = value.get("receipt_sha256")
+    if (
+        disposition not in EXECUTION_DISPOSITIONS
+        or not is_sha256(value.get("focus_contract_sha256"))
+        or receipt_sha256 is not None
+        and not is_sha256(receipt_sha256)
+    ):
+        raise ProtocolError("review focus execution identity is malformed")
+    if disposition != "organize_or_integrate":
+        return value
+    source = value.get("exact_machine_source")
+    terminal = source.get("terminal_proof_body") if isinstance(source, dict) else None
+    transports = source.get("transport_evidence") if isinstance(source, dict) else None
+    string_fields = {
+        "repository",
+        "revision",
+        "file_path",
+        "module",
+        "declaration",
+    }
+    digest_fields = {
+        "tree_or_archive_sha256",
+        "file_sha256",
+        "declaration_type_sha256",
+    }
+    if (
+        receipt_sha256 is None
+        or value.get("machine_evidence_class") not in {
+            "exact_pinned_closure", "exact_external_unintegrated"
+        }
+        or value.get("exact_machine_source_used") is not True
+        or value.get("introduced_root_critical_proof") is not False
+        or not isinstance(source, dict)
+        or set(source) != EXACT_MACHINE_SOURCE_FIELDS
+        or source.get("formal_system") != "Lean 4"
+        or any(not isinstance(source.get(field), str) or not source[field] for field in string_fields)
+        or any(not is_sha256(source.get(field)) for field in digest_fields)
+        or source.get("match_kind") not in {"exact", "checked_transport"}
+        or not isinstance(source.get("transport_evidence"), list)
+        or (
+            source.get("match_kind") == "exact"
+            and source.get("transport_evidence") != []
+        )
+        or (
+            source.get("match_kind") == "checked_transport"
+            and len(source.get("transport_evidence")) != 1
+        )
+        or (
+            source.get("match_kind") == "checked_transport"
+            and (
+                not isinstance(transports[0], dict)
+                or set(transports[0]) != {
+                    "path", "sha256", "role", "evidence_kind",
+                    "source_formal_system", "source_declaration",
+                    "source_declaration_type_sha256", "target_formal_system",
+                    "target_declaration", "target_declaration_type_sha256",
+                    "replay_receipt_sha256",
+                }
+                or transports[0].get("role") != "statement_match"
+                or transports[0].get("evidence_kind")
+                != "machine_checked_statement_transport"
+                or transports[0].get("source_formal_system")
+                != source.get("formal_system")
+                or transports[0].get("source_declaration")
+                != source.get("declaration")
+                or transports[0].get("source_declaration_type_sha256")
+                != source.get("declaration_type_sha256")
+                or not is_sha256(transports[0].get("sha256"))
+                or transports[0].get("sha256")
+                != transports[0].get("replay_receipt_sha256")
+                or not is_sha256(
+                    transports[0].get("target_declaration_type_sha256")
+                )
+            )
+        )
+        or not isinstance(terminal, dict)
+        or set(terminal) != {"locator", "kind", "sha256"}
+        or not isinstance(terminal.get("locator"), str)
+        or not terminal["locator"]
+        or terminal.get("kind") not in {"theorem", "opaque", "definition", "proof_term"}
+        or not is_sha256(terminal.get("sha256"))
+    ):
+        raise ProtocolError("review integration focus execution contract is malformed")
+    return value
+
+
 def require_review_binding(
     path: Path | None, prompt_sha256: str, objective_sha256: str
 ) -> tuple[dict[str, Any], str]:
@@ -369,6 +534,7 @@ def require_review_binding(
         not in {"intake", "statement", "anchor_audit", "obligation_tree", "proof", "validation", "release"}
         or re.fullmatch(r"[0-9a-f]{40}", str(binding.get("base_revision", ""))) is None
         or not is_sha256(binding.get("blueprint_sha256"))
+        or re.fullmatch(r"[0-9a-f]{40}", str(binding.get("blueprint_git_blob", ""))) is None
         or not is_sha256(binding.get("theorem_dag_sha256"))
         or binding.get("prompt_sha256") != prompt_sha256
         or binding.get("objective_sha256") != objective_sha256
@@ -376,6 +542,13 @@ def require_review_binding(
         raise ProtocolError("review binding identity or input digest mismatch")
     artifact_digests = binding.get("artifact_digests")
     recipe_digests = binding.get("validator_recipe_sha256s")
+    focus_execution = require_focus_execution(binding.get("focus_execution"))
+    if (
+        not is_sha256(binding.get("focus_contract_sha256"))
+        or binding.get("focus_contract_sha256")
+        != sha256_text(canonical_json(focus_execution))
+    ):
+        raise ProtocolError("review focus execution digest is malformed")
     artifact_paths = (
         [canonical_artifact_path(relative) for relative in artifact_digests]
         if isinstance(artifact_digests, dict)
@@ -429,13 +602,18 @@ def require_review_output(value: Any, binding: dict[str, Any]) -> dict[str, Any]
         or any(not isinstance(row, str) or not row for row in findings)
         or value.get("reviewed_artifact_sha256s") != binding["artifact_digests"]
         or value.get("validator_recipe_sha256s") != binding["validator_recipe_sha256s"]
+        or value.get("focus_review") != binding["focus_execution"]
         or value["theorem_complete"]
         and not value["audit_complete"]
         or binding["phase"] != "release"
         and (value["audit_complete"] or value["theorem_complete"])
         or binding["phase"] == "release"
         and value["review_verdict"] == "phase_accepted"
-        and not value["audit_complete"]
+        and (
+            value["worker_verdict"] != "accepted"
+            or not value["audit_complete"]
+            or not value["theorem_complete"]
+        )
         or value["worker_verdict"] == "accepted_audit_only"
         and (binding["phase"] != "release" or not value["audit_complete"] or value["theorem_complete"])
         or value["review_verdict"] == "phase_accepted"
@@ -577,6 +755,14 @@ def require_exact_runtime_args(args: argparse.Namespace) -> None:
         raise ProtocolError(f"unsupported app-server lane {args.lane!r}")
     if args.lane == IMPLEMENTATION_LANE and args.binding is not None:
         raise ProtocolError("implementation lane must not receive a review binding")
+    if args.lane != IMPLEMENTATION_LANE and getattr(args, "scratch", None) is not None:
+        raise ProtocolError("frontier scratch is restricted to the implementation lane")
+    if (
+        not isinstance(args.worker_principal, str)
+        or re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._:@-]{0,199}", args.worker_principal)
+        is None
+    ):
+        raise ProtocolError("worker principal is missing or malformed")
 
 
 def lane_sandbox(lane: str) -> tuple[str, dict[str, Any]]:
@@ -1125,11 +1311,16 @@ def turn_params(
     effort: str,
     service_tier: str,
     lane: str = IMPLEMENTATION_LANE,
+    scratch: Path | None = None,
 ) -> dict[str, Any]:
     _, sandbox_contract = lane_sandbox(lane)
     if lane == IMPLEMENTATION_LANE:
-        turn_sandbox = dict(sandbox_contract)
-        turn_sandbox["writableRoots"] = [str(workspace)]
+        turn_sandbox = dict(
+            FRONTIER_SANDBOX_CONTRACT if scratch is not None else sandbox_contract
+        )
+        turn_sandbox["writableRoots"] = [str(workspace)] + (
+            [str(scratch)] if scratch is not None else []
+        )
     else:
         turn_sandbox = dict(sandbox_contract)
     params = {
@@ -1169,6 +1360,14 @@ def run_worker(args: argparse.Namespace) -> int:
     workspace = args.workspace.resolve()
     if not workspace.is_dir():
         raise ProtocolError(f"worker workspace is not a directory: {workspace}")
+    scratch: Path | None = None
+    scratch_arg = getattr(args, "scratch", None)
+    if scratch_arg is not None:
+        scratch = scratch_arg.resolve()
+        if scratch_arg.is_symlink() or not scratch.is_dir() or scratch == workspace:
+            raise ProtocolError("frontier scratch is unavailable or unsafe")
+        if os.environ.get("TMPDIR") != str(scratch):
+            raise ProtocolError("frontier TMPDIR does not match its scheduler-owned scratch")
     prompt = read_regular_text(args.prompt, "worker prompt")
     objective = read_regular_text(args.objective, "goal objective").strip()
     if not prompt.strip() or not objective:
@@ -1199,7 +1398,9 @@ def run_worker(args: argparse.Namespace) -> int:
         "reasoning_effort": args.effort,
         "service_tier": args.service_tier,
         "lane": args.lane,
+        "worker_principal": args.worker_principal,
         "workspace": str(workspace),
+        "frontier_scratch": str(scratch) if scratch is not None else None,
         "prompt_sha256": prompt_sha256,
         "objective_sha256": objective_sha256,
         "turn_input_sha256": sha256_text(
@@ -1297,6 +1498,15 @@ def run_worker(args: argparse.Namespace) -> int:
                     if isinstance(start.get("sandbox"), dict)
                     else None,
                     "app_server_argv": app_server_argv,
+                    "worker_principal": args.worker_principal,
+                    "turn_sandbox": (
+                        {
+                            **FRONTIER_SANDBOX_CONTRACT,
+                            "writableRoots": [str(workspace), str(scratch)],
+                        }
+                        if scratch is not None
+                        else None
+                    ),
                 },
             }
         )
@@ -1314,6 +1524,7 @@ def run_worker(args: argparse.Namespace) -> int:
                 args.effort,
                 args.service_tier,
                 args.lane,
+                scratch,
             ),
         )
         turn = turn_result.get("turn")
@@ -1386,6 +1597,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--lane", choices=sorted(LANES), required=True)
     parser.add_argument("--binding", type=Path)
     parser.add_argument("--thread-id")
+    parser.add_argument("--scratch", type=Path)
+    parser.add_argument("--worker-principal", required=True)
     parser.add_argument(
         "--codex",
         default=str(Path.home() / ".local" / "bin" / "codex"),

@@ -1,6 +1,6 @@
-# THM-M-0446 rev-5.6 intake
+# THM-M-0446 Historical Intake
 
-This directory is the rev-5.6 `planned` instance for the Wiles-Taylor semistable modularity
+This directory is the retained `planned` instance for the Wiles-Taylor semistable modularity
 theorem. The legacy label "modularity lifting" is potentially broader than a single theorem; this
 intake fixes the root to the published claim that every semistable elliptic curve over `Q` is
 modular. A later phase may model the lifting theorems as proof obligations, but may not silently
@@ -28,8 +28,10 @@ the source genealogy and statement correspondence are in `source_statement_cross
 `STATEMENT` must choose an actual Lean object model, define or locate semistability and modularity,
 elaborate the exact target, fingerprint the environment, and mutation-test its domain and
 hypothesis. `ANCHOR_AUDIT` must then search pinned mathlib and external Lean 4 candidates and audit
-the two primary papers. Only afterward may `OBLIGATION_TREE`, `PROOF`, `VALIDATION`, and `RELEASE`
-freeze architecture, implement proof bodies, produce kernel evidence, and seek master acceptance.
+the two primary papers. Only afterward may focus-permitted `OBLIGATION_TREE`, `PROOF`, `VALIDATION`,
+and `RELEASE` freeze integration architecture, integrate and replay an admitted exact machine proof,
+produce kernel evidence, and seek master acceptance. New root work requires an active independently
+reviewed frontier exception.
 
 ## Intake verdict
 

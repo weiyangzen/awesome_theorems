@@ -1,8 +1,7 @@
-# THM-M-0387 rev-5.6 proof outline
+# THM-M-0387 historical proof outline
 
 This is the short reader route through the proof tree required by
-`Docs/Stage1_Blueprint_v2.md`, using the supporting gate vocabulary in
-`Docs/Stage1_Assurance_Standard_rev-5.6.md`. It reports mathematical evidence (`H`),
+`Docs/Stage1_Blueprint_v2.md`, using retained historical gate vocabulary. It reports mathematical evidence (`H`),
 kernel evidence (`M`), and readable reconstruction (`R`) independently. The
 long Wiles--Taylor--Wiles plan is in
 `THM-M-0387/readable/wiles_taylor_wiles_process.md`; machine-closed entries are
@@ -65,7 +64,7 @@ unspecified final line.
 
 ## Whole-tree map
 
-| node | role | rev-5.6 vector and exact boundary |
+| node | role | historical vector and exact boundary |
 |---|---|---|
 | `M0387-S` | `FermatLastTheoremWith`, fixed-exponent and full statements; primitive and `ℕ/ℤ/ℚ` transports; axiom policy | individual APIs are locally checked, while the structural package inherits `[H1, M2, R0]`; definitions and equivalences do not prove FLT |
 | `M0387-R` | exponent boundaries, divisor monotonicity, composite-exponent split, odd-prime interface, conditional root assembly | checked reductions surround the open `M0387-R04`; package `[H1, M2, R0]` |

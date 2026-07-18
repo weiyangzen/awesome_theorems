@@ -1,0 +1,2550 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://awesome-theorems.invalid/schemas/stage1-focus-eligibility-1.0.json",
+  "title": "Stage1 v2 focus eligibility receipt",
+  "description": "Content-bound admission evidence for integration-only Stage1 work and narrowly reviewed frontier exceptions. Semantic constraints are enforced by scripts/stage1_focus_eligibility.py.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "theorem_id",
+    "requirements_authority",
+    "repository_base_revision",
+    "scheduler_owner",
+    "generated_at",
+    "evidence_as_of",
+    "expires_at",
+    "machine_evidence_class",
+    "execution_disposition",
+    "human_proof",
+    "target_binding",
+    "statement_binding",
+    "machine_proof",
+    "repository_gap",
+    "evidence_bindings",
+    "issuance_authority",
+    "admission_review",
+    "admission_authority",
+    "disposition_basis",
+    "frontier_exception",
+    "invalidation_conditions"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "stage1-focus-eligibility/1.0"
+    },
+    "theorem_id": {
+      "type": "string",
+      "pattern": "^THM-M-[0-9]{4}$"
+    },
+    "requirements_authority": {
+      "const": "Docs/Stage1_Blueprint_v2.md"
+    },
+    "repository_base_revision": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40,64}$"
+    },
+    "scheduler_owner": {
+      "const": "scheduler_master_lane"
+    },
+    "generated_at": {
+      "$ref": "#/$defs/timestamp"
+    },
+    "evidence_as_of": {
+      "$ref": "#/$defs/timestamp"
+    },
+    "expires_at": {
+      "$ref": "#/$defs/timestamp"
+    },
+    "machine_evidence_class": {
+      "enum": [
+        "exact_pinned_closure",
+        "exact_external_unintegrated",
+        "no_exact_candidate_as_of",
+        "unknown"
+      ]
+    },
+    "execution_disposition": {
+      "enum": [
+        "organize_or_integrate",
+        "frontier_exception",
+        "defer_frontier",
+        "research_required",
+        "exclude_scope"
+      ]
+    },
+    "human_proof": {
+      "$ref": "#/$defs/humanProof"
+    },
+    "target_binding": {
+      "$ref": "#/$defs/targetBinding"
+    },
+    "statement_binding": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/statementBinding"
+        }
+      ]
+    },
+    "machine_proof": {
+      "$ref": "#/$defs/machineProof"
+    },
+    "repository_gap": {
+      "$ref": "#/$defs/repositoryGap"
+    },
+    "evidence_bindings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/evidenceBinding"
+      }
+    },
+    "issuance_authority": {
+      "$ref": "#/$defs/issuanceAuthority"
+    },
+    "admission_review": {
+      "$ref": "#/$defs/admissionReview"
+    },
+    "admission_authority": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/admissionAuthority"
+        }
+      ]
+    },
+    "disposition_basis": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/dispositionBasis"
+        }
+      ]
+    },
+    "frontier_exception": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/frontierException"
+        }
+      ]
+    },
+    "invalidation_conditions": {
+      "type": "array",
+      "minItems": 6,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "human_statement_or_source_changes",
+          "lean_target_or_fingerprint_changes",
+          "machine_source_or_revision_changes",
+          "kernel_replay_or_trust_audit_changes",
+          "toolchain_or_dependency_lock_changes",
+          "license_or_integration_status_changes",
+          "eligibility_receipt_expires"
+        ]
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "Z$"
+    },
+    "actor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "role"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "evidenceBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256",
+        "role"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "pattern": "^Stage1_Instances/THM-M-[0-9]{4}/[^/].*$"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "role": {
+          "enum": [
+            "human_source_review",
+            "statement_match",
+            "machine_source_pin",
+            "pre_stage1_machine_provenance",
+            "kernel_replay",
+            "trust_audit",
+            "compatibility_audit",
+            "license_review",
+            "integration_plan",
+            "frontier_estimate_basis",
+            "frontier_defer_review",
+            "scope_exclusion_review"
+          ]
+        },
+        "evidence_kind": {
+          "enum": [
+            "machine_checked_statement_transport"
+          ]
+        }
+      }
+    },
+    "humanProof": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "statement_fingerprint",
+        "source"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "complete_source_confirmed",
+            "partial_or_open",
+            "unknown"
+          ]
+        },
+        "statement_fingerprint": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/sha256"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "source": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/humanSource"
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "complete_source_confirmed"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "statement_fingerprint": {
+                "$ref": "#/$defs/sha256"
+              },
+              "source": {
+                "$ref": "#/$defs/humanSource"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "source": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "dispositionBasis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reason_code",
+        "summary",
+        "evidence",
+        "report_sha256"
+      ],
+      "properties": {
+        "reason_code": {
+          "enum": [
+            "no_current_frontier_exception",
+            "frontier_probability_below_threshold",
+            "frontier_exception_rejected",
+            "frontier_exception_expired",
+            "frontier_exception_exhausted",
+            "human_claim_unproved_or_conjectural",
+            "non_exact_umbrella",
+            "already_locally_accepted_root",
+            "unusable_legal_boundary",
+            "unusable_technical_boundary"
+          ]
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/evidenceBinding"
+          }
+        },
+        "report_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "terminalDispositionReport": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "theorem_id",
+        "reason_code",
+        "reviewer",
+        "reviewed_at",
+        "facts"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "stage1-terminal-disposition-report/1.0"
+        },
+        "theorem_id": {
+          "type": "string",
+          "pattern": "^THM-M-[0-9]{4}$"
+        },
+        "reason_code": {
+          "enum": [
+            "no_current_frontier_exception",
+            "frontier_probability_below_threshold",
+            "frontier_exception_rejected",
+            "frontier_exception_expired",
+            "frontier_exception_exhausted",
+            "human_claim_unproved_or_conjectural",
+            "non_exact_umbrella",
+            "already_locally_accepted_root",
+            "unusable_legal_boundary",
+            "unusable_technical_boundary"
+          ]
+        },
+        "reviewer": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/actor"
+            },
+            {
+              "properties": {
+                "role": {
+                  "const": "independent_reviewer"
+                }
+              }
+            }
+          ]
+        },
+        "reviewed_at": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "facts": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/frontierDispositionFacts"
+            },
+            {
+              "$ref": "#/$defs/openClaimDispositionFacts"
+            },
+            {
+              "$ref": "#/$defs/umbrellaDispositionFacts"
+            },
+            {
+              "$ref": "#/$defs/acceptedRootDispositionFacts"
+            },
+            {
+              "$ref": "#/$defs/legalDispositionFacts"
+            },
+            {
+              "$ref": "#/$defs/technicalDispositionFacts"
+            }
+          ]
+        }
+      }
+    },
+    "frontierDispositionFacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "search_boundary_sha256",
+        "exception_snapshot_id",
+        "snapshot_path",
+        "snapshot_sha256",
+        "exception_policy_sha256",
+        "exception_state"
+      ],
+      "properties": {
+        "kind": {
+          "const": "frontier_exception_snapshot"
+        },
+        "search_boundary_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "exception_snapshot_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "snapshot_path": {
+          "type": "string",
+          "pattern": "^Stage1_Instances/THM-M-[0-9]{4}/[^/].*$"
+        },
+        "snapshot_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "exception_policy_sha256": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/sha256"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "exception_state": {
+          "enum": [
+            "absent",
+            "below_threshold",
+            "rejected",
+            "expired",
+            "exhausted"
+          ]
+        }
+      }
+    },
+    "frontierExceptionStateSnapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "theorem_id",
+        "scheduler_owner",
+        "snapshot_id",
+        "search_boundary_sha256",
+        "exception_policy_sha256",
+        "exception_state",
+        "captured_at"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "stage1-frontier-exception-snapshot/1.0"
+        },
+        "theorem_id": {
+          "type": "string",
+          "pattern": "^THM-M-[0-9]{4}$"
+        },
+        "scheduler_owner": {
+          "const": "scheduler_master_lane"
+        },
+        "snapshot_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "search_boundary_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "exception_policy_sha256": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/sha256"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "exception_state": {
+          "enum": [
+            "absent",
+            "below_threshold",
+            "rejected",
+            "expired",
+            "exhausted"
+          ]
+        },
+        "captured_at": {
+          "$ref": "#/$defs/timestamp"
+        }
+      }
+    },
+    "openClaimDispositionFacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "source_citation",
+        "source_locator",
+        "source_immutable_id",
+        "source_path",
+        "source_content_sha256",
+        "claim_status"
+      ],
+      "properties": {
+        "kind": {
+          "const": "open_claim_source_review"
+        },
+        "source_citation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_locator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_immutable_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_path": {
+          "type": "string",
+          "pattern": "^Stage1_Instances/THM-M-[0-9]{4}/[^/].*$"
+        },
+        "source_content_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "claim_status": {
+          "const": "partial_or_open"
+        }
+      }
+    },
+    "umbrellaDispositionFacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "catalogue_statement_sha256",
+        "candidate_statement_sha256",
+        "comparison",
+        "boundary_difference"
+      ],
+      "properties": {
+        "kind": {
+          "const": "exact_boundary_comparison"
+        },
+        "catalogue_statement_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "candidate_statement_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "comparison": {
+          "const": "non_exact"
+        },
+        "boundary_difference": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "acceptedRootDispositionFacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "master_receipt_id",
+        "master_receipt_path",
+        "master_receipt_sha256",
+        "root_statement_sha256",
+        "acceptance_status"
+      ],
+      "properties": {
+        "kind": {
+          "const": "accepted_root_receipt"
+        },
+        "master_receipt_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "master_receipt_path": {
+          "type": "string",
+          "pattern": "^Stage1_Instances/THM-M-[0-9]{4}/[^/].*$"
+        },
+        "master_receipt_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "root_statement_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "acceptance_status": {
+          "const": "master_accepted"
+        }
+      }
+    },
+    "legalDispositionFacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "artifact_path",
+        "artifact_sha256",
+        "license_identifier",
+        "integration_permitted"
+      ],
+      "properties": {
+        "kind": {
+          "const": "license_review"
+        },
+        "artifact_path": {
+          "type": "string",
+          "pattern": "^Stage1_Instances/THM-M-[0-9]{4}/[^/].*$"
+        },
+        "artifact_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "license_identifier": {
+          "type": "string",
+          "minLength": 1
+        },
+        "integration_permitted": {
+          "const": false
+        }
+      }
+    },
+    "technicalDispositionFacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "reproduction_command",
+        "exit_code",
+        "output_path",
+        "output_sha256",
+        "toolchain",
+        "dependency_lock_sha256",
+        "incompatibility"
+      ],
+      "properties": {
+        "kind": {
+          "const": "reproducible_incompatibility"
+        },
+        "reproduction_command": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "exit_code": {
+          "type": "integer",
+          "not": {
+            "const": 0
+          }
+        },
+        "output_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "output_path": {
+          "type": "string",
+          "pattern": "^Stage1_Instances/THM-M-[0-9]{4}/[^/].*$"
+        },
+        "toolchain": {
+          "type": "string",
+          "minLength": 1
+        },
+        "dependency_lock_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "incompatibility": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "humanSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "citation",
+        "locator",
+        "immutable_id",
+        "content_sha256",
+        "proof_scope",
+        "hypotheses",
+        "publication_status",
+        "license",
+        "accepted_by",
+        "accepted_at"
+      ],
+      "properties": {
+        "citation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "locator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "immutable_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "content_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "proof_scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "hypotheses": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "publication_status": {
+          "enum": [
+            "peer_reviewed",
+            "accepted_monograph",
+            "accepted_primary_source"
+          ]
+        },
+        "license": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "identifier",
+            "reviewed_for_use"
+          ],
+          "properties": {
+            "identifier": {
+              "type": "string",
+              "minLength": 1
+            },
+            "reviewed_for_use": {
+              "const": true
+            }
+          }
+        },
+        "accepted_by": {
+          "$ref": "#/$defs/actor"
+        },
+        "accepted_at": {
+          "$ref": "#/$defs/timestamp"
+        }
+      }
+    },
+    "targetBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "formal_system",
+        "path",
+        "file_sha256",
+        "declaration",
+        "declaration_type_sha256"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "verified",
+            "unverified"
+          ]
+        },
+        "formal_system": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "path": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "^Stage1_Instances/THM-M-[0-9]{4}/.+$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "file_sha256": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/sha256"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "declaration": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "declaration_type_sha256": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/sha256"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "statementBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "human_statement_fingerprint",
+        "target_declaration_type_sha256",
+        "match_kind",
+        "evidence"
+      ],
+      "properties": {
+        "human_statement_fingerprint": {
+          "$ref": "#/$defs/sha256"
+        },
+        "target_declaration_type_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "match_kind": {
+          "const": "exact"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidenceBinding"
+          }
+        }
+      },
+      "allOf": [
+        {
+          "properties": {
+            "evidence": {
+              "maxItems": 0
+            }
+          }
+        }
+      ]
+    },
+    "machineProof": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "negative_search_boundary",
+        "negative_search_inventory",
+        "source"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "exact_kernel_checked",
+            "no_usable_exact_artifact_located",
+            "unknown"
+          ]
+        },
+        "negative_search_boundary": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "minLength": 1
+            }
+          ]
+        },
+        "negative_search_inventory": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/negativeSearchEntry"
+          }
+        },
+        "source": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/machineSource"
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "exact_kernel_checked"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "negative_search_boundary": {
+                "type": "null"
+              },
+              "negative_search_inventory": {
+                "maxItems": 0
+              },
+              "source": {
+                "$ref": "#/$defs/machineSource"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "source": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "no_usable_exact_artifact_located"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "negative_search_boundary": {
+                "type": "string",
+                "minLength": 1
+              },
+              "negative_search_inventory": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "negativeSearchEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "revision_or_snapshot",
+        "queries",
+        "searched_at",
+        "candidate_rejections"
+      ],
+      "properties": {
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision_or_snapshot": {
+          "type": "string",
+          "minLength": 1
+        },
+        "queries": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "searched_at": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "candidate_rejections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "candidate",
+              "reason"
+            ],
+            "properties": {
+              "candidate": {
+                "type": "string",
+                "minLength": 1
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "machineSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "formal_system",
+        "repository",
+        "revision",
+        "tree_or_archive_sha256",
+        "file_path",
+        "file_sha256",
+        "module",
+        "declaration",
+        "declaration_type_sha256",
+        "match_kind",
+        "transport_evidence",
+        "pre_stage1_provenance",
+        "terminal_proof_body",
+        "kernel_replay",
+        "trust_audit",
+        "compatibility",
+        "license"
+      ],
+      "properties": {
+        "formal_system": {
+          "type": "string",
+          "minLength": 1
+        },
+        "repository": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision": {
+          "type": "string",
+          "minLength": 7
+        },
+        "tree_or_archive_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "file_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "file_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "module": {
+          "type": "string",
+          "minLength": 1
+        },
+        "declaration": {
+          "type": "string",
+          "minLength": 1
+        },
+        "declaration_type_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "match_kind": {
+          "enum": [
+            "exact",
+            "checked_transport"
+          ]
+        },
+        "transport_evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/machineTransportEvidence"
+          }
+        },
+        "pre_stage1_provenance": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/externalProofProvenanceBinding"
+            }
+          ]
+        },
+        "terminal_proof_body": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "locator",
+            "kind",
+            "sha256"
+          ],
+          "properties": {
+            "locator": {
+              "type": "string",
+              "minLength": 1
+            },
+            "kind": {
+              "enum": [
+                "theorem",
+                "opaque",
+                "definition",
+                "proof_term"
+              ]
+            },
+            "sha256": {
+              "$ref": "#/$defs/sha256"
+            }
+          }
+        },
+        "kernel_replay": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "command",
+            "checked_at",
+            "exit_code",
+            "output_sha256",
+            "toolchain",
+            "dependency_lock_sha256"
+          ],
+          "properties": {
+            "command": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "checked_at": {
+              "$ref": "#/$defs/timestamp"
+            },
+            "exit_code": {
+              "const": 0
+            },
+            "output_sha256": {
+              "$ref": "#/$defs/sha256"
+            },
+            "toolchain": {
+              "type": "string",
+              "minLength": 1
+            },
+            "dependency_lock_sha256": {
+              "$ref": "#/$defs/sha256"
+            }
+          }
+        },
+        "trust_audit": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "placeholder_free",
+            "unsafe_free",
+            "oracle_free",
+            "undeclared_axioms_free",
+            "permitted_axioms",
+            "tcb_description",
+            "output_sha256"
+          ],
+          "properties": {
+            "placeholder_free": {
+              "const": true
+            },
+            "unsafe_free": {
+              "const": true
+            },
+            "oracle_free": {
+              "const": true
+            },
+            "undeclared_axioms_free": {
+              "const": true
+            },
+            "permitted_axioms": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "tcb_description": {
+              "type": "string",
+              "minLength": 1
+            },
+            "output_sha256": {
+              "$ref": "#/$defs/sha256"
+            }
+          }
+        },
+        "compatibility": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "toolchain",
+            "dependency_lock_sha256"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "compatible",
+                "adapter_required"
+              ]
+            },
+            "toolchain": {
+              "type": "string",
+              "minLength": 1
+            },
+            "dependency_lock_sha256": {
+              "$ref": "#/$defs/sha256"
+            }
+          }
+        },
+        "license": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "identifier",
+            "integration_permitted",
+            "evidence_sha256"
+          ],
+          "properties": {
+            "identifier": {
+              "type": "string",
+              "minLength": 1
+            },
+            "integration_permitted": {
+              "const": true
+            },
+            "evidence_sha256": {
+              "$ref": "#/$defs/sha256"
+            }
+          }
+        }
+      }
+    },
+    "externalProofProvenanceBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256",
+        "provenance_sha256"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "pattern": "^Stage1_Instances/THM-M-[0-9]{4}/[^/].*$"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "provenance_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "machineTransportEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256",
+        "role",
+        "evidence_kind",
+        "source_formal_system",
+        "source_declaration",
+        "source_declaration_type_sha256",
+        "target_formal_system",
+        "target_declaration",
+        "target_declaration_type_sha256",
+        "replay_receipt_sha256"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "pattern": "^Stage1_Instances/THM-M-[0-9]{4}/[^/].*$"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "role": {
+          "const": "statement_match"
+        },
+        "evidence_kind": {
+          "const": "machine_checked_statement_transport"
+        },
+        "source_formal_system": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_declaration": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_declaration_type_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "target_formal_system": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target_declaration": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target_declaration_type_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "replay_receipt_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "machineTransportIdentity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "formal_system",
+        "declaration",
+        "declaration_type_sha256"
+      ],
+      "properties": {
+        "formal_system": {
+          "type": "string",
+          "minLength": 1
+        },
+        "declaration": {
+          "type": "string",
+          "minLength": 1
+        },
+        "declaration_type_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "machineTransportBoundFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "pattern": "^Stage1_Instances/THM-M-[0-9]{4}/[^/].*$"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "machineTransportArtifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256",
+        "formal_system",
+        "declaration",
+        "declaration_type_sha256",
+        "terminal_proof_body"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "pattern": "^Stage1_Instances/THM-M-[0-9]{4}/[^/].*$"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "formal_system": {
+          "type": "string",
+          "minLength": 1
+        },
+        "declaration": {
+          "type": "string",
+          "minLength": 1
+        },
+        "declaration_type_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "terminal_proof_body": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "locator",
+            "kind",
+            "sha256"
+          ],
+          "properties": {
+            "locator": {
+              "type": "string",
+              "minLength": 1
+            },
+            "kind": {
+              "enum": [
+                "theorem",
+                "opaque",
+                "definition",
+                "proof_term"
+              ]
+            },
+            "sha256": {
+              "$ref": "#/$defs/sha256"
+            }
+          }
+        }
+      }
+    },
+    "machineTransportReplayReceipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "theorem_id",
+        "source",
+        "target",
+        "transport_artifact",
+        "validator",
+        "replay",
+        "trust_audit",
+        "independent_review"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "stage1-machine-transport-replay/1.0"
+        },
+        "theorem_id": {
+          "type": "string",
+          "pattern": "^THM-M-[0-9]{4}$"
+        },
+        "source": {
+          "$ref": "#/$defs/machineTransportIdentity"
+        },
+        "target": {
+          "$ref": "#/$defs/machineTransportIdentity"
+        },
+        "transport_artifact": {
+          "$ref": "#/$defs/machineTransportArtifact"
+        },
+        "validator": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "path",
+            "sha256",
+            "authority"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "pattern": "^Stage1_Instances/THM-M-[0-9]{4}/[^/].*$"
+            },
+            "sha256": {
+              "$ref": "#/$defs/sha256"
+            },
+            "authority": {
+              "const": "scheduler_master_lane"
+            }
+          }
+        },
+        "replay": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "command",
+            "checked_at",
+            "exit_code",
+            "output",
+            "toolchain",
+            "dependency_lock_sha256"
+          ],
+          "properties": {
+            "command": {
+              "type": "array",
+              "minItems": 3,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "checked_at": {
+              "$ref": "#/$defs/timestamp"
+            },
+            "exit_code": {
+              "const": 0
+            },
+            "output": {
+              "$ref": "#/$defs/machineTransportBoundFile"
+            },
+            "toolchain": {
+              "type": "string",
+              "minLength": 1
+            },
+            "dependency_lock_sha256": {
+              "$ref": "#/$defs/sha256"
+            }
+          }
+        },
+        "trust_audit": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "placeholder_free",
+            "unsafe_free",
+            "oracle_free",
+            "undeclared_axioms_free",
+            "permitted_axioms",
+            "tcb_description",
+            "output"
+          ],
+          "properties": {
+            "placeholder_free": {
+              "const": true
+            },
+            "unsafe_free": {
+              "const": true
+            },
+            "oracle_free": {
+              "const": true
+            },
+            "undeclared_axioms_free": {
+              "const": true
+            },
+            "permitted_axioms": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "tcb_description": {
+              "type": "string",
+              "minLength": 1
+            },
+            "output": {
+              "$ref": "#/$defs/machineTransportBoundFile"
+            }
+          }
+        },
+        "independent_review": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "reviewer",
+            "reviewed_at",
+            "decision"
+          ],
+          "properties": {
+            "reviewer": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/actor"
+                },
+                {
+                  "properties": {
+                    "role": {
+                      "const": "independent_reviewer"
+                    }
+                  }
+                }
+              ]
+            },
+            "reviewed_at": {
+              "$ref": "#/$defs/timestamp"
+            },
+            "decision": {
+              "const": "approved"
+            }
+          }
+        }
+      }
+    },
+    "repositoryGap": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "acceptance_status",
+        "local_presence",
+        "integration_plan",
+        "owned_paths"
+      ],
+      "properties": {
+        "acceptance_status": {
+          "enum": [
+            "not_integrated",
+            "present_unaccepted",
+            "dependency_unaccepted",
+            "master_accepted"
+          ]
+        },
+        "local_presence": {
+          "enum": [
+            "absent",
+            "external_cache_only",
+            "pinned_dependency",
+            "repository_unaccepted",
+            "repository_accepted"
+          ]
+        },
+        "integration_plan": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "owned_paths": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^Stage1_Instances/THM-M-[0-9]{4}(?:/.*)?$"
+          }
+        }
+      }
+    },
+    "authorityActor": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/actor"
+        },
+        {
+          "properties": {
+            "role": {
+              "enum": [
+                "scheduler_focus_verifier",
+                "independent_reviewer"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "externalAuthorityResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "formal_system",
+        "toolchain",
+        "dependency_lock_sha256",
+        "file_path",
+        "file_sha256",
+        "module",
+        "declaration",
+        "declaration_type_sha256",
+        "terminal_proof_body_sha256",
+        "kernel_exit_code",
+        "placeholder_free",
+        "unsafe_free",
+        "oracle_free",
+        "undeclared_axioms_free",
+        "permitted_axioms",
+        "trust_audit_output_sha256",
+        "replay_authority"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "stage1-focus-kernel-authority-result/1.0"
+        },
+        "formal_system": {
+          "const": "Lean 4"
+        },
+        "toolchain": {
+          "type": "string",
+          "minLength": 1
+        },
+        "dependency_lock_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "file_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "file_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "module": {
+          "type": "string",
+          "minLength": 1
+        },
+        "declaration": {
+          "type": "string",
+          "minLength": 1
+        },
+        "declaration_type_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "terminal_proof_body_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "kernel_exit_code": {
+          "const": 0
+        },
+        "placeholder_free": {
+          "const": true
+        },
+        "unsafe_free": {
+          "const": true
+        },
+        "oracle_free": {
+          "const": true
+        },
+        "undeclared_axioms_free": {
+          "const": true
+        },
+        "permitted_axioms": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "trust_audit_output_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "replay_authority": {
+          "$ref": "#/$defs/leanReplayAuthority"
+        }
+      }
+    },
+    "localTargetAuthorityResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "formal_system",
+        "repository_revision",
+        "file_path",
+        "file_sha256",
+        "declaration",
+        "declaration_type_sha256",
+        "toolchain",
+        "dependency_lock_sha256",
+        "kernel_exit_code",
+        "permitted_axioms",
+        "trust_audit_output_sha256",
+        "replay_authority"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "stage1-focus-local-target-authority-result/1.0"
+        },
+        "formal_system": {
+          "const": "Lean 4"
+        },
+        "repository_revision": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40,64}$"
+        },
+        "file_path": {
+          "type": "string",
+          "pattern": "^Stage1_Instances/THM-M-[0-9]{4}/.+$"
+        },
+        "file_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "declaration": {
+          "type": "string",
+          "minLength": 1
+        },
+        "declaration_type_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "toolchain": {
+          "type": "string",
+          "minLength": 1
+        },
+        "dependency_lock_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "kernel_exit_code": {
+          "const": 0
+        },
+        "permitted_axioms": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "trust_audit_output_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "replay_authority": {
+          "$ref": "#/$defs/leanReplayAuthority"
+        }
+      }
+    },
+    "leanReplayAuthority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "toolchain",
+        "toolchain_file_sha256",
+        "dependency_lock_sha256",
+        "dependency_packages_sha256",
+        "compiled_cache_sha256",
+        "compiled_cache_file_count",
+        "compiled_cache_bytes",
+        "lean_binary_sha256",
+        "lake_binary_sha256",
+        "toolchain_closure_sha256",
+        "toolchain_closure_file_count",
+        "toolchain_closure_bytes",
+        "network_policy",
+        "repo_access"
+      ],
+      "properties": {
+        "schema_version": {
+          "enum": [
+            "stage1-lean-authority/1.1",
+            "stage1-focus-lean-authority/1.0"
+          ]
+        },
+        "toolchain": {
+          "type": "string",
+          "minLength": 1
+        },
+        "toolchain_file_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "dependency_lock_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "dependency_packages_sha256": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/sha256"
+            }
+          ]
+        },
+        "compiled_cache_sha256": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/sha256"
+            }
+          ]
+        },
+        "compiled_cache_file_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "compiled_cache_bytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "lean_binary_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "lake_binary_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "toolchain_closure_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "toolchain_closure_file_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "toolchain_closure_bytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "toolchain_mount": {
+          "type": "string"
+        },
+        "lake_cache_mount": {
+          "type": "string"
+        },
+        "network_policy": {
+          "const": "denied"
+        },
+        "repo_access": {
+          "const": "read_only"
+        }
+      }
+    },
+    "authorityVerification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "theorem_id",
+        "verification_kind",
+        "verifier",
+        "repository",
+        "resolved_revision",
+        "archive_sha256",
+        "resolved_tree",
+        "file_path",
+        "file_sha256",
+        "terminal_proof_body_sha256",
+        "kernel_command",
+        "kernel_exit_code",
+        "kernel_stdout_sha256",
+        "kernel_authority_result",
+        "local_target_authority_result",
+        "kernel_stderr_sha256",
+        "repository_access",
+        "network_during_replay",
+        "human_source_review",
+        "verification_sha256"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "stage1-focus-admission-verification/1.0"
+        },
+        "theorem_id": {
+          "type": "string",
+          "pattern": "^THM-M-[0-9]{4}$"
+        },
+        "verification_kind": {
+          "const": "external_lean_kernel_replay"
+        },
+        "verifier": {
+          "$ref": "#/$defs/authorityActor"
+        },
+        "repository": {
+          "type": "string",
+          "minLength": 1
+        },
+        "resolved_revision": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40,64}$"
+        },
+        "archive_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "resolved_tree": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40,64}$"
+        },
+        "file_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "file_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "terminal_proof_body_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "kernel_command": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "kernel_exit_code": {
+          "const": 0
+        },
+        "kernel_stdout_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "kernel_authority_result": {
+          "$ref": "#/$defs/externalAuthorityResult"
+        },
+        "local_target_authority_result": {
+          "$ref": "#/$defs/localTargetAuthorityResult"
+        },
+        "kernel_stderr_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "repository_access": {
+          "const": "temporary_read_only_replay"
+        },
+        "network_during_replay": {
+          "const": false
+        },
+        "human_source_review": {},
+        "verification_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "admissionAuthority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scheduler_verification",
+        "reviewer_verification",
+        "observed_facts_sha256"
+      ],
+      "properties": {
+        "scheduler_verification": {
+          "$ref": "#/$defs/authorityVerification"
+        },
+        "reviewer_verification": {
+          "$ref": "#/$defs/authorityVerification"
+        },
+        "observed_facts_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "issuanceAuthority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "authority_revision",
+        "candidate_sha256",
+        "proposal_sha256",
+        "receipt_facts_sha256",
+        "scheduler_issuer",
+        "review_sha256",
+        "unsigned_review_sha256",
+        "reviewer",
+        "candidate_verification_sha256",
+        "review_verification_sha256",
+        "issuance"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "stage1-focus-admission-authority/2.0"
+        },
+        "authority_revision": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40,64}$"
+        },
+        "candidate_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "proposal_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "receipt_facts_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "scheduler_issuer": {
+          "$ref": "#/$defs/actor"
+        },
+        "review_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "unsigned_review_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "reviewer": {
+          "$ref": "#/$defs/actor"
+        },
+        "candidate_verification_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "review_verification_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "issuance": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/issuanceRecord"
+            }
+          ]
+        }
+      }
+    },
+    "issuanceRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "theorem_id",
+        "authority_revision",
+        "candidate_sha256",
+        "review_sha256",
+        "proposal_sha256",
+        "receipt_facts_sha256",
+        "unsigned_review_sha256",
+        "scheduler_issuer",
+        "reviewer",
+        "candidate_verification_sha256",
+        "review_verification_sha256",
+        "receipt_path",
+        "published_at",
+        "state",
+        "receipt_payload_sha256",
+        "scheduler_key_id",
+        "reviewer_key_id",
+        "scheduler_signature",
+        "reviewer_signature",
+        "issuance_sha256"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "stage1-focus-admission-issuance/2.0"
+        },
+        "theorem_id": {
+          "type": "string",
+          "pattern": "^THM-M-[0-9]{4}$"
+        },
+        "authority_revision": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40,64}$"
+        },
+        "candidate_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "review_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "unsigned_review_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "proposal_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "receipt_facts_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "scheduler_issuer": {
+          "$ref": "#/$defs/actor"
+        },
+        "reviewer": {
+          "$ref": "#/$defs/actor"
+        },
+        "candidate_verification_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "review_verification_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "receipt_path": {
+          "type": "string",
+          "pattern": "^Stage1_Instances/THM-M-[0-9]{4}/focus-eligibility\\.json$"
+        },
+        "published_at": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "state": {
+          "const": "published"
+        },
+        "receipt_payload_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "scheduler_key_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+        },
+        "reviewer_key_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+        },
+        "scheduler_signature": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{128}$"
+        },
+        "reviewer_signature": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{128}$"
+        },
+        "issuance_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "admissionReview": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "author",
+        "reviewer",
+        "reviewed_at",
+        "decision"
+      ],
+      "properties": {
+        "author": {
+          "$ref": "#/$defs/actor"
+        },
+        "reviewer": {
+          "$ref": "#/$defs/actor"
+        },
+        "reviewed_at": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "decision": {
+          "enum": [
+            "admit_integration",
+            "admit_frontier_exception",
+            "research_only",
+            "defer",
+            "exclude"
+          ]
+        }
+      }
+    },
+    "frontierException": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scheduler_owner",
+        "root_obligation",
+        "assigned_worker",
+        "estimator",
+        "estimated_at",
+        "estimation_method",
+        "completion_probability",
+        "evidence",
+        "budget",
+        "milestones",
+        "validator",
+        "stop_conditions",
+        "attempt_limit",
+        "lease_expires_at",
+        "revocation_route",
+        "independent_review"
+      ],
+      "properties": {
+        "scheduler_owner": {
+          "const": "scheduler_master_lane"
+        },
+        "root_obligation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "statement_fingerprint"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "statement_fingerprint": {
+              "$ref": "#/$defs/sha256"
+            }
+          }
+        },
+        "assigned_worker": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/actor"
+            },
+            {
+              "properties": {
+                "role": {
+                  "const": "proof_worker"
+                }
+              }
+            }
+          ]
+        },
+        "estimator": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/actor"
+            },
+            {
+              "properties": {
+                "role": {
+                  "const": "scheduler_estimator"
+                }
+              }
+            }
+          ]
+        },
+        "estimated_at": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "estimation_method": {
+          "type": "string",
+          "minLength": 1
+        },
+        "completion_probability": {
+          "type": "number",
+          "minimum": 0.7,
+          "maximum": 1.0
+        },
+        "evidence": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/evidenceBinding"
+          }
+        },
+        "budget": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "scope",
+            "wall_clock_seconds",
+            "token_limit",
+            "compute_seconds",
+            "disk_bytes",
+            "concurrency_limit"
+          ],
+          "properties": {
+            "scope": {
+              "type": "string",
+              "minLength": 1
+            },
+            "wall_clock_seconds": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 2592000
+            },
+            "token_limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50000000
+            },
+            "compute_seconds": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 2592000
+            },
+            "disk_bytes": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1099511627776
+            },
+            "concurrency_limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          }
+        },
+        "milestones": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "deadline_at",
+              "evidence_role"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9_]{0,63}$"
+              },
+              "deadline_at": {
+                "$ref": "#/$defs/timestamp"
+              },
+              "evidence_role": {
+                "enum": [
+                  "statement_closure",
+                  "root_proof_closure",
+                  "kernel_replay",
+                  "trust_audit"
+                ]
+              }
+            }
+          }
+        },
+        "validator": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "path",
+            "sha256",
+            "command"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "pattern": "^Stage1_Instances/THM-M-[0-9]{4}/.+$"
+            },
+            "sha256": {
+              "$ref": "#/$defs/sha256"
+            },
+            "command": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "prefixItems": [
+                {
+                  "const": "python3"
+                },
+                {
+                  "type": "string",
+                  "pattern": "^Stage1_Instances/THM-M-[0-9]{4}/.+$"
+                }
+              ],
+              "items": false
+            }
+          }
+        },
+        "stop_conditions": {
+          "type": "array",
+          "minItems": 8,
+          "maxItems": 8,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "lease_expired",
+              "any_resource_budget_exhausted",
+              "attempt_limit_reached",
+              "statement_or_source_mismatch",
+              "validator_failure",
+              "milestone_deadline_missed",
+              "probability_below_threshold",
+              "scheduler_revoked"
+            ]
+          }
+        },
+        "attempt_limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "lease_expires_at": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "revocation_route": {
+          "const": "scheduler_master_lane"
+        },
+        "independent_review": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "reviewer",
+            "reviewed_at",
+            "decision"
+          ],
+          "properties": {
+            "reviewer": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/actor"
+                },
+                {
+                  "properties": {
+                    "role": {
+                      "const": "independent_reviewer"
+                    }
+                  }
+                }
+              ]
+            },
+            "reviewed_at": {
+              "$ref": "#/$defs/timestamp"
+            },
+            "decision": {
+              "const": "approved"
+            }
+          }
+        }
+      }
+    },
+    "publicationTimestampAuthority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "role"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role": {
+          "const": "publication_timestamp_authority"
+        }
+      }
+    },
+    "publicationTimestampToken": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "token_id",
+        "issued_at",
+        "subject",
+        "subject_sha256",
+        "authority",
+        "key_id",
+        "signature_algorithm",
+        "signature"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "stage1-independent-publication-timestamp/1.0"
+        },
+        "token_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:@-]{0,199}$"
+        },
+        "issued_at": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "subject": {
+          "type": "object"
+        },
+        "subject_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "authority": {
+          "$ref": "#/$defs/publicationTimestampAuthority"
+        },
+        "key_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "signature_algorithm": {
+          "const": "Ed25519"
+        },
+        "signature": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{128}$"
+        }
+      }
+    }
+  }
+}

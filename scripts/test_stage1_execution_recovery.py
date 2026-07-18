@@ -44,17 +44,15 @@ def configure_child_scheduler(root: Path) -> None:
     cron.ROOT = root
     cron.DOCS = docs
     cron.BLUEPRINT = docs / "Stage1_Blueprint_v2.md"
-    cron.TARGETS = docs / "Stage1_Targets_rev-5.6.json"
-    cron.DAG = docs / "Stage1_Execution_DAG_rev-5.6.json"
+    cron.TARGETS = docs / "Stage1_Target_Membership_v2.json"
+    cron.DAG = docs / "Stage1_Phase_DAG_v2.json"
     cron.THEOREM_DAG_V2 = docs / "Stage1_Theorem_DAG_v2.json"
     cron.PHASE_ACCEPTANCE_CONTRACTS = docs / "Stage1_Phase_Acceptance_Contracts.json"
-    cron.LEGACY_RUNTIME = root / ".cron" / "stage1-rev56"
     cron.RUNTIME = runtime
     # Recovery and checkpoint children must never observe or alter the real
     # operator pause marker. Their control paths are absent fixture paths.
     control = root / ".test-control"
     cron.PAUSE_FILE = control / "PAUSED"
-    cron.LEGACY_PAUSE_FILE = control / "LEGACY_PAUSED"
     cron.theorem_dag_v2.cache_clear()
 
 
@@ -222,16 +220,12 @@ class RealRuntimeIsolationMixin:
     def setUpClass(cls) -> None:
         super().setUpClass()
         cls.real_runtime_claims = REAL_ROOT / ".cron" / "stage1-v2-app-server" / "claims.json"
-        cls.real_legacy_claims = REAL_ROOT / ".cron" / "stage1-rev56" / "claims.json"
         cls.real_current_pause = REAL_ROOT / ".cron" / "stage1-v2-app-server" / "PAUSED"
-        cls.real_pause = REAL_ROOT / ".cron" / "stage1-rev56" / "PAUSED"
         cls.real_runtime_hashes = {
             path: sha256(path) if path.is_file() else None
             for path in (
                 cls.real_runtime_claims,
-                cls.real_legacy_claims,
                 cls.real_current_pause,
-                cls.real_pause,
             )
         }
 
@@ -357,7 +351,7 @@ class IntegrationWalRecoveryTests(unittest.TestCase):
         self.write_wal(
             [
                 {
-                    "path": "Docs/Stage1_Execution_DAG_rev-5.6.json",
+                    "path": "Docs/Stage1_Phase_DAG_v2.json",
                     "kind": "file",
                     "mode": 0o644,
                     "payload_hex": "not-hex",
@@ -377,7 +371,7 @@ class IntegrationWalRecoveryTests(unittest.TestCase):
 
     def test_recovery_interruption_can_be_retried_to_the_same_fixed_point(self) -> None:
         first = self.blueprint
-        second = self.docs / "Stage1_Execution_DAG_rev-5.6.json"
+        second = self.docs / "Stage1_Phase_DAG_v2.json"
         second.write_text("old dag\n", encoding="utf-8")
         old_first = first.read_bytes()
         old_second = second.read_bytes()
@@ -386,7 +380,7 @@ class IntegrationWalRecoveryTests(unittest.TestCase):
         self.write_wal(
             [
                 self.file_row("Docs/Stage1_Blueprint_v2.md", old_first),
-                self.file_row("Docs/Stage1_Execution_DAG_rev-5.6.json", old_second),
+                self.file_row("Docs/Stage1_Phase_DAG_v2.json", old_second),
             ]
         )
         real_write = cron.durable_write_bytes
@@ -497,7 +491,7 @@ class SubprocessPublicationRecoveryTests(SubprocessCrashTestCase):
         runtime.mkdir(parents=True)
         originals = {
             "Docs/Stage1_Blueprint_v2.md": b"authoritative blueprint before integration\n",
-            "Docs/Stage1_Execution_DAG_rev-5.6.json": b'{"state":"execution-before"}\n',
+            "Docs/Stage1_Phase_DAG_v2.json": b'{"state":"execution-before"}\n',
             "Docs/Stage1_Theorem_DAG_v2.json": b'{"state":"theorem-before"}\n',
             ".cron/stage1-v2-app-server/claims.json": b'{"claims":[{"status":"before"}]}\n',
             ".cron/stage1-v2-app-server/integration_queue.json": b'{"queued":["before"]}\n',
@@ -516,7 +510,7 @@ class SubprocessPublicationRecoveryTests(SubprocessCrashTestCase):
                 "add",
                 ".stage1-recovery-fixture",
                 "Docs/Stage1_Blueprint_v2.md",
-                "Docs/Stage1_Execution_DAG_rev-5.6.json",
+                "Docs/Stage1_Phase_DAG_v2.json",
                 "Docs/Stage1_Theorem_DAG_v2.json",
                 "Docs/todos_20260716.md",
                 ".cron/stage1-v2-app-server/claims.json",

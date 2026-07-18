@@ -50,6 +50,11 @@ def sha256_text(value: str) -> str:
 
 
 def review_binding(prompt: str, objective: str) -> dict[str, object]:
+    focus_execution = {
+        "focus_contract_sha256": "f" * 64,
+        "execution_disposition": "research_required",
+        "receipt_sha256": None,
+    }
     return {
         "schema_version": client.REVIEW_BINDING_SCHEMA,
         "claim_id": "20260716T120000Z-review-0123456789ab",
@@ -58,11 +63,14 @@ def review_binding(prompt: str, objective: str) -> dict[str, object]:
         "phase": "intake",
         "base_revision": "a" * 40,
         "blueprint_sha256": "b" * 64,
+        "blueprint_git_blob": "1" * 40,
         "theorem_dag_sha256": "c" * 64,
         "prompt_sha256": sha256_text(prompt),
         "objective_sha256": sha256_text(objective),
         "artifact_digests": {"Stage1_Instances/THM-M-0001/intake-receipt.json": "d" * 64},
         "validator_recipe_sha256s": ["e" * 64],
+        "focus_execution": focus_execution,
+        "focus_contract_sha256": sha256_text(client.canonical_json(focus_execution)),
         "output_schema": client.REVIEW_OUTPUT_SCHEMA,
     }
 
@@ -85,6 +93,7 @@ def review_output(binding: dict[str, object]) -> dict[str, object]:
         "artifact_findings": [],
         "reviewed_artifact_sha256s": binding["artifact_digests"],
         "validator_recipe_sha256s": binding["validator_recipe_sha256s"],
+        "focus_review": binding["focus_execution"],
     }
 
 
@@ -98,6 +107,7 @@ class ContractTests(unittest.TestCase):
             "--status", "/repo/status",
             "--log", "/repo/log",
             "--lane", "implementation",
+            "--worker-principal", "stage1-test@host",
         ]
         with mock.patch.object(sys, "argv", argv):
             args = client.parse_args()
@@ -107,6 +117,8 @@ class ContractTests(unittest.TestCase):
         valid = argparse.Namespace(
             model="gpt-5.6-sol", effort="ultra", service_tier="default",
             lane="implementation", binding=None,
+            worker_principal="stage1-test@host",
+            scratch=None,
         )
         client.require_exact_runtime_args(valid)
         for field, value in (
@@ -126,6 +138,8 @@ class ContractTests(unittest.TestCase):
             service_tier="default",
             lane="review",
             binding=Path("binding.json"),
+            worker_principal="stage1-test@host",
+            scratch=None,
         )
         client.require_exact_runtime_args(valid)
         valid.lane = "other"
@@ -134,6 +148,55 @@ class ContractTests(unittest.TestCase):
         valid.lane = "implementation"
         with self.assertRaisesRegex(client.ProtocolError, "must not receive"):
             client.require_exact_runtime_args(valid)
+
+    def test_worker_principal_is_required_and_canonical(self) -> None:
+        valid = argparse.Namespace(
+            model="gpt-5.6-sol",
+            effort="ultra",
+            service_tier="default",
+            lane="implementation",
+            binding=None,
+            worker_principal="stage1-worker@host:1",
+            scratch=None,
+        )
+        client.require_exact_runtime_args(valid)
+        for principal in (None, "", "has space", "/absolute", "x" * 201):
+            with self.subTest(principal=principal):
+                invalid = argparse.Namespace(**vars(valid))
+                invalid.worker_principal = principal
+                with self.assertRaisesRegex(client.ProtocolError, "worker principal"):
+                    client.require_exact_runtime_args(invalid)
+
+    def test_frontier_turn_denies_generic_tmp_and_binds_claim_scratch(self) -> None:
+        workspace = Path("/repo/worker")
+        scratch = Path("/repo/runtime/frontier-scratch/claim")
+        params = client.turn_params(
+            "thread-1",
+            "prompt",
+            workspace,
+            "gpt-5.6-sol",
+            "ultra",
+            "default",
+            client.IMPLEMENTATION_LANE,
+            scratch,
+        )
+        self.assertEqual(
+            params["sandboxPolicy"]["writableRoots"],
+            [str(workspace), str(scratch)],
+        )
+        self.assertTrue(params["sandboxPolicy"]["excludeSlashTmp"])
+        ordinary = client.turn_params(
+            "thread-1",
+            "prompt",
+            workspace,
+            "gpt-5.6-sol",
+            "ultra",
+            "default",
+        )
+        self.assertEqual(
+            ordinary["sandboxPolicy"],
+            {**client.IMPLEMENTATION_SANDBOX_CONTRACT, "writableRoots": [str(workspace)]},
+        )
 
     def test_review_binding_requires_exact_fields_and_input_hashes(self) -> None:
         prompt = "Review exactly one item.\n"
@@ -153,6 +216,44 @@ class ContractTests(unittest.TestCase):
                 client.require_review_binding(
                     path, sha256_text(prompt), sha256_text(objective)
                 )
+
+    def test_review_binding_rejects_focus_contract_tampering(self) -> None:
+        prompt = "prompt"
+        objective = "objective"
+        for name, mutate in (
+            (
+                "outer_digest",
+                lambda value: value.update(focus_contract_sha256="0" * 64),
+            ),
+            (
+                "extra_focus_field",
+                lambda value: value["focus_execution"].update(extra=True),
+            ),
+            (
+                "bad_receipt_digest",
+                lambda value: value["focus_execution"].update(receipt_sha256="bad"),
+            ),
+        ):
+            with self.subTest(name=name), tempfile.TemporaryDirectory() as raw:
+                value = review_binding(prompt, objective)
+                mutate(value)
+                path = Path(raw) / "binding.json"
+                path.write_text(json.dumps(value), encoding="utf-8")
+                with self.assertRaisesRegex(client.ProtocolError, "focus"):
+                    client.require_review_binding(
+                        path, sha256_text(prompt), sha256_text(objective)
+                    )
+
+    def test_review_output_must_echo_exact_focus_contract(self) -> None:
+        binding = review_binding("prompt", "objective")
+        value = review_output(binding)
+        self.assertEqual(client.require_review_output(value, binding), value)
+        value["focus_review"] = {
+            **value["focus_review"],
+            "focus_contract_sha256": "0" * 64,
+        }
+        with self.assertRaisesRegex(client.ProtocolError, "content bindings"):
+            client.require_review_output(value, binding)
 
     def test_review_output_rejects_wrong_identity_keys_and_digests(self) -> None:
         binding = review_binding("prompt", "objective")
@@ -192,6 +293,9 @@ class ContractTests(unittest.TestCase):
         with self.assertRaises(client.ProtocolError):
             client.require_review_output(value, binding)
         value.update(worker_verdict="accepted_audit_only", audit_complete=True)
+        with self.assertRaises(client.ProtocolError):
+            client.require_review_output(value, binding)
+        value.update(worker_verdict="accepted", theorem_complete=True)
         self.assertEqual(client.require_review_output(value, binding), value)
 
     def test_review_binding_requires_canonical_base_revision(self) -> None:
@@ -760,6 +864,7 @@ class FlowTests(unittest.TestCase):
                 service_tier="default",
                 lane=lane,
                 binding=binding_path if lane == client.REVIEW_LANE else None,
+                worker_principal="stage1-test@host",
                 thread_id=thread_id,
                 timeout=5.0,
             )
@@ -828,6 +933,10 @@ class FlowTests(unittest.TestCase):
         )
         self.assertEqual(goal_set["params"]["status"], "active")
         self.assertEqual(state["state"], "finished")
+        self.assertEqual(state["worker_principal"], "stage1-test@host")
+        self.assertEqual(
+            state["runtime_contract"]["worker_principal"], "stage1-test@host"
+        )
         self.assertEqual(state["goal"]["status"], "complete")
         self.assertEqual(state["turn_start_response_id"], "response-1")
         self.assertEqual(state["turn_id"], "turn-1")
@@ -1051,6 +1160,7 @@ class FlowTests(unittest.TestCase):
                 service_tier="default",
                 lane="review",
                 binding=None,
+                worker_principal="stage1-test@host",
                 thread_id=None,
                 timeout=5.0,
             )
@@ -1445,6 +1555,7 @@ class DurableWriteTests(unittest.TestCase):
                 service_tier="default",
                 lane="implementation",
                 binding=None,
+                worker_principal="stage1-test@host",
                 thread_id=None,
                 timeout=5.0,
             )
@@ -1477,6 +1588,7 @@ class DurableWriteTests(unittest.TestCase):
                 service_tier="default",
                 lane="implementation",
                 binding=None,
+                worker_principal="stage1-test@host",
                 thread_id=None,
                 timeout=5.0,
             )

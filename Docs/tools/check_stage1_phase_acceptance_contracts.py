@@ -12,7 +12,29 @@ from typing import Any, NoReturn
 
 ROOT = Path(__file__).resolve().parents[2]
 CONTRACT = ROOT / "Docs" / "Stage1_Phase_Acceptance_Contracts.json"
-CONTRACT_SHA256 = "511d7d64fa075d654d716af2de194bc65d7b937dfba93016017943c916f89d96"
+CONTRACT_SHA256 = "cedfe04512bd96d8229232709840511ba67a33836f218b0120fb07ca3235dc2f"
+V2_BLUEPRINT_PATH = "Docs/Stage1_Blueprint_v2.md"
+REQUIRED_SOURCE_REFERENCE_IDS = {
+    "v2-authority",
+    "v2-parent-reuse",
+    "v2-dual-cursor",
+    "v2-frontiers",
+    "v2-master-acceptance",
+    "v2-structural-only",
+    "v2-projections",
+    "v2-cleanup",
+    "v2-assurance-authority",
+    "v2-lifecycle-verdicts",
+    "v2-evidence-trust-freshness",
+    "v2-intake-statement",
+    "v2-obligation-composition",
+    "v2-discovery-provenance",
+    "v2-source-readability",
+    "v2-worker-validation",
+    "v2-hermetic-independent-release",
+    "v2-assurance-recompute",
+    "v2-seven-phase-predicates",
+}
 
 PHASES = (
     "intake",
@@ -28,7 +50,14 @@ PHASE_METADATA = {
     "statement": (1, "STATEMENT", "audit"),
     "anchor_audit": (2, "ANCHOR_AUDIT", "audit"),
     "obligation_tree": (3, "OBLIGATION_TREE", "audit"),
-    "proof": (4, "PROOF", "prove"),
+    "proof": (
+        4,
+        "PROOF",
+        {
+            "organize_or_integrate": "integrate",
+            "frontier_exception": "frontier_prove",
+        },
+    ),
     "validation": (5, "VALIDATION", "validate"),
     "release": (6, "RELEASE", "release"),
 }
@@ -167,6 +196,10 @@ def source_reference_map(data: dict[str, Any], root: Path) -> dict[str, dict[str
         require(reference_id not in result, f"duplicate source reference: {reference_id}")
         relative = row["path"]
         require(isinstance(relative, str) and relative, f"{reference_id} path is empty")
+        require(
+            relative == V2_BLUEPRINT_PATH,
+            f"{reference_id} source path is not the v2 blueprint SSOT",
+        )
         pure = PurePosixPath(relative)
         require(not pure.is_absolute() and ".." not in pure.parts, f"{reference_id} path is unsafe")
         path = root / pure
@@ -186,6 +219,10 @@ def source_reference_map(data: dict[str, Any], root: Path) -> dict[str, dict[str
         for phrase in string_list(row["required_phrases"], f"{reference_id} required_phrases"):
             require(phrase in excerpt, f"{reference_id} no longer contains required phrase: {phrase}")
         result[reference_id] = row
+    require(
+        set(result) == REQUIRED_SOURCE_REFERENCE_IDS,
+        "v2 source-reference coverage is incomplete",
+    )
     return result
 
 
@@ -267,7 +304,7 @@ def validate_verdict_protocol(value: Any) -> None:
         "accepted_audit_only_policy",
     )
     require(audit_only["allowed_phases"] == ["release"], "accepted_audit_only escaped release")
-    require(audit_only["phase_can_close"] is True, "accepted_audit_only must be able to close release")
+    require(audit_only["phase_can_close"] is False, "accepted_audit_only must not close release")
     require(audit_only["audit_complete"] is True, "accepted_audit_only must mean AUDIT-Z")
     require(audit_only["theorem_complete"] is False, "accepted_audit_only manufactured theorem completion")
     require(row["terminal_flags"] == ["audit_complete", "theorem_complete"], "terminal flags changed")
@@ -504,7 +541,10 @@ def validate_artifact_roles(value: Any, phase: str) -> None:
 
 
 def validate_validator_authorities(value: Any, phase: str, selection: dict[str, Any]) -> None:
-    require(isinstance(value, list), f"{phase} validator authorities must be a list")
+    require(
+        isinstance(value, list) and len(value) == 1,
+        f"{phase} must register exactly one current validator authority",
+    )
     seen: set[str] = set()
     for index, item in enumerate(value):
         row = exact_keys(
@@ -545,6 +585,10 @@ def validate_validator_authorities(value: Any, phase: str, selection: dict[str, 
         require(
             row["positive_acceptance_capable"] is True,
             f"{phase} current validator is not positive-capable",
+        )
+        require(
+            path == "scripts/stage1_phase_validators/current.py",
+            f"{phase} validator is not the central Stage1 v2 authority",
         )
 
 
@@ -648,10 +692,10 @@ def validate_phase(
     eligible = string_list(row["worker_verdicts_eligible_for_review"], f"{expected_phase} eligible verdicts")
     require(set(eligible) <= set(WORKER_VERDICTS), f"{expected_phase} uses unknown worker verdict")
     require("blocked" not in eligible and "rejected" not in eligible, f"{expected_phase} reviews a raw failure as closable")
-    if expected_phase == "release":
-        require("accepted_audit_only" in eligible, "release must admit accepted_audit_only")
-    else:
-        require("accepted_audit_only" not in eligible, f"accepted_audit_only escaped release into {expected_phase}")
+    require(
+        "accepted_audit_only" not in eligible,
+        f"accepted_audit_only cannot close {expected_phase}",
+    )
     require(row["raw_blocked_can_close_phase"] is False, f"raw blocked closes {expected_phase}")
     require(
         isinstance(row["classified_negative_findings_may_satisfy_deliverable"], bool),
@@ -690,12 +734,12 @@ def validate_phase(
     if expected_phase == "release":
         require(audit["phase_acceptance_implies_audit_complete"] is True, "accepted release must complete AUDIT-Z")
         require(audit["allowed_audit_complete_values"] == [True], "release may not close with an incomplete audit")
-        require(theorem["phase_acceptance_implies_theorem_complete"] is False, "release [x] is not necessarily THEOREM-Z")
-        require(theorem["allowed_theorem_complete_values"] == [False, True], "release must preserve both terminal outcomes")
+        require(theorem["phase_acceptance_implies_theorem_complete"] is True, "release [x] must establish THEOREM-Z")
+        require(theorem["allowed_theorem_complete_values"] == [True], "release may close only with theorem_complete=true")
     else:
         require(audit["phase_acceptance_implies_audit_complete"] is False, f"{expected_phase} manufactured AUDIT-Z")
         require(theorem["phase_acceptance_implies_theorem_complete"] is False, f"{expected_phase} manufactured THEOREM-Z")
-    if expected_phase in {"proof", "validation", "statement"}:
+    if expected_phase in {"proof", "validation", "statement", "release"}:
         require(
             row["classified_negative_findings_may_satisfy_deliverable"] is False,
             f"{expected_phase} accepts a negative result as its positive deliverable",
@@ -738,7 +782,7 @@ def validate_common_gates(value: Any, references: dict[str, Any]) -> None:
         "G04-INDEPENDENT-REVIEW",
         "G05-AUTHORITY-REPLAY",
         "G06-SEMANTIC-VERDICT",
-        "G07-REV56-RECOMPUTE",
+        "G07-V2-ASSURANCE-RECOMPUTE",
         "G08-V2-CONTEXT",
         "G09-FRESHNESS",
         "G10-RECONCILIATION",

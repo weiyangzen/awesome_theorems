@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check the Stage1 assurance standard, target manifest, and sole blueprint."""
+"""Check the sole Stage1 v2 authority and its non-authoritative projections."""
 
 from __future__ import annotations
 
@@ -12,9 +12,8 @@ import sys
 
 
 ROOT = Path(__file__).resolve().parents[2]
-STANDARD = ROOT / "Docs" / "Stage1_Assurance_Standard_rev-5.6.md"
-TARGET_MANIFEST = ROOT / "Docs" / "Stage1_Targets_rev-5.6.json"
-EXECUTION_SKILL = ROOT / "skills" / "execute-stage1-rev56" / "SKILL.md"
+TARGET_MANIFEST = ROOT / "Docs" / "Stage1_Target_Membership_v2.json"
+EXECUTION_SKILL = ROOT / "skills" / "execute-stage1-v2" / "SKILL.md"
 EXECUTION_TOOL = ROOT / "scripts" / "stage1_target.py"
 V2_BLUEPRINT = ROOT / "Docs" / "Stage1_Blueprint_v2.md"
 V2_THEOREM_DAG = ROOT / "Docs" / "Stage1_Theorem_DAG_v2.json"
@@ -24,29 +23,10 @@ PHASE_ACCEPTANCE_CONTRACT = ROOT / "Docs" / "Stage1_Phase_Acceptance_Contracts.j
 PHASE_ACCEPTANCE_VALIDATOR = (
     ROOT / "Docs" / "tools" / "check_stage1_phase_acceptance_contracts.py"
 )
-CHECKLIST_SHA256 = "8ffdc57f4002d3e70a7c53984b441ab22bec9a1ecf7141fe740e94608db9fe62"
+CHECKLIST_SHA256 = "5087d407f7b3d5813b60a9e757dab890abadf82cf2666038bb2c1b872e4b42c3"
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import generate_stage1_blueprint as stage1  # noqa: E402
-
-FEATURE_GROUPS = {
-    "lifecycle": ("lifecycle mode", "audit_complete=true", "theorem_complete=false"),
-    "statement": ("elaborated_expression_hash", "Lean 4 Statement Gate"),
-    "obligations": ("Canonical Obligation Registry", "obligation_registry_hash"),
-    "typed_graphs": ("Typed Graph Contract", "proof_requires", "workflow_depends_on"),
-    "composition": ("Parent Closure and Composition Certificate",),
-    "provenance": ("terminal_proof_body_id", "Formal Candidate and Provenance Audit"),
-    "foundation_tcb": ("Lean 4 Trust and Foundation Profile", "TCB profile"),
-    "computation": ("certificate_replayed_by_kernel", "experiment_only"),
-    "metrics": ("Coverage and Anti-Goodhart Metrics", "minimal open root cut sets"),
-    "readability_human": ("Human-Source `H0` Contract", "reader or domain-review receipt"),
-    "receipts": ("Evidence Receipt and Bundle Contract", "content-addressed"),
-    "reproduction": ("Hermetic Lean 4 Reproduction", "network denied"),
-    "independence_ci": ("Independent Verification and CI", "independently implemented verifier"),
-    "maintenance": ("Maintenance, Revocation, and Upgrade Rehearsal",),
-    "genericity": ("Required Generic Conformance Fixtures", "second materially different prover adapter"),
-}
-
 
 def require(condition: bool, message: str) -> None:
     if not condition:
@@ -54,7 +34,6 @@ def require(condition: bool, message: str) -> None:
 
 
 def main() -> None:
-    standard = STANDARD.read_text(encoding="utf-8")
     target_manifest = json.loads(TARGET_MANIFEST.read_text(encoding="utf-8"))
     execution_skill = EXECUTION_SKILL.read_text(encoding="utf-8")
 
@@ -87,23 +66,40 @@ def main() -> None:
     )
     v2_blueprint = V2_BLUEPRINT.read_text(encoding="utf-8")
     v2_requirements = (
-        "Stage1 v2 Theorem Dependency and Reuse Blueprint",
-        "all and only the 1546",
+        "Stage1 v2 Machine-Proof Integration Blueprint",
+        "sole current Stage1 blueprint and task-state SSOT",
+        "stage1-integration/2.1",
+        "stage1-focus-policy/1.0",
+        "Stage1_Instances/<THEOREM-ID>/focus-eligibility.json",
+        "stage1-focus-eligibility/1.0",
+        "machine_evidence_class",
+        "exact_pinned_closure",
+        "exact_external_unintegrated",
+        "no_exact_candidate_as_of",
+        "execution_disposition",
+        "organize_or_integrate",
+        "frontier_exception",
+        "defer_frontier",
+        "research_required",
+        "exclude_scope",
+        "at least `0.70` probability",
+        "scheduler-owned admission",
+        "phase_permissions",
+        "focus_eligibility_summary",
         "direct and transitive parent context",
         "dependency-reuse-ledger.json",
         "stage1-dependency-reuse-ledger/1.1",
         "dependency_context_sha256",
         "shared_lemma_groups",
         "v2_execution_rank",
-        "Docs/Stage1_Execution_DAG_rev-5.6.json",
-        "Requirements and phase-state SSOT",
+        "Docs/Stage1_Phase_DAG_v2.json",
         "STAGE1-EXECUTION-CHECKLIST:BEGIN",
         "[_]",
         "[x]",
     )
     require(
         all(needle in v2_blueprint for needle in v2_requirements),
-        "v2 orchestration blueprint is missing coverage, reuse, order, or compatibility requirements",
+        "v2 blueprint is missing focus, eligibility, integration, DAG, or SSOT requirements",
     )
     v2_states = re.findall(
         r"^- (\[[_x ]\]) `(S56-M-\d{4}-(?:INTAKE|STATEMENT|ANCHOR_AUDIT|OBLIGATION_TREE|PROOF|VALIDATION|RELEASE))`"
@@ -120,46 +116,27 @@ def main() -> None:
         "v2 SSOT must contain exactly one checklist marker pair",
     )
     checklist_body = v2_blueprint.split(checklist_begin, 1)[1].split(checklist_end, 1)[0]
+    checklist_suffix = v2_blueprint.split(checklist_end, 1)[1]
     require(
         hashlib.sha256(checklist_body.encode("utf-8")).hexdigest() == CHECKLIST_SHA256,
-        "v2 SSOT checklist body differs from the frozen 7521/3300/1 migration cursor",
+        "v2 SSOT checklist body differs from the integration-safe 7521/3300/1 cursor",
+    )
+    require(
+        checklist_suffix == "\n",
+        "v2 SSOT must end immediately after the checklist END marker",
     )
     state_counts = {state: sum(row_state == state for row_state, _ in v2_states) for state in ("[ ]", "[_]", "[x]")}
     require(
         state_counts == {"[ ]": 7521, "[_]": 3300, "[x]": 1},
         f"v2 SSOT checklist counts changed: {state_counts}",
     )
-    require(
-        "STAGE1-EXECUTION-CHECKLIST:BEGIN" not in standard
-        and not re.search(r"^[-] \[[_x ]\] `S56-M-\d{4}-(?:INTAKE|STATEMENT|ANCHOR_AUDIT|OBLIGATION_TREE|PROOF|VALIDATION|RELEASE)`", standard, re.MULTILINE),
-        "rev-5.6 assurance blueprint must not retain a second live phase-state checklist",
-    )
-
-    missing = {
-        group: [needle for needle in needles if needle not in standard]
-        for group, needles in FEATURE_GROUPS.items()
-    }
-    missing = {group: needles for group, needles in missing.items() if needles}
-    require(not missing, f"missing assurance requirements: {missing}")
-
-    legacy = re.findall(
-        r"^- Historically (checked|open): `(S56-M0387-[A-Z0-9]+)`",
-        standard,
-        re.MULTILINE | re.IGNORECASE,
-    )
-    require(len(legacy) == 41, f"expected 41 retained historical rows, found {len(legacy)}")
-    require(len({item_id for _, item_id in legacy}) == 41, "duplicate historical record ids")
-    require(
-        not re.search(r"^- \[[ _xX]\] `S56-M0387-", standard, re.MULTILINE),
-        "assurance standard must not contain a competing checkbox cursor",
-    )
-
     skill_requirements = (
-        "execute-stage1-rev56",
-        "Docs/Stage1_Targets_rev-5.6.json",
+        "execute-stage1-v2",
+        "Docs/Stage1_Target_Membership_v2.json",
         "intake",
         "audit",
-        "prove",
+        "integrate",
+        "frontier_prove",
         "validate",
         "release",
         "accepted_audit_only",
@@ -173,29 +150,37 @@ def main() -> None:
         "dependency_context_sha256",
         "transitive ancestors",
         "v2_execution_rank",
+        "focus-eligibility.json",
+        "organize_or_integrate",
+        "frontier_exception",
+        "research_required",
+        "0.70",
     )
     require(
         all(needle in execution_skill for needle in skill_requirements),
         "execution skill is missing required intents, verdicts, or handoff fields",
     )
+    require(
+        "For `prove`" not in execution_skill
+        and "`intake`, `audit`, `prove`" not in execution_skill,
+        "execution skill retains an ambiguous ordinary prove intent",
+    )
     require(EXECUTION_TOOL.is_file(), "deterministic Stage1 target inspection tool is missing")
     all_items, _ = stage1.load_stage0_items()
-    expected_items = [item for item in all_items if stage1.is_stage1_eligible(item)]
+    expected_items = [
+        item for item in all_items if stage1.is_stage1_membership_candidate(item)
+    ]
     expected_ids = {item.uid for item in expected_items}
     require(
         {target.get("theorem_id") for target in target_manifest.get("targets", [])}
         == expected_ids,
-        "target manifest IDs disagree with the Stage1 eligibility predicate",
+        "target manifest IDs disagree with the frozen membership predicate",
     )
     target_set_payload = "\n".join(sorted(expected_ids)) + "\n"
     expected_hash = hashlib.sha256(target_set_payload.encode("utf-8")).hexdigest()
     require(
-        target_manifest.get("schema_version") == "stage1-target-set/5.6.2",
+        target_manifest.get("schema_version") == "stage1-target-membership/2.0",
         "target manifest schema version is missing or stale",
-    )
-    require(
-        target_manifest.get("standard") == "Docs/Stage1_Assurance_Standard_rev-5.6.md",
-        "target manifest assurance-standard reference is stale",
     )
     require(
         target_manifest.get("task_state_authority") == "Docs/Stage1_Blueprint_v2.md",
@@ -219,6 +204,40 @@ def main() -> None:
     require(
         all(target.get("theorem_complete") is False for target in manifest_targets),
         "generated target manifest must not manufacture theorem completion",
+    )
+    require(
+        stage1.MEMBERSHIP_PREDICATE_SEMANTICS
+        == "frozen_membership_discovery_only"
+        and stage1.TARGET_LANE_SEMANTICS == "legacy_discovery_metadata_only",
+        "target generator must classify membership and target_lane as discovery-only",
+    )
+    generator_source = (ROOT / "Docs" / "tools" / "generate_stage1_blueprint.py").read_text(
+        encoding="utf-8"
+    )
+    require(
+        "proof_expansion_eligible" not in generator_source
+        and "machine authority consumed by the Stage1 execution skill" not in generator_source,
+        "target generator still describes membership metadata as proof or execution authority",
+    )
+    require(
+        all(
+            stage1.legacy_discovery_lane(item)
+            == stage1.stage1_lane(item)
+            for item in expected_items
+        ),
+        "legacy target_lane compatibility alias changed manifest bytes",
+    )
+    expected_by_id = {item.uid: item for item in expected_items}
+    require(
+        all(
+            target.get("theorem_id") in expected_by_id
+            and target.get("target_lane")
+            == stage1.legacy_discovery_lane(
+                expected_by_id[str(target.get("theorem_id"))]
+            )
+            for target in manifest_targets
+        ),
+        "target manifest legacy lane bytes are not reproducible discovery metadata",
     )
     require(
         all(
@@ -284,8 +303,7 @@ def main() -> None:
 
     print(
         "check_stage1_standard: ok "
-        f"({len(FEATURE_GROUPS)} assurance groups, 41 historical non-checkbox rows, "
-        "300 legacy slots in the manifest, 1546 uniform-L0 Lean 4 targets, sole v2 blueprint, "
+        "(300 legacy slots in the manifest, 1546 uniform-L0 Lean 4 targets, sole v2 blueprint, "
         "seven-phase acceptance contract, execution skill present)"
     )
 

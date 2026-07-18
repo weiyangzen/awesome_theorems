@@ -2,28 +2,29 @@
 """Run the Stage1 v2 Lean 4 execution queue safely.
 
 ``Docs/Stage1_Blueprint_v2.md`` is the single writable requirements and task-
-state authority.  Its generated checklist is projected into the typed
-``Docs/Stage1_Execution_DAG_rev-5.6.json`` and the daily todo snapshot; neither
+state authority. Its generated checklist is projected into the typed
+``Docs/Stage1_Phase_DAG_v2.json`` and the daily todo snapshot; neither
 projection may feed state back into the blueprint.
 
 This program owns its app-server state below `.cron/stage1-v2-app-server/`,
-which is gitignored.  The historical `.cron/stage1-rev56/` runtime is retained
-as read-only audit evidence.  A worker never writes an accepted state: it
-produces a self-test manifest and its isolated clone is queued for the
-integration owner.
+which is gitignored. A worker never writes an accepted state: it produces a
+self-test manifest and its isolated clone is queued for the integration owner.
 """
 
 from __future__ import annotations
 
 import argparse
 import base64
+import binascii
 import datetime as dt
 import errno
 import fcntl
 import functools
 import hashlib
 import json
+import math
 import os
+import pwd
 from pathlib import Path
 import re
 import shlex
@@ -33,8 +34,9 @@ import subprocess
 import sys
 import tempfile
 import time
+import uuid
 from collections import Counter, deque
-from typing import Any, NoReturn
+from typing import Any, Callable, NoReturn
 
 try:
     import stage1_acceptance_evidence as acceptance_evidence
@@ -51,18 +53,48 @@ except ModuleNotFoundError:  # Support importlib-based focused tests from repo r
     sys.modules[_EVIDENCE_SPEC.name] = acceptance_evidence
     _EVIDENCE_SPEC.loader.exec_module(acceptance_evidence)
 
+try:
+    import stage1_focus_eligibility as focus_eligibility
+except ModuleNotFoundError:  # Support importlib-based focused tests from repo root.
+    import importlib.util
+
+    _FOCUS_PATH = Path(__file__).with_name("stage1_focus_eligibility.py")
+    _FOCUS_SPEC = importlib.util.spec_from_file_location(
+        "stage1_focus_eligibility", _FOCUS_PATH
+    )
+    if _FOCUS_SPEC is None or _FOCUS_SPEC.loader is None:
+        raise
+    focus_eligibility = importlib.util.module_from_spec(_FOCUS_SPEC)
+    sys.modules[_FOCUS_SPEC.name] = focus_eligibility
+    _FOCUS_SPEC.loader.exec_module(focus_eligibility)
+
+try:
+    import stage1_focus_admission as focus_admission
+except ModuleNotFoundError:  # Support importlib-based focused tests from repo root.
+    import importlib.util
+
+    _ADMISSION_PATH = Path(__file__).with_name("stage1_focus_admission.py")
+    _ADMISSION_SPEC = importlib.util.spec_from_file_location(
+        "stage1_focus_admission", _ADMISSION_PATH
+    )
+    if _ADMISSION_SPEC is None or _ADMISSION_SPEC.loader is None:
+        raise
+    focus_admission = importlib.util.module_from_spec(_ADMISSION_SPEC)
+    sys.modules[_ADMISSION_SPEC.name] = focus_admission
+    _ADMISSION_SPEC.loader.exec_module(focus_admission)
+
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "Docs"
 BLUEPRINT = DOCS / "Stage1_Blueprint_v2.md"
-TARGETS = DOCS / "Stage1_Targets_rev-5.6.json"
-DAG = DOCS / "Stage1_Execution_DAG_rev-5.6.json"
+TARGETS = DOCS / "Stage1_Target_Membership_v2.json"
+DAG = DOCS / "Stage1_Phase_DAG_v2.json"
 THEOREM_DAG_V2 = DOCS / "Stage1_Theorem_DAG_v2.json"
+FOCUS_ELIGIBILITY_SCHEMA = DOCS / "Stage1_Focus_Eligibility_Schema.json"
 PHASE_ACCEPTANCE_CONTRACTS = DOCS / "Stage1_Phase_Acceptance_Contracts.json"
 PHASE_ACCEPTANCE_CONTRACT_SHA256 = (
-    "511d7d64fa075d654d716af2de194bc65d7b937dfba93016017943c916f89d96"
+    "cedfe04512bd96d8229232709840511ba67a33836f218b0120fb07ca3235dc2f"
 )
-LEGACY_RUNTIME = ROOT / ".cron" / "stage1-rev56"
 RUNTIME = ROOT / ".cron" / "stage1-v2-app-server"
 CHECKLIST_BEGIN = "<!-- STAGE1-EXECUTION-CHECKLIST:BEGIN -->"
 CHECKLIST_END = "<!-- STAGE1-EXECUTION-CHECKLIST:END -->"
@@ -77,10 +109,38 @@ PHASES = (
     ("statement", "Elaborate the exact Lean 4 target with the minimal pinned imports."),
     ("anchor_audit", "Audit mathlib and external Lean 4 candidates at immutable revisions."),
     ("obligation_tree", "Freeze the obligation registry and typed proof/provenance/workflow graphs."),
-    ("proof", "Implement or pin/import the required proof bodies without placeholders."),
+    (
+        "proof",
+        "Integrate and replay the admitted exact machine proof; new root proof content requires an active frontier exception.",
+    ),
     ("validation", "Run hermetic kernel, trust, provenance, and independent validation gates."),
     ("release", "Reconcile evidence and decide the exact theorem-completion verdict."),
 )
+FOCUS_DELIVERABLES = {
+    "organize_or_integrate": {
+        "intake": "Bind the exact human theorem and its already-existing machine proof candidate.",
+        "statement": "Elaborate the exact repository target needed to match the existing machine proof.",
+        "anchor_audit": "Content-bind and independently replay the exact external or pinned machine proof.",
+        "obligation_tree": "Freeze only the repository-local integration, transport, provenance, and acceptance obligations.",
+        "proof": "Pin, import, wrap, or checked-transport the admitted existing machine proof without inventing root mathematics.",
+        "validation": "Replay the integrated existing proof under the pinned kernel, trust, provenance, and independence gates.",
+        "release": "Reconcile the accepted integration evidence and exact theorem-completion verdict.",
+    },
+    "frontier_exception": {
+        "intake": "Bind the exact human theorem and the bounded negative machine-proof search.",
+        "statement": "Elaborate the exact repository target authorized by the frontier lease.",
+        "anchor_audit": "Confirm the bounded negative search and every frontier-admission input.",
+        "obligation_tree": "Freeze only the root obligations and milestones authorized by the active frontier lease.",
+        "proof": "Attempt the exact new root proof only within the active reviewed frontier lease, budget, and stop conditions.",
+        "validation": "Validate the leased frontier result without widening its target or resource authority.",
+        "release": "Reconcile the bounded frontier evidence and exact theorem-completion verdict.",
+    },
+    "research_required": {
+        "intake": "Audit the exact human claim, source boundary, and formal-proof discovery scope.",
+        "statement": "Elaborate the exact target for evidence matching without constructing its proof.",
+        "anchor_audit": "Search and content-bind exact existing machine-proof candidates without constructing a proof.",
+    },
+}
 PHASE_NAMES = {phase for phase, _ in PHASES}
 VALID_STATES = {"[ ]", "[_]", "[x]"}
 DEPENDENCY_LEDGER_SCHEMA = "stage1-dependency-reuse-ledger/1.1"
@@ -109,7 +169,7 @@ EXECUTION_CONTRACT = {
         "content_bound_provider_source",
         "provider_and_consumer_statement_fingerprints",
         "consumer_owned_import_or_wrapper",
-        "consumer_validation_receipt",
+        "consumer_kernel_replay",
     ],
     "provider_checkbox_state_is_observation_only": True,
     "provider_acceptance_inherited": False,
@@ -124,6 +184,7 @@ DEFAULT_INTEGRATION_LIMIT = 0
 MAX_SLOT_ID = 1546 * len(PHASES)
 CLAIM_ID_RE = re.compile(r"[0-9]{8}T[0-9]{6}Z-[0-9a-f]{12}")
 GOAL_HANDSHAKE_TIMEOUT_SECONDS = 30.0
+FOCUS_REVIEW_TIMEOUT_SECONDS = 3600.0
 GOAL_HANDSHAKE_POLL_SECONDS = 0.1
 GOAL_HANDSHAKE_RECOVERY_GRACE_SECONDS = 120.0
 # Concurrent app-server processes share Codex's ~/.codex SQLite state. When
@@ -148,51 +209,17 @@ REQUIRED_RUNTIME_CONFIG = {
 IMPLEMENTATION_LANE = "implementation"
 REVIEW_LANE = "review"
 LANES = {IMPLEMENTATION_LANE, REVIEW_LANE}
-REVIEW_BINDING_SCHEMA = "stage1-app-server-review-binding/1.1"
-REVIEW_OUTPUT_SCHEMA = "stage1-master-review-output/1.0"
+REVIEW_BINDING_SCHEMA = "stage1-app-server-review-binding/1.2"
+REVIEW_OUTPUT_SCHEMA = "stage1-master-review-output/1.1"
 ROLE_MAP_SCHEMA = "stage1-phase-artifact-role-map/1.0"
 MASTER_ACCEPTANCE_RECEIPT_SCHEMA = "stage1-master-phase-acceptance/1.0"
 WORKER_PROVENANCE_SCHEMA = "stage1-worker-review-provenance/1.0"
 WORKER_HANDOFF_ARCHIVE_SCHEMA = "stage1-worker-handoff-archive/1.0"
 MAX_WORKER_HANDOFF_BYTES = 4 * 1024 * 1024
 REVIEW_INPUT_SCHEMA = "stage1-scheduler-review-input/1.0"
-LEGACY_REVALIDATION_PLAN_SCHEMA = "stage1-legacy-revalidation-plan/1.0"
-LEGACY_REVALIDATION_LANE_SCHEMA = "stage1-legacy-revalidation-lane/1.0"
-LEGACY_REVALIDATION_PLAN_BINDING_SCHEMA = (
-    "stage1-legacy-revalidation-plan-binding/1.0"
-)
-LEGACY_REVALIDATION_INTEGRATION_SCHEMA = (
-    "stage1-legacy-revalidation-integration/1.0"
-)
-LEGACY_REVALIDATION_REQUIRED_STEPS = [
-    "fresh_self_test",
-    "new_contract_receipt",
-    "new_provenance",
-    "independent_review",
-    "master_replay",
-]
-LEGACY_INVENTORY_CLASSIFICATIONS = {
-    "missing_receipt",
-    "legacy_receipt",
-    "phase_mismatch",
-    "missing_or_ambiguous_role",
-    "validator_authority_superseded",
-    "validator_base_mismatch",
-    "validator_stdout_mismatch",
-    "sandbox_incompatible",
-}
-LEGACY_REVALIDATION_CLAIM_FIELDS = {
-    "legacy_revalidation_lane",
-    "legacy_revalidation_lane_sha256",
-    "legacy_revalidation_plan_sha256",
-    "legacy_revalidation_plan_file_sha256",
-    "legacy_revalidation_plan_binding",
-    "legacy_revalidation_plan_binding_sha256",
-}
-LEGACY_REVALIDATION_INTEGRATION_FIELDS = {
-    "legacy_revalidation_integration",
-    "legacy_revalidation_integration_sha256",
-}
+FOCUS_REVIEW_JOB_SCHEMA = "stage1-focus-review-job/1.0"
+FOCUS_REVIEW_RESULT_SCHEMA = "stage1-focus-review-result/1.0"
+REVIEW_ACL_SNAPSHOT_SCHEMA = "stage1-review-acl-snapshot/1.0"
 REPLAY_TIMEOUT_SECONDS = 3600.0
 WORKER_VERDICTS = {
     "accepted", "accepted_audit_only", "no_state_change", "blocked", "rejected",
@@ -203,8 +230,26 @@ REVIEW_OUTPUT_FIELDS = {
     "worker_verdict", "review_verdict", "audit_complete", "theorem_complete",
     "root_state", "first_failed_gate", "retry_condition", "status_boundary",
     "artifact_findings", "reviewed_artifact_sha256s",
-    "validator_recipe_sha256s",
+    "validator_recipe_sha256s", "focus_review",
 }
+FOCUS_EXECUTION_FIELDS = {
+    "focus_contract_sha256", "execution_disposition", "receipt_sha256",
+}
+INTEGRATION_ONLY_FOCUS_EXECUTION_FIELDS = FOCUS_EXECUTION_FIELDS | {
+    "machine_evidence_class", "exact_machine_source", "exact_machine_source_used",
+    "introduced_root_critical_proof",
+}
+FRONTIER_RUNTIME_LEDGER_SCHEMA = "stage1-frontier-runtime-ledger/1.0"
+FRONTIER_SCRATCH_DIRECTORY = "frontier-scratch"
+FRONTIER_VALIDATOR_TIMEOUT_SECONDS = 60.0
+FRONTIER_VALIDATOR_MAX_OUTPUT_BYTES = 256 * 1024
+FRONTIER_VALIDATOR_RESULT_SCHEMA = "stage1-frontier-validator-result/1.0"
+
+
+class FrontierPolicyStop(ValueError):
+    def __init__(self, condition: str, message: str) -> None:
+        super().__init__(message)
+        self.condition = condition
 REQUIRED_APP_SERVER_ARGV = [
     "app-server",
     "--stdio",
@@ -224,15 +269,315 @@ REQUIRED_IMPLEMENTATION_SANDBOX_CONTRACT = {
     "excludeTmpdirEnvVar": False,
     "excludeSlashTmp": False,
 }
+REQUIRED_FRONTIER_TURN_SANDBOX_BASE = {
+    "type": "workspaceWrite",
+    "networkAccess": False,
+    "excludeTmpdirEnvVar": False,
+    # A frontier process may write only its clone and scheduler-owned TMPDIR.
+    # Generic /tmp would be outside resource accounting and is therefore denied.
+    "excludeSlashTmp": True,
+}
 REQUIRED_REVIEW_SANDBOX_CONTRACT = {"type": "readOnly", "networkAccess": False}
 # Compatibility name retained for implementation-lane callers and tests.
 REQUIRED_SANDBOX_CONTRACT = REQUIRED_IMPLEMENTATION_SANDBOX_CONTRACT
 PAUSE_FILE = RUNTIME / "PAUSED"
-LEGACY_PAUSE_FILE = LEGACY_RUNTIME / "PAUSED"
 APP_SERVER_CLIENT = ROOT / "scripts" / "stage1_app_server_client.py"
 PROC_ROOT = Path("/proc")
 RUNTIME_PROTOCOL = "codex-app-server-jsonl"
-LEGACY_RUNTIME_PROTOCOL = "tmux-codex-exec"
+UNSUPPORTED_RUNTIME_CLAIM_FIELDS = frozenset({
+    "fresh_revalidation",
+    "legacy_revalidation_lane",
+    "legacy_revalidation_lane_sha256",
+    "legacy_revalidation_plan_binding",
+    "legacy_revalidation_plan_binding_sha256",
+    "legacy_revalidation_plan_file_sha256",
+    "legacy_revalidation_plan_sha256",
+})
+
+
+def focus_decision_for_item(
+    item: dict[str, Any],
+    theorem_nodes: dict[str, dict[str, Any]] | None = None,
+) -> dict[str, Any]:
+    """Reload and compare the scheduler's read-only focus projection.
+
+    The theorem DAG is not an admission authority.  It is a content-bound
+    projection of the target-owned receipt, so both views must agree exactly.
+    A missing receipt is the one policy-defined bootstrap state and can admit
+    only intake through anchor audit; malformed or stale evidence admits no
+    phase.
+    """
+    theorem_id = item.get("theorem_id")
+    phase = item.get("phase")
+    if not isinstance(theorem_id, str) or phase not in PHASE_NAMES:
+        raise ValueError("focus eligibility item identity is malformed")
+    if theorem_nodes is None:
+        _, theorem_nodes = theorem_dag_v2()
+    node = theorem_nodes.get(theorem_id)
+    projection = node.get("focus_eligibility") if isinstance(node, dict) else None
+    if not isinstance(projection, dict):
+        raise ValueError("focus eligibility DAG projection is missing or malformed")
+    expected_digest = projection.get("receipt_sha256")
+    if expected_digest is not None and (
+        not isinstance(expected_digest, str)
+        or re.fullmatch(r"[0-9a-f]{64}", expected_digest) is None
+    ):
+        raise ValueError("focus eligibility DAG receipt digest is malformed")
+    decision = focus_eligibility.load_focus_eligibility(
+        ROOT,
+        theorem_id,
+        expected_projection_sha256=expected_digest,
+    )
+    if decision != projection:
+        raise ValueError("focus eligibility DAG projection is stale or disagrees with receipt")
+    return decision
+
+
+def item_focus_phase_allowed(
+    item: dict[str, Any],
+    theorem_nodes: dict[str, dict[str, Any]] | None = None,
+) -> bool:
+    """Return False, never optimistic, for any eligibility validation error."""
+    try:
+        decision = focus_decision_for_item(item, theorem_nodes)
+    except (OSError, ValueError, focus_eligibility.EligibilityError):
+        return False
+    return focus_eligibility.phase_allowed(decision, str(item.get("phase", "")))
+
+
+def require_item_focus_phase_allowed(
+    item: dict[str, Any],
+    theorem_nodes: dict[str, dict[str, Any]] | None = None,
+) -> dict[str, Any]:
+    """Enforce eligibility again at an irreversible scheduler boundary."""
+    try:
+        decision = focus_decision_for_item(item, theorem_nodes)
+        focus_eligibility.require_phase_allowed(decision, str(item.get("phase", "")))
+    except (OSError, ValueError, focus_eligibility.EligibilityError) as exc:
+        raise ValueError(f"focus eligibility gate refused {item.get('id')}: {exc}") from exc
+    return decision
+
+
+def focus_contract_sha256(decision: dict[str, Any]) -> str:
+    """Return the canonical digest used at every focus handoff boundary."""
+    return hashlib.sha256(
+        json.dumps(
+            decision, ensure_ascii=True, sort_keys=True, separators=(",", ":")
+        ).encode("utf-8")
+    ).hexdigest()
+
+
+def _focus_receipt(decision: dict[str, Any]) -> dict[str, Any]:
+    """Reload the validated receipt bytes without trusting a projected summary."""
+    relative = decision.get("receipt_path")
+    expected = decision.get("receipt_sha256")
+    if (
+        decision.get("valid") is not True
+        or not isinstance(relative, str)
+        or Path(relative).is_absolute()
+        or ".." in Path(relative).parts
+        or not isinstance(expected, str)
+        or re.fullmatch(r"[0-9a-f]{64}", expected) is None
+    ):
+        raise ValueError("focus execution contract lacks a valid receipt binding")
+    path = ROOT / relative
+    try:
+        descriptor = os.open(path, os.O_RDONLY | os.O_NOFOLLOW)
+    except OSError as exc:
+        raise ValueError("focus receipt is missing or unsafe") from exc
+    try:
+        metadata = os.fstat(descriptor)
+        if not stat.S_ISREG(metadata.st_mode) or metadata.st_size <= 0:
+            raise ValueError("focus receipt is not a regular nonempty file")
+        payload = b""
+        while len(payload) < metadata.st_size:
+            block = os.read(descriptor, min(1024 * 1024, metadata.st_size - len(payload)))
+            if not block:
+                raise ValueError("focus receipt was truncated while reading")
+            payload += block
+        if os.read(descriptor, 1):
+            raise ValueError("focus receipt grew while reading")
+    finally:
+        os.close(descriptor)
+    if hashlib.sha256(payload).hexdigest() != expected:
+        raise ValueError("focus receipt changed after eligibility validation")
+    try:
+        receipt = json.loads(payload.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise ValueError("focus receipt is not UTF-8 JSON") from exc
+    if not isinstance(receipt, dict):
+        raise ValueError("focus receipt is not a JSON object")
+    return receipt
+
+
+def focus_execution_contract(
+    item: dict[str, Any],
+    theorem_nodes: dict[str, dict[str, Any]] | None = None,
+    *,
+    decision: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Build the typed focus contract a worker and reviewer must preserve."""
+    current = decision or require_item_focus_phase_allowed(item, theorem_nodes)
+    focus_eligibility.require_phase_allowed(current, str(item.get("phase", "")))
+    contract: dict[str, Any] = {
+        "focus_contract_sha256": focus_contract_sha256(current),
+        "execution_disposition": current.get("execution_disposition"),
+        "receipt_sha256": current.get("receipt_sha256"),
+    }
+    if current.get("execution_disposition") == "organize_or_integrate":
+        receipt = _focus_receipt(current)
+        source = receipt.get("machine_proof", {}).get("source")
+        if not isinstance(source, dict):
+            raise ValueError("integration-only focus lacks an exact machine proof source")
+        required = {
+            "formal_system", "repository", "revision", "tree_or_archive_sha256", "file_path",
+            "file_sha256", "module", "declaration", "declaration_type_sha256",
+            "match_kind", "transport_evidence", "terminal_proof_body",
+        }
+        if any(key not in source for key in required):
+            raise ValueError("integration-only focus source identity is incomplete")
+        contract.update({
+            "machine_evidence_class": current.get("machine_evidence_class"),
+            "exact_machine_source": {key: source[key] for key in sorted(required)},
+            "exact_machine_source_used": True,
+            "introduced_root_critical_proof": False,
+        })
+    return contract
+
+
+def require_phase_receipt_focus_semantics(
+    item: dict[str, Any],
+    focus_contract: dict[str, Any],
+    role_map: dict[str, Any],
+    *,
+    evidence_root: Path | None = None,
+) -> dict[str, Any]:
+    """Bind the worker's typed intent and exact-source claim to current focus."""
+    phase_receipts = [
+        row for row in role_map.get("artifacts", [])
+        if isinstance(row, dict) and row.get("role") == "phase_receipt"
+    ]
+    if len(phase_receipts) != 1 or not isinstance(phase_receipts[0].get("path"), str):
+        raise ValueError("focus semantic gate requires exactly one phase receipt")
+    receipt, _ = read_exact_json_file(
+        (evidence_root or ROOT) / phase_receipts[0]["path"],
+        "worker phase receipt",
+    )
+    if (
+        receipt.get("item_id") != item.get("id")
+        or receipt.get("theorem_id") != item.get("theorem_id")
+        or receipt.get("phase") != item.get("phase")
+    ):
+        raise ValueError("phase receipt identity disagrees with focus contract")
+    disposition = focus_contract.get("execution_disposition")
+    expected_intent: Any = phase_contract(item).get("intent")
+    if isinstance(expected_intent, dict):
+        expected_intent = expected_intent.get(disposition)
+    if not isinstance(expected_intent, str) or receipt.get("intent") != expected_intent:
+        raise ValueError("phase receipt intent is not permitted by current focus disposition")
+    if disposition == "organize_or_integrate":
+        worker_focus = receipt.get("focus_execution")
+        if worker_focus != focus_contract:
+            raise ValueError("integration phase receipt does not bind the exact focus proof source")
+    return receipt
+
+
+def require_integration_only_source_evidence(
+    item: dict[str, Any],
+    focus_contract: dict[str, Any],
+    role_map: dict[str, Any],
+    *,
+    changed_paths: list[str] | None = None,
+    evidence_root: Path | None = None,
+) -> dict[str, Any]:
+    """Check provisional worker source bindings without granting proof credit."""
+    if focus_contract.get("execution_disposition") != "organize_or_integrate":
+        if any(key in focus_contract for key in INTEGRATION_ONLY_FOCUS_EXECUTION_FIELDS - FOCUS_EXECUTION_FIELDS):
+            raise ValueError("non-integration focus carries integration-only assertions")
+        return {}
+    if set(focus_contract) != INTEGRATION_ONLY_FOCUS_EXECUTION_FIELDS:
+        raise ValueError("integration-only focus execution fields are not exact")
+    expected = focus_contract.get("exact_machine_source")
+    if (
+        focus_contract.get("exact_machine_source_used") is not True
+        or focus_contract.get("introduced_root_critical_proof") is not False
+        or not isinstance(expected, dict)
+    ):
+        raise ValueError("integration-only focus assertions are not fail-closed")
+    phase_receipt = require_phase_receipt_focus_semantics(
+        item, focus_contract, role_map, evidence_root=evidence_root
+    )
+    consumes_source = acceptance_evidence.phase_consumes_exact_machine_source(
+        str(item.get("phase", "")), role_map
+    )
+    if not consumes_source:
+        return phase_receipt
+    worker_assertion = phase_receipt.get("integration_source_evidence")
+    proof_sources = phase_receipt.get("inputs", {}).get("proof_sources")
+    if (
+        not isinstance(worker_assertion, dict)
+        or set(worker_assertion)
+        != {
+            "exact_machine_source", "exact_machine_source_used",
+            "introduced_root_critical_proof", "local_proof_source",
+        }
+        or worker_assertion.get("exact_machine_source") != expected
+        or worker_assertion.get("exact_machine_source_used") is not True
+        or worker_assertion.get("introduced_root_critical_proof") is not False
+        or not isinstance(proof_sources, list)
+        or not proof_sources
+    ):
+        raise ValueError("integration receipt lacks independent exact-source evidence")
+    body = expected.get("terminal_proof_body")
+    local_binding = worker_assertion.get("local_proof_source")
+    if (
+        not isinstance(local_binding, dict)
+        or set(local_binding) != {"path", "sha256"}
+        or re.fullmatch(r"[0-9a-f]{64}", str(local_binding.get("sha256", "")))
+        is None
+    ):
+        raise ValueError("integration receipt lacks a local exact-source binding")
+    matches = [
+        row for row in proof_sources
+        if isinstance(row, dict)
+        and row.get("path") == local_binding.get("path")
+        and row.get("sha256") == local_binding.get("sha256")
+    ]
+    if len(matches) != 1:
+        raise ValueError("proof sources do not consume the receipt-bound exact source")
+    local_path = str(local_binding["path"])
+    local = (evidence_root or ROOT) / local_path
+    if (
+        Path(local_path).is_absolute()
+        or ".." in Path(local_path).parts
+        or local.is_symlink()
+        or not local.is_file()
+        or hashlib.sha256(local.read_bytes()).hexdigest() != matches[0]["sha256"]
+    ):
+        raise ValueError("exact-source local integration artifact is missing or stale")
+    if changed_paths is not None:
+        lean_changes = [path for path in changed_paths if Path(path).suffix == ".lean"]
+        if set(lean_changes) - {local_path}:
+            raise ValueError("integration delta contains undeclared root-critical proof content")
+    return phase_receipt
+
+
+def require_claim_focus_current(
+    item: dict[str, Any],
+    claim: dict[str, Any],
+    theorem_nodes: dict[str, dict[str, Any]] | None = None,
+) -> dict[str, Any]:
+    """Reject a lease when its exact admission changed after allocation."""
+    decision = require_item_focus_phase_allowed(item, theorem_nodes)
+    if claim.get("focus_eligibility") != decision:
+        raise ValueError("claim focus eligibility is missing, stale, or changed")
+    expected_contract = focus_execution_contract(
+        item, theorem_nodes, decision=decision
+    )
+    recorded_contract = claim.get("focus_execution")
+    if recorded_contract != expected_contract:
+        raise ValueError("claim focus execution contract is missing or changed after allocation")
+    return decision
 
 
 def fail(message: str) -> NoReturn:
@@ -322,41 +667,15 @@ def validate_runtime_root() -> None:
         "workers", "prompts", "logs", "goals", "app-server", "blocked-reports",
         "worker-handoffs", "role-maps", "review-inputs", "review-bindings",
         "review-workspaces", "worker-provenance", "review-manifests",
-        "replay-results", "semantic-decisions",
+        "replay-results", "semantic-decisions", "review-acl-snapshots",
     ):
         path = RUNTIME / name
         if path.is_symlink() or (path.exists() and (not path.is_dir() or not path.resolve().is_relative_to(root_resolved))):
             fail(f"scheduler runtime subdirectory is unsafe: {name}")
 
 
-def pause_markers() -> tuple[Path, ...]:
-    """Return the current marker plus the retired marker during migration."""
-    current = RUNTIME / "PAUSED"
-    legacy = LEGACY_PAUSE_FILE
-    # Focused tests and callers may override PAUSE_FILE to isolate the stop
-    # boundary. In that case the explicit override is the complete boundary.
-    if PAUSE_FILE != current:
-        return (PAUSE_FILE,)
-    return (current,) if current == legacy else (current, legacy)
-
-
 def execution_is_paused() -> bool:
-    return any(path.exists() for path in pause_markers())
-
-
-def migrate_pause_marker() -> bool:
-    """Copy a retired stop intent into current runtime without unfreezing it."""
-    if PAUSE_FILE != RUNTIME / "PAUSED" or not LEGACY_PAUSE_FILE.exists():
-        return False
-    if PAUSE_FILE.exists():
-        return False
-    try:
-        marker = LEGACY_PAUSE_FILE.read_text(encoding="utf-8")
-    except (OSError, UnicodeDecodeError) as exc:
-        fail(f"legacy PAUSED marker is unreadable: {exc}")
-    PAUSE_FILE.parent.mkdir(parents=True, exist_ok=True)
-    atomic_write(PAUSE_FILE, marker)
-    return True
+    return PAUSE_FILE.exists()
 
 
 class FileTransaction:
@@ -556,7 +875,7 @@ def recover_integration_wal() -> None:
                 and not allowed_runtime_evidence(relative)
                 and relative not in {
                     "Docs/Stage1_Blueprint_v2.md",
-                    "Docs/Stage1_Execution_DAG_rev-5.6.json",
+                    "Docs/Stage1_Phase_DAG_v2.json",
                     "Docs/Stage1_Theorem_DAG_v2.json",
                 }
                 and re.fullmatch(r"Docs/todos_[0-9]{8}\.md", relative) is None
@@ -659,9 +978,11 @@ def target_rows() -> list[dict[str, Any]]:
 def theorem_dag_v2() -> tuple[dict[str, Any], dict[str, dict[str, Any]]]:
     """Load the blueprint-derived v2 theorem-order projection."""
     data = read_json(THEOREM_DAG_V2)
+    if data.get("schema_version") != "stage1-theorem-dag/2.1":
+        fail("v2 theorem DAG schema version is unsupported")
     if data.get("requirements_source") != "Docs/Stage1_Blueprint_v2.md":
         fail("v2 theorem DAG requirements source is stale")
-    if data.get("execution_dag_projection") != "Docs/Stage1_Execution_DAG_rev-5.6.json":
+    if data.get("execution_dag_projection") != "Docs/Stage1_Phase_DAG_v2.json":
         fail("v2 theorem DAG execution projection path is stale")
     snapshot = data.get("blueprint_state_snapshot")
     if (
@@ -678,7 +999,7 @@ def theorem_dag_v2() -> tuple[dict[str, Any], dict[str, dict[str, Any]]]:
         fail("v2 theorem DAG has duplicate or missing theorem IDs")
     targets = target_rows()
     if set(by_id) != {target["theorem_id"] for target in targets}:
-        fail("v2 theorem DAG target set disagrees with rev-5.6 manifest")
+        fail("v2 theorem DAG target set disagrees with the v2 membership projection")
     if data.get("execution_contract") != EXECUTION_CONTRACT:
         fail("v2 theorem DAG execution contract is incomplete or stale")
     ranks = [node.get("v2_execution_rank") for node in nodes]
@@ -723,6 +1044,22 @@ def theorem_dag_v2() -> tuple[dict[str, Any], dict[str, dict[str, Any]]]:
         ):
             fail(f"v2 theorem DAG parent closure is incomplete or stale: {theorem_id}")
         closure_by_id[theorem_id] = expected_closure
+        projection = by_id[theorem_id].get("focus_eligibility")
+        if not isinstance(projection, dict):
+            fail(f"v2 theorem DAG focus eligibility projection is missing: {theorem_id}")
+        expected_digest = projection.get("receipt_sha256")
+        if expected_digest is not None and (
+            not isinstance(expected_digest, str)
+            or re.fullmatch(r"[0-9a-f]{64}", expected_digest) is None
+        ):
+            fail(f"v2 theorem DAG focus eligibility digest is malformed: {theorem_id}")
+        decision = focus_eligibility.load_focus_eligibility(
+            ROOT,
+            theorem_id,
+            expected_projection_sha256=expected_digest,
+        )
+        if decision != projection:
+            fail(f"v2 theorem DAG focus eligibility projection is stale: {theorem_id}")
     return data, by_id
 
 
@@ -1383,6 +1720,16 @@ def validate_dependency_reuse_ledger(
             wrapper = row.get("consumer_import_or_wrapper")
             if not isinstance(wrapper, str) or not wrapper or wrapper == "none":
                 raise ValueError("accepted dependency reuse decision lacks a consumer import or wrapper")
+            if decision == "reused_with_transport":
+                provider_import_module = row.get("provider_import_module")
+                if (
+                    not isinstance(provider_import_module, str)
+                    or re.fullmatch(r"[A-Za-z_][A-Za-z0-9_'.]*", provider_import_module)
+                    is None
+                ):
+                    raise ValueError(
+                        "checked transport decision lacks a canonical provider import module"
+                    )
             validate_receipt_references(
                 row.get("provider_receipts"),
                 evidence_root=evidence_root,
@@ -1611,11 +1958,13 @@ def canonical_master_acceptance_receipt(
     validator: dict[str, Any], replay: dict[str, Any], decision: dict[str, Any],
 ) -> tuple[dict[str, Any], bytes, str]:
     """Build a content-addressed scheduler-only phase receipt."""
+    focus = require_item_focus_phase_allowed(item)
     receipt = {
         "schema_version": MASTER_ACCEPTANCE_RECEIPT_SCHEMA,
         "item_id": item["id"],
         "theorem_id": item["theorem_id"],
         "phase": item["phase"],
+        "focus_eligibility": focus,
         "authority_revision": review_manifest.get("authority_revision"),
         "authority_tree": review_manifest.get("authority_tree"),
         "worker_verdict": review_output["worker_verdict"],
@@ -1658,7 +2007,7 @@ def make_item(target: dict[str, Any], phase_index: int) -> dict[str, Any]:
         "depends_on": dependencies,
         "owned_paths": [instance_dir],
         "deliverable": description,
-        "completion_gate": "rev-5.6 node-specific receipt and master acceptance",
+        "completion_gate": "current v2 focus permission, replayed phase evidence, and master acceptance",
         "attempts": 0,
         "children": [],
     }
@@ -1669,9 +2018,9 @@ def new_dag() -> dict[str, Any]:
     items = [make_item(target, phase) for target in targets for phase in range(len(PHASES))]
     ids = "\n".join(sorted(target["theorem_id"] for target in targets)) + "\n"
     return {
-        "schema_version": "stage1-execution-dag/1.0",
+        "schema_version": "stage1-phase-dag/2.0",
         "requirements_source": "Docs/Stage1_Blueprint_v2.md",
-        "target_manifest": "Docs/Stage1_Targets_rev-5.6.json",
+        "target_manifest": "Docs/Stage1_Target_Membership_v2.json",
         "target_id_set_sha256": hashlib.sha256(ids.encode()).hexdigest(),
         "state_protocol": {"not_done": "[ ]", "worker_self_tested": "[_]", "master_accepted": "[x]"},
         "items": items,
@@ -1708,7 +2057,7 @@ def topological_order(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 
 def validate_dag(data: dict[str, Any]) -> list[dict[str, Any]]:
-    if data.get("schema_version") != "stage1-execution-dag/1.0":
+    if data.get("schema_version") != "stage1-phase-dag/2.0":
         fail("unsupported execution DAG schema")
     if data.get("requirements_source") != "Docs/Stage1_Blueprint_v2.md":
         fail("execution DAG requirements source is not the v2 blueprint")
@@ -1753,7 +2102,7 @@ def render_checklist(items: list[dict[str, Any]]) -> str:
     worker_pct = 100 * counts["[_]"] / len(items) if items else 0.0
     lines = [
         CHECKLIST_BEGIN,
-        "## 13. Generated 1546-Target Execution Checklist",
+        "## 18. Generated 1546-Target Execution Checklist",
         "",
         "This appendix is the single writable task-state authority. The execution DAG and daily todo are",
         "generated, read-only projections of these stable rows; they never override this checklist.",
@@ -1765,7 +2114,7 @@ def render_checklist(items: list[dict[str, Any]]) -> str:
         "",
         "Every target is expanded into seven dependency-ordered phases: intake, statement, anchor audit,",
         "obligation tree, proof, validation, and release. `[ ]` and `[_]` are unfinished; only the master",
-        "integration lane may render `[x]` after all rev-5.6 receipts and gates pass.",
+        "integration lane may render `[x]` only after current v2 focus, replay, and acceptance gates pass.",
         "",
     ]
     for item in sorted(items, key=lambda row: (row["execution_rank"], row["layer"])):
@@ -1859,7 +2208,7 @@ def project_dag(items: list[dict[str, Any]]) -> dict[str, Any]:
 
 
 def write_derived_surfaces(data: dict[str, Any]) -> None:
-    """Project the authoritative checklist to JSON after the blueprint write."""
+    """Project the authoritative checklist to JSON without changing the SSOT."""
     items = load_blueprint_items()
     projection = project_dag(items)
     validate_dag(projection)
@@ -1869,15 +2218,11 @@ def write_derived_surfaces(data: dict[str, Any]) -> None:
 
 
 def bootstrap() -> None:
-    if CHECKLIST_BEGIN in BLUEPRINT.read_text(encoding="utf-8"):
-        data = project_dag(load_blueprint_items())
-    else:
-        # One-time migration only: preserve the old projection byte-semantics,
-        # then make the v2 checklist the sole source for every later run.
-        data = read_json(DAG) if DAG.exists() else new_dag()
-        data["requirements_source"] = "Docs/Stage1_Blueprint_v2.md"
+    # The v2 checklist is already the sole task-state authority.  A missing or
+    # malformed checklist is corruption, never permission to recover state
+    # from a derived DAG.
+    data = project_dag(load_blueprint_items())
     validate_dag(data)
-    write_projection(data)
     write_derived_surfaces(data)
     run(["python3", "Docs/tools/generate_stage1_theorem_dag_v2.py"])
     theorem_dag_v2.cache_clear()
@@ -1947,18 +2292,55 @@ def process_start_ticks(pid: Any) -> int | None:
         return None
 
 
+def process_effective_uid(pid: Any) -> int | None:
+    """Return the effective UID from proc status for a live process."""
+    if not pid_alive(pid):
+        return None
+    try:
+        for line in (PROC_ROOT / str(pid) / "status").read_text(
+            encoding="ascii"
+        ).splitlines():
+            if line.startswith("Uid:"):
+                values = line.split()[1:]
+                return int(values[1]) if len(values) == 4 else None
+    except (OSError, ValueError):
+        return None
+    return None
+
+
+def require_process_effective_uid(pid: Any, expected_uid: int, label: str) -> None:
+    """Fail closed unless a live process is the configured OS principal."""
+    observed = process_effective_uid(pid)
+    if observed != expected_uid:
+        fail(
+            f"{label} effective UID mismatch: expected {expected_uid}, "
+            f"observed {observed if observed is not None else 'unavailable'}"
+        )
+
+
 def exact_option_values(command: list[str]) -> dict[str, str] | None:
     """Parse the closed client argv grammar without accepting duplicate flags."""
-    if len(command) < 2 or Path(command[1]).absolute() != APP_SERVER_CLIENT.absolute():
+    if len(command) >= 2 and Path(command[1]).absolute() == APP_SERVER_CLIENT.absolute():
+        option_start = 2
+    elif "--" in command:
+        separator = command.index("--")
+        if (
+            separator + 2 >= len(command)
+            or Path(command[separator + 2]).absolute()
+            != APP_SERVER_CLIENT.absolute()
+        ):
+            return None
+        option_start = separator + 3
+    else:
         return None
     options: dict[str, str] = {}
-    index = 2
+    index = option_start
     while index < len(command):
         flag = command[index]
         if flag not in {
             "--workspace", "--prompt", "--objective", "--status", "--log",
             "--lane", "--model", "--effort", "--service-tier", "--binding",
-            "--thread-id", "--codex", "--timeout",
+            "--thread-id", "--worker-principal", "--codex", "--timeout",
         } or flag in options or index + 1 >= len(command):
             return None
         options[flag] = command[index + 1]
@@ -2019,6 +2401,7 @@ def canonical_client_identity(command: list[str]) -> dict[str, Any] | None:
         "log": options["--log"],
         "binding": options.get("--binding"),
         "thread_id": options.get("--thread-id"),
+        "worker_principal": options.get("--worker-principal"),
     }
 
 
@@ -2059,7 +2442,19 @@ def stage1_process_inventory() -> tuple[list[dict[str, Any]], list[int]]:
             start = process_start_ticks(pid)
             if start is None:
                 fail("cannot bind a Stage1 client process identity; refuse lane allocation")
-            clients.append({**identity, "pid": pid, "start_ticks": start})
+            observed_uid = process_effective_uid(pid)
+            if observed_uid is None:
+                fail("cannot bind a Stage1 client OS identity; refuse lane allocation")
+            if identity["lane"] == REVIEW_LANE:
+                raw_uid = os.environ.get("STAGE1_REVIEWER_UID")
+                if raw_uid is None or not raw_uid.isdecimal() or observed_uid != int(raw_uid):
+                    fail("Stage1 review client is not the configured independent OS principal")
+            elif observed_uid != os.geteuid():
+                fail("Stage1 implementation client OS principal is unexpected")
+            clients.append({
+                **identity, "pid": pid, "start_ticks": start,
+                "effective_uid": observed_uid,
+            })
     client_pids = {row["pid"] for row in clients}
     status_child_pids = set(runtime_status_child_identities())
     child_pids = sorted(
@@ -2121,6 +2516,14 @@ def reconcile_process_inventory(claims: list[dict[str, Any]]) -> bool:
         if len(matches) != 1:
             fail("unledgered or ambiguous Stage1 app-server client; refuse lane allocation")
         claim = matches[0]
+        if (
+            claim.get("runtime_protocol") != RUNTIME_PROTOCOL
+            or UNSUPPORTED_RUNTIME_CLAIM_FIELDS.intersection(claim)
+        ):
+            fail(
+                "unsupported Stage1 claim owns a live app-server client; "
+                "refuse v2 runtime migration"
+            )
         expected_prompt = RUNTIME / "prompts" / f"{client['claim_id']}.txt"
         if (
             claim.get("runtime_protocol") != RUNTIME_PROTOCOL
@@ -2132,6 +2535,8 @@ def reconcile_process_inventory(claims: list[dict[str, Any]]) -> bool:
             or str(claim.get("goal_objective_path", "")) != client["objective"]
             or str(claim.get("output_log", "")) != client["log"]
             or client["prompt"] != str(expected_prompt)
+            or client.get("worker_principal")
+            != claim.get("runtime_principal_id")
             or (
                 client["lane"] == REVIEW_LANE
                 and str(claim.get("review_binding_path", "")) != client["binding"]
@@ -2155,7 +2560,11 @@ def reconcile_process_inventory(claims: list[dict[str, Any]]) -> bool:
         if status_identity is None or process_start_ticks(child_pid) != status_identity[1]:
             fail("unledgered Stage1 app-server child; refuse lane allocation")
         claim_rows = by_claim_id.get(status_identity[0], [])
-        if len(claim_rows) != 1 or claim_rows[0].get("runtime_protocol") != RUNTIME_PROTOCOL:
+        if (
+            len(claim_rows) != 1
+            or claim_rows[0].get("runtime_protocol") != RUNTIME_PROTOCOL
+            or UNSUPPORTED_RUNTIME_CLAIM_FIELDS.intersection(claim_rows[0])
+        ):
             fail("unledgered Stage1 app-server child; refuse lane allocation")
     return changed
 
@@ -2173,12 +2582,19 @@ def app_server_worker_is_live(claim: dict[str, Any]) -> bool:
     expected_start = claim.get("pid_start_ticks")
     config = claim.get("runtime_config")
     lane = claim.get("lane", IMPLEMENTATION_LANE)
+    expected_uid = (
+        claim.get("runtime_principal_uid")
+        if lane == REVIEW_LANE
+        else os.geteuid()
+    )
     if not isinstance(config, dict):
         return False
     return (
         claim.get("runtime_protocol") == RUNTIME_PROTOCOL
         and isinstance(expected_start, int)
         and process_start_ticks(pid) == expected_start
+        and isinstance(expected_uid, int)
+        and process_effective_uid(pid) == expected_uid
         and str(APP_SERVER_CLIENT) in command
         and "--workspace" in command
         and workspace in command
@@ -2197,6 +2613,8 @@ def app_server_worker_is_live(claim: dict[str, Any]) -> bool:
         and lane in LANES
         and "--lane" in command
         and lane in command
+        and "--worker-principal" in command
+        and str(claim.get("runtime_principal_id", "")) in command
         and (
             lane != REVIEW_LANE
             or (
@@ -2320,10 +2738,23 @@ def goal_runtime_is_verified(claim: dict[str, Any]) -> bool:
     child_start = status.get("app_server_start_ticks") if isinstance(status, dict) else None
     objective_path = claim.get("goal_objective_path")
     lane = claim.get("lane", IMPLEMENTATION_LANE)
+    expected_client_uid = (
+        claim.get("runtime_principal_uid")
+        if lane == REVIEW_LANE
+        else os.geteuid()
+    )
     expected_sandbox = (
         REQUIRED_REVIEW_SANDBOX_CONTRACT
         if lane == REVIEW_LANE
         else REQUIRED_IMPLEMENTATION_SANDBOX_CONTRACT
+    )
+    expected_turn_sandbox = (
+        {
+            **REQUIRED_FRONTIER_TURN_SANDBOX_BASE,
+            "writableRoots": [claim.get("workspace"), claim.get("frontier_scratch")],
+        }
+        if claim.get("frontier_policy_sha256") is not None
+        else None
     )
     objective_matches = False
     if isinstance(objective_path, str):
@@ -2344,10 +2775,16 @@ def goal_runtime_is_verified(claim: dict[str, Any]) -> bool:
         and status.get("protocol") == RUNTIME_PROTOCOL
         and status.get("client_pid") == claim.get("pid")
         and status.get("client_start_ticks") == claim.get("pid_start_ticks")
+        and isinstance(expected_client_uid, int)
+        and (
+            status.get("state") == "finished"
+            or process_effective_uid(status.get("client_pid")) == expected_client_uid
+        )
         and isinstance(child_pid, int)
         and isinstance(child_start, int)
         and (status.get("state") == "finished" or process_start_ticks(child_pid) == child_start)
         and isinstance(status.get("thread_id"), str)
+        and status.get("worker_principal") == claim.get("runtime_principal_id")
         and isinstance(goal, dict)
         and goal.get("threadId") == status.get("thread_id")
         and goal.get("objective") == claim.get("goal_objective")
@@ -2363,6 +2800,14 @@ def goal_runtime_is_verified(claim: dict[str, Any]) -> bool:
         and contract.get("sandbox") == expected_sandbox
         and contract.get("network_access") is False
         and contract.get("app_server_argv") == REQUIRED_APP_SERVER_ARGV
+        and contract.get("worker_principal") == claim.get("runtime_principal_id")
+        and (
+            expected_turn_sandbox is None
+            or (
+                status.get("frontier_scratch") == claim.get("frontier_scratch")
+                and contract.get("turn_sandbox") == expected_turn_sandbox
+            )
+        )
         and (
             lane != REVIEW_LANE
             or (
@@ -2444,7 +2889,11 @@ def refresh_claims(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
     _, theorem_nodes = theorem_dag_v2()
     identity_counts: Counter[tuple[str, Any]] = Counter()
     for claim in raw_claims:
-        if claim.get("status") not in active_statuses or claim.get("runtime_protocol") != RUNTIME_PROTOCOL:
+        if (
+            claim.get("status") not in active_statuses
+            or claim.get("runtime_protocol") != RUNTIME_PROTOCOL
+            or UNSUPPORTED_RUNTIME_CLAIM_FIELDS.intersection(claim)
+        ):
             continue
         # One item may have one implementation handoff and one independent
         # review claim. Runtime identities remain globally unique.
@@ -2457,6 +2906,19 @@ def refresh_claims(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
     kept: list[dict[str, Any]] = []
     released: list[dict[str, Any]] = []
     for claim in raw_claims:
+        if (
+            claim.get("runtime_protocol") != RUNTIME_PROTOCOL
+            or UNSUPPORTED_RUNTIME_CLAIM_FIELDS.intersection(claim)
+        ):
+            # Unsupported rows are audit data, never operational authority. Do
+            # not trust their paths or lane metadata enough to perform cleanup.
+            claim["status"] = "quarantined"
+            claim["quarantined_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
+            claim["quarantine_reason"] = (
+                "claim is not current Stage1 v2 runtime state"
+            )
+            kept.append(claim)
+            continue
         item = item_by_id.get(claim.get("item_id"))
         if item is None:
             # Runtime state is not an authority surface. Preserve malformed or
@@ -2465,6 +2927,7 @@ def refresh_claims(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
             claim["status"] = "quarantined"
             claim["quarantined_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
             claim["quarantine_reason"] = "claim item is absent from the authoritative DAG"
+            restore_stopped_review_acl(claim)
             kept.append(claim)
             continue
         lane = claim.get("lane", IMPLEMENTATION_LANE)
@@ -2472,6 +2935,7 @@ def refresh_claims(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
             claim["status"] = "quarantined"
             claim["quarantined_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
             claim["quarantine_reason"] = "claim authority metadata disagrees with the validated DAG"
+            restore_stopped_review_acl(claim)
             kept.append(claim)
             continue
         slot = claim.get("slot")
@@ -2497,18 +2961,11 @@ def refresh_claims(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
         expected_output = RUNTIME / "logs" / f"{claim_id}.out"
         expected_status = RUNTIME / "app-server" / f"{claim_id}.json"
         expected_goal = RUNTIME / "goals" / f"{claim_id}.txt"
+        expected_frontier_scratch = (
+            RUNTIME / FRONTIER_SCRATCH_DIRECTORY / str(claim_id)
+        )
         runtime_bound = claim.get("status") in active_statuses | {"blocked"}
         active_runtime = claim.get("status") in active_statuses
-        protocol = claim.get("runtime_protocol", LEGACY_RUNTIME_PROTOCOL)
-        legacy_runtime = protocol == LEGACY_RUNTIME_PROTOCOL
-        # Historical tmux claims and quarantines belong to the retired runtime.
-        # The new ledger never adopts, rewrites, or derives side effects from them.
-        if legacy_runtime:
-            claim["status"] = "quarantined"
-            claim["quarantined_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
-            claim["quarantine_reason"] = "legacy runtime claim is not reusable by the app-server scheduler"
-            kept.append(claim)
-            continue
         if runtime_bound and (
             (
                 active_runtime
@@ -2546,6 +3003,15 @@ def refresh_claims(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
             or claim["runtime_config"] != REQUIRED_RUNTIME_CONFIG
             or lane not in LANES
             or (
+                claim.get("frontier_policy_sha256") is not None
+                and (
+                    not isinstance(claim.get("frontier_scratch"), str)
+                    or Path(str(claim.get("frontier_scratch"))).absolute()
+                    != expected_frontier_scratch.absolute()
+                    or Path(str(claim.get("frontier_scratch"))).is_symlink()
+                )
+            )
+            or (
                 lane == REVIEW_LANE
                 and (
                     not isinstance(claim.get("review_binding_path"), str)
@@ -2571,30 +3037,51 @@ def refresh_claims(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
             claim["status"] = "quarantined"
             claim["quarantined_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
             claim["quarantine_reason"] = "claim runtime identity is not scheduler-canonical"
+            restore_stopped_review_acl(claim)
             kept.append(claim)
             continue
-        if (
-            lane == IMPLEMENTATION_LANE
-            and claim.get("fresh_revalidation") is True
-            and claim.get("status")
-            in {"live", "preparing", "launch_failed", "draining", "finished"}
-        ):
+        if claim.get("status") in active_statuses | {
+            "finished_integrated", "review_finished"
+        }:
             try:
-                # A historical lease is content-bound to the HEAD at allocation.
-                # Ordinary checkpoint commits may advance HEAD while it runs;
-                # the immutable claim remains valid and merge conflict gates
-                # still protect the authoritative tree.
-                claim_legacy_revalidation_lane(claim, item)
-            except (ValueError, SystemExit) as exc:
-                if app_server_worker_is_live(claim) or app_server_child_is_live(claim):
-                    terminate_app_server_worker(claim)
-                claim["status"] = "quarantined"
-                claim["quarantined_at"] = dt.datetime.now(
-                    dt.timezone.utc
-                ).isoformat()
-                claim["quarantine_reason"] = (
-                    "historical revalidation authority was revoked: " + str(exc)
+                require_claim_focus_runtime_current(
+                    item, claim, theorem_nodes, boundary="runtime_refresh"
                 )
+            except (OSError, ValueError, focus_eligibility.EligibilityError) as exc:
+                try:
+                    recorded = claim.get("focus_eligibility")
+                    policy = (
+                        _frontier_policy(recorded)
+                        if isinstance(recorded, dict)
+                        else None
+                    )
+                    ledger = _read_frontier_runtime(str(item.get("theorem_id", "")))
+                    if policy is not None and ledger is not None:
+                        _frontier_stop(
+                            str(item["theorem_id"]), ledger,
+                            "frontier scheduler authority was revoked: " + str(exc),
+                            condition="scheduler_revoked",
+                        )
+                except (OSError, ValueError, focus_eligibility.EligibilityError):
+                    pass
+                was_live = app_server_worker_is_live(claim) or app_server_child_is_live(claim)
+                if was_live:
+                    terminated = terminate_app_server_worker(claim)
+                    if not terminated and (
+                        app_server_worker_is_live(claim) or app_server_child_is_live(claim)
+                    ):
+                        claim["status"] = "draining"
+                        claim["drain_reason"] = "focus authority revoked: " + str(exc)
+                        kept.append(claim)
+                        continue
+                try:
+                    settle_frontier_claim(item, claim, reason="focus authority revoked")
+                except ValueError:
+                    pass
+                claim["status"] = "quarantined"
+                claim["quarantined_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
+                claim["quarantine_reason"] = "focus authority revoked: " + str(exc)
+                restore_stopped_review_acl(claim)
                 kept.append(claim)
                 continue
         if states[item["id"]] == "[x]":
@@ -2611,9 +3098,13 @@ def refresh_claims(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
                     claim["drain_reason"] = "master accepted but app-server worker did not stop"
                     kept.append(claim)
                     continue
+            if lane == IMPLEMENTATION_LANE:
+                settle_frontier_claim(item, claim, reason="master_accepted")
+            restore_stopped_review_acl(claim)
+            quarantine_review_acl_restore_failure(claim)
             claim["released_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
             claim["release_reason"] = "master_accepted"
-            released.append(claim)
+            (kept if claim.get("status") == "quarantined" else released).append(claim)
             continue
         if claim.get("status") in {"review_finished", "review_failed"}:
             if lane != REVIEW_LANE:
@@ -2636,8 +3127,27 @@ def refresh_claims(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
                         dt.datetime.now(dt.timezone.utc) + dt.timedelta(minutes=15)
                     ).isoformat()
                     claim["review_failure_reason"] = str(exc)
+            restore_stopped_review_acl(claim)
+            quarantine_review_acl_restore_failure(claim)
             kept.append(claim)
             continue
+        if lane == REVIEW_LANE and claim.get("status") in {
+            "quarantined", "released", "cancelled", "master_accepted", "superseded"
+        }:
+            restore_stopped_review_acl(claim)
+            quarantine_review_acl_restore_failure(claim)
+            kept.append(claim)
+            continue
+        if (
+            lane == REVIEW_LANE
+            and claim.get("review_acl_snapshot_state") == "active"
+            and not app_server_worker_is_live(claim)
+            and not app_server_child_is_live(claim)
+        ):
+            # Covers scheduler crashes after process exit but before a status
+            # transition, including non-active terminal rows retained for audit.
+            restore_stopped_review_acl(claim)
+            quarantine_review_acl_restore_failure(claim)
         if lane == REVIEW_LANE and states[item["id"]] != "[_]":
             if (
                 claim.get("status") in {"live", "preparing", "launch_failed", "draining"}
@@ -2651,7 +3161,9 @@ def refresh_claims(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
                     continue
             claim["released_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
             claim["release_reason"] = "review authority item is no longer worker-self-tested"
-            released.append(claim)
+            restore_stopped_review_acl(claim)
+            quarantine_review_acl_restore_failure(claim)
+            (kept if claim.get("status") == "quarantined" else released).append(claim)
             continue
         if claim.get("status") == "draining":
             if app_server_worker_is_live(claim) or app_server_child_is_live(claim):
@@ -2660,9 +3172,13 @@ def refresh_claims(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 claim["drain_retried_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
                 kept.append(claim)
             else:
+                if lane == IMPLEMENTATION_LANE:
+                    settle_frontier_claim(item, claim, reason="draining worker stopped")
+                restore_stopped_review_acl(claim)
+                quarantine_review_acl_restore_failure(claim)
                 claim["released_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
                 claim["release_reason"] = "draining app-server worker stopped"
-                released.append(claim)
+                (kept if claim.get("status") == "quarantined" else released).append(claim)
             continue
         if claim.get("status") in {"preparing", "launch_failed"}:
             workspace = Path(str(claim.get("workspace", "")))
@@ -2684,6 +3200,12 @@ def refresh_claims(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
                         if failed else "app-server /goal handshake exceeded recovery grace"
                     )
                     terminate_app_server_worker(claim)
+                    if (
+                        not app_server_worker_is_live(claim)
+                        and not app_server_child_is_live(claim)
+                    ):
+                        restore_stopped_review_acl(claim)
+                        quarantine_review_acl_restore_failure(claim)
                     kept.append(claim)
                     continue
                 claim["status"] = "live"
@@ -2703,6 +3225,12 @@ def refresh_claims(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
                     if failed else "orphan app-server /goal handshake exceeded recovery grace"
                 )
                 terminate_app_server_worker(claim)
+                if (
+                    not app_server_worker_is_live(claim)
+                    and not app_server_child_is_live(claim)
+                ):
+                    restore_stopped_review_acl(claim)
+                    quarantine_review_acl_restore_failure(claim)
                 kept.append(claim)
             elif lane == REVIEW_LANE:
                 status = worker_status(claim)
@@ -2717,11 +3245,15 @@ def refresh_claims(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
                     except ValueError as exc:
                         claim["status"] = "review_failed"
                         claim["review_failure_reason"] = str(exc)
+                    restore_stopped_review_acl(claim)
+                    quarantine_review_acl_restore_failure(claim)
                     kept.append(claim)
                 else:
+                    restore_stopped_review_acl(claim)
+                    quarantine_review_acl_restore_failure(claim)
                     claim["released_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
                     claim["release_reason"] = "incomplete review launch reservation"
-                    released.append(claim)
+                    (kept if claim.get("status") == "quarantined" else released).append(claim)
             elif manifest.is_file() and not manifest.is_symlink():
                 if not goal_runtime_is_verified(claim):
                     claim["status"] = "quarantined"
@@ -2736,6 +3268,7 @@ def refresh_claims(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 claim["recovered_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
                 kept.append(claim)
             else:
+                settle_frontier_claim(item, claim, reason="incomplete worker launch")
                 claim["released_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
                 claim["release_reason"] = "incomplete worker launch reservation"
                 released.append(claim)
@@ -2765,6 +3298,8 @@ def refresh_claims(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
                         if isinstance(status, dict)
                         else "review exited without a verified structured output"
                     )
+                restore_stopped_review_acl(claim)
+                quarantine_review_acl_restore_failure(claim)
                 kept.append(claim)
                 continue
             manifest = Path(claim.get("workspace", "")) / ".stage1-worker-selftest.json"
@@ -2777,6 +3312,7 @@ def refresh_claims(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
                     continue
                 claim["status"] = "finished"
                 claim["selftest_manifest"] = str(manifest.relative_to(ROOT)) if manifest.is_relative_to(ROOT) else str(manifest)
+                settle_frontier_claim(item, claim, reason="worker finished")
                 kept.append(claim)
             else:
                 # A worker that deliberately fails closed must not be relaunched on
@@ -2794,11 +3330,17 @@ def refresh_claims(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
                     claim["blocked_snapshot_paths"] = changed
                 except ValueError as exc:
                     claim["blocked_artifact_rejection_reason"] = str(exc)
+                settle_frontier_claim(item, claim, reason="worker blocked")
                 kept.append(claim)
         elif claim.get("status") == "live" and not goal_runtime_is_verified(claim):
             claim["status"] = "draining"
             claim["drain_reason"] = "live worker lacks a verified app-server /goal runtime contract"
             terminate_app_server_worker(claim)
+            if (
+                not app_server_worker_is_live(claim)
+                and not app_server_child_is_live(claim)
+            ):
+                restore_stopped_review_acl(claim)
             kept.append(claim)
         else:
             kept.append(claim)
@@ -2925,6 +3467,914 @@ def canonical_json_sha256(value: Any) -> str:
             "utf-8"
         )
     ).hexdigest()
+
+
+def _frontier_runtime_path(theorem_id: str) -> Path:
+    if re.fullmatch(r"THM-M-[0-9]{4}", theorem_id) is None:
+        raise ValueError("frontier runtime theorem identity is malformed")
+    return RUNTIME / "frontier-runtime" / f"{theorem_id}.json"
+
+
+def scheduler_worker_principal_id() -> str:
+    """Return the stable, scheduler-authenticated proof-worker principal."""
+    override = os.environ.get("STAGE1_PROOF_WORKER_ID")
+    if override is not None:
+        if re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._:@-]{0,199}", override) is None:
+            raise ValueError("configured proof-worker principal is malformed")
+        return override
+    # The OS account and machine id are runtime facts, unlike a copied receipt
+    # label or a random per-attempt claim id. Hash the host fact so the receipt
+    # need not expose a private machine identifier.
+    machine_id = Path("/etc/machine-id")
+    try:
+        host_fact = machine_id.read_text(encoding="ascii").strip()
+    except OSError:
+        host_fact = f"node-{uuid.getnode():012x}"
+    if not host_fact:
+        raise ValueError("scheduler cannot authenticate its proof-worker host")
+    host_digest = hashlib.sha256(host_fact.encode("ascii")).hexdigest()[:16]
+    return f"{os.environ.get('USER', 'unknown')}@{host_digest}"
+
+
+def scheduler_review_principal_id() -> str:
+    """Return the configured, OS-authenticated read-only review principal."""
+    raw_uid = os.environ.get("STAGE1_REVIEWER_UID")
+    if raw_uid is None or not raw_uid.isdecimal():
+        raise ValueError("independent review service-account UID is not configured")
+    uid = int(raw_uid)
+    if uid < 1 or uid == os.geteuid():
+        raise ValueError("independent reviewer must use a distinct non-root OS UID")
+    try:
+        account = pwd.getpwuid(uid)
+    except KeyError as exc:
+        raise ValueError("configured independent reviewer UID does not exist") from exc
+    if not account.pw_name or account.pw_uid != uid:
+        raise ValueError("configured independent reviewer account is malformed")
+    machine_id = Path("/etc/machine-id")
+    try:
+        host_fact = machine_id.read_text(encoding="ascii").strip()
+    except OSError:
+        host_fact = f"node-{uuid.getnode():012x}"
+    if not host_fact:
+        raise ValueError("scheduler cannot authenticate its review host")
+    host_digest = hashlib.sha256(host_fact.encode("ascii")).hexdigest()[:16]
+    principal = f"uid:{uid}:{account.pw_name}@{host_digest}"
+    configured = os.environ.get("STAGE1_REVIEWER_PRINCIPAL_ID")
+    if configured is None:
+        raise ValueError("independent review trust principal is not configured")
+    try:
+        _key_id, trust_principal, _key = focus_eligibility._trust_anchor(
+            ROOT, "independent_review", active_only=True
+        )
+    except focus_eligibility.EligibilityError as exc:
+        raise ValueError("independent review trust anchor is unavailable") from exc
+    if configured != trust_principal:
+        raise ValueError(
+            "configured review principal does not match the active trust anchor"
+        )
+    if principal == scheduler_worker_principal_id():
+        raise ValueError("review and implementation principals are not distinct")
+    # The UID/account/host tuple above authenticates the execution boundary;
+    # the stable trust-anchor principal is the identity signed into receipts.
+    return configured
+
+
+def scheduler_review_principal() -> tuple[str, int]:
+    """Return one validated principal tuple without reparsing caller text."""
+    principal = scheduler_review_principal_id()
+    raw_uid = os.environ.get("STAGE1_REVIEWER_UID")
+    if raw_uid is None or not raw_uid.isdecimal():
+        raise ValueError("authenticated review principal has a malformed identity")
+    uid = int(raw_uid)
+    if uid == os.geteuid():
+        raise ValueError("independent reviewer must use a distinct non-root OS UID")
+    return principal, uid
+
+
+def _parse_runtime_timestamp(value: Any, label: str) -> dt.datetime:
+    if not isinstance(value, str):
+        raise ValueError(f"frontier {label} is missing")
+    try:
+        parsed = dt.datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError as exc:
+        raise ValueError(f"frontier {label} is malformed") from exc
+    if parsed.tzinfo is None:
+        raise ValueError(f"frontier {label} is not timezone-aware")
+    return parsed.astimezone(dt.timezone.utc)
+
+
+def _frontier_policy(decision: dict[str, Any]) -> dict[str, Any] | None:
+    policy = decision.get("frontier_policy")
+    if decision.get("execution_disposition") != "frontier_exception":
+        return None
+    if not isinstance(policy, dict):
+        raise ValueError("frontier focus lacks a runtime policy")
+    unhashed = dict(policy)
+    embedded = unhashed.pop("policy_sha256", None)
+    if (
+        policy.get("schema_version") != "stage1-frontier-runtime-policy/1.0"
+        or embedded != hashlib.sha256(
+            json.dumps(
+                unhashed, ensure_ascii=True, sort_keys=True, separators=(",", ":")
+            ).encode("utf-8")
+        ).hexdigest()
+        or not isinstance(policy.get("assigned_worker_id"), str)
+        or not policy["assigned_worker_id"]
+        or not isinstance(policy.get("completion_probability"), (int, float))
+        or isinstance(policy.get("completion_probability"), bool)
+        or not 0.70 <= float(policy["completion_probability"]) <= 1.0
+        or set(policy.get("stop_conditions", []))
+        != focus_eligibility.REQUIRED_FRONTIER_STOP_CONDITIONS
+        or not isinstance(policy.get("validator"), dict)
+    ):
+        raise ValueError("frontier runtime policy is malformed or unbound")
+    return policy
+
+
+def _frontier_validator_input(
+    item: dict[str, Any],
+    decision: dict[str, Any],
+    policy: dict[str, Any],
+    ledger: dict[str, Any] | None,
+    boundary: str,
+) -> bytes:
+    payload = {
+        "schema_version": "stage1-frontier-validator-input/1.0",
+        "boundary": boundary,
+        "theorem_id": item.get("theorem_id"),
+        "item_id": item.get("id"),
+        "phase": item.get("phase"),
+        "receipt_sha256": decision.get("receipt_sha256"),
+        "policy_sha256": policy.get("policy_sha256"),
+        "completion_probability": policy.get("completion_probability"),
+        "runtime_ledger": ledger,
+    }
+    return (
+        json.dumps(payload, ensure_ascii=True, sort_keys=True, separators=(",", ":"))
+        + "\n"
+    ).encode("utf-8")
+
+
+def _run_frontier_validator(
+    item: dict[str, Any],
+    decision: dict[str, Any],
+    policy: dict[str, Any],
+    ledger: dict[str, Any] | None,
+    *,
+    boundary: str,
+) -> dict[str, Any]:
+    """Run the receipt-bound validator in a read-only, networkless sandbox."""
+
+    validator = policy.get("validator")
+    if not isinstance(validator, dict) or set(validator) != {"path", "sha256", "command"}:
+        raise ValueError("frontier validator policy is malformed")
+    relative = validator.get("path")
+    digest = validator.get("sha256")
+    command = validator.get("command")
+    owner = f"Stage1_Instances/{item.get('theorem_id')}/"
+    if (
+        not isinstance(relative, str)
+        or not relative.startswith(owner)
+        or Path(relative).is_absolute()
+        or ".." in Path(relative).parts
+        or not isinstance(digest, str)
+        or re.fullmatch(r"[0-9a-f]{64}", digest) is None
+        or command != ["python3", relative]
+    ):
+        raise ValueError("frontier validator path, digest, or command is not canonical")
+    path = safe_evidence_path(ROOT, relative, owner=str(item.get("theorem_id")))
+    if path.is_symlink() or hashlib.sha256(path.read_bytes()).hexdigest() != digest:
+        raise ValueError("frontier validator is missing, unsafe, or stale")
+    bwrap = Path("/usr/bin/bwrap")
+    python = Path("/usr/bin/python3")
+    if not bwrap.is_file() or not python.is_file():
+        raise ValueError("frontier validator sandbox runtime is unavailable")
+    argv = [
+        str(bwrap), "--die-with-parent", "--new-session", "--unshare-all",
+        "--ro-bind", "/usr", "/usr", "--symlink", "usr/bin", "/bin",
+        "--symlink", "usr/lib", "/lib", "--symlink", "usr/lib64", "/lib64",
+        "--proc", "/proc", "--dev", "/dev", "--tmpfs", "/tmp",
+        "--ro-bind", str(ROOT.resolve()), "/repo", "--chdir", "/repo",
+        "--clearenv", "--setenv", "PATH", "/usr/bin:/bin", "--setenv", "HOME", "/tmp",
+        "--", str(python), "-I", "-B", f"/repo/{relative}",
+    ]
+    try:
+        result = subprocess.run(
+            argv,
+            input=_frontier_validator_input(item, decision, policy, ledger, boundary),
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            timeout=FRONTIER_VALIDATOR_TIMEOUT_SECONDS,
+            check=False,
+        )
+    except subprocess.TimeoutExpired as exc:
+        raise ValueError("frontier validator timed out") from exc
+    if (
+        len(result.stdout) > FRONTIER_VALIDATOR_MAX_OUTPUT_BYTES
+        or len(result.stderr) > FRONTIER_VALIDATOR_MAX_OUTPUT_BYTES
+    ):
+        raise ValueError("frontier validator output exceeds its scheduler limit")
+    if result.returncode:
+        detail = result.stderr.decode("utf-8", "replace").strip()
+        raise ValueError(f"frontier validator failed: {detail or 'nonzero exit'}")
+    try:
+        output = json.loads(result.stdout.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise ValueError("frontier validator output is not one JSON object") from exc
+    if (
+        not isinstance(output, dict)
+        or set(output) != {
+            "schema_version", "theorem_id", "item_id", "phase", "boundary",
+            "policy_sha256", "valid", "completion_probability",
+            "statement_source_match", "scheduler_revoked", "reason_codes",
+        }
+        or output.get("schema_version") != FRONTIER_VALIDATOR_RESULT_SCHEMA
+        or output.get("theorem_id") != item.get("theorem_id")
+        or output.get("item_id") != item.get("id")
+        or output.get("phase") != item.get("phase")
+        or output.get("boundary") != boundary
+        or output.get("policy_sha256") != policy.get("policy_sha256")
+        or not isinstance(output.get("completion_probability"), (int, float))
+        or isinstance(output.get("completion_probability"), bool)
+        or not isinstance(output.get("reason_codes"), list)
+        or any(not isinstance(reason, str) or not reason for reason in output["reason_codes"])
+    ):
+        raise FrontierPolicyStop(
+            "validator_failure",
+            "frontier validator returned a malformed or mismatched decision",
+        )
+    if output.get("scheduler_revoked") is not False:
+        raise FrontierPolicyStop("scheduler_revoked", "frontier exception is scheduler-revoked")
+    if output.get("statement_source_match") is not True:
+        raise FrontierPolicyStop(
+            "statement_or_source_mismatch",
+            "frontier statement or source no longer matches",
+        )
+    probability = float(output["completion_probability"])
+    if probability < 0.70 or probability != float(policy["completion_probability"]):
+        raise FrontierPolicyStop(
+            "probability_below_threshold",
+            "frontier completion probability is below or differs from the reviewed threshold",
+        )
+    if output.get("valid") is not True:
+        raise FrontierPolicyStop("validator_failure", "frontier validator rejected the attempt")
+    return output
+
+
+def _require_frontier_validator(
+    item: dict[str, Any],
+    decision: dict[str, Any],
+    policy: dict[str, Any],
+    ledger: dict[str, Any] | None,
+    *,
+    boundary: str,
+) -> dict[str, Any]:
+    theorem_id = str(item.get("theorem_id", ""))
+    try:
+        return _run_frontier_validator(
+            item, decision, policy, ledger, boundary=boundary
+        )
+    except ValueError as exc:
+        condition = (
+            exc.condition if isinstance(exc, FrontierPolicyStop) else "validator_failure"
+        )
+        if ledger is not None:
+            _frontier_stop(
+                theorem_id,
+                ledger,
+                f"frontier validator failure at {boundary}: {exc}",
+                condition=condition,
+            )
+        raise
+
+
+def _read_frontier_runtime(theorem_id: str) -> dict[str, Any] | None:
+    path = _frontier_runtime_path(theorem_id)
+    if not path.exists():
+        return None
+    if path.is_symlink() or not path.is_file():
+        raise ValueError("frontier runtime ledger is unsafe")
+    value = read_json(path)
+    if value.get("schema_version") != FRONTIER_RUNTIME_LEDGER_SCHEMA:
+        raise ValueError("frontier runtime ledger schema is unsupported")
+    return value
+
+
+def _frontier_claim_scratch_path(claim: dict[str, Any]) -> Path:
+    """Resolve the only scheduler-owned temporary directory for a frontier claim."""
+
+    claim_id = claim.get("claim_id")
+    configured = claim.get("frontier_scratch")
+    if not isinstance(claim_id, str) or CLAIM_ID_RE.fullmatch(claim_id) is None:
+        raise ValueError("frontier scratch claim identity is malformed")
+    expected = RUNTIME / FRONTIER_SCRATCH_DIRECTORY / claim_id
+    if (
+        not isinstance(configured, str)
+        or Path(configured).absolute() != expected.absolute()
+        or Path(configured).is_symlink()
+    ):
+        raise ValueError("frontier scratch path is not scheduler-canonical")
+    try:
+        runtime_resolved = RUNTIME.resolve()
+        parent_resolved = expected.parent.resolve()
+    except OSError as exc:
+        raise ValueError("frontier scratch parent is unavailable") from exc
+    if (
+        RUNTIME.is_symlink()
+        or expected.parent.is_symlink()
+        or not parent_resolved.is_relative_to(runtime_resolved)
+    ):
+        raise ValueError("frontier scratch escapes scheduler-owned storage")
+    if expected.exists() and (
+        not expected.is_dir()
+        or expected.is_symlink()
+        or not expected.resolve().is_relative_to(runtime_resolved)
+    ):
+        raise ValueError("frontier scratch is unsafe")
+    return expected
+
+
+def prepare_frontier_scratch(claim: dict[str, Any]) -> Path:
+    """Create an empty, claim-scoped TMPDIR without following stale links."""
+
+    scratch = _frontier_claim_scratch_path(claim)
+    scratch.parent.mkdir(parents=True, exist_ok=True)
+    if scratch.exists():
+        shutil.rmtree(scratch)
+    scratch.mkdir(mode=0o700)
+    return scratch
+
+
+def ensure_frontier_scratch(claim: dict[str, Any]) -> Path:
+    """Require an existing scratch on restart without erasing uncommitted usage."""
+
+    scratch = _frontier_claim_scratch_path(claim)
+    if not scratch.is_dir() or scratch.is_symlink():
+        raise ValueError("frontier restart scratch is missing or unsafe")
+    return scratch
+
+
+def cleanup_frontier_scratch(claim: dict[str, Any]) -> None:
+    """Remove a settled claim's scratch only after usage has been committed."""
+
+    if claim.get("frontier_scratch") is None:
+        return
+    scratch = _frontier_claim_scratch_path(claim)
+    if scratch.exists():
+        shutil.rmtree(scratch)
+
+
+def _regular_tree_bytes(path: Path, label: str) -> int:
+    if not path.exists():
+        return 0
+    if path.is_symlink() or not path.is_dir():
+        raise ValueError(f"frontier {label} usage root is unsafe")
+    total = 0
+    try:
+        for child in path.rglob("*"):
+            if child.is_file() and not child.is_symlink():
+                total += child.stat().st_size
+    except OSError as exc:
+        raise ValueError(f"frontier {label} usage is unreadable") from exc
+    return total
+
+
+def _proc_process_tree_usage(pid: int, start_ticks: int) -> float | None:
+    """Return cumulative CPU seconds for the claim and every live descendant."""
+
+    if PROC_ROOT != Path("/proc"):
+        return None
+    if process_start_ticks(pid) != start_ticks:
+        return None
+    try:
+        clock_ticks = os.sysconf("SC_CLK_TCK")
+    except (OSError, ValueError):
+        return None
+    if not isinstance(clock_ticks, int) or clock_ticks <= 0:
+        return None
+    processes: dict[int, tuple[int, int]] = {}
+    try:
+        rows = list(PROC_ROOT.iterdir())
+    except OSError:
+        return None
+    for row in rows:
+        if not row.name.isdecimal():
+            continue
+        try:
+            data = (row / "stat").read_text(encoding="utf-8")
+            closing = data.rfind(")")
+            fields = data[closing + 2 :].split()
+            # Fields after comm begin at proc field 3: ppid=4, utime=14,
+            # stime=15, cutime=16, cstime=17. Child times retain already-reaped
+            # descendants; live descendants contribute their own rows.
+            process_pid = int(row.name)
+            processes[process_pid] = (
+                int(fields[1]),
+                sum(int(fields[index]) for index in (11, 12, 13, 14)),
+            )
+        except (OSError, ValueError, IndexError):
+            continue
+    descendants = {pid}
+    changed = True
+    while changed:
+        changed = False
+        for process_pid, (parent_pid, _ticks) in processes.items():
+            if process_pid not in descendants and parent_pid in descendants:
+                descendants.add(process_pid)
+                changed = True
+    total_ticks = sum(
+        processes[process_pid][1]
+        for process_pid in descendants
+        if process_pid in processes
+    )
+    return total_ticks / clock_ticks
+
+
+def _frontier_observed_usage(claim: dict[str, Any]) -> dict[str, int]:
+    status = worker_status(claim)
+    goal = status.get("goal") if isinstance(status, dict) else None
+    launched = isinstance(claim.get("pid"), int) or isinstance(
+        claim.get("client_started_at"), str
+    )
+    if launched and not isinstance(goal, dict):
+        raise ValueError("launched frontier attempt lacks runtime usage accounting")
+    tokens = goal.get("tokensUsed", 0) if isinstance(goal, dict) else 0
+    goal_elapsed = goal.get("timeUsedSeconds", 0) if isinstance(goal, dict) else 0
+    started_at = claim.get("frontier_attempt_started_at")
+    if started_at is None:
+        raise ValueError("frontier attempt lacks a scheduler start time")
+    lease_started = _parse_runtime_timestamp(started_at, "attempt start time")
+    now = dt.datetime.now(dt.timezone.utc)
+    elapsed = max(0, int((now - lease_started).total_seconds()))
+    workspace = Path(str(claim.get("workspace", "")))
+    disk = _regular_tree_bytes(workspace, "workspace")
+    scratch = _frontier_claim_scratch_path(claim)
+    launched = isinstance(claim.get("pid"), int) or isinstance(
+        claim.get("client_started_at"), str
+    )
+    if launched and not scratch.exists():
+        raise ValueError("launched frontier attempt lacks its scheduler-owned scratch")
+    scratch_disk = _regular_tree_bytes(scratch, "scratch")
+    baseline = claim.get("frontier_disk_baseline_bytes")
+    for label, value in (
+        ("tokens", tokens), ("goal elapsed", goal_elapsed),
+        ("elapsed", elapsed), ("disk", disk), ("scratch disk", scratch_disk),
+        ("disk baseline", baseline),
+    ):
+        if not isinstance(value, int) or isinstance(value, bool) or value < 0:
+            raise ValueError(f"frontier {label} usage is malformed")
+    cpu_seconds: float | None = None
+    pid = claim.get("pid")
+    pid_start = claim.get("pid_start_ticks")
+    if isinstance(pid, int) and isinstance(pid_start, int):
+        cpu_seconds = _proc_process_tree_usage(pid, pid_start)
+    # Goal accounting is retained for durable post-exit accounting. While the
+    # process tree is live, charge the greater of goal and whole-tree CPU usage.
+    # Elapsed time remains the conservative upper bound so detached or very
+    # short-lived descendants cannot make compute usage disappear.
+    compute = max(goal_elapsed, math.ceil(cpu_seconds or 0), elapsed)
+    return {
+        "wall_clock_seconds": elapsed,
+        "token_count": tokens,
+        "compute_seconds": compute,
+        # Charge only bytes created above the scheduler-prepared clean clone.
+        # The immutable source checkout itself is not exception work.
+        "disk_bytes": max(0, disk - baseline) + scratch_disk,
+    }
+
+
+def _persist_frontier_runtime(theorem_id: str, ledger: dict[str, Any]) -> None:
+    ledger["updated_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
+    atomic_write(
+        _frontier_runtime_path(theorem_id),
+        json.dumps(ledger, ensure_ascii=True, indent=2) + "\n",
+    )
+
+
+def _frontier_stop(
+    theorem_id: str,
+    ledger: dict[str, Any],
+    reason: str,
+    *,
+    condition: str | None = None,
+) -> NoReturn:
+    triggered = ledger.setdefault("triggered_stop_conditions", [])
+    if not isinstance(triggered, list):
+        raise ValueError("frontier stop-condition ledger is malformed")
+    if reason not in triggered:
+        triggered.append(reason)
+    if condition is not None:
+        if condition not in focus_eligibility.REQUIRED_FRONTIER_STOP_CONDITIONS:
+            raise ValueError("frontier stop condition code is not policy-declared")
+        codes = ledger.setdefault("triggered_stop_condition_codes", [])
+        if not isinstance(codes, list):
+            raise ValueError("frontier stop-condition code ledger is malformed")
+        if condition not in codes:
+            codes.append(condition)
+    _persist_frontier_runtime(theorem_id, ledger)
+    raise ValueError(reason)
+
+
+def settle_frontier_claim(
+    item: dict[str, Any], claim: dict[str, Any], *, reason: str
+) -> None:
+    """Commit one attempt's measured usage before releasing its logical principal."""
+    decision = claim.get("focus_eligibility")
+    if not isinstance(decision, dict) or decision.get("execution_disposition") != "frontier_exception":
+        return
+    policy = _frontier_policy(decision)
+    ledger = _read_frontier_runtime(str(item.get("theorem_id", "")))
+    if policy is None or ledger is None or ledger.get("active_claim_id") != claim.get("claim_id"):
+        return
+    committed = ledger.get("committed_usage")
+    if not isinstance(committed, dict):
+        raise ValueError("frontier committed usage is malformed")
+    observed = _frontier_observed_usage(claim)
+    saved_attempt = ledger.get("attempt_usage")
+    if not isinstance(saved_attempt, dict):
+        raise ValueError("frontier attempt usage is malformed")
+    for key, value in observed.items():
+        saved = saved_attempt.get(key)
+        if not isinstance(saved, int) or isinstance(saved, bool) or saved < 0:
+            raise ValueError("frontier attempt usage is malformed")
+        committed[key] = int(committed.get(key, 0)) + max(saved, value)
+    ledger["attempt_usage"] = {key: 0 for key in committed}
+    ledger["active_claim_id"] = None
+    ledger["last_settled_claim_id"] = claim.get("claim_id")
+    ledger["last_settlement_reason"] = reason
+    _persist_frontier_runtime(str(item["theorem_id"]), ledger)
+    cleanup_frontier_scratch(claim)
+
+
+FRONTIER_MILESTONE_PHASES = {
+    "statement_closure": "statement",
+    "root_proof_closure": "proof",
+    "kernel_replay": "validation",
+    "trust_audit": "validation",
+}
+
+
+def record_frontier_milestone_completion(
+    item: dict[str, Any],
+    review_claim: dict[str, Any],
+    *,
+    evidence_path: str,
+    evidence_sha256: str,
+) -> list[str]:
+    """Append only policy-declared milestones proven by master acceptance."""
+
+    decision = require_item_focus_phase_allowed(item)
+    policy = _frontier_policy(decision)
+    if policy is None:
+        return []
+    theorem_id = str(item.get("theorem_id", ""))
+    ledger = _read_frontier_runtime(theorem_id)
+    if ledger is None:
+        raise ValueError("frontier runtime ledger is missing")
+    if (
+        review_claim.get("lane") != REVIEW_LANE
+        or review_claim.get("status") != "master_accepted"
+        or review_claim.get("item_id") != item.get("id")
+        or review_claim.get("master_receipt_path") != evidence_path
+        or review_claim.get("master_receipt_sha256") != evidence_sha256
+        or not isinstance(evidence_path, str)
+        or Path(evidence_path).is_absolute()
+        or ".." in Path(evidence_path).parts
+        or re.fullmatch(r"[0-9a-f]{64}", str(evidence_sha256)) is None
+    ):
+        raise ValueError("frontier milestone write lacks master-owned acceptance evidence")
+    evidence = ROOT / evidence_path
+    if (
+        evidence.is_symlink()
+        or not evidence.is_file()
+        or hashlib.sha256(evidence.read_bytes()).hexdigest() != evidence_sha256
+    ):
+        raise ValueError("frontier milestone master receipt is missing or stale")
+    if (
+        ledger.get("policy_sha256") != policy.get("policy_sha256")
+        or ledger.get("theorem_id") != theorem_id
+    ):
+        raise ValueError("frontier milestone ledger disagrees with current policy")
+    completed = ledger.get("completed_milestones")
+    milestones = policy.get("milestones")
+    if not isinstance(completed, list) or not isinstance(milestones, list):
+        raise ValueError("frontier milestone ledger or policy is malformed")
+    existing = {
+        row.get("milestone_id")
+        for row in completed
+        if isinstance(row, dict) and isinstance(row.get("milestone_id"), str)
+    }
+    eligible = [
+        row
+        for row in milestones
+        if isinstance(row, dict)
+        and FRONTIER_MILESTONE_PHASES.get(str(row.get("evidence_role")))
+        == item.get("phase")
+    ]
+    added: list[str] = []
+    for milestone in eligible:
+        milestone_id = milestone.get("id")
+        if not isinstance(milestone_id, str):
+            raise ValueError("frontier milestone policy identity is malformed")
+        if milestone_id in existing:
+            prior = next(
+                row for row in completed
+                if isinstance(row, dict) and row.get("milestone_id") == milestone_id
+            )
+            if (
+                prior.get("evidence_path") != evidence_path
+                or prior.get("evidence_sha256") != evidence_sha256
+                or prior.get("review_claim_id") != review_claim.get("claim_id")
+            ):
+                raise ValueError("frontier milestone already has different evidence")
+            continue
+        completed.append({
+            "milestone_id": milestone_id,
+            "evidence_role": milestone["evidence_role"],
+            "evidence_path": evidence_path,
+            "evidence_sha256": evidence_sha256,
+            "review_claim_id": review_claim.get("claim_id"),
+            "reviewed_by": "scheduler_master_lane",
+            "reviewed_at": dt.datetime.now(dt.timezone.utc).isoformat(),
+        })
+        existing.add(milestone_id)
+        added.append(milestone_id)
+    if added:
+        _persist_frontier_runtime(theorem_id, ledger)
+    return added
+
+
+def _require_frontier_runtime(
+    item: dict[str, Any],
+    decision: dict[str, Any],
+    *,
+    claim: dict[str, Any] | None,
+    create: bool = False,
+    boundary: str = "runtime_refresh",
+) -> dict[str, Any] | None:
+    policy = _frontier_policy(decision)
+    if policy is None:
+        return None
+    theorem_id = str(item.get("theorem_id", ""))
+    ledger = _read_frontier_runtime(theorem_id)
+    if ledger is not None and ledger.get("triggered_stop_conditions"):
+        raise ValueError(
+            "frontier stop condition has already been triggered: "
+            + ", ".join(str(row) for row in ledger["triggered_stop_conditions"])
+        )
+    now = dt.datetime.now(dt.timezone.utc)
+    try:
+        lease_expires_at = _parse_runtime_timestamp(
+            policy.get("lease_expires_at"), "policy lease expiry"
+        )
+    except ValueError:
+        if ledger is None:
+            raise
+        _frontier_stop(
+            theorem_id, ledger, "frontier policy lease expiry is malformed",
+            condition="lease_expired",
+        )
+    if now >= lease_expires_at:
+        if ledger is None:
+            raise ValueError("frontier policy lease is expired")
+        _frontier_stop(
+            theorem_id, ledger, "frontier policy lease is expired",
+            condition="lease_expired",
+        )
+    if create:
+        if claim is None:
+            raise ValueError("frontier allocation lacks its scheduler claim")
+        if ledger is None:
+            ledger = {
+                "schema_version": FRONTIER_RUNTIME_LEDGER_SCHEMA,
+                "theorem_id": theorem_id,
+                "assigned_worker_id": policy["assigned_worker_id"],
+                "policy_sha256": policy["policy_sha256"],
+                "attempts_started": 1,
+                "active_claim_id": claim.get("claim_id"),
+                "completed_milestones": [],
+                "triggered_stop_conditions": [],
+                "triggered_stop_condition_codes": [],
+                "committed_usage": {
+                    "wall_clock_seconds": 0, "token_count": 0,
+                    "compute_seconds": 0, "disk_bytes": 0,
+                },
+                "attempt_usage": {
+                    "wall_clock_seconds": 0, "token_count": 0,
+                    "compute_seconds": 0, "disk_bytes": 0,
+                },
+                "updated_at": dt.datetime.now(dt.timezone.utc).isoformat(),
+            }
+        elif ledger.get("active_claim_id") != claim.get("claim_id"):
+            if ledger.get("active_claim_id") is not None:
+                raise ValueError("frontier logical principal already has an active claim")
+            ledger["attempts_started"] = int(ledger.get("attempts_started", 0)) + 1
+            ledger["active_claim_id"] = claim.get("claim_id")
+            ledger["attempt_usage"] = {
+                "wall_clock_seconds": 0, "token_count": 0,
+                "compute_seconds": 0, "disk_bytes": 0,
+            }
+        _persist_frontier_runtime(theorem_id, ledger)
+    if ledger is None:
+        raise ValueError("frontier runtime ledger is missing")
+    committed_usage = ledger.get("committed_usage")
+    attempt_usage = ledger.get("attempt_usage")
+    budget = policy.get("budget")
+    milestones = policy.get("milestones")
+    completed = ledger.get("completed_milestones")
+    stopped = ledger.get("triggered_stop_conditions")
+    stopped_codes = ledger.get("triggered_stop_condition_codes", [])
+    if (
+        ledger.get("theorem_id") != theorem_id
+        or ledger.get("assigned_worker_id") != policy.get("assigned_worker_id")
+        or ledger.get("policy_sha256") != policy.get("policy_sha256")
+        or not isinstance(ledger.get("attempts_started"), int)
+        or not isinstance(committed_usage, dict)
+        or not isinstance(attempt_usage, dict)
+        or not isinstance(budget, dict)
+        or not isinstance(milestones, list)
+        or not isinstance(completed, list)
+        or not isinstance(stopped, list)
+        or not isinstance(stopped_codes, list)
+        or any(
+            code not in focus_eligibility.REQUIRED_FRONTIER_STOP_CONDITIONS
+            for code in stopped_codes
+        )
+    ):
+        raise ValueError("frontier runtime ledger disagrees with its policy")
+    if claim is not None:
+        expected_principal = scheduler_worker_principal_id()
+        terminal_implementation = (
+            claim.get("lane", IMPLEMENTATION_LANE) == IMPLEMENTATION_LANE
+            and claim.get("status") in {"finished", "finished_integrated", "blocked"}
+            and ledger.get("last_settled_claim_id") == claim.get("claim_id")
+        )
+        active_implementation = (
+            claim.get("lane", IMPLEMENTATION_LANE) == IMPLEMENTATION_LANE
+            and ledger.get("active_claim_id") == claim.get("claim_id")
+        )
+        if (
+            claim.get("frontier_assigned_worker_id") != policy.get("assigned_worker_id")
+            or policy.get("assigned_worker_id") != expected_principal
+            or claim.get("runtime_principal_id") != expected_principal
+            or claim.get("frontier_policy_sha256") != policy.get("policy_sha256")
+            or not (active_implementation or terminal_implementation)
+        ):
+            raise ValueError("frontier claim is not mapped to its logical principal")
+        if active_implementation:
+            attempt_usage.update(_frontier_observed_usage(claim))
+    _require_frontier_validator(
+        item, decision, policy, ledger, boundary=boundary
+    )
+    if ledger["attempts_started"] > policy.get("attempt_limit", 0):
+        _frontier_stop(
+            theorem_id, ledger, "frontier attempt limit is exhausted",
+            condition="attempt_limit_reached",
+        )
+    limits = {
+        "wall_clock_seconds": "wall_clock_seconds",
+        "token_count": "token_limit",
+        "compute_seconds": "compute_seconds",
+        "disk_bytes": "disk_bytes",
+    }
+    total_usage: dict[str, int] = {}
+    for key, limit in limits.items():
+        committed_value = committed_usage.get(key)
+        attempt_value = attempt_usage.get(key)
+        if (
+            not isinstance(committed_value, int)
+            or isinstance(committed_value, bool)
+            or committed_value < 0
+            or not isinstance(attempt_value, int)
+            or isinstance(attempt_value, bool)
+            or attempt_value < 0
+            or not isinstance(budget.get(limit), int)
+        ):
+            _frontier_stop(
+                theorem_id, ledger, "frontier resource usage is malformed",
+                condition="any_resource_budget_exhausted",
+            )
+        total_usage[key] = committed_value + attempt_value
+        if total_usage[key] >= budget[limit]:
+            _frontier_stop(
+                theorem_id, ledger, f"frontier {limit} budget is exhausted",
+                condition="any_resource_budget_exhausted",
+            )
+    if stopped:
+        raise ValueError("frontier stop condition has been triggered: " + ", ".join(stopped))
+    completed_ids: set[str] = set()
+    policy_by_id = {
+        row.get("id"): row
+        for row in milestones
+        if isinstance(row, dict) and isinstance(row.get("id"), str)
+    }
+    for record in completed:
+        evidence_path = record.get("evidence_path") if isinstance(record, dict) else None
+        evidence_sha = record.get("evidence_sha256") if isinstance(record, dict) else None
+        review_claim_id = record.get("review_claim_id") if isinstance(record, dict) else None
+        if (
+            not isinstance(record, dict)
+            or not isinstance(record.get("milestone_id"), str)
+            or not isinstance(evidence_path, str)
+            or Path(evidence_path).is_absolute()
+            or ".." in Path(evidence_path).parts
+            or not isinstance(evidence_sha, str)
+            or re.fullmatch(r"[0-9a-f]{64}", evidence_sha) is None
+            or not isinstance(review_claim_id, str)
+            or record.get("milestone_id") not in policy_by_id
+            or record.get("evidence_role")
+            != policy_by_id.get(record.get("milestone_id"), {}).get("evidence_role")
+            or record.get("reviewed_by") != "scheduler_master_lane"
+            or not isinstance(record.get("reviewed_at"), str)
+        ):
+            _frontier_stop(
+                theorem_id, ledger,
+                "frontier milestone completion is not scheduler-reviewed",
+                condition="validator_failure",
+            )
+        evidence = ROOT / evidence_path
+        matching_reviews = [
+            row for row in load_claims()
+            if row.get("claim_id") == review_claim_id
+            and row.get("lane") == REVIEW_LANE
+            and row.get("status") == "master_accepted"
+            and row.get("master_receipt_path") == evidence_path
+            and row.get("master_receipt_sha256") == evidence_sha
+        ]
+        expected_phase = FRONTIER_MILESTONE_PHASES.get(str(record.get("evidence_role")))
+        if (
+            evidence.is_symlink()
+            or not evidence.is_file()
+            or hashlib.sha256(evidence.read_bytes()).hexdigest() != evidence_sha
+            or len(matching_reviews) != 1
+            or matching_reviews[0].get("theorem_id") != theorem_id
+            or matching_reviews[0].get("item_id")
+            != task_id(theorem_id, str(expected_phase))
+        ):
+            _frontier_stop(
+                theorem_id, ledger, "frontier milestone evidence is forged or stale",
+                condition="validator_failure",
+            )
+        completed_ids.add(record["milestone_id"])
+    for milestone in milestones:
+        if not isinstance(milestone, dict):
+            raise ValueError("frontier milestone policy is malformed")
+        deadline = milestone.get("deadline_at")
+        milestone_id = milestone.get("id")
+        if (
+            isinstance(deadline, str)
+            and isinstance(milestone_id, str)
+            and _parse_runtime_timestamp(deadline, "milestone deadline") <= now
+            and milestone_id not in completed_ids
+        ):
+            _frontier_stop(
+                theorem_id, ledger,
+                f"frontier milestone deadline missed: {milestone_id}",
+                condition="milestone_deadline_missed",
+            )
+    # The ledger admits one active dynamic claim for this policy. Also reject
+    # any independently injected active claim rows mapped to the same policy.
+    if claim is not None:
+        active_for_policy = {
+            row.get("claim_id")
+            for row in load_claims()
+            if row.get("runtime_protocol") == RUNTIME_PROTOCOL
+            and row.get("lane", IMPLEMENTATION_LANE) == IMPLEMENTATION_LANE
+            and row.get("frontier_policy_sha256") == policy.get("policy_sha256")
+            and row.get("status") in {"preparing", "live", "draining", "finished"}
+            and (app_server_worker_is_live(row) or app_server_child_is_live(row))
+        }
+        active_for_policy.add(claim.get("claim_id"))
+        concurrency_limit = budget.get("concurrency_limit")
+        if not isinstance(concurrency_limit, int) or len(active_for_policy) > concurrency_limit:
+            _frontier_stop(
+                theorem_id, ledger, "frontier concurrency limit is exceeded",
+                condition="any_resource_budget_exhausted",
+            )
+    if claim is not None:
+        _persist_frontier_runtime(theorem_id, ledger)
+    return ledger
+
+
+def require_claim_focus_runtime_current(
+    item: dict[str, Any],
+    claim: dict[str, Any],
+    theorem_nodes: dict[str, dict[str, Any]] | None = None,
+    *,
+    boundary: str = "runtime_refresh",
+) -> dict[str, Any]:
+    decision = require_claim_focus_current(item, claim, theorem_nodes)
+    # Exception resources belong to the assigned proof implementation
+    # principal. Independent read-only review consumes the frozen ledger but
+    # cannot impersonate that principal or spend its proof budget.
+    runtime_claim = (
+        claim if claim.get("lane", IMPLEMENTATION_LANE) == IMPLEMENTATION_LANE
+        else None
+    )
+    _require_frontier_runtime(
+        item, decision, claim=runtime_claim, boundary=boundary
+    )
+    return decision
 
 
 def read_bound_runtime_file(path: Path, label: str) -> tuple[bytes, str]:
@@ -3311,7 +4761,7 @@ def require_review_compatible_with_current_head(
         "theorem_id", "v2_execution_rank", "topological_layer",
         "direct_hard_parents", "transitive_hard_ancestors",
         "direct_reuse_hint_ids", "shared_lemma_group_ids",
-        "dependency_context_sha256",
+        "dependency_context_sha256", "focus_eligibility",
     }
     authority_node = authority_nodes.get(item.get("theorem_id"))
     if (
@@ -3472,6 +4922,68 @@ def build_review_role_map(item: dict[str, Any], base_revision: str) -> dict[str,
         fail(str(exc))
 
 
+def build_staged_worker_role_map(
+    item: dict[str, Any],
+    base_revision: str,
+    workspace: Path,
+    changed_paths: list[str],
+) -> dict[str, Any]:
+    """Resolve the scheduler-owned contract against one unmerged worker delta."""
+    try:
+        return acceptance_evidence.resolve_staged_role_map(
+            ROOT,
+            phase_acceptance_contract_record(),
+            workspace=workspace,
+            declared_delta_paths=changed_paths,
+            item_id=item["id"],
+            theorem_id=item["theorem_id"],
+            phase=item["phase"],
+            base_revision=base_revision,
+        )
+    except acceptance_evidence.EvidenceError as exc:
+        raise ValueError(str(exc)) from exc
+
+
+def reject_research_only_proof_delta(
+    item: dict[str, Any], focus: dict[str, Any], role_map: dict[str, Any],
+    workspace: Path,
+) -> None:
+    """Reject proof-bearing Lean bytes before a research-only handoff is copied."""
+
+    if focus.get("execution_disposition") != "research_required":
+        return
+    validator_path = ROOT / "scripts/stage1_phase_validators/current.py"
+    spec = importlib.util.spec_from_file_location(
+        "stage1_phase_validator_research_gate", validator_path
+    )
+    if spec is None or spec.loader is None:
+        raise ValueError("current Stage1 phase validator is unavailable")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    artifacts = role_map.get("artifacts", [])
+    artifact_bytes: dict[str, bytes] = {}
+    for path in role_map.get("staged_delta_paths", []):
+        if not isinstance(path, str) or not path.endswith(".lean"):
+            continue
+        rows = [
+            row for row in artifacts
+            if isinstance(row, dict) and row.get("path") == path
+        ]
+        if len(rows) != 1:
+            raise ValueError(
+                "research-only changed Lean path is not a bound phase artifact"
+            )
+        artifact_bytes[path] = contained_regular_file(
+            workspace, path, str(item["owned_paths"][0]) + "/"
+        ).read_bytes()
+    try:
+        module.reject_research_proof_construction(
+            str(item["phase"]), focus, role_map, artifact_bytes
+        )
+    except module.ValidationError as exc:
+        raise ValueError(str(exc)) from exc
+
+
 def select_review_validator(
     item: dict[str, Any], base_revision: str, *, require_base_blob_match: bool = True
 ) -> dict[str, Any]:
@@ -3490,7 +5002,6 @@ def select_review_validator(
 
 
 def task_prompt(item: dict[str, Any], workspace: Path) -> str:
-    item_json = json.dumps(item, ensure_ascii=False, indent=2)
     _, theorem_nodes = theorem_dag_v2()
     theorem_node = theorem_nodes[item["theorem_id"]]
     inspection_order = parent_inspection_order(item["theorem_id"], theorem_nodes)
@@ -3507,7 +5018,20 @@ def task_prompt(item: dict[str, Any], workspace: Path) -> str:
         ensure_ascii=False,
         indent=2,
     )
-    return f"""You are Stage1 rev-5.6 worker for exactly one Lean 4 theorem execution task.
+    focus_decision = focus_decision_for_item(item, theorem_nodes)
+    disposition = str(focus_decision.get("execution_disposition", ""))
+    prompt_item = dict(item)
+    prompt_deliverable = FOCUS_DELIVERABLES.get(disposition, {}).get(
+        str(item.get("phase", ""))
+    )
+    if not isinstance(prompt_deliverable, str):
+        fail("current focus disposition has no safe prompt deliverable for this phase")
+    prompt_item["deliverable"] = prompt_deliverable
+    prompt_item["authoritative_checklist_deliverable"] = item.get("deliverable")
+    prompt_item["deliverable_interpretation"] = "current_v2_focus_policy_override"
+    item_json = json.dumps(prompt_item, ensure_ascii=False, indent=2)
+    focus_context = json.dumps(focus_decision, ensure_ascii=False, indent=2)
+    return f"""You are a Stage1 v2 worker for exactly one Lean 4 theorem execution task.
 
 Repository root: {workspace}
 Work only inside this worker automation clone: {workspace}
@@ -3529,12 +5053,16 @@ Your assigned item is the only item you may claim:
 The authoritative v2 dependency/reuse context for this theorem is:
 {dependency_context}
 
+The scheduler-validated focus admission for this exact phase is:
+{focus_context}
+
 Required work:
-1. Read Docs/Stage1_Blueprint_v2.md, skills/execute-stage1-rev56/SKILL.md, the target manifest entry, and the target node in Docs/Stage1_Theorem_DAG_v2.json.
-2. Complete the assigned phase with real source, Lean, and/or evidence artifacts under the item's owned path. You may inspect shared read-only sources, but never modify another target's owned path. Never use sorry, axiom, placeholder, fake results, or a broadened/substituted theorem.
-   Before proof work, traverse every ID in `parent_inspection_order` exactly once and in that order; it is the complete direct/transitive closure in ascending v2 rank, not only the nearest parents. Inspect each parent's authoritative phase state, receipts, declaration bodies, and reusable artifacts. Accepted reuse is only `reused_exact` or `reused_with_transport`. Prefer an exact already-proved body over reproving it: import it when possible; otherwise copy only the minimal proof term/declaration into the consumer-owned path and record both the original provider bytes and the consumer copy/checked transport. A checked transport must bind both statement fingerprints, the provider source bytes, the consumer-owned import/wrapper bytes, and the consumer's own validation receipt. Re-elaborate the consumer and bind both byte hashes. Provider checkbox/receipt state is observation only: copying never transfers parent acceptance or evidence credit, and a `[_]` parent is guidance only unless the hard edge's material contract permits provisional consumption.
+1. Read Docs/Stage1_Blueprint_v2.md, skills/execute-stage1-v2/SKILL.md, the target manifest entry, and the target node in Docs/Stage1_Theorem_DAG_v2.json.
+2. Stay inside the focus admission above. Missing eligibility and `research_required` permit discovery only through anchor audit, never proof, validation, release, or theorem-completion claims. `organize_or_integrate` means locate, pin, match, import or transport, replay, and validate an existing exact machine proof rather than inventing one. Frontier proof work requires a valid scheduler-owned, independently reviewed `frontier_exception`; worker-authored probability never authorizes it.
+3. Complete the assigned phase with real source, Lean, and/or evidence artifacts under the item's owned path. You may inspect shared read-only sources, but never modify another target's owned path. Never use sorry, axiom, placeholder, fake results, or a broadened/substituted theorem.
+   Before proof work, traverse every ID in `parent_inspection_order` exactly once and in that order; it is the complete direct/transitive closure in ascending v2 rank, not only the nearest parents. Inspect each parent's authoritative phase state, receipts, declaration bodies, and reusable artifacts. Accepted reuse is only `reused_exact` or `reused_with_transport`. Prefer an exact already-proved body over reproving it: import it when possible; otherwise copy only the minimal proof term/declaration into the consumer-owned path and record both the original provider bytes and the consumer copy/checked transport. A checked transport must bind both statement fingerprints, the provider source bytes, and the consumer-owned import/wrapper bytes, then re-elaborate the consumer under the pinned kernel and bind both byte hashes. A proof worker must not invent the later consumer-validation receipt; that receipt becomes mandatory when the `validation` phase performs its own replay. Provider checkbox/receipt state is observation only: copying never transfers parent acceptance or evidence credit, and a `[_]` parent is guidance only unless the hard edge's material contract permits provisional consumption.
    Create or refresh the target-owned dependency-reuse-ledger.json required by the execution skill. Use schema {DEPENDENCY_LEDGER_SCHEMA} and exactly the graph digest/context IDs above. The ledger must include inspections, reuse_decisions, and unresolved_compatibility_obligations as specified by the skill. Empty parent/hint/group closure still requires an empty audited ledger. A reuse_hint or [_] ancestor is informative only and cannot transfer proof credit.
-3. The HEAD phase contract at `Docs/Stage1_Phase_Acceptance_Contracts.json` is
+4. The HEAD phase contract at `Docs/Stage1_Phase_Acceptance_Contracts.json` is
    mandatory for new evidence. Produce exactly one phase receipt with schema
    `stage1-node-receipt/1.0`, every contract-required field, and complete
    path/SHA-256/Git-blob bindings for every role the contract selects. The
@@ -3549,22 +5077,23 @@ Required work:
    ownership blocker instead of manufacturing a candidate. The worker may
    report a truthful negative result, but must never infer `phase_accepted`
    from command success.
-4. Run the smallest real validation available and record exact commands/results in the owned artifact.
+5. Run the smallest real validation available and record exact commands/results in the owned artifact.
    The worker clone reuses the canonical pinned Lean `.lake` artifacts when available. Do not run
    `lake update`, `lake build`, dependency `git clone`/`git fetch`, or otherwise mutate `.lake`;
    those actions are neither a pinned validation nor valid worker evidence. Use the existing
    toolchain with `lake env lean` for narrowly scoped elaboration checks, and record a missing
    artifact as a blocker rather than fetching a moving dependency.
-5. Do not edit Docs/Stage1_Execution_DAG_rev-5.6.json, Docs/Stage1_Theorem_DAG_v2.json, the blueprint, the generated checklist, or any item state. You are a worker, never the master.
-6. If and only if your assigned phase is genuinely self-tested, write `.stage1-worker-selftest.json` at the workspace root with item_id, changed_paths, commands, output_summary, base_revision, known_failures, and `state: "[_]"`. Otherwise leave no self-test manifest and explain the blocker in an owned artifact.
-7. Do not commit, push, launch tmux, launch `codex exec`, create nested agents, or modify unrelated targets. The app-server integration lane will inspect this clone.
+6. Do not edit focus-eligibility.json, Docs/Stage1_Phase_DAG_v2.json, Docs/Stage1_Theorem_DAG_v2.json, the blueprint, the generated checklist, or any item state. Focus admission is scheduler/master-owned; you are a worker, never the master.
+7. If and only if your assigned phase is genuinely self-tested, write `.stage1-worker-selftest.json` at the workspace root with item_id, changed_paths, commands, output_summary, base_revision, known_failures, and `state: "[_]"`. Otherwise leave no self-test manifest and explain the blocker in an owned artifact.
+8. Do not commit, push, launch tmux, launch `codex exec`, create nested agents, or modify unrelated targets. The app-server integration lane will inspect this clone.
 """
 
 
 def worker_goal_objective(item: dict[str, Any]) -> str:
     return (
         f"Execute {item['id']} for {item['theorem_id']} from the sole task-state authority "
-        "Docs/Stage1_Blueprint_v2.md. Preserve rev-5.6 assurance, follow the exact DAG claim order, "
+        "Docs/Stage1_Blueprint_v2.md. Obey its scheduler-owned focus admission, follow the exact DAG claim order, "
+        "prefer locating, pinning, importing, replaying, and validating existing exact machine proofs, "
         "inspect every direct and transitive parent before proof work, and reuse compatible "
         "already-proved parent bodies by exact import or checked consumer-owned copy/transport "
         "without transferring acceptance. Finish only with truthful owned-path evidence and the "
@@ -3618,6 +5147,7 @@ def build_review_binding(
     objective: str,
     role_map: dict[str, Any],
     validator: dict[str, Any],
+    focus_contract: dict[str, Any],
 ) -> dict[str, Any]:
     return {
         "schema_version": REVIEW_BINDING_SCHEMA,
@@ -3637,6 +5167,8 @@ def build_review_binding(
             row["path"]: row["sha256"] for row in role_map["artifacts"]
         },
         "validator_recipe_sha256s": [validator["recipe_sha256"]],
+        "focus_execution": focus_contract,
+        "focus_contract_sha256": canonical_json_sha256(focus_contract),
         "output_schema": REVIEW_OUTPUT_SCHEMA,
     }
 
@@ -3651,6 +5183,8 @@ def worker_argv(
     lane: str = IMPLEMENTATION_LANE,
     binding_path: Path | None = None,
     thread_id: str | None = None,
+    worker_principal: str | None = None,
+    frontier_scratch: Path | None = None,
 ) -> list[str]:
     configured = {
         "model": CODEX_MODEL,
@@ -3668,12 +5202,18 @@ def worker_argv(
         fail("review app-server lane requires a scheduler-owned binding")
     if lane == IMPLEMENTATION_LANE and binding_path is not None:
         fail("implementation app-server lane cannot receive a review binding")
+    if lane != IMPLEMENTATION_LANE and frontier_scratch is not None:
+        fail("frontier scratch is restricted to the implementation lane")
     if thread_id is not None and (
         not isinstance(thread_id, str)
         or not thread_id
         or re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._:-]{0,199}", thread_id) is None
     ):
         fail("resume thread id is malformed")
+    if worker_principal is None:
+        worker_principal = scheduler_worker_principal_id()
+    if re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._:@-]{0,199}", worker_principal) is None:
+        fail("worker principal is malformed")
     argv = [
         sys.executable,
         str(APP_SERVER_CLIENT),
@@ -3686,20 +5226,39 @@ def worker_argv(
         "--model", CODEX_MODEL,
         "--effort", CODEX_REASONING_EFFORT,
         "--service-tier", CODEX_SERVICE_TIER,
+        "--worker-principal", worker_principal,
     ]
     if binding_path is not None:
         argv.extend(["--binding", str(binding_path)])
     if thread_id is not None:
         argv.extend(["--thread-id", thread_id])
+    if frontier_scratch is not None:
+        if (
+            frontier_scratch.is_symlink()
+            or not frontier_scratch.is_dir()
+            or not frontier_scratch.resolve().is_relative_to(RUNTIME.resolve())
+        ):
+            fail("frontier scratch is unavailable or outside scheduler storage")
+        argv.extend(["--scratch", str(frontier_scratch)])
     return argv
 
 
-def launch_app_server_worker(argv: list[str], *, delay_seconds: float = 0.0) -> int:
+def launch_app_server_worker(
+    argv: list[str], *, delay_seconds: float = 0.0, scratch: Path | None = None
+) -> int:
     """Launch without tmux/nohup/shell and return the process-group leader."""
     if delay_seconds < 0 or delay_seconds > APP_SERVER_LAUNCH_STAGGER_SECONDS:
         fail("app-server launch delay is outside the bounded cohort cadence")
     if delay_seconds:
         time.sleep(delay_seconds)
+    environment = None
+    if scratch is not None:
+        if scratch.is_symlink() or not scratch.is_dir():
+            fail("frontier launch scratch is unavailable or unsafe")
+        environment = os.environ.copy()
+        environment["TMPDIR"] = str(scratch)
+        environment["TMP"] = str(scratch)
+        environment["TEMP"] = str(scratch)
     process = subprocess.Popen(
         argv,
         cwd=ROOT,
@@ -3708,8 +5267,97 @@ def launch_app_server_worker(argv: list[str], *, delay_seconds: float = 0.0) -> 
         stderr=subprocess.DEVNULL,
         start_new_session=True,
         close_fds=True,
+        env=environment,
     )
     return process.pid
+
+
+def launch_review_app_server_worker(
+    argv: list[str],
+    *,
+    reviewer_uid: int,
+    workspace: Path,
+    read_paths: list[Path],
+    write_paths: list[Path],
+    delay_seconds: float = 0.0,
+    claim: dict[str, Any] | None = None,
+    claims: list[dict[str, Any]] | None = None,
+) -> int:
+    """Launch a review client as the configured distinct service account."""
+    if reviewer_uid < 1 or reviewer_uid == os.geteuid():
+        fail("review launch requires a distinct non-root OS UID")
+    if delay_seconds < 0 or delay_seconds > APP_SERVER_LAUNCH_STAGGER_SECONDS:
+        fail("app-server launch delay is outside the bounded cohort cadence")
+    if delay_seconds:
+        time.sleep(delay_seconds)
+    if os.geteuid() != 0:
+        fail(
+            "review service-account launch requires a root-owned supervisor; "
+            "same-UID review fallback is forbidden"
+        )
+    try:
+        if claim is None or claims is None:
+            fail("review ACL provisioning requires its durable scheduler claim")
+
+        def bind_snapshot_before_grant(snapshots: dict[Path, bytes]) -> None:
+            persist_review_acl_snapshot(
+                claim, snapshots, reviewer_uid=reviewer_uid
+            )
+            save_claims(claims)
+
+        access_snapshots = provision_review_access(
+            reviewer_uid=reviewer_uid,
+            workspace=workspace,
+            read_paths=read_paths,
+            write_paths=write_paths,
+            snapshot_callback=bind_snapshot_before_grant,
+        )
+        if (
+            not access_snapshots
+            or claim.get("review_acl_snapshot_state") != "active"
+        ):
+            fail("review access provisioning lacks durable authenticated ACL evidence")
+        if not Path("/usr/bin/setpriv").is_file():
+            fail("root-owned review supervisor lacks /usr/bin/setpriv")
+        process = subprocess.Popen(
+            [
+                "/usr/bin/setpriv",
+                f"--reuid={reviewer_uid}",
+                f"--regid={reviewer_uid}",
+                "--clear-groups",
+                "--no-new-privs",
+                "--",
+                *argv,
+            ],
+            cwd=workspace,
+            stdin=subprocess.DEVNULL,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            start_new_session=True,
+            close_fds=True,
+        )
+        claim["pid"] = process.pid
+        claim["pid_start_ticks"] = process_start_ticks(process.pid)
+        claim["client_started_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
+        save_claims(claims)
+        try:
+            require_process_effective_uid(process.pid, reviewer_uid, "review client")
+        except BaseException:
+            try:
+                os.killpg(process.pid, 15)
+            except ProcessLookupError:
+                pass
+            raise
+        return process.pid
+    except BaseException:
+        # No process was returned to the caller. Restore through the same
+        # durable lifecycle path used after scheduler crash recovery.
+        if claim is not None:
+            if claim.get("review_acl_snapshot_state") == "active":
+                restore_stopped_review_acl(claim)
+            if claims is not None:
+                save_claims(claims)
+        raise
 
 
 def launch_stagger_delay(started_count: int) -> float:
@@ -3746,6 +5394,11 @@ def confirm_goal_handshakes(
                     if not terminated:
                         claim["status"] = "draining"
                         claim["drain_reason"] = "failed /goal app-server process did not stop"
+                if (
+                    not app_server_worker_is_live(claim)
+                    and not app_server_child_is_live(claim)
+                ):
+                    restore_stopped_review_acl(claim)
                 pending.remove(claim)
                 save_claims(claims)
         if pending:
@@ -3760,6 +5413,11 @@ def confirm_goal_handshakes(
             if not terminated:
                 claim["status"] = "draining"
                 claim["drain_reason"] = "timed-out /goal client did not stop"
+        if (
+            not app_server_worker_is_live(claim)
+            and not app_server_child_is_live(claim)
+        ):
+            restore_stopped_review_acl(claim)
     if pending:
         save_claims(claims)
     return sum(claim.get("status") == "live" for claim in cohort)
@@ -3796,8 +5454,9 @@ def prepare_workspace(slot: int) -> Path:
         fail("prepared worker workspace escaped scheduler storage")
     for relative in (
         "Docs/Stage1_Blueprint_v2.md", "Docs/Stage1_Theorem_DAG_v2.json",
-        "Docs/Stage1_Execution_DAG_rev-5.6.json",
-        "Docs/Stage1_Targets_rev-5.6.json", "skills/execute-stage1-rev56/SKILL.md",
+        "Docs/Stage1_Phase_DAG_v2.json",
+        "Docs/Stage1_Target_Membership_v2.json", "Docs/Stage1_Focus_Eligibility_Schema.json",
+        "scripts/stage1_focus_eligibility.py", "skills/execute-stage1-v2/SKILL.md",
     ):
         source, destination = ROOT / relative, workspace / relative
         destination.parent.mkdir(parents=True, exist_ok=True)
@@ -3816,7 +5475,7 @@ def prepare_workspace(slot: int) -> Path:
 
 
 def prepare_review_workspace(slot: int, base_revision: str) -> Path:
-    """Create a detached, clean, scheduler-owned checkout for read-only review."""
+    """Create a detached, clean checkout; access is provisioned at launch."""
     workspace = RUNTIME / "review-workspaces" / f"slot{slot}"
     validate_runtime_root()
     if workspace.is_symlink():
@@ -3839,6 +5498,378 @@ def prepare_review_workspace(slot: int, base_revision: str) -> Path:
     return workspace
 
 
+def _acl_snapshot(path: Path) -> bytes:
+    result = subprocess.run(
+        ["/usr/bin/getfacl", "-cpn", "--", str(path)],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        check=False,
+    )
+    if result.returncode:
+        detail = result.stderr.decode("utf-8", "replace").strip()
+        fail(f"cannot snapshot review ACL for {path}: {detail or 'unknown error'}")
+    return result.stdout
+
+
+def _restore_acl(path: Path, snapshot: bytes) -> None:
+    result = subprocess.run(
+        ["/usr/bin/setfacl", "--restore=-"],
+        cwd=Path("/"),
+        input=(f"# file: {path.as_posix().lstrip('/')}\n".encode() + snapshot),
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        check=False,
+    )
+    if result.returncode:
+        detail = result.stderr.decode("utf-8", "replace").strip()
+        fail(f"cannot restore review ACL for {path}: {detail or 'unknown error'}")
+
+
+def provision_review_access(
+    *,
+    reviewer_uid: int,
+    workspace: Path,
+    read_paths: list[Path],
+    write_paths: list[Path],
+    snapshot_callback: Callable[[dict[Path, bytes]], None] | None = None,
+) -> dict[Path, bytes]:
+    """Grant only traversal/read plus claim-scoped writable endpoint ACLs.
+
+    The repository and runtime deliberately remain 0700.  A root-owned
+    supervisor must install narrow POSIX ACL entries immediately before it
+    drops privileges; chmod/world-write fallbacks are forbidden.
+    """
+    if os.geteuid() != 0:
+        fail(
+            "review access provisioning requires a root-owned supervisor; "
+            "same-UID review fallback is forbidden"
+        )
+    if reviewer_uid < 1 or reviewer_uid == os.geteuid():
+        fail("review access requires a distinct non-root OS UID")
+    if shutil.which("setfacl") != "/usr/bin/setfacl" or shutil.which("getfacl") != "/usr/bin/getfacl":
+        fail("review access requires root-owned /usr/bin POSIX ACL tools")
+    root = ROOT.absolute()
+    runtime = RUNTIME.absolute()
+    workspace = workspace.absolute()
+    if (
+        workspace.is_symlink()
+        or not workspace.is_dir()
+        or not workspace.resolve().is_relative_to(runtime.resolve())
+    ):
+        fail("review workspace is not a detached scheduler-owned directory")
+    allowed_reads = {workspace, *(path.absolute() for path in read_paths)}
+    allowed_writes = {path.absolute() for path in write_paths}
+    if not allowed_reads or not allowed_writes:
+        fail("review access plan is empty")
+    for path in allowed_reads | allowed_writes:
+        if path.is_symlink():
+            fail(f"review access path is a symlink: {path}")
+    for path in allowed_writes:
+        if not path.parent.resolve().is_relative_to(runtime.resolve()):
+            fail("review writable endpoint escapes scheduler runtime")
+
+    access: dict[Path, str] = {}
+
+    def merge(path: Path, permissions: str) -> None:
+        current = access.get(path, "---")
+        access[path] = "".join(
+            flag if flag in current or flag in permissions else "-" for flag in "rwx"
+        )
+
+    # Traverse only the absolute ancestors needed to reach the detached copy
+    # and claim-scoped endpoints.  No ancestor receives read or write access.
+    for leaf in allowed_reads | allowed_writes:
+        current = leaf.parent
+        while current != current.parent:
+            merge(current, "--x")
+            current = current.parent
+    for path in allowed_reads:
+        if not path.exists():
+            fail(f"review read input is missing: {path}")
+        if path.is_dir():
+            for descendant in [path, *path.rglob("*")]:
+                if descendant.is_symlink():
+                    target = descendant.resolve(strict=True)
+                    if not target.is_relative_to(path.resolve()):
+                        fail(f"review detached workspace symlink escapes its copy: {descendant}")
+                    # setfacl follows a symlink on Linux. Bind and restore the
+                    # actual in-workspace inode rather than recording an
+                    # ambiguous symlink pathname.
+                    merge(target, "r-x" if target.is_dir() else "r--")
+                    continue
+                merge(descendant, "r-x" if descendant.is_dir() else "r--")
+        else:
+            merge(path, "r--")
+    for path in allowed_writes:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        merge(path.parent, "-wx")
+        if path.exists():
+            if not path.is_file():
+                fail(f"review writable endpoint is not a regular file: {path}")
+            merge(path, "rw-")
+
+    snapshots = {path: _acl_snapshot(path) for path in access if path.exists()}
+    if snapshot_callback is not None:
+        snapshot_callback(snapshots)
+    applied: list[Path] = []
+    try:
+        for path, permissions in sorted(access.items(), key=lambda row: len(row[0].parts)):
+            if not path.exists():
+                continue
+            result = subprocess.run(
+                ["/usr/bin/setfacl", "-m", f"u:{reviewer_uid}:{permissions}", "--", str(path)],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                check=False,
+            )
+            if result.returncode:
+                detail = result.stderr.decode("utf-8", "replace").strip()
+                fail(f"cannot provision review ACL for {path}: {detail or 'unknown error'}")
+            applied.append(path)
+    except BaseException:
+        for path in reversed(applied):
+            _restore_acl(path, snapshots[path])
+        raise
+    return snapshots
+
+
+def restore_review_access(snapshots: dict[Path, bytes]) -> None:
+    """Remove claim-scoped reviewer ACLs by restoring exact prior entries."""
+    for path in sorted(snapshots, key=lambda row: len(row.parts), reverse=True):
+        if path.exists() and not path.is_symlink():
+            _restore_acl(path, snapshots[path])
+
+
+def _review_acl_snapshot_path(claim_id: Any) -> Path:
+    if not isinstance(claim_id, str) or CLAIM_ID_RE.fullmatch(claim_id) is None:
+        raise ValueError("review ACL snapshot claim identity is malformed")
+    return RUNTIME / "review-acl-snapshots" / f"{claim_id}.json"
+
+
+def _review_acl_snapshot_payload(
+    claim: dict[str, Any], snapshots: dict[Path, bytes], *, reviewer_uid: int
+) -> dict[str, Any]:
+    if claim.get("lane") != REVIEW_LANE:
+        raise ValueError("review ACL snapshot cannot bind a non-review claim")
+    if reviewer_uid < 1 or claim.get("runtime_principal_uid") != reviewer_uid:
+        raise ValueError("review ACL snapshot principal disagrees with its claim")
+    rows: list[dict[str, str]] = []
+    for path, snapshot in sorted(snapshots.items(), key=lambda row: str(row[0])):
+        absolute = path.absolute()
+        if path.is_symlink() or not path.exists() or absolute != path:
+            raise ValueError("review ACL snapshot path is missing or unsafe")
+        rows.append({
+            "path": str(absolute),
+            "acl_base64": base64.b64encode(snapshot).decode("ascii"),
+        })
+    if not rows:
+        raise ValueError("review ACL snapshot is empty")
+    body: dict[str, Any] = {
+        "schema_version": REVIEW_ACL_SNAPSHOT_SCHEMA,
+        "claim_id": claim.get("claim_id"),
+        "item_id": claim.get("item_id"),
+        "reviewer_principal": claim.get("runtime_principal_id"),
+        "reviewer_uid": reviewer_uid,
+        "paths": rows,
+    }
+    return {**body, "payload_sha256": canonical_json_sha256(body)}
+
+
+def persist_review_acl_snapshot(
+    claim: dict[str, Any], snapshots: dict[Path, bytes], *, reviewer_uid: int
+) -> Path:
+    """Durably bind the pre-provision ACLs to one scheduler-owned claim."""
+    validate_runtime_root()
+    path = _review_acl_snapshot_path(claim.get("claim_id"))
+    if path.is_symlink() or path.parent.is_symlink():
+        raise ValueError("review ACL snapshot storage is unsafe")
+    payload = _review_acl_snapshot_payload(
+        claim, snapshots, reviewer_uid=reviewer_uid
+    )
+    encoded = (
+        json.dumps(payload, ensure_ascii=True, sort_keys=True, separators=(",", ":"))
+        + "\n"
+    ).encode("utf-8")
+    if path.exists():
+        if not path.is_file() or path.read_bytes() != encoded:
+            raise ValueError("review ACL snapshot conflicts with durable state")
+    else:
+        durable_write_bytes(path, encoded)
+        path.chmod(0o600)
+    metadata = path.stat()
+    if (
+        path.is_symlink()
+        or not stat.S_ISREG(metadata.st_mode)
+        or stat.S_IMODE(metadata.st_mode) != 0o600
+        or metadata.st_uid != os.geteuid()
+    ):
+        raise ValueError("review ACL snapshot is not scheduler-owned mode 0600")
+    claim["review_acl_snapshot_path"] = str(path)
+    claim["review_acl_snapshot_sha256"] = hashlib.sha256(encoded).hexdigest()
+    claim["review_acl_payload_sha256"] = payload["payload_sha256"]
+    claim["review_acl_snapshot_state"] = "active"
+    claim["review_acl_snapshot_persisted_at"] = dt.datetime.now(
+        dt.timezone.utc
+    ).isoformat()
+    return path
+
+
+def _load_review_acl_snapshot(claim: dict[str, Any]) -> tuple[Path, dict[Path, bytes]]:
+    expected_path = _review_acl_snapshot_path(claim.get("claim_id"))
+    value = claim.get("review_acl_snapshot_path")
+    expected_file_sha = claim.get("review_acl_snapshot_sha256")
+    expected_payload_sha = claim.get("review_acl_payload_sha256")
+    if (
+        claim.get("lane") != REVIEW_LANE
+        or claim.get("review_acl_snapshot_state") != "active"
+        or not isinstance(value, str)
+        or Path(value).absolute() != expected_path.absolute()
+        or expected_path.is_symlink()
+        or expected_path.parent.is_symlink()
+        or not expected_path.is_file()
+        or not expected_path.resolve().is_relative_to(RUNTIME.resolve())
+        or not isinstance(expected_file_sha, str)
+        or re.fullmatch(r"[0-9a-f]{64}", expected_file_sha) is None
+        or not isinstance(expected_payload_sha, str)
+        or re.fullmatch(r"[0-9a-f]{64}", expected_payload_sha) is None
+    ):
+        raise ValueError("review ACL snapshot binding is missing or unsafe")
+    metadata = expected_path.stat()
+    if (
+        stat.S_IMODE(metadata.st_mode) != 0o600
+        or metadata.st_uid != os.geteuid()
+    ):
+        raise ValueError("review ACL snapshot ownership or mode changed")
+    encoded = expected_path.read_bytes()
+    if hashlib.sha256(encoded).hexdigest() != expected_file_sha:
+        raise ValueError("review ACL snapshot bytes were tampered")
+    try:
+        payload = json.loads(encoded.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise ValueError("review ACL snapshot is not canonical JSON") from exc
+    if (
+        not isinstance(payload, dict)
+        or encoded
+        != (
+            json.dumps(
+                payload, ensure_ascii=True, sort_keys=True, separators=(",", ":")
+            )
+            + "\n"
+        ).encode("utf-8")
+        or canonical_json_sha256(
+            {key: value for key, value in payload.items() if key != "payload_sha256"}
+        ) != expected_payload_sha
+        or payload.get("payload_sha256") != expected_payload_sha
+        or payload.get("schema_version") != REVIEW_ACL_SNAPSHOT_SCHEMA
+        or payload.get("claim_id") != claim.get("claim_id")
+        or payload.get("item_id") != claim.get("item_id")
+        or payload.get("reviewer_principal") != claim.get("runtime_principal_id")
+        or payload.get("reviewer_uid") != claim.get("runtime_principal_uid")
+        or set(payload) != {
+            "schema_version", "claim_id", "item_id", "reviewer_principal",
+            "reviewer_uid", "paths", "payload_sha256",
+        }
+    ):
+        raise ValueError("review ACL snapshot payload disagrees with its claim")
+    rows = payload.get("paths")
+    if not isinstance(rows, list) or not rows:
+        raise ValueError("review ACL snapshot path list is malformed")
+    snapshots: dict[Path, bytes] = {}
+    for row in rows:
+        if not isinstance(row, dict) or set(row) != {"path", "acl_base64"}:
+            raise ValueError("review ACL snapshot row is malformed")
+        raw_path, encoded_acl = row.get("path"), row.get("acl_base64")
+        if not isinstance(raw_path, str) or not isinstance(encoded_acl, str):
+            raise ValueError("review ACL snapshot row is malformed")
+        path = Path(raw_path)
+        root = ROOT.absolute()
+        allowed_root_lineage = (
+            path == root
+            or path.is_relative_to(root)
+            or root.is_relative_to(path)
+        )
+        if (
+            not path.is_absolute()
+            or path != path.absolute()
+            or path in snapshots
+            or path.is_symlink()
+            or not allowed_root_lineage
+        ):
+            raise ValueError("review ACL restore path is unsafe")
+        try:
+            snapshots[path] = base64.b64decode(encoded_acl, validate=True)
+        except (ValueError, binascii.Error) as exc:
+            raise ValueError("review ACL snapshot bytes are malformed") from exc
+    return expected_path, snapshots
+
+
+def review_claim_processes_are_dead(claim: dict[str, Any]) -> bool:
+    """Require both recorded review process identities to have disappeared."""
+    identities: list[tuple[Any, Any]] = [
+        (claim.get("pid"), claim.get("pid_start_ticks"))
+    ]
+    status = worker_status(claim)
+    if isinstance(status, dict):
+        identities.append(
+            (status.get("app_server_pid"), status.get("app_server_start_ticks"))
+        )
+    for pid, expected_start in identities:
+        if not isinstance(pid, int) or isinstance(pid, bool) or pid < 1:
+            continue
+        observed_start = process_start_ticks(pid)
+        if isinstance(expected_start, int) and observed_start == expected_start:
+            return False
+        if not isinstance(expected_start, int) and pid_alive(pid):
+            return False
+    return not app_server_worker_is_live(claim) and not app_server_child_is_live(claim)
+
+
+def restore_review_acl_for_claim(claim: dict[str, Any]) -> bool:
+    """Idempotently restore ACLs only after both review processes are dead."""
+    if claim.get("lane") != REVIEW_LANE:
+        return False
+    if claim.get("review_acl_snapshot_state") == "restored":
+        return False
+    if claim.get("review_acl_snapshot_state") != "active":
+        return False
+    if not review_claim_processes_are_dead(claim):
+        raise ValueError("refuse to restore review ACL while review process is live")
+    path, snapshots = _load_review_acl_snapshot(claim)
+    restore_review_access(snapshots)
+    claim["review_acl_snapshot_state"] = "restored"
+    claim["review_acl_snapshot_consumed_sha256"] = claim[
+        "review_acl_snapshot_sha256"
+    ]
+    claim["review_acl_restored_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
+    return True
+
+
+def restore_stopped_review_acl(claim: dict[str, Any]) -> bool:
+    """Restore a review lease when possible and retain failures for recovery."""
+    try:
+        changed = restore_review_acl_for_claim(claim)
+    except (OSError, ValueError, SystemExit) as exc:
+        claim["review_acl_restore_error"] = str(exc)
+        return False
+    if changed:
+        claim.pop("review_acl_restore_error", None)
+    return changed
+
+
+def quarantine_review_acl_restore_failure(claim: dict[str, Any]) -> None:
+    """Keep an unrestored review claim visible and non-releasable."""
+    if claim.get("lane") != REVIEW_LANE or not claim.get("review_acl_restore_error"):
+        return
+    claim["status"] = "quarantined"
+    claim.setdefault(
+        "quarantined_at", dt.datetime.now(dt.timezone.utc).isoformat()
+    )
+    claim["quarantine_reason"] = (
+        "review ACL restoration failed closed: "
+        + str(claim["review_acl_restore_error"])
+    )
+
+
 def render_todo(
     data: dict[str, Any],
     ordered: list[dict[str, Any]],
@@ -3852,6 +5883,17 @@ def render_todo(
         fail("todo input disagrees with the v2 blueprint SSOT")
     ordered = order_by_v2(ordered)
     counts = Counter(item["state"] for item in ordered)
+    _, focus_nodes = theorem_dag_v2()
+    actionable_unfinished = sum(
+        item["state"] != "[x]"
+        and isinstance(focus_nodes.get(item["theorem_id"]), dict)
+        and isinstance(focus_nodes[item["theorem_id"]].get("focus_eligibility"), dict)
+        and focus_nodes[item["theorem_id"]]["focus_eligibility"].get(
+            "execution_disposition"
+        )
+        not in {"defer_frontier", "exclude_scope"}
+        for item in ordered
+    )
     theorem_states: dict[str, list[str]] = {}
     for item in ordered:
         theorem_states.setdefault(item["theorem_id"], []).append(item["state"])
@@ -3882,15 +5924,25 @@ def render_todo(
         claim = claim_by_item.get(item["id"])
         claim_state = "unclaimed" if claim is None else f"{claim.get('status')}:{claim.get('worker_id', 'unknown')}"
         phase_deps_done = all(next(row for row in ordered if row["id"] == dependency)["state"] == "[x]" for dependency in item["depends_on"])
+        focus_allowed = item_focus_phase_allowed(item, focus_nodes)
+        focus_node = focus_nodes.get(item["theorem_id"], {})
+        focus_projection = (
+            focus_node.get("focus_eligibility")
+            if isinstance(focus_node, dict)
+            else {}
+        )
+        if not isinstance(focus_projection, dict):
+            focus_projection = {}
+        focus_disposition = str(focus_projection.get("execution_disposition", "invalid"))
         if item["phase"] in {"proof", "validation", "release"}:
             hard_gate, hard_blockers = hard_edge_gate_status(item["theorem_id"], item["phase"])
         else:
             hard_gate, hard_blockers = "not_applicable_for_phase", []
-        deps_done = phase_deps_done and hard_gate != "blocked"
+        deps_done = phase_deps_done and hard_gate != "blocked" and focus_allowed
         if item["state"] == "[_]":
-            ready.append((item, claim_state, phase_deps_done, deps_done, hard_gate, hard_blockers))
+            ready.append((item, claim_state, phase_deps_done, deps_done, hard_gate, hard_blockers, focus_allowed, focus_disposition))
         elif item["state"] == "[ ]" and claim is None:
-            workers.append((item, claim_state, phase_deps_done, deps_done, hard_gate, hard_blockers))
+            workers.append((item, claim_state, phase_deps_done, deps_done, hard_gate, hard_blockers, focus_allowed, focus_disposition))
     path = destination or DOCS / f"todos_{dt.date.today():%Y%m%d}.md"
     if (
         path.parent != DOCS
@@ -3913,13 +5965,14 @@ def render_todo(
     lines = [
         "# Stage1 v2 Execution Todo",
         "",
-        "SSOT: `Docs/Stage1_Blueprint_v2.md`; this file is today's derived task snapshot. Derived DAG/order: `Docs/Stage1_Execution_DAG_rev-5.6.json`, `Docs/Stage1_Theorem_DAG_v2.json`.",
+        "SSOT: `Docs/Stage1_Blueprint_v2.md`; this file is today's derived task snapshot. Derived DAG/order: `Docs/Stage1_Phase_DAG_v2.json`, `Docs/Stage1_Theorem_DAG_v2.json`.",
         f"SSOT blueprint SHA-256: `{blueprint_sha256}`",
         f"Phase state/attempts SHA-256: `{state_sha256}`",
         f"Not done: {counts['[ ]']}",
         f"Worker self-tested: {counts['[_]']}",
         f"Master accepted: {counts['[x]']}",
         f"Unfinished: {counts['[ ]'] + counts['[_]']}",
+        f"Actionable unfinished: {actionable_unfinished}",
         f"Theorems master-complete [x] x7: {theorem_counts['completed']}",
         f"Theorems fully self-tested [_] x7: {theorem_counts['fully_self_tested']}",
         f"Theorems partial [_]/[ ]: {theorem_counts['partial']}",
@@ -3929,16 +5982,18 @@ def render_todo(
         "",
         "## Worker Claim Frontier",
         "",
-        "| Item | Target | Phase | Phase deps accepted | Hard-edge gate | Claim | Owned path |",
-        "| --- | --- | --- | --- | --- | --- | --- |",
+        "| Item | Target | Phase | Focus gate | Phase deps accepted | Hard-edge gate | Claim | Owned path |",
+        "| --- | --- | --- | --- | --- | --- | --- | --- |",
     ]
-    for item, claim_state, phase_deps_done, deps_done, hard_gate, hard_blockers in workers:
+    for item, claim_state, phase_deps_done, deps_done, hard_gate, hard_blockers, focus_allowed, focus_disposition in workers:
         hard_display = hard_gate if not hard_blockers else f"{hard_gate}: {len(hard_blockers)} blocker(s); see target ledger"
-        lines.append(f"| `{item['id']}` | `{item['theorem_id']}` | {item['phase']} | {phase_deps_done} | {hard_display} | {claim_state} | `{item['owned_paths'][0]}` |")
-    lines.extend(["", "## Master Integration Frontier", "", "| Item | Phase deps accepted | Hard-edge gate | Claim |", "| --- | --- | --- | --- |"])
-    for item, claim_state, phase_deps_done, deps_done, hard_gate, hard_blockers in ready:
+        focus_display = f"{focus_disposition}:{focus_allowed}"
+        lines.append(f"| `{item['id']}` | `{item['theorem_id']}` | {item['phase']} | {focus_display} | {phase_deps_done} | {hard_display} | {claim_state} | `{item['owned_paths'][0]}` |")
+    lines.extend(["", "## Master Integration Frontier", "", "| Item | Focus gate | Phase deps accepted | Hard-edge gate | Claim |", "| --- | --- | --- | --- | --- |"])
+    for item, claim_state, phase_deps_done, deps_done, hard_gate, hard_blockers, focus_allowed, focus_disposition in ready:
         hard_display = hard_gate if not hard_blockers else f"{hard_gate}: {len(hard_blockers)} blocker(s); see target ledger"
-        lines.append(f"| `{item['id']}` | {phase_deps_done} | {hard_display} | {claim_state} |")
+        focus_display = f"{focus_disposition}:{focus_allowed}"
+        lines.append(f"| `{item['id']}` | {focus_display} | {phase_deps_done} | {hard_display} | {claim_state} |")
     lines.append("")
     return path, "\n".join(lines)
 
@@ -4006,7 +6061,6 @@ def integrate(limit: int) -> int:
     # workers or discarding their scheduler-owned blocker snapshots.
     claims = refresh_claims(ordered)
     reconciled = reconcile_finished_implementation_handoffs(ordered, claims)
-    reconciled |= reconcile_historical_revalidation_sources(ordered, claims)
     if reconciled:
         save_claims(claims)
     transaction = FileTransaction(runtime_path("integration_wal.json"))
@@ -4083,18 +6137,29 @@ def _integrate(
         try:
             if item is None:
                 raise ValueError("claim refers to unknown item")
-            revalidation_lane = claim_legacy_revalidation_lane(claim, item)
-            revalidating_historical = (
-                item["state"] == "[_]"
-                and claim.get("fresh_revalidation") is True
-                and revalidation_lane is not None
+            # Claims are leases, not admission authority. Re-evaluate the
+            # current content-bound focus receipt before copying any worker
+            # bytes so a revoked, expired, malformed, or downgraded target
+            # cannot cross the integration boundary.
+            require_claim_focus_runtime_current(
+                item, claim, theorem_nodes, boundary="integration"
             )
-            if item["state"] != "[ ]" and not revalidating_historical:
+            unsupported_fields = UNSUPPORTED_RUNTIME_CLAIM_FIELDS.intersection(claim)
+            if unsupported_fields:
                 raise ValueError(
-                    "finished claim no longer targets a not-done or planned historical item"
+                    "worker claim contains unsupported runtime fields: "
+                    + ", ".join(sorted(unsupported_fields))
                 )
+            if item["state"] != "[ ]":
+                raise ValueError("finished claim no longer targets a not-done v2 item")
             if claim.get("runtime_protocol") != RUNTIME_PROTOCOL or not goal_runtime_is_verified(claim):
                 raise ValueError("worker handoff lacks a verified app-server /goal runtime contract")
+            claim_focus = claim.get("focus_eligibility")
+            current_focus = focus_decision_for_item(item, theorem_nodes)
+            if not isinstance(claim_focus, dict) or claim_focus != current_focus:
+                raise ValueError(
+                    "worker claim focus eligibility is missing, stale, or changed since allocation"
+                )
             handoff_data, _ = read_bounded_runtime_file(
                 handoff,
                 "worker handoff",
@@ -4142,6 +6207,23 @@ def _integrate(
             # candidate nor introduce an alternate that makes selection
             # ambiguous after the copy.
             reject_worker_validator_changes(item, changed)
+            worker_role_map = build_staged_worker_role_map(
+                item,
+                str(claim.get("base_revision", "")),
+                workspace,
+                changed,
+            )
+            reject_research_only_proof_delta(
+                item, current_focus, worker_role_map, workspace
+            )
+            if current_focus.get("execution_disposition") == "organize_or_integrate":
+                require_integration_only_source_evidence(
+                    item,
+                    claim["focus_execution"],
+                    worker_role_map,
+                    changed_paths=changed,
+                    evidence_root=workspace,
+                )
             records = [*source.rglob("*.json"), *source.rglob("*.yaml"), *source.rglob("*.yml")]
             if not records or not any(item["theorem_id"] in record.read_text(encoding="utf-8", errors="ignore") for record in records):
                 raise ValueError("no target-identifying structured evidence record")
@@ -4189,49 +6271,8 @@ def _integrate(
             claim["worker_handoff_path"] = str(archive_path)
             claim["worker_handoff_sha256"] = archive_digest
             claim["worker_handoff_size"] = archive_size
-            claim["fresh_revalidation"] = revalidating_historical
-            if revalidating_historical:
-                closure = {
-                    "schema_version": LEGACY_REVALIDATION_INTEGRATION_SCHEMA,
-                    "item_id": item["id"],
-                    "theorem_id": item["theorem_id"],
-                    "phase": item["phase"],
-                    "plan_sha256": claim["legacy_revalidation_plan_sha256"],
-                    "plan_file_sha256": claim[
-                        "legacy_revalidation_plan_file_sha256"
-                    ],
-                    "plan_binding_sha256": claim[
-                        "legacy_revalidation_plan_binding_sha256"
-                    ],
-                    "lane_sha256": claim["legacy_revalidation_lane_sha256"],
-                    "base_revision": claim["base_revision"],
-                    "pre_attempts": pre_attempts,
-                    "post_attempts": item["attempts"],
-                    "integrated_at": claim["integrated_at"],
-                }
-                claim["legacy_revalidation_integration"] = closure
-                claim["legacy_revalidation_integration_sha256"] = (
-                    canonical_json_sha256(closure)
-                )
-                predecessor_ids = [
-                    candidate.get("claim_id")
-                    for candidate in claims
-                    if candidate is not claim
-                    and candidate.get("lane", IMPLEMENTATION_LANE)
-                    == IMPLEMENTATION_LANE
-                    and candidate.get("item_id") == item["id"]
-                    and candidate.get("status") == "revalidation_required"
-                ]
-                if len(predecessor_ids) > 1:
-                    raise ValueError(
-                        "historical revalidation successor has ambiguous predecessors"
-                    )
-                if predecessor_ids:
-                    claim["revalidation_predecessor_claim_id"] = predecessor_ids[0]
-                    if not supersede_revalidation_predecessors(claim, claims):
-                        raise ValueError(
-                            "historical revalidation predecessor could not be superseded"
-                        )
+            claim["staged_role_map"] = worker_role_map
+            claim["staged_role_map_sha256"] = worker_role_map["manifest_sha256"]
             accepted.append(item["id"])
             queue.append({"item_id": item["id"], "theorem_id": item["theorem_id"], "state": "[_]", "owned_paths": item["owned_paths"], "changed_paths": changed, "commands": packet.get("commands", []), "known_failures": packet.get("known_failures", [])})
             transaction.absorb(claim_transaction)
@@ -4252,6 +6293,12 @@ def _integrate(
         try:
             if item is None:
                 raise ValueError("blocked claim refers to unknown item")
+            # Runtime blocker snapshots remain available for audit, but only a
+            # claim whose exact focus lease is still current may copy bytes into
+            # the authoritative worktree.
+            require_claim_focus_runtime_current(
+                item, claim, theorem_nodes, boundary="integration_blocker"
+            )
             owner = item["owned_paths"][0] + "/"
             reject_mutable_dependency_operations(item["id"])
             changed = claim.get("blocked_snapshot_paths")
@@ -4268,6 +6315,13 @@ def _integrate(
             if not isinstance(changed, list):
                 changed = worker_changed_paths(workspace, owner)
             changed = validate_owned_relative_paths(changed, owner)
+            focus_receipt = (
+                f"{owner.rstrip('/')}/{focus_eligibility.RECEIPT_NAME}"
+            )
+            if focus_receipt in changed:
+                raise ValueError(
+                    "blocked handoff changes scheduler/master-owned focus eligibility receipt"
+                )
             reject_worker_validator_changes(item, changed)
             allowed_suffixes = {".json", ".md", ".txt", ".yaml", ".yml", ".lean"}
             if any(Path(path).suffix not in allowed_suffixes for path in changed):
@@ -4367,7 +6421,7 @@ def _integrate(
                 path
                 for path in (
                     "Docs/Stage1_Blueprint_v2.md",
-                    "Docs/Stage1_Execution_DAG_rev-5.6.json",
+                    "Docs/Stage1_Phase_DAG_v2.json",
                     "Docs/Stage1_Theorem_DAG_v2.json",
                 )
                 if path_differs_from_head(path)
@@ -4434,6 +6488,11 @@ def worker_changed_paths(
         for path in all_changed_paths
     ):
         raise ValueError("worker Git delta escapes the assigned ownership scope")
+    focus_receipt = f"{owner.rstrip('/')}/{focus_eligibility.RECEIPT_NAME}"
+    if focus_receipt in all_changed_paths:
+        raise ValueError(
+            "worker handoff changes scheduler/master-owned focus eligibility receipt"
+        )
     protected_changes = sorted((protected_paths or set()) & all_changed_paths)
     if protected_changes:
         raise ValueError(
@@ -4678,7 +6737,7 @@ def checkpoint_integration() -> None:
     expected_modes: dict[str, str] = {}
     allowed_generated = {
         "Docs/Stage1_Blueprint_v2.md",
-        "Docs/Stage1_Execution_DAG_rev-5.6.json",
+        "Docs/Stage1_Phase_DAG_v2.json",
         "Docs/Stage1_Theorem_DAG_v2.json",
     }
     for row in rows:
@@ -4718,13 +6777,13 @@ def checkpoint_integration() -> None:
 
     state_surfaces = {
         "Docs/Stage1_Blueprint_v2.md",
-        "Docs/Stage1_Execution_DAG_rev-5.6.json",
+        "Docs/Stage1_Phase_DAG_v2.json",
         "Docs/Stage1_Theorem_DAG_v2.json",
     }
     selected_state_surfaces = state_surfaces.intersection(selected)
     if selected_state_surfaces.intersection({
         "Docs/Stage1_Blueprint_v2.md",
-        "Docs/Stage1_Execution_DAG_rev-5.6.json",
+        "Docs/Stage1_Phase_DAG_v2.json",
     }) and selected_state_surfaces != state_surfaces:
         fail("task-state checkpoint must bind the blueprint SSOT and both state projections together")
     if "Docs/Stage1_Theorem_DAG_v2.json" in selected_state_surfaces:
@@ -4806,720 +6865,15 @@ def active_lane_leases(claims: list[dict[str, Any]]) -> list[dict[str, Any]]:
     ]
 
 
-def _head_blob_binding(relative: str) -> dict[str, Any]:
-    """Return the exact regular-file binding for one authoritative HEAD blob."""
-    if Path(relative).is_absolute() or ".." in Path(relative).parts:
-        fail("legacy revalidation plan names an unsafe authority path")
-    listing = run(["git", "ls-tree", "HEAD", "--", relative]).stdout.strip()
-    match = re.fullmatch(r"(100644|100755) blob ([0-9a-f]{40,64})\t(.+)", listing)
-    if match is None or match.group(3) != relative:
-        fail(f"legacy revalidation authority is not one exact HEAD blob: {relative}")
-    data = git_object_bytes(f"HEAD:{relative}")
-    return {
-        "path": relative,
-        "git_blob": match.group(2),
-        "sha256": hashlib.sha256(data).hexdigest(),
-        "size": len(data),
-        "git_mode": match.group(1),
-    }
-
-
-def _legacy_plan_binding(
-    value: dict[str, Any], *, file_sha256: str
-) -> dict[str, Any]:
-    lanes = value.get("lanes")
-    if not isinstance(lanes, list):
-        raise ValueError("legacy revalidation plan lacks lanes")
-    return {
-        "schema_version": LEGACY_REVALIDATION_PLAN_BINDING_SCHEMA,
-        "plan_sha256": value.get("plan_sha256"),
-        "plan_file_sha256": file_sha256,
-        "generated_from_revision": value.get("generated_from_revision"),
-        "generated_from_tree": value.get("generated_from_tree"),
-        "source_bindings": value.get("source_bindings"),
-        "lane_sha256s": [
-            lane.get("lane_sha256") if isinstance(lane, dict) else None
-            for lane in lanes
-        ],
-    }
-
-
-def _valid_legacy_plan_binding_shape(binding: Any) -> bool:
-    if not isinstance(binding, dict):
-        return False
-    expected_fields = {
-        "schema_version", "plan_sha256", "plan_file_sha256",
-        "generated_from_revision", "generated_from_tree", "source_bindings",
-        "lane_sha256s",
-    }
-    lane_sha256s = binding.get("lane_sha256s")
-    return (
-        set(binding) == expected_fields
-        and binding.get("schema_version") == LEGACY_REVALIDATION_PLAN_BINDING_SCHEMA
-        and re.fullmatch(r"[0-9a-f]{64}", str(binding.get("plan_sha256"))) is not None
-        and re.fullmatch(r"[0-9a-f]{64}", str(binding.get("plan_file_sha256"))) is not None
-        and re.fullmatch(r"[0-9a-f]{40,64}", str(binding.get("generated_from_revision")))
-        is not None
-        and re.fullmatch(r"[0-9a-f]{40,64}", str(binding.get("generated_from_tree")))
-        is not None
-        and isinstance(binding.get("source_bindings"), dict)
-        and isinstance(lane_sha256s, list)
-        and 1 <= len(lane_sha256s) <= 50
-        and len(lane_sha256s) == len(set(lane_sha256s))
-        and all(re.fullmatch(r"[0-9a-f]{64}", str(value)) for value in lane_sha256s)
-    )
-
-
-def _validate_legacy_revalidation_lane(
-    lane: Any,
-    *,
-    item: dict[str, Any],
-    plan: dict[str, Any] | None = None,
-) -> dict[str, Any]:
-    if not isinstance(lane, dict):
-        raise ValueError("historical revalidation claim lane is malformed")
-    lane_digest = lane.get("lane_sha256")
-    lane_unhashed = dict(lane)
-    lane_unhashed.pop("lane_sha256", None)
-    phase = item.get("phase")
-    phase_layer = next(
-        (index for index, row in enumerate(PHASES) if row[0] == phase), None
-    )
-    classifications = lane.get("legacy_classification_statuses")
-    bindings = lane.get("bindings")
-    expected_bindings = None
-    expected_tree = None
-    expected_rank = None
-    if plan is not None:
-        source = plan.get("source_bindings")
-        if isinstance(source, dict):
-            expected_bindings = {
-                "blueprint_sha256": source.get("blueprint", {}).get("sha256")
-                if isinstance(source.get("blueprint"), dict) else None,
-                "theorem_dag_sha256": source.get("theorem_dag", {}).get("sha256")
-                if isinstance(source.get("theorem_dag"), dict) else None,
-                "contract_sha256": source.get("contract", {}).get("sha256")
-                if isinstance(source.get("contract"), dict) else None,
-                "inventory_sha256": source.get("inventory", {}).get("inventory_sha256")
-                if isinstance(source.get("inventory"), dict) else None,
-            }
-        expected_tree = plan.get("generated_from_tree")
-        try:
-            _, nodes = theorem_dag_v2()
-            expected_rank = nodes[str(item.get("theorem_id"))]["v2_execution_rank"]
-        except (KeyError, TypeError):
-            expected_rank = None
-    binding_prefix_matches = (
-        isinstance(bindings, dict)
-        and expected_bindings is not None
-        and all(bindings.get(field) == digest for field, digest in expected_bindings.items())
-    ) if plan is not None else isinstance(bindings, dict)
-    if (
-        lane.get("schema_version") != LEGACY_REVALIDATION_LANE_SCHEMA
-        or lane.get("item_id") != item.get("id")
-        or lane.get("theorem_id") != item.get("theorem_id")
-        or lane.get("phase") != phase
-        or lane.get("phase_layer") != phase_layer
-        or lane.get("attempts_at_plan_base") != item.get("attempts")
-        or lane.get("authoritative_state") != "[_]"
-        or lane.get("required_steps") != LEGACY_REVALIDATION_REQUIRED_STEPS
-        or lane.get("step_outcomes")
-        != {step: "unknown" for step in LEGACY_REVALIDATION_REQUIRED_STEPS}
-        or lane.get("state_transition") != "none"
-        or lane.get("acceptance_claimed") is not False
-        or lane.get("promotes_to_master_accepted") is not False
-        or lane.get("executes_validators") is not False
-        or lane.get("launches_workers") is not False
-        or lane.get("mutates_repository") is not False
-        or not isinstance(lane.get("legacy_migration_ready_observation"), bool)
-        or not isinstance(classifications, dict)
-        or set(classifications) != LEGACY_INVENTORY_CLASSIFICATIONS
-        or any(value not in {"blocked", "clear", "unknown"} for value in classifications.values())
-        or lane_digest != canonical_json_sha256(lane_unhashed)
-        or not binding_prefix_matches
-        or not isinstance(bindings.get("inventory_item_sha256") if isinstance(bindings, dict) else None, str)
-        or re.fullmatch(r"[0-9a-f]{64}", str(bindings.get("inventory_item_sha256"))) is None
-        or not isinstance(bindings.get("dependency_context_sha256") if isinstance(bindings, dict) else None, str)
-        or re.fullmatch(r"[0-9a-f]{64}", str(bindings.get("dependency_context_sha256"))) is None
-        or (plan is not None and lane.get("authority_revision") != plan.get("generated_from_revision"))
-        or (plan is not None and lane.get("authority_tree") != expected_tree)
-        or (plan is not None and lane.get("v2_execution_rank") != expected_rank)
-    ):
-        raise ValueError("legacy revalidation plan lane is not content-bound and authoritative")
-    return lane
-
-
-def legacy_revalidation_plan() -> tuple[
-    dict[str, dict[str, Any]], dict[str, Any] | None
-]:
-    """Load the optional HEAD plan; a genuinely stale plan expires harmlessly."""
-    path = RUNTIME / "legacy-revalidation-plan.json"
-    if not path.exists():
-        return {}, None
-    if (
-        path.is_symlink()
-        or path.absolute() != (RUNTIME / "legacy-revalidation-plan.json").absolute()
-        or not path.resolve().is_relative_to(RUNTIME.resolve())
-    ):
-        fail("legacy revalidation plan storage is unsafe")
-    try:
-        value, data = read_exact_json_file(path, "legacy revalidation plan")
-    except ValueError as exc:
-        fail(str(exc))
-    current_revision = run(["git", "rev-parse", "HEAD^{commit}"]).stdout.strip()
-    current_tree = run(["git", "rev-parse", "HEAD^{tree}"]).stdout.strip()
-    generated_revision = value.get("generated_from_revision")
-    generated_tree = value.get("generated_from_tree")
-    # A previously valid plan naturally expires after any checkpoint commit.
-    # It must never starve the independent queue of ordinary [ ] work.
-    if generated_revision != current_revision or generated_tree != current_tree:
-        return {}, None
-    embedded = value.get("plan_sha256")
-    unhashed = dict(value)
-    unhashed.pop("plan_sha256", None)
-    lanes = value.get("lanes")
-    source = value.get("source_bindings")
-    selection = value.get("selection_policy")
-    phases = [phase for phase, _ in PHASES]
-    if (
-        value.get("schema_version") != LEGACY_REVALIDATION_PLAN_SCHEMA
-        or value.get("authority_mode") != "authoritative_head"
-        or value.get("head_owned_contract") is not True
-        or value.get("planning_only") is not True
-        or value.get("authoritative_for_acceptance") is not False
-        or value.get("mutates_repository") is not False
-        or value.get("state_transition") != "none"
-        or value.get("acceptance_claimed") is not False
-        or value.get("writes_ssot") is not False
-        or value.get("writes_todo") is not False
-        or value.get("writes_claims") is not False
-        or value.get("writes_paused_state") is not False
-        or value.get("executes_validators") is not False
-        or value.get("launches_workers") is not False
-        or embedded != canonical_json_sha256(unhashed)
-        or not isinstance(lanes, list)
-        or not 1 <= len(lanes) <= 50
-        or value.get("selected_item_count") != len(lanes)
-        or value.get("required_steps") != LEGACY_REVALIDATION_REQUIRED_STEPS
-        or not isinstance(source, dict)
-        or not isinstance(selection, dict)
-        or selection.get("hard_max_samples") != 50
-        or selection.get("authoritative_state_filter") != "[_]"
-        or selection.get("phase_order") != phases
-        or selection.get("phase_layers") != {phase: index for index, phase in enumerate(phases)}
-        or selection.get("within_phase_order") != ["v2_execution_rank", "item_id"]
-        or selection.get("output_order") != ["phase_layer", "v2_execution_rank", "item_id"]
-        or not isinstance(value.get("required_item_ids"), list)
-        or any(
-            not isinstance(item_id, str)
-            for item_id in value.get("required_item_ids", [])
-        )
-        or len(value.get("required_item_ids", []))
-        != len(set(value.get("required_item_ids", [])))
-        or not set(value.get("required_item_ids", [])).issubset(
-            {
-                lane.get("item_id")
-                for lane in lanes
-                if isinstance(lane, dict)
-            }
-        )
-    ):
-        fail("legacy revalidation plan is non-authoritative or malformed")
-    expected_sources = {
-        "blueprint": _head_blob_binding("Docs/Stage1_Blueprint_v2.md"),
-        "theorem_dag": _head_blob_binding("Docs/Stage1_Theorem_DAG_v2.json"),
-        "contract": _head_blob_binding("Docs/Stage1_Phase_Acceptance_Contracts.json"),
-    }
-    if any(source.get(name) != binding for name, binding in expected_sources.items()):
-        fail("legacy revalidation plan source binding disagrees with authoritative HEAD")
-    inventory = source.get("inventory")
-    if (
-        not isinstance(inventory, dict)
-        or inventory.get("schema_version") != "stage1-legacy-migration-inventory/1.0"
-        or re.fullmatch(r"[0-9a-f]{64}", str(inventory.get("inventory_sha256"))) is None
-        or re.fullmatch(r"[0-9a-f]{64}", str(inventory.get("json_bytes_sha256"))) is None
-        or isinstance(inventory.get("size"), bool)
-        or not isinstance(inventory.get("size"), int)
-        or inventory.get("size", 0) <= 0
-    ):
-        fail("legacy revalidation inventory source binding is malformed")
-    inventory_path = RUNTIME / "legacy-migration-inventory.json"
-    try:
-        inventory_value, inventory_bytes = read_exact_json_file(
-            inventory_path,
-            "legacy migration inventory",
-            expected_sha256=str(inventory["json_bytes_sha256"]),
-        )
-    except ValueError as exc:
-        fail(str(exc))
-    inventory_unhashed = dict(inventory_value)
-    inventory_embedded = inventory_unhashed.pop("inventory_sha256", None)
-    if (
-        len(inventory_bytes) != inventory["size"]
-        or inventory_value.get("schema_version") != inventory["schema_version"]
-        or inventory_embedded != inventory["inventory_sha256"]
-        or inventory_embedded != canonical_json_sha256(inventory_unhashed)
-        or inventory_value.get("generated_from_revision") != current_revision
-        or inventory_value.get("generated_from_tree") != current_tree
-        or inventory_value.get("authority_mode") != "authoritative_head"
-        or inventory_value.get("authoritative_for_acceptance") is not False
-        or inventory_value.get("mutates_repository") is not False
-        or inventory_value.get("executes_validators") is not False
-        or inventory_value.get("blueprint") != source.get("blueprint")
-        or inventory_value.get("contract") != source.get("contract")
-    ):
-        fail("legacy migration inventory binding is stale or malformed")
-    authoritative = {item["id"]: item for item in load_blueprint_items()}
-    result: dict[str, dict[str, Any]] = {}
-    for lane in lanes:
-        item_id = lane.get("item_id") if isinstance(lane, dict) else None
-        item = authoritative.get(item_id)
-        if item is None or item.get("state") != "[_]":
-            fail("legacy revalidation plan lane no longer targets authoritative [_]")
-        try:
-            validated = _validate_legacy_revalidation_lane(lane, item=item, plan=value)
-        except ValueError as exc:
-            fail(str(exc))
-        if item_id in result:
-            fail("legacy revalidation plan duplicates an item")
-        result[str(item_id)] = validated
-    binding = _legacy_plan_binding(value, file_sha256=hashlib.sha256(data).hexdigest())
-    if not _valid_legacy_plan_binding_shape(binding):
-        fail("legacy revalidation plan binding is malformed")
-    return result, binding
-
-
-def legacy_revalidation_lanes() -> dict[str, dict[str, Any]]:
-    """Return only current, content-bound historical implementation lanes."""
-    return legacy_revalidation_plan()[0]
-
-
-def optional_legacy_revalidation_lanes() -> dict[str, dict[str, Any]]:
-    """Keep a bad optional plan from starving the ordinary [ ] frontier."""
-    try:
-        return legacy_revalidation_lanes()
-    except SystemExit as exc:
-        print(
-            "warning: ignored invalid optional legacy revalidation plan; "
-            f"ordinary work remains eligible ({exc})",
-            file=sys.stderr,
-        )
-        return {}
-
-
-def rebuild_legacy_revalidation_plan(required_item_ids: list[str]) -> None:
-    """Publish a current-HEAD planning snapshot through scheduler-owned storage."""
-    if (
-        not required_item_ids
-        or len(required_item_ids) > 50
-        or len(required_item_ids) != len(set(required_item_ids))
-        or any(
-            not isinstance(item_id, str)
-            or re.fullmatch(
-                r"S56-M-[0-9]{4}-(?:INTAKE|STATEMENT|ANCHOR_AUDIT|OBLIGATION_TREE|PROOF|VALIDATION|RELEASE)",
-                item_id,
-            )
-            is None
-            for item_id in required_item_ids
-        )
-    ):
-        fail("required historical revalidation plan identities are invalid")
-    inventory_temporary: Path | None = None
-    plan_temporary: Path | None = None
-    try:
-        with tempfile.NamedTemporaryFile(
-            prefix="stage1-legacy-inventory-", suffix=".json", dir="/tmp", delete=False
-        ) as handle:
-            inventory_temporary = Path(handle.name)
-        with tempfile.NamedTemporaryFile(
-            prefix="stage1-legacy-plan-", suffix=".json", dir="/tmp", delete=False
-        ) as handle:
-            plan_temporary = Path(handle.name)
-        run([
-            "python3", "-B", str(ROOT / "scripts/stage1_legacy_migration_inventory.py"),
-            "--repo", str(ROOT), "--revision", "HEAD", "--output",
-            str(inventory_temporary),
-        ])
-        plan_command = [
-            "python3", "-B", str(ROOT / "scripts/stage1_legacy_revalidation_plan.py"),
-            "--repo", str(ROOT), "--revision", "HEAD", "--inventory",
-            str(inventory_temporary), "--limit", "50", "--output",
-            str(plan_temporary),
-        ]
-        for item_id in required_item_ids:
-            plan_command.extend(["--required-item", item_id])
-        run(plan_command)
-        inventory, inventory_bytes = read_exact_json_file(
-            inventory_temporary, "generated legacy migration inventory"
-        )
-        plan, plan_bytes = read_exact_json_file(
-            plan_temporary, "generated legacy revalidation plan"
-        )
-        current_revision = run(["git", "rev-parse", "HEAD^{commit}"]).stdout.strip()
-        if (
-            inventory.get("generated_from_revision") != current_revision
-            or plan.get("generated_from_revision") != current_revision
-        ):
-            fail("generated legacy revalidation plan raced with authoritative HEAD")
-        durable_write_bytes(
-            runtime_path("legacy-migration-inventory.json"), inventory_bytes
-        )
-        durable_write_bytes(runtime_path("legacy-revalidation-plan.json"), plan_bytes)
-    finally:
-        for path in (inventory_temporary, plan_temporary):
-            if path is not None:
-                path.unlink(missing_ok=True)
-
-
-def ensure_revalidation_plan_for_required_sources(
-    items: list[dict[str, Any]], claims: list[dict[str, Any]]
-) -> bool:
-    required_ids = {
-        claim.get("item_id")
-        for claim in claims
-        if claim.get("lane", IMPLEMENTATION_LANE) == IMPLEMENTATION_LANE
-        and claim.get("status") == "revalidation_required"
-    }
-    active_successors = {
-        claim.get("item_id")
-        for claim in claims
-        if claim.get("lane", IMPLEMENTATION_LANE) == IMPLEMENTATION_LANE
-        and claim.get("fresh_revalidation") is True
-        and claim.get("status")
-        in {"preparing", "live", "draining", "finished"}
-    }
-    required_ids -= active_successors
-    if not required_ids:
-        return False
-    _, nodes = theorem_dag_v2()
-    required_items = sorted(
-        (
-            item
-            for item in items
-            if item.get("id") in required_ids and item.get("state") == "[_]"
-        ),
-        key=lambda item: claim_order_key(item, nodes),
-    )
-    planned_required_ids = [item["id"] for item in required_items[:50]]
-    invalid_ids = required_ids - {item["id"] for item in required_items}
-    if invalid_ids:
-        fail(
-            "required historical revalidation source is not authoritative [_]: "
-            + ", ".join(sorted(map(str, invalid_ids)))
-        )
-    lanes = optional_legacy_revalidation_lanes()
-    if set(planned_required_ids).issubset(lanes):
-        return False
-    rebuild_legacy_revalidation_plan(planned_required_ids)
-    refreshed = legacy_revalidation_lanes()
-    if not set(planned_required_ids).issubset(refreshed):
-        fail("rebuilt legacy revalidation plan omitted a required historical item")
-    return True
-
-
-def legacy_revalidation_item_ids() -> set[str]:
-    return set(legacy_revalidation_lanes())
-
-
-def claim_legacy_revalidation_lane(
-    claim: dict[str, Any], item: dict[str, Any]
-) -> dict[str, Any] | None:
-    """Verify the fresh-source mode and immutable historical plan closure."""
-    fresh = claim.get("fresh_revalidation")
-    present = LEGACY_REVALIDATION_CLAIM_FIELDS.intersection(claim)
-    if not isinstance(fresh, bool):
-        raise ValueError("implementation claim lacks boolean fresh_revalidation provenance")
-    if fresh is False:
-        if present:
-            raise ValueError("normal fresh implementation claim carries legacy revalidation bindings")
-        return None
-    if present != LEGACY_REVALIDATION_CLAIM_FIELDS:
-        raise ValueError("historical revalidation claim lacks its complete plan binding")
-    lane = claim.get("legacy_revalidation_lane")
-    binding = claim.get("legacy_revalidation_plan_binding")
-    try:
-        lane = _validate_legacy_revalidation_lane(lane, item=item)
-    except ValueError as exc:
-        raise ValueError("historical revalidation claim is stale or not content-bound") from exc
-    lane_digest = lane.get("lane_sha256")
-    if (
-        not _valid_legacy_plan_binding_shape(binding)
-        or binding.get("generated_from_revision") != claim.get("base_revision")
-        or lane.get("authority_revision") != claim.get("base_revision")
-        or lane.get("authority_tree") != binding.get("generated_from_tree")
-        or lane_digest not in binding.get("lane_sha256s", [])
-        or claim.get("legacy_revalidation_lane_sha256") != lane_digest
-        or claim.get("legacy_revalidation_plan_sha256") != binding.get("plan_sha256")
-        or claim.get("legacy_revalidation_plan_file_sha256")
-        != binding.get("plan_file_sha256")
-        or claim.get("legacy_revalidation_plan_binding_sha256")
-        != canonical_json_sha256(binding)
-    ):
-        raise ValueError("historical revalidation claim plan binding is not exact")
-    source = binding.get("source_bindings")
-    lane_bindings = lane.get("bindings")
-    if (
-        not isinstance(source, dict)
-        or not isinstance(lane_bindings, dict)
-        or lane_bindings.get("blueprint_sha256")
-        != source.get("blueprint", {}).get("sha256")
-        or lane_bindings.get("theorem_dag_sha256")
-        != source.get("theorem_dag", {}).get("sha256")
-        or lane_bindings.get("contract_sha256")
-        != source.get("contract", {}).get("sha256")
-        or lane_bindings.get("inventory_sha256")
-        != source.get("inventory", {}).get("inventory_sha256")
-    ):
-        raise ValueError("historical revalidation claim source binding is not exact")
-    return lane
-
-
-def current_claim_legacy_revalidation_lane(
-    claim: dict[str, Any], item: dict[str, Any]
-) -> dict[str, Any] | None:
-    """Verify a historical lease against the current HEAD-owned plan file."""
-    lane = claim_legacy_revalidation_lane(claim, item)
-    if lane is None:
-        return None
-    current_revision = run(["git", "rev-parse", "HEAD^{commit}"]).stdout.strip()
-    current_tree = run(["git", "rev-parse", "HEAD^{tree}"]).stdout.strip()
-    binding = claim["legacy_revalidation_plan_binding"]
-    if (
-        claim.get("base_revision") != current_revision
-        or binding.get("generated_from_revision") != current_revision
-        or binding.get("generated_from_tree") != current_tree
-    ):
-        raise ValueError("historical revalidation claim authority is no longer current HEAD")
-    lanes, current_binding = legacy_revalidation_plan()
-    current_lane = lanes.get(str(item.get("id")))
-    if (
-        current_binding is None
-        or current_binding != binding
-        or current_lane != lane
-    ):
-        raise ValueError("historical revalidation claim no longer matches the HEAD-owned plan")
-    return lane
-
-
-def post_integration_legacy_revalidation_lane(
-    claim: dict[str, Any], item: dict[str, Any]
-) -> dict[str, Any] | None:
-    """Verify the scheduler-owned N -> N+1 historical integration closure."""
-    if claim.get("fresh_revalidation") is False:
-        if LEGACY_REVALIDATION_INTEGRATION_FIELDS.intersection(claim):
-            raise ValueError("normal implementation claim carries historical integration data")
-        return claim_legacy_revalidation_lane(claim, item)
-    closure = claim.get("legacy_revalidation_integration")
-    digest = claim.get("legacy_revalidation_integration_sha256")
-    lane = claim.get("legacy_revalidation_lane")
-    binding = claim.get("legacy_revalidation_plan_binding")
-    if (
-        claim.get("status") != "finished_integrated"
-        or not isinstance(claim.get("integrated_at"), str)
-        or not claim.get("integrated_at")
-        or not isinstance(closure, dict)
-        or set(closure) != {
-            "schema_version", "item_id", "theorem_id", "phase",
-            "plan_sha256", "plan_file_sha256", "plan_binding_sha256",
-            "lane_sha256", "base_revision", "pre_attempts", "post_attempts",
-            "integrated_at",
-        }
-        or closure.get("schema_version") != LEGACY_REVALIDATION_INTEGRATION_SCHEMA
-        or closure.get("item_id") != item.get("id")
-        or closure.get("theorem_id") != item.get("theorem_id")
-        or closure.get("phase") != item.get("phase")
-        or closure.get("plan_sha256") != claim.get("legacy_revalidation_plan_sha256")
-        or closure.get("plan_file_sha256")
-        != claim.get("legacy_revalidation_plan_file_sha256")
-        or closure.get("plan_binding_sha256")
-        != claim.get("legacy_revalidation_plan_binding_sha256")
-        or closure.get("lane_sha256") != claim.get("legacy_revalidation_lane_sha256")
-        or closure.get("base_revision") != claim.get("base_revision")
-        or closure.get("integrated_at") != claim.get("integrated_at")
-        or not isinstance(lane, dict)
-        or not isinstance(binding, dict)
-        or closure.get("pre_attempts") != lane.get("attempts_at_plan_base")
-        or closure.get("post_attempts") != item.get("attempts")
-        or closure.get("post_attempts") != int(closure.get("pre_attempts", -2)) + 1
-        or digest != canonical_json_sha256(closure)
-    ):
-        raise ValueError("historical revalidation integration closure is not exact")
-    # Validate the immutable plan/lane fields against their pre-integration
-    # attempts without requiring the naturally advanced plan file to remain current.
-    plan_base_item = dict(item)
-    plan_base_item["attempts"] = closure["pre_attempts"]
-    verified = claim_legacy_revalidation_lane(claim, plan_base_item)
-    if verified != lane:
-        raise ValueError("historical revalidation integration lane changed after merge")
-    return verified
-
-
-def _supersede_claim(
-    claim: dict[str, Any], *, successor_claim_id: str, reason: str
-) -> bool:
-    if claim.get("status") == "superseded":
-        return False
-    claim["status"] = "superseded"
-    claim["superseded_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
-    claim["superseded_by_claim_id"] = successor_claim_id
-    claim["supersede_reason"] = reason
-    claim.pop("review_retry_after", None)
-    return True
-
-
-def supersede_revalidation_predecessors(
-    source: dict[str, Any], claims: list[dict[str, Any]]
-) -> bool:
-    """Retire the first historical pass after its current-HEAD successor lands."""
-    predecessor_id = source.get("revalidation_predecessor_claim_id")
-    successor_id = source.get("claim_id")
-    item_id = source.get("item_id")
-    if (
-        source.get("lane", IMPLEMENTATION_LANE) != IMPLEMENTATION_LANE
-        or source.get("status") != "finished_integrated"
-        or not isinstance(predecessor_id, str)
-        or not isinstance(successor_id, str)
-    ):
-        return False
-    predecessors = [
-        claim
-        for claim in claims
-        if claim.get("lane", IMPLEMENTATION_LANE) == IMPLEMENTATION_LANE
-        and claim.get("claim_id") == predecessor_id
-        and claim.get("item_id") == item_id
-        and claim.get("status") == "revalidation_required"
-    ]
-    if len(predecessors) != 1:
-        return False
-    changed = _supersede_claim(
-        predecessors[0],
-        successor_claim_id=successor_id,
-        reason="current-HEAD historical revalidation successor integrated",
-    )
-    for review in claims:
-        if (
-            review.get("lane") == REVIEW_LANE
-            and review.get("item_id") == item_id
-            and review.get("status") in {"review_failed", "review_finished"}
-        ):
-            changed |= _supersede_claim(
-                review,
-                successor_claim_id=successor_id,
-                reason="review targeted superseded historical implementation source",
-            )
-    return changed
-
-
-def reconcile_historical_revalidation_sources(
-    items: list[dict[str, Any]], claims: list[dict[str, Any]]
-) -> bool:
-    """Require a current-HEAD implementation pass when the validator is new/changed."""
-    item_by_id = {item.get("id"): item for item in items}
-    changed = False
-    for source in claims:
-        if (
-            source.get("lane", IMPLEMENTATION_LANE) != IMPLEMENTATION_LANE
-            or source.get("status") != "finished_integrated"
-            or source.get("fresh_revalidation") is not True
-        ):
-            continue
-        item = item_by_id.get(source.get("item_id"))
-        if not isinstance(item, dict) or item.get("state") != "[_]":
-            continue
-        try:
-            post_integration_legacy_revalidation_lane(source, item)
-        except (SystemExit, ValueError) as exc:
-            source["status"] = "quarantined"
-            source["quarantined_at"] = dt.datetime.now(
-                dt.timezone.utc
-            ).isoformat()
-            source["quarantine_reason"] = (
-                "historical revalidation integration closure is invalid: " + str(exc)
-            )
-            changed = True
-            continue
-        try:
-            select_review_validator(item, str(source.get("base_revision", "")))
-        except (SystemExit, ValueError) as exc:
-            reason = str(exc)
-            if (
-                "no current stage1-v2 validator authority" in reason
-                or "exactly one current stage1-v2 authority" in reason
-            ):
-                source["status"] = "revalidation_required"
-                source["revalidation_required_at"] = dt.datetime.now(
-                    dt.timezone.utc
-                ).isoformat()
-                source["revalidation_required_reason"] = reason
-                successor_id = str(source.get("claim_id", ""))
-                for review in claims:
-                    if (
-                        review.get("lane") == REVIEW_LANE
-                        and review.get("item_id") == source.get("item_id")
-                        and review.get("status") in {"review_failed", "review_finished"}
-                    ):
-                        _supersede_claim(
-                            review,
-                            successor_claim_id=successor_id,
-                            reason="current v2 validator authority is unavailable",
-                        )
-                changed = True
-                continue
-            if not any(
-                marker in reason
-                for marker in (
-                    "selected validator did not exist at the worker base",
-                    "selected validator HEAD blob differs from worker-base blob",
-                )
-            ):
-                continue
-            if isinstance(source.get("revalidation_predecessor_claim_id"), str):
-                source["status"] = "quarantined"
-                source["quarantined_at"] = dt.datetime.now(
-                    dt.timezone.utc
-                ).isoformat()
-                source["quarantine_reason"] = (
-                    "historical revalidation successor still has a validator "
-                    "base mismatch: " + reason
-                )
-                changed = True
-                continue
-            source["status"] = "revalidation_required"
-            source["revalidation_required_at"] = dt.datetime.now(
-                dt.timezone.utc
-            ).isoformat()
-            source["revalidation_required_reason"] = str(exc)
-            successor_id = str(source.get("claim_id", ""))
-            for review in claims:
-                if (
-                    review.get("lane") == REVIEW_LANE
-                    and review.get("item_id") == source.get("item_id")
-                    and review.get("status") in {"review_failed", "review_finished"}
-                ):
-                    _supersede_claim(
-                        review,
-                        successor_claim_id=successor_id,
-                        reason="historical source requires a current-HEAD implementation pass",
-                    )
-            changed = True
-    return changed
-
 
 def reconcile_finished_implementation_handoffs(
     items: list[dict[str, Any]], claims: list[dict[str, Any]], *, limit: int = 50
 ) -> bool:
-    """Re-run sources whose recyclable slot outlived their only handoff copy."""
+    """Park finished sources whose immutable handoff is no longer available."""
     if limit < 0 or limit > 50:
         raise ValueError("handoff reconciliation limit must be in 0..50")
     item_by_id = {item.get("id"): item for item in items}
     _, nodes = theorem_dag_v2()
-    existing_required = {
-        source.get("item_id")
-        for source in claims
-        if source.get("lane", IMPLEMENTATION_LANE) == IMPLEMENTATION_LANE
-        and source.get("status") == "revalidation_required"
-    }
-    capacity = max(0, limit - len(existing_required))
     sources = sorted(
         (
             source
@@ -5539,28 +6893,14 @@ def reconcile_finished_implementation_handoffs(
         try:
             read_persisted_worker_handoff(source)
         except (OSError, ValueError) as exc:
-            if capacity <= 0:
-                continue
-            source["status"] = "revalidation_required"
-            source["revalidation_required_at"] = dt.datetime.now(
+            source["status"] = "quarantined"
+            source["quarantined_at"] = dt.datetime.now(
                 dt.timezone.utc
             ).isoformat()
-            source["revalidation_required_reason"] = (
-                "immutable worker handoff is unavailable: " + str(exc)
+            source["quarantine_reason"] = (
+                "immutable worker handoff is unavailable and v2 does not rerun historical work: "
+                + str(exc)
             )
-            capacity -= 1
-            successor_id = str(source.get("claim_id", ""))
-            for review in claims:
-                if (
-                    review.get("lane") == REVIEW_LANE
-                    and review.get("item_id") == source.get("item_id")
-                    and review.get("status") in {"review_failed", "review_finished"}
-                ):
-                    _supersede_claim(
-                        review,
-                        successor_claim_id=successor_id,
-                        reason="implementation source requires a durable handoff rerun",
-                    )
             changed = True
     return changed
 
@@ -5607,7 +6947,7 @@ def review_candidates(
             claim.get("lane", IMPLEMENTATION_LANE) == IMPLEMENTATION_LANE
             and claim.get("status") == "finished_integrated"
             and claim.get("runtime_protocol") == RUNTIME_PROTOCOL
-            and isinstance(claim.get("fresh_revalidation"), bool)
+            and not UNSUPPORTED_RUNTIME_CLAIM_FIELDS.intersection(claim)
         ):
             item = ordered_by_id.get(claim.get("item_id"))
             if (
@@ -5616,6 +6956,7 @@ def review_candidates(
                 and review_source_claim(item, [claim]) is not None
             ):
                 source_claims_by_item.setdefault(claim.get("item_id"), []).append(claim)
+    _, nodes = theorem_dag_v2()
     candidates = [
         item for item in ordered
         if item.get("state") == "[_]"
@@ -5628,15 +6969,15 @@ def review_candidates(
                 str(item.get("theorem_id")), str(item.get("phase"))
             )[0] in {"not_applicable", "satisfied"}
         )
+        and item_focus_phase_allowed(item, nodes)
     ]
-    _, nodes = theorem_dag_v2()
     return sorted(candidates, key=lambda item: claim_order_key(item, nodes))
 
 
 def implementation_candidates(
     ordered: list[dict[str, Any]], claims: list[dict[str, Any]]
 ) -> list[dict[str, Any]]:
-    """Return implementation-eligible items without assigning lane priority."""
+    """Return only fresh v2 ``[ ]`` work without reviving historical ``[_]``."""
     claimed_ids = {
         claim.get("item_id")
         for claim in claims
@@ -5659,29 +7000,19 @@ def implementation_candidates(
         for item in ordered
         if item["state"] in {"[_]", "[x]"}
     }
-    # The historical plan is an optional lane, never a prerequisite for the
-    # ordinary [ ] frontier. Load it only when the SSOT actually has [_] work
-    # that is otherwise unclaimed.
-    needs_historical_plan = any(
-        item.get("state") == "[_]" and item.get("id") not in claimed_ids
-        for item in ordered
-    )
-    historical_revalidation = (
-        optional_legacy_revalidation_lanes() if needs_historical_plan else {}
-    )
+    _, nodes = theorem_dag_v2()
     candidates = [
         item
         for item in ordered
-        if item["state"] in {"[ ]", "[_]"}
-        and (item["state"] == "[ ]" or item["id"] in historical_revalidation)
+        if item["state"] == "[ ]"
         and item["id"] not in claimed_ids
         and (not STARTED_TARGETS_ONLY or item["theorem_id"] in started_targets)
         and all(
             states_by_id.get(dependency) in {"[_]", "[x]"}
             for dependency in item["depends_on"]
         )
+        and item_focus_phase_allowed(item, nodes)
     ]
-    _, nodes = theorem_dag_v2()
     return sorted(candidates, key=lambda item: claim_order_key(item, nodes))
 
 
@@ -5700,8 +7031,22 @@ def unified_lane_candidates(
     if len(item_ids) != len(set(item_ids)):
         fail("one item is simultaneously eligible for implementation and review")
     _, nodes = theorem_dag_v2()
+    disposition_priority = {
+        "organize_or_integrate": 0,
+        "frontier_exception": 1,
+        "research_required": 2,
+    }
     return sorted(
-        records, key=lambda record: claim_order_key(record["item"], nodes)
+        records,
+        key=lambda record: (
+            disposition_priority.get(
+                nodes.get(record["item"]["theorem_id"], {})
+                .get("focus_eligibility", {})
+                .get("execution_disposition"),
+                sys.maxsize,
+            ),
+            claim_order_key(record["item"], nodes),
+        ),
     )
 
 
@@ -5716,7 +7061,7 @@ def review_source_claim(
         and claim.get("item_id") == item.get("id")
         and claim.get("status") == "finished_integrated"
         and claim.get("runtime_protocol") == RUNTIME_PROTOCOL
-        and isinstance(claim.get("fresh_revalidation"), bool)
+        and not UNSUPPORTED_RUNTIME_CLAIM_FIELDS.intersection(claim)
     ]
     if len(candidates) != 1:
         return None
@@ -5734,14 +7079,18 @@ def review_source_claim(
         "worker_handoff_path",
         "worker_handoff_sha256",
         "worker_handoff_size",
-        "fresh_revalidation",
+        "focus_eligibility",
+        "focus_execution",
     }
     string_required = required - {
-        "fresh_revalidation", "worker_handoff_size"
+        "worker_handoff_size", "focus_eligibility",
+        "focus_execution",
     }
     if (
         any(not isinstance(claim.get(field), str) or not claim.get(field) for field in string_required)
-        or not isinstance(claim.get("fresh_revalidation"), bool)
+        or not isinstance(claim.get("focus_eligibility"), dict)
+        or not isinstance(claim.get("focus_execution"), dict)
+        or bool(UNSUPPORTED_RUNTIME_CLAIM_FIELDS.intersection(claim))
         or not isinstance(claim.get("worker_handoff_size"), int)
         or isinstance(claim.get("worker_handoff_size"), bool)
         or int(claim["worker_handoff_size"]) <= 0
@@ -5755,6 +7104,7 @@ def review_source_claim(
         return None
     try:
         read_persisted_worker_handoff(claim)
+        require_claim_focus_runtime_current(item, claim, boundary="review_selection")
     except (OSError, ValueError):
         return None
     return claim
@@ -5869,6 +7219,7 @@ def build_scheduler_review_manifest(
     provenance: dict[str, Any],
     role_map: dict[str, Any],
     validator: dict[str, Any],
+    focus_contract: dict[str, Any],
 ) -> dict[str, Any]:
     """Bind the exact SSOT/DAG and frozen worker five-tuple for review."""
     scheduler_head_path(BLUEPRINT.relative_to(ROOT).as_posix())
@@ -5884,7 +7235,7 @@ def build_scheduler_review_manifest(
     ):
         raise ValueError("worker provenance five-tuple is incomplete")
     try:
-        return acceptance_evidence.build_review_manifest(
+        manifest = acceptance_evidence.build_review_manifest(
             phase_acceptance_contract_record(),
             role_map,
             validator,
@@ -5899,6 +7250,12 @@ def build_scheduler_review_manifest(
             worker_goal_sha256=str(files["goal_objective_path"]["sha256"]),
             worker_handoff_sha256=str(files["selftest_manifest"]["sha256"]),
         )
+        manifest["focus_execution"] = focus_contract
+        manifest["focus_contract_sha256"] = canonical_json_sha256(focus_contract)
+        manifest["manifest_sha256"] = canonical_json_sha256(
+            {key: value for key, value in manifest.items() if key != "manifest_sha256"}
+        )
+        return manifest
     except acceptance_evidence.EvidenceError as exc:
         raise ValueError(str(exc)) from exc
 
@@ -5987,6 +7344,16 @@ def require_review_output(
     if parsed != output:
         raise ValueError("review output differs from its exact final text")
     canonical_digest = canonical_json_sha256(output)
+    reviewer_uid = claim.get("runtime_principal_uid")
+    client_pid = status.get("client_pid")
+    client_start = status.get("client_start_ticks")
+    process_is_live = (
+        isinstance(client_pid, int)
+        and isinstance(client_start, int)
+        and process_start_ticks(client_pid) == client_start
+    )
+    if process_is_live and process_effective_uid(client_pid) != reviewer_uid:
+        raise ValueError("live review output process changed its authenticated UID")
     if (
         hashlib.sha256(text.encode("utf-8")).hexdigest()
         != status.get("review_output_sha256")
@@ -6005,6 +7372,15 @@ def require_review_output(
         or output.get("reviewed_artifact_sha256s") != binding.get("artifact_digests")
         or output.get("validator_recipe_sha256s")
         != binding.get("validator_recipe_sha256s")
+        or output.get("focus_review") != binding.get("focus_execution")
+        or not isinstance(reviewer_uid, int)
+        or reviewer_uid < 1
+        or reviewer_uid == os.geteuid()
+        or status.get("worker_principal") != claim.get("runtime_principal_id")
+        or not isinstance(client_pid, int)
+        or not isinstance(client_start, int)
+        or claim.get("pid") != client_pid
+        or claim.get("pid_start_ticks") != client_start
     ):
         raise ValueError("review output identity, digest, or typed verdict is invalid")
     findings = output.get("artifact_findings")
@@ -6037,8 +7413,12 @@ def verify_review_evidence_bundle(
         Path(provenance_path), "review provenance",
         expected_sha256=str(claim.get("review_provenance_sha256")),
     )
-    _implementation_claim, handoff_record = validate_review_provenance_handoff(
+    implementation_claim, handoff_record = validate_review_provenance_handoff(
         item, provenance
+    )
+    current_focus = require_item_focus_phase_allowed(item)
+    current_focus_contract = focus_execution_contract(
+        item, decision=current_focus
     )
     if (
         review_input.get("schema_version") != REVIEW_INPUT_SCHEMA
@@ -6053,6 +7433,15 @@ def verify_review_evidence_bundle(
         or review_input.get("review_manifest_file_sha256")
         != claim.get("review_manifest_file_sha256")
         or manifest.get("manifest_sha256") != claim.get("review_manifest_sha256")
+        or implementation_claim.get("focus_eligibility") != current_focus
+        or implementation_claim.get("focus_execution") != current_focus_contract
+        or review_input.get("focus_eligibility") != current_focus
+        or review_input.get("focus_execution") != current_focus_contract
+        or claim.get("focus_eligibility") != current_focus
+        or claim.get("focus_execution") != current_focus_contract
+        or manifest.get("focus_execution") != current_focus_contract
+        or manifest.get("focus_contract_sha256")
+        != canonical_json_sha256(current_focus_contract)
     ):
         raise ValueError("review input does not bind its provenance and manifest")
     role_map = review_input.get("role_map")
@@ -6071,6 +7460,9 @@ def verify_review_evidence_bundle(
         or binding.get("phase") != item.get("phase")
         or binding.get("prompt_sha256") != hashlib.sha256(prompt.encode()).hexdigest()
         or binding.get("objective_sha256") != hashlib.sha256(objective.encode()).hexdigest()
+        or binding.get("focus_execution") != current_focus_contract
+        or binding.get("focus_contract_sha256")
+        != canonical_json_sha256(current_focus_contract)
     ):
         raise ValueError("review binding does not close over the exact prompt and objective")
     prompt_path = RUNTIME / "prompts" / f"{claim.get('claim_id')}.txt"
@@ -6092,6 +7484,8 @@ def verify_review_evidence_bundle(
     if not isinstance(status, dict) or status.get("state") != "finished":
         raise ValueError("review status is not a finished app-server record")
     output = require_review_output(claim, status, binding)
+    require_phase_receipt_focus_semantics(item, current_focus_contract, role_map)
+    require_integration_only_source_evidence(item, current_focus_contract, role_map)
     phase_receipt = next(
         (
             row for row in role_map.get("artifacts", [])
@@ -6154,6 +7548,12 @@ def consume_review_finished(
         try:
             if item is None or item.get("state") != "[_]":
                 raise ValueError("review CAS source is not the exact [_] item")
+            # Review output cannot authorize scope. Recheck current scheduler-
+            # owned admission immediately before replay and the SSOT CAS.
+            acceptance_focus = require_item_focus_phase_allowed(item, theorem_nodes)
+            _require_frontier_runtime(
+                item, acceptance_focus, claim=None, boundary="master_acceptance_preflight"
+            )
             states = {row["id"]: row["state"] for row in ordered}
             if any(states.get(dependency) != "[x]" for dependency in item.get("depends_on", [])):
                 raise ValueError("master acceptance predecessor is not [x]")
@@ -6196,6 +7596,20 @@ def consume_review_finished(
                 audit_complete=bool(output["audit_complete"]),
                 theorem_complete=bool(output["theorem_complete"]),
             )
+            replay_focus_contract = focus_execution_contract(
+                item, decision=require_item_focus_phase_allowed(item, theorem_nodes)
+            )
+            integration_semantics = (
+                acceptance_evidence.require_replayed_integration_source_semantics(
+                    replay, replay_focus_contract, role_map
+                )
+            )
+            if integration_semantics:
+                decision = dict(decision)
+                decision["integration_source_semantics"] = integration_semantics
+                decision["decision_sha256"] = canonical_json_sha256(
+                    {key: value for key, value in decision.items() if key != "decision_sha256"}
+                )
             if execution_is_paused():
                 fail("master acceptance refused: operator pause before replay publication")
             replay_path = RUNTIME / "replay-results" / f"{claim['claim_id']}.json"
@@ -6217,6 +7631,16 @@ def consume_review_finished(
                 or decision.get("phase_evidence_accepted") is not True
             ):
                 raise ValueError("authority replay semantics did not accept this phase")
+            if item.get("phase") == "release" and (
+                output.get("worker_verdict") != "accepted"
+                or output.get("audit_complete") is not True
+                or output.get("theorem_complete") is not True
+                or decision.get("audit_complete") is not True
+                or decision.get("theorem_complete") is not True
+            ):
+                raise ValueError(
+                    "release CAS requires accepted with AUDIT-Z and THEOREM-Z"
+                )
             _receipt, receipt_bytes, receipt_sha256 = canonical_master_acceptance_receipt(
                 item, claim, output, manifest, role_map, validator, replay, decision
             )
@@ -6242,6 +7666,10 @@ def consume_review_finished(
                 fail("master acceptance refused: operator pause before SSOT CAS")
             authoritative = {row["id"]: row for row in load_blueprint_items()}
             current = authoritative.get(item["id"])
+            final_focus = require_item_focus_phase_allowed(item)
+            _require_frontier_runtime(
+                item, final_focus, claim=None, boundary="master_acceptance_cas"
+            )
             if (
                 authoritative_head_revision() != compatible_head
                 or current is None
@@ -6259,6 +7687,12 @@ def consume_review_finished(
             claim["master_accepted_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
             claim["master_receipt_path"] = receipt_relative
             claim["master_receipt_sha256"] = receipt_sha256
+            record_frontier_milestone_completion(
+                item,
+                claim,
+                evidence_path=receipt_relative,
+                evidence_sha256=receipt_sha256,
+            )
             accepted.append(item["id"])
             transaction.absorb(claim_transaction)
         except (ValueError, OSError, acceptance_evidence.EvidenceError) as exc:
@@ -6331,6 +7765,10 @@ def refill_reviews(
     authority_revision = run(["git", "rev-parse", "HEAD"]).stdout.strip()
     _, nodes = theorem_dag_v2()
     reservations: list[dict[str, Any]] = []
+    try:
+        review_principal, reviewer_uid = scheduler_review_principal()
+    except ValueError as exc:
+        fail(f"independent review principal is unavailable: {exc}")
 
     def record_review_preflight_failure(
         item: dict[str, Any],
@@ -6341,10 +7779,6 @@ def refill_reviews(
         implementation_claim: dict[str, Any] | None = None,
     ) -> None:
         """Persist a fail-closed review row without crashing the scheduler tick."""
-        validator_unavailable = (
-            "no current stage1-v2 validator authority" in reason
-            or "exactly one current stage1-v2 authority" in reason
-        )
         claims.append({
             "lane": REVIEW_LANE,
             "item_id": item["id"],
@@ -6358,9 +7792,7 @@ def refill_reviews(
             ),
             "slot": slot,
             "workspace": str(RUNTIME / "review-workspaces" / f"slot{slot}"),
-            "status": (
-                "revalidation_required" if validator_unavailable else "review_failed"
-            ),
+            "status": "review_failed",
             "claimed_at": timestamp,
             "base_revision": str(
                 implementation_claim.get("base_revision", "")
@@ -6370,26 +7802,28 @@ def refill_reviews(
             "authority_revision": authority_revision,
             "runtime_protocol": RUNTIME_PROTOCOL,
             "review_failure_reason": reason,
-            **(
-                {
-                    "revalidation_required_at": dt.datetime.now(
-                        dt.timezone.utc
-                    ).isoformat(),
-                    "revalidation_required_reason": reason,
-                }
-                if validator_unavailable
-                else {
-                    "review_retry_after": (
-                        dt.datetime.now(dt.timezone.utc) + dt.timedelta(minutes=15)
-                    ).isoformat()
-                }
-            ),
+            "review_retry_after": (
+                dt.datetime.now(dt.timezone.utc) + dt.timedelta(minutes=15)
+            ).isoformat(),
         })
 
     for slot, item in zip(slots, candidates):
         if execution_is_paused():
             break
         claim_id = f"{timestamp}-{os.urandom(6).hex()}"
+        try:
+            focus_decision = require_item_focus_phase_allowed(item, nodes)
+            focus_contract = focus_execution_contract(
+                item, nodes, decision=focus_decision
+            )
+        except ValueError as exc:
+            record_review_preflight_failure(
+                item,
+                slot=slot,
+                claim_id=claim_id,
+                reason=str(exc),
+            )
+            continue
         implementation_claim = review_source_claim(item, claims)
         if implementation_claim is None:
             record_review_preflight_failure(
@@ -6400,35 +7834,33 @@ def refill_reviews(
             )
             continue
         try:
-            revalidation_lane = (
-                post_integration_legacy_revalidation_lane(implementation_claim, item)
-                if implementation_claim.get("fresh_revalidation") is True
-                else claim_legacy_revalidation_lane(implementation_claim, item)
-            )
-            if (
-                implementation_claim.get("fresh_revalidation") is True
-                and revalidation_lane is None
-            ):
-                raise ValueError("historical review source lacks a fresh revalidation lane")
-        except ValueError as exc:
-            record_review_preflight_failure(
-                item,
-                slot=slot,
-                claim_id=claim_id,
-                reason=str(exc),
-                implementation_claim=implementation_claim,
-            )
-            continue
-        try:
             worker_base_revision = str(implementation_claim.get("base_revision", ""))
             role_map = build_review_role_map(item, worker_base_revision)
+            staged_role_map = implementation_claim.get("staged_role_map")
+            if (
+                focus_decision.get("execution_disposition") == "research_required"
+                and isinstance(staged_role_map, dict)
+            ):
+                staged_paths = staged_role_map.get("staged_delta_paths")
+                if not isinstance(staged_paths, list):
+                    raise ValueError(
+                        "research-only review lacks its scheduler-bound changed-path inventory"
+                    )
+                role_map = dict(role_map)
+                role_map["staged_delta_paths"] = staged_paths
+                role_map["manifest_sha256"] = canonical_json_sha256(
+                    {
+                        key: value for key, value in role_map.items()
+                        if key != "manifest_sha256"
+                    }
+                )
             validator = select_review_validator(item, worker_base_revision)
             provenance = snapshot_review_provenance(item, implementation_claim)
             provenance_path, provenance_file_sha256 = persist_review_provenance(
                 implementation_claim, provenance
             )
             review_manifest = build_scheduler_review_manifest(
-                provenance, role_map, validator
+                provenance, role_map, validator, focus_contract
             )
             review_manifest_path, review_manifest_file_sha256 = persist_review_manifest(
                 claim_id, review_manifest
@@ -6459,12 +7891,17 @@ def refill_reviews(
             "review_manifest_file_sha256": review_manifest_file_sha256,
             "role_map": role_map,
             "validator_recipe": validator,
+            "focus_eligibility": focus_decision,
+            "focus_execution": focus_contract,
+            "runtime_principal_id": review_principal,
+            "runtime_principal_uid": reviewer_uid,
         }
         prompt_text = review_prompt(
             item, review_input, claim_id, workspace
         )
         binding = build_review_binding(
-            claim_id, item, worker_base_revision, prompt_text, objective, role_map, validator
+            claim_id, item, worker_base_revision, prompt_text, objective, role_map,
+            validator, focus_contract,
         )
         prompt_path = RUNTIME / "prompts" / f"{claim_id}.txt"
         objective_path = RUNTIME / "goals" / f"{claim_id}.txt"
@@ -6514,6 +7951,10 @@ def refill_reviews(
                 json.dumps(binding, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode()
             ).hexdigest(),
             "validator_recipe": validator,
+            "focus_eligibility": focus_decision,
+            "focus_execution": focus_contract,
+            "runtime_principal_id": review_principal,
+            "runtime_principal_uid": reviewer_uid,
         }
         claims.append(claim)
         reservations.append(claim)
@@ -6542,7 +7983,13 @@ def refill_reviews(
             if execution_is_paused():
                 cancel_reviews_for_pause(index)
                 break
-            claim["pid"] = launch_app_server_worker(
+            item = next(
+                row for row in ordered if row.get("id") == claim.get("item_id")
+            )
+            require_claim_focus_runtime_current(
+                item, claim, nodes, boundary="review_launch"
+            )
+            claim["pid"] = launch_review_app_server_worker(
                 worker_argv(
                     workspace,
                     prompt_path,
@@ -6551,8 +7998,22 @@ def refill_reviews(
                     Path(str(claim["goal_objective_path"])),
                     lane=REVIEW_LANE,
                     binding_path=Path(str(claim["review_binding_path"])),
+                    worker_principal=str(claim["runtime_principal_id"]),
                 ),
+                reviewer_uid=int(claim["runtime_principal_uid"]),
+                workspace=workspace,
+                read_paths=[
+                    prompt_path,
+                    Path(str(claim["goal_objective_path"])),
+                    Path(str(claim["review_binding_path"])),
+                ],
+                write_paths=[
+                    Path(str(claim["output_log"])),
+                    Path(str(claim["app_server_status"])),
+                ],
                 delay_seconds=launch_stagger_delay(len(started)),
+                claim=claim,
+                claims=claims,
             )
             claim["pid_start_ticks"] = process_start_ticks(claim["pid"])
             if claim["pid_start_ticks"] is None:
@@ -6560,8 +8021,12 @@ def refill_reviews(
             claim["client_started_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
             started.append(claim)
         except BaseException as exc:
+            if app_server_worker_is_live(claim) or app_server_child_is_live(claim):
+                terminate_app_server_worker(claim)
+            restore_stopped_review_acl(claim)
             claim["status"] = "launch_failed"
             claim["launch_error"] = str(exc)
+            quarantine_review_acl_restore_failure(claim)
         save_claims(claims)
     return confirm_goal_handshakes(claims, started) if started else 0
 
@@ -6571,10 +8036,8 @@ def refill_workers(max_workers: int) -> int:
     data, ordered = load_dag()
     claims = refresh_claims(ordered)
     reconciled = reconcile_finished_implementation_handoffs(ordered, claims)
-    reconciled |= reconcile_historical_revalidation_sources(ordered, claims)
     if reconciled:
         save_claims(claims)
-    ensure_revalidation_plan_for_required_sources(ordered, claims)
     claims = enforce_worker_cap(claims, max_workers)
     space_guard(claims)
     if execution_is_paused():
@@ -6647,17 +8110,14 @@ def refill_workers(max_workers: int) -> int:
     timestamp = dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     claim_graph_sha256 = graph_sha256()
     base_revision = run(["git", "rev-parse", "HEAD"]).stdout.strip()
-    needs_revalidation_binding = any(
-        allocation["item"].get("state") == "[_]"
-        for allocation in implementation_allocations
-    )
-    revalidation_lanes, revalidation_plan_binding = (
-        legacy_revalidation_plan() if needs_revalidation_binding else ({}, None)
-    )
     reservations: list[tuple[dict[str, Any], dict[str, Any]]] = []
     for allocation in implementation_allocations:
         slot = int(allocation["slot"])
         item = allocation["item"]
+        focus_decision = require_item_focus_phase_allowed(item, theorem_nodes)
+        focus_contract = focus_execution_contract(
+            item, theorem_nodes, decision=focus_decision
+        )
         claim_id = f"{timestamp}-{os.urandom(6).hex()}"
         workspace = RUNTIME / "workers" / f"slot{slot}"
         prompt = RUNTIME / "prompts" / f"{claim_id}.txt"
@@ -6685,23 +8145,26 @@ def refill_workers(max_workers: int) -> int:
             },
             "theorem_dag_sha256": claim_graph_sha256,
             "dependency_context_sha256": theorem_nodes[item["theorem_id"]].get("dependency_context_sha256"),
-            "fresh_revalidation": item["state"] == "[_]",
+            "focus_eligibility": focus_decision,
+            "focus_execution": focus_contract,
+            "runtime_principal_id": scheduler_worker_principal_id(),
         }
-        if item["state"] == "[_]":
-            lane = revalidation_lanes.get(item["id"])
-            if lane is None or revalidation_plan_binding is None:
-                fail("historical item allocation lacks its content-bound revalidation plan")
-            claim["legacy_revalidation_lane"] = lane
-            claim["legacy_revalidation_lane_sha256"] = lane["lane_sha256"]
-            claim["legacy_revalidation_plan_sha256"] = revalidation_plan_binding[
-                "plan_sha256"
+        frontier_policy = _frontier_policy(focus_decision)
+        if frontier_policy is not None:
+            runtime_principal = scheduler_worker_principal_id()
+            if frontier_policy["assigned_worker_id"] != runtime_principal:
+                fail(
+                    "frontier receipt assignee does not match the authenticated "
+                    f"runtime principal: {frontier_policy['assigned_worker_id']} != "
+                    f"{runtime_principal}"
+                )
+            claim["frontier_assigned_worker_id"] = frontier_policy[
+                "assigned_worker_id"
             ]
-            claim["legacy_revalidation_plan_file_sha256"] = revalidation_plan_binding[
-                "plan_file_sha256"
-            ]
-            claim["legacy_revalidation_plan_binding"] = revalidation_plan_binding
-            claim["legacy_revalidation_plan_binding_sha256"] = canonical_json_sha256(
-                revalidation_plan_binding
+            claim["frontier_policy_sha256"] = frontier_policy["policy_sha256"]
+            claim["runtime_principal_id"] = runtime_principal
+            claim["frontier_scratch"] = str(
+                RUNTIME / FRONTIER_SCRATCH_DIRECTORY / claim_id
             )
         claims.append(claim)
         reservations.append((claim, item))
@@ -6739,12 +8202,43 @@ def refill_workers(max_workers: int) -> int:
             atomic_write(prompt, task_prompt(item, workspace))
             atomic_write(objective_path, str(claim["goal_objective"]) + "\n")
             durable_unlink(status_path)
+            if claim.get("frontier_policy_sha256") is not None:
+                scratch = prepare_frontier_scratch(claim)
+                claim["frontier_attempt_started_at"] = dt.datetime.now(
+                    dt.timezone.utc
+                ).isoformat()
+                claim["frontier_disk_baseline_bytes"] = sum(
+                    path.stat().st_size
+                    for path in workspace.rglob("*")
+                    if path.is_file() and not path.is_symlink()
+                )
+                _require_frontier_runtime(
+                    item, claim["focus_eligibility"], claim=claim, create=True,
+                    boundary="implementation_launch",
+                )
+                save_claims(claims)
             if execution_is_paused():
                 cancel_unstarted_for_pause()
                 break
+            require_claim_focus_runtime_current(
+                item, claim, theorem_nodes, boundary="implementation_launch_postcheck"
+            )
             claim["pid"] = launch_app_server_worker(
-                worker_argv(workspace, prompt, output, status_path, objective_path),
+                worker_argv(
+                    workspace, prompt, output, status_path, objective_path,
+                    worker_principal=str(claim["runtime_principal_id"]),
+                    frontier_scratch=(
+                        _frontier_claim_scratch_path(claim)
+                        if claim.get("frontier_policy_sha256") is not None
+                        else None
+                    ),
+                ),
                 delay_seconds=launch_stagger_delay(len(started)),
+                scratch=(
+                    _frontier_claim_scratch_path(claim)
+                    if claim.get("frontier_policy_sha256") is not None
+                    else None
+                ),
             )
             claim["pid_start_ticks"] = process_start_ticks(claim["pid"])
             if claim["pid_start_ticks"] is None:
@@ -6757,6 +8251,15 @@ def refill_workers(max_workers: int) -> int:
             claim["status"] = "launch_failed"
             claim["launch_failed_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
             claim["launch_error"] = str(exc)
+            if (
+                isinstance(claim.get("pid"), int)
+                and (app_server_worker_is_live(claim) or app_server_child_is_live(claim))
+            ):
+                terminate_app_server_worker(claim)
+            try:
+                settle_frontier_claim(item, claim, reason="implementation launch failed")
+            except ValueError as settlement_exc:
+                claim["frontier_settlement_error"] = str(settlement_exc)
             save_claims(claims)
             continue
         save_claims(claims)
@@ -6918,6 +8421,14 @@ def restart_live_workers(max_workers: int) -> None:
         slot = claim.get("slot")
         if item is None or not isinstance(slot, int) or not workspace.is_dir():
             fail(f"cannot safely restart malformed live claim: {claim.get('item_id')}")
+        # A revoked lease must be refused before the old, useful process is
+        # disturbed. This also validates the frontier ledger and budget.
+        try:
+            require_claim_focus_runtime_current(
+                item, claim, theorem_nodes, boundary="restart_preflight"
+            )
+        except (OSError, ValueError, focus_eligibility.EligibilityError) as exc:
+            fail(f"cannot restart claim with revoked focus authority: {claim.get('item_id')}: {exc}")
         previous_status = worker_status(claim)
         thread_id = previous_status.get("thread_id") if isinstance(previous_status, dict) else None
         previous_goal = previous_status.get("goal") if isinstance(previous_status, dict) else None
@@ -6935,6 +8446,7 @@ def restart_live_workers(max_workers: int) -> None:
             fail(f"cannot resume live claim without its exact active thread/goal: {claim.get('item_id')}")
         if not app_server_worker_is_live(claim) or not terminate_app_server_worker(claim):
             fail(f"cannot safely stop live app-server claim: {claim.get('item_id')}")
+        settle_frontier_claim(item, claim, reason="scheduler runtime restart")
         claim_id = f"{timestamp}-{os.urandom(6).hex()}"
         worker_id = f"stage1app-impl-{slot}-{theorem_nodes[item['theorem_id']]['v2_execution_rank']:04d}-{claim_id[-12:]}"
         prompt = RUNTIME / "prompts" / f"{claim_id}.txt"
@@ -6963,19 +8475,82 @@ def restart_live_workers(max_workers: int) -> None:
             status="preparing",
             previous_runtime=previous,
         )
-        save_claims(claims)
-        claim["pid"] = launch_app_server_worker(
-            worker_argv(
-                workspace, prompt, output, status_path, objective_path,
-                thread_id=thread_id,
-            ),
-            delay_seconds=launch_stagger_delay(restarted),
+        focus_decision = require_item_focus_phase_allowed(item, theorem_nodes)
+        focus_contract = focus_execution_contract(
+            item, theorem_nodes, decision=focus_decision
         )
-        claim["pid_start_ticks"] = process_start_ticks(claim["pid"])
-        if claim["pid_start_ticks"] is None:
+        claim["focus_eligibility"] = focus_decision
+        claim["focus_execution"] = focus_contract
+        claim["runtime_principal_id"] = scheduler_worker_principal_id()
+        frontier_policy = _frontier_policy(focus_decision)
+        if frontier_policy is not None:
+            runtime_principal = scheduler_worker_principal_id()
+            if frontier_policy["assigned_worker_id"] != runtime_principal:
+                fail(
+                    "frontier receipt assignee does not match the authenticated "
+                    f"runtime principal: {frontier_policy['assigned_worker_id']} != "
+                    f"{runtime_principal}"
+                )
+            claim["frontier_assigned_worker_id"] = frontier_policy[
+                "assigned_worker_id"
+            ]
+            claim["frontier_policy_sha256"] = frontier_policy["policy_sha256"]
+            claim["runtime_principal_id"] = runtime_principal
+            claim["frontier_scratch"] = str(
+                RUNTIME / FRONTIER_SCRATCH_DIRECTORY / claim_id
+            )
+            ensure_frontier_scratch(claim)
+            claim["frontier_attempt_started_at"] = dt.datetime.now(
+                dt.timezone.utc
+            ).isoformat()
+            claim["frontier_disk_baseline_bytes"] = sum(
+                path.stat().st_size
+                for path in workspace.rglob("*")
+                if path.is_file() and not path.is_symlink()
+            )
+            _require_frontier_runtime(
+                item, focus_decision, claim=claim, create=True,
+                boundary="restart_allocation",
+            )
+        save_claims(claims)
+        try:
+            require_claim_focus_runtime_current(
+                item, claim, theorem_nodes, boundary="restart_launch"
+            )
+            claim["pid"] = launch_app_server_worker(
+                worker_argv(
+                    workspace, prompt, output, status_path, objective_path,
+                    thread_id=thread_id,
+                    worker_principal=str(claim["runtime_principal_id"]),
+                    frontier_scratch=(
+                        _frontier_claim_scratch_path(claim)
+                        if frontier_policy is not None
+                        else None
+                    ),
+                ),
+                delay_seconds=launch_stagger_delay(restarted),
+                scratch=(
+                    _frontier_claim_scratch_path(claim)
+                    if frontier_policy is not None
+                    else None
+                ),
+            )
+            claim["pid_start_ticks"] = process_start_ticks(claim["pid"])
+            if claim["pid_start_ticks"] is None:
+                raise RuntimeError(
+                    "restarted app-server client lacks a stable /proc identity"
+                )
+        except BaseException as exc:
+            if app_server_worker_is_live(claim) or app_server_child_is_live(claim):
+                terminate_app_server_worker(claim)
             claim["status"] = "launch_failed"
+            claim["launch_error"] = str(exc)
+            try:
+                settle_frontier_claim(item, claim, reason="restart launch failed")
+            except ValueError as settlement_exc:
+                claim["frontier_settlement_error"] = str(settlement_exc)
             save_claims(claims)
-            fail(f"restarted app-server client lacks a stable /proc identity: {claim.get('item_id')}")
+            fail(f"restarted app-server client failed: {claim.get('item_id')}: {exc}")
         claim["client_started_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
         claim["runtime_config"] = {
             "model": CODEX_MODEL,
@@ -6995,23 +8570,692 @@ def restart_live_workers(max_workers: int) -> None:
     print(f"restart: restarted {restarted} app-server /goal worker(s) with service_tier={CODEX_SERVICE_TIER}")
 
 
+CRON_MARKER = "# awesome-theorems-stage1-v2"
+
+
+def _cleanup_embedded_digest(
+    value: dict[str, Any], field: str, label: str
+) -> str:
+    """Verify one canonical embedded digest used by cleanup revalidation."""
+    expected = value.get(field)
+    unhashed = dict(value)
+    unhashed.pop(field, None)
+    if (
+        not isinstance(expected, str)
+        or re.fullmatch(r"[0-9a-f]{64}", expected) is None
+        or expected != canonical_json_sha256(unhashed)
+    ):
+        raise ValueError(f"{label} {field} is stale or malformed")
+    return expected
+
+
+def _cleanup_normalized_blueprint(data: bytes) -> bytes:
+    """Ignore checkbox cursors while preserving every normative/checklist byte."""
+    try:
+        text = data.decode("utf-8")
+    except UnicodeDecodeError as exc:
+        raise ValueError("cleanup blueprint authority is not UTF-8") from exc
+    if text.count(CHECKLIST_BEGIN) != 1 or text.count(CHECKLIST_END) != 1:
+        raise ValueError("cleanup blueprint authority lacks one checklist boundary")
+    normalized = re.sub(
+        r"(?m)^- \[[_x ]\] "
+        r"(`S56-M-\d{4}-(?:INTAKE|STATEMENT|ANCHOR_AUDIT|OBLIGATION_TREE|PROOF|VALIDATION|RELEASE)`"
+        r".*) \{attempts=\d+\}$",
+        r"- [STATE] \1 {attempts=N}",
+        text,
+    )
+    return normalized.encode("utf-8")
+
+
+def _require_cleanup_contract_source_ranges(
+    contract_record: dict[str, Any], blueprint_bytes: bytes
+) -> None:
+    """Recheck every contract source range against the current v2 SSOT bytes."""
+    contract = contract_record.get("contract")
+    references = contract.get("source_references") if isinstance(contract, dict) else None
+    if not isinstance(references, list) or not references:
+        raise ValueError("current release contract has no source-reference authority")
+    try:
+        lines = blueprint_bytes.decode("utf-8").splitlines()
+    except UnicodeDecodeError as exc:
+        raise ValueError("current v2 blueprint source is not UTF-8") from exc
+    by_id: dict[str, dict[str, Any]] = {}
+    blueprint_relative = BLUEPRINT.relative_to(ROOT).as_posix()
+    for reference in references:
+        if not isinstance(reference, dict):
+            raise ValueError("current release contract source reference is malformed")
+        reference_id = reference.get("reference_id")
+        start = reference.get("line_start")
+        end = reference.get("line_end")
+        phrases = reference.get("required_phrases")
+        if (
+            not isinstance(reference_id, str)
+            or not reference_id
+            or reference_id in by_id
+            or reference.get("path") != blueprint_relative
+            or not isinstance(start, int)
+            or isinstance(start, bool)
+            or not isinstance(end, int)
+            or isinstance(end, bool)
+            or start < 1
+            or end < start
+            or end > len(lines)
+            or not isinstance(phrases, list)
+            or not phrases
+            or any(not isinstance(phrase, str) or not phrase for phrase in phrases)
+        ):
+            raise ValueError("current release contract source range is stale or malformed")
+        excerpt = "\n".join(lines[start - 1:end])
+        if any(phrase not in excerpt for phrase in phrases):
+            raise ValueError(
+                f"current release contract source range is stale: {reference_id}"
+            )
+        by_id[reference_id] = reference
+    referenced: set[str] = set()
+    for row in [
+        *contract.get("common_master_gates", []),
+        *contract.get("phases", []),
+    ]:
+        if not isinstance(row, dict):
+            raise ValueError("current release contract source-reference use is malformed")
+        row_references = row.get("source_reference_ids")
+        if not isinstance(row_references, list) or any(
+            not isinstance(value, str) or value not in by_id
+            for value in row_references
+        ):
+            raise ValueError("current release contract source-reference use is malformed")
+        referenced.update(row_references)
+    if referenced != set(by_id):
+        raise ValueError("current release contract source-reference coverage is stale")
+
+
+def _cleanup_blueprint_and_dag_authority(
+    item: dict[str, Any], historical_manifest: dict[str, Any], current_head: str,
+    current_contract: dict[str, Any],
+) -> tuple[str, str, str]:
+    """Allow cursor-only SSOT drift while rejecting material blueprint/DAG drift."""
+    blueprint_relative = BLUEPRINT.relative_to(ROOT).as_posix()
+    historical_revision = historical_manifest.get("authority_revision")
+    historical_blueprint = historical_manifest.get("blueprint")
+    if (
+        not isinstance(historical_revision, str)
+        or re.fullmatch(r"[0-9a-f]{40}", historical_revision) is None
+        or not isinstance(historical_blueprint, dict)
+        or historical_blueprint.get("path") != blueprint_relative
+    ):
+        raise ValueError("release receipt lacks an immutable blueprint authority")
+    historical_blueprint_bytes = git_object_bytes(
+        f"{historical_revision}:{blueprint_relative}"
+    )
+    current_blueprint_bytes = git_object_bytes(f"{current_head}:{blueprint_relative}")
+    if (
+        hashlib.sha256(historical_blueprint_bytes).hexdigest()
+        != historical_blueprint.get("sha256")
+        or historical_manifest.get("blueprint_sha256")
+        != historical_blueprint.get("sha256")
+        or hashlib.sha1(
+            f"blob {len(historical_blueprint_bytes)}\0".encode()
+            + historical_blueprint_bytes
+        ).hexdigest()
+        != historical_blueprint.get("git_blob")
+        or BLUEPRINT.read_bytes() != current_blueprint_bytes
+    ):
+        raise ValueError("release blueprint authority binding is stale")
+    if _cleanup_normalized_blueprint(
+        historical_blueprint_bytes
+    ) != _cleanup_normalized_blueprint(current_blueprint_bytes):
+        raise ValueError(
+            "release blueprint changed beyond expected post-acceptance checkbox cursors"
+        )
+    _require_cleanup_contract_source_ranges(current_contract, current_blueprint_bytes)
+
+    dag_relative = THEOREM_DAG_V2.relative_to(ROOT).as_posix()
+    historical_dag_bytes = git_object_bytes(f"{historical_revision}:{dag_relative}")
+    current_dag_bytes = git_object_bytes(f"{current_head}:{dag_relative}")
+    if (
+        hashlib.sha256(historical_dag_bytes).hexdigest()
+        != historical_manifest.get("theorem_dag_sha256")
+        or THEOREM_DAG_V2.read_bytes() != current_dag_bytes
+    ):
+        raise ValueError("release theorem DAG authority binding is stale")
+    try:
+        historical_dag = json.loads(historical_dag_bytes)
+        current_dag = json.loads(current_dag_bytes)
+    except json.JSONDecodeError as exc:
+        raise ValueError("release theorem DAG authority is malformed") from exc
+    if not isinstance(historical_dag, dict) or not isinstance(current_dag, dict):
+        raise ValueError("release theorem DAG authority is malformed")
+    global_fields = {
+        "schema_version", "requirements_source", "target_manifest",
+        "target_id_set_sha256", "execution_contract", "focus_policy", "edge_policy",
+    }
+    if (
+        {key: current_dag.get(key) for key in global_fields}
+        != {key: historical_dag.get(key) for key in global_fields}
+    ):
+        raise ValueError("release theorem DAG global authority changed")
+    theorem_id = item.get("theorem_id")
+    historical_nodes = {
+        row.get("theorem_id"): row
+        for row in historical_dag.get("theorems", [])
+        if isinstance(row, dict)
+    }
+    current_nodes = {
+        row.get("theorem_id"): row
+        for row in current_dag.get("theorems", [])
+        if isinstance(row, dict)
+    }
+    node_fields = {
+        "theorem_id", "v2_execution_rank", "topological_layer",
+        "direct_hard_parents", "transitive_hard_ancestors",
+        "direct_reuse_hint_ids", "shared_lemma_group_ids",
+        "dependency_context_sha256", "focus_eligibility",
+    }
+    historical_node = historical_nodes.get(theorem_id)
+    current_node = current_nodes.get(theorem_id)
+    if (
+        not isinstance(historical_node, dict)
+        or not isinstance(current_node, dict)
+        or {key: current_node.get(key) for key in node_fields}
+        != {key: historical_node.get(key) for key in node_fields}
+    ):
+        raise ValueError("release target DAG authority changed after acceptance")
+    related_specs = (
+        ("hard_edges", "edge_id", ("parent_theorem_id", "child_theorem_id")),
+        ("reuse_hints", "hint_id", ("provider_theorem_id", "consumer_theorem_id")),
+        ("shared_lemma_groups", "group_id", ("member_theorem_ids",)),
+    )
+    for table, identity, relation_fields in related_specs:
+        def related(row: Any) -> bool:
+            if not isinstance(row, dict):
+                return False
+            return any(
+                theorem_id in row.get(field, [])
+                if isinstance(row.get(field), list)
+                else row.get(field) == theorem_id
+                for field in relation_fields
+            )
+
+        old_rows = historical_dag.get(table, [])
+        new_rows = current_dag.get(table, [])
+        if not isinstance(old_rows, list) or not isinstance(new_rows, list):
+            raise ValueError(f"release target DAG {table} authority is malformed")
+        old_related = {row.get(identity): row for row in old_rows if related(row)}
+        new_related = {row.get(identity): row for row in new_rows if related(row)}
+        if None in old_related or None in new_related or old_related != new_related:
+            raise ValueError(f"release target DAG {table} authority changed")
+    current_blueprint_blob = hashlib.sha1(
+        f"blob {len(current_blueprint_bytes)}\0".encode() + current_blueprint_bytes
+    ).hexdigest()
+    return (
+        hashlib.sha256(current_blueprint_bytes).hexdigest(),
+        current_blueprint_blob,
+        hashlib.sha256(current_dag_bytes).hexdigest(),
+    )
+
+
+def _cleanup_material_fields_equal(
+    historical: dict[str, Any], current: dict[str, Any], fields: set[str]
+) -> bool:
+    return (
+        {field: historical.get(field) for field in fields}
+        == {field: current.get(field) for field in fields}
+    )
+
+
+CLEANUP_REPLAY_VOLATILE_FIELDS = {
+    "authority_revision", "authority_tree", "recipe_sha256",
+    "review_manifest_sha256", "role_map_sha256", "validator_input_sha256",
+    "bwrap_argv", "started_at_unix_ns", "duration_ms", "result_sha256",
+}
+CLEANUP_DECISION_VOLATILE_FIELDS = {
+    "replay_result_sha256", "review_manifest_sha256", "role_map_sha256",
+    "decision_sha256",
+}
+
+
+def _cleanup_replay_invariants(replay: dict[str, Any]) -> dict[str, Any]:
+    if set(replay) != set(acceptance_evidence.ReplayResult.__dataclass_fields__) | {
+        "result_sha256"
+    }:
+        raise ValueError("cleanup release replay schema changed or is incomplete")
+    return {
+        key: value for key, value in replay.items()
+        if key not in CLEANUP_REPLAY_VOLATILE_FIELDS
+    }
+
+
+def _cleanup_decision_invariants(decision: dict[str, Any]) -> dict[str, Any]:
+    expected = {
+        "schema_version", "phase", "item_id", "theorem_id", "worker_verdict",
+        "review_verdict", "audit_complete", "theorem_complete",
+        "replay_result_sha256", "review_manifest_sha256", "role_map_sha256",
+        "contract_sha256", "semantic_result_sha256", "phase_evidence_accepted",
+        "decision", "negative_reasons", "decision_sha256",
+        "integration_source_semantics",
+    }
+    if not (
+        set(decision) == expected
+        or set(decision) == expected - {"integration_source_semantics"}
+    ):
+        raise ValueError("cleanup release semantic decision schema changed or is incomplete")
+    return {
+        key: value for key, value in decision.items()
+        if key not in CLEANUP_DECISION_VOLATILE_FIELDS
+    }
+
+
+def revalidate_cleanup_release_acceptance(
+    item: dict[str, Any],
+    claim: dict[str, Any],
+    receipt: dict[str, Any],
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    """Re-run the current release authority immediately before final cleanup.
+
+    A historical master receipt proves what was accepted then. Cleanup needs a
+    current fact: the release permission, contract, target artifacts, validator,
+    toolchain closure, replay result, and semantic decision must all still agree.
+    """
+
+    focus = require_item_focus_phase_allowed(item)
+    _require_frontier_runtime(
+        item, focus, claim=None, boundary="cleanup_release_revalidation"
+    )
+    embedded_focus = receipt.get("focus_eligibility")
+    if embedded_focus != focus:
+        raise ValueError("release focus authority changed after master acceptance")
+    manifest = receipt.get("review_manifest")
+    role_map = receipt.get("role_map")
+    validator = receipt.get("validator_recipe")
+    historical_replay = receipt.get("replay_result")
+    historical_decision = receipt.get("semantic_decision")
+    if (
+        not isinstance(manifest, dict)
+        or not isinstance(role_map, dict)
+        or not isinstance(validator, dict)
+        or not isinstance(historical_replay, dict)
+        or not isinstance(historical_decision, dict)
+    ):
+        raise ValueError("release receipt lacks replayable authority inputs")
+    manifest_sha = _cleanup_embedded_digest(
+        manifest, "manifest_sha256", "historical release manifest"
+    )
+    role_map_sha = _cleanup_embedded_digest(
+        role_map, "manifest_sha256", "historical release role map"
+    )
+    validator_sha = _cleanup_embedded_digest(
+        validator, "recipe_sha256", "historical release validator"
+    )
+    replay_sha = _cleanup_embedded_digest(
+        historical_replay, "result_sha256", "historical release replay"
+    )
+    decision_sha = _cleanup_embedded_digest(
+        historical_decision, "decision_sha256", "historical release decision"
+    )
+    if (
+        receipt.get("review_manifest_sha256") != manifest_sha
+        or receipt.get("role_map_sha256") != role_map_sha
+        or receipt.get("validator_recipe_sha256") != validator_sha
+        or receipt.get("replay_result_sha256") != replay_sha
+        or receipt.get("semantic_decision_sha256") != decision_sha
+    ):
+        raise ValueError("release receipt authority digests are inconsistent")
+
+    current_head = authoritative_head_revision()
+    current_contract = phase_acceptance_contract_record()
+    manifest_contract = manifest.get("contract")
+    if (
+        current_contract.get("revision") != current_head
+        or not isinstance(manifest_contract, dict)
+        or current_contract.get("path") != manifest_contract.get("path")
+        or current_contract.get("sha256") != manifest_contract.get("sha256")
+        or current_contract.get("git_blob") != manifest_contract.get("git_blob")
+    ):
+        raise ValueError("release acceptance contract is no longer current")
+    blueprint_sha, blueprint_blob, theorem_dag_sha = (
+        _cleanup_blueprint_and_dag_authority(
+            item, manifest, current_head, current_contract
+        )
+    )
+    base_revision = manifest.get("base_revision")
+    if not isinstance(base_revision, str) or re.fullmatch(r"[0-9a-f]{40}", base_revision) is None:
+        raise ValueError("release receipt lacks its immutable worker base")
+    try:
+        current_role_map = build_review_role_map(item, base_revision)
+        current_validator = select_review_validator(
+            item, base_revision, require_base_blob_match=False
+        )
+    except SystemExit as exc:
+        raise ValueError(str(exc)) from exc
+    role_fields = {
+        "schema_version", "item_id", "theorem_id", "phase", "base_revision",
+        "contract_sha256", "contract_git_blob", "phase_receipt_path",
+        "phase_receipt_sha256", "artifacts",
+    }
+    validator_fields = {
+        "item_id", "theorem_id", "phase", "base_revision", "contract_sha256",
+        "validator_authority_generation", "requirements_authority",
+        "positive_acceptance_capable", "validator_path", "validator_sha256",
+        "validator_git_blob", "validator_git_mode", "argv", "cwd",
+        "network_policy", "repo_write_access", "isolated_scratch_write_access",
+        "shell_interpolation",
+    }
+    if not _cleanup_material_fields_equal(role_map, current_role_map, role_fields):
+        raise ValueError("release target artifacts changed after master acceptance")
+    if not _cleanup_material_fields_equal(
+        validator, current_validator, validator_fields
+    ):
+        raise ValueError("release validator changed after master acceptance")
+    current_focus_contract = focus_execution_contract(item, decision=focus)
+    if (
+        manifest.get("focus_execution") != current_focus_contract
+        or manifest.get("focus_contract_sha256")
+        != canonical_json_sha256(current_focus_contract)
+    ):
+        raise ValueError("release exact-source focus contract changed after acceptance")
+    provenance_fields = {
+        name: manifest.get(name)
+        for name in (
+            "worker_claim_sha256", "worker_status_sha256", "worker_prompt_sha256",
+            "worker_goal_sha256", "worker_handoff_sha256",
+        )
+    }
+    try:
+        current_manifest = acceptance_evidence.build_review_manifest(
+            current_contract,
+            current_role_map,
+            current_validator,
+            blueprint_sha256=blueprint_sha,
+            blueprint_git_blob=blueprint_blob,
+            theorem_dag_sha256=theorem_dag_sha,
+            **provenance_fields,
+        )
+    except acceptance_evidence.EvidenceError as exc:
+        raise ValueError(str(exc)) from exc
+    current_manifest["focus_execution"] = current_focus_contract
+    current_manifest["focus_contract_sha256"] = canonical_json_sha256(
+        current_focus_contract
+    )
+    current_manifest["manifest_sha256"] = canonical_json_sha256(
+        {
+            key: value for key, value in current_manifest.items()
+            if key != "manifest_sha256"
+        }
+    )
+    replay = acceptance_evidence.replay_validator(
+        ROOT,
+        current_validator,
+        review_manifest=current_manifest,
+        role_map=current_role_map,
+        timeout_seconds=REPLAY_TIMEOUT_SECONDS,
+    )
+    decision = acceptance_evidence.evaluate_replay_semantics(
+        replay,
+        ROOT,
+        contract_record=current_contract,
+        review_manifest=current_manifest,
+        role_map=current_role_map,
+        validator_recipe=current_validator,
+        worker_verdict=str(receipt.get("worker_verdict", "")),
+        review_verdict=str(receipt.get("review_verdict", "")),
+        audit_complete=receipt.get("audit_complete"),
+        theorem_complete=receipt.get("theorem_complete"),
+    )
+    replay_focus_contract = focus_execution_contract(item, decision=focus)
+    integration_semantics = (
+        acceptance_evidence.require_replayed_integration_source_semantics(
+            replay, replay_focus_contract, current_role_map
+        )
+    )
+    if integration_semantics:
+        decision = dict(decision)
+        decision["integration_source_semantics"] = integration_semantics
+        decision["decision_sha256"] = canonical_json_sha256(
+            {key: value for key, value in decision.items() if key != "decision_sha256"}
+        )
+    _cleanup_embedded_digest(replay, "result_sha256", "current release replay")
+    _cleanup_embedded_digest(decision, "decision_sha256", "current release decision")
+    if (
+        decision.get("decision") != "phase_accepted"
+        or decision.get("phase_evidence_accepted") is not True
+        or decision.get("audit_complete") is not True
+        or decision.get("theorem_complete") is not True
+    ):
+        raise ValueError(
+            "current release validator replay or semantic decision differs from acceptance"
+        )
+    if _cleanup_replay_invariants(replay) != _cleanup_replay_invariants(
+        historical_replay
+    ):
+        raise ValueError(
+            "current release replay changed material validator, target, toolchain, or semantics"
+        )
+    if _cleanup_decision_invariants(decision) != _cleanup_decision_invariants(
+        historical_decision
+    ):
+        raise ValueError("current release semantic acceptance properties changed")
+    if authoritative_head_revision() != current_head:
+        raise ValueError("authoritative HEAD changed during cleanup release revalidation")
+    return replay, decision
+
+
+def require_cleanup_completion(
+    data: dict[str, Any],
+    ordered: list[dict[str, Any]],
+    claims: list[dict[str, Any]],
+) -> None:
+    """Enforce all six Blueprint cleanup conditions before touching crontab."""
+    graph, nodes = theorem_dag_v2()
+    phase_states = {
+        theorem_id: [item["state"] for item in ordered if item["theorem_id"] == theorem_id]
+        for theorem_id in nodes
+    }
+    for theorem_id, node in nodes.items():
+        focus = node.get("focus_eligibility") if isinstance(node, dict) else None
+        if not isinstance(focus, dict):
+            fail(f"cleanup refused: target lacks current disposition: {theorem_id}")
+        disposition = focus.get("execution_disposition")
+        if disposition in {"organize_or_integrate", "frontier_exception"}:
+            if node.get("completion_bucket") != "master_complete" or any(
+                state != "[x]" for state in phase_states[theorem_id]
+            ):
+                fail(f"cleanup refused: eligible target is not master_complete: {theorem_id}")
+        elif disposition == "research_required":
+            fail(
+                f"cleanup refused: research-required target is nonterminal: {theorem_id}"
+            )
+        elif disposition in {"defer_frontier", "exclude_scope"}:
+            if focus.get("valid") is not True or focus.get("present") is not True:
+                fail(f"cleanup refused: target lacks accepted terminal disposition: {theorem_id}")
+            decision = _focus_receipt(focus).get("admission_review", {}).get("decision")
+            expected = {
+                "defer_frontier": "defer",
+                "exclude_scope": "exclude",
+            }[str(disposition)]
+            if decision != expected:
+                fail(f"cleanup refused: target disposition lacks accepted reason: {theorem_id}")
+        else:
+            fail(f"cleanup refused: target disposition is nonterminal: {theorem_id}")
+    if graph.get("focus_eligibility_summary", {}).get("receipt_valid_count") != len(nodes):
+        fail("cleanup refused: not every target has a valid terminal receipt")
+    todo = DOCS / f"todos_{dt.date.today():%Y%m%d}.md"
+    if todo.is_symlink() or not todo.is_file():
+        fail("cleanup refused: daily todo is missing or unsafe")
+    expected_todo, expected_projection = render_todo(
+        data, ordered, claims, destination=todo
+    )
+    if expected_todo != todo or todo.read_text(encoding="utf-8") != expected_projection:
+        fail("cleanup refused: daily todo is not the current content-bound projection")
+    if "Actionable unfinished: 0\n" not in expected_projection:
+        fail("cleanup refused: actionable unfinished work remains")
+    pending_statuses = {
+        "preparing", "live", "launch_failed", "draining", "finished", "blocked",
+        "quarantined", "finished_integrated", "review_finished", "review_failed",
+        "revalidation_required",
+    }
+    if any(
+        claim.get("runtime_protocol") == RUNTIME_PROTOCOL
+        and claim.get("status") in pending_statuses
+        for claim in claims
+    ):
+        fail("cleanup refused: a runtime claim or handoff remains pending")
+    for name in ("pending_checkpoint.json", "integration_wal.json"):
+        if runtime_path(name).exists() or runtime_path(name).is_symlink():
+            fail(f"cleanup refused: {name} remains")
+    queue_path = runtime_path("integration_queue.json")
+    if queue_path.exists():
+        queue = read_json(queue_path)
+        if any(queue.get(key) for key in ("queued", "blocked_reports", "rejected", "review_rejected")):
+            fail("cleanup refused: integration queue is not empty")
+    run(["python3", "Docs/tools/check_stage1_standard.py"])
+    run(["python3", "scripts/stage1_target.py", "check"])
+    run(["python3", "Docs/tools/check_stage1_theorem_dag_v2.py"])
+    release_claims = {
+        claim.get("item_id"): claim
+        for claim in claims
+        if claim.get("status") == "master_accepted"
+    }
+    for item in ordered:
+        node = nodes.get(str(item.get("theorem_id")), {})
+        focus = node.get("focus_eligibility") if isinstance(node, dict) else {}
+        if (
+            item.get("phase") == "release"
+            and isinstance(focus, dict)
+            and focus.get("execution_disposition")
+            in {"organize_or_integrate", "frontier_exception"}
+        ):
+            claim = release_claims.get(item.get("id"))
+            if not isinstance(claim, dict):
+                fail(f"cleanup refused: release lacks master acceptance: {item.get('id')}")
+            receipt_path = claim.get("master_receipt_path")
+            receipt_sha = claim.get("master_receipt_sha256")
+            if (
+                not isinstance(receipt_path, str)
+                or Path(receipt_path).is_absolute()
+                or ".." in Path(receipt_path).parts
+                or not isinstance(receipt_sha, str)
+                or not (ROOT / receipt_path).is_file()
+                or hashlib.sha256((ROOT / receipt_path).read_bytes()).hexdigest()
+                != receipt_sha
+            ):
+                fail(f"cleanup refused: release gate receipt is missing or stale: {item.get('id')}")
+            try:
+                receipt, receipt_bytes = read_exact_json_file(
+                    ROOT / receipt_path,
+                    "master release acceptance receipt",
+                    expected_sha256=receipt_sha,
+                )
+            except (OSError, ValueError) as exc:
+                fail(
+                    f"cleanup refused: release gate receipt cannot be replayed: "
+                    f"{item.get('id')}: {exc}"
+                )
+            decision = receipt.get("semantic_decision")
+            semantic = receipt.get("replay_result", {}).get("semantic_result")
+            try:
+                replayed, replayed_decision = revalidate_cleanup_release_acceptance(
+                    item, claim, receipt
+                )
+            except (
+                OSError,
+                ValueError,
+                SystemExit,
+                acceptance_evidence.EvidenceError,
+                focus_eligibility.EligibilityError,
+            ) as exc:
+                fail(
+                    "cleanup refused: release currentness revalidation failed: "
+                    f"{item.get('id')}: {exc}"
+                )
+            release_decisions = [
+                row
+                for row in receipt.get("artifact_bindings", [])
+                if isinstance(row, dict) and row.get("role") == "release_decision"
+            ]
+            release_decision: dict[str, Any] | None = None
+            if len(release_decisions) == 1:
+                relative = release_decisions[0].get("path")
+                expected = release_decisions[0].get("sha256")
+                if (
+                    isinstance(relative, str)
+                    and not Path(relative).is_absolute()
+                    and ".." not in Path(relative).parts
+                    and isinstance(expected, str)
+                ):
+                    try:
+                        release_decision, _ = read_exact_json_file(
+                            ROOT / relative,
+                            "release terminal decision",
+                            expected_sha256=expected,
+                        )
+                    except (OSError, ValueError):
+                        release_decision = None
+            terminal = (
+                release_decision.get("terminal_decisions")
+                if isinstance(release_decision, dict)
+                else None
+            )
+            root_vector = (
+                release_decision.get("root_vector")
+                if isinstance(release_decision, dict)
+                else None
+            )
+            if (
+                receipt.get("schema_version") != MASTER_ACCEPTANCE_RECEIPT_SCHEMA
+                or receipt.get("item_id") != item.get("id")
+                or receipt.get("theorem_id") != item.get("theorem_id")
+                or receipt.get("phase") != "release"
+                or receipt.get("phase_evidence_accepted") is not True
+                or receipt.get("worker_verdict") != "accepted"
+                or receipt.get("review_verdict") != "phase_accepted"
+                or receipt.get("audit_complete") is not True
+                or receipt.get("theorem_complete") is not True
+                or not isinstance(decision, dict)
+                or decision.get("decision") != "phase_accepted"
+                or decision.get("phase_evidence_accepted") is not True
+                or decision.get("audit_complete") is not True
+                or decision.get("theorem_complete") is not True
+                or receipt.get("semantic_decision_sha256")
+                != canonical_json_sha256(
+                    {key: value for key, value in decision.items() if key != "decision_sha256"}
+                )
+                or decision.get("decision_sha256")
+                != receipt.get("semantic_decision_sha256")
+                or not isinstance(semantic, dict)
+                or semantic.get("verdict") != "accepted"
+                or semantic.get("audit_complete") is not True
+                or semantic.get("theorem_complete") is not True
+                or not isinstance(release_decision, dict)
+                or release_decision.get("verdict") != "accepted"
+                or not isinstance(terminal, dict)
+                or terminal.get("audit_complete") is not True
+                or terminal.get("theorem_complete") is not True
+                or release_decision.get("remaining_root_cut_set") not in (None, [])
+                or not isinstance(root_vector, dict)
+                or root_vector.get("M")
+                not in {"M0-L", "M0-W", "M0-P"}
+                or hashlib.sha256(receipt_bytes).hexdigest() != receipt_sha
+                or replayed_decision.get("decision") != "phase_accepted"
+                or replayed_decision.get("phase_evidence_accepted") is not True
+                or replayed_decision.get("audit_complete") is not True
+                or replayed_decision.get("theorem_complete") is not True
+            ):
+                fail(
+                    "cleanup refused: eligible release does not establish exact "
+                    f"THEOREM-Z/M0 closure: {item.get('id')}"
+                )
+
+
 def cleanup() -> None:
     data, ordered = load_dag()
     claims = refresh_claims(ordered)
-    counts = Counter(item["state"] for item in ordered)
-    todo = DOCS / f"todos_{dt.date.today():%Y%m%d}.md"
-    unfinished_zero = todo.exists() and "Unfinished: 0" in todo.read_text(encoding="utf-8")
-    runtime_claims = [
-        claim
-        for claim in claims
-        if claim.get("runtime_protocol") == RUNTIME_PROTOCOL
-        and claim.get("status") in {"live", "preparing", "launch_failed", "draining", "finished", "blocked", "quarantined"}
-    ]
-    if counts["[ ]"] or counts["[_]"] or runtime_claims or not unfinished_zero:
-        fail("cleanup refused: unfinished work, active/pending claims, or stale todo remains")
+    require_cleanup_completion(data, ordered, claims)
     cron = run(["crontab", "-l"], check=False)
-    lines = [line for line in cron.stdout.splitlines() if "stage1_execution_cron.py" not in line]
+    lines = [line for line in cron.stdout.splitlines() if CRON_MARKER not in line]
     subprocess.run(["crontab", "-"], input="\n".join(lines) + "\n", text=True, check=True)
+    after = run(["crontab", "-l"], check=False)
+    if any(CRON_MARKER in line for line in after.stdout.splitlines()):
+        fail("cleanup refused: exact Stage1 cron entry remains installed")
     atomic_write(runtime_path("cleanup.json"), json.dumps({"state": "completed", "at": dt.datetime.now(dt.timezone.utc).isoformat()}, indent=2) + "\n")
     print("cleanup: removed Stage1 execution cron entry")
 
@@ -7025,7 +9269,7 @@ def install(schedule: str) -> None:
         f"{schedule} cd {ROOT} && "
         f"{sys.executable} {ROOT / 'scripts' / 'stage1_execution_cron.py'} "
         f"--tick --workers {DEFAULT_WORKERS} --limit {DEFAULT_INTEGRATION_LIMIT} "
-        f">> {RUNTIME / 'keepalive.log'} 2>&1 # stage1_execution_cron.py"
+        f">> {RUNTIME / 'keepalive.log'} 2>&1 {CRON_MARKER}"
     )
     current = run(["crontab", "-l"], check=False).stdout.splitlines()
     current = [line for line in current if "stage1_execution_cron.py" not in line]
@@ -7037,9 +9281,8 @@ def pause() -> None:
     """Persistently stop scheduling before any future tick can mutate state."""
     validate_runtime_root()
     marker = dt.datetime.now(dt.timezone.utc).isoformat() + "\n"
-    for path in pause_markers():
-        path.parent.mkdir(parents=True, exist_ok=True)
-        atomic_write(path, marker)
+    PAUSE_FILE.parent.mkdir(parents=True, exist_ok=True)
+    atomic_write(PAUSE_FILE, marker)
     cron = run(["crontab", "-l"], check=False)
     lines = [line for line in cron.stdout.splitlines() if "stage1_execution_cron.py" not in line]
     subprocess.run(["crontab", "-"], input="\n".join(lines) + "\n", text=True, check=True)
@@ -7056,19 +9299,261 @@ def resume() -> None:
     cron = run(["crontab", "-l"], check=False)
     if any("stage1_execution_cron.py" in line for line in cron.stdout.splitlines()):
         fail("resume refused: a Stage1 cron entry already exists")
-    for path in pause_markers():
-        durable_unlink(path)
-    print("resume: cleared current and legacy PAUSED state; cron remains uninstalled")
+    durable_unlink(PAUSE_FILE)
+    print("resume: cleared Stage1 v2 PAUSED state; cron remains uninstalled")
+
+
+def _write_focus_review_job(
+    candidate: Path,
+    reviewer_id: str,
+    reviewer_uid: int,
+    reject: bool,
+    *,
+    frontier_review_input: Path | None = None,
+) -> tuple[Path, Path]:
+    candidate_sha256 = sha256_file(candidate)
+    nonce = os.urandom(16).hex()
+    job_root = RUNTIME / "focus-admission" / "review-jobs" / nonce
+    result_root = RUNTIME / "focus-admission" / "review-results" / nonce
+    job = {
+        "schema_version": FOCUS_REVIEW_JOB_SCHEMA,
+        "candidate_path": str(candidate),
+        "candidate_file_sha256": candidate_sha256,
+        "reviewer": {"id": reviewer_id, "role": "independent_reviewer"},
+        "reviewer_uid": reviewer_uid,
+        "approve": not reject,
+        "nonce": nonce,
+    }
+    candidate_value = focus_admission._load_runtime_record(
+        candidate,
+        RUNTIME / "focus-admission" / "candidates",
+        "focus candidate",
+    )
+    frontier = candidate_value.get("receipt_facts", {}).get("frontier_exception")
+    if isinstance(frontier, dict):
+        if frontier_review_input is None:
+            fail(
+                "frontier focus review requires a separately authored reviewer input; "
+                "boolean approval is forbidden"
+            )
+        review_input = focus_admission._load_runtime_record(
+            frontier_review_input.absolute(),
+            RUNTIME / "focus-admission" / "frontier-review-staging",
+            "staged frontier independent review input",
+        )
+        if (
+            review_input.get("candidate_sha256") != candidate_value["candidate_sha256"]
+            or review_input.get("reviewer")
+            != {"id": reviewer_id, "role": "independent_reviewer"}
+        ):
+            fail("staged frontier review input targets another candidate or reviewer")
+        review_path = focus_admission._frontier_review_input_path(
+            RUNTIME, candidate_value["candidate_sha256"]
+        )
+        durable_write_bytes(
+            review_path,
+            (json.dumps(review_input, ensure_ascii=True, indent=2) + "\n").encode("utf-8"),
+        )
+    job["job_sha256"] = canonical_json_sha256(job)
+    job_path = job_root / "job.json"
+    result_path = result_root / "result.json"
+    durable_write_bytes(
+        job_path,
+        (json.dumps(job, ensure_ascii=True, indent=2) + "\n").encode("utf-8"),
+    )
+    return job_path, result_path
+
+
+def _run_focus_review_job_as_principal(
+    job_path: Path, result_path: Path, reviewer_uid: int
+) -> None:
+    """Run the focus verifier in a distinct OS process or refuse issuance."""
+    if os.geteuid() != 0:
+        fail(
+            "independent focus review requires a root-owned supervisor; "
+            "synchronous scheduler-UID review is forbidden"
+        )
+    if reviewer_uid < 1 or reviewer_uid == os.geteuid():
+        fail("independent focus review requires a distinct non-root OS UID")
+    reviewer_key_value = os.environ.get("STAGE1_FOCUS_REVIEWER_SIGNING_KEY")
+    if reviewer_key_value is None:
+        reviewer_key_value = str(focus_admission.DEFAULT_REVIEWER_SIGNING_KEY)
+    reviewer_key = Path(reviewer_key_value).absolute()
+    if (
+        reviewer_key.is_symlink()
+        or not reviewer_key.is_file()
+        or reviewer_key.stat().st_mode & 0o777 != 0o600
+        or reviewer_key.stat().st_uid != os.geteuid()
+    ):
+        fail(
+            "independent focus reviewer signing key must be a "
+            "scheduler-owned regular file with mode 0600"
+        )
+    review_root = result_path.parent
+    review_root.mkdir(parents=True, exist_ok=True)
+    access_snapshots = provision_review_access(
+        reviewer_uid=reviewer_uid,
+        workspace=job_path.parent,
+        read_paths=[
+            job_path,
+            Path(__file__).resolve(),
+            Path(focus_admission.__file__).resolve(),
+            Path(focus_eligibility.__file__).resolve(),
+            reviewer_key,
+        ],
+        write_paths=[result_path],
+    )
+    helper = """
+import hashlib
+import importlib.util
+import json
+import os
+import pathlib
+import sys
+
+module_path = pathlib.Path(sys.argv[5])
+spec = importlib.util.spec_from_file_location("stage1_focus_admission", module_path)
+if spec is None or spec.loader is None:
+    raise RuntimeError("focus review module is unavailable")
+module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(module)
+job = json.loads(pathlib.Path(sys.argv[1]).read_text())
+candidate = pathlib.Path(job["candidate_path"])
+if hashlib.sha256(candidate.read_bytes()).hexdigest() != job["candidate_file_sha256"]:
+    raise RuntimeError("focus candidate changed before independent review")
+review = module.review_focus_admission(
+    sys.argv[3], sys.argv[4], candidate, job["reviewer"],
+    approve=job["approve"], reviewer_signing_key_path=sys.argv[6]
+)
+result = {
+    "schema_version": "stage1-focus-review-result/1.0",
+    "job_sha256": job["job_sha256"],
+    "review_path": str(review),
+    "review_file_sha256": hashlib.sha256(review.read_bytes()).hexdigest(),
+    "reviewer_uid": os.geteuid(),
+    "nonce": job["nonce"],
+}
+result["result_sha256"] = hashlib.sha256(
+    json.dumps(result, sort_keys=True, separators=(",", ":")).encode()
+).hexdigest()
+pathlib.Path(sys.argv[2]).write_text(json.dumps(result, indent=2) + "\n")
+"""
+    command = [
+        "/usr/bin/setpriv", f"--reuid={reviewer_uid}", f"--regid={reviewer_uid}",
+        "--clear-groups", "--no-new-privs", "--", sys.executable, "-I", "-B", "-c", helper,
+        str(job_path), str(result_path), str(ROOT), str(RUNTIME),
+        str(Path(focus_admission.__file__).resolve()), str(reviewer_key),
+    ]
+    process: subprocess.Popen[bytes] | None = None
+    try:
+        process = subprocess.Popen(
+            command,
+            cwd=job_path.parent,
+            stdin=subprocess.DEVNULL,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            start_new_session=True,
+            close_fds=True,
+        )
+        try:
+            require_process_effective_uid(process.pid, reviewer_uid, "focus reviewer")
+            stdout, stderr = process.communicate(timeout=FOCUS_REVIEW_TIMEOUT_SECONDS)
+        except BaseException:
+            try:
+                os.killpg(process.pid, 15)
+            except ProcessLookupError:
+                pass
+            raise
+        if process.returncode:
+            detail = (stderr or stdout).decode("utf-8", "replace").strip()
+            fail(f"independent focus reviewer failed: {detail or 'no diagnostic'}")
+    finally:
+        # The key remains scheduler-owned. The reviewer gets a narrow,
+        # claim-scoped read ACL only while producing this signed review.
+        restore_review_access(access_snapshots)
+
+
+def _load_focus_review_result(
+    job_path: Path, result_path: Path, reviewer_uid: int
+) -> Path:
+    try:
+        job = json.loads(job_path.read_text(encoding="utf-8"))
+        result = json.loads(result_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        fail(f"independent focus reviewer produced no canonical result: {exc}")
+    unhashed = dict(result)
+    result_sha256 = unhashed.pop("result_sha256", None)
+    review_path = Path(str(result.get("review_path", "")))
+    if (
+        result.get("schema_version") != FOCUS_REVIEW_RESULT_SCHEMA
+        or set(result) != {
+            "schema_version", "job_sha256", "review_path", "review_file_sha256",
+            "reviewer_uid", "nonce", "result_sha256",
+        }
+        or result_sha256 != canonical_json_sha256(unhashed)
+        or result.get("job_sha256") != job.get("job_sha256")
+        or result.get("nonce") != job.get("nonce")
+        or result.get("reviewer_uid") != reviewer_uid
+        or not review_path.is_file()
+        or sha256_file(review_path) != result.get("review_file_sha256")
+    ):
+        fail("independent focus review result is stale, forged, or incomplete")
+    return review_path
+
+
+def issue_focus_admission(
+    proposal: Path,
+    decision: Path,
+    *,
+    reject: bool,
+    frontier_review_input: Path | None = None,
+) -> None:
+    """Prepare as scheduler, but review only under a distinct OS principal."""
+    try:
+        reviewer_id, reviewer_uid = scheduler_review_principal()
+        scheduler_decision = focus_admission.load_scheduler_decision(RUNTIME, decision)
+        expected_reviewer = {
+            "id": reviewer_id,
+            "role": "independent_reviewer",
+        }
+        if scheduler_decision.get("reviewer") != expected_reviewer:
+            fail(
+                "scheduler decision reviewer does not match the configured "
+                "authenticated review principal"
+            )
+        candidate = focus_admission.prepare_focus_admission(
+            ROOT,
+            RUNTIME,
+            proposal,
+            scheduler_decision,
+        )
+        job_path, result_path = _write_focus_review_job(
+            candidate,
+            reviewer_id,
+            reviewer_uid,
+            reject,
+            frontier_review_input=frontier_review_input,
+        )
+        _run_focus_review_job_as_principal(job_path, result_path, reviewer_uid)
+        review = _load_focus_review_result(job_path, result_path, reviewer_uid)
+        if reject:
+            print(f"focus-admission: rejected review={review}")
+            return
+        issuance = focus_admission.publish_focus_admission(
+            ROOT,
+            RUNTIME,
+            candidate,
+            review,
+        )
+    except (focus_admission.AdmissionError, ValueError) as exc:
+        fail(str(exc))
+    print(f"focus-admission: published issuance={issuance}")
 
 
 def main() -> None:
     validate_only_requested = "--validate-only" in sys.argv[1:]
     # A paused tick must be a true no-op, including no runtime directory or
     # lock-file mutation. Check it before constructing the scheduler lock.
-    # The one allowed migration is copying the retired stop marker into the
-    # current runtime; this preserves rather than relaxes the operator freeze.
-    if not validate_only_requested:
-        migrate_pause_marker()
     if "--tick" in sys.argv[1:] and execution_is_paused():
         print("tick: Stage1 execution is paused; no sync, integration, or refill performed")
         return
@@ -7078,7 +9563,9 @@ def main() -> None:
     if "--pause" in sys.argv[1:]:
         pause()
         return
-    paused_mutating_modes = {"--bootstrap", "--integrate", "--cleanup", "--restart-live", "--install"}
+    paused_mutating_modes = {
+        "--bootstrap", "--integrate", "--cleanup", "--restart-live", "--install",
+    }
     requested_paused_modes = paused_mutating_modes.intersection(sys.argv[1:])
     if execution_is_paused() and requested_paused_modes:
         fail(f"Stage1 execution is paused; refused {sorted(requested_paused_modes)[0]}")
@@ -7107,9 +9594,18 @@ def main() -> None:
     modes.add_argument("--install", action="store_true", help="install a bounded scheduler cron entry")
     modes.add_argument("--pause", action="store_true", help="persistently disable ticks and remove the cron entry")
     modes.add_argument("--resume", action="store_true", help="clear the persistent pause without installing cron")
+    modes.add_argument("--issue-focus", action="store_true", help="review and publish one scheduler-owned focus admission")
     parser.add_argument("--workers", type=int, default=DEFAULT_WORKERS, help=f"concurrent-worker refill budget (0..{MAX_WORKERS}; default {DEFAULT_WORKERS})")
     parser.add_argument("--limit", type=int, default=DEFAULT_INTEGRATION_LIMIT, help=f"handoff integration budget (0..{MAX_INTEGRATION_LIMIT}; default {DEFAULT_INTEGRATION_LIMIT})")
     parser.add_argument("--schedule", default="*/5 * * * *", help="crontab schedule used by --install")
+    parser.add_argument("--focus-proposal", type=Path, help="HEAD-tracked theorem-owned focus proposal")
+    parser.add_argument("--focus-decision", type=Path, help="scheduler-staged focus admission decision")
+    parser.add_argument(
+        "--frontier-review-input",
+        type=Path,
+        help="separately authored reviewer decision staged under focus-admission/frontier-review-staging",
+    )
+    parser.add_argument("--focus-reject", action="store_true", help="persist a typed rejected focus review without publishing")
     args = parser.parse_args()
     if args.bootstrap:
         bootstrap()
@@ -7127,6 +9623,18 @@ def main() -> None:
         pause()
     elif args.resume:
         resume()
+    elif args.issue_focus:
+        if (
+            args.focus_proposal is None
+            or args.focus_decision is None
+        ):
+            fail("--issue-focus requires proposal and scheduler decision")
+        issue_focus_admission(
+            args.focus_proposal,
+            args.focus_decision,
+            reject=args.focus_reject,
+            frontier_review_input=args.frontier_review_input,
+        )
     else:
         install(args.schedule)
     if lock is not None:

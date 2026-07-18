@@ -1,6 +1,6 @@
-# THM-M-0154 rev-5.6 intake
+# THM-M-0154 Historical Intake
 
-This directory is the `planned` rev-5.6 dossier for the generalized Stokes theorem. The source
+This directory is the retained `planned` dossier for the generalized Stokes theorem. The source
 record says only "integration of differential forms over the boundary of a manifold." This intake
 freezes the standard smooth-manifold-with-boundary theorem family without pretending that the
 repository already has the differential-form integration machinery or an exact Lean declaration.
@@ -28,8 +28,9 @@ machine credit.
 `INTAKE -> STATEMENT -> ANCHOR_AUDIT -> OBLIGATION_TREE -> PROOF -> VALIDATION -> RELEASE`.
 The next phase must elaborate one source-faithful target and mutation-test dimension, orientation,
 compact support, boundary pullback, sign convention, and empty-boundary behavior. Later phases must
-separately audit sources and formal candidates, freeze typed obligations, supply proof bodies, and
-run the rev-5.6 validation and release gates.
+separately audit sources and formal candidates, freeze typed integration obligations, and integrate
+and replay an admitted exact machine proof. New root work requires an active reviewed frontier
+exception; validation and release use the current v2 gates.
 
 ## Intake verdict
 

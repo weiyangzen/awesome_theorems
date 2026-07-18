@@ -4,16 +4,16 @@
 
 目标不是只保存一篇长文，而是把“形式化验证 + 机器证明边界记录（可证明部分）”条目可直接复用的结构固定下来。
 
-截至 `2026-07-10`，本目录是 rev-5.6 theorem dossier。唯一 requirements、排序和执行进度权威是
-`Docs/Stage1_Blueprint_v2.md`；`Docs/Stage1_Assurance_Standard_rev-5.6.md` 只提供 supporting
-assurance gates，`proof_units.json` 是可重算的 proof-tree/debt manifest，而 `full_study.md`
+截至 `2026-07-10`，本目录是历史 theorem dossier。唯一 requirements、排序和执行进度权威是
+`Docs/Stage1_Blueprint_v2.md`；旧 assurance 文档只作为 Git 历史 provenance，
+`proof_units.json` 是可重算的历史 proof-tree/debt manifest，而 `full_study.md`
 中的旧 checklist 仅是历史 readability inventory。
 `bash THM-M-0387/run_local_validation.sh` 是本地统一验证入口；
 但该验证只覆盖本仓库中实际纳入 Lean 工程的 wrappers、pinned dependencies 与样例入口，不表示完整 FLT
 已经在本仓库完成 repo-local formal closure。
 总体状态仍是 `部分验证`，而不是全局 `已验证`。
 
-rev-5.6 的最终可重算覆盖率为：tree classification `132/132 (100%)`，
+历史 dossier 的最终可重算覆盖率为：tree classification `132/132 (100%)`，
 machine closure `29/93 (31.18%)`，readable closure `132/132 (100%)`，
 human-source `H0` closure `0/113 (0%)`。最后一项为零并不否定 FLT 的历史证明；
 它表示本轮没有把 primary-paper 的精确 section/theorem/page 与每个需要审计的 node
@@ -58,7 +58,7 @@ mathlib `fermatLastTheoremFor_iff_int` 等价推出的 repo-local 派生 wrapper
 - `proof_outline.md`
   Lean 4 anchored 短证明路线图；默认人类阅读入口。
 - `proof_units.json`
-  rev-5.6 schema-complete proof DAG、H/M/R ledger、证据边界与四项 coverage metrics。
+  历史 schema-complete proof DAG、H/M/R ledger、证据边界与四项 coverage metrics。
 - `full_study.md`
   special-branch expanded Lean 4 reconstruction study；不是进度权威。
 - `machine_checked_audit.md`
@@ -71,7 +71,7 @@ mathlib `fermatLastTheoremFor_iff_int` 等价推出的 repo-local 派生 wrapper
   三个分支的人类可读长附录；regular primes 的定理闭合来自 pinned 上游 `flt-regular` dependency，
   并由本仓库 wrapper theorem `regularPrimesPath` 检查。
   `n = 4` 与 `regular primes` 的旧版 execution units 保留为公开展开材料；其 legacy
-  completion wording 只说明旧版归档，不改变任何 rev-5.6 H/M/R vector。
+  completion wording 只说明旧版归档，不改变任何历史 H/M/R vector。
 - `build_validation.md`
   本仓库本地 Lean 工程验证记录。
 - `FermatLastTheorem_Sample.lean`
@@ -126,7 +126,7 @@ mathlib `fermatLastTheoremFor_iff_int` 等价推出的 repo-local 派生 wrapper
 
 Lean 4 anchored special-branch 展开稿收在 `THM-M-0387/eligibles/`；完整现代证明路线与
 machine-open blocker 读法收在 `THM-M-0387/readable/`。旧 execution unit 状态不再作为
-rev-5.6 cursor；蓝图 checklist 是唯一 cursor。
+历史 cursor；蓝图 checklist 是唯一 cursor。
 
 ## 本地验证
 

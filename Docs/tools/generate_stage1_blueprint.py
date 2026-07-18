@@ -13,9 +13,14 @@ import sys
 
 
 ROOT = Path(__file__).resolve().parents[2]
-TARGET_MANIFEST_FILE = ROOT / "Docs" / "Stage1_Targets_rev-5.6.json"
-STANDARD_FILE = ROOT / "Docs" / "Stage1_Assurance_Standard_rev-5.6.md"
+TARGET_MANIFEST_FILE = ROOT / "Docs" / "Stage1_Target_Membership_v2.json"
+V2_BLUEPRINT_FILE = ROOT / "Docs" / "Stage1_Blueprint_v2.md"
 TOP_N = 300
+
+# These labels describe the frozen discovery universe only. They are not a
+# focus admission, a phase permission, or an execution lane under Stage1 v2.
+MEMBERSHIP_PREDICATE_SEMANTICS = "frozen_membership_discovery_only"
+TARGET_LANE_SEMANTICS = "legacy_discovery_metadata_only"
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import generate_stage0_blueprint as stage0  # noqa: E402
@@ -277,7 +282,13 @@ def difficulty_score(item: stage0.Theorem) -> int:
     return score
 
 
-def is_stage1_eligible(item: stage0.Theorem) -> bool:
+def is_stage1_membership_candidate(item: stage0.Theorem) -> bool:
+    """Return membership in the frozen metadata-screened discovery universe.
+
+    This predicate deliberately says nothing about current focus eligibility.
+    Only a v2 focus receipt can authorize research, integration, or an admitted
+    frontier exception for one of the retained identities.
+    """
     if item.discipline != "数学":
         return False
     bucket = stage0.formal_status_bucket(item)
@@ -295,8 +306,13 @@ def is_stage1_eligible(item: stage0.Theorem) -> bool:
     return profile.weight >= 60
 
 
-def blueprint_disposition(item: stage0.Theorem) -> tuple[str, str]:
-    """Classify every mathematical record without treating the 300-slot queue as scope."""
+def is_stage1_eligible(item: stage0.Theorem) -> bool:
+    """Deprecated compatibility alias; membership only, never focus."""
+    return is_stage1_membership_candidate(item)
+
+
+def membership_discovery_disposition(item: stage0.Theorem) -> tuple[str, str]:
+    """Classify catalog discovery without granting proof or scheduling authority."""
     bucket = stage0.formal_status_bucket(item)
     if bucket == "open":
         return "open_problem_audit", "freeze the claim, audit H4, and formalize known barriers/partial results"
@@ -313,14 +329,21 @@ def blueprint_disposition(item: stage0.Theorem) -> tuple[str, str]:
     ):
         return "partial_result_family_audit", "split proved partial results from the still-open canonical claim"
     if item.importance == "低":
+        # Frozen manifest compatibility label; classification only, never a
+        # current proof-expansion permission.
         return "low_priority_proof_expansion", "blueprint applies; schedule after higher-value obligations"
     if profile_for(item).weight < 60:
-        return "profile_adapter_required", "define a domain/Lean adapter profile before proof expansion"
-    return "proof_expansion_eligible", stage1_lane(item)
+        return "profile_adapter_required", "define a domain/Lean adapter profile before later audit"
+    return "membership_candidate_only", legacy_discovery_lane(item)
+
+
+def blueprint_disposition(item: stage0.Theorem) -> tuple[str, str]:
+    """Compatibility alias for the non-authoritative discovery classification."""
+    return membership_discovery_disposition(item)
 
 
 def select_items(items: list[stage0.Theorem]) -> list[stage0.Theorem]:
-    candidates = [item for item in items if is_stage1_eligible(item)]
+    candidates = [item for item in items if is_stage1_membership_candidate(item)]
     ordered = sorted(
         candidates,
         key=lambda item: (
@@ -355,7 +378,8 @@ def select_items(items: list[stage0.Theorem]) -> list[stage0.Theorem]:
     return selected
 
 
-def stage1_lane(item: stage0.Theorem) -> str:
+def legacy_discovery_lane(item: stage0.Theorem) -> str:
+    """Reproduce the frozen target_lane label as inert discovery metadata."""
     bucket = stage0.formal_status_bucket(item)
     score = difficulty_score(item)
     if item.name == "费马大定理":
@@ -369,13 +393,23 @@ def stage1_lane(item: stage0.Theorem) -> str:
     return "hard_statement_first_partial_verification"
 
 
+def stage1_lane(item: stage0.Theorem) -> str:
+    """Deprecated compatibility alias; never authorizes a Stage1 v2 claim."""
+    return legacy_discovery_lane(item)
+
+
 def build_target_manifest(
     selected: list[stage0.Theorem], all_items: list[stage0.Theorem], removed_count: int
 ) -> dict[str, object]:
-    """Build the machine authority consumed by the Stage1 execution skill."""
+    """Reproduce frozen membership and compatibility discovery metadata.
+
+    The manifest is not an execution or focus authority. Its historical lane
+    values remain byte-stable so old identities can be replayed, while the v2
+    focus receipt and SSOT exclusively decide current work.
+    """
     math_items = [item for item in all_items if item.discipline == "数学"]
-    eligible = [item for item in math_items if is_stage1_eligible(item)]
-    excluded = [item for item in math_items if not is_stage1_eligible(item)]
+    eligible = [item for item in math_items if is_stage1_membership_candidate(item)]
+    excluded = [item for item in math_items if not is_stage1_membership_candidate(item)]
     grouped: OrderedDict[str, list[stage0.Theorem]] = OrderedDict()
     for item in selected:
         grouped.setdefault(item.subcategory, []).append(item)
@@ -389,7 +423,9 @@ def build_target_manifest(
     target_order = selected_order + remaining_order
     target_set_payload = "\n".join(sorted(item.uid for item in eligible)) + "\n"
     target_set_hash = hashlib.sha256(target_set_payload.encode("utf-8")).hexdigest()
-    excluded_dispositions = Counter(blueprint_disposition(item)[0] for item in excluded)
+    excluded_dispositions = Counter(
+        membership_discovery_disposition(item)[0] for item in excluded
+    )
     targets: list[dict[str, object]] = []
     for rank, item in enumerate(target_order, start=1):
         slot = selected_slots.get(item.uid)
@@ -404,15 +440,16 @@ def build_target_manifest(
                 "baseline": "L0",
                 "rework_required": True,
                 "legacy_artifacts_accepted": False,
-                "target_lane": stage1_lane(item),
+                # Frozen compatibility field. Stage1 v2 never consumes it as
+                # focus eligibility, claim order, or phase permission.
+                "target_lane": legacy_discovery_lane(item),
                 "intake_score": difficulty_score(item),
                 "lifecycle_mode": "planned",
                 "theorem_complete": False,
             }
         )
     return {
-        "schema_version": "stage1-target-set/5.6.2",
-        "standard": "Docs/Stage1_Assurance_Standard_rev-5.6.md",
+        "schema_version": "stage1-target-membership/2.0",
         "task_state_authority": "Docs/Stage1_Blueprint_v2.md",
         "scope": {
             "stage0_records": len(all_items),
@@ -430,19 +467,18 @@ def build_target_manifest(
 
 
 def main() -> None:
-    if not STANDARD_FILE.is_file():
-        raise RuntimeError(f"missing Stage1 assurance standard: {STANDARD_FILE}")
-    standard = STANDARD_FILE.read_text(encoding="utf-8")
-    required_sections = (
-        "Canonical Obligation Registry",
-        "Typed Graph Contract",
-        "Coverage and Anti-Goodhart Metrics",
-        "Hermetic Lean 4 Reproduction",
-        "Independent Verification and CI",
+    if not V2_BLUEPRINT_FILE.is_file():
+        raise RuntimeError(f"missing sole Stage1 v2 blueprint: {V2_BLUEPRINT_FILE}")
+    blueprint = V2_BLUEPRINT_FILE.read_text(encoding="utf-8")
+    required_boundary = (
+        "sole current Stage1 blueprint and task-state SSOT",
+        "Membership projection: `Docs/Stage1_Target_Membership_v2.json`",
+        "STAGE1-EXECUTION-CHECKLIST:BEGIN",
+        "STAGE1-EXECUTION-CHECKLIST:END",
     )
-    missing = [section for section in required_sections if section not in standard]
+    missing = [value for value in required_boundary if value not in blueprint]
     if missing:
-        raise RuntimeError(f"Stage1 assurance standard is incomplete: {missing}")
+        raise RuntimeError(f"Stage1 v2 authority boundary is incomplete: {missing}")
     items, removed_count = load_stage0_items()
     selected = select_items(items)
     if len(selected) != TOP_N:
@@ -459,7 +495,7 @@ def main() -> None:
     )
     print(f"Wrote {TARGET_MANIFEST_FILE.relative_to(ROOT)}")
     print(
-        f"Generated {len([item for item in items if is_stage1_eligible(item)])} uniform L0 targets; "
+        f"Generated {len([item for item in items if is_stage1_membership_candidate(item)])} uniform L0 targets; "
         f"retained {len(selected)} legacy slots as discovery metadata"
     )
 

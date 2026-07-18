@@ -15,9 +15,9 @@ from typing import Any, NoReturn
 
 
 ROOT = Path(__file__).resolve().parents[2]
-TARGETS = ROOT / "Docs" / "Stage1_Targets_rev-5.6.json"
+TARGETS = ROOT / "Docs" / "Stage1_Target_Membership_v2.json"
 BLUEPRINT = ROOT / "Docs" / "Stage1_Blueprint_v2.md"
-LEGACY_DAG = ROOT / "Docs" / "Stage1_Execution_DAG_rev-5.6.json"
+PHASE_DAG = ROOT / "Docs" / "Stage1_Phase_DAG_v2.json"
 DAG = ROOT / "Docs" / "Stage1_Theorem_DAG_v2.json"
 GENERATOR = ROOT / "Docs" / "tools" / "generate_stage1_theorem_dag_v2.py"
 PHASES = ("intake", "statement", "anchor_audit", "obligation_tree", "proof", "validation", "release")
@@ -40,7 +40,7 @@ EXECUTION_CONTRACT = {
         "content_bound_provider_source",
         "provider_and_consumer_statement_fingerprints",
         "consumer_owned_import_or_wrapper",
-        "consumer_validation_receipt",
+        "consumer_kernel_replay",
     ],
     "provider_checkbox_state_is_observation_only": True,
     "provider_acceptance_inherited": False,
@@ -50,6 +50,17 @@ AUDIT_STATUSES = {
     "audited_hard_dependency_found",
     "audited_reuse_only",
     "unknown_not_independent_proof_claim",
+}
+FOCUS_POLICY = {
+    "requirements_source": "Docs/Stage1_Blueprint_v2.md",
+    "receipt_schema": "stage1-focus-eligibility/1.0",
+    "receipt_path_pattern": "Stage1_Instances/<THEOREM-ID>/focus-eligibility.json",
+    "schema_contract": "Docs/Stage1_Focus_Eligibility_Schema.json",
+    "validator": "scripts/stage1_focus_eligibility.py",
+    "default_disposition": "research_required",
+    "unknown_or_invalid_fails_closed": True,
+    "frontier_exception_minimum_probability": 0.70,
+    "worker_self_assessment_authorizes_exception": False,
 }
 HARD_TYPES = {"proof_dependency", "artifact_dependency"}
 LEAN_MODULE_ID = re.compile(r"[A-Za-z_][A-Za-z0-9_']*(?:\.[A-Za-z_][A-Za-z0-9_']*)*")
@@ -65,6 +76,9 @@ LEAN_RESERVED_SEGMENTS = {
     "section", "structure", "syntax", "theorem", "then", "universe", "variable", "where",
     "with",
 }
+
+sys.path.insert(0, str(ROOT / "scripts"))
+import stage1_focus_eligibility as focus_eligibility  # noqa: E402
 
 
 def fail(message: str) -> NoReturn:
@@ -132,9 +146,9 @@ def validate_blueprint_state(data: dict[str, Any], target_ids: set[str]) -> tupl
     """Validate both JSON projections against the blueprint's sole cursor."""
     generator = load_generator()
     items = generator.blueprint_state_items()
-    legacy = load_json(LEGACY_DAG)
-    require(legacy.get("requirements_source") == "Docs/Stage1_Blueprint_v2.md", "derived execution DAG source is stale")
-    projected = legacy.get("items")
+    phase_dag = load_json(PHASE_DAG)
+    require(phase_dag.get("requirements_source") == "Docs/Stage1_Blueprint_v2.md", "derived execution DAG source is stale")
+    projected = phase_dag.get("items")
     require(isinstance(projected, list) and len(projected) == 10822, "derived execution DAG must contain exactly 10822 phase items")
     projected_state = [
         {"id": item.get("id"), "theorem_id": item.get("theorem_id"), "phase": item.get("phase"),
@@ -143,12 +157,12 @@ def validate_blueprint_state(data: dict[str, Any], target_ids: set[str]) -> tupl
     ]
     require(projected_state == items, "derived execution DAG state disagrees with the v2 blueprint SSOT")
     ids = [item.get("id") for item in items if isinstance(item, dict)]
-    require(len(ids) == 10822 and len(set(ids)) == 10822 and all(isinstance(item_id, str) for item_id in ids), "legacy item IDs must be complete and unique")
+    require(len(ids) == 10822 and len(set(ids)) == 10822 and all(isinstance(item_id, str) for item_id in ids), "stable item IDs must be complete and unique")
     by_target: dict[str, dict[str, Any]] = defaultdict(dict)
     for item in items:
         theorem_id, phase, state = item.get("theorem_id"), item.get("phase"), item.get("state")
-        require(theorem_id in target_ids, f"legacy item has unknown theorem: {item.get('id')}")
-        require(phase in PHASES and state in VALID_STATES, f"legacy item has invalid phase/state: {item.get('id')}")
+        require(theorem_id in target_ids, f"phase item has unknown theorem: {item.get('id')}")
+        require(phase in PHASES and state in VALID_STATES, f"phase item has invalid phase/state: {item.get('id')}")
         require(phase not in by_target[theorem_id], f"duplicate blueprint phase: {theorem_id}/{phase}")
         by_target[theorem_id][phase] = item
     require(set(by_target) == target_ids, "blueprint theorem coverage disagrees with target set")
@@ -479,14 +493,15 @@ def validate_topology(
 def main() -> None:
     targets_data = load_json(TARGETS)
     data = load_json(DAG)
-    require(data.get("schema_version") == "stage1-theorem-dag/2.0", "unsupported theorem DAG schema")
+    require(data.get("schema_version") == "stage1-theorem-dag/2.1", "unsupported theorem DAG schema")
     require(data.get("generated_by") == "Docs/tools/generate_stage1_theorem_dag_v2.py", "generated_by is stale")
     require(data.get("requirements_source") == "Docs/Stage1_Blueprint_v2.md", "requirements_source must be the v2 blueprint")
-    require(data.get("target_manifest") == "Docs/Stage1_Targets_rev-5.6.json", "target_manifest is stale")
-    require(data.get("execution_dag_projection") == "Docs/Stage1_Execution_DAG_rev-5.6.json", "derived execution DAG path is stale")
+    require(data.get("target_manifest") == "Docs/Stage1_Target_Membership_v2.json", "target_manifest is stale")
+    require(data.get("execution_dag_projection") == "Docs/Stage1_Phase_DAG_v2.json", "derived execution DAG path is stale")
     require(data.get("state_protocol") == {"not_done": "[ ]", "worker_self_tested": "[_]", "master_accepted": "[x]"}, "state protocol changed")
     require(data.get("completion_bucket_order") == list(BUCKET_ORDER), "completion bucket order changed")
     require(data.get("execution_contract") == EXECUTION_CONTRACT, "execution contract is incomplete or stale")
+    require(data.get("focus_policy") == FOCUS_POLICY, "focus policy is incomplete or stale")
     policy = data.get("edge_policy")
     require(isinstance(policy, dict) and set(policy) == {"hard_edge_admission", "reuse_hint_admission", "unknown_policy", "hard_dependency_worker_policy", "reuse_hint_worker_policy"}, "edge_policy is incomplete")
     require("unknown_not_independent_proof_claim" in policy["unknown_policy"], "unknown dependencies must not be called independent")
@@ -508,7 +523,7 @@ def main() -> None:
         "completion_bucket", "phase_states", "phase_attempts", "state_counts", "topological_layer",
         "direct_hard_parents", "direct_hard_children", "transitive_hard_ancestors",
         "direct_reuse_hint_ids", "shared_lemma_group_ids", "dependency_context_sha256", "dependency_audit_status",
-        "evidence_inventory", "reusable_artifacts",
+        "focus_eligibility", "evidence_inventory", "reusable_artifacts",
     }
     target_by_id = {target["theorem_id"]: target for target in targets}
     original_ranks = {theorem_id: target_by_id[theorem_id]["execution_rank"] for theorem_id in target_ids}
@@ -528,6 +543,11 @@ def main() -> None:
         require(row["completion_bucket"] == expected_bucket, f"completion bucket stale: {theorem_id}")
         buckets[theorem_id] = expected_bucket
         require(row["dependency_audit_status"] in AUDIT_STATUSES, f"invalid dependency audit status: {theorem_id}")
+        focus = row["focus_eligibility"]
+        require(
+            focus == focus_eligibility.evaluate_target(ROOT, theorem_id),
+            f"focus eligibility projection is stale: {theorem_id}",
+        )
         inv = row["evidence_inventory"]
         require(isinstance(inv, dict) and set(inv) == {"instance_directory", "instance_directory_exists", "lean_sources", "receipt_files", "structured_json_files"}, f"invalid evidence inventory: {theorem_id}")
         require(all(isinstance(inv[field], list) and inv[field] == sorted(set(inv[field])) for field in ("lean_sources", "receipt_files", "structured_json_files")), f"inventory paths invalid: {theorem_id}")
@@ -614,6 +634,26 @@ def main() -> None:
     }
     require(summary == expected_summary, "graph_summary is stale")
 
+    focus_rows = [row["focus_eligibility"] for row in rows]
+    expected_focus_summary = {
+        "receipt_present_count": sum(row["present"] for row in focus_rows),
+        "receipt_valid_count": sum(row["valid"] for row in focus_rows),
+        "machine_evidence_class_counts": dict(
+            sorted(Counter(row["machine_evidence_class"] for row in focus_rows).items())
+        ),
+        "execution_disposition_counts": dict(
+            sorted(Counter(row["execution_disposition"] for row in focus_rows).items())
+        ),
+        "phase_eligible_counts": {
+            phase: sum(row["phase_permissions"][phase] for row in focus_rows)
+            for phase in PHASES
+        },
+    }
+    require(
+        data.get("focus_eligibility_summary") == expected_focus_summary,
+        "focus_eligibility_summary is stale",
+    )
+
     # Strong reproducibility check: the checked-in artifact must equal a fresh
     # in-memory build, covering evidence discovery, inventories, hashes, ranks,
     # ancestor closure, and every one of the 10822 blueprint phase states.
@@ -624,6 +664,12 @@ def main() -> None:
     require(
         "if path.name == \"dependency-reuse-ledger.json\"" in GENERATOR.read_text(encoding="utf-8"),
         "generator must exclude dependency reuse ledgers from graph discovery",
+    )
+    generator_source = GENERATOR.read_text(encoding="utf-8")
+    require(
+        "TRANSIENT_INSTANCE_DIR_PREFIXES" in generator_source
+        and "durable_instance_file" in generator_source,
+        "generator must exclude transient validator scratch trees from graph discovery",
     )
     print(
         "check_stage1_theorem_dag_v2: ok "

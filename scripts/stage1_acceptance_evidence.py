@@ -25,10 +25,13 @@ from typing import Any, Mapping, NoReturn, Sequence
 CONTRACT_PATH = "Docs/Stage1_Phase_Acceptance_Contracts.json"
 CONTRACT_SCHEMA = "stage1-phase-acceptance-contracts/1.0"
 ROLE_MAP_SCHEMA = "stage1-phase-artifact-role-map/1.0"
+STAGED_ROLE_MAP_SCHEMA = "stage1-phase-artifact-staged-overlay/1.0"
 REVIEW_MANIFEST_SCHEMA = "stage1-master-review-input/1.1"
 REPLAY_RESULT_SCHEMA = "stage1-authority-replay-result/1.0"
 SEMANTIC_RESULT_SCHEMA = "stage1-replay-semantic-decision/1.0"
 VALIDATOR_SEMANTIC_SCHEMA = "stage1-validator-semantic-result/1.0"
+VALIDATOR_INPUT_SCHEMA = "stage1-v2-validator-input/1.0"
+LEAN_AUTHORITY_SCHEMA = "stage1-lean-authority/1.1"
 ITEM_RE = re.compile(r"^S56-M-[0-9]{4}-[A-Z_]+$")
 THEOREM_RE = re.compile(r"^THM-M-[0-9]{4}$")
 SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
@@ -80,6 +83,16 @@ VALIDATOR_SEMANTIC_VERDICTS = POSITIVE_SEMANTIC_VERDICTS | {
 MAX_REPLAY_OUTPUT_BYTES = 16 * 1024 * 1024
 RUNTIME_MOUNTS = ("/usr/bin", "/usr/lib", "/usr/lib64", "/usr/share")
 RUNTIME_EXECUTABLES = ("/usr/bin/python3", "/usr/bin/bash")
+LANDLOCK_EXECUTABLE = "/usr/bin/setpriv"
+LEAN_PROJECT_PATH = "Formalizations/Lean"
+LEAN_TOOLCHAIN_PATH = f"{LEAN_PROJECT_PATH}/lean-toolchain"
+LEAN_MANIFEST_PATH = f"{LEAN_PROJECT_PATH}/lake-manifest.json"
+LEAN_CACHE_PATH = f"{LEAN_PROJECT_PATH}/.lake"
+LEAN_TOOLCHAIN_MOUNT = "/stage1-toolchain"
+LEAN_CACHE_MOUNT = "/stage1-lake-cache"
+LEAN_TOOLCHAIN_RE = re.compile(
+    r"^leanprover/lean4:v(?P<version>[0-9]+\.[0-9]+\.[0-9]+)$"
+)
 
 
 class EvidenceError(RuntimeError):
@@ -88,6 +101,53 @@ class EvidenceError(RuntimeError):
 
 def _fail(message: str) -> NoReturn:
     raise EvidenceError(message)
+
+
+def _validator_input(
+    review_manifest: Mapping[str, Any],
+    role_map: Mapping[str, Any],
+    validator_recipe: Mapping[str, Any],
+    lean_authority: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Build the immutable stdin packet consumed by the current v2 validator."""
+
+    item_id, theorem_id, phase = _require_review_manifest_bindings(
+        review_manifest, role_map, validator_recipe
+    )
+    focus_execution = review_manifest.get("focus_execution")
+    if not isinstance(focus_execution, Mapping):
+        _fail("review manifest lacks its focus execution contract")
+    packet = {
+        "schema_version": VALIDATOR_INPUT_SCHEMA,
+        "item_id": item_id,
+        "theorem_id": theorem_id,
+        "phase": phase,
+        "authority_revision": review_manifest.get("authority_revision"),
+        "base_revision": review_manifest.get("base_revision"),
+        "contract": review_manifest.get("contract"),
+        "role_map": dict(role_map),
+        "focus_execution": dict(focus_execution),
+        "focus_contract_sha256": review_manifest.get("focus_contract_sha256"),
+        "lean_authority": dict(lean_authority),
+    }
+    packet["input_sha256"] = sha256_bytes(canonical_json(packet))
+    return packet
+
+
+def phase_consumes_exact_machine_source(
+    phase: str, role_map: Mapping[str, Any]
+) -> bool:
+    """Return whether this phase owns proof-source bytes under the HEAD role map."""
+
+    if phase != "proof":
+        return False
+    artifacts = role_map.get("artifacts")
+    if not isinstance(artifacts, list):
+        _fail("integration role map artifacts are malformed")
+    return any(
+        isinstance(row, Mapping) and row.get("role") == "proof_sources"
+        for row in artifacts
+    )
 
 
 def canonical_json(value: Any) -> bytes:
@@ -119,6 +179,412 @@ def _run_git(
 
 def _git_text(repo: Path, *argv: str) -> str:
     return _run_git(repo, argv).stdout.decode("utf-8", "strict").strip()
+
+
+def _git_bytes(repo: Path, *argv: str) -> bytes:
+    return _run_git(repo, argv).stdout
+
+
+def _require_absolute_directory(path: Path, label: str) -> Path:
+    """Return an existing absolute directory with no symlink path component."""
+
+    if not path.is_absolute():
+        _fail(f"{label} path is not absolute")
+    descriptor = os.open("/", os.O_RDONLY | os.O_DIRECTORY)
+    try:
+        for component in path.parts[1:]:
+            try:
+                child = os.open(
+                    component,
+                    os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW,
+                    dir_fd=descriptor,
+                )
+            except OSError as exc:
+                raise EvidenceError(
+                    f"{label} has a missing, non-directory, or symlink component"
+                ) from exc
+            os.close(descriptor)
+            descriptor = child
+        metadata = os.fstat(descriptor)
+        if not stat.S_ISDIR(metadata.st_mode):
+            _fail(f"{label} is not a directory")
+    finally:
+        os.close(descriptor)
+    return path
+
+
+def _read_absolute_regular(path: Path, label: str) -> bytes:
+    """Read an absolute regular file without following a symlink component."""
+
+    parent = _require_absolute_directory(path.parent, f"{label} parent")
+    descriptor = os.open(parent, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
+    try:
+        try:
+            opened = os.open(path.name, os.O_RDONLY | os.O_NOFOLLOW, dir_fd=descriptor)
+        except OSError as exc:
+            raise EvidenceError(f"{label} is missing or unsafe") from exc
+        try:
+            metadata = os.fstat(opened)
+            if not stat.S_ISREG(metadata.st_mode):
+                _fail(f"{label} is not a regular file")
+            chunks: list[bytes] = []
+            while True:
+                chunk = os.read(opened, 1024 * 1024)
+                if not chunk:
+                    return b"".join(chunks)
+                chunks.append(chunk)
+        finally:
+            os.close(opened)
+    finally:
+        os.close(descriptor)
+
+
+def _strict_json(data: bytes, label: str) -> Any:
+    """Decode JSON while rejecting duplicate object members at every level."""
+
+    def reject_duplicates(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+        result: dict[str, Any] = {}
+        for key, value in pairs:
+            if key in result:
+                _fail(f"{label} contains duplicate key {key!r}")
+            result[key] = value
+        return result
+
+    try:
+        return json.loads(data.decode("utf-8"), object_pairs_hook=reject_duplicates)
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise EvidenceError(f"{label} is not valid UTF-8 JSON") from exc
+
+
+def _manifest_packages(manifest_bytes: bytes) -> list[dict[str, Any]]:
+    """Return the exact Git package name/revision closure from a Lake manifest."""
+
+    manifest = _strict_json(manifest_bytes, "Lean dependency manifest")
+    if not isinstance(manifest, dict) or set(manifest) != {
+        "version",
+        "packagesDir",
+        "packages",
+        "name",
+        "lakeDir",
+    }:
+        _fail("Lean dependency manifest schema is not exact")
+    if (
+        manifest.get("version") != "1.1.0"
+        or manifest.get("packagesDir") != ".lake/packages"
+        or manifest.get("lakeDir") != ".lake"
+        or not isinstance(manifest.get("name"), str)
+        or not manifest.get("name")
+        or not isinstance(manifest.get("packages"), list)
+    ):
+        _fail("Lean dependency manifest version or package list is unsupported")
+    packages: list[dict[str, Any]] = []
+    seen_names: set[str] = set()
+    seen_cache_names: set[str] = set()
+    for row in manifest["packages"]:
+        required = {
+            "url",
+            "type",
+            "subDir",
+            "scope",
+            "rev",
+            "name",
+            "manifestFile",
+            "inputRev",
+            "inherited",
+            "configFile",
+        }
+        if not isinstance(row, dict) or set(row) != required or row.get("type") != "git":
+            _fail("Lean dependency manifest contains a noncanonical package record")
+        name = row.get("name")
+        revision = row.get("rev")
+        url = row.get("url")
+        if (
+            not isinstance(name, str)
+            or not name
+            or "/" in name
+            or "\\" in name
+            or name in {".", ".."}
+            or not isinstance(revision, str)
+            or re.fullmatch(r"[0-9a-f]{40}", revision) is None
+            or not isinstance(url, str)
+            or re.fullmatch(
+                r"https://github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+(?:\.git)?",
+                url,
+            )
+            is None
+            or row.get("subDir") is not None
+            or not isinstance(row.get("scope"), str)
+            or re.fullmatch(r"[A-Za-z0-9_.-]*", row["scope"]) is None
+            or row.get("manifestFile") != "lake-manifest.json"
+            or not isinstance(row.get("inputRev"), str)
+            or not row["inputRev"]
+            or not isinstance(row.get("inherited"), bool)
+            or row.get("configFile") not in {"lakefile.lean", "lakefile.toml"}
+        ):
+            _fail("Lean dependency manifest package identity is malformed")
+        cache_name = name[1:-1] if name.startswith("«") and name.endswith("»") else name
+        if (
+            not cache_name
+            or re.fullmatch(r"[A-Za-z0-9_.-]+", cache_name) is None
+            or name in seen_names
+            or cache_name in seen_cache_names
+        ):
+            _fail("Lean dependency manifest package names are ambiguous")
+        seen_names.add(name)
+        seen_cache_names.add(cache_name)
+        # Preserve every identity-bearing member and, critically, manifest
+        # order.  Lake resolves an ordered dependency graph; reducing this to
+        # a name-keyed map would make a reordered lock file observationally
+        # equivalent at this trust boundary.
+        packages.append(
+            {
+                "name": name,
+                "cache_name": cache_name,
+                "revision": revision,
+                "url": url,
+                "sub_dir": row["subDir"],
+                "scope": row["scope"],
+                "manifest_file": row["manifestFile"],
+                "input_revision": row["inputRev"],
+                "inherited": row["inherited"],
+                "config_file": row["configFile"],
+            }
+        )
+    return packages
+
+
+def _git_package_observation(package: Path, expected_revision: str) -> dict[str, Any]:
+    """Verify one cached package is the clean exact manifest commit."""
+
+    _require_absolute_directory(package, f"Lean package cache {package.name}")
+    git_dir = package / ".git"
+    if git_dir.is_symlink() or not git_dir.is_dir():
+        _fail(f"Lean package cache {package.name} lacks a safe Git directory")
+    if _git_text(package, "rev-parse", "--verify", "HEAD^{commit}") != expected_revision:
+        _fail(f"Lean package cache {package.name} revision disagrees with the manifest")
+    if _git_text(package, "rev-parse", "--is-inside-work-tree") != "true":
+        _fail(f"Lean package cache {package.name} is not a Git worktree")
+    # Tracked edits can poison compiled imports even when HEAD itself is pinned.
+    if _git_text(package, "status", "--porcelain", "--untracked-files=all"):
+        _fail(f"Lean package cache {package.name} is not a clean exact checkout")
+    tree = _git_text(package, "rev-parse", "HEAD^{tree}")
+    if re.fullmatch(r"[0-9a-f]{40,64}", tree) is None:
+        _fail(f"Lean package cache {package.name} tree identity is malformed")
+    return {"revision": expected_revision, "tree": tree}
+
+
+def _require_contained_symlinks(root: Path, label: str) -> None:
+    """Reject symlinks whose lexical target leaves a read-only mount root."""
+
+    root_parts = root.parts
+    for current, directories, files in os.walk(root, followlinks=False):
+        current_path = Path(current)
+        for name in [*directories, *files]:
+            candidate = current_path / name
+            if not candidate.is_symlink():
+                continue
+            target = Path(os.readlink(candidate))
+            combined = target if target.is_absolute() else candidate.parent / target
+            normalized = Path(os.path.normpath(combined))
+            if normalized.parts[: len(root_parts)] != root_parts:
+                _fail(f"{label} contains an escaping symlink")
+
+
+def _hash_filesystem_closure(root: Path, label: str) -> tuple[str, int, int]:
+    """Bind every object visible through one read-only authority mount.
+
+    The digest covers directory existence/modes, regular-file modes/content,
+    and symlink modes/targets.  Skipping any mounted object would leave a byte
+    or path that Lake/Lean can consume without it being part of the replay
+    authority.  Symlink targets are lexical and must already have passed
+    `_require_contained_symlinks`.
+    """
+
+    root = _require_absolute_directory(root, label)
+    rows: list[dict[str, Any]] = []
+    file_count = 0
+    total_bytes = 0
+    root_metadata = root.stat(follow_symlinks=False)
+    rows.append(
+        {
+            "path": ".",
+            "kind": "directory",
+            "mode": stat.S_IMODE(root_metadata.st_mode),
+        }
+    )
+    for current, directories, files in os.walk(root, followlinks=False):
+        directories.sort()
+        files.sort()
+        current_path = Path(current)
+        for name in [*directories, *files]:
+            path = current_path / name
+            relative = path.relative_to(root).as_posix()
+            metadata = path.stat(follow_symlinks=False)
+            base = {
+                "path": relative,
+                "mode": stat.S_IMODE(metadata.st_mode),
+            }
+            if stat.S_ISLNK(metadata.st_mode):
+                rows.append(
+                    {
+                        **base,
+                        "kind": "symlink",
+                        "target": os.readlink(path),
+                    }
+                )
+            elif stat.S_ISDIR(metadata.st_mode):
+                rows.append({**base, "kind": "directory"})
+            elif stat.S_ISREG(metadata.st_mode):
+                data = _read_absolute_regular(path, f"{label} file")
+                rows.append(
+                    {
+                        **base,
+                        "kind": "regular",
+                        "size": len(data),
+                        "sha256": sha256_bytes(data),
+                    }
+                )
+                file_count += 1
+                total_bytes += len(data)
+            else:
+                _fail(f"{label} contains an unsupported filesystem object")
+    rows.sort(key=lambda row: str(row["path"]))
+    return sha256_bytes(canonical_json(rows)), file_count, total_bytes
+
+
+def build_lean_authority(
+    checkout: Path,
+    *,
+    toolchain_root: Path | None = None,
+    lake_cache_root: Path | None = None,
+    authority_revision: str | None = None,
+) -> tuple[dict[str, Any], Path, Path]:
+    """Verify and describe the exact offline Lean replay authority."""
+
+    if authority_revision is None:
+        toolchain_bytes = _read_regular_at(
+            checkout, LEAN_TOOLCHAIN_PATH, "tracked Lean toolchain pin"
+        )
+        manifest_bytes = _read_regular_at(
+            checkout, LEAN_MANIFEST_PATH, "tracked Lean dependency manifest"
+        )
+    else:
+        toolchain_bytes = _head_bytes(
+            checkout,
+            authority_revision,
+            LEAN_TOOLCHAIN_PATH,
+            "tracked Lean toolchain pin",
+        )
+        manifest_bytes = _head_bytes(
+            checkout,
+            authority_revision,
+            LEAN_MANIFEST_PATH,
+            "tracked Lean dependency manifest",
+        )
+    try:
+        toolchain = toolchain_bytes.decode("utf-8").strip()
+    except UnicodeDecodeError as exc:
+        raise EvidenceError("Lean toolchain pin is not UTF-8") from exc
+    match = LEAN_TOOLCHAIN_RE.fullmatch(toolchain)
+    if match is None or toolchain_bytes != (toolchain + "\n").encode("utf-8"):
+        _fail("Lean toolchain pin is noncanonical")
+    expected_toolchain = Path.home() / ".elan" / "toolchains" / (
+        "leanprover--lean4---v" + match.group("version")
+    )
+    selected_toolchain = toolchain_root or expected_toolchain
+    if lake_cache_root is None:
+        _fail("scheduler-owned Lean dependency cache was not supplied")
+    selected_cache = lake_cache_root
+    selected_toolchain = _require_absolute_directory(
+        Path(os.path.abspath(selected_toolchain)), "pinned Lean toolchain"
+    )
+    if toolchain_root is None and selected_toolchain != expected_toolchain:
+        _fail("Lean toolchain directory does not match the tracked pin")
+    selected_cache = _require_absolute_directory(
+        Path(os.path.abspath(selected_cache)), "pinned Lean dependency cache"
+    )
+
+    cache_entries = {entry.name: entry for entry in os.scandir(selected_cache)}
+    allowed_cache_entries = {"build", "config", "packages"}
+    if set(cache_entries) not in {
+        frozenset(allowed_cache_entries),
+        frozenset(allowed_cache_entries | {".lake"}),
+    }:
+        _fail("Lean dependency cache has unexpected top-level entries")
+    internal_link = cache_entries.get(".lake")
+    if internal_link is not None:
+        _fail("Lean dependency cache contains a symlink at its trust boundary")
+    for name in sorted(allowed_cache_entries):
+        entry = cache_entries[name]
+        if entry.is_symlink() or not entry.is_dir(follow_symlinks=False):
+            _fail(f"Lean dependency cache {name} boundary is unsafe")
+    packages_root = selected_cache / "packages"
+    package_entries = {entry.name: entry for entry in os.scandir(packages_root)}
+    packages = _manifest_packages(manifest_bytes)
+    expected_names = {row["cache_name"] for row in packages}
+    if set(package_entries) != expected_names:
+        _fail("Lean dependency cache package set disagrees with the manifest")
+    observations: list[dict[str, Any]] = []
+    for ordinal, row in enumerate(packages):
+        entry = package_entries[row["cache_name"]]
+        if entry.is_symlink() or not entry.is_dir(follow_symlinks=False):
+            _fail(f"Lean package cache {row['cache_name']} boundary is unsafe")
+        observations.append(
+            {
+                "ordinal": ordinal,
+                **row,
+                **_git_package_observation(
+                    packages_root / row["cache_name"], row["revision"]
+                ),
+            }
+        )
+
+    lean_bytes = _read_absolute_regular(
+        selected_toolchain / "bin" / "lean", "pinned Lean executable"
+    )
+    lake_bytes = _read_absolute_regular(
+        selected_toolchain / "bin" / "lake", "pinned Lake executable"
+    )
+    for name in ("lean", "lake"):
+        executable_mode = (selected_toolchain / "bin" / name).stat(
+            follow_symlinks=False
+        ).st_mode
+        if executable_mode & 0o111 == 0:
+            _fail(f"pinned {name} executable is not executable")
+    _require_contained_symlinks(selected_toolchain, "pinned Lean toolchain")
+    for name in sorted(allowed_cache_entries):
+        _require_contained_symlinks(
+            selected_cache / name, f"Lean dependency cache {name}"
+        )
+    toolchain_closure_sha256, toolchain_closure_file_count, toolchain_closure_bytes = (
+        _hash_filesystem_closure(selected_toolchain, "pinned Lean toolchain")
+    )
+    cache_content_sha256, cache_content_file_count, cache_content_bytes = (
+        _hash_filesystem_closure(
+            selected_cache,
+            "mounted Lean dependency cache",
+        )
+    )
+    authority: dict[str, Any] = {
+        "schema_version": LEAN_AUTHORITY_SCHEMA,
+        "toolchain": toolchain,
+        "toolchain_file_sha256": sha256_bytes(toolchain_bytes),
+        "dependency_lock_sha256": sha256_bytes(manifest_bytes),
+        "dependency_packages_sha256": sha256_bytes(canonical_json(observations)),
+        "compiled_cache_sha256": cache_content_sha256,
+        "compiled_cache_file_count": cache_content_file_count,
+        "compiled_cache_bytes": cache_content_bytes,
+        "lean_binary_sha256": sha256_bytes(lean_bytes),
+        "lake_binary_sha256": sha256_bytes(lake_bytes),
+        "toolchain_closure_sha256": toolchain_closure_sha256,
+        "toolchain_closure_file_count": toolchain_closure_file_count,
+        "toolchain_closure_bytes": toolchain_closure_bytes,
+        "toolchain_mount": LEAN_TOOLCHAIN_MOUNT,
+        "lake_cache_mount": LEAN_CACHE_MOUNT,
+        "network_policy": "denied",
+        "repo_access": "read_only",
+    }
+    return authority, selected_toolchain, selected_cache
 
 
 def _require_object(value: Any, label: str) -> dict[str, Any]:
@@ -426,7 +892,12 @@ def _pointer_value(document: Mapping[str, Any], pointer: Any, label: str) -> Any
     return value
 
 
-def _receipt_binding_rows(value: Any, label: str) -> list[dict[str, str | None]]:
+def _receipt_binding_rows(
+    value: Any,
+    label: str,
+    *,
+    expected_role: str | None = None,
+) -> list[dict[str, str | None]]:
     rows = value if isinstance(value, list) else [value]
     if not rows:
         _fail(f"{label} is empty")
@@ -437,6 +908,8 @@ def _receipt_binding_rows(value: Any, label: str) -> list[dict[str, str | None]]
         allowed = {"path", "sha256", "git_blob", "role", "kind", "artifact_kind"}
         if set(row) - allowed:
             _fail(f"{label}[{index}] has unrecognized binding fields")
+        if "role" in row and row.get("role") != expected_role:
+            _fail(f"{label}[{index}] role disagrees with the HEAD contract")
         relative = _safe_relative(row.get("path"), f"{label}[{index}].path")
         digest = row.get("sha256")
         blob = row.get("git_blob")
@@ -557,7 +1030,9 @@ def resolve_role_map(
         elif resolution == "receipt_bound_paths":
             pointer = role.get("binding_pointer")
             value = _pointer_value(receipt, pointer, f"role {name} binding pointer")
-            selected = _receipt_binding_rows(value, f"role {name} receipt binding")
+            selected = _receipt_binding_rows(
+                value, f"role {name} receipt binding", expected_role=name
+            )
         else:
             _fail(f"role {name} has unsupported resolution semantics")
 
@@ -598,6 +1073,331 @@ def resolve_role_map(
         "contract_git_blob": contract_record.get("git_blob"),
         "phase_receipt_path": receipt_path,
         "phase_receipt_sha256": sha256_bytes(receipt_bytes),
+        "artifacts": sorted(artifacts, key=lambda row: (row["role"], row["path"])),
+    }
+    role_map["manifest_sha256"] = sha256_bytes(canonical_json(role_map))
+    return role_map
+
+
+def _changed_owner_paths(
+    repo: Path, base_revision: str, authority_revision: str, owner: str
+) -> list[str]:
+    """Return every path changed for one target between worker base and authority."""
+
+    output = _run_git(
+        repo,
+        [
+            "diff", "--name-only", "--diff-filter=ACMRTUXB", "-z",
+            base_revision, authority_revision, "--", owner,
+        ],
+    ).stdout
+    try:
+        paths = [row.decode("utf-8", "strict") for row in output.split(b"\0") if row]
+    except UnicodeDecodeError as exc:
+        raise EvidenceError("target delta contains a non-UTF-8 path") from exc
+    if any(
+        Path(path).is_absolute()
+        or ".." in Path(path).parts
+        or not path.startswith(owner + "/")
+        for path in paths
+    ):
+        _fail("target delta escapes its theorem owner")
+    return sorted(paths)
+
+
+def _workspace_path_is_delta(workspace: Path, relative: str) -> bool:
+    """Check Git identity without opening an undeclared workspace artifact."""
+
+    tracked = _run_git(
+        workspace, ["diff", "--quiet", "HEAD", "--", relative], check=False
+    )
+    if tracked.returncode not in {0, 1}:
+        _fail(f"could not determine worker delta identity for {relative}")
+    others = _run_git(
+        workspace,
+        ["ls-files", "--others", "--exclude-standard", "-z", "--", relative],
+    ).stdout.split(b"\0")
+    try:
+        untracked = {
+            value.decode("utf-8", "strict") for value in others if value
+        }
+    except UnicodeDecodeError as exc:
+        raise EvidenceError("worker delta contains a non-UTF-8 path") from exc
+    return tracked.returncode == 1 or relative in untracked
+
+
+def _content_blob_oid(repo: Path, data: bytes, label: str) -> str:
+    result = _run_git(repo, ["hash-object", "--stdin"], input_bytes=data)
+    try:
+        oid = result.stdout.decode("ascii", "strict").strip()
+    except UnicodeDecodeError as exc:
+        raise EvidenceError(f"{label} did not produce a Git blob identity") from exc
+    if not GIT_OID_RE.fullmatch(oid):
+        _fail(f"{label} did not produce a Git blob identity")
+    return oid
+
+
+def resolve_staged_role_map(
+    repo: Path | str,
+    contract_record: Mapping[str, Any],
+    *,
+    workspace: Path | str,
+    declared_delta_paths: Sequence[str],
+    item_id: str,
+    theorem_id: str,
+    phase: str,
+    base_revision: str,
+) -> dict[str, Any]:
+    """Resolve a pre-merge role map over HEAD plus a scheduler-declared delta.
+
+    Contract roles, cardinalities, candidates, and receipt pointers always come
+    from authoritative HEAD. Only candidate bytes in the exact declared delta
+    may come from the worker workspace; every other selected byte comes from
+    HEAD. This lets the first new phase receipt be checked before integration
+    without letting the worker publish its own role map or validator choice.
+    """
+
+    root = _repository_root(repo)
+    worker = _repository_root(workspace)
+    head = _git_text(root, "rev-parse", "--verify", "HEAD^{commit}")
+    if contract_record.get("revision") != head:
+        _fail("staged role contract is not bound to current authoritative HEAD")
+    base = _git_text(root, "rev-parse", "--verify", f"{base_revision}^{{commit}}")
+    if _git_text(worker, "rev-parse", "--verify", "HEAD^{commit}") != base:
+        _fail("worker workspace HEAD disagrees with the claimed base revision")
+    _require_ancestor(root, base, head, "worker base")
+    phase_row = _phase_contract(contract_record, phase)
+    _require_item_identity(item_id, theorem_id, phase_row)
+
+    contract = _require_object(contract_record.get("contract"), "contract record")
+    artifact_policy = _require_object(
+        contract.get("artifact_resolution"), "artifact policy"
+    )
+    owner_pattern = artifact_policy.get("owner_root_pattern")
+    if not isinstance(owner_pattern, str):
+        _fail("HEAD artifact policy lacks an owner root pattern")
+    owner = _render_theorem_path(owner_pattern, theorem_id, "artifact owner root")
+    if owner != f"Stage1_Instances/{theorem_id}":
+        _fail("HEAD artifact owner root does not identify the selected theorem")
+    if (
+        not isinstance(declared_delta_paths, Sequence)
+        or isinstance(declared_delta_paths, (str, bytes))
+        or not declared_delta_paths
+    ):
+        _fail("scheduler-declared worker delta is empty or malformed")
+    deltas: list[str] = []
+    for index, value in enumerate(declared_delta_paths):
+        relative = _safe_relative(value, f"declared worker delta[{index}]")
+        if not relative.startswith(owner + "/"):
+            _fail("declared worker delta escapes the HEAD-owned target scope")
+        deltas.append(relative)
+    if len(deltas) != len(set(deltas)):
+        _fail("scheduler-declared worker delta contains duplicate paths")
+    delta_set = set(deltas)
+
+    protected_validator_paths: set[str] = set()
+    for registry in ("validator_authorities", "superseded_validator_sources"):
+        values = phase_row.get(registry)
+        if not isinstance(values, list):
+            _fail("HEAD phase contract lacks a validator authority registry")
+        for raw in values:
+            candidate = _require_object(raw, f"{registry} candidate")
+            pattern = candidate.get("path_pattern")
+            if not isinstance(pattern, str):
+                _fail("HEAD phase contract has a malformed validator candidate")
+            protected_validator_paths.add(
+                _render_theorem_path(pattern, theorem_id, "validator candidate")
+            )
+    changed_validators = sorted(delta_set & protected_validator_paths)
+    if changed_validators:
+        _fail(
+            "worker delta changes a scheduler-owned validator candidate: "
+            + ", ".join(changed_validators)
+        )
+    for relative in deltas:
+        if not _workspace_path_is_delta(worker, relative):
+            _fail(f"declared worker path is not an actual Git delta: {relative}")
+
+    staged_paths: set[str] = set()
+
+    def overlay_bytes(relative: str, label: str) -> tuple[bytes, str, bool] | None:
+        relative = _safe_relative(relative, label)
+        staged = relative in delta_set
+        actual_delta = _workspace_path_is_delta(worker, relative)
+        if actual_delta and not staged:
+            _fail(f"{label} is a worker delta not declared by the scheduler")
+        head_result = _run_git(root, ["show", f"{head}:{relative}"], check=False)
+        base_result = _run_git(root, ["show", f"{base}:{relative}"], check=False)
+        if staged:
+            if not relative.startswith(owner + "/"):
+                _fail(f"{label} attempts to stage bytes outside the target owner")
+            data = _read_regular_at(worker, relative, f"{label} in worker delta")
+            if head_result.returncode == 0:
+                _head_mode(root, head, relative, label)
+                _require_worktree_matches_head(root, relative, head_result.stdout, label)
+                if base_result.returncode != 0 or base_result.stdout != head_result.stdout:
+                    _fail(f"{label} conflicts with authoritative HEAD since worker base")
+            elif base_result.returncode == 0:
+                _fail(f"{label} was removed from authoritative HEAD since worker base")
+            elif (root / relative).exists() or (root / relative).is_symlink():
+                _fail(f"{label} conflicts with an untracked authoritative worktree path")
+            staged_paths.add(relative)
+            return data, _content_blob_oid(root, data, label), True
+        if head_result.returncode != 0:
+            if (root / relative).exists() or (root / relative).is_symlink():
+                _fail(f"{label} has an untracked or non-HEAD candidate")
+            if (worker / relative).exists() or (worker / relative).is_symlink():
+                _fail(f"{label} exists in the workspace outside the declared delta")
+            return None
+        _head_mode(root, head, relative, label)
+        if base_result.returncode != 0 or base_result.stdout != head_result.stdout:
+            _fail(f"{label} changed in authoritative HEAD since worker base")
+        _require_worktree_matches_head(root, relative, head_result.stdout, label)
+        return head_result.stdout, _blob_oid(root, head, relative, label), False
+
+    receipt_roles = [
+        row
+        for row in phase_row.get("required_artifact_roles", [])
+        if isinstance(row, dict) and row.get("role") == "phase_receipt"
+    ]
+    if len(receipt_roles) != 1 or receipt_roles[0].get("resolution") != "path_candidates":
+        _fail("HEAD phase contract does not define one candidate-bound phase receipt")
+    receipt_matches: list[tuple[str, bytes, str, bool]] = []
+    for pattern in receipt_roles[0].get("path_candidates", []):
+        if not isinstance(pattern, str):
+            _fail("phase_receipt contains a non-string HEAD candidate")
+        relative = _render_theorem_path(pattern, theorem_id, "phase receipt candidate")
+        selected = overlay_bytes(relative, "phase receipt candidate")
+        if selected is not None:
+            data, blob, staged = selected
+            receipt_matches.append((relative, data, blob, staged))
+    if len(receipt_matches) != 1:
+        _fail(
+            "phase_receipt requires exactly one staged-overlay candidate, "
+            f"found {len(receipt_matches)}"
+        )
+    receipt_path, receipt_bytes, receipt_blob, receipt_is_staged = receipt_matches[0]
+    receipt = _json_object(receipt_bytes, "staged phase receipt")
+    for field, expected in (
+        ("item_id", item_id),
+        ("theorem_id", theorem_id),
+        ("phase", phase),
+    ):
+        if receipt.get(field) != expected:
+            _fail(f"staged phase receipt {field} does not match the selected item")
+    if receipt.get("schema_version") != "stage1-node-receipt/1.0":
+        _fail("staged phase receipt schema is not stage1-node-receipt/1.0")
+    for pointer in phase_row.get("phase_receipt_required_fields", []):
+        _pointer_value(receipt, pointer, f"required phase receipt field {pointer}")
+    if "base_revision" in receipt and receipt.get("base_revision") != base:
+        _fail("staged phase receipt base_revision disagrees with worker base")
+    if "base_tree" in receipt:
+        base_tree = _git_text(root, "rev-parse", f"{base}^{{tree}}")
+        if receipt.get("base_tree") != base_tree:
+            _fail("staged phase receipt base_tree disagrees with worker base")
+
+    artifacts: list[dict[str, str]] = []
+    seen_roles: set[str] = set()
+    for raw_role in phase_row.get("required_artifact_roles", []):
+        role = _require_object(raw_role, "HEAD artifact role")
+        name = role.get("role")
+        if not isinstance(name, str) or not name or name in seen_roles:
+            _fail("HEAD artifact roles are missing or ambiguous")
+        seen_roles.add(name)
+        requirement = role.get("requirement")
+        if requirement not in {"required", "conditional"}:
+            _fail(f"role {name} has unsupported HEAD requirement semantics")
+        optional = requirement == "conditional"
+        cardinality = role.get("cardinality")
+        if cardinality not in {"exactly_one", "one_or_more"}:
+            _fail(f"role {name} has unsupported HEAD cardinality")
+
+        selected: list[tuple[str, str | None, str | None]] = []
+        resolution = role.get("resolution")
+        if resolution == "path_candidates":
+            for pattern in role.get("path_candidates", []):
+                if not isinstance(pattern, str):
+                    _fail(f"role {name} has a non-string HEAD candidate")
+                relative = _render_theorem_path(
+                    pattern, theorem_id, f"role {name} candidate"
+                )
+                candidate = overlay_bytes(relative, f"role {name}")
+                if candidate is not None:
+                    data, blob, _ = candidate
+                    selected.append((relative, sha256_bytes(data), blob))
+        elif resolution == "receipt_bound_paths":
+            pointer = role.get("binding_pointer")
+            try:
+                value = _pointer_value(
+                    receipt, pointer, f"role {name} HEAD binding pointer"
+                )
+            except EvidenceError:
+                if optional:
+                    value = []
+                else:
+                    raise
+            bindings = (
+                []
+                if optional and value == []
+                else _receipt_binding_rows(
+                    value,
+                    f"role {name} staged receipt binding",
+                    expected_role=name,
+                )
+            )
+            for binding in bindings:
+                relative = str(binding["path"])
+                candidate = overlay_bytes(relative, f"role {name}")
+                if candidate is None:
+                    _fail(f"role {name} receipt-bound artifact is missing")
+                data, blob, _ = candidate
+                digest = sha256_bytes(data)
+                if binding.get("sha256") != digest:
+                    _fail(f"role {name} receipt sha256 disagrees with staged overlay")
+                if binding.get("git_blob") not in {None, blob}:
+                    _fail(f"role {name} receipt Git blob disagrees with staged overlay")
+                selected.append((relative, digest, blob))
+        else:
+            _fail(f"role {name} has unsupported HEAD resolution semantics")
+
+        if optional and not selected:
+            continue
+        if cardinality == "exactly_one" and len(selected) != 1:
+            _fail(f"role {name} requires exactly one artifact, found {len(selected)}")
+        if cardinality == "one_or_more" and not selected:
+            _fail(f"role {name} requires one or more artifacts")
+        if len({row[0] for row in selected}) != len(selected):
+            _fail(f"role {name} resolves ambiguously")
+        artifacts.extend(
+            {
+                "role": name,
+                "path": relative,
+                "sha256": digest,
+                "git_blob": str(blob),
+            }
+            for relative, digest, blob in selected
+        )
+
+    if not artifacts or len(
+        {(row["role"], row["path"]) for row in artifacts}
+    ) != len(artifacts):
+        _fail("staged overlay role map is empty or ambiguous")
+    if not receipt_is_staged:
+        _fail("worker handoff does not stage a fresh phase receipt")
+    if _git_text(root, "rev-parse", "--verify", "HEAD^{commit}") != head:
+        _fail("authoritative HEAD changed during staged role resolution")
+    role_map = {
+        "schema_version": STAGED_ROLE_MAP_SCHEMA,
+        "item_id": item_id,
+        "theorem_id": theorem_id,
+        "phase": phase,
+        "base_revision": base,
+        "authority_revision": head,
+        "contract_sha256": contract_record.get("sha256"),
+        "contract_git_blob": contract_record.get("git_blob"),
+        "phase_receipt_path": receipt_path,
+        "phase_receipt_sha256": sha256_bytes(receipt_bytes),
+        "staged_delta_paths": sorted(staged_paths),
         "artifacts": sorted(artifacts, key=lambda row: (row["role"], row["path"])),
     }
     role_map["manifest_sha256"] = sha256_bytes(canonical_json(role_map))
@@ -915,6 +1715,9 @@ class ReplayResult:
     review_manifest_sha256: str
     role_map_sha256: str
     artifact_bindings_sha256: str
+    validator_input_sha256: str
+    lean_authority: dict[str, Any]
+    lean_authority_sha256: str
     argv: list[str]
     bwrap_argv: list[str]
     cwd: str
@@ -987,6 +1790,7 @@ def _parse_validator_semantic_stdout(stdout: bytes) -> dict[str, Any]:
         "stale_inputs",
         "blocked",
         "message",
+        "integration_source_semantics",
     }
     required = {
         "schema_version",
@@ -1004,9 +1808,8 @@ def _parse_validator_semantic_stdout(stdout: bytes) -> dict[str, Any]:
         "stale_inputs",
         "blocked",
     }
-    if set(semantic) != required and not (
-        set(semantic) == required | {"message"}
-    ):
+    optional = {"message", "integration_source_semantics"}
+    if not required <= set(semantic) or set(semantic) - required - optional:
         missing = sorted(required - set(semantic))
         unknown = sorted(set(semantic) - allowed)
         _fail(
@@ -1051,6 +1854,63 @@ def _parse_validator_semantic_stdout(stdout: bytes) -> dict[str, Any]:
         _fail("validator stdout stale_inputs must be unique nonempty strings")
     if "message" in semantic and not isinstance(semantic["message"], str):
         _fail("validator stdout message must be a string")
+    integration = semantic.get("integration_source_semantics")
+    if integration is not None:
+        expected_integration_fields = {
+            "exact_machine_source_consumed",
+            "exact_machine_source_sha256",
+            "introduced_root_critical_proof",
+            "validated_artifact_sha256",
+            "match_kind",
+            "source_consumption",
+            "provider_declaration",
+            "consumer_declaration",
+            "provider_dependency_proven",
+            "exact_vendoring_proven",
+        }
+        if (
+            not isinstance(integration, dict)
+            or set(integration) != expected_integration_fields
+            or integration.get("exact_machine_source_consumed") is not True
+            or not isinstance(integration.get("exact_machine_source_sha256"), str)
+            or not SHA256_RE.fullmatch(integration["exact_machine_source_sha256"])
+            or integration.get("introduced_root_critical_proof") is not False
+            or not isinstance(integration.get("validated_artifact_sha256"), str)
+            or not SHA256_RE.fullmatch(integration["validated_artifact_sha256"])
+            or integration.get("match_kind") not in {"exact", "checked_transport"}
+            or integration.get("source_consumption") not in {
+                "exact_vendored_provider_dependency",
+                "provider_constant_identity",
+                "provider_constant_dependency",
+            }
+            or not isinstance(integration.get("provider_declaration"), str)
+            or not integration["provider_declaration"]
+            or not isinstance(integration.get("consumer_declaration"), str)
+            or not integration["consumer_declaration"]
+            or not isinstance(integration.get("provider_dependency_proven"), bool)
+            or not isinstance(integration.get("exact_vendoring_proven"), bool)
+            or integration["provider_dependency_proven"] is not True
+            or (
+                integration.get("match_kind") == "checked_transport"
+                and (
+                    integration.get("source_consumption")
+                    != "provider_constant_dependency"
+                    or integration.get("provider_dependency_proven") is not True
+                    or integration.get("exact_vendoring_proven") is not False
+                )
+            )
+            or (
+                integration.get("source_consumption")
+                in {
+                    "exact_vendored_provider_dependency",
+                }
+                and (
+                    integration.get("match_kind") != "exact"
+                    or integration.get("exact_vendoring_proven") is not True
+                )
+            )
+        ):
+            _fail("validator stdout integration source semantics are malformed")
     return semantic
 
 
@@ -1079,6 +1939,14 @@ def replay_validator(
     bwrap_stat = canonical_bwrap.stat()
     if bwrap_stat.st_uid != 0 or bwrap_stat.st_mode & (stat.S_IWGRP | stat.S_IWOTH):
         _fail("bubblewrap executable ownership or permissions are unsafe")
+    landlock = Path(LANDLOCK_EXECUTABLE)
+    if not landlock.is_file() or landlock.is_symlink():
+        _fail("Landlock launcher is unavailable")
+    landlock_stat = landlock.stat()
+    if landlock_stat.st_uid != 0 or landlock_stat.st_mode & (
+        stat.S_IWGRP | stat.S_IWOTH
+    ):
+        _fail("Landlock launcher ownership or permissions are unsafe")
     if validator_recipe.get("shell_interpolation") is not False:
         _fail("shell-based validator replay is forbidden")
     if (
@@ -1144,6 +2012,14 @@ def replay_validator(
             if _read_regular_at(checkout, relative, "immutable checkout validator") != data:
                 _fail("immutable checkout validator differs from the selected blob")
 
+            lean_authority, lean_toolchain_root, lean_cache_root = build_lean_authority(
+                checkout, lake_cache_root=root / LEAN_CACHE_PATH
+            )
+            validator_input = _validator_input(
+                review_manifest, role_map, validator_recipe, lean_authority
+            )
+            validator_stdin = canonical_json(validator_input) + b"\n"
+
             # Start from an empty tmpfs root. Runtime directories are mounted
             # read-only and every executable is from the closed scheduler
             # allowlist.  No canonical worker .lake symlink, host /home, /root,
@@ -1186,6 +2062,16 @@ def replay_validator(
                 "--dev",
                 "/dev",
                 "--dir",
+                LEAN_TOOLCHAIN_MOUNT,
+                "--ro-bind",
+                str(lean_toolchain_root),
+                LEAN_TOOLCHAIN_MOUNT,
+                "--dir",
+                LEAN_CACHE_MOUNT,
+                "--ro-bind",
+                str(lean_cache_root),
+                LEAN_CACHE_MOUNT,
+                "--dir",
                 sandbox_repo,
                 "--ro-bind",
                 str(checkout),
@@ -1227,6 +2113,29 @@ def replay_validator(
                 "--setenv",
                 "PYTHONDONTWRITEBYTECODE",
                 "1",
+                "--setenv",
+                "STAGE1_LEAN_TOOLCHAIN",
+                LEAN_TOOLCHAIN_MOUNT,
+                "--setenv",
+                "STAGE1_LAKE_CACHE",
+                LEAN_CACHE_MOUNT,
+                "--",
+                LANDLOCK_EXECUTABLE,
+                "--no-new-privs",
+                "--landlock-access",
+                "fs",
+                "--landlock-rule",
+                "path-beneath:execute,read-file,read-dir:/usr",
+                "--landlock-rule",
+                f"path-beneath:execute,read-file,read-dir:{LEAN_TOOLCHAIN_MOUNT}",
+                "--landlock-rule",
+                f"path-beneath:read-file,read-dir:{LEAN_CACHE_MOUNT}",
+                "--landlock-rule",
+                f"path-beneath:read-file,read-dir:{sandbox_repo}",
+                "--landlock-rule",
+                f"path-beneath:execute,write-file,read-file,read-dir,remove-dir,remove-file,make-dir,make-reg,make-sym,refer,truncate:{sandbox_scratch}",
+                "--landlock-rule",
+                "path-beneath:execute,write-file,read-file,read-dir,remove-dir,remove-file,make-dir,make-reg,make-sym,refer,truncate:/tmp",
                 "--",
                 *argv,
             ])
@@ -1240,7 +2149,7 @@ def replay_validator(
                 result = subprocess.run(
                     bwrap_argv,
                     cwd=checkout,
-                    stdin=subprocess.DEVNULL,
+                    input=validator_stdin,
                     stdout=subprocess.PIPE,
                     stderr=subprocess.PIPE,
                     timeout=float(timeout_seconds),
@@ -1259,6 +2168,17 @@ def replay_validator(
             duration_ms = (time.monotonic_ns() - monotonic) // 1_000_000
             if len(stderr) > MAX_REPLAY_OUTPUT_BYTES:
                 _fail("validator stderr exceeds the complete-output limit")
+            post_lean_authority, post_toolchain_root, post_cache_root = (
+                build_lean_authority(
+                    checkout, lake_cache_root=root / LEAN_CACHE_PATH
+                )
+            )
+            if (
+                post_lean_authority != lean_authority
+                or post_toolchain_root != lean_toolchain_root
+                or post_cache_root != lean_cache_root
+            ):
+                _fail("Lean replay authority changed during validator execution")
             post_status = _git_text(checkout, "status", "--porcelain", "--untracked-files=all")
             if post_status:
                 _fail("validator changed the supposedly read-only immutable checkout")
@@ -1290,6 +2210,9 @@ def replay_validator(
                 artifact_bindings_sha256=sha256_bytes(
                     canonical_json(role_map.get("artifacts"))
                 ),
+                validator_input_sha256=str(validator_input["input_sha256"]),
+                lean_authority=lean_authority,
+                lean_authority_sha256=sha256_bytes(canonical_json(lean_authority)),
                 argv=list(argv),
                 bwrap_argv=bwrap_argv,
                 cwd=sandbox_repo,
@@ -1406,6 +2329,81 @@ def evaluate_replay_semantics(
         != sha256_bytes(canonical_json(role_map.get("artifacts")))
     ):
         _fail("replay result is not bound to the review manifest, role map, or artifacts")
+    lean_authority_raw = replay_result.get("lean_authority")
+    if not isinstance(lean_authority_raw, dict):
+        _fail("replay result lacks its Lean authority binding")
+    lean_authority = dict(lean_authority_raw)
+    expected_lean_keys = {
+        "schema_version",
+        "toolchain",
+        "toolchain_file_sha256",
+        "dependency_lock_sha256",
+        "dependency_packages_sha256",
+        "compiled_cache_sha256",
+        "compiled_cache_file_count",
+        "compiled_cache_bytes",
+        "lean_binary_sha256",
+        "lake_binary_sha256",
+        "toolchain_closure_sha256",
+        "toolchain_closure_file_count",
+        "toolchain_closure_bytes",
+        "toolchain_mount",
+        "lake_cache_mount",
+        "network_policy",
+        "repo_access",
+    }
+    if (
+        set(lean_authority) != expected_lean_keys
+        or lean_authority.get("schema_version") != LEAN_AUTHORITY_SCHEMA
+        or any(
+            not isinstance(lean_authority.get(field), str)
+            or SHA256_RE.fullmatch(str(lean_authority.get(field))) is None
+            for field in (
+                "toolchain_file_sha256",
+                "dependency_lock_sha256",
+                "dependency_packages_sha256",
+                "compiled_cache_sha256",
+                "lean_binary_sha256",
+                "lake_binary_sha256",
+                "toolchain_closure_sha256",
+            )
+        )
+        or not isinstance(lean_authority.get("compiled_cache_file_count"), int)
+        or isinstance(lean_authority.get("compiled_cache_file_count"), bool)
+        or lean_authority.get("compiled_cache_file_count", -1) < 0
+        or not isinstance(lean_authority.get("compiled_cache_bytes"), int)
+        or isinstance(lean_authority.get("compiled_cache_bytes"), bool)
+        or lean_authority.get("compiled_cache_bytes", -1) < 0
+        or not isinstance(lean_authority.get("toolchain_closure_file_count"), int)
+        or isinstance(lean_authority.get("toolchain_closure_file_count"), bool)
+        or lean_authority.get("toolchain_closure_file_count", -1) < 1
+        or not isinstance(lean_authority.get("toolchain_closure_bytes"), int)
+        or isinstance(lean_authority.get("toolchain_closure_bytes"), bool)
+        or lean_authority.get("toolchain_closure_bytes", -1) < 1
+        or lean_authority.get("toolchain_mount") != LEAN_TOOLCHAIN_MOUNT
+        or lean_authority.get("lake_cache_mount") != LEAN_CACHE_MOUNT
+        or lean_authority.get("network_policy") != "denied"
+        or lean_authority.get("repo_access") != "read_only"
+        or replay_result.get("lean_authority_sha256")
+        != sha256_bytes(canonical_json(lean_authority))
+        or replay_result.get("validator_input_sha256")
+        != _validator_input(
+            review_manifest, role_map, validator_recipe, lean_authority
+        ).get("input_sha256")
+    ):
+        _fail("replay result Lean authority binding is malformed or stale")
+    authority_checkout = Path(
+        str(replay_result.get("authority_checkout", root))
+    )
+    if authority_checkout != root:
+        _fail("replay result refers to an unsupported Lean authority checkout")
+    current_lean_authority, _toolchain_root, _cache_root = build_lean_authority(
+        root,
+        lake_cache_root=root / LEAN_CACHE_PATH,
+        authority_revision=str(replay_result.get("authority_revision")),
+    )
+    if current_lean_authority != lean_authority:
+        _fail("replay result Lean authority no longer matches the pinned runtime")
     semantic_raw = replay_result.get("semantic_result")
     if semantic_raw is None:
         semantic: dict[str, Any] = {}
@@ -1495,10 +2493,14 @@ def evaluate_replay_semantics(
         reasons.append("semantic_theorem_complete_mismatch")
     if theorem_complete and (phase != "release" or not audit_complete):
         reasons.append("invalid_theorem_complete_boundary")
-    if worker_verdict == "accepted_audit_only" and not (
-        phase == "release" and audit_complete and not theorem_complete
+    if worker_verdict == "accepted_audit_only":
+        if not (phase == "release" and audit_complete and not theorem_complete):
+            reasons.append("invalid_accepted_audit_only_boundary")
+        reasons.append("accepted_audit_only_cannot_close_release")
+    if phase == "release" and (
+        worker_verdict != "accepted" or not audit_complete or not theorem_complete
     ):
-        reasons.append("invalid_accepted_audit_only_boundary")
+        reasons.append("release_requires_accepted_theorem_complete")
     verdict_protocol = _require_object(contract.get("verdict_protocol"), "verdict protocol")
     no_change_policy = _require_object(
         verdict_protocol.get("no_state_change_policy"), "no_state_change policy"
@@ -1532,3 +2534,44 @@ def evaluate_replay_semantics(
     }
     decision["decision_sha256"] = sha256_bytes(canonical_json(decision))
     return decision
+
+
+def require_replayed_integration_source_semantics(
+    replay_result: Mapping[str, Any],
+    focus_execution: Mapping[str, Any],
+    role_map: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Require exact-source-only integration facts from authority replay stdout."""
+
+    phase = replay_result.get("phase")
+    consumes_source = (
+        isinstance(phase, str)
+        and phase_consumes_exact_machine_source(phase, role_map)
+    )
+    if focus_execution.get("execution_disposition") != "organize_or_integrate":
+        return {}
+    if not consumes_source:
+        semantic = replay_result.get("semantic_result")
+        if (
+            isinstance(semantic, Mapping)
+            and semantic.get("integration_source_semantics") is not None
+        ):
+            _fail("non-source-consuming phase emitted integration source semantics")
+        return {}
+    semantic = replay_result.get("semantic_result")
+    if not isinstance(semantic, Mapping):
+        _fail("integration authority replay has no typed semantic result")
+    integration = semantic.get("integration_source_semantics")
+    source = focus_execution.get("exact_machine_source")
+    if not isinstance(source, Mapping) or not isinstance(integration, Mapping):
+        _fail("integration authority replay lacks exact-source semantics")
+    expected_source_sha = sha256_bytes(canonical_json(source))
+    if (
+        integration.get("exact_machine_source_consumed") is not True
+        or integration.get("exact_machine_source_sha256") != expected_source_sha
+        or integration.get("introduced_root_critical_proof") is not False
+        or integration.get("match_kind") != source.get("match_kind")
+        or integration.get("provider_dependency_proven") is not True
+    ):
+        _fail("integration authority replay did not independently certify exact-source use")
+    return dict(integration)

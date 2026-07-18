@@ -1,4 +1,4 @@
-# THM-M-1289 rev-5.6 intake
+# THM-M-1289 Historical Intake
 
 This is the `planned` instance for the Aubin-Talenti functions. The broad catalog label is made
 executable by selecting the standard positive critical bubble with the normalization for
@@ -16,8 +16,9 @@ executable by selecting the standard positive critical bubble with the normaliza
 | Foundations | Lean 4 kernel and pinned mathlib | exact toolchain, imports, axioms, and TCB remain open |
 
 The source/component relationship is recorded in `source_statement_crosswalk.md`. Later nodes must
-separately elaborate the statement, audit formal anchors, freeze obligations, implement proofs, and
-validate kernel and provenance closure.
+separately elaborate the statement, audit formal anchors, freeze obligations, and integrate and
+replay an admitted exact machine proof. New root work requires an active reviewed frontier
+exception; validation then checks kernel and provenance closure.
 
 ## Intake verdict
 

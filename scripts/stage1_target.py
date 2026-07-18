@@ -1,18 +1,31 @@
 #!/usr/bin/env python3
-"""Inspect and verify the immutable Stage1 rev-5.6 target population."""
+"""Inspect the Stage1 v2 membership plus current focus eligibility."""
 
 from __future__ import annotations
 
 import argparse
 import hashlib
+import importlib.util
 import json
 from pathlib import Path
 import sys
 from typing import Any, NoReturn
 
 
+FOCUS_MODULE = Path(__file__).with_name("stage1_focus_eligibility.py")
+FOCUS_SPEC = importlib.util.spec_from_file_location(
+    "stage1_target_focus_eligibility", FOCUS_MODULE
+)
+if FOCUS_SPEC is None or FOCUS_SPEC.loader is None:
+    raise RuntimeError(f"cannot load {FOCUS_MODULE}")
+focus_eligibility = importlib.util.module_from_spec(FOCUS_SPEC)
+FOCUS_SPEC.loader.exec_module(focus_eligibility)
+
+
 ROOT = Path(__file__).resolve().parents[1]
-MANIFEST = ROOT / "Docs" / "Stage1_Targets_rev-5.6.json"
+MANIFEST = ROOT / "Docs" / "Stage1_Target_Membership_v2.json"
+THEOREM_DAG = ROOT / "Docs" / "Stage1_Theorem_DAG_v2.json"
+THEOREM_DAG_SCHEMA = "stage1-theorem-dag/2.1"
 
 
 def fail(message: str) -> NoReturn:
@@ -32,7 +45,7 @@ def load_manifest() -> dict[str, Any]:
 
 
 def checked_targets(data: dict[str, Any]) -> list[dict[str, Any]]:
-    if data.get("schema_version") != "stage1-target-set/5.6.2":
+    if data.get("schema_version") != "stage1-target-membership/2.0":
         fail("unsupported or stale manifest schema")
     targets = data.get("targets")
     if not isinstance(targets, list) or len(targets) != 1546:
@@ -74,23 +87,92 @@ def command_check(targets: list[dict[str, Any]]) -> None:
     l0 = sum(target.get("baseline") == "L0" for target in targets)
     if l0 != 1546:
         fail(f"uniform baseline count is stale: L0={l0}")
+    load_theorem_dag()
     print("stage1_target: ok (1546 unique targets, ranks 1..1546, all L0/rework_required)")
+
+
+def load_theorem_dag() -> dict[str, Any]:
+    try:
+        dag = json.loads(THEOREM_DAG.read_text(encoding="utf-8"))
+    except OSError as exc:
+        fail(f"cannot read current v2 theorem projection: {exc}")
+    except json.JSONDecodeError as exc:
+        fail(f"invalid current v2 theorem projection JSON: {exc}")
+    if not isinstance(dag, dict) or dag.get("schema_version") != THEOREM_DAG_SCHEMA:
+        fail(f"unsupported theorem DAG schema; expected {THEOREM_DAG_SCHEMA}")
+    if not isinstance(dag.get("theorems"), list):
+        fail("current v2 theorem projection lacks theorem records")
+    return dag
+
+
+def live_focus(node: dict[str, Any], theorem_id: str) -> dict[str, Any]:
+    projection = node.get("focus_eligibility")
+    if not isinstance(projection, dict):
+        fail(f"focus eligibility DAG projection is missing for {theorem_id}")
+    expected_digest = projection.get("receipt_sha256")
+    if expected_digest is not None and not isinstance(expected_digest, str):
+        fail(f"focus eligibility DAG receipt digest is malformed for {theorem_id}")
+    try:
+        decision = focus_eligibility.load_focus_eligibility(
+            ROOT,
+            theorem_id,
+            expected_projection_sha256=expected_digest,
+        )
+    except (OSError, ValueError, focus_eligibility.EligibilityError) as exc:
+        fail(f"cannot re-evaluate focus eligibility for {theorem_id}: {exc}")
+    if decision != projection:
+        fail(f"focus eligibility DAG projection is stale for {theorem_id}")
+    return decision
 
 
 def command_show(targets: list[dict[str, Any]], theorem_id: str) -> None:
     target = next((item for item in targets if item.get("theorem_id") == theorem_id), None)
     if target is None:
-        fail(f"{theorem_id} is not covered by Stage1 rev-5.6")
-    print(json.dumps(target, ensure_ascii=False, indent=2))
+        fail(f"{theorem_id} is not in the frozen Stage1 membership")
+    dag = load_theorem_dag()
+    try:
+        node = next(
+            row for row in dag.get("theorems", [])
+            if isinstance(row, dict) and row.get("theorem_id") == theorem_id
+        )
+    except StopIteration as exc:
+        fail(f"cannot load current v2 theorem projection for {theorem_id}: {exc}")
+    output = {
+        **target,
+        "legacy_target_lane_inert": target.get("target_lane"),
+        "v2_execution_rank": node.get("v2_execution_rank"),
+        "focus_eligibility": live_focus(node, theorem_id),
+    }
+    print(json.dumps(output, ensure_ascii=False, indent=2))
 
 
 def command_next(targets: list[dict[str, Any]], start_rank: int, limit: int) -> None:
-    matches = [target for target in targets if target.get("execution_rank", 0) >= start_rank]
-    for target in matches[:limit]:
+    dag = load_theorem_dag()
+    by_id = {
+        row.get("theorem_id"): row
+        for row in dag.get("theorems", [])
+        if isinstance(row, dict)
+    }
+    candidates = [
+        target
+        for target in targets
+        if by_id.get(target["theorem_id"], {}).get("v2_execution_rank", 0)
+        >= start_rank
+    ]
+    candidates.sort(key=lambda target: by_id[target["theorem_id"]]["v2_execution_rank"])
+    emitted = 0
+    for target in candidates:
+        node = by_id[target["theorem_id"]]
+        focus = live_focus(node, target["theorem_id"])
+        if not any(focus.get("phase_permissions", {}).values()):
+            continue
         print(
-            f"{target['execution_rank']:04d}\t{target['theorem_id']}\t"
-            f"{target['baseline']}\t{target['target_lane']}\t{target['name']}"
+            f"{node['v2_execution_rank']:04d}\t{target['theorem_id']}\t"
+            f"{focus['execution_disposition']}\t{target['name']}"
         )
+        emitted += 1
+        if emitted == limit:
+            break
 
 
 def parser() -> argparse.ArgumentParser:
@@ -99,7 +181,7 @@ def parser() -> argparse.ArgumentParser:
     subparsers.add_parser("check", help="verify target count, ordering, digest, and assurance totals")
     show = subparsers.add_parser("show", help="print one covered target as JSON")
     show.add_argument("theorem_id")
-    next_parser = subparsers.add_parser("next", help="list targets from an execution rank")
+    next_parser = subparsers.add_parser("next", help="list focus-permitted targets from a v2 rank")
     next_parser.add_argument("--from-rank", type=int, default=1)
     next_parser.add_argument("--limit", type=int, default=20)
     return result

@@ -1,6 +1,6 @@
-# THM-M-0525 rev-5.6 intake
+# THM-M-0525 Historical Intake
 
-This directory is the `planned` rev-5.6 instance for the fundamental group. The terse source phrase
+This directory is the retained `planned` instance for the fundamental group. The terse source phrase
 "the group of path-homotopy classes of a topological space" is read in its standard based sense:
 loops at a chosen point, modulo homotopies that keep both endpoints fixed. Arbitrary paths form the
 fundamental groupoid, while free-loop classes do not generally form the claimed group.
@@ -58,8 +58,9 @@ bounded external candidates. The audit found an important convention boundary: m
 `FundamentalGroup` uses endomorphism multiplication `p * q = q.trans p`, while the exact statement
 freezes forward concatenation `p.trans q`. The five exact quotient laws needed to construct that
 group are already available in pinned mathlib, but no exact root declaration is credited. The root
-therefore remains open at `M2` pending obligation-tree freeze and proof construction; audit-wide
-and theorem-wide completion remain false.
+therefore remains open at `M2` pending obligation-tree freeze and a valid focus disposition. Ordinary
+work may integrate an exact existing machine proof; new root construction requires an active
+independently reviewed frontier exception. Audit-wide and theorem-wide completion remain false.
 
 ## Obligation-tree handoff
 

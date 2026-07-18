@@ -32,7 +32,7 @@ Most working documents are currently written in Chinese, but the structure is in
 
 ## H/M/R Proof Debt
 
-Stage1 rev-5.6 tracks three independent axes. A paper, a kernel check, and a readable reconstruction answer different questions and never substitute for one another.
+Stage1 v2 tracks three independent axes. A paper, a kernel check, and a readable reconstruction answer different questions and never substitute for one another.
 
 | Axis | Meaning | Closed state |
 |---|---|---|
@@ -40,31 +40,27 @@ Stage1 rev-5.6 tracks three independent axes. A paper, a kernel check, and a rea
 | `M` machine-proof debt | Whether the exact node is kernel-checked under the accepted axiom policy, distinguishing local bodies, mathlib wrappers, and pinned external bodies. | `M0-L`, `M0-W`, or `M0-P` |
 | `R` readability debt | Whether the route, formal map, trust boundary, composition, and leaf ledger are publicly readable. | `R0` |
 
-Evidence is graded separately as `E0` through `E5`. [`Docs/Stage1_Blueprint_v2.md`](./Docs/Stage1_Blueprint_v2.md) is the sole current Stage1 requirements, ordering, and task-state blueprint. [`Docs/Stage1_Assurance_Standard_rev-5.6.md`](./Docs/Stage1_Assurance_Standard_rev-5.6.md) is supporting gate guidance, not a second blueprint or progress cursor. Each theorem keeps scope and content-addressed validation evidence in its instance artifacts, while all current `[ ]`, `[_]`, and `[x]` progress remains in the v2 blueprint.
+Evidence is graded separately as `E0` through `E5`. [`Docs/Stage1_Blueprint_v2.md`](./Docs/Stage1_Blueprint_v2.md) is the sole current Stage1 requirements, ordering, acceptance, and task-state blueprint. Superseded Stage1 assurance material lives only in Git history and is not read by current commands. Each theorem keeps scope and content-addressed validation evidence in its instance artifacts, while all current `[ ]`, `[_]`, and `[x]` progress remains in the v2 blueprint.
 
 For this repository, Stage1 covers exactly the `1546` metadata-screened Lean 4 targets in
-[`Docs/Stage1_Targets_rev-5.6.json`](./Docs/Stage1_Targets_rev-5.6.json),
+[`Docs/Stage1_Target_Membership_v2.json`](./Docs/Stage1_Target_Membership_v2.json),
 not all `1601` deduplicated mathematics records. The target manifest is a membership input to the
 v2 blueprint, never an alternative requirements or progress authority. All `1546` targets started at
 `L0 / rework_required`; the former 300 priority-slot artifacts are retained only as legacy discovery
 inputs and confer no higher assurance or proof credit. The other `55` mathematics records remain
-outside the rev-5.6 target set.
+outside the frozen Stage1 membership.
 
-Execution is driven by [`$execute-stage1-rev56`](./skills/execute-stage1-rev56/SKILL.md), backed by
-the machine-readable [`Stage1_Targets_rev-5.6.json`](./Docs/Stage1_Targets_rev-5.6.json). The skill
-supports separate `intake`, `audit`, `prove`, `validate`, and `release` intents and fails closed when
-target membership, statement identity, evidence, or a required gate cannot be established.
+Execution is driven by [`$execute-stage1-v2`](./skills/execute-stage1-v2/SKILL.md). Its ordinary
+proof-phase intent is `integrate`, limited to exact human-proved and machine-proved targets whose
+external or pinned proof has not yet been accepted here. The separate `frontier_prove` intent is
+available only under a current scheduler-owned, independently reviewed, bounded exception with
+completion probability at least `0.70`; otherwise the workflow fails closed.
 
 The flagship example is [`THM-M-0387`](./THM-M-0387/README.md), Fermat's Last Theorem. Its `n = 3`, `n = 4`, regular-prime, and `3 <= n <= 16` branches are locally checked through pinned dependencies and wrappers. The exact root remains `M2`: the general odd-prime Wiles/Taylor-Wiles chain is not kernel-closed here, and the audited Imperial full-FLT candidate is blocked by `sorryAx` and a disallowed arbitrary-proposition axiom.
 
-The final legacy rev-5.6 evidence manifest classifies `132/132` node rows, machine-closes
-`29/93` author-designated machine targets (`31.18%`), and labels all `132/132` public nodes
-`R0`. These are legacy node-row metrics, not cross-theorem semantic coverage: the generalized
-standard additionally requires frozen canonical obligations, alias/body deduplication, typed graph
-semantics, source-boundary coverage, node-anchored independent readability review, immutable
-receipts, hermetic replay, and independent verification. Human-source `H0` coverage remains `0/113`: primary papers are
-identified, but exact page/theorem-to-node assumption crosswalks are not yet
-complete, so the root and all nodes conservatively remain `H1` on that axis.
+Historical dossier metrics and receipts remain provenance only. They do not establish a current
+human-proof source, exact machine-proof closure, focus admission, or Stage1 completion. Only evidence
+revalidated under the v2 focus policy can authorize integration or acceptance.
 
 ## 🔥 Why This Repo Exists
 
@@ -87,7 +83,7 @@ In short: this repo is for people who do not just want to read theorems, but wan
 
 ### 1. Start from the blueprint
 
-Read [`Docs/Stage1_Blueprint_v2.md`](./Docs/Stage1_Blueprint_v2.md) first. It is the only current Stage1 blueprint and the only writable Stage1 task-state source. The target JSON and DAG files are derived or membership surfaces, and the assurance standard is supporting guidance only. [`Docs/Stage0_Blueprint.md`](./Docs/Stage0_Blueprint.md) is the upstream Stage0 catalog snapshot, not a competing Stage1 execution source.
+Read [`Docs/Stage1_Blueprint_v2.md`](./Docs/Stage1_Blueprint_v2.md) first. It is the only current Stage1 blueprint and the only writable Stage1 task-state source. The target JSON and DAG files are derived or membership surfaces; the old assurance document is optional historical provenance and is not an operational input or gate. [`Docs/Stage0_Blueprint.md`](./Docs/Stage0_Blueprint.md) is the upstream Stage0 catalog snapshot, not a competing Stage1 execution source.
 
 The v2 blueprint defines requirements and execution status. Per-theorem evidence supports acceptance but cannot override its checklist; generated DAGs and todo snapshots are not completion authority.
 
@@ -112,6 +108,9 @@ A better workflow is:
 5. decide whether you want to study it, formalize it, or use it as a benchmark
 
 That makes this repo much more useful than a flat alphabetical list. 🧩
+For automated Stage1 execution, "formalize" means integrate an already-existing exact machine proof;
+new root-proof construction remains outside the ordinary lane and requires the bounded
+`frontier_prove` admission described above.
 
 ### 4. Read each theorem as a task, not just a fact
 
