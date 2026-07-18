@@ -93,7 +93,7 @@ THEOREM_DAG_V2 = DOCS / "Stage1_Theorem_DAG_v2.json"
 FOCUS_ELIGIBILITY_SCHEMA = DOCS / "Stage1_Focus_Eligibility_Schema.json"
 PHASE_ACCEPTANCE_CONTRACTS = DOCS / "Stage1_Phase_Acceptance_Contracts.json"
 PHASE_ACCEPTANCE_CONTRACT_SHA256 = (
-    "cedfe04512bd96d8229232709840511ba67a33836f218b0120fb07ca3235dc2f"
+    "d7fdb80f50d87b7a3c2dd570c0dd8a269fae951751ab8f5ea5ec448431d57e72"
 )
 RUNTIME = ROOT / ".cron" / "stage1-v2-app-server"
 CHECKLIST_BEGIN = "<!-- STAGE1-EXECUTION-CHECKLIST:BEGIN -->"

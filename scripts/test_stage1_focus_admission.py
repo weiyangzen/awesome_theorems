@@ -1764,9 +1764,33 @@ class FocusAdmissionTests(unittest.TestCase):
         original = issuance.read_bytes()
         issuance.unlink()
         self.assertTrue(fixture.evaluate()["valid"])
-        issuance.write_bytes(original)
         receipt_path = fixture.root / focus.receipt_relative_path(THEOREM)
         receipt = json.loads(receipt_path.read_text())
+        external_authority = receipt["admission_authority"][
+            "scheduler_verification"
+        ]["kernel_authority_result"]["replay_authority"]
+        local_authority = receipt["admission_authority"][
+            "scheduler_verification"
+        ]["local_target_authority_result"]["replay_authority"]
+        shutil.rmtree(fixture.runtime)
+        with mock.patch.object(
+            focus,
+            "TRUST_ANCHORS_SHA256",
+            fixture.trust_anchor_sha,
+        ), mock.patch.object(
+            focus.stage1_lean_authority,
+            "build_project_lean_authority",
+            return_value=(external_authority, Path("/toolchain"), None),
+        ), mock.patch.object(
+            focus.stage1_lean_authority,
+            "build_repository_lean_authority",
+            return_value=(local_authority, Path("/toolchain"), Path("/cache")),
+        ):
+            self.assertTrue(
+                focus.evaluate_target(fixture.root, THEOREM, runtime_root=None)["valid"]
+            )
+        issuance.parent.mkdir(parents=True)
+        issuance.write_bytes(original)
         forged = receipt["issuance_authority"]["issuance"]
         forged["scheduler_issuer"]["id"] = "forged-scheduler"
         forged.pop("issuance_sha256")

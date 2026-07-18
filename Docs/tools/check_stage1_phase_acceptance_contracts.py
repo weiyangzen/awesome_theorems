@@ -12,7 +12,7 @@ from typing import Any, NoReturn
 
 ROOT = Path(__file__).resolve().parents[2]
 CONTRACT = ROOT / "Docs" / "Stage1_Phase_Acceptance_Contracts.json"
-CONTRACT_SHA256 = "cedfe04512bd96d8229232709840511ba67a33836f218b0120fb07ca3235dc2f"
+CONTRACT_SHA256 = "d7fdb80f50d87b7a3c2dd570c0dd8a269fae951751ab8f5ea5ec448431d57e72"
 V2_BLUEPRINT_PATH = "Docs/Stage1_Blueprint_v2.md"
 REQUIRED_SOURCE_REFERENCE_IDS = {
     "v2-authority",
