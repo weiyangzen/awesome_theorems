@@ -5336,7 +5336,9 @@ class SchedulerCapacityTests(unittest.TestCase):
 
     def test_frontier_focus_review_requires_separately_authored_input(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
-            runtime = Path(directory)
+            root = Path(directory)
+            subprocess.run(["git", "init", "-q"], cwd=root, check=True)
+            runtime = root / ".cron" / "stage1-v2-app-server"
             candidate_root = runtime / "focus-admission" / "candidates"
             candidate_root.mkdir(parents=True)
             candidate = candidate_root / "candidate.json"
@@ -5350,7 +5352,13 @@ class SchedulerCapacityTests(unittest.TestCase):
                 json.dumps(candidate_value, indent=2) + "\n", encoding="utf-8"
             )
             with (
+                mock.patch.object(cron, "ROOT", root),
                 mock.patch.object(cron, "RUNTIME", runtime),
+                mock.patch.object(
+                    cron.focus_admission,
+                    "CANONICAL_RUNTIME_RELATIVE",
+                    Path(".cron/stage1-v2-app-server"),
+                ),
                 self.assertRaisesRegex(
                     SystemExit, "separately authored reviewer input"
                 ),

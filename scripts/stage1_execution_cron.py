@@ -9328,6 +9328,7 @@ def _write_focus_review_job(
         candidate,
         RUNTIME / "focus-admission" / "candidates",
         "focus candidate",
+        root=ROOT,
     )
     frontier = candidate_value.get("receipt_facts", {}).get("frontier_exception")
     if isinstance(frontier, dict):
@@ -9340,6 +9341,7 @@ def _write_focus_review_job(
             frontier_review_input.absolute(),
             RUNTIME / "focus-admission" / "frontier-review-staging",
             "staged frontier independent review input",
+            root=ROOT,
         )
         if (
             review_input.get("candidate_sha256") != candidate_value["candidate_sha256"]
