@@ -1,0 +1,9 @@
+# Process audit: S5-CLM-00003492
+
+The active generation used only `../claim.json`, this generation's immutable `_baseline` bootstrap files, and the 18 claim-owned output paths. The controller-provided checkpoint in `_baseline/checkpoints/r-1787003008-4519c715` was explicitly rematerialized into this generation and its recorded Master diagnostic was repaired by ordering the terminal foundation-axiom census exactly as Lean emitted it. The generation did not inspect the canonical repository, a predecessor or sibling task root, or any other mathematical ID's package. No clone, fetch, Lean, Lake, Elan, network request, hidden agent, or in-process child was used.
+
+The proof was reconstructed from the frozen provider source. The provider theorem body was read as mathematical provenance but is never invoked, copied as an oracle, or treated as proof authority. The claim-owned Lean root expands the three source-local semantic definitions (`maximalLength`, `IsIncreasing₂`, and `lt₂`) and independently repeats the finite pigeonhole argument.
+
+All three Lean files independently import the exact provider route `FormalConjectures.Arxiv.«1609.08688».sIncreasingrTuples` and actively reference `Arxiv.«1609.08688».maximalLength_le`. `Audit.lean` repeats the claim-owned proof in a standalone provider-native unit and checks the provider declaration's exact type against `maximalLength_le_audit`. The import establishes semantic authority; it does not use the provider proof body as proof authority.
+
+Worker validation is deliberately limited to the claim-prescribed `--no-lean` preflight. All `lean_checked`, M0-L, cold replay, semantic-expression, transitive-environment, and axiom claims in the JSON dossier are provisional candidate evidence that the canonical Master must independently recompute after harvest.

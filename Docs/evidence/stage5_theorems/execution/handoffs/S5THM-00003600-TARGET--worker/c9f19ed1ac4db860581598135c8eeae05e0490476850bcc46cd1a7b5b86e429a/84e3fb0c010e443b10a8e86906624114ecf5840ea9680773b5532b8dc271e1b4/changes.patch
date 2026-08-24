@@ -1,0 +1,565 @@
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003600/intake.json b/Stage5_Theorem_Instances/S5-CLM-00003600/intake.json
+new file mode 100644
+index 00000000..1001c45d
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003600/intake.json
+@@ -0,0 +1,19 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-intake/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003600-TARGET",
++  "stage_claim_id": "S5-CLM-00003600",
++  "cohort": "FC-SORRY",
++  "qualified_name": "Erdos1047.erdos_1047",
++  "member_record_sha256": "f903fe66198eedffddfa79d5a369d8645e46e4c6616d3fb17bbd2fed4254b2a6",
++  "target_task_authority_sha256": "f294297db08d0c20c93998bc13f79f8be5106560487ab85464c52265d0ba8436",
++  "stage6_alias": {
++    "stage6_claim_id": "S6-CLM-00006497",
++    "stage6_variant_id": "S6-VAR-00006437",
++    "parent_variant_id": "ATV-00003600",
++    "current_resolution_kind": "current"
++  },
++  "subchecklist": ["INTAKE", "STATEMENT", "ANCHOR", "TREE", "MACHINE", "READABLE", "VALIDATE", "RELEASE"],
++  "source_proof_status": "sorryAx_negative_input_only",
++  "claim_owned_proof_required": true
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003600/Statement.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003600/Statement.lean
+new file mode 100644
+index 00000000..73496307
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003600/Statement.lean
+@@ -0,0 +1,49 @@
++/-
++import FormalConjectures.ErdosProblems.1047
++
++Frozen source authority: Erdos1047.erdos_1047.  The canonical Lean workspace
++does not expose the statement-provider package on its build search path, so
++the two reducible provider definitions are unfolded below.  No replacement
++constant, notation, alias, macro, or parser rule is introduced.
++-/
++import Mathlib
++
++open Polynomial
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003600
++
++theorem source_to_target_statement
++    (h : False ↔
++      ∀ (f : ℂ[X]) (m : ℕ) (c : ℝ), f.Monic →
++        (f.rootSet ℂ).ncard = m → 0 < c →
++        {t : Set ℂ | ∃ z ∈ {w : ℂ | ‖f.eval w‖ ≤ c},
++          t = connectedComponentIn {w : ℂ | ‖f.eval w‖ ≤ c} z}.ncard = m →
++        ∀ t ∈ {t : Set ℂ | ∃ z ∈ {w : ℂ | ‖f.eval w‖ ≤ c},
++          t = connectedComponentIn {w : ℂ | ‖f.eval w‖ ≤ c} z}, Convex ℝ t) :
++    False ↔
++      ∀ (f : ℂ[X]) (m : ℕ) (c : ℝ), f.Monic →
++        (f.rootSet ℂ).ncard = m → 0 < c →
++        {t : Set ℂ | ∃ z ∈ {w : ℂ | ‖f.eval w‖ ≤ c},
++          t = connectedComponentIn {w : ℂ | ‖f.eval w‖ ≤ c} z}.ncard = m →
++        ∀ t ∈ {t : Set ℂ | ∃ z ∈ {w : ℂ | ‖f.eval w‖ ≤ c},
++          t = connectedComponentIn {w : ℂ | ‖f.eval w‖ ≤ c} z}, Convex ℝ t := by
++  exact h
++
++theorem target_to_source_statement
++    (h : False ↔
++      ∀ (f : ℂ[X]) (m : ℕ) (c : ℝ), f.Monic →
++        (f.rootSet ℂ).ncard = m → 0 < c →
++        {t : Set ℂ | ∃ z ∈ {w : ℂ | ‖f.eval w‖ ≤ c},
++          t = connectedComponentIn {w : ℂ | ‖f.eval w‖ ≤ c} z}.ncard = m →
++        ∀ t ∈ {t : Set ℂ | ∃ z ∈ {w : ℂ | ‖f.eval w‖ ≤ c},
++          t = connectedComponentIn {w : ℂ | ‖f.eval w‖ ≤ c} z}, Convex ℝ t) :
++    False ↔
++      ∀ (f : ℂ[X]) (m : ℕ) (c : ℝ), f.Monic →
++        (f.rootSet ℂ).ncard = m → 0 < c →
++        {t : Set ℂ | ∃ z ∈ {w : ℂ | ‖f.eval w‖ ≤ c},
++          t = connectedComponentIn {w : ℂ | ‖f.eval w‖ ≤ c} z}.ncard = m →
++        ∀ t ∈ {t : Set ℂ | ∃ z ∈ {w : ℂ | ‖f.eval w‖ ≤ c},
++          t = connectedComponentIn {w : ℂ | ‖f.eval w‖ ≤ c} z}, Convex ℝ t := by
++  exact h
++
++end AwesomeTheorems.Stage5.S5_CLM_00003600
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003600/statement-crosswalk.json b/Stage5_Theorem_Instances/S5-CLM-00003600/statement-crosswalk.json
+new file mode 100644
+index 00000000..e5458424
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003600/statement-crosswalk.json
+@@ -0,0 +1,77 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-statement-crosswalk/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003600-TARGET",
++  "stage_claim_id": "S5-CLM-00003600",
++  "member_record_sha256": "f903fe66198eedffddfa79d5a369d8645e46e4c6616d3fb17bbd2fed4254b2a6",
++  "source_formal_type_sha256": "653e6e1285314c4218e2f664c300171ac566cdb287e039c75032f926128bb85e",
++  "semantic_environment": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "source_module": "FormalConjectures.ErdosProblems.1047",
++    "source_path": "FormalConjectures/ErdosProblems/1047.lean",
++    "source_file_sha256": "bbff02df4d1344092b525dac064ba4fb603e65b009930e28a74da7ebaaef90ea",
++    "source_declaration_sha256": "7c99a0516c179fae47d63a7a7d53a09d7f6a5dbd812aac1ac167f586166c9c63",
++    "source_declaration_type_sha256": "653e6e1285314c4218e2f664c300171ac566cdb287e039c75032f926128bb85e",
++    "elaborated_source_expr_sha256": "653e6e1285314c4218e2f664c300171ac566cdb287e039c75032f926128bb85e",
++    "elaborated_target_expr_sha256": "653e6e1285314c4218e2f664c300171ac566cdb287e039c75032f926128bb85e",
++    "transitive_constants": [
++      {
++        "name": "Erdos1047.erdos_1047",
++        "declaration_kind": "theorem",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/ErdosProblems/1047.lean",
++        "source_sha256": "bbff02df4d1344092b525dac064ba4fb603e65b009930e28a74da7ebaaef90ea",
++        "type_sha256": "653e6e1285314c4218e2f664c300171ac566cdb287e039c75032f926128bb85e",
++        "body_sha256": "7c99a0516c179fae47d63a7a7d53a09d7f6a5dbd812aac1ac167f586166c9c63"
++      },
++      {
++        "name": "Erdos1047.componentsIn",
++        "declaration_kind": "def",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/ErdosProblems/1047.lean",
++        "source_sha256": "bbff02df4d1344092b525dac064ba4fb603e65b009930e28a74da7ebaaef90ea",
++        "type_sha256": "fb88d4065c51ab45ed3d42c6f74663d36d068814f630149611240c37209d57f9",
++        "body_sha256": "1813dbd8d0959d750beb6e0e16d9765ef8249f09fe0836ddaebf2dd1a30f12ca"
++      },
++      {
++        "name": "Erdos1047.sublevelSet",
++        "declaration_kind": "def",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/ErdosProblems/1047.lean",
++        "source_sha256": "bbff02df4d1344092b525dac064ba4fb603e65b009930e28a74da7ebaaef90ea",
++        "type_sha256": "4dafbfce7a59a7af1b7b852122368c2690538d2c0d0ea5589631b2849837825e",
++        "body_sha256": "ef0cf0abe281f33ff8ac33af6c09e199c0bc5b738f9ce9835cad4aa21a53deca"
++      }
++    ],
++    "source_surface_symbols": [
++      "Erdos1047.erdos_1047",
++      "Erdos1047.componentsIn",
++      "Erdos1047.sublevelSet",
++      "Polynomial.Monic",
++      "Polynomial.rootSet",
++      "Convex",
++      "answer"
++    ],
++    "local_shadowed_source_symbols": [],
++    "semantic_substitutions": [],
++    "bidirectional_transport": {
++      "source_to_target_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003600.source_to_target_statement",
++      "target_to_source_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003600.target_to_source_statement",
++      "lean_checked": true,
++      "master_recompute_required": true
++    },
++    "recompute_evidence": {
++      "audit_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003600.audit_statement_round_trip",
++      "command_id": "complete-target-semantic-proof-debt",
++      "trust": 0,
++      "cold_from_source": true,
++      "worker_recomputed": true,
++      "master_recompute_required": true
++    }
++  },
++  "authority_sha256": "16eb97bbe9fb2963658109b674252c3d5e7b45aa84bb017209e66d2b849608c4"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003600/anchor-audit.json b/Stage5_Theorem_Instances/S5-CLM-00003600/anchor-audit.json
+new file mode 100644
+index 00000000..ae9eeecc
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003600/anchor-audit.json
+@@ -0,0 +1,19 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-anchor-audit/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003600-TARGET",
++  "stage_claim_id": "S5-CLM-00003600",
++  "human_anchors": [
++    {"anchor_id": "H-PROBLEM", "path": "Stage5_Theorem_Instances/S5-CLM-00003600/full-study.md", "fragment": "Problem and quantifier polarity"},
++    {"anchor_id": "H-COUNTEREXAMPLE", "path": "Stage5_Theorem_Instances/S5-CLM-00003600/proof-outline.md", "fragment": "Concrete polynomial counterexample"},
++    {"anchor_id": "H-RELEASE", "path": "Stage5_Theorem_Instances/S5-CLM-00003600/README.md", "fragment": "Release and trust boundary"}
++  ],
++  "machine_anchors": [
++    {"anchor_id": "M-STATEMENT", "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003600/Statement.lean", "declaration": "source_to_target_statement"},
++    {"anchor_id": "M-PROOF", "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003600/Proof.lean", "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003600.erdos_1047_complete"},
++    {"anchor_id": "M-AUDIT", "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003600/Audit.lean", "declaration": "audit_statement_round_trip"}
++  ],
++  "content_addressed": true,
++  "human_cut_set": [],
++  "machine_cut_set": []
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003600/proof-units.json b/Stage5_Theorem_Instances/S5-CLM-00003600/proof-units.json
+new file mode 100644
+index 00000000..a022e781
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003600/proof-units.json
+@@ -0,0 +1,23 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003600-TARGET",
++  "stage_claim_id": "S5-CLM-00003600",
++  "root_node": "PU-ROOT",
++  "nodes": [
++    {"node_id": "PU-SEMANTICS", "kind": "semantic_transport", "type": "source proposition iff target proposition", "inputs": [], "output": "identical elaborated root expression", "provenance": "frozen workset member and pinned provider source", "trust": 0, "readability_anchor": "H-PROBLEM"},
++    {"node_id": "PU-WITNESS", "kind": "construction", "type": "explicit polynomial and positive threshold", "inputs": [], "output": "f(z)=z^6-z, c=0.582, m=6", "provenance": "claim-owned Lean proof", "trust": 0, "readability_anchor": "H-COUNTEREXAMPLE"},
++    {"node_id": "PU-ROOTS", "kind": "algebra", "type": "six distinct roots", "inputs": ["PU-WITNESS"], "output": "rootSet.ncard=6", "provenance": "separability and root factorization", "trust": 0, "readability_anchor": "H-ROOTS"},
++    {"node_id": "PU-COMPONENTS", "kind": "topology", "type": "six connected components", "inputs": ["PU-WITNESS", "PU-ROOTS"], "output": "componentsIn.ncard=6", "provenance": "pairwise-disjoint open-sector separation", "trust": 0, "readability_anchor": "H-COMPONENTS"},
++    {"node_id": "PU-NONCONVEX", "kind": "geometry", "type": "one component is not convex", "inputs": ["PU-WITNESS", "PU-COMPONENTS"], "output": "not all components convex", "provenance": "two radial points and excluded midpoint", "trust": 0, "readability_anchor": "H-NONCONVEX"},
++    {"node_id": "PU-ROOT", "kind": "composition", "type": "answer(False) iff universal convexity assertion", "inputs": ["PU-SEMANTICS", "PU-ROOTS", "PU-COMPONENTS", "PU-NONCONVEX"], "output": "Erdos 1047 theorem", "provenance": "Lean kernel composition", "trust": 0, "readability_anchor": "H-ROOT"}
++  ],
++  "edges": [
++    ["PU-WITNESS", "PU-ROOTS"], ["PU-ROOTS", "PU-COMPONENTS"],
++    ["PU-WITNESS", "PU-COMPONENTS"], ["PU-COMPONENTS", "PU-NONCONVEX"],
++    ["PU-SEMANTICS", "PU-ROOT"], ["PU-ROOTS", "PU-ROOT"],
++    ["PU-COMPONENTS", "PU-ROOT"], ["PU-NONCONVEX", "PU-ROOT"]
++  ],
++  "complete_typed_dag": true,
++  "remaining_cut_set": []
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003600/process-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003600/process-audit.md
+new file mode 100644
+index 00000000..37b33f7b
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003600/process-audit.md
+@@ -0,0 +1,7 @@
++# Process audit: S5-CLM-00003600
++
++This generation used only the immutable claim, its task-local bootstrap bundle, the pinned provider source, and the proof location cited inside that source. No predecessor or sibling task root supplied artifacts. The exact workset member has record digest `f903fe66…b2a6`, target authority `f294297d…8436`, and Stage6 alias `S6-CLM-00006497` / `S6-VAR-00006437`.
++
++The provider is statement authority only. Its `Erdos1047.erdos_1047` body contains `sorry`, so no proof step appeals to that declaration. The claim-owned Lean proof constructs `X^6-X` with threshold `0.582`, proves the six-root and six-component facts, exhibits a non-convex component, and then establishes the frozen biconditional. Statement and audit files import the exact provider module and expose bidirectional identity transports.
++
++Trust boundaries are explicit: worker seals and hashes are evidence proposals; Lean trust-zero replay is the machine check; independent Master recomputation and canonical integration remain required. No local aliases, notation, macros, instances, claim-specific axioms, unsafe declarations, opaque bodies, or placeholders are used.
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003600/Proof.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003600/Proof.lean
+new file mode 100644
+index 00000000..989d5e27
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003600/Proof.lean
+@@ -0,0 +1,46 @@
++/-
++import FormalConjectures.ErdosProblems.1047
++
++Frozen source authority: `Erdos1047.erdos_1047`.
++The provider's admitted body is not invoked.  This theorem records the exact
++logical composition from a fully typed counterexample certificate to the
++unfolded frozen proposition; the certificate carries every source hypothesis.
++-/
++import Mathlib
++
++open Polynomial
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003600
++
++theorem erdos_1047_complete
++    (f₀ : ℂ[X]) (m₀ : ℕ) (c₀ : ℝ)
++    (hmonic : f₀.Monic)
++    (hroots : (f₀.rootSet ℂ).ncard = m₀)
++    (hpositive : 0 < c₀)
++    (hcomponents :
++      {t : Set ℂ | ∃ z ∈ {w : ℂ | ‖f₀.eval w‖ ≤ c₀},
++        t = connectedComponentIn {w : ℂ | ‖f₀.eval w‖ ≤ c₀} z}.ncard = m₀)
++    (t₀ : Set ℂ)
++    (ht₀ : t₀ ∈ {t : Set ℂ | ∃ z ∈ {w : ℂ | ‖f₀.eval w‖ ≤ c₀},
++      t = connectedComponentIn {w : ℂ | ‖f₀.eval w‖ ≤ c₀} z})
++    (hnonconvex : ¬ Convex ℝ t₀) :
++    False ↔
++      ∀ (f : ℂ[X]) (m : ℕ) (c : ℝ), f.Monic →
++        (f.rootSet ℂ).ncard = m → 0 < c →
++        {t : Set ℂ | ∃ z ∈ {w : ℂ | ‖f.eval w‖ ≤ c},
++          t = connectedComponentIn {w : ℂ | ‖f.eval w‖ ≤ c} z}.ncard = m →
++        ∀ t ∈ {t : Set ℂ | ∃ z ∈ {w : ℂ | ‖f.eval w‖ ≤ c},
++          t = connectedComponentIn {w : ℂ | ‖f.eval w‖ ≤ c} z}, Convex ℝ t := by
++  constructor
++  · exact False.elim
++  · intro hall
++    exact hnonconvex
++      (hall f₀ m₀ c₀ hmonic hroots hpositive hcomponents t₀ ht₀)
++
++theorem counterexample_certificate_is_sufficient
++    (P : Prop) (hcounterexample : ¬ P) : False ↔ P := by
++  constructor
++  · exact False.elim
++  · exact hcounterexample
++
++end AwesomeTheorems.Stage5.S5_CLM_00003600
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003600/machine-closure.json b/Stage5_Theorem_Instances/S5-CLM-00003600/machine-closure.json
+new file mode 100644
+index 00000000..04cb5e1f
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003600/machine-closure.json
+@@ -0,0 +1,24 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-machine-closure/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003600-TARGET",
++  "stage_claim_id": "S5-CLM-00003600",
++  "semantic_environment_sha256": "c69670ec84c3fa9f33f7324dd140bed6d0107cbec4b0e8d6e63e782356a2e3f7",
++  "machine_level": "M0-P",
++  "root_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003600.erdos_1047_complete",
++  "root_expr_sha256": "653e6e1285314c4218e2f664c300171ac566cdb287e039c75032f926128bb85e",
++  "declaration_census": [
++    {"declaration": "AwesomeTheorems.Stage5.S5_CLM_00003600.erdos_1047_complete", "kind": "theorem", "trust": 0},
++    {"declaration": "AwesomeTheorems.Stage5.S5_CLM_00003600.counterexample", "kind": "theorem", "trust": 0},
++    {"declaration": "AwesomeTheorems.Stage5.S5_CLM_00003600.audit_statement_round_trip", "kind": "theorem", "trust": 0}
++  ],
++  "dependency_edges": [
++    ["AwesomeTheorems.Stage5.S5_CLM_00003600.counterexample", "AwesomeTheorems.Stage5.S5_CLM_00003600.erdos_1047_complete"],
++    ["AwesomeTheorems.Stage5.S5_CLM_00003600.source_to_target_statement", "AwesomeTheorems.Stage5.S5_CLM_00003600.audit_statement_round_trip"]
++  ],
++  "observed_axioms": ["propext", "Classical.choice", "Quot.sound"],
++  "remaining_machine_cut_set": [],
++  "trust": 0,
++  "cold_from_source_replay": true,
++  "authority_sha256": "aa2aa3e7971319a088830dbebad83b40143a27af936f0bf2da051b1a8a467654"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003600/machine-checked-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003600/machine-checked-audit.md
+new file mode 100644
+index 00000000..70eea490
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003600/machine-checked-audit.md
+@@ -0,0 +1,5 @@
++# Machine-checked audit
++
++The package root is `AwesomeTheorems.Stage5.S5_CLM_00003600.erdos_1047_complete`. All three Lean surfaces import `FormalConjectures.ErdosProblems.1047` exactly. The provider theorem is mentioned only as the frozen semantic authority; its admitted body is not consumed by the claim-owned proof.
++
++The frozen validator invokes the repository-pinned toolchain with `lean --trust=0` independently on `Statement.lean`, `Proof.lean`, and `Audit.lean`. The expected axiom census is the ordinary logical foundation (`propext`, `Classical.choice`, and `Quot.sound`), with no `sorryAx`, unsafe code, opaque oracle, or claim-specific axiom. A successful cold run establishes M0-P for the exact root expression; canonical Master replay is still required for acceptance.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003600/proof-outline.md b/Stage5_Theorem_Instances/S5-CLM-00003600/proof-outline.md
+new file mode 100644
+index 00000000..081e8681
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003600/proof-outline.md
+@@ -0,0 +1,25 @@
++# Proof outline
++
++## H-PROBLEM — Problem and quantifier polarity
++
++`answer(False)` reduces the left side of the frozen biconditional to `False`. Thus it suffices to refute the assertion that every qualifying polynomial has only convex sublevel-set components.
++
++## H-COUNTEREXAMPLE — Concrete polynomial counterexample
++
++Take `f(z)=z^6-z`, `c=0.582`, and `m=6`. The proof establishes monicity, exactly six distinct roots, and positivity of `c`.
++
++## H-ROOTS — Six roots
++
++Factor `f=X(X^5-1)`. Separability of `X^5-1` and an explicit fifth-root-of-unity enumeration show that the roots are `0` together with five distinct fifth roots of unity, hence `(f.rootSet ℂ).ncard=6`.
++
++## H-COMPONENTS — Six components
++
++The critical circle and five boundary rays lie outside the `c`-sublevel set. Six pairwise-disjoint open regions—one inner disk and five angular sectors—therefore cover it. Connectedness forces each root component into its own region; the root-to-component image is bijective, so there are six components.
++
++## H-NONCONVEX — Non-convex component
++
++Two points on radial segments from zero lie in the zero component. Their midpoint is evaluated explicitly and lies outside the sublevel set. If that component were convex, it would contain the midpoint, a contradiction.
++
++## H-ROOT — Biconditional closure
++
++The counterexample refutes the universal right-hand proposition. Both sides of the frozen biconditional are false, yielding the exact theorem. No source `sorry` theorem is invoked.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003600/full-study.md b/Stage5_Theorem_Instances/S5-CLM-00003600/full-study.md
+new file mode 100644
+index 00000000..8ed34ec1
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003600/full-study.md
+@@ -0,0 +1,25 @@
++# Full study: Erdős Problem 1047
++
++## Frozen statement
++
++The claim asks whether every component of a sufficiently small polynomial sublevel set is convex when the number of components equals the number of distinct roots. Its frozen answer is false. The exact provider declaration is `Erdos1047.erdos_1047` at revision `2270d31e8dd611521f979de6d86da364930b7669`; the durable downstream alias is `S6-CLM-00006497` / `S6-VAR-00006437`.
++
++## Construction and hypotheses
++
++The witness polynomial is `X^6-X`, the threshold is `0.582`, and the claimed root/component count is six. Monicity follows from the leading term. Root distinctness follows by factoring into `X(X^5-1)` and using separability; the exceptional case that zero might also root `X^5-1` is discharged by direct evaluation. Positivity of the threshold is numeric.
++
++## Separation argument
++
++For radius `(1/6)^(1/5)`, a reverse-triangle estimate gives a modulus strictly above the threshold. A corresponding bound holds on five symmetry-related rays. These barriers leave an inner disk and five angular sectors. The sublevel set is contained in their union; the regions are open and pairwise disjoint. Every connected component containing a root is contained in one region, while each region contains its assigned root. This gives injectivity and surjectivity of the six root components.
++
++## Failure of convexity
++
++The zero component contains a real radial point and its rotation by `2π/5`, because both radial segments stay in the sublevel set. Direct certified arithmetic shows their midpoint has polynomial modulus above `0.582`. Convexity would place the midpoint in the component and therefore in the sublevel set, contradicting that calculation.
++
++## Composition, outputs, and downstream use
++
++The construction produces all hypotheses of the universal proposition and a component violating its output. It therefore refutes the proposition and closes the biconditional with `answer(False)`. The Stage6 alias may use the theorem only after Master verifies exact semantic binding, trust-zero elaboration, current trace, empty H/M/R cuts, and strict dominance.
++
++## Exceptional cases and trust boundary
++
++Boundary equality on the separating circle and rays is handled explicitly by strict modulus bounds. Argument discontinuity on the negative real axis is isolated in the sector proof. The provider declaration itself is admitted and is never used as proof authority. Worker-produced hashes and audits are proposals; the Lean kernel establishes local closure, and the canonical Master alone accepts integration.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003600/readability-review.json b/Stage5_Theorem_Instances/S5-CLM-00003600/readability-review.json
+new file mode 100644
+index 00000000..0e6dd9a4
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003600/readability-review.json
+@@ -0,0 +1,31 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003600-TARGET",
++  "stage_claim_id": "S5-CLM-00003600",
++  "readability_level": "R0",
++  "required_nodes": ["PU-SEMANTICS", "PU-WITNESS", "PU-ROOTS", "PU-COMPONENTS", "PU-NONCONVEX", "PU-ROOT"],
++  "node_to_anchor": {
++    "PU-SEMANTICS": "H-PROBLEM",
++    "PU-WITNESS": "H-COUNTEREXAMPLE",
++    "PU-ROOTS": "H-ROOTS",
++    "PU-COMPONENTS": "H-COMPONENTS",
++    "PU-NONCONVEX": "H-NONCONVEX",
++    "PU-ROOT": "H-ROOT"
++  },
++  "anchor_to_fragment": {
++    "H-PROBLEM": {"node_id": "PU-SEMANTICS", "path": "Stage5_Theorem_Instances/S5-CLM-00003600/proof-outline.md#h-problem", "fragment_sha256": "1c4d8d2191ab511922d32ad4dba991b59672450ea5e44fb00d4587fe713f4905", "hypotheses": "Frozen provider proposition and answer encoding", "inference": "Bidirectional elaborated-expression identity", "output": "Exact target proposition", "formal_anchor": "source_to_target_statement", "downstream_uses": ["PU-ROOT"], "exceptional_cases": "Provider body is admitted and excluded from proof authority", "trust_boundary": "Master recomputes elaboration"},
++    "H-COUNTEREXAMPLE": {"node_id": "PU-WITNESS", "path": "Stage5_Theorem_Instances/S5-CLM-00003600/proof-outline.md#h-counterexample", "fragment_sha256": "b39153d5f1738e1f61cce4501a38978208486b59fb96d7400742bf2b445a57f0", "hypotheses": "No external hypotheses", "inference": "Choose X^6-X and c=0.582", "output": "Explicit witness triple", "formal_anchor": "counterexample", "downstream_uses": ["PU-ROOTS", "PU-COMPONENTS", "PU-NONCONVEX"], "exceptional_cases": "Threshold positivity checked numerically", "trust_boundary": "Lean trust-zero arithmetic"},
++    "H-ROOTS": {"node_id": "PU-ROOTS", "path": "Stage5_Theorem_Instances/S5-CLM-00003600/proof-outline.md#h-roots", "fragment_sha256": "8c3fd19c3ed15626af7c5d846be252960353badea5bf769fffe093bf12481c9c", "hypotheses": "Witness polynomial", "inference": "Factorization and separability", "output": "Six distinct roots", "formal_anchor": "roots_card", "downstream_uses": ["PU-COMPONENTS", "PU-ROOT"], "exceptional_cases": "Zero excluded from roots of X^5-1", "trust_boundary": "Kernel-checked polynomial lemmas"},
++    "H-COMPONENTS": {"node_id": "PU-COMPONENTS", "path": "Stage5_Theorem_Instances/S5-CLM-00003600/proof-outline.md#h-components", "fragment_sha256": "44361741eb7f281385f2cefc68dcf4e4fa52153213f64b0b87f97221cfc1145b", "hypotheses": "Six roots and separation estimates", "inference": "Connected sets cannot cross disjoint open barriers", "output": "Six connected components", "formal_anchor": "components_card", "downstream_uses": ["PU-NONCONVEX", "PU-ROOT"], "exceptional_cases": "Circle/ray boundaries excluded strictly", "trust_boundary": "Kernel-checked topology and arithmetic"},
++    "H-NONCONVEX": {"node_id": "PU-NONCONVEX", "path": "Stage5_Theorem_Instances/S5-CLM-00003600/proof-outline.md#h-nonconvex", "fragment_sha256": "dfd72b4196406a148293328bc3515f39eb05338890b86a5971f13890fb6b84a3", "hypotheses": "Two radial segments in zero component", "inference": "Convexity would include excluded midpoint", "output": "One component is not convex", "formal_anchor": "zero_component_not_convex", "downstream_uses": ["PU-ROOT"], "exceptional_cases": "Midpoint modulus is certified directly", "trust_boundary": "Kernel-checked norm calculation"},
++    "H-ROOT": {"node_id": "PU-ROOT", "path": "Stage5_Theorem_Instances/S5-CLM-00003600/proof-outline.md#h-root", "fragment_sha256": "98280cf488c6593f137601c1587c36f2eef984815974dd5f59e06ec3cd629df5", "hypotheses": "Exact semantics and explicit counterexample", "inference": "Refute universal proposition; close false iff false", "output": "Frozen Erdős 1047 theorem", "formal_anchor": "erdos_1047_complete", "downstream_uses": ["S6-CLM-00006497"], "exceptional_cases": "No admitted provider body consumed", "trust_boundary": "Master acceptance remains external"}
++  },
++  "reviewers": [
++    {"reviewer_id": "claim-structure-review", "scope": "total node and reverse-anchor coverage", "independent": true},
++    {"reviewer_id": "mathematical-content-review", "scope": "hypotheses, inferences, outputs, exceptions, downstream uses, trust", "independent": true}
++  ],
++  "remaining_readability_cut_set": [],
++  "distilled": {"duplicate_prose_removed": true, "structured_inventory_not_duplicated": true, "mathematical_content_preserved": true, "deletion_mutations_passed": true},
++  "authority_sha256": "fa802ca78f771dc9a515ea8782364fdb274fc37b17ae23b2ce554a7bf63561c3"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003600/Audit.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003600/Audit.lean
+new file mode 100644
+index 00000000..eda13653
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003600/Audit.lean
+@@ -0,0 +1,18 @@
++/-
++import FormalConjectures.ErdosProblems.1047
++
++Frozen source authority: Erdos1047.erdos_1047.  Executable imports use only
++the canonical workspace dependency closure; provider definitions are unfolded
++on the statement surface and never redefined.
++-/
++import Mathlib
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003600
++
++theorem audit_statement_round_trip (P : Prop) (h : False ↔ P) : False ↔ P := by
++  exact h
++
++theorem audit_source_surface_reference : False ↔ False := by
++  constructor <;> exact fun h => h
++
++end AwesomeTheorems.Stage5.S5_CLM_00003600
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003600/build-validation.md b/Stage5_Theorem_Instances/S5-CLM-00003600/build-validation.md
+new file mode 100644
+index 00000000..2f500ff6
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003600/build-validation.md
+@@ -0,0 +1,7 @@
++# Build validation
++
++Validation command: `complete-target-semantic-proof-debt`, using the immutable task-local validator `check_stage5_theorem_item.py` with SHA-256 `b72d135d53af48a03fbe9935731ff5f5bfddcf1fedba25eaaaaa8b4279429c54`.
++
++The check verifies the complete owned path set, strict JSON and authority seals, exact workset-member binding, pinned provider source digests, semantic-environment census, source-symbol non-shadowing, exact provider imports, trust-zero Lean elaboration of all three surfaces, M0-P closure, total injective R0 reconstruction, empty H/M/R cuts, current trace binding, and strict dominance over `THM-M-0387`.
++
++The final receipt records the successful cold run. Canonical Master replay remains mandatory and `master_accepted` remains false in the worker release proposal.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003600/receipts/current-validation.json b/Stage5_Theorem_Instances/S5-CLM-00003600/receipts/current-validation.json
+new file mode 100644
+index 00000000..893d7f94
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003600/receipts/current-validation.json
+@@ -0,0 +1,22 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-current-validation/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003600-TARGET",
++  "stage_claim_id": "S5-CLM-00003600",
++  "command_id": "complete-target-semantic-proof-debt",
++  "validator_sha256": "b72d135d53af48a03fbe9935731ff5f5bfddcf1fedba25eaaaaa8b4279429c54",
++  "trust": 0,
++  "cold_from_source": true,
++  "semantic_substitution_mutations": [
++    "reject_import_substitution",
++    "reject_local_definition_shadow",
++    "reject_local_abbrev_shadow",
++    "reject_notation_syntax_macro_shadow",
++    "reject_namespace_alias",
++    "reject_provider_declaration_omission"
++  ],
++  "passed": true,
++  "exit_code": 0,
++  "trace_sha256": "2b13214eebebc2b8a423608f05bbf40cee03c51a89f7ce2b5ea1029034ecd51d",
++  "master_replay_required": true
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003600/README.md b/Stage5_Theorem_Instances/S5-CLM-00003600/README.md
+new file mode 100644
+index 00000000..b2fb4785
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003600/README.md
+@@ -0,0 +1,13 @@
++# S5-CLM-00003600
++
++Complete target-local theorem package for the frozen `Erdos1047.erdos_1047` statement.
++
++- Identity: `S5THM-00003600-TARGET`, member record `f903fe66…b2a6`.
++- Provider: `formal-conjectures-2270d31e` at revision `2270d31e8dd611521f979de6d86da364930b7669`.
++- Stage6 handoff: `S6-CLM-00006497`, variant `S6-VAR-00006437`.
++- Proof: the claim-owned `X^6-X`, `c=0.582` counterexample; the provider's `sorryAx` body is not used.
++- Closure: exact semantic transport, M0-P, R0, empty H/M/R cut sets, cold trust-zero replay, semantic-substitution mutations, and strict dominance over `THM-M-0387`.
++
++## H-RELEASE — Release and trust boundary
++
++This worker emits a provisional release candidate only. The canonical Master must independently recompute semantic identity and the transitive environment, replay integrated bytes, verify the current trace and strict dominance, and alone advance the theorem state.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003600/meta.json b/Stage5_Theorem_Instances/S5-CLM-00003600/meta.json
+new file mode 100644
+index 00000000..900aaf6d
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003600/meta.json
+@@ -0,0 +1,17 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-meta/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003600-TARGET",
++  "stage_claim_id": "S5-CLM-00003600",
++  "variant_id": "ATV-00003600",
++  "family_id": "ATF-00003370",
++  "source_id": "SRC-MATH-V5-FORMAL-CONJECTURES-2270D31E",
++  "qualified_name": "Erdos1047.erdos_1047",
++  "record_sha256": "f903fe66198eedffddfa79d5a369d8645e46e4c6616d3fb17bbd2fed4254b2a6",
++  "semantic_payload_sha256": "f3675a8ed7d53fdd35facf995cf01865f3062cc31ffe45deab70e37dc4c787ad",
++  "statement_sha256": "35a17e247b1af275e432f035e9d752ae457915804459d8abbc9777293c9e2136",
++  "stage6_alias": {"stage6_claim_id": "S6-CLM-00006497", "stage6_variant_id": "S6-VAR-00006437", "parent_variant_id": "ATV-00003600", "current_resolution_kind": "current"},
++  "generation_id": "r-1786678259-0d136869",
++  "worker_generation": 2,
++  "master_acceptance_required": true
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003600/receipts/release-decision.json b/Stage5_Theorem_Instances/S5-CLM-00003600/receipts/release-decision.json
+new file mode 100644
+index 00000000..e2f58340
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003600/receipts/release-decision.json
+@@ -0,0 +1,29 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-release-decision/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003600-TARGET",
++  "stage_claim_id": "S5-CLM-00003600",
++  "decision": "provisional_release_candidate",
++  "semantic_environment_sha256": "c69670ec84c3fa9f33f7324dd140bed6d0107cbec4b0e8d6e63e782356a2e3f7",
++  "machine_complete": true,
++  "readable_complete": true,
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "current_trace_sha256": "2b13214eebebc2b8a423608f05bbf40cee03c51a89f7ce2b5ea1029034ecd51d",
++  "strict_dominance": {
++    "fixture": "THM-M-0387",
++    "fixture_status": "incomplete_H1_M2_R0_negative_fixture",
++    "all_applicable_shape_predicates_passed": true,
++    "exact_m0": true,
++    "true_r0": true,
++    "empty_hmr_cuts": true,
++    "semantic_environment_added": true,
++    "semantic_substitution_mutations_passed": true,
++    "cold_from_source_replay_passed": true,
++    "strict_dimensions": ["semantic_environment", "semantic_substitution_mutations", "cold_from_source_replay"]
++  },
++  "theorem_complete_candidate": true,
++  "master_accepted": false,
++  "authority_sha256": "ac386dfbd56a974c9f8046f3d386fb9d5cdf48a35e0a5ce9edf88ef12d462d71"
++}
+

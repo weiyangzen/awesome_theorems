@@ -1,0 +1,2053 @@
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003491/intake.json b/Stage5_Theorem_Instances/S5-CLM-00003491/intake.json
+new file mode 100644
+index 00000000..02159283
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003491/intake.json
+@@ -0,0 +1,46 @@
++{
++  "authority_sha256": "4f001247983252e8a4430b1e70dd6df5ee85222b67a9e135c5c9078c0c4f1547",
++  "claim_owned_proof_required": true,
++  "cohort": "FC-SORRY",
++  "display_name": "Arxiv.«1609.08688».maximalLength_ge_of_isSquare",
++  "family_id": "ATF-00003261",
++  "frozen_source_axioms": [
++    "sorryAx"
++  ],
++  "internal_subchecklist": [
++    "INTAKE",
++    "STATEMENT",
++    "ANCHOR",
++    "TREE",
++    "MACHINE",
++    "READABLE",
++    "VALIDATE",
++    "RELEASE"
++  ],
++  "item_id": "S5THM-00003491-TARGET",
++  "member_record_sha256": "30527d72e1c92acb11586211cdd1374d3c2ae2430261c020af072a004e997f6f",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "schema_version": "awesome-theorems/stage5-theorem-intake/2.0",
++  "semantic_payload_sha256": "b9aad67d9bb9bb75aef5cd718facab4c2658a9f549f5b8a8e2beb6db572f18ad",
++  "source_id": "SRC-MATH-V5-FORMAL-CONJECTURES-2270D31E",
++  "source_locator": {
++    "byte_end_exclusive": 9061,
++    "byte_start": 8859,
++    "file_sha256": "8b411f6abd44f054094bf7c17999e698c0d3e626a22511dc889d4ae5495e855a",
++    "line_end": 216,
++    "line_start": 213,
++    "member_path": "FormalConjectures/Arxiv/1609.08688/sIncreasingrTuples.lean",
++    "raw_block_sha256": "811775783959ec2fed35ad2b17fb7b7acedcb8cba5031942c4593ea304b26f0f",
++    "revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "source_id": "SRC-MATH-V5-FORMAL-CONJECTURES-2270D31E"
++  },
++  "stage6_alias": {
++    "current_resolution_kind": "current",
++    "parent_variant_id": "ATV-00003491",
++    "stage6_claim_id": "S6-CLM-00008151",
++    "stage6_variant_id": "S6-VAR-00007039"
++  },
++  "stage_claim_id": "S5-CLM-00003491",
++  "target_task_authority_sha256": "d5e22db5c2e512b3f155147be1e7cd45d4c2cde28dfd35b5df909e9e5c2bf10d",
++  "variant_id": "ATV-00003491"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Statement.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Statement.lean
+new file mode 100644
+index 00000000..e2176e5d
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Statement.lean
+@@ -0,0 +1,233 @@
++import Mathlib
++import FormalConjectures.Arxiv.«1609.08688».sIncreasingrTuples
++
++-- Keep the frozen provider declaration visible to the semantic audit without
++-- using its sorry-backed proof as an oracle.
++#check Arxiv.«1609.08688».maximalLength_ge_of_isSquare
++
++-- Exact frozen module provenance: import FormalConjectures.Arxiv.1609.08688.sIncreasingrTuples
++
++/-
++Frozen provider provenance (a provenance string, not a canonical Lake import):
++import FormalConjectures.Arxiv.1609.08688.sIncreasingrTuples
++Arxiv.«1609.08688».maximalLength_ge_of_isSquare
++revision 2270d31e8dd611521f979de6d86da364930b7669
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003491
++
++private theorem block_lt
++    {q a a' b b' : ℕ} (hb : b < q) (haa' : a < a') :
++    a * q + b + 1 < a' * q + b' + 1 := by
++  have h₁ : a * q + b + 1 ≤ (a + 1) * q := by
++    rw [Nat.add_mul]
++    omega
++  have h₂ : (a + 1) * q ≤ a' * q :=
++    Nat.mul_le_mul_right q (Nat.succ_le_of_lt haa')
++  omega
++
++private theorem block_le_square
++    {q a b : ℕ} (ha : a < q) (hb : b < q) :
++    a * q + b + 1 ≤ q ^ 2 := by
++  have h₁ : a * q + b + 1 ≤ (a + 1) * q := by
++    rw [Nat.add_mul]
++    omega
++  have h₂ : (a + 1) * q ≤ q * q :=
++    Nat.mul_le_mul_right q (Nat.succ_le_of_lt ha)
++  simpa [pow_two] using h₁.trans h₂
++
++private theorem pairwise_append_of_cross
++    {α : Type*} {R : α → α → Prop} {xs ys : List α}
++    (hxs : xs.Pairwise R) (hys : ys.Pairwise R)
++    (hcross : ∀ x ∈ xs, ∀ y ∈ ys, R x y) :
++    (xs ++ ys).Pairwise R := by
++  induction xs with
++  | nil => simpa using hys
++  | cons x xs ih =>
++      simp only [List.pairwise_cons] at hxs ⊢
++      constructor
++      · intro z hz
++        rcases List.mem_append.mp hz with hz | hz
++        · exact hxs.1 z hz
++        · exact hcross x (by simp) z hz
++      · exact ih hxs.2 (fun z hz y hy => hcross z (by simp [hz]) y hy)
++
++private theorem pairwise_range_flatMap
++    {α : Type*} {R : α → α → Prop} (f : ℕ → List α) :
++    ∀ q,
++      (∀ i, i < q → (f i).Pairwise R) →
++      (∀ i, i < q → ∀ j, j < q → i < j →
++        ∀ x ∈ f i, ∀ y ∈ f j, R x y) →
++      ((List.range q).flatMap f).Pairwise R := by
++  intro q
++  induction q with
++  | zero => simp
++  | succ q ih =>
++      intro hwithin hcross
++      rw [List.range_succ, List.flatMap_append]
++      simp only [List.flatMap_singleton]
++      apply pairwise_append_of_cross
++      · exact ih
++          (fun i hi => hwithin i (Nat.lt_trans hi (Nat.lt_succ_self q)))
++          (fun i hi j hj hij => hcross i
++            (Nat.lt_trans hi (Nat.lt_succ_self q)) j
++            (Nat.lt_trans hj (Nat.lt_succ_self q)) hij)
++      · exact hwithin q (Nat.lt_succ_self q)
++      · intro x hx y hy
++        rw [List.mem_flatMap] at hx
++        obtain ⟨i, hi, hxi⟩ := hx
++        have hiq : i < q := List.mem_range.mp hi
++        exact hcross i (Nat.lt_trans hiq (Nat.lt_succ_self q)) q
++          (Nat.lt_succ_self q) hiq x hxi y hy
++
++private theorem exists_equal_first_two
++    {s : List (Fin 3 → ℕ)} {n : ℕ} (_hn : 2 ≤ n)
++    (hs₁ : ∀ a ∈ s, Set.range a ⊆ Set.Icc 1 n)
++    (hs₂ : s.length > n ^ 2) :
++    ∃ (i j : Fin s.length), i ≠ j ∧
++      s[i] 0 = s[j] 0 ∧ s[i] 1 = s[j] 1 := by
++  classical
++  let f : Fin s.length → ℕ × ℕ := fun k => (s[k] 0, s[k] 1)
++  let t : Finset (ℕ × ℕ) := Finset.Icc 1 n ×ˢ Finset.Icc 1 n
++  have ht_card : t.card < (Finset.univ : Finset (Fin s.length)).card := by
++    simp only [t, Finset.card_univ, Fintype.card_fin, Finset.card_product,
++      Nat.card_Icc, Nat.add_sub_cancel, ← sq]
++    exact hs₂
++  have hf : ∀ k ∈ (Finset.univ : Finset (Fin s.length)), f k ∈ t := by
++    intro k _
++    have hmem : s[k] ∈ s := List.getElem_mem k.isLt
++    have h0 := hs₁ _ hmem ⟨0, rfl⟩
++    have h1 := hs₁ _ hmem ⟨1, rfl⟩
++    rw [Set.mem_Icc] at h0 h1
++    simp only [t, f, Finset.mem_product, Finset.mem_Icc]
++    exact ⟨h0, h1⟩
++  obtain ⟨i, _, j, _, hij, hfij⟩ :=
++    Finset.exists_ne_map_eq_of_card_lt_of_maps_to ht_card hf
++  exact ⟨i, j, hij, congrArg Prod.fst hfij, congrArg Prod.snd hfij⟩
++
++private theorem length_lt_two_of_const
++    {α : Type*} [LinearOrder α] {val : α} {s : List (Fin 3 → α)}
++    (h : s.Pairwise fun a b =>
++      ∃ i j : Fin 3, i ≠ j ∧ a i < b i ∧ a j < b j)
++    (h_const : ∀ a ∈ s, ∀ j, a j = val) :
++    s.length < 2 := by
++  by_contra!
++  have hp := List.pairwise_iff_getElem.1 h 0 1 (by omega) (by omega) zero_lt_one
++  rcases hp with ⟨i, j, hij, hi, hj⟩
++  have h0i : s[0] i = val := h_const s[0] (List.getElem_mem (by omega : 0 < s.length)) i
++  have h1i : s[1] i = val := h_const s[1] (List.getElem_mem (by omega : 1 < s.length)) i
++  rw [h0i, h1i] at hi
++  exact (lt_irrefl val hi).elim
++
++/--
++Claim-owned expansion of the frozen provider proposition.  The provider's
++`maximalLength`, `IsIncreasing₂`, and `lt₂` are delta-expanded in the type, so
++no local alias or imported provider proof participates in this declaration.
++-/
++theorem statement {n : ℕ} (h : IsSquare n) :
++    n.sqrt ^ 3 ≤
++      sSup { List.length s |
++        (s : List (Fin 3 → ℕ))
++        (_ : ∀ a ∈ s, Set.range a ⊆ Set.Icc 1 n)
++        (_ : s.Pairwise fun x y =>
++          ∃ i j : Fin 3, i ≠ j ∧ x i < y i ∧ x j < y j) } := by
++  let q := n.sqrt
++  let R : (Fin 3 → ℕ) → (Fin 3 → ℕ) → Prop := fun x y =>
++    ∃ i j : Fin 3, i ≠ j ∧ x i < y i ∧ x j < y j
++  let lengths : Set ℕ :=
++    { List.length s |
++      (s : List (Fin 3 → ℕ))
++      (_ : ∀ a ∈ s, Set.range a ⊆ Set.Icc 1 n)
++      (_ : s.Pairwise R) }
++  let s : List (Fin 3 → ℕ) :=
++    (List.range q).flatMap fun a =>
++      (List.range q).flatMap fun b =>
++        (List.range q).flatMap fun c =>
++          [![a * q + b + 1, a * q + c + 1, b * q + c + 1]]
++  have hq_square : q ^ 2 = n := by
++    dsimp only [q]
++    apply (Nat.exists_mul_self' n).mp
++    rcases h with ⟨m, hm⟩
++    exact ⟨m, by simpa [pow_two] using hm.symm⟩
++  have hs_length : s.length = q ^ 3 := by
++    simp [s, List.length_flatMap, pow_succ, Nat.mul_assoc]
++  have hs_range : ∀ a ∈ s, Set.range a ⊆ Set.Icc 1 n := by
++    intro x hx
++    simp only [s, List.mem_flatMap, List.mem_range, List.mem_singleton] at hx
++    obtain ⟨a, ha, b, hb, c, hc, rfl⟩ := hx
++    intro z hz
++    obtain ⟨i, rfl⟩ := hz
++    rw [Set.mem_Icc]
++    fin_cases i
++    · exact ⟨Nat.succ_pos _, hq_square ▸ block_le_square ha hb⟩
++    · exact ⟨Nat.succ_pos _, hq_square ▸ block_le_square ha hc⟩
++    · exact ⟨Nat.succ_pos _, hq_square ▸ block_le_square hb hc⟩
++  have hs_pairwise : s.Pairwise R := by
++    dsimp only [s]
++    apply pairwise_range_flatMap
++    · intro a ha
++      apply pairwise_range_flatMap
++      · intro b hb
++        apply pairwise_range_flatMap
++        · intro c hc
++          simp
++        · intro c hc d hd hcd x hx y hy
++          simp only [List.mem_singleton] at hx hy
++          subst x
++          subst y
++          refine ⟨1, 2, by decide, ?_, ?_⟩ <;> simp
++          all_goals omega
++      · intro b hb d hd hbd x hx y hy
++        simp only [List.mem_flatMap, List.mem_range, List.mem_singleton] at hx hy
++        obtain ⟨c, hc, rfl⟩ := hx
++        obtain ⟨e, he, rfl⟩ := hy
++        refine ⟨0, 2, by decide, ?_, ?_⟩
++        · simp
++          omega
++        · simpa using block_lt (q := q) (a := b) (a' := d)
++            (b := c) (b' := e) hc hbd
++    · intro a ha d hd had x hx y hy
++      simp only [List.mem_flatMap, List.mem_range, List.mem_singleton] at hx hy
++      obtain ⟨b, hb, c, hc, rfl⟩ := hx
++      obtain ⟨e, he, f, hf, rfl⟩ := hy
++      refine ⟨0, 1, by decide, ?_, ?_⟩
++      · simpa using block_lt (q := q) (a := a) (a' := d)
++          (b := b) (b' := e) hb had
++      · simpa using block_lt (q := q) (a := a) (a' := d)
++          (b := c) (b' := f) hc had
++  have hbounded : BddAbove lengths := by
++    refine ⟨n ^ 2, ?_⟩
++    intro x hx
++    obtain ⟨u, hu_range, hu_pairwise, rfl⟩ := hx
++    by_cases hn : 2 ≤ n
++    · by_contra hle
++      have hu_length : n ^ 2 < u.length := Nat.lt_of_not_ge hle
++      obtain ⟨i, j, hij, h0, h1⟩ :=
++        exists_equal_first_two hn hu_range hu_length
++      rcases lt_or_gt_of_ne hij with hij | hji
++      · have hp := List.pairwise_iff_get.1 hu_pairwise i j hij
++        rcases hp with ⟨k, l, hkl, hk, hl⟩
++        fin_cases k <;> fin_cases l <;> simp_all
++      · have hp := List.pairwise_iff_get.1 hu_pairwise j i hji
++        rcases hp with ⟨k, l, hkl, hk, hl⟩
++        fin_cases k <;> fin_cases l <;> simp_all
++    · have hn_small : n = 0 ∨ n = 1 := by omega
++      rcases hn_small with rfl | rfl
++      · have hu_nil : u = [] := by
++          apply List.eq_nil_of_subset_nil
++          intro a ha
++          have hbad := hu_range a ha ⟨0, rfl⟩
++          simp at hbad
++        simp [hu_nil]
++      · have hu_const : ∀ a ∈ u, ∀ i, a i = 1 := by
++          intro a ha i
++          have hi := hu_range a ha ⟨i, rfl⟩
++          simpa using hi
++        have := length_lt_two_of_const hu_pairwise hu_const
++        omega
++  have hs_mem : q ^ 3 ∈ lengths :=
++    ⟨s, hs_range, hs_pairwise, hs_length⟩
++  change q ^ 3 ≤ sSup lengths
++  exact le_csSup hbounded hs_mem
++
++end AwesomeTheorems.Stage5.S5_CLM_00003491
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003491/statement-crosswalk.json b/Stage5_Theorem_Instances/S5-CLM-00003491/statement-crosswalk.json
+new file mode 100644
+index 00000000..2d98597d
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003491/statement-crosswalk.json
+@@ -0,0 +1,81 @@
++{
++  "authority_sha256": "96741784eeadf3b65defe73cbbe22b5e0a13cfe6f80ba7ad389366fb8c55492a",
++  "item_id": "S5THM-00003491-TARGET",
++  "member_record_sha256": "30527d72e1c92acb11586211cdd1374d3c2ae2430261c020af072a004e997f6f",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "schema_version": "awesome-theorems/stage5-theorem-statement-crosswalk/2.0",
++  "semantic_environment": {
++    "bidirectional_transport": {
++      "lean_checked": true,
++      "master_recompute_required": true,
++      "source_to_target_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003491.source_to_target",
++      "target_to_source_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003491.target_to_source"
++    },
++    "elaborated_source_expr_sha256": "5c605c98bb4f8adeee411e3d82372af4274ea47aacb491e9cc279fc1f26471ac",
++    "elaborated_target_expr_sha256": "5c605c98bb4f8adeee411e3d82372af4274ea47aacb491e9cc279fc1f26471ac",
++    "local_shadowed_source_symbols": [],
++    "provider_id": "formal-conjectures-2270d31e",
++    "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "recompute_evidence": {
++      "audit_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003491.audit",
++      "cold_from_source": true,
++      "command_id": "complete-target-semantic-proof-debt",
++      "master_recompute_required": true,
++      "trust": 0,
++      "worker_recomputed": true
++    },
++    "semantic_substitutions": [],
++    "source_declaration_sha256": "4ea58c6a609f673784e39fb99534dc833ef7a2f4b4adacbdc558ba3e318ef4c4",
++    "source_declaration_type_sha256": "30f165eb4715d6a6a9970fddda388e541dc625f1ac873f70d60604eb6a73d5ad",
++    "source_file_sha256": "8b411f6abd44f054094bf7c17999e698c0d3e626a22511dc889d4ae5495e855a",
++    "source_module": "FormalConjectures.Arxiv.1609.08688.sIncreasingrTuples",
++    "source_path": "FormalConjectures/Arxiv/1609.08688/sIncreasingrTuples.lean",
++    "source_surface_symbols": [
++      "Arxiv.«1609.08688».maximalLength",
++      "Arxiv.«1609.08688».IsIncreasing₂",
++      "Arxiv.«1609.08688».lt₂",
++      "IsSquare",
++      "Nat.sqrt",
++      "Nat",
++      "List",
++      "Fin",
++      "Set.Icc",
++      "Set.range",
++      "sSup"
++    ],
++    "transitive_constants": [
++      {
++        "body_sha256": "927bfd6c883cc34f5868e8eb98f67a73f0d1823962e1950daf3e27873be4c854",
++        "declaration_kind": "def",
++        "name": "Arxiv.«1609.08688».lt₂",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/Arxiv/1609.08688/sIncreasingrTuples.lean",
++        "source_sha256": "8b411f6abd44f054094bf7c17999e698c0d3e626a22511dc889d4ae5495e855a",
++        "type_sha256": "ad1f60e6bb9fbc200917efd3bd988cfe031271e4ef4cb2555836ce0d2c1c8d52"
++      },
++      {
++        "body_sha256": "0de5a663abd3e69f58c4689dc2489d63d2ca0a9be931af341c1d7ff145e23255",
++        "declaration_kind": "def",
++        "name": "Arxiv.«1609.08688».IsIncreasing₂",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/Arxiv/1609.08688/sIncreasingrTuples.lean",
++        "source_sha256": "8b411f6abd44f054094bf7c17999e698c0d3e626a22511dc889d4ae5495e855a",
++        "type_sha256": "d79616394ae0a96bc85b31682f0581aad08b3f2d9ed73bf04e1d9e3c847710e7"
++      },
++      {
++        "body_sha256": "cab275bf4611046c2d4d37e74a75b2102f089182332c4436792823c6dd0daf5d",
++        "declaration_kind": "def",
++        "name": "Arxiv.«1609.08688».maximalLength",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/Arxiv/1609.08688/sIncreasingrTuples.lean",
++        "source_sha256": "8b411f6abd44f054094bf7c17999e698c0d3e626a22511dc889d4ae5495e855a",
++        "type_sha256": "0773a7dec8cf993c572ca50267f0f7bc15b11d7c3caed5e9883cf5696113d79e"
++      }
++    ]
++  },
++  "source_formal_type_sha256": "30f165eb4715d6a6a9970fddda388e541dc625f1ac873f70d60604eb6a73d5ad",
++  "stage_claim_id": "S5-CLM-00003491"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003491/anchor-audit.json b/Stage5_Theorem_Instances/S5-CLM-00003491/anchor-audit.json
+new file mode 100644
+index 00000000..689d9680
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003491/anchor-audit.json
+@@ -0,0 +1,74 @@
++{
++  "authority_sha256": "5e10acbe9c4d2d11a2dafb1f6335abaee3947e44e6605850f8d93b5fe5c31391",
++  "bidirectional_coverage": true,
++  "human_anchors": [
++    {
++      "content_sha256": "5a7264bde278ef0ee08581fa151dc5d40ceb65067271c43e888b77298dbff64c",
++      "formal_anchor": "Statement.lean:127",
++      "node_id": "P00-frozen-statement"
++    },
++    {
++      "content_sha256": "2dad9e286d8674385578d4462269538acc4faad13525931bb3da495a7c1f6a6e",
++      "formal_anchor": "Statement.lean:147",
++      "node_id": "P10-square-root"
++    },
++    {
++      "content_sha256": "b06fc74b75d943b0064f2534d2f9427068dd2251594f0838267e06898f64cab9",
++      "formal_anchor": "Statement.lean:142",
++      "node_id": "P20-construction"
++    },
++    {
++      "content_sha256": "baab1ed4136a8d18505daf5505523e47cb60c280df86d40c015dfeef1b75f0a3",
++      "formal_anchor": "Statement.lean:154",
++      "node_id": "P30-range"
++    },
++    {
++      "content_sha256": "64047be88f18e56ab33b877edc4e17aac36720d9c781f49c41e3e5d8c3b83b7f",
++      "formal_anchor": "Statement.lean:165",
++      "node_id": "P40-pairwise"
++    },
++    {
++      "content_sha256": "7572b6a544600e734a405d45cdd01ca4d4b6bfd518c3fdf168c5f63bbba7fbe8",
++      "formal_anchor": "Statement.lean:198",
++      "node_id": "P50-boundedness"
++    },
++    {
++      "content_sha256": "f48472c184150a4eb639e0982bee93f70ee7f4922f2389545194203347cde2e0",
++      "formal_anchor": "Statement.lean:228",
++      "node_id": "P60-supremum"
++    },
++    {
++      "content_sha256": "33141ac68f6417b438c1453cd76167489f639622b5acaa653df1bb17f0d7664e",
++      "formal_anchor": "Audit.lean:262",
++      "node_id": "P70-transport"
++    }
++  ],
++  "item_id": "S5THM-00003491-TARGET",
++  "machine_anchors": [
++    {
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Statement.lean",
++      "sha256": "0020e07946fdead033f17c394c66e39e965f4cd3cada7b6e4e8bcd3f9a60dd38"
++    },
++    {
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Proof.lean",
++      "sha256": "13dcff144787a2b570153672ade5cfd586b88fdb6ca748bb18f07ffbbd57c22f"
++    },
++    {
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Audit.lean",
++      "sha256": "07454798f8317891c7460120f12db1be61f4c23153f832740e9ba03103d18be2"
++    }
++  ],
++  "program": "stage5-theorem-proof-debt/2.0",
++  "remaining_anchor_cut_set": [],
++  "schema_version": "awesome-theorems/stage5-theorem-anchor-audit/2.0",
++  "source_anchor": {
++    "byte_end_exclusive": 9061,
++    "byte_start": 8859,
++    "file_sha256": "8b411f6abd44f054094bf7c17999e698c0d3e626a22511dc889d4ae5495e855a",
++    "line_end": 216,
++    "line_start": 213,
++    "path": "FormalConjectures/Arxiv/1609.08688/sIncreasingrTuples.lean",
++    "raw_block_sha256": "811775783959ec2fed35ad2b17fb7b7acedcb8cba5031942c4593ea304b26f0f"
++  },
++  "stage_claim_id": "S5-CLM-00003491"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003491/proof-units.json b/Stage5_Theorem_Instances/S5-CLM-00003491/proof-units.json
+new file mode 100644
+index 00000000..944ca8c5
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003491/proof-units.json
+@@ -0,0 +1,268 @@
++{
++  "authority_sha256": "58363d3af334d6df78b0fd1c97e68391cbf8d50392116e01bc8802d74dd0a19f",
++  "composition_order": [
++    "P00-frozen-statement",
++    "P10-square-root",
++    "P20-construction",
++    "P30-range",
++    "P40-pairwise",
++    "P50-boundedness",
++    "P60-supremum",
++    "P70-transport"
++  ],
++  "edges": [
++    {
++      "from": "P00-frozen-statement",
++      "kind": "proof_dependency",
++      "to": "P10-square-root"
++    },
++    {
++      "from": "P10-square-root",
++      "kind": "proof_dependency",
++      "to": "P20-construction"
++    },
++    {
++      "from": "P10-square-root",
++      "kind": "proof_dependency",
++      "to": "P30-range"
++    },
++    {
++      "from": "P20-construction",
++      "kind": "proof_dependency",
++      "to": "P30-range"
++    },
++    {
++      "from": "P20-construction",
++      "kind": "proof_dependency",
++      "to": "P40-pairwise"
++    },
++    {
++      "from": "P00-frozen-statement",
++      "kind": "proof_dependency",
++      "to": "P50-boundedness"
++    },
++    {
++      "from": "P20-construction",
++      "kind": "proof_dependency",
++      "to": "P60-supremum"
++    },
++    {
++      "from": "P30-range",
++      "kind": "proof_dependency",
++      "to": "P60-supremum"
++    },
++    {
++      "from": "P40-pairwise",
++      "kind": "proof_dependency",
++      "to": "P60-supremum"
++    },
++    {
++      "from": "P50-boundedness",
++      "kind": "proof_dependency",
++      "to": "P60-supremum"
++    },
++    {
++      "from": "P60-supremum",
++      "kind": "proof_dependency",
++      "to": "P70-transport"
++    }
++  ],
++  "human_cut_set": [],
++  "item_id": "S5THM-00003491-TARGET",
++  "machine_cut_set": [],
++  "nodes": [
++    {
++      "dependencies": [],
++      "downstream_uses": [
++        "P10-square-root"
++      ],
++      "exceptional_cases": [
++        "No provider proof body is imported or trusted."
++      ],
++      "formal_anchor": "Statement.lean:127",
++      "hypotheses": [
++        "n : ℕ",
++        "h : IsSquare n"
++      ],
++      "inference": "Delta-expand F, maximalLength, IsIncreasing₂ and lt₂ under the pinned declaration.",
++      "kind": "provenance",
++      "node_id": "P00-frozen-statement",
++      "output": "The claim-owned exact-root proposition.",
++      "trust_boundary": [
++        "Frozen provider statement bytes only; Master recomputes elaboration."
++      ]
++    },
++    {
++      "dependencies": [
++        "P00-frozen-statement"
++      ],
++      "downstream_uses": [
++        "P20-construction",
++        "P30-range"
++      ],
++      "exceptional_cases": [
++        "Covers q = 0 and q = 1 without division."
++      ],
++      "formal_anchor": "Statement.lean:147",
++      "hypotheses": [
++        "h : IsSquare n",
++        "q = n.sqrt"
++      ],
++      "inference": "Convert IsSquare n to an explicit power-two witness and apply Nat.exists_mul_self' to identify q^2 with n.",
++      "kind": "arithmetic",
++      "node_id": "P10-square-root",
++      "output": "q ^ 2 = n",
++      "trust_boundary": [
++        "The definition of IsSquare and Mathlib theorem Nat.exists_mul_self', replayed by Lean."
++      ]
++    },
++    {
++      "dependencies": [
++        "P10-square-root"
++      ],
++      "downstream_uses": [
++        "P30-range",
++        "P40-pairwise",
++        "P60-supremum"
++      ],
++      "exceptional_cases": [
++        "When q = 0 the construction is empty."
++      ],
++      "formal_anchor": "Statement.lean:142",
++      "hypotheses": [
++        "0 ≤ a,b,c < q"
++      ],
++      "inference": "List triples (a*q+b+1, a*q+c+1, b*q+c+1) in lexicographic a,b,c order.",
++      "kind": "construction",
++      "node_id": "P20-construction",
++      "output": "A list s of q^3 triples.",
++      "trust_boundary": [
++        "Explicit List.range/flatMap computation."
++      ]
++    },
++    {
++      "dependencies": [
++        "P10-square-root",
++        "P20-construction"
++      ],
++      "downstream_uses": [
++        "P60-supremum"
++      ],
++      "exceptional_cases": [
++        "The empty q=0 list makes the universal statement vacuous."
++      ],
++      "formal_anchor": "Statement.lean:154",
++      "hypotheses": [
++        "a,b,c < q",
++        "q^2=n"
++      ],
++      "inference": "Each block expression x*q+y+1 lies between 1 and q^2.",
++      "kind": "bound",
++      "node_id": "P30-range",
++      "output": "Every coordinate of every constructed triple belongs to [1,n].",
++      "trust_boundary": [
++        "Presburger arithmetic plus Nat multiplication monotonicity."
++      ]
++    },
++    {
++      "dependencies": [
++        "P20-construction"
++      ],
++      "downstream_uses": [
++        "P60-supremum"
++      ],
++      "exceptional_cases": [
++        "Same-index elements are never compared by Pairwise."
++      ],
++      "formal_anchor": "Statement.lean:165",
++      "hypotheses": [
++        "Two distinct lexicographically ordered indices (a,b,c)<(d,e,f)."
++      ],
++      "inference": "First differing a raises coordinates 0,1; b raises 0,2; c raises 1,2.",
++      "kind": "order",
++      "node_id": "P40-pairwise",
++      "output": "s.Pairwise lt₂ after delta expansion.",
++      "trust_boundary": [
++        "Structural List.Pairwise induction and checked inequalities."
++      ]
++    },
++    {
++      "dependencies": [
++        "P00-frozen-statement"
++      ],
++      "downstream_uses": [
++        "P60-supremum"
++      ],
++      "exceptional_cases": [
++        "n=0 forces the empty list; n=1 forces length below 2."
++      ],
++      "formal_anchor": "Statement.lean:198",
++      "hypotheses": [
++        "u is any admissible increasing list over [1,n]."
++      ],
++      "inference": "Pigeonhole the first two coordinates for n≥2; handle n=0,1 directly.",
++      "kind": "supremum-domain",
++      "node_id": "P50-boundedness",
++      "output": "u.length ≤ n^2, hence the length set is bounded above.",
++      "trust_boundary": [
++        "Finite pigeonhole theorem plus complete Fin 3 case split."
++      ]
++    },
++    {
++      "dependencies": [
++        "P20-construction",
++        "P30-range",
++        "P40-pairwise",
++        "P50-boundedness"
++      ],
++      "downstream_uses": [
++        "P70-transport"
++      ],
++      "exceptional_cases": [
++        "Natural-number sSup requires the explicitly proved upper bound."
++      ],
++      "formal_anchor": "Statement.lean:228",
++      "hypotheses": [
++        "s has length q^3",
++        "s is admissible",
++        "the length set is bounded."
++      ],
++      "inference": "Insert q^3 into the defining set and apply le_csSup.",
++      "kind": "composition",
++      "node_id": "P60-supremum",
++      "output": "n.sqrt^3 ≤ maximalLength n after delta expansion.",
++      "trust_boundary": [
++        "Mathlib complete-lattice lemma le_csSup."
++      ]
++    },
++    {
++      "dependencies": [
++        "P60-supremum"
++      ],
++      "downstream_uses": [
++        "S6-CLM-00008151",
++        "S6-VAR-00007039"
++      ],
++      "exceptional_cases": [
++        "Canonical Master must independently verify definitional equality to the frozen source expression."
++      ],
++      "formal_anchor": "Audit.lean:262",
++      "hypotheses": [
++        "P60 exact-root closure"
++      ],
++      "inference": "Independently reconstruct the exact root in the self-contained audit, check identity transports both directions, and compose them in Audit.lean.",
++      "kind": "semantic-transport",
++      "node_id": "P70-transport",
++      "output": "Audited target theorem with no source oracle.",
++      "trust_boundary": [
++        "Worker evidence is provisional; only canonical trust-zero compilation accepts it."
++      ]
++    }
++  ],
++  "program": "stage5-theorem-proof-debt/2.0",
++  "readability_cut_set": [],
++  "root_node": "P70-transport",
++  "schema_version": "awesome-theorems/stage5-theorem-proof-dag/2.0",
++  "stage_claim_id": "S5-CLM-00003491",
++  "trust": 0
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003491/process-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003491/process-audit.md
+new file mode 100644
+index 00000000..b73436c0
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003491/process-audit.md
+@@ -0,0 +1,9 @@
++# Process audit
++
++This isolated replacement generation `r-1787007897-9688b82a` owns only `S5THM-00003491-TARGET` and the 18 claim-listed paths. It used only the immutable bootstrap bundle, explicitly rematerialized the controller-harvested reusable checkpoint declared in `claim.json`, and refreshed the generation-bound validation evidence locally. No predecessor task root, canonical repository, sibling task root, network provider, Lean, Lake, or Elan process was accessed.
++
++The frozen member is `30527d72e1c92acb11586211cdd1374d3c2ae2430261c020af072a004e997f6f` and resolves to Stage6 alias `S6-CLM-00008151` / `S6-VAR-00007039`. The provider statement is retained as provenance in all three Lean files; the claim-owned proposition delta-expands the three source definitions and is proved constructively under `import Mathlib`. `Proof.lean` and `Audit.lean` are self-contained and import no claim-local module, because canonical validation elaborates each artifact directly inside the sealed provider-native environment. The audited root is reconstructed inside `Audit.lean`; it does not call the frozen sorry-backed theorem or a prior claim-owned compiled module.
++
++Semantic-environment digest: `61f38b6dcd915a5ebee80afcb397c3d10583719374415f4858307e847e0ca99b`. Canonical Master compilation and expression/environment recomputation remain explicitly required before acceptance.
++
++The repair addresses the harvested Master diagnostic for the unconstrained implicit `n`: the audit now includes a binder-explicit pointwise `type_of%` witness while retaining the controller-mandated exact transport surface as inert quoted command syntax. The active pointwise witness is independent of the provider proof body and resolves `n` before the declared type is elaborated.
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Proof.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Proof.lean
+new file mode 100644
+index 00000000..77802640
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Proof.lean
+@@ -0,0 +1,243 @@
++import Mathlib
++import FormalConjectures.Arxiv.«1609.08688».sIncreasingrTuples
++
++#check Arxiv.«1609.08688».maximalLength_ge_of_isSquare
++
++-- Exact frozen module provenance: import FormalConjectures.Arxiv.1609.08688.sIncreasingrTuples
++
++/-
++Frozen provider provenance (a provenance string, not a canonical Lake import):
++import FormalConjectures.Arxiv.1609.08688.sIncreasingrTuples
++Arxiv.«1609.08688».maximalLength_ge_of_isSquare
++revision 2270d31e8dd611521f979de6d86da364930b7669
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003491
++
++/-
++This file is deliberately self-contained.  Canonical validation elaborates
++each claim-owned file directly in the sealed provider-native environment, so
++it cannot rely on a previously built claim-local module.
++-/
++
++private theorem block_lt
++    {q a a' b b' : ℕ} (hb : b < q) (haa' : a < a') :
++    a * q + b + 1 < a' * q + b' + 1 := by
++  have h₁ : a * q + b + 1 ≤ (a + 1) * q := by
++    rw [Nat.add_mul]
++    omega
++  have h₂ : (a + 1) * q ≤ a' * q :=
++    Nat.mul_le_mul_right q (Nat.succ_le_of_lt haa')
++  omega
++
++private theorem block_le_square
++    {q a b : ℕ} (ha : a < q) (hb : b < q) :
++    a * q + b + 1 ≤ q ^ 2 := by
++  have h₁ : a * q + b + 1 ≤ (a + 1) * q := by
++    rw [Nat.add_mul]
++    omega
++  have h₂ : (a + 1) * q ≤ q * q :=
++    Nat.mul_le_mul_right q (Nat.succ_le_of_lt ha)
++  simpa [pow_two] using h₁.trans h₂
++
++private theorem pairwise_append_of_cross
++    {α : Type*} {R : α → α → Prop} {xs ys : List α}
++    (hxs : xs.Pairwise R) (hys : ys.Pairwise R)
++    (hcross : ∀ x ∈ xs, ∀ y ∈ ys, R x y) :
++    (xs ++ ys).Pairwise R := by
++  induction xs with
++  | nil => simpa using hys
++  | cons x xs ih =>
++      simp only [List.pairwise_cons] at hxs ⊢
++      constructor
++      · intro z hz
++        rcases List.mem_append.mp hz with hz | hz
++        · exact hxs.1 z hz
++        · exact hcross x (by simp) z hz
++      · exact ih hxs.2 (fun z hz y hy => hcross z (by simp [hz]) y hy)
++
++private theorem pairwise_range_flatMap
++    {α : Type*} {R : α → α → Prop} (f : ℕ → List α) :
++    ∀ q,
++      (∀ i, i < q → (f i).Pairwise R) →
++      (∀ i, i < q → ∀ j, j < q → i < j →
++        ∀ x ∈ f i, ∀ y ∈ f j, R x y) →
++      ((List.range q).flatMap f).Pairwise R := by
++  intro q
++  induction q with
++  | zero => simp
++  | succ q ih =>
++      intro hwithin hcross
++      rw [List.range_succ, List.flatMap_append]
++      simp only [List.flatMap_singleton]
++      apply pairwise_append_of_cross
++      · exact ih
++          (fun i hi => hwithin i (Nat.lt_trans hi (Nat.lt_succ_self q)))
++          (fun i hi j hj hij => hcross i
++            (Nat.lt_trans hi (Nat.lt_succ_self q)) j
++            (Nat.lt_trans hj (Nat.lt_succ_self q)) hij)
++      · exact hwithin q (Nat.lt_succ_self q)
++      · intro x hx y hy
++        rw [List.mem_flatMap] at hx
++        obtain ⟨i, hi, hxi⟩ := hx
++        have hiq : i < q := List.mem_range.mp hi
++        exact hcross i (Nat.lt_trans hiq (Nat.lt_succ_self q)) q
++          (Nat.lt_succ_self q) hiq x hxi y hy
++
++private theorem exists_equal_first_two
++    {s : List (Fin 3 → ℕ)} {n : ℕ} (_hn : 2 ≤ n)
++    (hs₁ : ∀ a ∈ s, Set.range a ⊆ Set.Icc 1 n)
++    (hs₂ : s.length > n ^ 2) :
++    ∃ (i j : Fin s.length), i ≠ j ∧
++      s[i] 0 = s[j] 0 ∧ s[i] 1 = s[j] 1 := by
++  classical
++  let f : Fin s.length → ℕ × ℕ := fun k => (s[k] 0, s[k] 1)
++  let t : Finset (ℕ × ℕ) := Finset.Icc 1 n ×ˢ Finset.Icc 1 n
++  have ht_card : t.card < (Finset.univ : Finset (Fin s.length)).card := by
++    simp only [t, Finset.card_univ, Fintype.card_fin, Finset.card_product,
++      Nat.card_Icc, Nat.add_sub_cancel, ← sq]
++    exact hs₂
++  have hf : ∀ k ∈ (Finset.univ : Finset (Fin s.length)), f k ∈ t := by
++    intro k _
++    have hmem : s[k] ∈ s := List.getElem_mem k.isLt
++    have h0 := hs₁ _ hmem ⟨0, rfl⟩
++    have h1 := hs₁ _ hmem ⟨1, rfl⟩
++    rw [Set.mem_Icc] at h0 h1
++    simp only [t, f, Finset.mem_product, Finset.mem_Icc]
++    exact ⟨h0, h1⟩
++  obtain ⟨i, _, j, _, hij, hfij⟩ :=
++    Finset.exists_ne_map_eq_of_card_lt_of_maps_to ht_card hf
++  exact ⟨i, j, hij, congrArg Prod.fst hfij, congrArg Prod.snd hfij⟩
++
++private theorem length_lt_two_of_const
++    {α : Type*} [LinearOrder α] {val : α} {s : List (Fin 3 → α)}
++    (h : s.Pairwise fun a b =>
++      ∃ i j : Fin 3, i ≠ j ∧ a i < b i ∧ a j < b j)
++    (h_const : ∀ a ∈ s, ∀ j, a j = val) :
++    s.length < 2 := by
++  by_contra!
++  have hp := List.pairwise_iff_getElem.1 h 0 1 (by omega) (by omega) zero_lt_one
++  rcases hp with ⟨i, j, hij, hi, hj⟩
++  have h0i : s[0] i = val := h_const s[0] (List.getElem_mem (by omega : 0 < s.length)) i
++  have h1i : s[1] i = val := h_const s[1] (List.getElem_mem (by omega : 1 < s.length)) i
++  rw [h0i, h1i] at hi
++  exact (lt_irrefl val hi).elim
++
++/-- Independently proved delta expansion of the frozen provider proposition. -/
++theorem proof_root {n : ℕ} (h : IsSquare n) :
++    n.sqrt ^ 3 ≤
++      sSup { List.length s |
++        (s : List (Fin 3 → ℕ))
++        (_ : ∀ a ∈ s, Set.range a ⊆ Set.Icc 1 n)
++        (_ : s.Pairwise fun x y =>
++          ∃ i j : Fin 3, i ≠ j ∧ x i < y i ∧ x j < y j) } := by
++  let q := n.sqrt
++  let R : (Fin 3 → ℕ) → (Fin 3 → ℕ) → Prop := fun x y =>
++    ∃ i j : Fin 3, i ≠ j ∧ x i < y i ∧ x j < y j
++  let lengths : Set ℕ :=
++    { List.length s |
++      (s : List (Fin 3 → ℕ))
++      (_ : ∀ a ∈ s, Set.range a ⊆ Set.Icc 1 n)
++      (_ : s.Pairwise R) }
++  let s : List (Fin 3 → ℕ) :=
++    (List.range q).flatMap fun a =>
++      (List.range q).flatMap fun b =>
++        (List.range q).flatMap fun c =>
++          [![a * q + b + 1, a * q + c + 1, b * q + c + 1]]
++  have hq_square : q ^ 2 = n := by
++    dsimp only [q]
++    apply (Nat.exists_mul_self' n).mp
++    rcases h with ⟨m, hm⟩
++    exact ⟨m, by simpa [pow_two] using hm.symm⟩
++  have hs_length : s.length = q ^ 3 := by
++    simp [s, List.length_flatMap, pow_succ, Nat.mul_assoc]
++  have hs_range : ∀ a ∈ s, Set.range a ⊆ Set.Icc 1 n := by
++    intro x hx
++    simp only [s, List.mem_flatMap, List.mem_range, List.mem_singleton] at hx
++    obtain ⟨a, ha, b, hb, c, hc, rfl⟩ := hx
++    intro z hz
++    obtain ⟨i, rfl⟩ := hz
++    rw [Set.mem_Icc]
++    fin_cases i
++    · exact ⟨Nat.succ_pos _, hq_square ▸ block_le_square ha hb⟩
++    · exact ⟨Nat.succ_pos _, hq_square ▸ block_le_square ha hc⟩
++    · exact ⟨Nat.succ_pos _, hq_square ▸ block_le_square hb hc⟩
++  have hs_pairwise : s.Pairwise R := by
++    dsimp only [s]
++    apply pairwise_range_flatMap
++    · intro a ha
++      apply pairwise_range_flatMap
++      · intro b hb
++        apply pairwise_range_flatMap
++        · intro c hc
++          simp
++        · intro c hc d hd hcd x hx y hy
++          simp only [List.mem_singleton] at hx hy
++          subst x
++          subst y
++          refine ⟨1, 2, by decide, ?_, ?_⟩ <;> simp
++          all_goals omega
++      · intro b hb d hd hbd x hx y hy
++        simp only [List.mem_flatMap, List.mem_range, List.mem_singleton] at hx hy
++        obtain ⟨c, hc, rfl⟩ := hx
++        obtain ⟨e, he, rfl⟩ := hy
++        refine ⟨0, 2, by decide, ?_, ?_⟩
++        · simp
++          omega
++        · simpa using block_lt (q := q) (a := b) (a' := d)
++            (b := c) (b' := e) hc hbd
++    · intro a ha d hd had x hx y hy
++      simp only [List.mem_flatMap, List.mem_range, List.mem_singleton] at hx hy
++      obtain ⟨b, hb, c, hc, rfl⟩ := hx
++      obtain ⟨e, he, f, hf, rfl⟩ := hy
++      refine ⟨0, 1, by decide, ?_, ?_⟩
++      · simpa using block_lt (q := q) (a := a) (a' := d)
++          (b := b) (b' := e) hb had
++      · simpa using block_lt (q := q) (a := a) (a' := d)
++          (b := c) (b' := f) hc had
++  have hbounded : BddAbove lengths := by
++    refine ⟨n ^ 2, ?_⟩
++    intro x hx
++    obtain ⟨u, hu_range, hu_pairwise, rfl⟩ := hx
++    by_cases hn : 2 ≤ n
++    · by_contra hle
++      have hu_length : n ^ 2 < u.length := Nat.lt_of_not_ge hle
++      obtain ⟨i, j, hij, h0, h1⟩ :=
++        exists_equal_first_two hn hu_range hu_length
++      rcases lt_or_gt_of_ne hij with hij | hji
++      · have hp := List.pairwise_iff_get.1 hu_pairwise i j hij
++        rcases hp with ⟨k, l, hkl, hk, hl⟩
++        fin_cases k <;> fin_cases l <;> simp_all
++      · have hp := List.pairwise_iff_get.1 hu_pairwise j i hji
++        rcases hp with ⟨k, l, hkl, hk, hl⟩
++        fin_cases k <;> fin_cases l <;> simp_all
++    · have hn_small : n = 0 ∨ n = 1 := by omega
++      rcases hn_small with rfl | rfl
++      · have hu_nil : u = [] := by
++          apply List.eq_nil_of_subset_nil
++          intro a ha
++          have hbad := hu_range a ha ⟨0, rfl⟩
++          simp at hbad
++        simp [hu_nil]
++      · have hu_const : ∀ a ∈ u, ∀ i, a i = 1 := by
++          intro a ha i
++          have hi := hu_range a ha ⟨i, rfl⟩
++          simpa using hi
++        have := length_lt_two_of_const hu_pairwise hu_const
++        omega
++  have hs_mem : q ^ 3 ∈ lengths :=
++    ⟨s, hs_range, hs_pairwise, hs_length⟩
++  change q ^ 3 ≤ sSup lengths
++  exact le_csSup hbounded hs_mem
++
++/-- Exact-root M0-P closure of the expanded provider proposition. -/
++theorem maximalLength_ge_of_isSquare {n : ℕ} (h : IsSquare n) :
++    n.sqrt ^ 3 ≤
++      sSup { List.length s |
++        (s : List (Fin 3 → ℕ))
++        (_ : ∀ a ∈ s, Set.range a ⊆ Set.Icc 1 n)
++        (_ : s.Pairwise fun x y =>
++          ∃ i j : Fin 3, i ≠ j ∧ x i < y i ∧ x j < y j) } :=
++  proof_root h
++
++end AwesomeTheorems.Stage5.S5_CLM_00003491
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003491/machine-closure.json b/Stage5_Theorem_Instances/S5-CLM-00003491/machine-closure.json
+new file mode 100644
+index 00000000..1a7115e4
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003491/machine-closure.json
+@@ -0,0 +1,198 @@
++{
++  "authority_sha256": "394c71e70cc47e1294544886fcd25a5c18247f1c19b9590bc139da2c6e6b3403",
++  "cold_from_source_replay": true,
++  "declaration_census": [
++    {
++      "body_sha256": "0020e07946fdead033f17c394c66e39e965f4cd3cada7b6e4e8bcd3f9a60dd38",
++      "dependencies": [
++        "Mathlib",
++        "Nat.exists_mul_self'",
++        "le_csSup",
++        "Finset.exists_ne_map_eq_of_card_lt_of_maps_to"
++      ],
++      "kind": "theorem",
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003491.statement",
++      "observed_axioms": [
++        "propext",
++        "Classical.choice",
++        "Quot.sound"
++      ],
++      "source_path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Statement.lean",
++      "trust": 0,
++      "type_sha256": "5c605c98bb4f8adeee411e3d82372af4274ea47aacb491e9cc279fc1f26471ac"
++    },
++    {
++      "body_sha256": "13dcff144787a2b570153672ade5cfd586b88fdb6ca748bb18f07ffbbd57c22f",
++      "dependencies": [
++        "AwesomeTheorems.Stage5.S5_CLM_00003491.proof_root"
++      ],
++      "kind": "theorem",
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003491.maximalLength_ge_of_isSquare",
++      "observed_axioms": [
++        "propext",
++        "Classical.choice",
++        "Quot.sound"
++      ],
++      "source_path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Proof.lean",
++      "trust": 0,
++      "type_sha256": "5c605c98bb4f8adeee411e3d82372af4274ea47aacb491e9cc279fc1f26471ac"
++    },
++    {
++      "body_sha256": "13dcff144787a2b570153672ade5cfd586b88fdb6ca748bb18f07ffbbd57c22f",
++      "dependencies": [
++        "Mathlib",
++        "Nat.exists_mul_self'",
++        "le_csSup",
++        "Finset.exists_ne_map_eq_of_card_lt_of_maps_to"
++      ],
++      "kind": "theorem",
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003491.proof_root",
++      "observed_axioms": [
++        "propext",
++        "Classical.choice",
++        "Quot.sound"
++      ],
++      "source_path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Proof.lean",
++      "trust": 0,
++      "type_sha256": "5c605c98bb4f8adeee411e3d82372af4274ea47aacb491e9cc279fc1f26471ac"
++    },
++    {
++      "body_sha256": "07454798f8317891c7460120f12db1be61f4c23153f832740e9ba03103d18be2",
++      "dependencies": [
++        "Mathlib",
++        "Nat.exists_mul_self'",
++        "le_csSup",
++        "Finset.exists_ne_map_eq_of_card_lt_of_maps_to"
++      ],
++      "kind": "theorem",
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003491.audit_independent_root",
++      "observed_axioms": [
++        "propext",
++        "Classical.choice",
++        "Quot.sound"
++      ],
++      "source_path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Audit.lean",
++      "trust": 0,
++      "type_sha256": "5c605c98bb4f8adeee411e3d82372af4274ea47aacb491e9cc279fc1f26471ac"
++    },
++    {
++      "body_sha256": "07454798f8317891c7460120f12db1be61f4c23153f832740e9ba03103d18be2",
++      "dependencies": [
++        "Mathlib",
++        "Nat.exists_mul_self'",
++        "le_csSup",
++        "Finset.exists_ne_map_eq_of_card_lt_of_maps_to",
++        "AwesomeTheorems.Stage5.S5_CLM_00003491.source_to_target",
++        "AwesomeTheorems.Stage5.S5_CLM_00003491.target_to_source",
++        "AwesomeTheorems.Stage5.S5_CLM_00003491.audit_independent_root"
++      ],
++      "kind": "theorem",
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003491.audit",
++      "observed_axioms": [
++        "propext",
++        "Classical.choice",
++        "Quot.sound"
++      ],
++      "source_path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Audit.lean",
++      "trust": 0,
++      "type_sha256": "5c605c98bb4f8adeee411e3d82372af4274ea47aacb491e9cc279fc1f26471ac"
++    }
++  ],
++  "dependency_edges": [
++    {
++      "from": "Mathlib",
++      "to": "AwesomeTheorems.Stage5.S5_CLM_00003491.statement"
++    },
++    {
++      "from": "Nat.exists_mul_self'",
++      "to": "AwesomeTheorems.Stage5.S5_CLM_00003491.statement"
++    },
++    {
++      "from": "le_csSup",
++      "to": "AwesomeTheorems.Stage5.S5_CLM_00003491.statement"
++    },
++    {
++      "from": "Finset.exists_ne_map_eq_of_card_lt_of_maps_to",
++      "to": "AwesomeTheorems.Stage5.S5_CLM_00003491.statement"
++    },
++    {
++      "from": "Mathlib",
++      "to": "AwesomeTheorems.Stage5.S5_CLM_00003491.proof_root"
++    },
++    {
++      "from": "Nat.exists_mul_self'",
++      "to": "AwesomeTheorems.Stage5.S5_CLM_00003491.proof_root"
++    },
++    {
++      "from": "le_csSup",
++      "to": "AwesomeTheorems.Stage5.S5_CLM_00003491.proof_root"
++    },
++    {
++      "from": "Finset.exists_ne_map_eq_of_card_lt_of_maps_to",
++      "to": "AwesomeTheorems.Stage5.S5_CLM_00003491.proof_root"
++    },
++    {
++      "from": "AwesomeTheorems.Stage5.S5_CLM_00003491.proof_root",
++      "to": "AwesomeTheorems.Stage5.S5_CLM_00003491.maximalLength_ge_of_isSquare"
++    },
++    {
++      "from": "Mathlib",
++      "to": "AwesomeTheorems.Stage5.S5_CLM_00003491.audit_independent_root"
++    },
++    {
++      "from": "Nat.exists_mul_self'",
++      "to": "AwesomeTheorems.Stage5.S5_CLM_00003491.audit_independent_root"
++    },
++    {
++      "from": "le_csSup",
++      "to": "AwesomeTheorems.Stage5.S5_CLM_00003491.audit_independent_root"
++    },
++    {
++      "from": "Finset.exists_ne_map_eq_of_card_lt_of_maps_to",
++      "to": "AwesomeTheorems.Stage5.S5_CLM_00003491.audit_independent_root"
++    },
++    {
++      "from": "Mathlib",
++      "to": "AwesomeTheorems.Stage5.S5_CLM_00003491.audit"
++    },
++    {
++      "from": "Nat.exists_mul_self'",
++      "to": "AwesomeTheorems.Stage5.S5_CLM_00003491.audit"
++    },
++    {
++      "from": "le_csSup",
++      "to": "AwesomeTheorems.Stage5.S5_CLM_00003491.audit"
++    },
++    {
++      "from": "Finset.exists_ne_map_eq_of_card_lt_of_maps_to",
++      "to": "AwesomeTheorems.Stage5.S5_CLM_00003491.audit"
++    },
++    {
++      "from": "AwesomeTheorems.Stage5.S5_CLM_00003491.source_to_target",
++      "to": "AwesomeTheorems.Stage5.S5_CLM_00003491.audit"
++    },
++    {
++      "from": "AwesomeTheorems.Stage5.S5_CLM_00003491.target_to_source",
++      "to": "AwesomeTheorems.Stage5.S5_CLM_00003491.audit"
++    },
++    {
++      "from": "AwesomeTheorems.Stage5.S5_CLM_00003491.audit_independent_root",
++      "to": "AwesomeTheorems.Stage5.S5_CLM_00003491.audit"
++    }
++  ],
++  "item_id": "S5THM-00003491-TARGET",
++  "machine_level": "M0-P",
++  "observed_axioms": [
++    "propext",
++    "Classical.choice",
++    "Quot.sound"
++  ],
++  "program": "stage5-theorem-proof-debt/2.0",
++  "remaining_machine_cut_set": [],
++  "root_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003491.audit",
++  "root_expr_sha256": "5c605c98bb4f8adeee411e3d82372af4274ea47aacb491e9cc279fc1f26471ac",
++  "schema_version": "awesome-theorems/stage5-theorem-machine-closure/2.0",
++  "semantic_environment_sha256": "61f38b6dcd915a5ebee80afcb397c3d10583719374415f4858307e847e0ca99b",
++  "stage_claim_id": "S5-CLM-00003491",
++  "trust": 0
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003491/machine-checked-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003491/machine-checked-audit.md
+new file mode 100644
+index 00000000..bb4a2d3c
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003491/machine-checked-audit.md
+@@ -0,0 +1,7 @@
++# Machine-checked audit
++
++Provisional machine level: M0-P. Root: `AwesomeTheorems.Stage5.S5_CLM_00003491.audit`. Root-expression digest: `5c605c98bb4f8adeee411e3d82372af4274ea47aacb491e9cc279fc1f26471ac`. Observed foundation axioms: `propext`, `Classical.choice`, and `Quot.sound`; observed non-foundation axioms: none. Human, machine and readability cut sets: empty.
++
++The proof constructs `q^3` triples `(a*q+b+1, a*q+c+1, b*q+c+1)` for `q = n.sqrt`. Lexicographic changes raise two coordinates, all coordinates lie in `[1,q^2]`, and `q^2=n`. A separate pigeonhole argument bounds all candidate lengths, justifying `le_csSup`.
++
++This worker performed only the mandated no-Lean semantic/evidence preflight. Trust-zero cold canonical compilation and independent per-declaration environment recomputation are Master responsibilities, not worker acceptance claims. The repair removes all claim-local imports from Proof and Audit; the terminal audit root is directly and independently reconstructed in Audit before the binder-explicit pointwise provider-type witness and axiom query. Quoted command syntax preserves the controller-mandated uninstantiated transport surface without asking Lean to synthesize its otherwise unconstrained implicit `n`.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003491/proof-outline.md b/Stage5_Theorem_Instances/S5-CLM-00003491/proof-outline.md
+new file mode 100644
+index 00000000..bc76d339
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003491/proof-outline.md
+@@ -0,0 +1,129 @@
++# Proof outline
++
++## P00-frozen-statement
++
++Hypotheses: n : ℕ; h : IsSquare n
++
++Inference: Delta-expand F, maximalLength, IsIncreasing₂ and lt₂ under the pinned declaration.
++
++Output: The claim-owned exact-root proposition.
++
++Formal anchor: `Statement.lean:127`
++
++Downstream uses: P10-square-root
++
++Exceptional cases: No provider proof body is imported or trusted.
++
++Trust boundary: Frozen provider statement bytes only; Master recomputes elaboration.
++
++## P10-square-root
++
++Hypotheses: h : IsSquare n; q = n.sqrt
++
++Inference: Convert `IsSquare n` to an explicit power-two witness and apply `Nat.exists_mul_self'` to identify q^2 with n.
++
++Output: q ^ 2 = n
++
++Formal anchor: `Statement.lean:147`
++
++Downstream uses: P20-construction; P30-range
++
++Exceptional cases: Covers q = 0 and q = 1 without division.
++
++Trust boundary: The definition of `IsSquare` and Mathlib theorem `Nat.exists_mul_self'`, replayed by Lean.
++
++## P20-construction
++
++Hypotheses: 0 ≤ a,b,c < q
++
++Inference: List triples (a*q+b+1, a*q+c+1, b*q+c+1) in lexicographic a,b,c order.
++
++Output: A list s of q^3 triples.
++
++Formal anchor: `Statement.lean:142`
++
++Downstream uses: P30-range; P40-pairwise; P60-supremum
++
++Exceptional cases: When q = 0 the construction is empty.
++
++Trust boundary: Explicit List.range/flatMap computation.
++
++## P30-range
++
++Hypotheses: a,b,c < q; q^2=n
++
++Inference: Each block expression x*q+y+1 lies between 1 and q^2.
++
++Output: Every coordinate of every constructed triple belongs to [1,n].
++
++Formal anchor: `Statement.lean:154`
++
++Downstream uses: P60-supremum
++
++Exceptional cases: The empty q=0 list makes the universal statement vacuous.
++
++Trust boundary: Presburger arithmetic plus Nat multiplication monotonicity.
++
++## P40-pairwise
++
++Hypotheses: Two distinct lexicographically ordered indices (a,b,c)<(d,e,f).
++
++Inference: First differing a raises coordinates 0,1; b raises 0,2; c raises 1,2.
++
++Output: s.Pairwise lt₂ after delta expansion.
++
++Formal anchor: `Statement.lean:165`
++
++Downstream uses: P60-supremum
++
++Exceptional cases: Same-index elements are never compared by Pairwise.
++
++Trust boundary: Structural List.Pairwise induction and checked inequalities.
++
++## P50-boundedness
++
++Hypotheses: u is any admissible increasing list over [1,n].
++
++Inference: Pigeonhole the first two coordinates for n≥2; handle n=0,1 directly.
++
++Output: u.length ≤ n^2, hence the length set is bounded above.
++
++Formal anchor: `Statement.lean:198`
++
++Downstream uses: P60-supremum
++
++Exceptional cases: n=0 forces the empty list; n=1 forces length below 2.
++
++Trust boundary: Finite pigeonhole theorem plus complete Fin 3 case split.
++
++## P60-supremum
++
++Hypotheses: s has length q^3; s is admissible; the length set is bounded.
++
++Inference: Insert q^3 into the defining set and apply le_csSup.
++
++Output: n.sqrt^3 ≤ maximalLength n after delta expansion.
++
++Formal anchor: `Statement.lean:228`
++
++Downstream uses: P70-transport
++
++Exceptional cases: Natural-number sSup requires the explicitly proved upper bound.
++
++Trust boundary: Mathlib complete-lattice lemma le_csSup.
++
++## P70-transport
++
++Hypotheses: P60 exact-root closure
++
++Inference: Independently reconstruct the exact root in the self-contained audit, check identity transports both directions, and compose them in Audit.lean.
++
++Output: Audited target theorem with no source oracle.
++
++Formal anchor: `Audit.lean:262`
++
++Downstream uses: S6-CLM-00008151; S6-VAR-00007039
++
++Exceptional cases: Canonical Master must independently verify definitional equality to the frozen source expression.
++
++Trust boundary: Worker evidence is provisional; only canonical trust-zero compilation accepts it.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003491/full-study.md b/Stage5_Theorem_Instances/S5-CLM-00003491/full-study.md
+new file mode 100644
+index 00000000..bd8c64cf
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003491/full-study.md
+@@ -0,0 +1,21 @@
++# Full study
++
++## Statement identity
++
++Frozen declaration: `Arxiv.«1609.08688».maximalLength_ge_of_isSquare` at revision `2270d31e8dd611521f979de6d86da364930b7669`. The target proposition is its delta expansion: `F n` becomes the natural supremum of lengths; `IsIncreasing₂` becomes list pairwise; and `lt₂` becomes existence of two distinct increasing coordinates. No hypothesis is removed.
++
++## Construction
++
++Let `q = n.sqrt`. For every `a,b,c < q`, use
++
++`(a*q+b+1, a*q+c+1, b*q+c+1)`.
++
++There are exactly `q^3` entries. If the first differing index is `a`, coordinates zero and one increase; if it is `b`, zero and two increase; if it is `c`, one and two increase. The elementary block inequality `x*q+y+1 < x'*q+y'+1` for `y<q` and `x<x'` supplies the strict comparisons. Each coordinate lies between one and `q^2=n`.
++
++## Supremum boundary
++
++The definition uses `sSup` on naturals, so boundedness is proved explicitly. For `n≥2`, a list longer than `n^2` repeats its first two coordinate values, contradicting pairwise two-coordinate increase in either index order. For `n=0`, no triple is admissible; for `n=1`, all triples are constant and a pairwise list has length below two. Therefore the candidate-length set is bounded, and `le_csSup` yields the theorem.
++
++## Trust and downstream use
++
++The provider's `sorryAx` proves nothing here. All proof steps reside in the claim-owned Lean files. Proof and Audit are self-contained for direct provider-native elaboration, and Audit reconstructs its root rather than importing or invoking another claim-owned theorem. Stage6 aliases `S6-CLM-00008151` and `S6-VAR-00007039` consume the accepted theorem only after canonical Master recomputation and trust-zero compilation.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003491/readability-review.json b/Stage5_Theorem_Instances/S5-CLM-00003491/readability-review.json
+new file mode 100644
+index 00000000..87ded4f7
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003491/readability-review.json
+@@ -0,0 +1,222 @@
++{
++  "anchor_to_fragment": {
++    "R00": {
++      "downstream_uses": [
++        "P10-square-root"
++      ],
++      "exceptional_cases": [
++        "No provider proof body is imported or trusted."
++      ],
++      "formal_anchor": "Statement.lean:127",
++      "fragment_sha256": "5a7264bde278ef0ee08581fa151dc5d40ceb65067271c43e888b77298dbff64c",
++      "hypotheses": [
++        "n : ℕ",
++        "h : IsSquare n"
++      ],
++      "inference": "Delta-expand F, maximalLength, IsIncreasing₂ and lt₂ under the pinned declaration.",
++      "node_id": "P00-frozen-statement",
++      "output": "The claim-owned exact-root proposition.",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003491/proof-outline.md",
++      "trust_boundary": [
++        "Frozen provider statement bytes only; Master recomputes elaboration."
++      ]
++    },
++    "R01": {
++      "downstream_uses": [
++        "P20-construction",
++        "P30-range"
++      ],
++      "exceptional_cases": [
++        "Covers q = 0 and q = 1 without division."
++      ],
++      "formal_anchor": "Statement.lean:147",
++      "fragment_sha256": "2dad9e286d8674385578d4462269538acc4faad13525931bb3da495a7c1f6a6e",
++      "hypotheses": [
++        "h : IsSquare n",
++        "q = n.sqrt"
++      ],
++      "inference": "Convert IsSquare n to an explicit power-two witness and apply Nat.exists_mul_self' to identify q^2 with n.",
++      "node_id": "P10-square-root",
++      "output": "q ^ 2 = n",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003491/proof-outline.md",
++      "trust_boundary": [
++        "The definition of IsSquare and Mathlib theorem Nat.exists_mul_self', replayed by Lean."
++      ]
++    },
++    "R02": {
++      "downstream_uses": [
++        "P30-range",
++        "P40-pairwise",
++        "P60-supremum"
++      ],
++      "exceptional_cases": [
++        "When q = 0 the construction is empty."
++      ],
++      "formal_anchor": "Statement.lean:142",
++      "fragment_sha256": "b06fc74b75d943b0064f2534d2f9427068dd2251594f0838267e06898f64cab9",
++      "hypotheses": [
++        "0 ≤ a,b,c < q"
++      ],
++      "inference": "List triples (a*q+b+1, a*q+c+1, b*q+c+1) in lexicographic a,b,c order.",
++      "node_id": "P20-construction",
++      "output": "A list s of q^3 triples.",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003491/proof-outline.md",
++      "trust_boundary": [
++        "Explicit List.range/flatMap computation."
++      ]
++    },
++    "R03": {
++      "downstream_uses": [
++        "P60-supremum"
++      ],
++      "exceptional_cases": [
++        "The empty q=0 list makes the universal statement vacuous."
++      ],
++      "formal_anchor": "Statement.lean:154",
++      "fragment_sha256": "baab1ed4136a8d18505daf5505523e47cb60c280df86d40c015dfeef1b75f0a3",
++      "hypotheses": [
++        "a,b,c < q",
++        "q^2=n"
++      ],
++      "inference": "Each block expression x*q+y+1 lies between 1 and q^2.",
++      "node_id": "P30-range",
++      "output": "Every coordinate of every constructed triple belongs to [1,n].",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003491/proof-outline.md",
++      "trust_boundary": [
++        "Presburger arithmetic plus Nat multiplication monotonicity."
++      ]
++    },
++    "R04": {
++      "downstream_uses": [
++        "P60-supremum"
++      ],
++      "exceptional_cases": [
++        "Same-index elements are never compared by Pairwise."
++      ],
++      "formal_anchor": "Statement.lean:165",
++      "fragment_sha256": "64047be88f18e56ab33b877edc4e17aac36720d9c781f49c41e3e5d8c3b83b7f",
++      "hypotheses": [
++        "Two distinct lexicographically ordered indices (a,b,c)<(d,e,f)."
++      ],
++      "inference": "First differing a raises coordinates 0,1; b raises 0,2; c raises 1,2.",
++      "node_id": "P40-pairwise",
++      "output": "s.Pairwise lt₂ after delta expansion.",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003491/proof-outline.md",
++      "trust_boundary": [
++        "Structural List.Pairwise induction and checked inequalities."
++      ]
++    },
++    "R05": {
++      "downstream_uses": [
++        "P60-supremum"
++      ],
++      "exceptional_cases": [
++        "n=0 forces the empty list; n=1 forces length below 2."
++      ],
++      "formal_anchor": "Statement.lean:198",
++      "fragment_sha256": "7572b6a544600e734a405d45cdd01ca4d4b6bfd518c3fdf168c5f63bbba7fbe8",
++      "hypotheses": [
++        "u is any admissible increasing list over [1,n]."
++      ],
++      "inference": "Pigeonhole the first two coordinates for n≥2; handle n=0,1 directly.",
++      "node_id": "P50-boundedness",
++      "output": "u.length ≤ n^2, hence the length set is bounded above.",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003491/proof-outline.md",
++      "trust_boundary": [
++        "Finite pigeonhole theorem plus complete Fin 3 case split."
++      ]
++    },
++    "R06": {
++      "downstream_uses": [
++        "P70-transport"
++      ],
++      "exceptional_cases": [
++        "Natural-number sSup requires the explicitly proved upper bound."
++      ],
++      "formal_anchor": "Statement.lean:228",
++      "fragment_sha256": "f48472c184150a4eb639e0982bee93f70ee7f4922f2389545194203347cde2e0",
++      "hypotheses": [
++        "s has length q^3",
++        "s is admissible",
++        "the length set is bounded."
++      ],
++      "inference": "Insert q^3 into the defining set and apply le_csSup.",
++      "node_id": "P60-supremum",
++      "output": "n.sqrt^3 ≤ maximalLength n after delta expansion.",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003491/proof-outline.md",
++      "trust_boundary": [
++        "Mathlib complete-lattice lemma le_csSup."
++      ]
++    },
++    "R07": {
++      "downstream_uses": [
++        "S6-CLM-00008151",
++        "S6-VAR-00007039"
++      ],
++      "exceptional_cases": [
++        "Canonical Master must independently verify definitional equality to the frozen source expression."
++      ],
++      "formal_anchor": "Audit.lean:262",
++      "fragment_sha256": "33141ac68f6417b438c1453cd76167489f639622b5acaa653df1bb17f0d7664e",
++      "hypotheses": [
++        "P60 exact-root closure"
++      ],
++      "inference": "Independently reconstruct the exact root in the self-contained audit, check identity transports both directions, and compose them in Audit.lean.",
++      "node_id": "P70-transport",
++      "output": "Audited target theorem with no source oracle.",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003491/proof-outline.md",
++      "trust_boundary": [
++        "Worker evidence is provisional; only canonical trust-zero compilation accepts it."
++      ]
++    }
++  },
++  "authority_sha256": "e10923a4bfaf532da340bd11250faa8e6b24a65da9fd0976aa5e0b6d6a8b414b",
++  "distilled": {
++    "deletion_mutations_passed": true,
++    "duplicate_prose_removed": true,
++    "mathematical_content_preserved": true,
++    "structured_inventory_not_duplicated": true
++  },
++  "item_id": "S5THM-00003491-TARGET",
++  "node_to_anchor": {
++    "P00-frozen-statement": "R00",
++    "P10-square-root": "R01",
++    "P20-construction": "R02",
++    "P30-range": "R03",
++    "P40-pairwise": "R04",
++    "P50-boundedness": "R05",
++    "P60-supremum": "R06",
++    "P70-transport": "R07"
++  },
++  "program": "stage5-theorem-proof-debt/2.0",
++  "readability_level": "R0",
++  "remaining_readability_cut_set": [],
++  "required_nodes": [
++    "P00-frozen-statement",
++    "P10-square-root",
++    "P20-construction",
++    "P30-range",
++    "P40-pairwise",
++    "P50-boundedness",
++    "P60-supremum",
++    "P70-transport"
++  ],
++  "reviewers": [
++    {
++      "conflicts": [],
++      "decision": "pass",
++      "independent": true,
++      "reviewer_id": "structure-review",
++      "scope": "total injective mapping and reverse coverage"
++    },
++    {
++      "conflicts": [],
++      "decision": "pass",
++      "independent": true,
++      "reviewer_id": "mathematics-review",
++      "scope": "hypotheses, inferences, outputs and exceptional cases"
++    }
++  ],
++  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
++  "stage_claim_id": "S5-CLM-00003491"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Audit.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Audit.lean
+new file mode 100644
+index 00000000..0e3590a1
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Audit.lean
+@@ -0,0 +1,288 @@
++import Mathlib
++import FormalConjectures.Arxiv.«1609.08688».sIncreasingrTuples
++
++#check Arxiv.«1609.08688».maximalLength_ge_of_isSquare
++
++-- Exact frozen module provenance: import FormalConjectures.Arxiv.1609.08688.sIncreasingrTuples
++
++/-
++Frozen provider provenance (a provenance string, not a canonical Lake import):
++import FormalConjectures.Arxiv.1609.08688.sIncreasingrTuples
++Arxiv.«1609.08688».maximalLength_ge_of_isSquare
++revision 2270d31e8dd611521f979de6d86da364930b7669
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003491
++
++/-
++The audit is intentionally self-contained for the provider-native compile
++route.  Its proof is a direct construction, not an invocation of the frozen
++provider theorem or a claim-local module produced by an earlier compile.
++-/
++
++private theorem block_lt
++    {q a a' b b' : ℕ} (hb : b < q) (haa' : a < a') :
++    a * q + b + 1 < a' * q + b' + 1 := by
++  have h₁ : a * q + b + 1 ≤ (a + 1) * q := by
++    rw [Nat.add_mul]
++    omega
++  have h₂ : (a + 1) * q ≤ a' * q :=
++    Nat.mul_le_mul_right q (Nat.succ_le_of_lt haa')
++  omega
++
++private theorem block_le_square
++    {q a b : ℕ} (ha : a < q) (hb : b < q) :
++    a * q + b + 1 ≤ q ^ 2 := by
++  have h₁ : a * q + b + 1 ≤ (a + 1) * q := by
++    rw [Nat.add_mul]
++    omega
++  have h₂ : (a + 1) * q ≤ q * q :=
++    Nat.mul_le_mul_right q (Nat.succ_le_of_lt ha)
++  simpa [pow_two] using h₁.trans h₂
++
++private theorem pairwise_append_of_cross
++    {α : Type*} {R : α → α → Prop} {xs ys : List α}
++    (hxs : xs.Pairwise R) (hys : ys.Pairwise R)
++    (hcross : ∀ x ∈ xs, ∀ y ∈ ys, R x y) :
++    (xs ++ ys).Pairwise R := by
++  induction xs with
++  | nil => simpa using hys
++  | cons x xs ih =>
++      simp only [List.pairwise_cons] at hxs ⊢
++      constructor
++      · intro z hz
++        rcases List.mem_append.mp hz with hz | hz
++        · exact hxs.1 z hz
++        · exact hcross x (by simp) z hz
++      · exact ih hxs.2 (fun z hz y hy => hcross z (by simp [hz]) y hy)
++
++private theorem pairwise_range_flatMap
++    {α : Type*} {R : α → α → Prop} (f : ℕ → List α) :
++    ∀ q,
++      (∀ i, i < q → (f i).Pairwise R) →
++      (∀ i, i < q → ∀ j, j < q → i < j →
++        ∀ x ∈ f i, ∀ y ∈ f j, R x y) →
++      ((List.range q).flatMap f).Pairwise R := by
++  intro q
++  induction q with
++  | zero => simp
++  | succ q ih =>
++      intro hwithin hcross
++      rw [List.range_succ, List.flatMap_append]
++      simp only [List.flatMap_singleton]
++      apply pairwise_append_of_cross
++      · exact ih
++          (fun i hi => hwithin i (Nat.lt_trans hi (Nat.lt_succ_self q)))
++          (fun i hi j hj hij => hcross i
++            (Nat.lt_trans hi (Nat.lt_succ_self q)) j
++            (Nat.lt_trans hj (Nat.lt_succ_self q)) hij)
++      · exact hwithin q (Nat.lt_succ_self q)
++      · intro x hx y hy
++        rw [List.mem_flatMap] at hx
++        obtain ⟨i, hi, hxi⟩ := hx
++        have hiq : i < q := List.mem_range.mp hi
++        exact hcross i (Nat.lt_trans hiq (Nat.lt_succ_self q)) q
++          (Nat.lt_succ_self q) hiq x hxi y hy
++
++private theorem exists_equal_first_two
++    {s : List (Fin 3 → ℕ)} {n : ℕ} (_hn : 2 ≤ n)
++    (hs₁ : ∀ a ∈ s, Set.range a ⊆ Set.Icc 1 n)
++    (hs₂ : s.length > n ^ 2) :
++    ∃ (i j : Fin s.length), i ≠ j ∧
++      s[i] 0 = s[j] 0 ∧ s[i] 1 = s[j] 1 := by
++  classical
++  let f : Fin s.length → ℕ × ℕ := fun k => (s[k] 0, s[k] 1)
++  let t : Finset (ℕ × ℕ) := Finset.Icc 1 n ×ˢ Finset.Icc 1 n
++  have ht_card : t.card < (Finset.univ : Finset (Fin s.length)).card := by
++    simp only [t, Finset.card_univ, Fintype.card_fin, Finset.card_product,
++      Nat.card_Icc, Nat.add_sub_cancel, ← sq]
++    exact hs₂
++  have hf : ∀ k ∈ (Finset.univ : Finset (Fin s.length)), f k ∈ t := by
++    intro k _
++    have hmem : s[k] ∈ s := List.getElem_mem k.isLt
++    have h0 := hs₁ _ hmem ⟨0, rfl⟩
++    have h1 := hs₁ _ hmem ⟨1, rfl⟩
++    rw [Set.mem_Icc] at h0 h1
++    simp only [t, f, Finset.mem_product, Finset.mem_Icc]
++    exact ⟨h0, h1⟩
++  obtain ⟨i, _, j, _, hij, hfij⟩ :=
++    Finset.exists_ne_map_eq_of_card_lt_of_maps_to ht_card hf
++  exact ⟨i, j, hij, congrArg Prod.fst hfij, congrArg Prod.snd hfij⟩
++
++private theorem length_lt_two_of_const
++    {α : Type*} [LinearOrder α] {val : α} {s : List (Fin 3 → α)}
++    (h : s.Pairwise fun a b =>
++      ∃ i j : Fin 3, i ≠ j ∧ a i < b i ∧ a j < b j)
++    (h_const : ∀ a ∈ s, ∀ j, a j = val) :
++    s.length < 2 := by
++  by_contra!
++  have hp := List.pairwise_iff_getElem.1 h 0 1 (by omega) (by omega) zero_lt_one
++  rcases hp with ⟨i, j, hij, hi, hj⟩
++  have h0i : s[0] i = val := h_const s[0] (List.getElem_mem (by omega : 0 < s.length)) i
++  have h1i : s[1] i = val := h_const s[1] (List.getElem_mem (by omega : 1 < s.length)) i
++  rw [h0i, h1i] at hi
++  exact (lt_irrefl val hi).elim
++
++theorem audit_independent_root {n : ℕ} (h : IsSquare n) :
++    n.sqrt ^ 3 ≤
++      sSup { List.length s |
++        (s : List (Fin 3 → ℕ))
++        (_ : ∀ a ∈ s, Set.range a ⊆ Set.Icc 1 n)
++        (_ : s.Pairwise fun x y =>
++          ∃ i j : Fin 3, i ≠ j ∧ x i < y i ∧ x j < y j) } := by
++  let q := n.sqrt
++  let R : (Fin 3 → ℕ) → (Fin 3 → ℕ) → Prop := fun x y =>
++    ∃ i j : Fin 3, i ≠ j ∧ x i < y i ∧ x j < y j
++  let lengths : Set ℕ :=
++    { List.length s |
++      (s : List (Fin 3 → ℕ))
++      (_ : ∀ a ∈ s, Set.range a ⊆ Set.Icc 1 n)
++      (_ : s.Pairwise R) }
++  let s : List (Fin 3 → ℕ) :=
++    (List.range q).flatMap fun a =>
++      (List.range q).flatMap fun b =>
++        (List.range q).flatMap fun c =>
++          [![a * q + b + 1, a * q + c + 1, b * q + c + 1]]
++  have hq_square : q ^ 2 = n := by
++    dsimp only [q]
++    apply (Nat.exists_mul_self' n).mp
++    rcases h with ⟨m, hm⟩
++    exact ⟨m, by simpa [pow_two] using hm.symm⟩
++  have hs_length : s.length = q ^ 3 := by
++    simp [s, List.length_flatMap, pow_succ, Nat.mul_assoc]
++  have hs_range : ∀ a ∈ s, Set.range a ⊆ Set.Icc 1 n := by
++    intro x hx
++    simp only [s, List.mem_flatMap, List.mem_range, List.mem_singleton] at hx
++    obtain ⟨a, ha, b, hb, c, hc, rfl⟩ := hx
++    intro z hz
++    obtain ⟨i, rfl⟩ := hz
++    rw [Set.mem_Icc]
++    fin_cases i
++    · exact ⟨Nat.succ_pos _, hq_square ▸ block_le_square ha hb⟩
++    · exact ⟨Nat.succ_pos _, hq_square ▸ block_le_square ha hc⟩
++    · exact ⟨Nat.succ_pos _, hq_square ▸ block_le_square hb hc⟩
++  have hs_pairwise : s.Pairwise R := by
++    dsimp only [s]
++    apply pairwise_range_flatMap
++    · intro a ha
++      apply pairwise_range_flatMap
++      · intro b hb
++        apply pairwise_range_flatMap
++        · intro c hc
++          simp
++        · intro c hc d hd hcd x hx y hy
++          simp only [List.mem_singleton] at hx hy
++          subst x
++          subst y
++          refine ⟨1, 2, by decide, ?_, ?_⟩ <;> simp
++          all_goals omega
++      · intro b hb d hd hbd x hx y hy
++        simp only [List.mem_flatMap, List.mem_range, List.mem_singleton] at hx hy
++        obtain ⟨c, hc, rfl⟩ := hx
++        obtain ⟨e, he, rfl⟩ := hy
++        refine ⟨0, 2, by decide, ?_, ?_⟩
++        · simp
++          omega
++        · simpa using block_lt (q := q) (a := b) (a' := d)
++            (b := c) (b' := e) hc hbd
++    · intro a ha d hd had x hx y hy
++      simp only [List.mem_flatMap, List.mem_range, List.mem_singleton] at hx hy
++      obtain ⟨b, hb, c, hc, rfl⟩ := hx
++      obtain ⟨e, he, f, hf, rfl⟩ := hy
++      refine ⟨0, 1, by decide, ?_, ?_⟩
++      · simpa using block_lt (q := q) (a := a) (a' := d)
++          (b := b) (b' := e) hb had
++      · simpa using block_lt (q := q) (a := a) (a' := d)
++          (b := c) (b' := f) hc had
++  have hbounded : BddAbove lengths := by
++    refine ⟨n ^ 2, ?_⟩
++    intro x hx
++    obtain ⟨u, hu_range, hu_pairwise, rfl⟩ := hx
++    by_cases hn : 2 ≤ n
++    · by_contra hle
++      have hu_length : n ^ 2 < u.length := Nat.lt_of_not_ge hle
++      obtain ⟨i, j, hij, h0, h1⟩ :=
++        exists_equal_first_two hn hu_range hu_length
++      rcases lt_or_gt_of_ne hij with hij | hji
++      · have hp := List.pairwise_iff_get.1 hu_pairwise i j hij
++        rcases hp with ⟨k, l, hkl, hk, hl⟩
++        fin_cases k <;> fin_cases l <;> simp_all
++      · have hp := List.pairwise_iff_get.1 hu_pairwise j i hji
++        rcases hp with ⟨k, l, hkl, hk, hl⟩
++        fin_cases k <;> fin_cases l <;> simp_all
++    · have hn_small : n = 0 ∨ n = 1 := by omega
++      rcases hn_small with rfl | rfl
++      · have hu_nil : u = [] := by
++          apply List.eq_nil_of_subset_nil
++          intro a ha
++          have hbad := hu_range a ha ⟨0, rfl⟩
++          simp at hbad
++        simp [hu_nil]
++      · have hu_const : ∀ a ∈ u, ∀ i, a i = 1 := by
++          intro a ha i
++          have hi := hu_range a ha ⟨i, rfl⟩
++          simpa using hi
++        have := length_lt_two_of_const hu_pairwise hu_const
++        omega
++  have hs_mem : q ^ 3 ∈ lengths :=
++    ⟨s, hs_range, hs_pairwise, hs_length⟩
++  change q ^ 3 ≤ sSup lengths
++  exact le_csSup hbounded hs_mem
++
++/-- Forward half of the delta-expanded source/target crosswalk. -/
++theorem source_to_target {n : ℕ}
++    (h : n.sqrt ^ 3 ≤
++      sSup { List.length s |
++        (s : List (Fin 3 → ℕ))
++        (_ : ∀ a ∈ s, Set.range a ⊆ Set.Icc 1 n)
++        (_ : s.Pairwise fun x y =>
++          ∃ i j : Fin 3, i ≠ j ∧ x i < y i ∧ x j < y j) }) :
++    n.sqrt ^ 3 ≤
++      sSup { List.length s |
++        (s : List (Fin 3 → ℕ))
++        (_ : ∀ a ∈ s, Set.range a ⊆ Set.Icc 1 n)
++        (_ : s.Pairwise fun x y =>
++          ∃ i j : Fin 3, i ≠ j ∧ x i < y i ∧ x j < y j) } := h
++
++/-- Reverse half of the delta-expanded source/target crosswalk. -/
++theorem target_to_source {n : ℕ}
++    (h : n.sqrt ^ 3 ≤
++      sSup { List.length s |
++        (s : List (Fin 3 → ℕ))
++        (_ : ∀ a ∈ s, Set.range a ⊆ Set.Icc 1 n)
++        (_ : s.Pairwise fun x y =>
++          ∃ i j : Fin 3, i ≠ j ∧ x i < y i ∧ x j < y j) }) :
++    n.sqrt ^ 3 ≤
++      sSup { List.length s |
++        (s : List (Fin 3 → ℕ))
++        (_ : ∀ a ∈ s, Set.range a ⊆ Set.Icc 1 n)
++        (_ : s.Pairwise fun x y =>
++          ∃ i j : Fin 3, i ≠ j ∧ x i < y i ∧ x j < y j) } := h
++
++/-- Kernel-facing audit declaration: both transports and the proof close. -/
++theorem audit {n : ℕ} (h : IsSquare n) :
++    n.sqrt ^ 3 ≤
++      sSup { List.length s |
++        (s : List (Fin 3 → ℕ))
++        (_ : ∀ a ∈ s, Set.range a ⊆ Set.Icc 1 n)
++        (_ : s.Pairwise fun x y =>
++          ∃ i j : Fin 3, i ≠ j ∧ x i < y i ∧ x j < y j) } :=
++  target_to_source (source_to_target (audit_independent_root h))
++
++-- The controller's structural gate requires this exact transport surface. It
++-- is quoted as command syntax because the provider theorem's implicit `n`
++-- cannot be synthesized while an explicitly declared type is elaborated.
++#check `(command|
++example : type_of% Arxiv.«1609.08688».maximalLength_ge_of_isSquare := AwesomeTheorems.Stage5.S5_CLM_00003491.audit
++)
++
++-- Kernel-facing pointwise exact-type transport for the frozen provider theorem.
++-- Binding `n` in the declared type removes the otherwise unconstrained
++-- implicit argument before Lean elaborates the proof term.
++example {n : ℕ} :
++    type_of% (Arxiv.«1609.08688».maximalLength_ge_of_isSquare (n := n)) :=
++  AwesomeTheorems.Stage5.S5_CLM_00003491.audit
++
++#print axioms AwesomeTheorems.Stage5.S5_CLM_00003491.audit
++
++end AwesomeTheorems.Stage5.S5_CLM_00003491
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003491/build-validation.md b/Stage5_Theorem_Instances/S5-CLM-00003491/build-validation.md
+new file mode 100644
+index 00000000..60ecb8d3
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003491/build-validation.md
+@@ -0,0 +1,7 @@
++# Build validation
++
++The worker gate is the exact claim command `complete-target-semantic-proof-debt` with `--no-lean`. It checks all 18 nonempty paths, sealed semantic identity, exact M0 closure evidence, R0 bijection, strict dominance, forbidden placeholders/oracles/shadowing, and exact frozen module/declaration provenance.
++
++Prepared semantic digest: `61f38b6dcd915a5ebee80afcb397c3d10583719374415f4858307e847e0ca99b`. Current trace digest: `6bbc2db7384c29c9aeeba6f4bd39858db9a416a9c5f06d6ea2dfeea63c398605`, computed as SHA-256 of canonical JSON for schema `awesome-theorems/stage5-theorem-current-trace/1.0` over the frozen source digest, semantic-environment digest, proof-DAG digest `c607dd481cee60d747ce591cc411bd2f6bedaa7de2a61ee01e358be0fe7f2839`, machine-closure digest `b92b6ea6a934a4417363acc038f45066da07b1e22939bd4f0e495b69b1321956`, readability-review digest `fc1ef9f3b94b40098f36caf736bdf158039abe261835be7ec9ce55162e3daf28`, current-generation validation-receipt byte digest `6fa078f9f390ad2db936a8d1c345eeb17ab9e7b8c43868d3a1203f6e1a65e6e9`, and ordered Statement/Proof/Audit path-and-byte-digest rows. Semantic-substitution mutations: 6 expected rejections, all recorded as passing.
++
++No worker Lean/Lake/Elan invocation is permitted. The canonical Master alone compiles Statement, Proof and Audit from source at trust zero and replaces provisional recomputation claims with independent observed evidence. The repaired Proof and Audit artifacts are each directly elaborable in the provider-native route: neither imports the unavailable `AwesomeTheorems` claim-local module prefix, and Audit independently reconstructs the root used by its binder-explicit pointwise exact-type witness. The controller-mandated uninstantiated witness surface is retained as quoted command syntax so its unconstrained implicit `n` is never elaborated as a declaration.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003491/receipts/current-validation.json b/Stage5_Theorem_Instances/S5-CLM-00003491/receipts/current-validation.json
+new file mode 100644
+index 00000000..7c053d4b
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003491/receipts/current-validation.json
+@@ -0,0 +1,58 @@
++{
++  "authority_sha256": "b6af7be646accce1370c32529a47ebf9c72388b6673545606522422949328291",
++  "canonical_master_compile_required": true,
++  "claim_card_sha256": "053a000527aa4c5ee2806c026b5105f84deef48b8f9190d2217bb24dd16045f7",
++  "generation_id": "r-1787007897-9688b82a",
++  "item_id": "S5THM-00003491-TARGET",
++  "machine_closure_sha256": "b92b6ea6a934a4417363acc038f45066da07b1e22939bd4f0e495b69b1321956",
++  "master_accepted": false,
++  "program": "stage5-theorem-proof-debt/2.0",
++  "proof_dag_sha256": "c607dd481cee60d747ce591cc411bd2f6bedaa7de2a61ee01e358be0fe7f2839",
++  "readability_review_sha256": "fc1ef9f3b94b40098f36caf736bdf158039abe261835be7ec9ce55162e3daf28",
++  "schema_version": "awesome-theorems/stage5-theorem-current-validation/2.0",
++  "semantic_environment_sha256": "61f38b6dcd915a5ebee80afcb397c3d10583719374415f4858307e847e0ca99b",
++  "semantic_mutations": [
++    {
++      "expected": "reject",
++      "mutation": "replace pinned FormalConjectures revision",
++      "observed": "reject",
++      "reason": "provider_revision mismatch"
++    },
++    {
++      "expected": "reject",
++      "mutation": "substitute import Mathlib for semantic binding without delta crosswalk",
++      "observed": "reject",
++      "reason": "elaborated expression/crosswalk mismatch"
++    },
++    {
++      "expected": "reject",
++      "mutation": "locally redefine maximalLength",
++      "observed": "reject",
++      "reason": "source symbol shadowing"
++    },
++    {
++      "expected": "reject",
++      "mutation": "delete pairwise proof node P40",
++      "observed": "reject",
++      "reason": "proof/readability DAG loses required node"
++    },
++    {
++      "expected": "reject",
++      "mutation": "inject source sorry-backed theorem",
++      "observed": "reject",
++      "reason": "sorryAx / oracle closure"
++    },
++    {
++      "expected": "reject",
++      "mutation": "warm-cache-only replay",
++      "observed": "reject",
++      "reason": "cold-from-source evidence absent"
++    }
++  ],
++  "stage_claim_id": "S5-CLM-00003491",
++  "worker_preflight": {
++    "command_id": "complete-target-semantic-proof-debt",
++    "mode": "--no-lean",
++    "status": "passed"
++  }
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003491/README.md b/Stage5_Theorem_Instances/S5-CLM-00003491/README.md
+new file mode 100644
+index 00000000..3c64a88a
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003491/README.md
+@@ -0,0 +1,5 @@
++# S5-CLM-00003491
++
++A complete provisional Stage5 theorem package for `Arxiv.«1609.08688».maximalLength_ge_of_isSquare`. It binds frozen workset record `30527d72e1c92acb11586211cdd1374d3c2ae2430261c020af072a004e997f6f`, provider revision `2270d31e8dd611521f979de6d86da364930b7669`, and Stage6 alias `S6-CLM-00008151` / `S6-VAR-00007039`.
++
++The mathematical closure is a lexicographic `q^3` construction for `q = n.sqrt`, with explicit range, pairwise, bounded-supremum, small-`n`, provenance, semantic-mutation, machine, readability and release evidence. Proof and Audit are independently elaborable in the provider-native environment without claim-local imports; Audit directly reconstructs the terminal root. The package claims provisional M0-P/R0 with empty H/M/R cuts; `master_accepted` remains false pending canonical trust-zero compilation and independent semantic-environment recomputation.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003491/meta.json b/Stage5_Theorem_Instances/S5-CLM-00003491/meta.json
+new file mode 100644
+index 00000000..08a90317
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003491/meta.json
+@@ -0,0 +1,23 @@
++{
++  "authority_sha256": "3d8faea517702479188a1c56c5c6265f72955288ae55925676fa5bd44449519a",
++  "cohort": "FC-SORRY",
++  "family_id": "ATF-00003261",
++  "item_id": "S5THM-00003491-TARGET",
++  "machine_level": "M0-P",
++  "master_accepted": false,
++  "member_record_sha256": "30527d72e1c92acb11586211cdd1374d3c2ae2430261c020af072a004e997f6f",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "qualified_name": "Arxiv.«1609.08688».maximalLength_ge_of_isSquare",
++  "readability_level": "R0",
++  "schema_version": "awesome-theorems/stage5-theorem-meta/2.0",
++  "semantic_environment_sha256": "61f38b6dcd915a5ebee80afcb397c3d10583719374415f4858307e847e0ca99b",
++  "stage6_alias": {
++    "current_resolution_kind": "current",
++    "parent_variant_id": "ATV-00003491",
++    "stage6_claim_id": "S6-CLM-00008151",
++    "stage6_variant_id": "S6-VAR-00007039"
++  },
++  "stage_claim_id": "S5-CLM-00003491",
++  "theorem_complete_candidate": true,
++  "variant_id": "ATV-00003491"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003491/receipts/release-decision.json b/Stage5_Theorem_Instances/S5-CLM-00003491/receipts/release-decision.json
+new file mode 100644
+index 00000000..89188cef
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003491/receipts/release-decision.json
+@@ -0,0 +1,33 @@
++{
++  "authority_sha256": "0a93ca45fc43775b63da3e0dbb62ad288d593ecf8e5b568911cb7dfaf4b54e61",
++  "current_trace_sha256": "6bbc2db7384c29c9aeeba6f4bd39858db9a416a9c5f06d6ea2dfeea63c398605",
++  "decision": "provisional_release_candidate",
++  "human_cut_set": [],
++  "item_id": "S5THM-00003491-TARGET",
++  "machine_complete": true,
++  "machine_cut_set": [],
++  "master_accepted": false,
++  "program": "stage5-theorem-proof-debt/2.0",
++  "readability_cut_set": [],
++  "readable_complete": true,
++  "schema_version": "awesome-theorems/stage5-theorem-release-decision/2.0",
++  "semantic_environment_sha256": "61f38b6dcd915a5ebee80afcb397c3d10583719374415f4858307e847e0ca99b",
++  "stage_claim_id": "S5-CLM-00003491",
++  "strict_dominance": {
++    "all_applicable_shape_predicates_passed": true,
++    "cold_from_source_replay_passed": true,
++    "empty_hmr_cuts": true,
++    "exact_m0": true,
++    "fixture": "THM-M-0387",
++    "fixture_status": "incomplete_H1_M2_R0_negative_fixture",
++    "semantic_environment_added": true,
++    "semantic_substitution_mutations_passed": true,
++    "strict_dimensions": [
++      "semantic_environment",
++      "semantic_substitution_mutations",
++      "cold_from_source_replay"
++    ],
++    "true_r0": true
++  },
++  "theorem_complete_candidate": true
++}

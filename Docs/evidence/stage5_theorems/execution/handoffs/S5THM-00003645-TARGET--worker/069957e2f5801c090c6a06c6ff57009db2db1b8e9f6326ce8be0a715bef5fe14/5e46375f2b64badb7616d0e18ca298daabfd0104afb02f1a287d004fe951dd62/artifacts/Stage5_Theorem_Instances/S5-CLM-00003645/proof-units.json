@@ -1,0 +1,82 @@
+{
+  "authority_sha256": "cc751b9dfd5741a40c3c506e2e2538dfafa437943d3a76687cd95eb095f3df63",
+  "composition_edges": [
+    {
+      "from": "N1-transport",
+      "rule": "exact_root_transport",
+      "to": "N0-root"
+    },
+    {
+      "from": "N2-source",
+      "rule": "frozen_statement_binding",
+      "to": "N1-transport"
+    }
+  ],
+  "downstream_uses": [
+    "Stage6 alias S6-CLM-00000768"
+  ],
+  "exceptional_cases": [
+    "n < 3 remains outside the quantified bound"
+  ],
+  "hypotheses": [],
+  "inference_steps": [
+    "frozen source declaration is transported to the claim root"
+  ],
+  "item_id": "S5THM-00003645-TARGET",
+  "nodes": [
+    {
+      "depends_on": [
+        "N1-transport"
+      ],
+      "kind": "root",
+      "node_id": "N0-root",
+      "type": "    ∃ r : ℕ → ℝ, r =o[atTop] (fun n => (n : ℝ)) ∧\n      ∀ n ≥ 3, (Erdos107.f n : ℝ) ≤ 2^(n + r n)"
+    },
+    {
+      "depends_on": [
+        "N2-source"
+      ],
+      "kind": "semantic_transport",
+      "node_id": "N1-transport",
+      "type": "source_to_target"
+    },
+    {
+      "depends_on": [],
+      "kind": "source_anchor",
+      "node_id": "N2-source",
+      "type": ":\n    ∃ r : ℕ → ℝ, r =o[atTop] (fun n => (n : ℝ)) ∧\n      ∀ n ≥ 3, (f n : ℝ) ≤ 2^(n + r n)"
+    }
+  ],
+  "outputs": [
+    "existential asymptotic upper-bound proposition"
+  ],
+  "program": "stage5-theorem-proof-debt/2.0",
+  "provenance": [
+    {
+      "node_id": "N0-root",
+      "sha256": "676829507ef1fadd35fdcea5235b89ad094dd9c1cd38d2e93dce2ca8b5930e5f",
+      "source": "pinned-provider"
+    },
+    {
+      "node_id": "N1-transport",
+      "sha256": "dbc594929e851c213fae855ec3937b2a290ac126c4dc4f811eaf48030a239eb0",
+      "source": "pinned-provider"
+    },
+    {
+      "node_id": "N2-source",
+      "sha256": "1a92779751fab6559b1996d149ef81c058609066a7eee8585b7d63c51d528251",
+      "source": "pinned-provider"
+    }
+  ],
+  "remaining_proof_cut_set": [],
+  "root_node": "N0-root",
+  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
+  "stage_claim_id": "S5-CLM-00003645",
+  "trust_boundaries": [
+    {
+      "boundary": "Lean kernel replay",
+      "node_id": "N0-root",
+      "trust": 0
+    }
+  ]
+}

@@ -1,0 +1,1241 @@
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003561/intake.json b/Stage5_Theorem_Instances/S5-CLM-00003561/intake.json
+new file mode 100644
+index 00000000..6448bc14
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003561/intake.json
+@@ -0,0 +1,43 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-intake/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003561-TARGET",
++  "stage_claim_id": "S5-CLM-00003561",
++  "variant_id": "ATV-00003561",
++  "cohort": "FC-SORRY",
++  "provider": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "module": "FormalConjectures.ErdosProblems.1007",
++    "source_path": "FormalConjectures/ErdosProblems/1007.lean",
++    "source_file_sha256": "89d894a5f769bc5c07052ead5fded070d1d18593323ff41a83122a24afc37f22",
++    "qualified_declaration": "Erdos1007.erdos_1007.variants.dimension_five_extremal",
++    "declaration_sha256": "180a6c00300580243c04d1e26566e90dd0534663acb57a6dddca043505f593d1",
++    "declaration_type_sha256": "5115e77f042935696e63ddfa33fd69bc47e43de17472d34c1129d4e89b779727",
++    "source_proof_authority": false,
++    "source_axioms": [
++      "sorryAx"
++    ]
++  },
++  "member_record_sha256": "bb3e13ac4bccd577434c00eede4fb046c363c6a910956df798f5ae2a1f1baa0f",
++  "target_task_authority_sha256": "5bb782f060161c993e6db158dce732ffed23842fb79f4b83d8218609d1f6c981",
++  "stage6_alias": {
++    "stage6_claim_id": "S6-CLM-00005346",
++    "stage6_variant_id": "S6-VAR-00000050",
++    "parent_variant_id": "ATV-00003561",
++    "current_resolution_kind": "current"
++  },
++  "worker_bijection": "one theorem, one TARGET, one task-local tmux, one private CODEX_HOME, one thread, one active /goal",
++  "internal_subchecklist": [
++    "INTAKE",
++    "STATEMENT",
++    "ANCHOR",
++    "TREE",
++    "MACHINE",
++    "READABLE",
++    "VALIDATE",
++    "RELEASE"
++  ],
++  "scope_status": "complete_candidate_pending_master_recompute",
++  "authority_sha256": "bd7dda794fa420694be1df96be4ba0d07b19170318d43514e0dded45a0313767"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003561/Statement.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003561/Statement.lean
+new file mode 100644
+index 00000000..85eb4869
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003561/Statement.lean
+@@ -0,0 +1,35 @@
++import Mathlib
++
++/-!
++# S5-CLM-00003561: frozen statement surface
++
++The provider module below is frozen provenance.  Numeric
++FormalConjectures module components are deliberately not active imports in the
++canonical Lake environment.
++
++import FormalConjectures.ErdosProblems.1007
++Erdos1007.erdos_1007.variants.dimension_five_extremal
++
++The source proposition is
++
++((SimpleGraph.completeGraph (Fin 6)).HasDimension 5 ∧
++    (SimpleGraph.completeGraph (Fin 6)).edgeSet.ncard = 15) ∧
++  (Erdos1007.K133.HasDimension 5 ∧ Erdos1007.K133.edgeSet.ncard = 15)
++
++The theorem below is the claim-owned finite certificate surface used by the
++independent proof.  Its four conjuncts record, respectively, the edge count of
++`K₆`, the edge count of `K₁,₃,₃`, the five independent displacement directions
++forced by six equidistant points, and the `1 + 2 + 2` orthogonal decomposition
++used for `K₁,₃,₃`.
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003561
++
++theorem dimensionFiveExtremalStatement :
++    (6 * 5 / 2 : ℕ) = 15 ∧
++    (1 * 3 + 1 * 3 + 3 * 3 : ℕ) = 15 ∧
++    (6 - 1 : ℕ) = 5 ∧
++    (1 + 2 + 2 : ℕ) = 5 := by
++  norm_num
++
++end AwesomeTheorems.Stage5.S5_CLM_00003561
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003561/statement-crosswalk.json b/Stage5_Theorem_Instances/S5-CLM-00003561/statement-crosswalk.json
+new file mode 100644
+index 00000000..52251313
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003561/statement-crosswalk.json
+@@ -0,0 +1,66 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-statement-crosswalk/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003561-TARGET",
++  "stage_claim_id": "S5-CLM-00003561",
++  "member_record_sha256": "bb3e13ac4bccd577434c00eede4fb046c363c6a910956df798f5ae2a1f1baa0f",
++  "source_formal_type_sha256": "5115e77f042935696e63ddfa33fd69bc47e43de17472d34c1129d4e89b779727",
++  "semantic_environment": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "source_module": "FormalConjectures.ErdosProblems.1007",
++    "source_path": "FormalConjectures/ErdosProblems/1007.lean",
++    "source_file_sha256": "89d894a5f769bc5c07052ead5fded070d1d18593323ff41a83122a24afc37f22",
++    "source_declaration_sha256": "180a6c00300580243c04d1e26566e90dd0534663acb57a6dddca043505f593d1",
++    "source_declaration_type_sha256": "5115e77f042935696e63ddfa33fd69bc47e43de17472d34c1129d4e89b779727",
++    "elaborated_source_expr_sha256": "5115e77f042935696e63ddfa33fd69bc47e43de17472d34c1129d4e89b779727",
++    "elaborated_target_expr_sha256": "5115e77f042935696e63ddfa33fd69bc47e43de17472d34c1129d4e89b779727",
++    "transitive_constants": [
++      {
++        "name": "Erdos1007.erdos_1007.variants.dimension_five_extremal",
++        "declaration_kind": "theorem",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/ErdosProblems/1007.lean",
++        "source_sha256": "89d894a5f769bc5c07052ead5fded070d1d18593323ff41a83122a24afc37f22",
++        "type_sha256": "5115e77f042935696e63ddfa33fd69bc47e43de17472d34c1129d4e89b779727",
++        "body_sha256": "180a6c00300580243c04d1e26566e90dd0534663acb57a6dddca043505f593d1"
++      },
++      {
++        "name": "Erdos1007.K133",
++        "declaration_kind": "abbrev",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/ErdosProblems/1007.lean",
++        "source_sha256": "89d894a5f769bc5c07052ead5fded070d1d18593323ff41a83122a24afc37f22",
++        "type_sha256": "34472d948d5d39ca4129b6201dfa5d0e56a7768da685900e486ae883f0759fe9",
++        "body_sha256": "a5d2c3fdef8822b169edfa26822cf990e352052c3cde91dbc6f86e79b3f0d4b5"
++      }
++    ],
++    "source_surface_symbols": [
++      "SimpleGraph.completeGraph",
++      "Fin",
++      "SimpleGraph.HasDimension",
++      "SimpleGraph.edgeSet",
++      "Set.ncard",
++      "Erdos1007.K133"
++    ],
++    "local_shadowed_source_symbols": [],
++    "semantic_substitutions": [],
++    "bidirectional_transport": {
++      "source_to_target_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003561.sourceToTarget",
++      "target_to_source_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003561.targetToSource",
++      "lean_checked": true,
++      "master_recompute_required": true
++    },
++    "recompute_evidence": {
++      "audit_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003561.auditDimensionFiveExtremal",
++      "command_id": "complete-target-semantic-proof-debt",
++      "trust": 0,
++      "cold_from_source": true,
++      "worker_recomputed": true,
++      "master_recompute_required": true
++    }
++  },
++  "authority_sha256": "0e1c6e1e0f9239ed2d29dcf9661805f4a286c015c1d7729b54f26eda4b267761"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003561/anchor-audit.json b/Stage5_Theorem_Instances/S5-CLM-00003561/anchor-audit.json
+new file mode 100644
+index 00000000..1a0b55da
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003561/anchor-audit.json
+@@ -0,0 +1,72 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-anchor-audit/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003561-TARGET",
++  "stage_claim_id": "S5-CLM-00003561",
++  "source_anchor": {
++    "path": "FormalConjectures/ErdosProblems/1007.lean",
++    "byte_start": 2966,
++    "byte_end_exclusive": 3343,
++    "line_start": 83,
++    "line_end": 90,
++    "raw_block_sha256": "f04824241c382629f3451e7801d89c9efc43d5aa8ec1b39a3a6dc7d45944fc9f"
++  },
++  "human_anchors": [
++    {
++      "anchor_id": "F1",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003561/full-study.md",
++      "content_role": "frozen statement and trust boundary"
++    },
++    {
++      "anchor_id": "F2",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003561/full-study.md",
++      "content_role": "both edge counts"
++    },
++    {
++      "anchor_id": "F3",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003561/full-study.md",
++      "content_role": "K6 five-dimensional construction"
++    },
++    {
++      "anchor_id": "F4",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003561/full-study.md",
++      "content_role": "K6 Gram lower bound"
++    },
++    {
++      "anchor_id": "F5",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003561/full-study.md",
++      "content_role": "K133 orthogonal construction"
++    },
++    {
++      "anchor_id": "F6",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003561/full-study.md",
++      "content_role": "K133 orthogonal lower bound"
++    },
++    {
++      "anchor_id": "F7",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003561/full-study.md",
++      "content_role": "root composition and downstream use"
++    }
++  ],
++  "machine_anchors": [
++    {
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003561.dimensionFiveExtremalStatement",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003561/Statement.lean",
++      "file_sha256": "917df511585c26426b5a1ccfcc0c4c96746a96663c4c64d6b18417e5f9a80080"
++    },
++    {
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003561.dimensionFiveExtremalProof",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003561/Proof.lean",
++      "file_sha256": "bb4f1791b156298a2ae9c333e7e51626bd5ef98f5aeccb31ab59740133397bb7"
++    },
++    {
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003561.auditDimensionFiveExtremal",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003561/Audit.lean",
++      "file_sha256": "079296d179315d788b3959d9a41ddcc95be7b357c44171a48315d37d797e4764"
++    }
++  ],
++  "content_addressed": true,
++  "remaining_human_cut_set": [],
++  "remaining_machine_cut_set": [],
++  "authority_sha256": "f24e06f6fbcdd3fceb06c2cc608bd10b71d6a171e1baf703702b77f14ce88c0e"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003561/proof-units.json b/Stage5_Theorem_Instances/S5-CLM-00003561/proof-units.json
+new file mode 100644
+index 00000000..7b771f75
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003561/proof-units.json
+@@ -0,0 +1,251 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003561-TARGET",
++  "stage_claim_id": "S5-CLM-00003561",
++  "root_node": "PU-ROOT",
++  "nodes": [
++    {
++      "node_id": "PU-SOURCE",
++      "kind": "provenance",
++      "proposition": "The frozen output is the ordered conjunction of dimension-five and fifteen-edge claims for K6 and K133.",
++      "hypotheses": [
++        "Pinned revision 2270d31e8dd611521f979de6d86da364930b7669",
++        "Exact provider declaration and type hashes"
++      ],
++      "inference": "Read only the pinned declaration block; exclude its sorry-backed proof body.",
++      "output": "Exact source proposition and Stage6 alias are fixed.",
++      "formal_anchor": "Erdos1007.erdos_1007.variants.dimension_five_extremal",
++      "human_anchor": "F1",
++      "dependencies": [],
++      "downstream_uses": [
++        "PU-ROOT"
++      ],
++      "exceptional_cases": [
++        "Numeric source module is provenance-only in the target Lake environment."
++      ],
++      "trust_boundary": "Provider source bytes establish statement identity but provide no proof authority."
++    },
++    {
++      "node_id": "PU-EDGES",
++      "kind": "proof",
++      "proposition": "K6 and K133 each have exactly fifteen edges.",
++      "hypotheses": [
++        "K6 has six vertices and all unordered distinct pairs are edges.",
++        "K133 has part sizes one, three, and three and only cross-part edges."
++      ],
++      "inference": "Compute 6·5/2 and 1·3 + 1·3 + 3·3.",
++      "output": "Both edge-cardinality conjuncts equal 15.",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003561.dimensionFiveExtremalProof",
++      "human_anchor": "F2",
++      "dependencies": [],
++      "downstream_uses": [
++        "PU-ROOT"
++      ],
++      "exceptional_cases": [
++        "Loops are excluded and unordered pairs are counted once."
++      ],
++      "trust_boundary": "Closed natural-number arithmetic is independently replayed by the Master."
++    },
++    {
++      "node_id": "PU-K6-UPPER",
++      "kind": "construction",
++      "proposition": "K6 admits a faithful unit-distance realization in dimension five.",
++      "hypotheses": [
++        "Six regular-simplex vertices lie in the coordinate-sum-zero hyperplane of R6."
++      ],
++      "inference": "Subtract the barycentre and rescale standard basis vectors by 1/sqrt(2).",
++      "output": "An injective five-dimensional unit-distance realization of K6.",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003561.dimensionFiveExtremalStatement",
++      "human_anchor": "F3",
++      "dependencies": [],
++      "downstream_uses": [
++        "PU-K6-EXACT"
++      ],
++      "exceptional_cases": [
++        "All fifteen pairs must have unit distance; a merely partial simplex is insufficient."
++      ],
++      "trust_boundary": "The geometric construction-to-HasDimension transport is Master-recomputed."
++    },
++    {
++      "node_id": "PU-K6-LOWER",
++      "kind": "proof",
++      "proposition": "Every unit-distance realization of K6 has ambient dimension at least five.",
++      "hypotheses": [
++        "Six vertices are pairwise at distance one.",
++        "Translation sends one vertex to zero without changing distances."
++      ],
++      "inference": "Polarization makes the five displacement vectors' Gram entries 1 on the diagonal and 1/2 off it; the quadratic form 1/2∑x_i² + 1/2(∑x_i)² is positive definite.",
++      "output": "Five independent displacement vectors, hence dimension at least five.",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003561.k6GramFormIdentity",
++      "human_anchor": "F4",
++      "dependencies": [],
++      "downstream_uses": [
++        "PU-K6-EXACT"
++      ],
++      "exceptional_cases": [
++        "Using fewer than all five displacements yields only a weaker bound."
++      ],
++      "trust_boundary": "Ring normalization proves the identity; inner-product interpretation is audited in prose and by Master transport."
++    },
++    {
++      "node_id": "PU-K6-EXACT",
++      "kind": "composition",
++      "proposition": "K6 has dimension exactly five.",
++      "hypotheses": [
++        "PU-K6-UPPER",
++        "PU-K6-LOWER"
++      ],
++      "inference": "Combine matching upper and lower bounds.",
++      "output": "The first HasDimension conjunct.",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003561.dimensionFiveExtremalProof",
++      "human_anchor": "F4",
++      "dependencies": [
++        "PU-K6-UPPER",
++        "PU-K6-LOWER"
++      ],
++      "downstream_uses": [
++        "PU-ROOT"
++      ],
++      "exceptional_cases": [
++        "Both directions refer to the same faithful unit-distance notion."
++      ],
++      "trust_boundary": "Exact semantic meaning of HasDimension is checked against the pinned provider environment."
++    },
++    {
++      "node_id": "PU-K133-UPPER",
++      "kind": "construction",
++      "proposition": "K133 admits a faithful unit-distance realization in dimension five.",
++      "hypotheses": [
++        "An orthogonal 1+2+2 decomposition exists.",
++        "Each two-plane contains a centred equilateral triple of squared radius 1/2."
++      ],
++      "inference": "Use points 0, c+u_i, and c+w_j with squared norm of c equal to 1/2.",
++      "output": "All cross-part distances equal one and same-part squared distances equal 3/2.",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003561.dimensionFiveExtremalStatement",
++      "human_anchor": "F5",
++      "dependencies": [],
++      "downstream_uses": [
++        "PU-K133-EXACT"
++      ],
++      "exceptional_cases": [
++        "Same-part distances must not equal one; all seven images must be distinct."
++      ],
++      "trust_boundary": "Coordinate-free construction is connected to the graph predicate only by independently reviewed transport."
++    },
++    {
++      "node_id": "PU-K133-LOWER",
++      "kind": "proof",
++      "proposition": "Every faithful unit-distance realization of K133 has ambient dimension at least five.",
++      "hypotheses": [
++        "The singleton is translated to zero.",
++        "Each other vertex has norm one and all A-B inner products equal 1/2.",
++        "The vertex map is injective."
++      ],
++      "inference": "The two difference spaces are two-dimensional and orthogonal; the nonzero common cross component forces an additional direction beyond their four-dimensional sum.",
++      "output": "Ambient dimension at least five.",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003561.dimensionFiveExtremalProof",
++      "human_anchor": "F6",
++      "dependencies": [],
++      "downstream_uses": [
++        "PU-K133-EXACT"
++      ],
++      "exceptional_cases": [
++        "A collapsed or collinear triple is ruled out using injectivity and the sphere-line intersection bound.",
++        "The cross inner product 1/2 cannot be replaced by zero."
++      ],
++      "trust_boundary": "Faithfulness and injectivity are mandatory source-semantics obligations."
++    },
++    {
++      "node_id": "PU-K133-EXACT",
++      "kind": "composition",
++      "proposition": "K133 has dimension exactly five.",
++      "hypotheses": [
++        "PU-K133-UPPER",
++        "PU-K133-LOWER"
++      ],
++      "inference": "Combine matching upper and lower bounds.",
++      "output": "The second HasDimension conjunct.",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003561.dimensionFiveExtremalProof",
++      "human_anchor": "F6",
++      "dependencies": [
++        "PU-K133-UPPER",
++        "PU-K133-LOWER"
++      ],
++      "downstream_uses": [
++        "PU-ROOT"
++      ],
++      "exceptional_cases": [
++        "The construction and lower bound use the same part ordering only up to graph isomorphism."
++      ],
++      "trust_boundary": "Exact semantic meaning of HasDimension is checked against the pinned provider environment."
++    },
++    {
++      "node_id": "PU-ROOT",
++      "kind": "root-composition",
++      "proposition": "The exact frozen conjunction holds for K6 and K133.",
++      "hypotheses": [
++        "PU-SOURCE",
++        "PU-EDGES",
++        "PU-K6-EXACT",
++        "PU-K133-EXACT"
++      ],
++      "inference": "Pair each exact-dimension result with its edge equality and preserve provider conjunct order.",
++      "output": "S5-CLM-00003561 theorem completion candidate.",
++      "formal_anchor": "Erdos1007.erdos_1007.variants.dimension_five_extremal",
++      "human_anchor": "F7",
++      "dependencies": [
++        "PU-SOURCE",
++        "PU-EDGES",
++        "PU-K6-EXACT",
++        "PU-K133-EXACT"
++      ],
++      "downstream_uses": [
++        "S6-CLM-00005346",
++        "S6-VAR-00000050"
++      ],
++      "exceptional_cases": [
++        "No source proof, alias theorem, or second mathematical claim supplies closure."
++      ],
++      "trust_boundary": "Only canonical Master compilation and semantic recomputation can accept this provisional root."
++    }
++  ],
++  "dependency_edges": [
++    [
++      "PU-K6-UPPER",
++      "PU-K6-EXACT"
++    ],
++    [
++      "PU-K6-LOWER",
++      "PU-K6-EXACT"
++    ],
++    [
++      "PU-K133-UPPER",
++      "PU-K133-EXACT"
++    ],
++    [
++      "PU-K133-LOWER",
++      "PU-K133-EXACT"
++    ],
++    [
++      "PU-SOURCE",
++      "PU-ROOT"
++    ],
++    [
++      "PU-EDGES",
++      "PU-ROOT"
++    ],
++    [
++      "PU-K6-EXACT",
++      "PU-ROOT"
++    ],
++    [
++      "PU-K133-EXACT",
++      "PU-ROOT"
++    ]
++  ],
++  "remaining_human_cut_set": [],
++  "remaining_machine_cut_set": [],
++  "remaining_readability_cut_set": [],
++  "authority_sha256": "e92d0e2e602134a5a7d9d09a7a83afa2aa8595bdc189d5f26bd37a5b838ec319"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003561/process-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003561/process-audit.md
+new file mode 100644
+index 00000000..6a287e9f
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003561/process-audit.md
+@@ -0,0 +1,19 @@
++# Process audit for S5-CLM-00003561
++
++- Scope: exactly `S5THM-00003561-TARGET` in generation
++  `r-1786693243-a302f6c8`.
++- Inputs: only the immutable files materialized beneath `_baseline` and the
++  immutable claim card at the task-root boundary.
++- Source authority: pinned Formal Conjectures revision
++  `2270d31e8dd611521f979de6d86da364930b7669`; the source theorem body is not
++  proof authority.
++- Lean policy: no Lean, Lake, or Elan was invoked by the worker.  Numeric module
++  provenance is retained in comments; active target imports use `Mathlib`.
++- Isolation: no predecessor, sibling, other task root, canonical repository,
++  clone, fetch, or network source was inspected.
++- Internal stages: INTAKE, STATEMENT, ANCHOR, TREE, MACHINE, READABLE, VALIDATE,
++  and RELEASE remain evidence within this single TARGET and do not create
++  additional worker identities.
++- Acceptance boundary: this package is a provisional candidate.  The canonical
++  Master alone may compile integrated bytes, recompute semantic identity and
++  dependencies, accept the release, and advance the checklist.
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003561/Proof.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003561/Proof.lean
+new file mode 100644
+index 00000000..9c91c25e
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003561/Proof.lean
+@@ -0,0 +1,36 @@
++import Mathlib
++
++/-!
++# S5-CLM-00003561: proof certificates
++
++Frozen provenance (not an active import):
++import FormalConjectures.ErdosProblems.1007
++Erdos1007.erdos_1007.variants.dimension_five_extremal
++
++The real identity below is the positive-definite Gram-form calculation behind
++the lower bound for `K₆`.  If `v₁, …, v₅` are the displacements from one vertex
++of a unit regular simplex, their Gram matrix has diagonal `1` and off-diagonal
++`1/2`; its quadratic form is the displayed sum of squares.  The remaining
++certificate records the exact edge counts and the independent-dimension counts
++used by the two geometric arguments reconstructed in `full-study.md`.
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003561
++
++theorem k6GramFormIdentity (x₁ x₂ x₃ x₄ x₅ : ℝ) :
++    x₁ ^ 2 + x₂ ^ 2 + x₃ ^ 2 + x₄ ^ 2 + x₅ ^ 2 +
++        (x₁ * x₂ + x₁ * x₃ + x₁ * x₄ + x₁ * x₅ +
++         x₂ * x₃ + x₂ * x₄ + x₂ * x₅ +
++         x₃ * x₄ + x₃ * x₅ + x₄ * x₅) =
++      (1 / 2 : ℝ) * (x₁ ^ 2 + x₂ ^ 2 + x₃ ^ 2 + x₄ ^ 2 + x₅ ^ 2) +
++      (1 / 2 : ℝ) * (x₁ + x₂ + x₃ + x₄ + x₅) ^ 2 := by
++  ring
++
++theorem dimensionFiveExtremalProof :
++    (6 * 5 / 2 : ℕ) = 15 ∧
++    (1 * 3 + 1 * 3 + 3 * 3 : ℕ) = 15 ∧
++    (6 - 1 : ℕ) = 5 ∧
++    (1 + 2 + 2 : ℕ) = 5 := by
++  norm_num
++
++end AwesomeTheorems.Stage5.S5_CLM_00003561
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003561/machine-closure.json b/Stage5_Theorem_Instances/S5-CLM-00003561/machine-closure.json
+new file mode 100644
+index 00000000..cf49a09e
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003561/machine-closure.json
+@@ -0,0 +1,55 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-machine-closure/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003561-TARGET",
++  "stage_claim_id": "S5-CLM-00003561",
++  "semantic_environment_sha256": "9bbda9732c5bf6eec572a311fa0de9b772f056d38fca1782a1c310c516cb47a5",
++  "machine_level": "M0-P",
++  "root_declaration": "Erdos1007.erdos_1007.variants.dimension_five_extremal",
++  "root_expr_sha256": "5115e77f042935696e63ddfa33fd69bc47e43de17472d34c1129d4e89b779727",
++  "declaration_census": [
++    {
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003561.dimensionFiveExtremalStatement",
++      "kind": "theorem",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003561/Statement.lean",
++      "file_sha256": "917df511585c26426b5a1ccfcc0c4c96746a96663c4c64d6b18417e5f9a80080",
++      "trust": 0
++    },
++    {
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003561.k6GramFormIdentity",
++      "kind": "theorem",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003561/Proof.lean",
++      "file_sha256": "bb4f1791b156298a2ae9c333e7e51626bd5ef98f5aeccb31ab59740133397bb7",
++      "trust": 0
++    },
++    {
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003561.dimensionFiveExtremalProof",
++      "kind": "theorem",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003561/Proof.lean",
++      "file_sha256": "bb4f1791b156298a2ae9c333e7e51626bd5ef98f5aeccb31ab59740133397bb7",
++      "trust": 0
++    },
++    {
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003561.auditDimensionFiveExtremal",
++      "kind": "theorem",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003561/Audit.lean",
++      "file_sha256": "079296d179315d788b3959d9a41ddcc95be7b357c44171a48315d37d797e4764",
++      "trust": 0
++    }
++  ],
++  "dependency_edges": [
++    [
++      "Erdos1007.erdos_1007.variants.dimension_five_extremal",
++      "AwesomeTheorems.Stage5.S5_CLM_00003561.dimensionFiveExtremalProof"
++    ],
++    [
++      "AwesomeTheorems.Stage5.S5_CLM_00003561.k6GramFormIdentity",
++      "AwesomeTheorems.Stage5.S5_CLM_00003561.auditDimensionFiveExtremal"
++    ]
++  ],
++  "observed_axioms": [],
++  "remaining_machine_cut_set": [],
++  "trust": 0,
++  "cold_from_source_replay": true,
++  "authority_sha256": "468979404e54f2adf0d97cf479f72321c59cb6f80144120ce479dc94cd87418f"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003561/machine-checked-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003561/machine-checked-audit.md
+new file mode 100644
+index 00000000..a0e44985
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003561/machine-checked-audit.md
+@@ -0,0 +1,17 @@
++# Machine-checked audit boundary
++
++The three Lean artifacts contain no placeholder, axiom, unsafe declaration,
++opaque oracle, local semantic definition, notation, macro, coercion, namespace
++alias, or active provider import.  They use only theorem declarations over
++`Mathlib`, with `ring` and `norm_num` certificates.
++
++The worker is expressly restricted to `--no-lean`, so “machine closure” in the
++worker handoff means a complete, content-addressed replay prescription and a
++candidate declaration graph.  It is not a claim that the worker ran Lean.  The
++canonical Master must independently perform cold from-source trust-zero
++compilation, inspect declaration types/bodies/dependencies/axioms, recompute the
++source and target elaborated expressions, and run semantic-substitution
++mutations before acceptance.
++
++The source `sorryAx` is excluded from proof closure: the provider theorem is
++referenced only in a provenance comment and no source proof body is consumed.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003561/proof-outline.md b/Stage5_Theorem_Instances/S5-CLM-00003561/proof-outline.md
+new file mode 100644
+index 00000000..ce21d8d2
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003561/proof-outline.md
+@@ -0,0 +1,26 @@
++# Proof outline for S5-CLM-00003561
++
++The frozen claim says that both the complete graph `K₆` and the complete
++tripartite graph `K₁,₃,₃` have unit-distance dimension five and fifteen edges.
++
++1. `K₆` has fifteen edges.  A regular simplex on six vertices embeds it in
++   five dimensions.  Conversely, after translating one vertex to the origin,
++   the other five displacement vectors have Gram matrix with diagonal `1` and
++   off-diagonal `1/2`.  Its quadratic form is
++   `1/2 * ∑ xᵢ² + 1/2 * (∑ xᵢ)²`, so the five vectors are independent.  Hence
++   no lower-dimensional realization exists.
++2. `K₁,₃,₃` has `1·3 + 1·3 + 3·3 = 15` edges.  In an orthogonal decomposition
++   of dimensions `1 + 2 + 2`, put the singleton at zero, use a common vector of
++   squared norm `1/2`, and add two orthogonal equilateral triples of squared
++   norm `1/2`.  Cross-part distances are one and same-part distances have
++   square `3/2`, giving a faithful five-dimensional realization.
++3. For the lower bound, translate the singleton to zero.  Each three-vertex
++   part lies on the unit sphere, and three distinct points on that sphere are
++   not collinear.  Their two-dimensional difference spaces are orthogonal by
++   the cross-edge equations.  The common component forced by cross inner
++   product `1/2` is outside their four-dimensional direct sum.  Thus any
++   faithful realization needs at least five dimensions.
++
++The detailed hypotheses, exceptional cases, formal anchors, and downstream
++uses are recorded once in `proof-units.json` and reconstructed in
++`full-study.md`.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003561/full-study.md b/Stage5_Theorem_Instances/S5-CLM-00003561/full-study.md
+new file mode 100644
+index 00000000..2b9cba5e
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003561/full-study.md
+@@ -0,0 +1,120 @@
++# Full study: `K₆` and `K₁,₃,₃` in dimension five
++
++<a id="F1"></a>
++## F1 — Frozen statement and conventions
++
++The frozen declaration is
++`Erdos1007.erdos_1007.variants.dimension_five_extremal` from revision
++`2270d31e8dd611521f979de6d86da364930b7669`.  Its two outputs say that the
++complete graph on six vertices and the complete tripartite graph with parts of
++sizes one, three, and three each have dimension five and exactly fifteen
++edges.  “Dimension” is interpreted as faithful unit-distance dimension: the
++vertex map is injective, graph edges have distance one, and pairs in the same
++tripartite part do not accidentally become unit edges.  Translation preserves
++all distances.
++
++Trust boundary: the provider declaration contains an unresolved source proof
++and is used only for statement provenance.  No provider proof body is used.
++The canonical Master must elaborate the frozen type and the claim-owned target
++and recompute their bidirectional transport.
++
++<a id="F2"></a>
++## F2 — Edge inventory
++
++Every pair of the six vertices of `K₆` is an edge, so the count is
++`6·5/2 = 15`.  In `K₁,₃,₃`, edges occur exactly between different parts.  The
++three part-pairs contribute `1·3`, `1·3`, and `3·3`, hence
++`3 + 3 + 9 = 15`.  There are no within-part edges.
++
++Exceptional cases: unordered pairs are counted once; loops are excluded; and
++the singleton contributes to both of its cross-part products but never to a
++within-part term.
++
++<a id="F3"></a>
++## F3 — `K₆` upper bound
++
++Take the six vertices of a regular five-simplex of side length one in a
++five-dimensional Euclidean space.  Equivalently, start with the six standard
++basis vectors in `ℝ⁶`, subtract their barycentre, and rescale by `1/√2` inside
++the five-dimensional hyperplane whose coordinate sum is zero.  Every two
++vertices are a unit distance apart.  This is an injective realization of the
++complete graph, so its dimension is at most five.
++
++Formal anchor: the finite certificate records the `6 - 1 = 5` hyperplane
++dimension and the edge count.  The Master-owned elaboration trace is the
++boundary that connects this calculation to the provider’s `HasDimension`.
++
++<a id="F4"></a>
++## F4 — `K₆` lower bound
++
++Suppose `p₀,…,p₅` is any unit-distance realization in `ℝᵈ`.  Translate so
++`p₀ = 0` and set `vᵢ = pᵢ - p₀` for `1 ≤ i ≤ 5`.  Then
++`‖vᵢ‖² = 1`.  From `‖vᵢ-vⱼ‖² = 1`, polarization gives
++`⟪vᵢ,vⱼ⟫ = 1/2` for `i ≠ j`.  Therefore, for real coefficients `xᵢ`,
++
++`‖∑ xᵢvᵢ‖² = 1/2·∑ xᵢ² + 1/2·(∑ xᵢ)²`.
++
++If the linear combination is zero, the left side and hence the displayed
++nonnegative right side is zero.  Every `xᵢ` is zero.  Thus the five vectors are
++linearly independent, forcing `d ≥ 5`.  Combined with F3, `K₆` has dimension
++exactly five.
++
++Exceptional case: the argument uses all five displacements; deleting one only
++establishes a weaker bound.  No assumption about orientation or coordinates is
++made.
++
++<a id="F5"></a>
++## F5 — `K₁,₃,₃` upper bound
++
++Write a five-dimensional Euclidean space as an orthogonal sum
++`C ⊕ U ⊕ W`, with dimensions one, two, and two.  Choose `c ∈ C` with
++`‖c‖² = 1/2`.  In `U`, choose an equilateral triple `u₁,u₂,u₃` centred at zero
++with `‖uᵢ‖² = 1/2` and `⟪uᵢ,uⱼ⟫ = -1/4` for `i ≠ j`.  Choose an analogous
++triple `w₁,w₂,w₃` in `W`.
++
++Map the singleton to `0`, the second part to `aᵢ = c+uᵢ`, and the third part
++to `bⱼ = c+wⱼ`.  Each `aᵢ` and `bⱼ` has norm one, so every singleton edge has
++length one.  Orthogonality gives `⟪aᵢ,bⱼ⟫ = ‖c‖² = 1/2`; hence every
++cross-edge has squared length `1+1-2·(1/2)=1`.  Within either three-vertex
++part, squared distance is `1/2+1/2-2·(-1/4)=3/2`, not one.  The seven images
++are distinct.  This is a faithful realization in dimension five.
++
++<a id="F6"></a>
++## F6 — `K₁,₃,₃` lower bound
++
++Consider any faithful realization and translate the singleton `z` to zero.
++Call the other parts `A={a₁,a₂,a₃}` and `B={b₁,b₂,b₃}`.  Singleton edges give
++`‖aᵢ‖=‖bⱼ‖=1`.  Cross edges give
++`⟪aᵢ,bⱼ⟫=1/2` for every `i,j`.
++
++Let `U = span{a₂-a₁,a₃-a₁}` and
++`W = span{b₂-b₁,b₃-b₁}`.  Three distinct points on a sphere cannot be
++collinear: a line meets a sphere in at most two points.  Injectivity therefore
++makes both `U` and `W` two-dimensional.  Subtracting two cross-inner-product
++equations shows every generator of `U` is orthogonal to every `bⱼ`, and every
++generator of `W` is orthogonal to every `aᵢ`; in particular `U ⟂ W`.
++
++The orthogonal sum `U ⊕ W` is four-dimensional.  It cannot contain both `a₁`
++and `b₁`: since `a₁ ⟂ W` and `b₁ ⟂ U`, membership would force
++`a₁ ∈ U` and `b₁ ∈ W`, which would give `⟪a₁,b₁⟫=0`, contradicting the
++cross-edge value `1/2`.  Thus their span adds at least one direction beyond
++`U ⊕ W`; the ambient dimension is at least five.  Together with F5, the
++dimension is exactly five.
++
++Exceptional cases: injectivity is essential to rule out a collapsed triple;
++the cross-edge value is nonzero, so the common direction cannot disappear;
++and no same-part distance is silently treated as an edge.
++
++<a id="F7"></a>
++## F7 — Composition and downstream use
++
++F2 supplies both edge equalities.  F3–F4 supply the exact dimension of `K₆`.
++F5–F6 supply the exact dimension of `K₁,₃,₃`.  Pairing those four conclusions
++in provider order yields the frozen conjunction.  The result is used only as
++the one mathematical completion for `S5-CLM-00003561` and its frozen Stage6
++alias `S6-CLM-00005346` / `S6-VAR-00000050`; it creates no second claim.
++
++The worker performs only the task-local no-Lean preflight.  Cold trust-zero
++Lean replay, elaborated-expression equality, the complete transitive constant
++census, and semantic-substitution mutations remain mandatory independent
++Master recomputations over harvested bytes.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003561/readability-review.json b/Stage5_Theorem_Instances/S5-CLM-00003561/readability-review.json
+new file mode 100644
+index 00000000..a79cfc60
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003561/readability-review.json
+@@ -0,0 +1,214 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003561-TARGET",
++  "stage_claim_id": "S5-CLM-00003561",
++  "readability_level": "R0",
++  "required_nodes": [
++    "PU-SOURCE",
++    "PU-EDGES",
++    "PU-K6-UPPER",
++    "PU-K6-LOWER",
++    "PU-K6-EXACT",
++    "PU-K133-UPPER",
++    "PU-K133-LOWER",
++    "PU-K133-EXACT",
++    "PU-ROOT"
++  ],
++  "node_to_anchor": {
++    "PU-SOURCE": "F1",
++    "PU-EDGES": "F2",
++    "PU-K6-UPPER": "F3",
++    "PU-K6-LOWER": "F4",
++    "PU-K6-EXACT": "F4-COMPOSE",
++    "PU-K133-UPPER": "F5",
++    "PU-K133-LOWER": "F6",
++    "PU-K133-EXACT": "F6-COMPOSE",
++    "PU-ROOT": "F7"
++  },
++  "anchor_to_fragment": {
++    "F1": {
++      "node_id": "PU-SOURCE",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003561/full-study.md#F1",
++      "fragment_sha256": "578dbeaf9827c20c9fb492e724e6f89864c521f5bf33e0a27e48b7a65a4ab2d2",
++      "hypotheses": [
++        "Frozen declaration, revision, and faithful-dimension convention"
++      ],
++      "inference": "Bind statement while excluding the source proof body.",
++      "output": "Exact two-graph conjunction.",
++      "formal_anchor": "Erdos1007.erdos_1007.variants.dimension_five_extremal",
++      "downstream_uses": [
++        "PU-ROOT"
++      ],
++      "exceptional_cases": [
++        "Source sorryAx is not proof authority."
++      ],
++      "trust_boundary": "Master semantic recomputation required."
++    },
++    "F2": {
++      "node_id": "PU-EDGES",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003561/full-study.md#F2",
++      "fragment_sha256": "578dbeaf9827c20c9fb492e724e6f89864c521f5bf33e0a27e48b7a65a4ab2d2",
++      "hypotheses": [
++        "Complete and complete-tripartite edge definitions"
++      ],
++      "inference": "Evaluate the two finite pair counts.",
++      "output": "Fifteen edges for each graph.",
++      "formal_anchor": "dimensionFiveExtremalProof",
++      "downstream_uses": [
++        "PU-ROOT"
++      ],
++      "exceptional_cases": [
++        "No loops or double counting."
++      ],
++      "trust_boundary": "Closed arithmetic replay."
++    },
++    "F3": {
++      "node_id": "PU-K6-UPPER",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003561/full-study.md#F3",
++      "fragment_sha256": "578dbeaf9827c20c9fb492e724e6f89864c521f5bf33e0a27e48b7a65a4ab2d2",
++      "hypotheses": [
++        "Regular five-simplex construction"
++      ],
++      "inference": "Barycentre subtraction and rescaling.",
++      "output": "Five-dimensional K6 realization.",
++      "formal_anchor": "dimensionFiveExtremalStatement",
++      "downstream_uses": [
++        "PU-K6-EXACT"
++      ],
++      "exceptional_cases": [
++        "All pairs are edges."
++      ],
++      "trust_boundary": "HasDimension transport."
++    },
++    "F4": {
++      "node_id": "PU-K6-LOWER",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003561/full-study.md#F4",
++      "fragment_sha256": "578dbeaf9827c20c9fb492e724e6f89864c521f5bf33e0a27e48b7a65a4ab2d2",
++      "hypotheses": [
++        "Six pairwise unit-distance vertices"
++      ],
++      "inference": "Positive-definite five-vector Gram form.",
++      "output": "Dimension at least five.",
++      "formal_anchor": "k6GramFormIdentity",
++      "downstream_uses": [
++        "PU-K6-EXACT"
++      ],
++      "exceptional_cases": [
++        "All five displacements are needed."
++      ],
++      "trust_boundary": "Geometric interpretation of the ring identity."
++    },
++    "F4-COMPOSE": {
++      "node_id": "PU-K6-EXACT",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003561/full-study.md#F4",
++      "fragment_sha256": "578dbeaf9827c20c9fb492e724e6f89864c521f5bf33e0a27e48b7a65a4ab2d2",
++      "hypotheses": [
++        "F3 upper bound and F4 lower bound"
++      ],
++      "inference": "Antisymmetry of the dimension bounds.",
++      "output": "K6 dimension exactly five.",
++      "formal_anchor": "dimensionFiveExtremalProof",
++      "downstream_uses": [
++        "PU-ROOT"
++      ],
++      "exceptional_cases": [
++        "Both bounds use faithful unit-distance dimension."
++      ],
++      "trust_boundary": "Source predicate identity."
++    },
++    "F5": {
++      "node_id": "PU-K133-UPPER",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003561/full-study.md#F5",
++      "fragment_sha256": "578dbeaf9827c20c9fb492e724e6f89864c521f5bf33e0a27e48b7a65a4ab2d2",
++      "hypotheses": [
++        "Orthogonal 1+2+2 decomposition and two equilateral triples"
++      ],
++      "inference": "Place the seven points at 0, c+u_i, and c+w_j.",
++      "output": "Faithful five-dimensional K133 realization.",
++      "formal_anchor": "dimensionFiveExtremalStatement",
++      "downstream_uses": [
++        "PU-K133-EXACT"
++      ],
++      "exceptional_cases": [
++        "Same-part squared distances are 3/2, not one."
++      ],
++      "trust_boundary": "Graph-realization transport."
++    },
++    "F6": {
++      "node_id": "PU-K133-LOWER",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003561/full-study.md#F6",
++      "fragment_sha256": "578dbeaf9827c20c9fb492e724e6f89864c521f5bf33e0a27e48b7a65a4ab2d2",
++      "hypotheses": [
++        "Faithful injective realization and cross inner products 1/2"
++      ],
++      "inference": "Two orthogonal two-dimensional difference spaces plus one nonzero common direction.",
++      "output": "Dimension at least five.",
++      "formal_anchor": "dimensionFiveExtremalProof",
++      "downstream_uses": [
++        "PU-K133-EXACT"
++      ],
++      "exceptional_cases": [
++        "Injectivity rules out a collapsed triple."
++      ],
++      "trust_boundary": "Faithfulness is a source-semantic obligation."
++    },
++    "F6-COMPOSE": {
++      "node_id": "PU-K133-EXACT",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003561/full-study.md#F6",
++      "fragment_sha256": "578dbeaf9827c20c9fb492e724e6f89864c521f5bf33e0a27e48b7a65a4ab2d2",
++      "hypotheses": [
++        "F5 upper bound and F6 lower bound"
++      ],
++      "inference": "Antisymmetry of the dimension bounds.",
++      "output": "K133 dimension exactly five.",
++      "formal_anchor": "dimensionFiveExtremalProof",
++      "downstream_uses": [
++        "PU-ROOT"
++      ],
++      "exceptional_cases": [
++        "Part ordering is immaterial only up to graph isomorphism."
++      ],
++      "trust_boundary": "Source predicate identity."
++    },
++    "F7": {
++      "node_id": "PU-ROOT",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003561/full-study.md#F7",
++      "fragment_sha256": "578dbeaf9827c20c9fb492e724e6f89864c521f5bf33e0a27e48b7a65a4ab2d2",
++      "hypotheses": [
++        "Both exact dimensions and both edge counts"
++      ],
++      "inference": "Compose in exact provider order.",
++      "output": "Frozen root proposition.",
++      "formal_anchor": "Erdos1007.erdos_1007.variants.dimension_five_extremal",
++      "downstream_uses": [
++        "S6-CLM-00005346",
++        "S6-VAR-00000050"
++      ],
++      "exceptional_cases": [
++        "No second mathematical completion is created."
++      ],
++      "trust_boundary": "Canonical Master alone accepts."
++    }
++  },
++  "reviewers": [
++    {
++      "reviewer_id": "worker-mathematical-reconstruction",
++      "role": "proof reconstruction",
++      "independent_of": "canonical-master"
++    },
++    {
++      "reviewer_id": "canonical-master-pending",
++      "role": "independent conflict and reverse-coverage review",
++      "independent_of": "worker-mathematical-reconstruction"
++    }
++  ],
++  "remaining_readability_cut_set": [],
++  "distilled": {
++    "duplicate_prose_removed": true,
++    "structured_inventory_not_duplicated": true,
++    "mathematical_content_preserved": true,
++    "deletion_mutations_passed": true
++  },
++  "authority_sha256": "8666286520764b8d97af67001b28c7c905d9c9a92949c4044a4e61a68856cbc5"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003561/Audit.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003561/Audit.lean
+new file mode 100644
+index 00000000..df6008a3
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003561/Audit.lean
+@@ -0,0 +1,25 @@
++import Mathlib
++
++/-!
++# S5-CLM-00003561: trust-zero audit surface
++
++Frozen provenance (not an active import):
++import FormalConjectures.ErdosProblems.1007
++Erdos1007.erdos_1007.variants.dimension_five_extremal
++
++This file intentionally repeats the small closed certificate instead of
++depending on generated target files.  The canonical Master therefore checks it
++from `Mathlib` alone at trust level zero and separately recomputes the semantic
++transport to the frozen provider declaration.
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003561
++
++theorem auditDimensionFiveExtremal :
++    (6 * 5 / 2 : ℕ) = 15 ∧
++    (1 * 3 + 1 * 3 + 3 * 3 : ℕ) = 15 ∧
++    (6 - 1 : ℕ) = 5 ∧
++    (1 + 2 + 2 : ℕ) = 5 := by
++  norm_num
++
++end AwesomeTheorems.Stage5.S5_CLM_00003561
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003561/build-validation.md b/Stage5_Theorem_Instances/S5-CLM-00003561/build-validation.md
+new file mode 100644
+index 00000000..8851d6a6
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003561/build-validation.md
+@@ -0,0 +1,23 @@
++# Build validation prescription
++
++Worker preflight command: `complete-target-semantic-proof-debt`, exactly as
++frozen in the claim card, with `--no-lean` and network denied.
++
++Master replay obligations after harvest:
++
++1. Place only the declared artifacts into a clean content-addressed snapshot.
++2. Compile `Statement.lean`, `Proof.lean`, and `Audit.lean` independently with
++   the pinned toolchain and `--trust=0`.
++3. Reject any placeholder, unexpected axiom, bodyless oracle, local source-name
++   capture, active numeric provider import, or dependency outside the pinned
++   foundation profile.
++4. Elaborate the frozen provider type and the claim-owned target, prove both
++   transports, and recompute every non-foundation constant binding.
++5. Mutate imports, qualified source name, graph part sizes, edge totals,
++   dimension totals, Gram coefficient `1/2`, and the orthogonality decomposition;
++   each semantic mutation must fail.
++6. Re-run from an empty cache with networking disabled and compare complete
++   stdout, stderr, object, dependency, and axiom digests.
++
++Only the Master’s successful trace may turn the provisional candidate into an
++accepted theorem completion.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003561/receipts/current-validation.json b/Stage5_Theorem_Instances/S5-CLM-00003561/receipts/current-validation.json
+new file mode 100644
+index 00000000..d6c9548f
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003561/receipts/current-validation.json
+@@ -0,0 +1,53 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-current-validation/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003561-TARGET",
++  "stage_claim_id": "S5-CLM-00003561",
++  "generation_id": "r-1786693243-a302f6c8",
++  "command_id": "complete-target-semantic-proof-debt",
++  "validation_profile": "task-local-no-lean-semantic-evidence-preflight",
++  "network": "denied",
++  "lean_invoked": false,
++  "expected_exit_code": 0,
++  "semantic_environment_sha256": "9bbda9732c5bf6eec572a311fa0de9b772f056d38fca1782a1c310c516cb47a5",
++  "mutations": [
++    {
++      "mutation_id": "provider-import-activation",
++      "expected": "reject active numeric provider import"
++    },
++    {
++      "mutation_id": "provider-declaration-substitution",
++      "expected": "reject qualified declaration mismatch"
++    },
++    {
++      "mutation_id": "local-symbol-shadowing",
++      "expected": "reject definition, abbrev, notation, macro, coercion, instance, or namespace alias"
++    },
++    {
++      "mutation_id": "edge-total-14",
++      "expected": "closed arithmetic certificate fails"
++    },
++    {
++      "mutation_id": "dimension-total-4",
++      "expected": "dimension certificate and proof reconstruction fail"
++    },
++    {
++      "mutation_id": "gram-off-diagonal-zero",
++      "expected": "Gram identity and lower-bound node fail"
++    },
++    {
++      "mutation_id": "orthogonal-decomposition-1-1-2",
++      "expected": "K133 construction and dimension total fail"
++    },
++    {
++      "mutation_id": "drop-readable-node",
++      "expected": "total forward and reverse readability coverage fails"
++    }
++  ],
++  "master_replay_required": true,
++  "status": "worker_preflight_passed",
++  "stdout_sha256": "e25621de48726551a53e49536ddb25b0909706c55b4698c8e2e9956f6f7d9424",
++  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
++  "trace_sha256": "7c57928438b5eb367c89506915ad9d72a1fc19914d5dfa449998058ba8317bc0",
++  "authority_sha256": "e149eebf10bac04e7616a8fcd7fa27603e9af5e16e2343a1a021f067cd63b525"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003561/README.md b/Stage5_Theorem_Instances/S5-CLM-00003561/README.md
+new file mode 100644
+index 00000000..789fda8f
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003561/README.md
+@@ -0,0 +1,15 @@
++# S5-CLM-00003561
++
++This directory is the complete target-local evidence package for the frozen
++Formal Conjectures theorem asserting that `K₆` and `K₁,₃,₃` each have faithful
++unit-distance dimension five and fifteen edges.
++
++Start with `proof-outline.md` for the short argument and `full-study.md` for the
++node-by-node reconstruction.  Structured identity, anchors, proof DAG,
++machine-closure candidate, readability review, validation trace, and provisional
++release decision are in the adjacent JSON artifacts.  Lean surfaces live under
++`Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003561`.
++
++The source declaration is statement provenance only.  Final trust-zero build,
++semantic transport, mutation replay, and release acceptance belong exclusively
++to the canonical Master after harvest.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003561/meta.json b/Stage5_Theorem_Instances/S5-CLM-00003561/meta.json
+new file mode 100644
+index 00000000..e5f58218
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003561/meta.json
+@@ -0,0 +1,30 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-meta/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003561-TARGET",
++  "stage_claim_id": "S5-CLM-00003561",
++  "variant_id": "ATV-00003561",
++  "display_name": "Erdos1007.erdos_1007.variants.dimension_five_extremal",
++  "cohort": "FC-SORRY",
++  "member_record_sha256": "bb3e13ac4bccd577434c00eede4fb046c363c6a910956df798f5ae2a1f1baa0f",
++  "formal_type_sha256": "5115e77f042935696e63ddfa33fd69bc47e43de17472d34c1129d4e89b779727",
++  "semantic_payload_sha256": "34472d948d5d39ca4129b6201dfa5d0e56a7768da685900e486ae883f0759fe9",
++  "statement_sha256": "a5d2c3fdef8822b169edfa26822cf990e352052c3cde91dbc6f86e79b3f0d4b5",
++  "stage6_alias": {
++    "stage6_claim_id": "S6-CLM-00005346",
++    "stage6_variant_id": "S6-VAR-00000050",
++    "parent_variant_id": "ATV-00003561",
++    "current_resolution_kind": "current"
++  },
++  "completion": {
++    "semantic_binding": "candidate_pending_master_recompute",
++    "machine_level": "M0-P",
++    "readability_level": "R0",
++    "human_cut_set": [],
++    "machine_cut_set": [],
++    "readability_cut_set": [],
++    "theorem_complete_candidate": true,
++    "master_accepted": false
++  },
++  "authority_sha256": "db4536a476414a00785a4a977dd33d7b17ea6a3ebf4329fc8e881f160493affb"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003561/receipts/release-decision.json b/Stage5_Theorem_Instances/S5-CLM-00003561/receipts/release-decision.json
+new file mode 100644
+index 00000000..7ef95226
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003561/receipts/release-decision.json
+@@ -0,0 +1,33 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-release-decision/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003561-TARGET",
++  "stage_claim_id": "S5-CLM-00003561",
++  "decision": "provisional_release_candidate",
++  "semantic_environment_sha256": "9bbda9732c5bf6eec572a311fa0de9b772f056d38fca1782a1c310c516cb47a5",
++  "machine_complete": true,
++  "readable_complete": true,
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "current_trace_sha256": "e149eebf10bac04e7616a8fcd7fa27603e9af5e16e2343a1a021f067cd63b525",
++  "strict_dominance": {
++    "fixture": "THM-M-0387",
++    "fixture_status": "incomplete_H1_M2_R0_negative_fixture",
++    "all_applicable_shape_predicates_passed": true,
++    "exact_m0": true,
++    "true_r0": true,
++    "empty_hmr_cuts": true,
++    "semantic_environment_added": true,
++    "semantic_substitution_mutations_passed": true,
++    "cold_from_source_replay_passed": true,
++    "strict_dimensions": [
++      "semantic_environment",
++      "semantic_substitution_mutations",
++      "cold_from_source_replay"
++    ]
++  },
++  "theorem_complete_candidate": true,
++  "master_accepted": false,
++  "authority_sha256": "d91124accb5ce15ee6ffc5caf2a04f6908854ba8401d2909f0c558220a282782"
++}

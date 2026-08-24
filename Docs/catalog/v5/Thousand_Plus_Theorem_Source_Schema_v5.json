@@ -1,0 +1,235 @@
+{
+  "$id": "https://awesome-theorems.local/schema/1000-plus-theorem-source/v5-intake-1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "content_digest_before_self_field": {
+      "$ref": "#/$defs/sha256"
+    },
+    "counts": {
+      "additionalProperties": false,
+      "properties": {
+        "formalized_mapping_entries": {"const": 270},
+        "mapping_entries": {"const": 271},
+        "mapping_entries_by_assistant": {
+          "additionalProperties": false,
+          "properties": {
+            "hol_light": {"const": 1},
+            "isabelle": {"const": 1},
+            "lean": {"const": 226},
+            "metamath": {"const": 38},
+            "mizar": {"const": 1},
+            "rocq": {"const": 4}
+          },
+          "required": ["hol_light", "isabelle", "lean", "metamath", "mizar", "rocq"],
+          "type": "object"
+        },
+        "records": {"const": 1200},
+        "records_statement_only": {"const": 1},
+        "records_with_formalized_mapping": {"const": 227},
+        "records_with_proof_assistant_mapping": {"const": 228},
+        "statement_mapping_entries": {"const": 1},
+        "unique_requested_wikipedia_titles": {"const": 1205},
+        "valid_wikipedia_link_entries": {"const": 1210},
+        "wikipedia_link_field_entries": {"const": 1211}
+      },
+      "required": [
+        "formalized_mapping_entries",
+        "mapping_entries",
+        "mapping_entries_by_assistant",
+        "records",
+        "records_statement_only",
+        "records_with_formalized_mapping",
+        "records_with_proof_assistant_mapping",
+        "statement_mapping_entries",
+        "unique_requested_wikipedia_titles",
+        "valid_wikipedia_link_entries",
+        "wikipedia_link_field_entries"
+      ],
+      "type": "object"
+    },
+    "extraction_policy": {
+      "additionalProperties": false,
+      "properties": {
+        "ordering": {"type": "string"},
+        "scope": {"const": "identity_metadata_and_proof_assistant_mappings_only"},
+        "statement_or_truth_inferred": {"const": false},
+        "title_source": {"type": "string"},
+        "wikipedia_target_normalization": {"type": "string"}
+      },
+      "required": [
+        "ordering",
+        "scope",
+        "statement_or_truth_inferred",
+        "title_source",
+        "wikipedia_target_normalization"
+      ],
+      "type": "object"
+    },
+    "generator": {
+      "additionalProperties": false,
+      "properties": {
+        "path": {"const": "Docs/tools/extract_1000_plus_theorems_v5.py"},
+        "version": {"const": "1.0.0"}
+      },
+      "required": ["path", "version"],
+      "type": "object"
+    },
+    "records": {
+      "items": {"$ref": "#/$defs/record"},
+      "maxItems": 1200,
+      "minItems": 1200,
+      "type": "array"
+    },
+    "rights": {
+      "additionalProperties": false,
+      "properties": {
+        "attribution": {"type": "string", "minLength": 1},
+        "catalog_relicenses_source": {"const": false},
+        "license": {"const": "Unlicense"},
+        "license_member": {"const": "1000-plus-8e04b97d/LICENSE"},
+        "license_member_sha256": {"const": "6b0382b16279f26ff69014300541967a356a666eb0b91b422f6862f6b7dad17e"},
+        "use": {"const": "source_identity_metadata_and_formalization_crosswalk"}
+      },
+      "required": [
+        "attribution",
+        "catalog_relicenses_source",
+        "license",
+        "license_member",
+        "license_member_sha256",
+        "use"
+      ],
+      "type": "object"
+    },
+    "schema_version": {"const": "awesome-theorems/1000-plus-theorem-source/v5-intake-1"},
+    "source_snapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "archive_member_manifest_sha256": {"$ref": "#/$defs/sha256"},
+        "archive_members": {"const": 1224},
+        "archive_path": {"const": "Docs/catalog/v5/sources/1000-plus-theorems-8e04b97d.tar.gz"},
+        "archive_regular_members": {"const": 1216},
+        "archive_sha256": {"const": "3338fac218b0124fd66c77e7a589bb002b653b2d7c0f87f789d6884a256719cf"},
+        "archive_size_bytes": {"const": 82748},
+        "commit": {"const": "8e04b97dd24adc6e931be78a884da7e935bc8780"},
+        "commit_date": {"const": "2026-07-22T16:23:18+02:00"},
+        "repository": {"const": "https://github.com/1000-plus/1000-plus.github.io.git"},
+        "root_prefix": {"const": "1000-plus-8e04b97d/"},
+        "source_id": {"const": "SRC-MATH-V5-1000-PLUS-8E04B97D"},
+        "theorem_members": {"const": 1200},
+        "tree": {"const": "c6bba9af8736f82b29ad6c947a20c245beb26263"}
+      },
+      "required": [
+        "archive_member_manifest_sha256",
+        "archive_members",
+        "archive_path",
+        "archive_regular_members",
+        "archive_sha256",
+        "archive_size_bytes",
+        "commit",
+        "commit_date",
+        "repository",
+        "root_prefix",
+        "source_id",
+        "theorem_members",
+        "tree"
+      ],
+      "type": "object"
+    }
+  },
+  "required": [
+    "content_digest_before_self_field",
+    "counts",
+    "extraction_policy",
+    "generator",
+    "records",
+    "rights",
+    "schema_version",
+    "source_snapshot"
+  ],
+  "type": "object",
+  "$defs": {
+    "mapping": {
+      "additionalProperties": false,
+      "properties": {
+        "assistant": {"enum": ["hol_light", "isabelle", "lean", "metamath", "mizar", "rocq"]},
+        "authors": {"items": {"type": "string", "minLength": 1}, "type": "array"},
+        "comment": {"type": ["string", "null"]},
+        "date": {"type": ["string", "null"]},
+        "identifiers": {"items": {"type": "string", "minLength": 1}, "type": "array"},
+        "library": {"enum": ["L", "S", "X"]},
+        "status": {"enum": ["formalized", "statement"]},
+        "url": {"format": "uri", "type": "string"}
+      },
+      "required": ["assistant", "authors", "comment", "date", "identifiers", "library", "status", "url"],
+      "type": "object"
+    },
+    "record": {
+      "additionalProperties": false,
+      "properties": {
+        "external_id": {"pattern": "^Q[1-9][0-9]*(?:[A-Z])?$", "type": "string"},
+        "id_suffix": {"enum": ["A", "B", "X", null]},
+        "identity_evidence": {
+          "additionalProperties": false,
+          "properties": {
+            "basis": {"const": "listed_in_1000_plus_snapshot_derived_from_wikipedia_list_of_theorems"},
+            "independent_universal_importance_ranking_claimed": {"const": false},
+            "signal_level": {"const": "encyclopedic_named_theorem_identity"}
+          },
+          "required": ["basis", "independent_universal_importance_ranking_claimed", "signal_level"],
+          "type": "object"
+        },
+        "msc2020": {"pattern": "^[0-9]{2}$", "type": "string"},
+        "proof_assistant_mappings": {"items": {"$ref": "#/$defs/mapping"}, "type": "array"},
+        "row_sha256": {"$ref": "#/$defs/sha256"},
+        "selection_rank": {"maximum": 1200, "minimum": 1, "type": "integer"},
+        "source": {
+          "additionalProperties": false,
+          "properties": {
+            "archive_member": {"pattern": "^1000-plus-8e04b97d/_thm/Q[1-9][0-9]*[A-Z]?\\.md$", "type": "string"},
+            "member_sha256": {"$ref": "#/$defs/sha256"},
+            "member_size_bytes": {"minimum": 1, "type": "integer"}
+          },
+          "required": ["archive_member", "member_sha256", "member_size_bytes"],
+          "type": "object"
+        },
+        "source_record_id": {"pattern": "^TP1K-Q[1-9][0-9]*(?:[A-Z])?$", "type": "string"},
+        "title": {"minLength": 1, "type": "string"},
+        "wikidata_id": {"pattern": "^Q[1-9][0-9]*$", "type": "string"},
+        "wikipedia_targets": {
+          "items": {"$ref": "#/$defs/wikipedia_target"},
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "required": [
+        "external_id",
+        "id_suffix",
+        "identity_evidence",
+        "msc2020",
+        "proof_assistant_mappings",
+        "row_sha256",
+        "selection_rank",
+        "source",
+        "source_record_id",
+        "title",
+        "wikidata_id",
+        "wikipedia_targets"
+      ],
+      "type": "object"
+    },
+    "sha256": {"pattern": "^[0-9a-f]{64}$", "type": "string"},
+    "wikipedia_target": {
+      "additionalProperties": false,
+      "properties": {
+        "display_text": {"type": ["string", "null"]},
+        "fragment": {"type": ["string", "null"]},
+        "raw": {"minLength": 1, "type": "string"},
+        "requested_title": {"type": ["string", "null"]},
+        "syntax": {"enum": ["invalid_plain_text", "wikilink"]}
+      },
+      "required": ["display_text", "fragment", "raw", "requested_title", "syntax"],
+      "type": "object"
+    }
+  }
+}

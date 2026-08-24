@@ -1,0 +1,165 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003567-TARGET",
+  "stage_claim_id": "S5-CLM-00003567",
+  "readability_level": "R0",
+  "required_nodes": [
+    "N0",
+    "N1",
+    "N2",
+    "N3",
+    "N4",
+    "N5"
+  ],
+  "node_to_anchor": {
+    "N0": "full-study.md#node-n0-frozen-statement",
+    "N1": "full-study.md#node-n1-lower-bound",
+    "N2": "full-study.md#node-n2-upper-bound",
+    "N3": "full-study.md#node-n3-error-decay",
+    "N4": "full-study.md#node-n4-squeeze",
+    "N5": "full-study.md#node-n5-root"
+  },
+  "anchor_to_fragment": {
+    "full-study.md#node-n0-frozen-statement": {
+      "node_id": "N0",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003567/full-study.md",
+      "fragment_sha256": "dda3c30e1dcfdf09f36befbbf0eb17463ff492ddf24ef0fb4f2b8b96100c6e6e",
+      "hypotheses": [
+        "k:ℕ",
+        "3≤k"
+      ],
+      "inference": "Freeze the exact provider convention and target.",
+      "output": "Exact limit proposition.",
+      "formal_anchor": "A0:frozen-statement",
+      "downstream_uses": [
+        "N1",
+        "N2"
+      ],
+      "exceptional_cases": [
+        "k<3 is outside the implication."
+      ],
+      "trust_boundary": "Statement bytes only; provider proof excluded."
+    },
+    "full-study.md#node-n1-lower-bound": {
+      "node_id": "N1",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003567/full-study.md",
+      "fragment_sha256": "9c081a113731444c626debf4a1f15c0789f006c4d317bb40e72e9ec517c4cd4a",
+      "hypotheses": [
+        "eventual positivity of R(k,l)"
+      ],
+      "inference": "Apply Ramsey monotonicity and divide by a positive denominator.",
+      "output": "The quotient is eventually at least one.",
+      "formal_anchor": "A1:monotonic-lower-bound",
+      "downstream_uses": [
+        "N4"
+      ],
+      "exceptional_cases": [
+        "Discard the finite nonpositive initial range."
+      ],
+      "trust_boundary": "Audited Mathlib monotonicity/order facts."
+    },
+    "full-study.md#node-n2-upper-bound": {
+      "node_id": "N2",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003567/full-study.md",
+      "fragment_sha256": "cace0b4e78b54fb2083464cc01a605e82c9e0f07c649fffe330c98612340bbc9",
+      "hypotheses": [
+        "3≤k",
+        "sufficiently large l"
+      ],
+      "inference": "Use the local quantitative Ramsey increment argument.",
+      "output": "The one-step multiplicative upper estimate.",
+      "formal_anchor": "A2:quantitative-one-step-bound",
+      "downstream_uses": [
+        "N3",
+        "N4"
+      ],
+      "exceptional_cases": [
+        "Increase the threshold to make all denominators nonzero."
+      ],
+      "trust_boundary": "No sorry-backed provider theorem or variant."
+    },
+    "full-study.md#node-n3-error-decay": {
+      "node_id": "N3",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003567/full-study.md",
+      "fragment_sha256": "decbd154abfdd862482d171e7ad49ada5a55a9dd370383094ba09fca1a52bdb5",
+      "hypotheses": [
+        "c>0",
+        "k≥3",
+        "C≥0"
+      ],
+      "inference": "A negative real power decays; apply scalar and additive limit rules.",
+      "output": "The multiplicative error factor tends to one.",
+      "formal_anchor": "A3:error-decay",
+      "downstream_uses": [
+        "N4"
+      ],
+      "exceptional_cases": [
+        "l=0 is outside the selected eventual tail."
+      ],
+      "trust_boundary": "Audited real-power and filter-limit declarations."
+    },
+    "full-study.md#node-n4-squeeze": {
+      "node_id": "N4",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003567/full-study.md",
+      "fragment_sha256": "a72824d332fd442f1b44d982259b37a173e91dfaa77661a2f8fa9fb1d7938951",
+      "hypotheses": [
+        "N1 lower bound",
+        "N2 upper bound",
+        "N3 upper limit"
+      ],
+      "inference": "Divide the upper estimate and squeeze the quotient.",
+      "output": "Fixed-k convergence to one.",
+      "formal_anchor": "A4:squeeze",
+      "downstream_uses": [
+        "N5"
+      ],
+      "exceptional_cases": [
+        "Merge distinct finite thresholds by eventual conjunction."
+      ],
+      "trust_boundary": "Structured machine census and canonical replay."
+    },
+    "full-study.md#node-n5-root": {
+      "node_id": "N5",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003567/full-study.md",
+      "fragment_sha256": "167a4570052c385976543dc5be0311e1a45d590d98293e430b3d7e70436f387b",
+      "hypotheses": [
+        "arbitrary k:ℕ",
+        "3≤k"
+      ],
+      "inference": "Universally discharge the fixed parameter.",
+      "output": "The exact frozen theorem.",
+      "formal_anchor": "A5:universal-closure",
+      "downstream_uses": [
+        "Audit.lean",
+        "release decision"
+      ],
+      "exceptional_cases": [
+        "No conclusion is required for k<3."
+      ],
+      "trust_boundary": "Master must independently re-elaborate and compile at trust zero."
+    }
+  },
+  "reviewers": [
+    {
+      "reviewer_id": "structure-and-coverage-review",
+      "scope": "total injective node/fragment mapping and reverse coverage",
+      "decision": "pass",
+      "conflicts": []
+    },
+    {
+      "reviewer_id": "mathematical-and-trust-review",
+      "scope": "hypotheses, inferences, outputs, exceptions, downstream uses, and trust boundaries",
+      "decision": "pass",
+      "conflicts": []
+    }
+  ],
+  "remaining_readability_cut_set": [],
+  "distilled": {
+    "duplicate_prose_removed": true,
+    "structured_inventory_not_duplicated": true,
+    "mathematical_content_preserved": true,
+    "deletion_mutations_passed": true
+  },
+  "authority_sha256": "e821cd66f579bd32591fcc8ef5f355667482342fdde060a714f8d49177ecd3f2"
+}

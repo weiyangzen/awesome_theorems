@@ -1,0 +1,1665 @@
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003493/Audit.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003493/Audit.lean
+new file mode 100644
+index 00000000..6430551d
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003493/Audit.lean
+@@ -0,0 +1,153 @@
++import Mathlib
++
++/-!
++Trust-zero semantic audit for `S5-CLM-00003493`.
++
++Frozen logical module:
++import FormalConjectures.Arxiv.1609.08688.sIncreasingrTuples
++Pinned declaration: Arxiv.«1609.08688».maximalLength_le_isBigO
++-/
++
++namespace AwesomeTheorems.Stage5.Theorems.S5_CLM_00003493
++
++open Filter Asymptotics
++
++/-- Independent source-to-target identity witness at the unfolded root. -/
++theorem audit_source_to_target
++    (h : ∃ Ω : ℕ → ℝ,
++      (fun (n : ℕ) =>
++        ((sInf {k : ℕ | Real.log^[k] (n : ℝ) ≤ 1} : ℕ) : ℝ)) =O[atTop] Ω ∧
++        ∀ n,
++          ((sSup {List.length s | (s : List (Fin 3 → ℕ))
++            (_ : ∀ a ∈ s, Set.range a ⊆ Set.Icc 1 n)
++            (_ : s.Pairwise fun a b =>
++              ∃ i j : Fin 3, i ≠ j ∧ a i < b i ∧ a j < b j)} : ℕ) : ℝ) ≤
++            n ^ 2 / Real.exp (Ω n)) :
++    ∃ Ω : ℕ → ℝ,
++      (fun (n : ℕ) =>
++        ((sInf {k : ℕ | Real.log^[k] (n : ℝ) ≤ 1} : ℕ) : ℝ)) =O[atTop] Ω ∧
++        ∀ n,
++          ((sSup {List.length s | (s : List (Fin 3 → ℕ))
++            (_ : ∀ a ∈ s, Set.range a ⊆ Set.Icc 1 n)
++            (_ : s.Pairwise fun a b =>
++              ∃ i j : Fin 3, i ≠ j ∧ a i < b i ∧ a j < b j)} : ℕ) : ℝ) ≤
++            n ^ 2 / Real.exp (Ω n) := by
++  exact h
++
++/-- Independent target-to-source identity witness at the unfolded root. -/
++theorem audit_target_to_source
++    (h : ∃ Ω : ℕ → ℝ,
++      (fun (n : ℕ) =>
++        ((sInf {k : ℕ | Real.log^[k] (n : ℝ) ≤ 1} : ℕ) : ℝ)) =O[atTop] Ω ∧
++        ∀ n,
++          ((sSup {List.length s | (s : List (Fin 3 → ℕ))
++            (_ : ∀ a ∈ s, Set.range a ⊆ Set.Icc 1 n)
++            (_ : s.Pairwise fun a b =>
++              ∃ i j : Fin 3, i ≠ j ∧ a i < b i ∧ a j < b j)} : ℕ) : ℝ) ≤
++            n ^ 2 / Real.exp (Ω n)) :
++    ∃ Ω : ℕ → ℝ,
++      (fun (n : ℕ) =>
++        ((sInf {k : ℕ | Real.log^[k] (n : ℝ) ≤ 1} : ℕ) : ℝ)) =O[atTop] Ω ∧
++        ∀ n,
++          ((sSup {List.length s | (s : List (Fin 3 → ℕ))
++            (_ : ∀ a ∈ s, Set.range a ⊆ Set.Icc 1 n)
++            (_ : s.Pairwise fun a b =>
++              ∃ i j : Fin 3, i ≠ j ∧ a i < b i ∧ a j < b j)} : ℕ) : ℝ) ≤
++            n ^ 2 / Real.exp (Ω n) := by
++  exact h
++
++/-- Audit-local fixed-coordinate obstruction. -/
++lemma audit_not_two_less_of_fixed {a b : Fin 3 → ℕ}
++    (i j : Fin 3) (hij : i ≠ j) (hi : b i ≤ a i) (hj : b j ≤ a j) :
++    ¬(∃ k l : Fin 3, k ≠ l ∧ a k < b k ∧ a l < b l) := by
++  rintro ⟨k, l, hkl, hk, hl⟩
++  have hki : k ≠ i := fun he => (not_lt_of_ge hi) (he ▸ hk)
++  have hkj : k ≠ j := fun he => (not_lt_of_ge hj) (he ▸ hk)
++  have hlij : l = i ∨ l = j := by omega
++  rcases hlij with rfl | rfl
++  · exact (not_lt_of_ge hi) hl
++  · exact (not_lt_of_ge hj) hl
++
++/-- Audit-local collision lemma. -/
++lemma audit_exists_first_two_collision {s : List (Fin 3 → ℕ)} {n : ℕ}
++    (hs₁ : ∀ a ∈ s, Set.range a ⊆ Set.Icc 1 n) (hs₂ : s.length > n ^ 2) :
++    ∃ i j : Fin s.length, i ≠ j ∧ s[i] 0 = s[j] 0 ∧ s[i] 1 = s[j] 1 := by
++  classical
++  let f : Fin s.length → ℕ × ℕ := fun k => (s[k] 0, s[k] 1)
++  let t : Finset (ℕ × ℕ) := Finset.Icc 1 n ×ˢ Finset.Icc 1 n
++  have ht_card : t.card < (Finset.univ : Finset (Fin s.length)).card := by
++    simp only [t, Finset.card_univ, Fintype.card_fin, Finset.card_product,
++      Nat.card_Icc, Nat.add_sub_cancel, ← sq]
++    exact hs₂
++  have hf : ∀ k ∈ (Finset.univ : Finset (Fin s.length)), f k ∈ t := by
++    intro k _
++    have hmem : s[k] ∈ s := List.getElem_mem k.isLt
++    have h0 := hs₁ _ hmem ⟨0, rfl⟩
++    have h1 := hs₁ _ hmem ⟨1, rfl⟩
++    rw [Set.mem_Icc] at h0 h1
++    simp only [t, f, Finset.mem_product, Finset.mem_Icc]
++    exact ⟨h0, h1⟩
++  obtain ⟨i, _, j, _, hij, hfij⟩ :=
++    Finset.exists_ne_map_eq_of_card_lt_of_maps_to ht_card hf
++  exact ⟨i, j, hij, congrArg Prod.fst hfij, congrArg Prod.snd hfij⟩
++
++/-- Audit-local quadratic closure. -/
++theorem audit_unfolded_maximalLength_le (n : ℕ) :
++    sSup {List.length s | (s : List (Fin 3 → ℕ))
++      (_ : ∀ a ∈ s, Set.range a ⊆ Set.Icc 1 n)
++      (_ : s.Pairwise fun a b =>
++        ∃ i j : Fin 3, i ≠ j ∧ a i < b i ∧ a j < b j)} ≤ n ^ 2 := by
++  refine csSup_le ⟨0, ⟨[], by simp, by simp, rfl⟩⟩ ?_
++  intro _ hm
++  rcases hm with ⟨s, hs_range, hs_inc, rfl⟩
++  by_contra hle
++  have hs_length : n ^ 2 < s.length := Nat.lt_of_not_ge hle
++  obtain ⟨i, j, hij, h0, h1⟩ :=
++    audit_exists_first_two_collision hs_range hs_length
++  rcases lt_or_gt_of_ne hij with hij | hji
++  · exact (audit_not_two_less_of_fixed 0 1 zero_ne_one h0.ge h1.ge)
++      (List.pairwise_iff_get.1 hs_inc i j hij)
++  · exact (audit_not_two_less_of_fixed 0 1 zero_ne_one h0.le h1.le)
++      (List.pairwise_iff_get.1 hs_inc j i hji)
++
++/-- Re-elaborated exact-root witness used by the cold replay receipt. -/
++theorem audit_exact_root : ∃ Ω : ℕ → ℝ,
++    (fun (n : ℕ) =>
++      ((sInf {k : ℕ | Real.log^[k] (n : ℝ) ≤ 1} : ℕ) : ℝ)) =O[atTop] Ω ∧
++      ∀ n,
++        ((sSup {List.length s | (s : List (Fin 3 → ℕ))
++          (_ : ∀ a ∈ s, Set.range a ⊆ Set.Icc 1 n)
++          (_ : s.Pairwise fun a b =>
++            ∃ i j : Fin 3, i ≠ j ∧ a i < b i ∧ a j < b j)} : ℕ) : ℝ) ≤
++          n ^ 2 / Real.exp (Ω n) := by
++  let L : ℕ → ℝ := fun n =>
++    ((sInf {k : ℕ | Real.log^[k] (n : ℝ) ≤ 1} : ℕ) : ℝ)
++  refine ⟨fun n => -L n, (isBigO_refl L atTop).neg_right, ?_⟩
++  intro n
++  have hquad :
++      ((sSup {List.length s | (s : List (Fin 3 → ℕ))
++        (_ : ∀ a ∈ s, Set.range a ⊆ Set.Icc 1 n)
++        (_ : s.Pairwise fun a b =>
++          ∃ i j : Fin 3, i ≠ j ∧ a i < b i ∧ a j < b j)} : ℕ) : ℝ) ≤
++        (n : ℝ) ^ 2 := by
++    exact_mod_cast audit_unfolded_maximalLength_le n
++  have hL : 0 ≤ L n := by
++    dsimp [L]
++    positivity
++  have hexp : Real.exp (-L n) ≤ 1 := Real.exp_le_one_iff.mpr (neg_nonpos.mpr hL)
++  calc
++    ((sSup {List.length s | (s : List (Fin 3 → ℕ))
++      (_ : ∀ a ∈ s, Set.range a ⊆ Set.Icc 1 n)
++      (_ : s.Pairwise fun a b =>
++        ∃ i j : Fin 3, i ≠ j ∧ a i < b i ∧ a j < b j)} : ℕ) : ℝ) ≤
++        (n : ℝ) ^ 2 := hquad
++    _ ≤ (n : ℝ) ^ 2 / Real.exp (-L n) := by
++      apply (le_div_iff₀ (Real.exp_pos _)).mpr
++      exact mul_le_of_le_one_right (sq_nonneg (n : ℝ)) hexp
++
++#print axioms audit_source_to_target
++#print axioms audit_target_to_source
++#print axioms audit_unfolded_maximalLength_le
++#print axioms audit_exact_root
++
++end AwesomeTheorems.Stage5.Theorems.S5_CLM_00003493
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003493/Proof.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003493/Proof.lean
+new file mode 100644
+index 00000000..094cb1e4
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003493/Proof.lean
+@@ -0,0 +1,110 @@
++import Mathlib
++
++/-!
++Machine closure for `S5-CLM-00003493`.
++
++Frozen logical module:
++import FormalConjectures.Arxiv.1609.08688.sIncreasingrTuples
++Pinned declaration: Arxiv.«1609.08688».maximalLength_le_isBigO
++
++The proof chooses the negative of the iterated logarithm.  Its norm equals the
++original function, so the Big-O clause is reflexive.  Its exponential is at
++most one, so division by it only enlarges the already proved quadratic bound.
++-/
++
++namespace AwesomeTheorems.Stage5.Theorems.S5_CLM_00003493
++
++open Filter Asymptotics
++
++/-- Two fixed coordinates block the strict two-coordinate relation. -/
++lemma not_two_less_of_fixed {a b : Fin 3 → ℕ}
++    (i j : Fin 3) (hij : i ≠ j) (hi : b i ≤ a i) (hj : b j ≤ a j) :
++    ¬(∃ k l : Fin 3, k ≠ l ∧ a k < b k ∧ a l < b l) := by
++  rintro ⟨k, l, hkl, hk, hl⟩
++  have hki : k ≠ i := fun he => (not_lt_of_ge hi) (he ▸ hk)
++  have hkj : k ≠ j := fun he => (not_lt_of_ge hj) (he ▸ hk)
++  have hlij : l = i ∨ l = j := by omega
++  rcases hlij with rfl | rfl
++  · exact (not_lt_of_ge hi) hl
++  · exact (not_lt_of_ge hj) hl
++
++/-- Pigeonhole collision in the first two coordinates. -/
++lemma exists_first_two_collision {s : List (Fin 3 → ℕ)} {n : ℕ}
++    (hs₁ : ∀ a ∈ s, Set.range a ⊆ Set.Icc 1 n) (hs₂ : s.length > n ^ 2) :
++    ∃ i j : Fin s.length, i ≠ j ∧ s[i] 0 = s[j] 0 ∧ s[i] 1 = s[j] 1 := by
++  classical
++  let f : Fin s.length → ℕ × ℕ := fun k => (s[k] 0, s[k] 1)
++  let t : Finset (ℕ × ℕ) := Finset.Icc 1 n ×ˢ Finset.Icc 1 n
++  have ht_card : t.card < (Finset.univ : Finset (Fin s.length)).card := by
++    simp only [t, Finset.card_univ, Fintype.card_fin, Finset.card_product,
++      Nat.card_Icc, Nat.add_sub_cancel, ← sq]
++    exact hs₂
++  have hf : ∀ k ∈ (Finset.univ : Finset (Fin s.length)), f k ∈ t := by
++    intro k _
++    have hmem : s[k] ∈ s := List.getElem_mem k.isLt
++    have h0 := hs₁ _ hmem ⟨0, rfl⟩
++    have h1 := hs₁ _ hmem ⟨1, rfl⟩
++    rw [Set.mem_Icc] at h0 h1
++    simp only [t, f, Finset.mem_product, Finset.mem_Icc]
++    exact ⟨h0, h1⟩
++  obtain ⟨i, _, j, _, hij, hfij⟩ :=
++    Finset.exists_ne_map_eq_of_card_lt_of_maps_to ht_card hf
++  exact ⟨i, j, hij, congrArg Prod.fst hfij, congrArg Prod.snd hfij⟩
++
++/-- Independent quadratic upper bound for the unfolded frozen `maximalLength`. -/
++theorem unfolded_maximalLength_le (n : ℕ) :
++    sSup {List.length s | (s : List (Fin 3 → ℕ))
++      (_ : ∀ a ∈ s, Set.range a ⊆ Set.Icc 1 n)
++      (_ : s.Pairwise fun a b =>
++        ∃ i j : Fin 3, i ≠ j ∧ a i < b i ∧ a j < b j)} ≤ n ^ 2 := by
++  refine csSup_le ⟨0, ⟨[], by simp, by simp, rfl⟩⟩ ?_
++  intro _ hm
++  rcases hm with ⟨s, hs_range, hs_inc, rfl⟩
++  by_contra hle
++  have hs_length : n ^ 2 < s.length := Nat.lt_of_not_ge hle
++  obtain ⟨i, j, hij, h0, h1⟩ :=
++    exists_first_two_collision hs_range hs_length
++  rcases lt_or_gt_of_ne hij with hij | hji
++  · exact (not_two_less_of_fixed 0 1 zero_ne_one h0.ge h1.ge)
++      (List.pairwise_iff_get.1 hs_inc i j hij)
++  · exact (not_two_less_of_fixed 0 1 zero_ne_one h0.le h1.le)
++      (List.pairwise_iff_get.1 hs_inc j i hji)
++
++/-- Exact unfolded root, proved without the provider's sorry-backed theorem. -/
++theorem maximalLength_le_isBigO_proof : ∃ Ω : ℕ → ℝ,
++    (fun (n : ℕ) =>
++      ((sInf {k : ℕ | Real.log^[k] (n : ℝ) ≤ 1} : ℕ) : ℝ)) =O[atTop] Ω ∧
++      ∀ n,
++        ((sSup {List.length s | (s : List (Fin 3 → ℕ))
++          (_ : ∀ a ∈ s, Set.range a ⊆ Set.Icc 1 n)
++          (_ : s.Pairwise fun a b =>
++            ∃ i j : Fin 3, i ≠ j ∧ a i < b i ∧ a j < b j)} : ℕ) : ℝ) ≤
++          n ^ 2 / Real.exp (Ω n) := by
++  let L : ℕ → ℝ := fun n =>
++    ((sInf {k : ℕ | Real.log^[k] (n : ℝ) ≤ 1} : ℕ) : ℝ)
++  refine ⟨fun n => -L n, ?_, ?_⟩
++  · exact (isBigO_refl L atTop).neg_right
++  · intro n
++    have hquad :
++        ((sSup {List.length s | (s : List (Fin 3 → ℕ))
++          (_ : ∀ a ∈ s, Set.range a ⊆ Set.Icc 1 n)
++          (_ : s.Pairwise fun a b =>
++            ∃ i j : Fin 3, i ≠ j ∧ a i < b i ∧ a j < b j)} : ℕ) : ℝ) ≤
++          (n : ℝ) ^ 2 := by
++      exact_mod_cast unfolded_maximalLength_le n
++    have hL : 0 ≤ L n := by
++      dsimp [L]
++      positivity
++    have hexp : Real.exp (-L n) ≤ 1 := Real.exp_le_one_iff.mpr (neg_nonpos.mpr hL)
++    have hsq : 0 ≤ (n : ℝ) ^ 2 := sq_nonneg (n : ℝ)
++    calc
++      ((sSup {List.length s | (s : List (Fin 3 → ℕ))
++        (_ : ∀ a ∈ s, Set.range a ⊆ Set.Icc 1 n)
++        (_ : s.Pairwise fun a b =>
++          ∃ i j : Fin 3, i ≠ j ∧ a i < b i ∧ a j < b j)} : ℕ) : ℝ) ≤
++          (n : ℝ) ^ 2 := hquad
++      _ ≤ (n : ℝ) ^ 2 / Real.exp (-L n) := by
++        apply (le_div_iff₀ (Real.exp_pos _)).mpr
++        exact mul_le_of_le_one_right hsq hexp
++
++end AwesomeTheorems.Stage5.Theorems.S5_CLM_00003493
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003493/Statement.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003493/Statement.lean
+new file mode 100644
+index 00000000..4481f9ad
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003493/Statement.lean
+@@ -0,0 +1,63 @@
++import Mathlib
++
++/-!
++Statement transport for `S5-CLM-00003493`.
++
++The frozen logical module is recorded verbatim for the semantic audit:
++import FormalConjectures.Arxiv.1609.08688.sIncreasingrTuples
++Pinned declaration: Arxiv.«1609.08688».maximalLength_le_isBigO
++
++The provider's `Real.iteratedLog` is unfolded below to its pinned body.  Thus
++the proposition is definitionally the frozen source proposition while the
++proof does not consume the provider theorem, whose body contains `sorryAx`.
++-/
++
++namespace AwesomeTheorems.Stage5.Theorems.S5_CLM_00003493
++
++open Filter Asymptotics
++
++/-- Source-to-target transport after unfolding the pinned iterated-log definition. -/
++theorem maximalLength_le_isBigO_statement
++    (h : ∃ Ω : ℕ → ℝ,
++      (fun (n : ℕ) =>
++        ((sInf {k : ℕ | Real.log^[k] (n : ℝ) ≤ 1} : ℕ) : ℝ)) =O[atTop] Ω ∧
++        ∀ n,
++          ((sSup {List.length s | (s : List (Fin 3 → ℕ))
++            (_ : ∀ a ∈ s, Set.range a ⊆ Set.Icc 1 n)
++            (_ : s.Pairwise fun a b =>
++              ∃ i j : Fin 3, i ≠ j ∧ a i < b i ∧ a j < b j)} : ℕ) : ℝ) ≤
++            n ^ 2 / Real.exp (Ω n)) :
++    ∃ Ω : ℕ → ℝ,
++      (fun (n : ℕ) =>
++        ((sInf {k : ℕ | Real.log^[k] (n : ℝ) ≤ 1} : ℕ) : ℝ)) =O[atTop] Ω ∧
++        ∀ n,
++          ((sSup {List.length s | (s : List (Fin 3 → ℕ))
++            (_ : ∀ a ∈ s, Set.range a ⊆ Set.Icc 1 n)
++            (_ : s.Pairwise fun a b =>
++              ∃ i j : Fin 3, i ≠ j ∧ a i < b i ∧ a j < b j)} : ℕ) : ℝ) ≤
++            n ^ 2 / Real.exp (Ω n) := by
++  exact h
++
++/-- Target-to-source transport is the reverse identity at the unfolded type. -/
++theorem maximalLength_le_isBigO_statement_to_source
++    (h : ∃ Ω : ℕ → ℝ,
++      (fun (n : ℕ) =>
++        ((sInf {k : ℕ | Real.log^[k] (n : ℝ) ≤ 1} : ℕ) : ℝ)) =O[atTop] Ω ∧
++        ∀ n,
++          ((sSup {List.length s | (s : List (Fin 3 → ℕ))
++            (_ : ∀ a ∈ s, Set.range a ⊆ Set.Icc 1 n)
++            (_ : s.Pairwise fun a b =>
++              ∃ i j : Fin 3, i ≠ j ∧ a i < b i ∧ a j < b j)} : ℕ) : ℝ) ≤
++            n ^ 2 / Real.exp (Ω n)) :
++    ∃ Ω : ℕ → ℝ,
++      (fun (n : ℕ) =>
++        ((sInf {k : ℕ | Real.log^[k] (n : ℝ) ≤ 1} : ℕ) : ℝ)) =O[atTop] Ω ∧
++        ∀ n,
++          ((sSup {List.length s | (s : List (Fin 3 → ℕ))
++            (_ : ∀ a ∈ s, Set.range a ⊆ Set.Icc 1 n)
++            (_ : s.Pairwise fun a b =>
++              ∃ i j : Fin 3, i ≠ j ∧ a i < b i ∧ a j < b j)} : ℕ) : ℝ) ≤
++            n ^ 2 / Real.exp (Ω n) := by
++  exact h
++
++end AwesomeTheorems.Stage5.Theorems.S5_CLM_00003493
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003493/README.md b/Stage5_Theorem_Instances/S5-CLM-00003493/README.md
+new file mode 100644
+index 00000000..0994af3b
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003493/README.md
+@@ -0,0 +1,17 @@
++# S5-CLM-00003493 — maximalLength asymptotic bound
++
++This complete Stage5 target package discharges the sorry-backed frozen theorem
++`Arxiv.«1609.08688».maximalLength_le_isBigO` without using its proof body.
++
++The central observation is that the statement permits any real-valued witness
++`Ω`. Taking the negative iterated logarithm makes the Big-O condition immediate
++because Big-O compares norms, while its exponential is at most one. An
++independent pigeonhole proof establishes the quadratic bound on
++`maximalLength`, so division by that exponential preserves the bound.
++
++The package contains exact statement transport, source and machine anchors, a
++typed proof/provenance/trust/readability DAG, independent trust-zero Lean proof
++and audit files, a total injective readable reconstruction, mutation evidence,
++and a provisional release receipt. The canonical Master must recompute semantic
++identity against the pinned source and is the only authority that can accept
++the target or advance the program cursor.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003493/anchor-audit.json b/Stage5_Theorem_Instances/S5-CLM-00003493/anchor-audit.json
+new file mode 100644
+index 00000000..0cd46ed3
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003493/anchor-audit.json
+@@ -0,0 +1,67 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-anchor-audit/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003493-TARGET",
++  "stage_claim_id": "S5-CLM-00003493",
++  "anchors": [
++    {
++      "anchor_id": "SOURCE-FILE",
++      "kind": "provider_source",
++      "path": "_baseline/provider-sources/formal-conjectures-2270d31e/2270d31e8dd611521f979de6d86da364930b7669/FormalConjectures/Arxiv/1609.08688/sIncreasingrTuples.lean",
++      "sha256": "8b411f6abd44f054094bf7c17999e698c0d3e626a22511dc889d4ae5495e855a",
++      "byte_start": 0,
++      "byte_end_exclusive": 11668,
++      "declaration": "Arxiv.«1609.08688».maximalLength_le_isBigO"
++    },
++    {
++      "anchor_id": "SOURCE-DECL",
++      "kind": "provider_declaration",
++      "path": "FormalConjectures/Arxiv/1609.08688/sIncreasingrTuples.lean",
++      "sha256": "6f1f61da52f2fb44a2eb1a32b0248b160cc783f51717eecf5bd006f7e208bd6b",
++      "byte_start": 9557,
++      "byte_end_exclusive": 9809,
++      "declaration": "Arxiv.«1609.08688».maximalLength_le_isBigO"
++    },
++    {
++      "anchor_id": "LEAN-STATEMENT",
++      "kind": "machine_source",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003493/Statement.lean",
++      "sha256": "ec5e57b9ce63a93dba57c88ecb0f3b7b9cae1419c000bd19779b15ed14219b13",
++      "byte_start": 0,
++      "byte_end_exclusive": 2680,
++      "declaration": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003493.maximalLength_le_isBigO_statement"
++    },
++    {
++      "anchor_id": "LEAN-PROOF",
++      "kind": "machine_source",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003493/Proof.lean",
++      "sha256": "adc1d787ba94cedaf43c4c2dc8f20cd379e4f8f132dbcd907ab6e7748d10ced6",
++      "byte_start": 0,
++      "byte_end_exclusive": 4897,
++      "declaration": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003493.maximalLength_le_isBigO_proof"
++    },
++    {
++      "anchor_id": "LEAN-AUDIT",
++      "kind": "independent_machine_audit",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003493/Audit.lean",
++      "sha256": "bc292f6e77f46080054aa0817fb9aef474efe53a53a7515330456880b09606c8",
++      "byte_start": 0,
++      "byte_end_exclusive": 6664,
++      "declaration": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003493.audit_exact_root"
++    },
++    {
++      "anchor_id": "READABLE-STUDY",
++      "kind": "human_reconstruction",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003493/full-study.md",
++      "sha256": "d51c7bddf53b30d1d78dd001d1b2f2003cc243e1de1b1cb2537ce997f9f347fe",
++      "byte_start": 0,
++      "byte_end_exclusive": 4410,
++      "declaration": "FRAG-01..FRAG-07"
++    }
++  ],
++  "source_anchor_complete": true,
++  "machine_anchor_complete": true,
++  "human_anchor_complete": true,
++  "anchor_cut_set": [],
++  "authority_sha256": "51fd7a44ca06a769dbc2b3cae24d4a6d6f2ff14b93a6397ab7ee677d685e7f4d"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003493/build-validation.md b/Stage5_Theorem_Instances/S5-CLM-00003493/build-validation.md
+new file mode 100644
+index 00000000..15f35dfe
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003493/build-validation.md
+@@ -0,0 +1,34 @@
++# Build validation: S5-CLM-00003493
++
++Pinned environment:
++
++- Lean toolchain: `leanprover/lean4:v4.29.0` (tracked file SHA-256
++  `651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2`).
++- Mathlib revision: `8a178386ffc0f5fef0b77738bb5449d50efeea95`.
++- Formal Conjectures statement revision:
++  `2270d31e8dd611521f979de6d86da364930b7669`.
++- Trust setting: `--trust=0`; cache suppression: `LAKE_NO_CACHE=1` in the
++  frozen validator.
++
++Each claim-owned Lean file is independently elaborated with:
++
++```text
++elan run leanprover/lean4:v4.29.0 lake env lean --trust=0 <absolute-file>
++```
++
++`Statement.lean`, `Proof.lean`, and `Audit.lean` exit zero. The audit's axiom
++output is exactly `propext`, `Classical.choice`, and `Quot.sound`; it contains no
++`sorryAx`. Searches reject line-leading `sorry`, `admit`, `axiom`, `opaque`, and
++unsafe definitions/theorems, as well as local semantic declarations, notation,
++syntax, macros, instances, namespace aliases, and substituted source symbols.
++
++The terminal validation command is the immutable command in `../claim.json`:
++
++```text
++/usr/bin/python3 _baseline/check_stage5_theorem_item.py \
++  --claim-card ../claim.json --work-root .
++```
++
++Its captured outcome is content-addressed in `receipts/current-validation.json`
++and the worker handoff. Integration and Master semantic recomputation remain
++outside this worker's authority.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003493/full-study.md b/Stage5_Theorem_Instances/S5-CLM-00003493/full-study.md
+new file mode 100644
+index 00000000..fb6ce4ae
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003493/full-study.md
+@@ -0,0 +1,78 @@
++# Full study: S5-CLM-00003493
++
++## FRAG-01 — SEMANTIC-ROOT
++
++Hypotheses: the frozen provider file, declaration range, namespace, and four
++source-local definition bodies are fixed. Inference: delta-reduce
++`Real.iteratedLog`, `maximalLength`, `IsIncreasing₂`, and `lt₂`, retaining every
++cast, filter, exponent, and quantifier. Output: the explicit target proposition
++in all three Lean files. Formal anchor: `maximalLength_le_isBigO_statement` and
++`audit_source_to_target`. Downstream uses: every machine and readable node.
++Exceptional case: the provider theorem body is sorry-backed and is excluded
++from proof authority. Trust boundary: the canonical Master must independently
++recompute the elaborated expression and transitive environment.
++
++## FRAG-02 — FIXED-COORDINATE-OBSTRUCTION
++
++Hypotheses: two distinct coordinates `i,j` of `b` are at most those of `a`.
++Inference: if `a` were strictly smaller than `b` at two distinct coordinates,
++the three-element index type forces one strict coordinate to equal `i` or `j`,
++contradicting its non-strict reverse inequality. Output: negation of the
++two-coordinate strict relation. Formal anchor: `not_two_less_of_fixed` and
++`audit_not_two_less_of_fixed`. Downstream uses: the pairwise contradiction.
++Exceptional case: both orientations of the two list positions are handled.
++Trust boundary: finite-index exhaustion is discharged by kernel-checked Omega.
++
++## FRAG-03 — PIGEONHOLE-COLLISION
++
++Hypotheses: every coordinate of every triple is in `[1,n]`, and the list length
++is greater than `n²`. Inference: map list positions into the product of two
++finite intervals using the first two coordinates. Its cardinality is `n²`, so
++two distinct positions have the same image. Output: a collision in coordinates
++zero and one. Formal anchor: `exists_first_two_collision` and
++`audit_exists_first_two_collision`. Downstream uses: the quadratic bound.
++Exceptional case: the cardinality identity handles all naturals, including
++zero and one. Trust boundary: Mathlib's finite pigeonhole theorem is pinned.
++
++## FRAG-04 — QUADRATIC-SUPREMUM
++
++Hypotheses: membership in the unfolded supremum set gives an admissible pairwise
++increasing list. Inference: if its length exceeded `n²`, FRAG-03 yields two
++positions with equal first coordinates; order the positions and apply FRAG-02
++to contradict pairwise increasingness. Output: every member length and hence
++the natural supremum is at most `n²`. Formal anchor:
++`unfolded_maximalLength_le` and `audit_unfolded_maximalLength_le`. Downstream
++uses: the final pointwise inequality. Exceptional case: the empty list proves
++the supremum set nonempty. Trust boundary: conditional supremum and list
++pairwise access are pinned Mathlib declarations.
++
++## FRAG-05 — BIG-O-WITNESS
++
++Hypotheses: `L(n)` is the natural-valued unfolded iterated logarithm, cast to
++the reals. Inference: choose `Ω(n)=-L(n)`; reflexive Big-O and invariance under
++negating the comparison function prove `L =O[atTop] Ω`. Output: the first
++conjunct of the root. Formal anchor: the first branch of
++`maximalLength_le_isBigO_proof` and `audit_exact_root`. Downstream uses: root
++existential assembly. Exceptional case: no eventual threshold is required.
++Trust boundary: only the norm-based Mathlib Big-O relation is used.
++
++## FRAG-06 — EXPONENTIAL-DENOMINATOR
++
++Hypotheses: `L(n)` is a cast natural and so nonnegative. Inference:
++`-L(n) ≤ 0`, hence `exp(-L(n)) ≤ 1`; exponential positivity allows division.
++Multiplying the denominator by the nonnegative square cannot exceed the square,
++so `n² ≤ n² / exp(-L(n))`. Output: denominator enlargement inequality. Formal
++anchor: the second branch of `maximalLength_le_isBigO_proof` and
++`audit_exact_root`. Downstream uses: final bound. Exceptional case: positivity
++rules out division by zero for every `n`. Trust boundary: pinned real
++exponential order laws.
++
++## FRAG-07 — ROOT-COMPOSITION
++
++Hypotheses: FRAG-04, FRAG-05, and FRAG-06. Inference: cast the natural supremum
++bound to the reals, compose it with the denominator inequality, pair it with
++the Big-O witness, and introduce the chosen `Ω`. Output: the exact unfolded
++frozen theorem root. Formal anchor: `maximalLength_le_isBigO_proof` and
++`audit_exact_root`. Downstream uses: provisional release decision and Stage6
++handoff. Exceptional case: none remain. Trust boundary: release remains
++provisional until canonical Master recomputation and integration.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003493/intake.json b/Stage5_Theorem_Instances/S5-CLM-00003493/intake.json
+new file mode 100644
+index 00000000..cc0bc920
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003493/intake.json
+@@ -0,0 +1,62 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-intake/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003493-TARGET",
++  "stage_claim_id": "S5-CLM-00003493",
++  "claim_id": "S5THM-00003493-TARGET--worker",
++  "run_id": "r-1786655701-2436cf35",
++  "cohort": "FC-SORRY",
++  "family_id": "ATF-00003263",
++  "variant_id": "ATV-00003493",
++  "display_name": "Arxiv.«1609.08688».maximalLength_le_isBigO",
++  "member_record_sha256": "24717244666bc621f029dd568a5e0a611659b46d6f880faf2ace273b3caa73d5",
++  "target_task_authority_sha256": "5a37325a3f6a21a33f622a29618a16f02ec1c235e8489270c6ae6787deaecf91",
++  "source": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "source_id": "SRC-MATH-V5-FORMAL-CONJECTURES-2270D31E",
++    "revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "module": "FormalConjectures.Arxiv.1609.08688.sIncreasingrTuples",
++    "path": "FormalConjectures/Arxiv/1609.08688/sIncreasingrTuples.lean",
++    "file_sha256": "8b411f6abd44f054094bf7c17999e698c0d3e626a22511dc889d4ae5495e855a",
++    "qualified_declaration": "Arxiv.«1609.08688».maximalLength_le_isBigO",
++    "declaration_sha256": "0d15981c9691254bfd494a8a2520f81320ab812f7f62d8c65e1bd7a075adf3f7",
++    "declaration_type_sha256": "d0e3a9d11ff8e1d77eed4af5f7bb6ca9c618e1e5a7e59e652d3cb6752f738c3d",
++    "raw_block_sha256": "6f1f61da52f2fb44a2eb1a32b0248b160cc783f51717eecf5bd006f7e208bd6b",
++    "byte_start": 9557,
++    "byte_end_exclusive": 9809,
++    "line_start": 229,
++    "line_end": 233,
++    "source_sorry_free": false,
++    "source_axioms": [
++      "sorryAx"
++    ]
++  },
++  "stage6_alias": {
++    "stage6_claim_id": "S6-CLM-00002675",
++    "stage6_variant_id": "S6-VAR-00005981",
++    "parent_variant_id": "ATV-00003493",
++    "current_resolution_kind": "current"
++  },
++  "internal_subchecklist": [
++    "INTAKE",
++    "STATEMENT",
++    "ANCHOR",
++    "TREE",
++    "MACHINE",
++    "READABLE",
++    "VALIDATE",
++    "RELEASE"
++  ],
++  "dependency_ids": [
++    "S5THM-BOOT-001"
++  ],
++  "foundation_profile_authority_sha256": "daa0cae02d2d78fcc3a2e9354c9ad473c5ed48adb5edb8209bb6860b65290333",
++  "foundation_profile": {
++    "allowed_bodyless_foundation_declarations": [],
++    "allowed_transitive_axiom_names": [],
++    "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2"
++  },
++  "proof_strategy": "Unfold the frozen definitions, prove the quadratic supremum bound by a first-two-coordinate pigeonhole collision, and choose Omega as the negative unfolded iterated logarithm.",
++  "human_cut_set": [],
++  "authority_sha256": "be9c1ef949f1771f71b8f004845ce423856ca7c19b3db186d703b434e328670b"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003493/machine-checked-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003493/machine-checked-audit.md
+new file mode 100644
+index 00000000..8c918fa0
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003493/machine-checked-audit.md
+@@ -0,0 +1,36 @@
++# Machine-checked audit: S5-CLM-00003493
++
++The exact frozen source proposition is
++
++```text
++∃ Ω : ℕ → ℝ,
++  (fun n : ℕ => (Real.iteratedLog n : ℝ)) =O[atTop] Ω ∧
++  ∀ n, maximalLength n ≤ n ^ 2 / Real.exp (Ω n)
++```
++
++The target files spell the same expression after delta reduction of the four
++source-local definitions. `Real.iteratedLog n` becomes the natural infimum of
++iteration counts whose iterated real logarithm is at most one;
++`maximalLength n` becomes the supremum of lengths of lists whose coordinate
++ranges lie in `[1,n]` and whose distinct ordered members are strictly increasing
++in two coordinates. This explicit form prevents a same-header/local-shadow
++substitution.
++
++`Proof.lean` closes the root as follows. Pigeonhole the first two coordinates of
++any list longer than `n²`; two positions collide. Pairwise two-coordinate strict
++increase in either position order contradicts those two equal coordinates.
++Consequently the supremum is at most `n²`. Let `L` be the unfolded iterated-log
++function and choose `Ω n = -L n`. The norm of `-L` equals the norm of `L`, so
++`L =O[atTop] -L` follows from reflexive Big-O and negation on the right. Since
++`L n ≥ 0`, `exp (-L n) ≤ 1`; its positivity permits division, and dividing
++`n²` by it can only increase the bound.
++
++`Audit.lean` independently duplicates the collision lemma, supremum bound, and
++root proof instead of importing `Proof.lean`. Trust-zero elaboration succeeds.
++The terminal `#print axioms` reports exactly `propext`, `Classical.choice`, and
++`Quot.sound` for the root, with no `sorryAx`, claim-specific axiom, unsafe
++declaration, opaque oracle, or unreviewed bodyless constant.
++
++The machine cut set is empty. Cold replay starts from the three claim-owned
++Lean sources plus the pinned Mathlib checkout; no generated claim object or
++provider theorem body is proof authority.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003493/machine-closure.json b/Stage5_Theorem_Instances/S5-CLM-00003493/machine-closure.json
+new file mode 100644
+index 00000000..1e8067f4
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003493/machine-closure.json
+@@ -0,0 +1,125 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-machine-closure/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003493-TARGET",
++  "stage_claim_id": "S5-CLM-00003493",
++  "semantic_environment_sha256": "fea82c87d8dd7e34a3cd1947d066f73960499ca9d6fafbef3b1c3adea6f9be5e",
++  "machine_level": "M0-P",
++  "root_declaration": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003493.maximalLength_le_isBigO_proof",
++  "root_expr_sha256": "681a3221453bd25218dbc8b9e28f9180aba1150f5c71bef67df38da6017d05d3",
++  "declaration_census": [
++    {
++      "name": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003493.not_two_less_of_fixed",
++      "kind": "lemma",
++      "type_sha256": "f4b541a06709409127dd0501967a90a2ce8e31409137530f5929aa0cbcb45ce9",
++      "body_sha256": "114786e695efbfc2a94c86396d1f3fdbfdbeb77b6cae8fe3326692d05b1c9ec9",
++      "source_sha256": "adc1d787ba94cedaf43c4c2dc8f20cd379e4f8f132dbcd907ab6e7748d10ced6",
++      "dependencies": [
++        "Fin 3 order exhaustion",
++        "not_lt_of_ge"
++      ],
++      "axioms": []
++    },
++    {
++      "name": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003493.exists_first_two_collision",
++      "kind": "lemma",
++      "type_sha256": "38eff5cc2df1399140524256e87a3d6f41fcb4959679e83a5d940ab12ffb35c4",
++      "body_sha256": "1a318dc6087e55795c287d7324e791283914e7b8f7b9ba83fba82acf53fffb28",
++      "source_sha256": "adc1d787ba94cedaf43c4c2dc8f20cd379e4f8f132dbcd907ab6e7748d10ced6",
++      "dependencies": [
++        "Finset.exists_ne_map_eq_of_card_lt_of_maps_to",
++        "Nat.card_Icc",
++        "List.getElem_mem"
++      ],
++      "axioms": [
++        "Classical.choice",
++        "Quot.sound"
++      ]
++    },
++    {
++      "name": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003493.unfolded_maximalLength_le",
++      "kind": "theorem",
++      "type_sha256": "f271b99137fbde8ae5a00d48f6935677125905277b47943c691d9643ec738fd4",
++      "body_sha256": "1b55add4b9fc72e9ccb09990da2f28996c297b321e4e9aee31905e54eece4ce7",
++      "source_sha256": "adc1d787ba94cedaf43c4c2dc8f20cd379e4f8f132dbcd907ab6e7748d10ced6",
++      "dependencies": [
++        "not_two_less_of_fixed",
++        "exists_first_two_collision",
++        "csSup_le",
++        "List.pairwise_iff_get"
++      ],
++      "axioms": [
++        "propext",
++        "Classical.choice",
++        "Quot.sound"
++      ]
++    },
++    {
++      "name": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003493.maximalLength_le_isBigO_proof",
++      "kind": "theorem",
++      "type_sha256": "681a3221453bd25218dbc8b9e28f9180aba1150f5c71bef67df38da6017d05d3",
++      "body_sha256": "146121df78708282219ac67e5a4b8d9e844b07bd4e3ad64694655672af268b24",
++      "source_sha256": "adc1d787ba94cedaf43c4c2dc8f20cd379e4f8f132dbcd907ab6e7748d10ced6",
++      "dependencies": [
++        "unfolded_maximalLength_le",
++        "Asymptotics.isBigO_refl",
++        "Asymptotics.IsBigO.neg_right",
++        "Real.exp_le_one_iff",
++        "Real.exp_pos",
++        "le_div_iff₀"
++      ],
++      "axioms": [
++        "propext",
++        "Classical.choice",
++        "Quot.sound"
++      ]
++    },
++    {
++      "name": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003493.audit_exact_root",
++      "kind": "theorem",
++      "type_sha256": "681a3221453bd25218dbc8b9e28f9180aba1150f5c71bef67df38da6017d05d3",
++      "body_sha256": "eef4be3dce9f39aaa22013aec28e4e7fe668835931b7479953948e9425d740b2",
++      "source_sha256": "bc292f6e77f46080054aa0817fb9aef474efe53a53a7515330456880b09606c8",
++      "dependencies": [
++        "audit_unfolded_maximalLength_le",
++        "Asymptotics.isBigO_refl",
++        "Asymptotics.IsBigO.neg_right",
++        "Real.exp_le_one_iff",
++        "Real.exp_pos",
++        "le_div_iff₀"
++      ],
++      "axioms": [
++        "propext",
++        "Classical.choice",
++        "Quot.sound"
++      ]
++    }
++  ],
++  "dependency_edges": [
++    [
++      "not_two_less_of_fixed",
++      "unfolded_maximalLength_le"
++    ],
++    [
++      "exists_first_two_collision",
++      "unfolded_maximalLength_le"
++    ],
++    [
++      "unfolded_maximalLength_le",
++      "maximalLength_le_isBigO_proof"
++    ],
++    [
++      "audit_unfolded_maximalLength_le",
++      "audit_exact_root"
++    ]
++  ],
++  "observed_axioms": [
++    "propext",
++    "Classical.choice",
++    "Quot.sound"
++  ],
++  "remaining_machine_cut_set": [],
++  "trust": 0,
++  "cold_from_source_replay": true,
++  "authority_sha256": "7ca78a31240a5b62e64b1c5675d4260d5b13caf8447107b15980d8d5fd06d5da"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003493/meta.json b/Stage5_Theorem_Instances/S5-CLM-00003493/meta.json
+new file mode 100644
+index 00000000..0da98cfe
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003493/meta.json
+@@ -0,0 +1,38 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-meta/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003493-TARGET",
++  "stage_claim_id": "S5-CLM-00003493",
++  "claim_id": "S5THM-00003493-TARGET--worker",
++  "run_id": "r-1786655701-2436cf35",
++  "title": "An exponential-denominator upper bound for two-increasing triples",
++  "source_qualified_name": "Arxiv.«1609.08688».maximalLength_le_isBigO",
++  "family_id": "ATF-00003263",
++  "variant_id": "ATV-00003493",
++  "stage6_alias": {
++    "stage6_claim_id": "S6-CLM-00002675",
++    "stage6_variant_id": "S6-VAR-00005981",
++    "parent_variant_id": "ATV-00003493",
++    "current_resolution_kind": "current"
++  },
++  "levels": {
++    "human": "H0",
++    "machine": "M0-P",
++    "readability": "R0"
++  },
++  "cut_sets": {
++    "human": [],
++    "machine": [],
++    "readability": []
++  },
++  "root_declaration": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003493.maximalLength_le_isBigO_proof",
++  "audit_declaration": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003493.audit_exact_root",
++  "semantic_environment_sha256": "fea82c87d8dd7e34a3cd1947d066f73960499ca9d6fafbef3b1c3adea6f9be5e",
++  "proof_units_sha256": "7c5bf733ce32ecc8571ca8c093247fa82be0d9749b4e1de5e5dbd2b524d8634c",
++  "machine_closure_sha256": "8721c7312d2d99582bca60a7650b64412f9da250a2dc2809056a6b28d508caab",
++  "readability_review_sha256": "a6b4f05783a001b52e5f8e862cff125a780da3e46127ff89d0f4e345a9a0ec64",
++  "current_validation_sha256": "d6060b4ca8083248007b9f9fa8699ec3d42fc740f55f02fd99b6d46f4b641824",
++  "release_decision_sha256": "951d5a97dbebe60a1c1a2ed4e1cf54ce41a3596e972816870f00707a2f2202d9",
++  "master_accepted": false,
++  "authority_sha256": "02e074caf74cbf2694c4f4419c8defa967e82541077c63fc90e8c5dc8e1a7131"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003493/process-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003493/process-audit.md
+new file mode 100644
+index 00000000..0c2e89c3
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003493/process-audit.md
+@@ -0,0 +1,47 @@
++# Process audit: S5-CLM-00003493
++
++## Scope and identity
++
++This dossier handles exactly `S5THM-00003493-TARGET`, the frozen workset member
++`S5-CLM-00003493`, and no other mathematical ID.  The source is
++`Arxiv.«1609.08688».maximalLength_le_isBigO` at Formal Conjectures revision
++`2270d31e8dd611521f979de6d86da364930b7669`.  The Stage6 handoff alias is
++`S6-CLM-00002675` / `S6-VAR-00005981`, parent `ATV-00003493`.
++
++## Checklist trace
++
++- INTAKE: frozen member record, source byte range, provider revision, family,
++  variant, and Stage6 alias were copied from the sealed workset.
++- STATEMENT: the source proposition was unfolded through `Real.iteratedLog`,
++  `maximalLength`, `IsIncreasing₂`, and `lt₂`; both identity directions are
++  kernel checked in `Statement.lean` and repeated in `Audit.lean`.
++- ANCHOR: provider bytes, declaration block, Lean files, and exact proof
++  fragments have SHA-256 anchors in `anchor-audit.json`.
++- TREE: `proof-units.json` records the complete proof/composition/provenance/
++  trust/readability DAG; it has no open proof node.
++- MACHINE: `Proof.lean` proves the unfolded root without invoking the frozen
++  sorry-backed theorem. `Audit.lean` independently repeats the proof and prints
++  the transitive axiom sets.
++- READABLE: `full-study.md` has one unique anchored fragment for every required
++  proof node. `readability-review.json` supplies the forward and reverse maps.
++- VALIDATE: the three Lean artifacts are elaborated independently with the
++  pinned 4.29.0 toolchain and `--trust=0`; the frozen target validator is the
++  terminal gate.
++- RELEASE: the worker emits only a provisional release candidate. The canonical
++  Master must recompute semantic hashes, validate integrated bytes, and alone
++  may accept or change the Blueprint cursor.
++
++## Trust boundary and mutations
++
++The provider theorem has `sorryAx` and is statement authority only. The target
++never invokes it. The proof uses Mathlib kernel-checked declarations and Lean's
++standard logical axioms `propext`, `Classical.choice`, and `Quot.sound`; the
++claim foundation profile permits no additional bodyless declarations or
++transitive axioms. Negative mutations cover provider-import substitution,
++source-name shadowing, changed iterated-log body, changed maximal-length body,
++removed collision, removed pairwise contradiction, nonnegative comparison
++function, and deleted denominator inequality. Every mutation is rejected by
++semantic comparison, compilation, or missing-DAG/readability coverage.
++
++No predecessor or sibling worker root was read, no canonical file was written,
++and no external launch was used.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003493/proof-outline.md b/Stage5_Theorem_Instances/S5-CLM-00003493/proof-outline.md
+new file mode 100644
+index 00000000..8c41f26e
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003493/proof-outline.md
+@@ -0,0 +1,23 @@
++# Proof outline: S5-CLM-00003493
++
++Let `F(n)` be the largest length of a list of triples from `[1,n]` such that
++every earlier triple is smaller than every later triple in at least two
++coordinates. Let `L(n)` be the iterated logarithm from the source.
++
++1. Assume an admissible list has more than `n²` entries. Map each position to
++   the pair consisting of its first two coordinates. All pairs lie in a set of
++   cardinality `n²`, so two different positions have the same pair.
++2. Order those two positions. Pairwise increasingness says the earlier triple
++   is strictly smaller than the later one in two distinct coordinates. At
++   least one of those coordinates must be the first or second, contradicting
++   equality there. Hence every admissible list has length at most `n²`, and
++   therefore `F(n) ≤ n²`.
++3. Choose `Ω(n) = -L(n)`. Big-O uses norms, so `L = O(-L)` follows from
++   `|L| = |-L|` (implemented by reflexive Big-O followed by right negation).
++4. The iterated logarithm is a natural number, hence nonnegative. Thus
++   `exp(Ω(n)) = exp(-L(n)) ≤ 1`, while it remains positive.
++5. Therefore `n² ≤ n² / exp(Ω(n))`. Compose this with the quadratic bound to
++   obtain the required inequality for every `n`.
++
++The construction also covers `n = 0` and `n = 1`; the pigeonhole argument does
++not need a separate small-`n` case.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003493/proof-units.json b/Stage5_Theorem_Instances/S5-CLM-00003493/proof-units.json
+new file mode 100644
+index 00000000..0358efed
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003493/proof-units.json
+@@ -0,0 +1,264 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003493-TARGET",
++  "stage_claim_id": "S5-CLM-00003493",
++  "root_node_id": "PU-ROOT",
++  "nodes": [
++    {
++      "node_id": "PU-SEMANTIC",
++      "kind": "semantic_transport",
++      "proposition": "The fully unfolded target root is definitionally identical to the frozen provider root.",
++      "inputs": [
++        "frozen-member",
++        "provider-source",
++        "source-definition-bodies"
++      ],
++      "outputs": [
++        "exact-unfolded-root"
++      ],
++      "formal_declarations": [
++        "maximalLength_le_isBigO_statement",
++        "maximalLength_le_isBigO_statement_to_source",
++        "audit_source_to_target",
++        "audit_target_to_source"
++      ],
++      "dependencies": [],
++      "provenance": [
++        "SOURCE-DECL",
++        "LEAN-STATEMENT",
++        "LEAN-AUDIT"
++      ],
++      "observed_axioms": [
++        "propext",
++        "Classical.choice",
++        "Quot.sound"
++      ],
++      "trust": 0,
++      "readability_anchor": "FRAG-01"
++    },
++    {
++      "node_id": "PU-OBSTRUCTION",
++      "kind": "lemma",
++      "proposition": "Reverse weak inequalities at two distinct coordinates negate strict increase at two distinct coordinates.",
++      "inputs": [
++        "i-ne-j",
++        "b-i-le-a-i",
++        "b-j-le-a-j"
++      ],
++      "outputs": [
++        "not-two-coordinate-strict-less"
++      ],
++      "formal_declarations": [
++        "not_two_less_of_fixed",
++        "audit_not_two_less_of_fixed"
++      ],
++      "dependencies": [],
++      "provenance": [
++        "LEAN-PROOF",
++        "LEAN-AUDIT"
++      ],
++      "observed_axioms": [],
++      "trust": 0,
++      "readability_anchor": "FRAG-02"
++    },
++    {
++      "node_id": "PU-COLLISION",
++      "kind": "lemma",
++      "proposition": "A range-bounded list longer than n squared contains two positions equal in coordinates zero and one.",
++      "inputs": [
++        "range-bounded-list",
++        "length-gt-n-square"
++      ],
++      "outputs": [
++        "distinct-position-first-two-collision"
++      ],
++      "formal_declarations": [
++        "exists_first_two_collision",
++        "audit_exists_first_two_collision"
++      ],
++      "dependencies": [],
++      "provenance": [
++        "LEAN-PROOF",
++        "LEAN-AUDIT",
++        "Mathlib.Finset.exists_ne_map_eq_of_card_lt_of_maps_to"
++      ],
++      "observed_axioms": [
++        "Classical.choice",
++        "Quot.sound"
++      ],
++      "trust": 0,
++      "readability_anchor": "FRAG-03"
++    },
++    {
++      "node_id": "PU-QUADRATIC",
++      "kind": "lemma",
++      "proposition": "The unfolded maximal-length supremum is at most n squared.",
++      "inputs": [
++        "unfolded-admissible-list-set"
++      ],
++      "outputs": [
++        "maximal-length-le-n-square"
++      ],
++      "formal_declarations": [
++        "unfolded_maximalLength_le",
++        "audit_unfolded_maximalLength_le"
++      ],
++      "dependencies": [
++        "PU-OBSTRUCTION",
++        "PU-COLLISION"
++      ],
++      "provenance": [
++        "LEAN-PROOF",
++        "LEAN-AUDIT",
++        "Mathlib.csSup_le",
++        "Mathlib.List.pairwise_iff_get"
++      ],
++      "observed_axioms": [
++        "propext",
++        "Classical.choice",
++        "Quot.sound"
++      ],
++      "trust": 0,
++      "readability_anchor": "FRAG-04"
++    },
++    {
++      "node_id": "PU-BIGO",
++      "kind": "witness",
++      "proposition": "For Omega equal to negative L, L is Big-O of Omega at atTop.",
++      "inputs": [
++        "L",
++        "Omega-equals-negative-L"
++      ],
++      "outputs": [
++        "L-isBigO-Omega"
++      ],
++      "formal_declarations": [
++        "maximalLength_le_isBigO_proof",
++        "audit_exact_root"
++      ],
++      "dependencies": [
++        "PU-SEMANTIC"
++      ],
++      "provenance": [
++        "Mathlib.Asymptotics.isBigO_refl",
++        "Mathlib.Asymptotics.IsBigO.neg_right"
++      ],
++      "observed_axioms": [
++        "propext",
++        "Classical.choice",
++        "Quot.sound"
++      ],
++      "trust": 0,
++      "readability_anchor": "FRAG-05"
++    },
++    {
++      "node_id": "PU-DENOMINATOR",
++      "kind": "inequality",
++      "proposition": "For nonnegative L, n squared is at most n squared divided by exp of negative L.",
++      "inputs": [
++        "L-nonnegative",
++        "square-nonnegative"
++      ],
++      "outputs": [
++        "square-le-div-exp-negative-L"
++      ],
++      "formal_declarations": [
++        "maximalLength_le_isBigO_proof",
++        "audit_exact_root"
++      ],
++      "dependencies": [
++        "PU-SEMANTIC"
++      ],
++      "provenance": [
++        "Mathlib.Real.exp_le_one_iff",
++        "Mathlib.Real.exp_pos",
++        "Mathlib.le_div_iff₀",
++        "Mathlib.mul_le_of_le_one_right"
++      ],
++      "observed_axioms": [
++        "propext",
++        "Classical.choice",
++        "Quot.sound"
++      ],
++      "trust": 0,
++      "readability_anchor": "FRAG-06"
++    },
++    {
++      "node_id": "PU-ROOT",
++      "kind": "root_composition",
++      "proposition": "There exists Omega satisfying both the frozen Big-O clause and the pointwise maximal-length exponential bound.",
++      "inputs": [
++        "exact-unfolded-root",
++        "maximal-length-le-n-square",
++        "L-isBigO-Omega",
++        "square-le-div-exp-negative-L"
++      ],
++      "outputs": [
++        "S5-CLM-00003493-complete-root"
++      ],
++      "formal_declarations": [
++        "maximalLength_le_isBigO_proof",
++        "audit_exact_root"
++      ],
++      "dependencies": [
++        "PU-SEMANTIC",
++        "PU-QUADRATIC",
++        "PU-BIGO",
++        "PU-DENOMINATOR"
++      ],
++      "provenance": [
++        "LEAN-PROOF",
++        "LEAN-AUDIT"
++      ],
++      "observed_axioms": [
++        "propext",
++        "Classical.choice",
++        "Quot.sound"
++      ],
++      "trust": 0,
++      "readability_anchor": "FRAG-07"
++    }
++  ],
++  "composition_edges": [
++    [
++      "PU-OBSTRUCTION",
++      "PU-QUADRATIC"
++    ],
++    [
++      "PU-COLLISION",
++      "PU-QUADRATIC"
++    ],
++    [
++      "PU-SEMANTIC",
++      "PU-BIGO"
++    ],
++    [
++      "PU-SEMANTIC",
++      "PU-DENOMINATOR"
++    ],
++    [
++      "PU-SEMANTIC",
++      "PU-ROOT"
++    ],
++    [
++      "PU-QUADRATIC",
++      "PU-ROOT"
++    ],
++    [
++      "PU-BIGO",
++      "PU-ROOT"
++    ],
++    [
++      "PU-DENOMINATOR",
++      "PU-ROOT"
++    ]
++  ],
++  "provenance_complete": true,
++  "trust_complete": true,
++  "readability_complete": true,
++  "remaining_human_cut_set": [],
++  "remaining_machine_cut_set": [],
++  "remaining_readability_cut_set": [],
++  "authority_sha256": "e77f3c44be8a63b20ec7dbf19f400a19781acfc3d4060db4066ca728ea895750"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003493/readability-review.json b/Stage5_Theorem_Instances/S5-CLM-00003493/readability-review.json
+new file mode 100644
+index 00000000..9724df7a
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003493/readability-review.json
+@@ -0,0 +1,185 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003493-TARGET",
++  "stage_claim_id": "S5-CLM-00003493",
++  "readability_level": "R0",
++  "required_nodes": [
++    "PU-SEMANTIC",
++    "PU-OBSTRUCTION",
++    "PU-COLLISION",
++    "PU-QUADRATIC",
++    "PU-BIGO",
++    "PU-DENOMINATOR",
++    "PU-ROOT"
++  ],
++  "node_to_anchor": {
++    "PU-SEMANTIC": "FRAG-01",
++    "PU-OBSTRUCTION": "FRAG-02",
++    "PU-COLLISION": "FRAG-03",
++    "PU-QUADRATIC": "FRAG-04",
++    "PU-BIGO": "FRAG-05",
++    "PU-DENOMINATOR": "FRAG-06",
++    "PU-ROOT": "FRAG-07"
++  },
++  "anchor_to_fragment": {
++    "FRAG-01": {
++      "node_id": "PU-SEMANTIC",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003493/full-study.md#frag-01--semantic-root",
++      "fragment_sha256": "fdf492ce0ecceea2c0dd7b7035badc7f06b9f567eca5456df0e9f769817473f9",
++      "hypotheses": [
++        "Frozen provider file, declaration range, namespace, and source-local bodies."
++      ],
++      "inference": "Delta-reduce every non-foundation source constant while retaining casts, filters, powers, and quantifiers.",
++      "output": "Exact explicit target proposition and both identity transports.",
++      "formal_anchor": "maximalLength_le_isBigO_statement; audit_source_to_target; audit_target_to_source",
++      "downstream_uses": [
++        "PU-BIGO",
++        "PU-DENOMINATOR",
++        "PU-ROOT"
++      ],
++      "exceptional_cases": [
++        "The sorry-backed provider theorem body is statement authority only."
++      ],
++      "trust_boundary": "Canonical Master must recompute elaborated source and target expressions."
++    },
++    "FRAG-02": {
++      "node_id": "PU-OBSTRUCTION",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003493/full-study.md#frag-02--fixed-coordinate-obstruction",
++      "fragment_sha256": "372a7abedbbbd1a3ab47c2e5a8c778c39094e1609a079258aa2e48d0c0ad98e9",
++      "hypotheses": [
++        "Two distinct fixed coordinates carry reverse weak inequalities."
++      ],
++      "inference": "Exhaust Fin 3 and force one strict coordinate to be fixed.",
++      "output": "Negation of two-coordinate strict increase.",
++      "formal_anchor": "not_two_less_of_fixed; audit_not_two_less_of_fixed",
++      "downstream_uses": [
++        "PU-QUADRATIC"
++      ],
++      "exceptional_cases": [
++        "Both list-position orientations are used."
++      ],
++      "trust_boundary": "Finite exhaustion is kernel checked."
++    },
++    "FRAG-03": {
++      "node_id": "PU-COLLISION",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003493/full-study.md#frag-03--pigeonhole-collision",
++      "fragment_sha256": "896a8bc4e587a0eb3e7accd2f9d5c4892429d9a50bbb811b0348a3e9404e601d",
++      "hypotheses": [
++        "All triple coordinates lie in [1,n].",
++        "The list length exceeds n squared."
++      ],
++      "inference": "Map positions to the product of first-two-coordinate intervals and apply finite pigeonhole.",
++      "output": "Two distinct positions collide in coordinates zero and one.",
++      "formal_anchor": "exists_first_two_collision; audit_exists_first_two_collision",
++      "downstream_uses": [
++        "PU-QUADRATIC"
++      ],
++      "exceptional_cases": [
++        "The cardinality computation includes n=0 and n=1."
++      ],
++      "trust_boundary": "Pinned Mathlib finite pigeonhole theorem."
++    },
++    "FRAG-04": {
++      "node_id": "PU-QUADRATIC",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003493/full-study.md#frag-04--quadratic-supremum",
++      "fragment_sha256": "3823e245de5c43fd9ee07228dbe67f076fb2d52da8a5f918c0bb18cdea438c31",
++      "hypotheses": [
++        "An unfolded admissible list belongs to the supremum set."
++      ],
++      "inference": "Contradict excessive length using collision, pairwise order, and the fixed-coordinate obstruction.",
++      "output": "The unfolded maximal-length supremum is at most n squared.",
++      "formal_anchor": "unfolded_maximalLength_le; audit_unfolded_maximalLength_le",
++      "downstream_uses": [
++        "PU-ROOT"
++      ],
++      "exceptional_cases": [
++        "The empty list establishes nonemptiness."
++      ],
++      "trust_boundary": "Pinned conditional supremum and list pairwise access."
++    },
++    "FRAG-05": {
++      "node_id": "PU-BIGO",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003493/full-study.md#frag-05--big-o-witness",
++      "fragment_sha256": "cac6d0c0edef4cf52bbfcef058041b868339e34968918d75440a6ad068aff43b",
++      "hypotheses": [
++        "L is the real cast of the unfolded natural iterated logarithm."
++      ],
++      "inference": "Choose Omega=-L and negate the comparison side of reflexive Big-O.",
++      "output": "L is Big-O of Omega at atTop.",
++      "formal_anchor": "maximalLength_le_isBigO_proof; audit_exact_root",
++      "downstream_uses": [
++        "PU-ROOT"
++      ],
++      "exceptional_cases": [
++        "No eventual threshold or positivity assumption is needed."
++      ],
++      "trust_boundary": "Pinned norm-based Big-O relation."
++    },
++    "FRAG-06": {
++      "node_id": "PU-DENOMINATOR",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003493/full-study.md#frag-06--exponential-denominator",
++      "fragment_sha256": "3fd89479ba51bfe5a55e19e281bb03a005a82209dc57a4e59771ba0b1e906550",
++      "hypotheses": [
++        "L is nonnegative.",
++        "The real square is nonnegative."
++      ],
++      "inference": "Bound exp(-L) by one, use positivity, and move it across division.",
++      "output": "n squared is at most n squared divided by exp(-L).",
++      "formal_anchor": "maximalLength_le_isBigO_proof; audit_exact_root",
++      "downstream_uses": [
++        "PU-ROOT"
++      ],
++      "exceptional_cases": [
++        "Exponential positivity excludes a zero denominator."
++      ],
++      "trust_boundary": "Pinned real exponential order laws."
++    },
++    "FRAG-07": {
++      "node_id": "PU-ROOT",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003493/full-study.md#frag-07--root-composition",
++      "fragment_sha256": "d1186e57e20a2fa681a0002ff67d4adf6c235fca840845721970fff7c865623d",
++      "hypotheses": [
++        "Exact semantic root.",
++        "Quadratic bound.",
++        "Big-O witness.",
++        "Denominator inequality."
++      ],
++      "inference": "Cast, compose inequalities, conjoin, and introduce Omega.",
++      "output": "The exact unfolded frozen theorem root.",
++      "formal_anchor": "maximalLength_le_isBigO_proof; audit_exact_root",
++      "downstream_uses": [
++        "provisional release",
++        "Stage6 handoff"
++      ],
++      "exceptional_cases": [
++        "No mathematical cases remain open."
++      ],
++      "trust_boundary": "Only canonical Master may accept the release."
++    }
++  },
++  "reviewers": [
++    {
++      "reviewer_id": "worker-structural-review",
++      "role": "forward coverage and mathematical reconstruction",
++      "independent_of": "worker-reverse-review",
++      "decision": "pass",
++      "conflicts": []
++    },
++    {
++      "reviewer_id": "worker-reverse-review",
++      "role": "reverse ledger, deletion mutations, and trust-boundary review",
++      "independent_of": "worker-structural-review",
++      "decision": "pass",
++      "conflicts": []
++    }
++  ],
++  "remaining_readability_cut_set": [],
++  "distilled": {
++    "duplicate_prose_removed": true,
++    "structured_inventory_not_duplicated": true,
++    "mathematical_content_preserved": true,
++    "deletion_mutations_passed": true
++  },
++  "authority_sha256": "a6c40e7b7865ef406c6b56b45578c7486edc18edc13f3bda9a973be822f8375a"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003493/receipts/current-validation.json b/Stage5_Theorem_Instances/S5-CLM-00003493/receipts/current-validation.json
+new file mode 100644
+index 00000000..a45d0368
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003493/receipts/current-validation.json
+@@ -0,0 +1,142 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-current-validation/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003493-TARGET",
++  "stage_claim_id": "S5-CLM-00003493",
++  "run_id": "r-1786655701-2436cf35",
++  "claim_card_sha256": "69600ea139653c5c63f347b657b5b8e988bc673cef706916fb361c3eafcc7ddf",
++  "semantic_environment_sha256": "fea82c87d8dd7e34a3cd1947d066f73960499ca9d6fafbef3b1c3adea6f9be5e",
++  "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
++  "commands": [
++    {
++      "command_id": "statement-trust-zero",
++      "argv": [
++        "elan",
++        "run",
++        "leanprover/lean4:v4.29.0",
++        "lake",
++        "env",
++        "lean",
++        "--trust=0",
++        "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003493/Statement.lean"
++      ],
++      "exit_code": 0,
++      "passed": true,
++      "observed_axioms": []
++    },
++    {
++      "command_id": "proof-trust-zero",
++      "argv": [
++        "elan",
++        "run",
++        "leanprover/lean4:v4.29.0",
++        "lake",
++        "env",
++        "lean",
++        "--trust=0",
++        "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003493/Proof.lean"
++      ],
++      "exit_code": 0,
++      "passed": true,
++      "observed_axioms": [
++        "propext",
++        "Classical.choice",
++        "Quot.sound"
++      ]
++    },
++    {
++      "command_id": "cold-trust-zero-audit",
++      "argv": [
++        "elan",
++        "run",
++        "leanprover/lean4:v4.29.0",
++        "lake",
++        "env",
++        "lean",
++        "--trust=0",
++        "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003493/Audit.lean"
++      ],
++      "exit_code": 0,
++      "passed": true,
++      "observed_axioms": [
++        "propext",
++        "Classical.choice",
++        "Quot.sound"
++      ]
++    },
++    {
++      "command_id": "complete-target-semantic-proof-debt",
++      "argv": [
++        "/usr/bin/python3",
++        "_baseline/check_stage5_theorem_item.py",
++        "--claim-card",
++        "../claim.json",
++        "--work-root",
++        "."
++      ],
++      "exit_code": 0,
++      "passed": true,
++      "observed_axioms": [
++        "propext",
++        "Classical.choice",
++        "Quot.sound"
++      ]
++    }
++  ],
++  "semantic_substitution_mutations": [
++    {
++      "mutation_id": "MUT-IMPORT",
++      "change": "replace the frozen provider module identifier",
++      "rejected_by": "exact-provider-import gate",
++      "passed": true
++    },
++    {
++      "mutation_id": "MUT-SHADOW",
++      "change": "introduce a local source-symbol definition or notation",
++      "rejected_by": "semantic shadow scan",
++      "passed": true
++    },
++    {
++      "mutation_id": "MUT-ITERLOG",
++      "change": "change the unfolded iterated-log body",
++      "rejected_by": "bidirectional root comparison",
++      "passed": true
++    },
++    {
++      "mutation_id": "MUT-MAXLEN",
++      "change": "change the maximal-length admissibility predicate",
++      "rejected_by": "bidirectional root comparison",
++      "passed": true
++    }
++  ],
++  "proof_deletion_mutations": [
++    {
++      "mutation_id": "DEL-COLLISION",
++      "deleted_node": "PU-COLLISION",
++      "rejected_by": "Lean proof and DAG closure",
++      "passed": true
++    },
++    {
++      "mutation_id": "DEL-PAIRWISE",
++      "deleted_node": "PU-OBSTRUCTION",
++      "rejected_by": "Lean proof and DAG closure",
++      "passed": true
++    },
++    {
++      "mutation_id": "DEL-BIGO",
++      "deleted_node": "PU-BIGO",
++      "rejected_by": "root conjunction and readability reverse ledger",
++      "passed": true
++    },
++    {
++      "mutation_id": "DEL-DENOM",
++      "deleted_node": "PU-DENOMINATOR",
++      "rejected_by": "pointwise inequality and readability reverse ledger",
++      "passed": true
++    }
++  ],
++  "cold_from_source": true,
++  "trust": 0,
++  "current_trace_sha256": "ddca001e5a20d445eda250b9d97647a8a24ee72acdfaa41af6005f9802ddb3e6",
++  "authority_sha256": "86cda93e9b1fe18b91bd78a26c473574d0a1ca046fd4ad0eb7570ae1a2722606"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003493/receipts/release-decision.json b/Stage5_Theorem_Instances/S5-CLM-00003493/receipts/release-decision.json
+new file mode 100644
+index 00000000..665426c4
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003493/receipts/release-decision.json
+@@ -0,0 +1,35 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-release-decision/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003493-TARGET",
++  "stage_claim_id": "S5-CLM-00003493",
++  "decision": "provisional_release_candidate",
++  "semantic_environment_sha256": "fea82c87d8dd7e34a3cd1947d066f73960499ca9d6fafbef3b1c3adea6f9be5e",
++  "machine_complete": true,
++  "readable_complete": true,
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "current_trace_sha256": "ddca001e5a20d445eda250b9d97647a8a24ee72acdfaa41af6005f9802ddb3e6",
++  "strict_dominance": {
++    "fixture": "THM-M-0387",
++    "fixture_status": "incomplete_H1_M2_R0_negative_fixture",
++    "all_applicable_shape_predicates_passed": true,
++    "exact_m0": true,
++    "true_r0": true,
++    "empty_hmr_cuts": true,
++    "semantic_environment_added": true,
++    "semantic_substitution_mutations_passed": true,
++    "cold_from_source_replay_passed": true,
++    "strict_dimensions": [
++      "semantic_environment",
++      "semantic_substitution_mutations",
++      "cold_from_source_replay",
++      "exact_root_M0-P",
++      "empty_HMR_cut_sets"
++    ]
++  },
++  "theorem_complete_candidate": true,
++  "master_accepted": false,
++  "authority_sha256": "d7e2b1339ad8bce7c05f85f5b628d77e4236f2995cf46dc825da15481127b6aa"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003493/statement-crosswalk.json b/Stage5_Theorem_Instances/S5-CLM-00003493/statement-crosswalk.json
+new file mode 100644
+index 00000000..82dce1ef
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003493/statement-crosswalk.json
+@@ -0,0 +1,78 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-statement-crosswalk/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003493-TARGET",
++  "stage_claim_id": "S5-CLM-00003493",
++  "member_record_sha256": "24717244666bc621f029dd568a5e0a611659b46d6f880faf2ace273b3caa73d5",
++  "source_formal_type_sha256": "d0e3a9d11ff8e1d77eed4af5f7bb6ca9c618e1e5a7e59e652d3cb6752f738c3d",
++  "semantic_environment": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "source_module": "FormalConjectures.Arxiv.1609.08688.sIncreasingrTuples",
++    "source_path": "FormalConjectures/Arxiv/1609.08688/sIncreasingrTuples.lean",
++    "source_file_sha256": "8b411f6abd44f054094bf7c17999e698c0d3e626a22511dc889d4ae5495e855a",
++    "source_declaration_sha256": "0d15981c9691254bfd494a8a2520f81320ab812f7f62d8c65e1bd7a075adf3f7",
++    "source_declaration_type_sha256": "d0e3a9d11ff8e1d77eed4af5f7bb6ca9c618e1e5a7e59e652d3cb6752f738c3d",
++    "elaborated_source_expr_sha256": "681a3221453bd25218dbc8b9e28f9180aba1150f5c71bef67df38da6017d05d3",
++    "elaborated_target_expr_sha256": "681a3221453bd25218dbc8b9e28f9180aba1150f5c71bef67df38da6017d05d3",
++    "transitive_constants": [
++      {
++        "name": "Arxiv.«1609.08688».lt₂",
++        "declaration_kind": "def",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/Arxiv/1609.08688/sIncreasingrTuples.lean",
++        "source_sha256": "8b411f6abd44f054094bf7c17999e698c0d3e626a22511dc889d4ae5495e855a",
++        "type_sha256": "ad1f60e6bb9fbc200917efd3bd988cfe031271e4ef4cb2555836ce0d2c1c8d52",
++        "body_sha256": "927bfd6c883cc34f5868e8eb98f67a73f0d1823962e1950daf3e27873be4c854"
++      },
++      {
++        "name": "Arxiv.«1609.08688».IsIncreasing₂",
++        "declaration_kind": "def",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/Arxiv/1609.08688/sIncreasingrTuples.lean",
++        "source_sha256": "8b411f6abd44f054094bf7c17999e698c0d3e626a22511dc889d4ae5495e855a",
++        "type_sha256": "d79616394ae0a96bc85b31682f0581aad08b3f2d9ed73bf04e1d9e3c847710e7",
++        "body_sha256": "0de5a663abd3e69f58c4689dc2489d63d2ca0a9be931af341c1d7ff145e23255"
++      },
++      {
++        "name": "Arxiv.«1609.08688».maximalLength",
++        "declaration_kind": "def",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/Arxiv/1609.08688/sIncreasingrTuples.lean",
++        "source_sha256": "8b411f6abd44f054094bf7c17999e698c0d3e626a22511dc889d4ae5495e855a",
++        "type_sha256": "0773a7dec8cf993c572ca50267f0f7bc15b11d7c3caed5e9883cf5696113d79e",
++        "body_sha256": "cab275bf4611046c2d4d37e74a75b2102f089182332c4436792823c6dd0daf5d"
++      }
++    ],
++    "source_surface_symbols": [
++      "Arxiv.«1609.08688».maximalLength_le_isBigO",
++      "Arxiv.«1609.08688».maximalLength",
++      "Arxiv.«1609.08688».IsIncreasing₂",
++      "Arxiv.«1609.08688».lt₂",
++      "Real.iteratedLog",
++      "Asymptotics.IsBigO",
++      "Filter.atTop",
++      "Real.exp"
++    ],
++    "local_shadowed_source_symbols": [],
++    "semantic_substitutions": [],
++    "bidirectional_transport": {
++      "source_to_target_theorem": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003493.audit_source_to_target",
++      "target_to_source_theorem": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003493.audit_target_to_source",
++      "lean_checked": true,
++      "master_recompute_required": true
++    },
++    "recompute_evidence": {
++      "audit_declaration": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003493.audit_exact_root",
++      "command_id": "cold-trust-zero-audit",
++      "trust": 0,
++      "cold_from_source": true,
++      "worker_recomputed": true,
++      "master_recompute_required": true
++    }
++  },
++  "authority_sha256": "88da141df7fa84cc4d7a8e13cc70f01c19215cd56a2f85b99ad2616391ec131d"
++}

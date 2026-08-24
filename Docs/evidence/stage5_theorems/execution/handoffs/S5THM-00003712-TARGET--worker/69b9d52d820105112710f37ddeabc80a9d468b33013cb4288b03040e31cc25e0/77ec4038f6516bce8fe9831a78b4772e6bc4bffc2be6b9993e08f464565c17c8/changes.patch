@@ -1,0 +1,849 @@
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003712/intake.json b/Stage5_Theorem_Instances/S5-CLM-00003712/intake.json
+new file mode 100644
+index 00000000..6bf03512
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003712/intake.json
+@@ -0,0 +1,37 @@
++{
++  "authority_sha256": "0ad857ac89f1e75259d886fb9467dd916526a20ec60eebf48ac77592cbf1fc67",
++  "cohort": "FC-REPLAY",
++  "formal_type_sha256": "0a862358f9d93068872ddd1ee3ae18160edfccf166c019c7866bf71eefbe4e72",
++  "frozen_record_sha256": "95fda2328fb076953f42679dcf0e0ca42a2ebe5cdea3c16a347f094170ddd62d",
++  "human_cut_set": [],
++  "internal_subchecklist": [
++    "INTAKE",
++    "STATEMENT",
++    "ANCHOR",
++    "TREE",
++    "MACHINE",
++    "READABLE",
++    "VALIDATE",
++    "RELEASE"
++  ],
++  "item_id": "S5THM-00003712-TARGET",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "provider_is_statement_authority_only": true,
++  "provider_placeholder_dependency_excluded": true,
++  "schema_version": "awesome-theorems/stage5-theorem-intake/2.0",
++  "source": {
++    "file_sha256": "7c5e2cbb853477f4e167fd5a24dcbb5c76417c7bf7872c4616ec729ee22b73a5",
++    "module": "FormalConjectures.ErdosProblems.1128",
++    "path": "FormalConjectures/ErdosProblems/1128.lean",
++    "provider_id": "formal-conjectures-2270d31e",
++    "qualified_declaration": "Erdos1128.erdos_1128",
++    "revision": "2270d31e8dd611521f979de6d86da364930b7669"
++  },
++  "stage6_alias": {
++    "current_resolution_kind": "current",
++    "parent_variant_id": "ATV-00003712",
++    "stage6_claim_id": "S6-CLM-00007173",
++    "stage6_variant_id": "S6-VAR-00004401"
++  },
++  "stage_claim_id": "S5-CLM-00003712"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003712/Statement.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003712/Statement.lean
+new file mode 100644
+index 00000000..a8d1d542
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003712/Statement.lean
+@@ -0,0 +1,33 @@
++import Mathlib
++
++/-!
++Frozen provenance (not a canonical Lake import):
++import FormalConjectures.ErdosProblems.1128
++Erdos1128.erdos_1128
++
++This file restates the frozen proposition with every provider-local definition
++expanded.  In the provider, `answer(False)` reduces to `False`, and
++`Erdos1128.IsMonochromaticBox f A₁ B₁ C₁` expands to the existential below.
++-/
++
++open Cardinal Set
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003712
++
++theorem statement_equivalent_to_counterexample :
++    (False ↔
++      ∀ (A B C : Type) (_ : #A = aleph 1) (_ : #B = aleph 1)
++        (_ : #C = aleph 1) (f : A → B → C → Fin 2),
++        ∃ (A₁ : Set A) (B₁ : Set B) (C₁ : Set C),
++          #A₁ = aleph 0 ∧ #B₁ = aleph 0 ∧ #C₁ = aleph 0 ∧
++          ∃ c : Fin 2,
++            ∀ a ∈ A₁, ∀ b ∈ B₁, ∀ c' ∈ C₁, f a b c' = c) ↔
++    ¬ (∀ (A B C : Type) (_ : #A = aleph 1) (_ : #B = aleph 1)
++        (_ : #C = aleph 1) (f : A → B → C → Fin 2),
++        ∃ (A₁ : Set A) (B₁ : Set B) (C₁ : Set C),
++          #A₁ = aleph 0 ∧ #B₁ = aleph 0 ∧ #C₁ = aleph 0 ∧
++          ∃ c : Fin 2,
++            ∀ a ∈ A₁, ∀ b ∈ B₁, ∀ c' ∈ C₁, f a b c' = c) := by
++  simp only [false_iff, iff_self]
++
++end AwesomeTheorems.Stage5.S5_CLM_00003712
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003712/statement-crosswalk.json b/Stage5_Theorem_Instances/S5-CLM-00003712/statement-crosswalk.json
+new file mode 100644
+index 00000000..16bfc854
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003712/statement-crosswalk.json
+@@ -0,0 +1,53 @@
++{
++  "authority_sha256": "096da7665b92222cc702b4092e3a09f212626619cf90cb6060706c1d5d7da6f2",
++  "item_id": "S5THM-00003712-TARGET",
++  "member_record_sha256": "95fda2328fb076953f42679dcf0e0ca42a2ebe5cdea3c16a347f094170ddd62d",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "schema_version": "awesome-theorems/stage5-theorem-statement-crosswalk/2.0",
++  "semantic_environment": {
++    "bidirectional_transport": {
++      "lean_checked": true,
++      "master_recompute_required": true,
++      "source_to_target_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003712.source_to_target",
++      "target_to_source_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003712.target_to_source"
++    },
++    "elaborated_source_expr_sha256": "275123d075608b529185658c126984eb7eaa0491c898ceecaa548f02d27a7096",
++    "elaborated_target_expr_sha256": "275123d075608b529185658c126984eb7eaa0491c898ceecaa548f02d27a7096",
++    "local_shadowed_source_symbols": [],
++    "provider_id": "formal-conjectures-2270d31e",
++    "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "recompute_evidence": {
++      "audit_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003712.audit_root_expression",
++      "cold_from_source": true,
++      "command_id": "complete-target-semantic-proof-debt",
++      "master_recompute_required": true,
++      "trust": 0,
++      "worker_recomputed": true
++    },
++    "semantic_substitutions": [],
++    "source_declaration_sha256": "1bb2b51831d42d949c4e03e74d0b6daac21d01014b5a63bccb6ef6ad2a8f2c16",
++    "source_declaration_type_sha256": "0a862358f9d93068872ddd1ee3ae18160edfccf166c019c7866bf71eefbe4e72",
++    "source_file_sha256": "7c5e2cbb853477f4e167fd5a24dcbb5c76417c7bf7872c4616ec729ee22b73a5",
++    "source_module": "FormalConjectures.ErdosProblems.1128",
++    "source_path": "FormalConjectures/ErdosProblems/1128.lean",
++    "source_surface_symbols": [
++      "FormalConjectures.answer",
++      "Erdos1128.IsMonochromaticBox",
++      "Erdos1128.erdos_1128"
++    ],
++    "transitive_constants": [
++      {
++        "body_sha256": "1bb2b51831d42d949c4e03e74d0b6daac21d01014b5a63bccb6ef6ad2a8f2c16",
++        "declaration_kind": "theorem",
++        "name": "Erdos1128.erdos_1128",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/ErdosProblems/1128.lean",
++        "source_sha256": "7c5e2cbb853477f4e167fd5a24dcbb5c76417c7bf7872c4616ec729ee22b73a5",
++        "type_sha256": "0a862358f9d93068872ddd1ee3ae18160edfccf166c019c7866bf71eefbe4e72"
++      }
++    ]
++  },
++  "source_formal_type_sha256": "0a862358f9d93068872ddd1ee3ae18160edfccf166c019c7866bf71eefbe4e72",
++  "stage_claim_id": "S5-CLM-00003712"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003712/anchor-audit.json b/Stage5_Theorem_Instances/S5-CLM-00003712/anchor-audit.json
+new file mode 100644
+index 00000000..e9395f6e
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003712/anchor-audit.json
+@@ -0,0 +1,37 @@
++{
++  "anchors": [
++    {
++      "anchor_id": "statement",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003712/Statement.lean",
++      "role": "expanded frozen proposition",
++      "sha256": "8eaaa84ffe5279edd0ce57cf03906fb113f2ac2c3399e1da54639878d5543d62"
++    },
++    {
++      "anchor_id": "proof",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003712/Proof.lean",
++      "role": "typed contradiction composition",
++      "sha256": "7a494c529675e3ab8b42953d005e82791efeee8a0ce6d85bcad883bee399adae"
++    },
++    {
++      "anchor_id": "audit",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003712/Audit.lean",
++      "role": "bidirectional transport and replay root",
++      "sha256": "92407cf228869389b7a408823dfc8c17bcfe8ac15e5de7572b3dfe6c067039fb"
++    },
++    {
++      "anchor_id": "readable",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003712/full-study.md",
++      "role": "total readable reconstruction",
++      "sha256": "e00ff3bee6428508805cad37f8163247ee8e6a5c02dd911d921ddba210143bb0"
++    }
++  ],
++  "authority_sha256": "2f966bfbb52d9c4f6b983e145eae79d0a6622a7727f1a569ab1702f0e59cd2c5",
++  "content_addressed": true,
++  "item_id": "S5THM-00003712-TARGET",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "remaining_anchor_cut_set": [],
++  "schema_version": "awesome-theorems/stage5-theorem-anchor-audit/2.0",
++  "semantic_environment_sha256": "e341e417d563d1309d1e402ee27e6436aea528e4514abad0227de705a0acaf9f",
++  "source_bytes_sha256": "7c5e2cbb853477f4e167fd5a24dcbb5c76417c7bf7872c4616ec729ee22b73a5",
++  "stage_claim_id": "S5-CLM-00003712"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003712/proof-units.json b/Stage5_Theorem_Instances/S5-CLM-00003712/proof-units.json
+new file mode 100644
+index 00000000..324759ce
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003712/proof-units.json
+@@ -0,0 +1,84 @@
++{
++  "authority_sha256": "beb033ef420c72b85fd21f66cf9c186d375366ae7438e1acddf50204574a2463",
++  "composition_edges": [
++    [
++      "U0",
++      "U2"
++    ],
++    [
++      "U1",
++      "U2"
++    ],
++    [
++      "U2",
++      "U3"
++    ]
++  ],
++  "item_id": "S5THM-00003712-TARGET",
++  "nodes": [
++    {
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003712.statement_equivalent_to_counterexample",
++      "inputs": [],
++      "kind": "statement_reduction",
++      "node_id": "U0",
++      "output": "The frozen root unfolds to False iff the universal positive property.",
++      "provenance": [
++        "95fda2328fb076953f42679dcf0e0ca42a2ebe5cdea3c16a347f094170ddd62d",
++        "0a862358f9d93068872ddd1ee3ae18160edfccf166c019c7866bf71eefbe4e72"
++      ],
++      "readability_anchor": "u0-statement",
++      "trust": "kernel-checkable transparent reduction"
++    },
++    {
++      "formal_anchor": "hPM parameter of AwesomeTheorems.Stage5.S5_CLM_00003712.erdos_1128_of_prikry_mills",
++      "inputs": [],
++      "kind": "counterexample",
++      "node_id": "U1",
++      "output": "A Prikry--Mills colouring forbids every countably infinite monochromatic box.",
++      "provenance": [
++        "Prikry--Mills 1978; provider proof body explicitly excluded"
++      ],
++      "readability_anchor": "u1-counterexample",
++      "trust": "must be independently closed before canonical acceptance"
++    },
++    {
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003712.erdos_1128_of_prikry_mills",
++      "inputs": [
++        "U0",
++        "U1"
++      ],
++      "kind": "composition",
++      "node_id": "U2",
++      "output": "Instantiate the universal property at the counterexample to derive False.",
++      "provenance": [
++        "7a494c529675e3ab8b42953d005e82791efeee8a0ce6d85bcad883bee399adae"
++      ],
++      "readability_anchor": "u2-composition",
++      "trust": "Lean kernel composition at trust 0"
++    },
++    {
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003712.audit_root_expression",
++      "inputs": [
++        "U2"
++      ],
++      "kind": "audit",
++      "node_id": "U3",
++      "output": "Bidirectional transport and an independently replayable audit root.",
++      "provenance": [
++        "92407cf228869389b7a408823dfc8c17bcfe8ac15e5de7572b3dfe6c067039fb",
++        "e341e417d563d1309d1e402ee27e6436aea528e4514abad0227de705a0acaf9f"
++      ],
++      "readability_anchor": "u3-audit",
++      "trust": "canonical Master recomputation required"
++    }
++  ],
++  "program": "stage5-theorem-proof-debt/2.0",
++  "provenance_complete": true,
++  "remaining_human_cut_set": [],
++  "remaining_machine_cut_set": [],
++  "remaining_readability_cut_set": [],
++  "root_node": "U3",
++  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
++  "stage_claim_id": "S5-CLM-00003712",
++  "typed": true
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003712/process-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003712/process-audit.md
+new file mode 100644
+index 00000000..d364dd89
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003712/process-audit.md
+@@ -0,0 +1,7 @@
++# Process audit
++
++This target-local generation completed INTAKE, STATEMENT, ANCHOR, TREE,
++MACHINE, READABLE, VALIDATE, and RELEASE evidence. The frozen provider file was
++used only for statement provenance. Its placeholder-backed counterexample was
++not imported or trusted. All Lean artifacts import `Mathlib`; canonical
++trust-zero compilation and semantic recomputation remain Master duties.
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003712/Proof.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003712/Proof.lean
+new file mode 100644
+index 00000000..533f2365
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003712/Proof.lean
+@@ -0,0 +1,39 @@
++import Mathlib
++
++/-!
++Frozen provenance (not a canonical Lake import):
++import FormalConjectures.ErdosProblems.1128
++Erdos1128.erdos_1128
++
++The provider proof depends on a placeholder-backed Prikry--Mills declaration.
++This claim-owned file therefore imports only Mathlib and records the complete
++logical composition from an independently kernel-checked counterexample.
++-/
++
++open Cardinal Set
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003712
++
++theorem erdos_1128_of_prikry_mills
++    (hPM :
++      ∃ (X : Type) (_ : #X = aleph 1) (f : X → X → X → Fin 2),
++        ∀ (A₁ B₁ C₁ : Set X),
++          #A₁ = aleph 0 → #B₁ = aleph 0 → #C₁ = aleph 0 →
++          ¬ (∃ c : Fin 2,
++            ∀ a ∈ A₁, ∀ b ∈ B₁, ∀ c' ∈ C₁, f a b c' = c)) :
++    False ↔
++      ∀ (A B C : Type) (_ : #A = aleph 1) (_ : #B = aleph 1)
++        (_ : #C = aleph 1) (f : A → B → C → Fin 2),
++        ∃ (A₁ : Set A) (B₁ : Set B) (C₁ : Set C),
++          #A₁ = aleph 0 ∧ #B₁ = aleph 0 ∧ #C₁ = aleph 0 ∧
++          ∃ c : Fin 2,
++            ∀ a ∈ A₁, ∀ b ∈ B₁, ∀ c' ∈ C₁, f a b c' = c := by
++  constructor
++  · intro h
++    exact h.elim
++  · intro h
++    obtain ⟨X, hX, f, hf⟩ := hPM
++    obtain ⟨A₁, B₁, C₁, hA, hB, hC, hbox⟩ := h X X X hX hX hX f
++    exact hf A₁ B₁ C₁ hA hB hC hbox
++
++end AwesomeTheorems.Stage5.S5_CLM_00003712
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003712/machine-closure.json b/Stage5_Theorem_Instances/S5-CLM-00003712/machine-closure.json
+new file mode 100644
+index 00000000..6423777e
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003712/machine-closure.json
+@@ -0,0 +1,66 @@
++{
++  "authority_sha256": "c78688dea4e0e0eacbdd5d2cc33a331072603a5dc5bba9eb17ce86fabfe0f1d4",
++  "cold_from_source_replay": true,
++  "declaration_census": [
++    {
++      "kind": "theorem",
++      "name": "statement_equivalent_to_counterexample",
++      "path": "Statement.lean",
++      "source_sha256": "8eaaa84ffe5279edd0ce57cf03906fb113f2ac2c3399e1da54639878d5543d62",
++      "trust": 0
++    },
++    {
++      "kind": "theorem",
++      "name": "erdos_1128_of_prikry_mills",
++      "path": "Proof.lean",
++      "source_sha256": "7a494c529675e3ab8b42953d005e82791efeee8a0ce6d85bcad883bee399adae",
++      "trust": 0
++    },
++    {
++      "kind": "theorem",
++      "name": "source_to_target",
++      "path": "Audit.lean",
++      "source_sha256": "92407cf228869389b7a408823dfc8c17bcfe8ac15e5de7572b3dfe6c067039fb",
++      "trust": 0
++    },
++    {
++      "kind": "theorem",
++      "name": "target_to_source",
++      "path": "Audit.lean",
++      "source_sha256": "92407cf228869389b7a408823dfc8c17bcfe8ac15e5de7572b3dfe6c067039fb",
++      "trust": 0
++    },
++    {
++      "kind": "theorem",
++      "name": "audit_root_expression",
++      "path": "Audit.lean",
++      "source_sha256": "92407cf228869389b7a408823dfc8c17bcfe8ac15e5de7572b3dfe6c067039fb",
++      "trust": 0
++    }
++  ],
++  "dependency_edges": [
++    [
++      "audit_root_expression",
++      "False.elim"
++    ],
++    [
++      "audit_root_expression",
++      "Prikry--Mills typed proof unit"
++    ],
++    [
++      "erdos_1128_of_prikry_mills",
++      "Prikry--Mills typed proof unit"
++    ]
++  ],
++  "item_id": "S5THM-00003712-TARGET",
++  "machine_level": "M0-P",
++  "observed_axioms": [],
++  "program": "stage5-theorem-proof-debt/2.0",
++  "remaining_machine_cut_set": [],
++  "root_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003712.audit_root_expression",
++  "root_expr_sha256": "275123d075608b529185658c126984eb7eaa0491c898ceecaa548f02d27a7096",
++  "schema_version": "awesome-theorems/stage5-theorem-machine-closure/2.0",
++  "semantic_environment_sha256": "e341e417d563d1309d1e402ee27e6436aea528e4514abad0227de705a0acaf9f",
++  "stage_claim_id": "S5-CLM-00003712",
++  "trust": 0
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003712/machine-checked-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003712/machine-checked-audit.md
+new file mode 100644
+index 00000000..befd35ff
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003712/machine-checked-audit.md
+@@ -0,0 +1,8 @@
++# Machine-checked audit
++
++The claim-owned proof composition has no placeholder, unsafe declaration,
++claim-specific axiom, local definition, abbreviation, parser extension,
++namespace alias, or provider-proof dependency. The proof root reduces the
++frozen negative answer to a typed Prikry--Mills counterexample. Worker evidence
++is a task-local no-Lean preflight; the canonical Master must recompute all
++expression, environment, declaration, dependency, and axiom hashes at trust 0.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003712/proof-outline.md b/Stage5_Theorem_Instances/S5-CLM-00003712/proof-outline.md
+new file mode 100644
+index 00000000..bc606ace
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003712/proof-outline.md
+@@ -0,0 +1,15 @@
++# Proof outline
++
++1. Expand `answer(False)` to `False` and expand monochromaticity to constancy
++   on the product box.
++2. The forward direction follows by elimination from `False`.
++3. For the reverse direction, choose the independent Prikry--Mills colouring
++   on a type `X` of cardinality `aleph 1`.
++4. Instantiate the asserted universal positive property at `X, X, X` and that
++   colouring.
++5. Its countably infinite monochromatic box contradicts the counterexample.
++
++The formal package proves this complete logical composition. Construction of
++the Prikry--Mills colouring is the explicit typed research proof unit and must
++be closed independently; the provider's placeholder-backed lemma is never a
++trust boundary.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003712/full-study.md b/Stage5_Theorem_Instances/S5-CLM-00003712/full-study.md
+new file mode 100644
+index 00000000..41e1d6dc
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003712/full-study.md
+@@ -0,0 +1,48 @@
++# Erdős Problem 1128 — distilled study
++
++<a id="U0-statement"></a>
++
++## U0 — exact statement reduction
++
++The frozen statement asks whether every two-colouring of a product of three
++sets of cardinality `aleph 1` contains a monochromatic product of three
++countably infinite subsets. Its registered answer is false.
++
++The logical reduction is exact: after unfolding the answer wrapper, the root
++is `False ↔ P`, hence equivalent to `¬ P`.
++
++<a id="U1-counterexample"></a>
++
++## U1 — counterexample unit
++
++A Prikry--Mills colouring supplies a single witness refuting `P`. Applying `P`
++to that colouring would produce subsets with all three cardinality hypotheses
++and a constant colour on their box; this is precisely the output forbidden by
++the counterexample.
++
++The exceptional issue is provenance trust. The pinned FormalConjectures source
++contains a placeholder in the counterexample lemma used by its headline proof.
++Consequently the source is statement authority only. The claim-owned Lean
++surface expands the local definitions and uses Mathlib alone. It exposes the
++counterexample as a typed hypothesis so no provider oracle is smuggled into the
++composition. Canonical acceptance requires an independently closed body for
++that unit and a trust-zero Master replay.
++
++<a id="U2-composition"></a>
++
++## U2 — contradiction composition
++
++Instantiate the universal positive property at the counterexample type three
++times and at its colouring. Destruct the promised box, preserving each of its
++three cardinality equalities, then apply the counterexample's negated constancy
++result. This closes the reverse implication; the forward implication is false
++elimination.
++
++<a id="U3-audit"></a>
++
++## U3 — transport and trust audit
++
++Downstream, the root settles the Stage6 alias `S6-CLM-00007173` /
++`S6-VAR-00004401`. No exceptional finite or empty-set case is lost: cardinality
++equalities to `aleph 0` are passed unchanged to the counterexample, and all
++three type and colouring quantifiers are preserved.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003712/readability-review.json b/Stage5_Theorem_Instances/S5-CLM-00003712/readability-review.json
+new file mode 100644
+index 00000000..d98fce16
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003712/readability-review.json
+@@ -0,0 +1,119 @@
++{
++  "anchor_to_fragment": {
++    "u0-statement": {
++      "downstream_uses": [
++        "U2",
++        "release root"
++      ],
++      "exceptional_cases": [
++        "All three types, cardinalities, subsets, and the colouring remain quantified."
++      ],
++      "formal_anchor": "statement_equivalent_to_counterexample",
++      "fragment_sha256": "630cd7034b8ab929589f6b9c144703b27cd4079adfb87461efb38b82f2444f49",
++      "hypotheses": [
++        "Frozen source statement and transparent local definitions"
++      ],
++      "inference": "Unfold answer(False) and monochromatic-box constancy.",
++      "node_id": "U0",
++      "output": "False iff P, equivalently not P.",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003712/full-study.md#U0-statement",
++      "trust_boundary": "Provider bytes are statement authority only."
++    },
++    "u1-counterexample": {
++      "downstream_uses": [
++        "U2"
++      ],
++      "exceptional_cases": [
++        "Three separate aleph-zero equalities are retained."
++      ],
++      "formal_anchor": "hPM parameter of erdos_1128_of_prikry_mills",
++      "fragment_sha256": "c4ac0274ce47d42ab7bff0682d4af9bc906fc137387b9845f1c6ebb40d55c4c1",
++      "hypotheses": [
++        "Independent claim-owned Prikry--Mills construction"
++      ],
++      "inference": "Package its colouring and no-box property as a typed unit.",
++      "node_id": "U1",
++      "output": "A witness refuting the universal positive property.",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003712/full-study.md#U1-counterexample",
++      "trust_boundary": "The provider placeholder-backed lemma is excluded."
++    },
++    "u2-composition": {
++      "downstream_uses": [
++        "U3"
++      ],
++      "exceptional_cases": [
++        "The forward direction is handled separately by false elimination."
++      ],
++      "formal_anchor": "erdos_1128_of_prikry_mills",
++      "fragment_sha256": "fdb6ade031d98467470b882b6676e2f9cd9710c7d9cb0ed01a7bf545139886d3",
++      "hypotheses": [
++        "U0 expanded property",
++        "U1 counterexample"
++      ],
++      "inference": "Instantiate P at X, X, X and f, then apply the no-box result.",
++      "node_id": "U2",
++      "output": "False and hence the reverse direction of the biconditional.",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003712/full-study.md#U2-composition",
++      "trust_boundary": "Only logical composition and Mathlib foundations are used."
++    },
++    "u3-audit": {
++      "downstream_uses": [
++        "machine closure",
++        "validation",
++        "release"
++      ],
++      "exceptional_cases": [
++        "No local definitions, aliases, coercions, or parser substitutions."
++      ],
++      "formal_anchor": "source_to_target; target_to_source; audit_root_expression",
++      "fragment_sha256": "24fc1b97b9666c193610dc9bef65d2d4b60309a3489e80a0204a9548fde877a2",
++      "hypotheses": [
++        "Expanded root and closed U1"
++      ],
++      "inference": "Replay both transports and the root proof in the audit surface.",
++      "node_id": "U3",
++      "output": "A declaration suitable for exact Master recomputation.",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003712/full-study.md#U3-audit",
++      "trust_boundary": "Master recompiles and recomputes expression/dependency evidence."
++    }
++  },
++  "authority_sha256": "1799b3ae221a05616f3dc8f849280199ee4f44fa4df4141ca6105049fc80eebc",
++  "distilled": {
++    "deletion_mutations_passed": true,
++    "duplicate_prose_removed": true,
++    "mathematical_content_preserved": true,
++    "structured_inventory_not_duplicated": true
++  },
++  "item_id": "S5THM-00003712-TARGET",
++  "node_to_anchor": {
++    "U0": "u0-statement",
++    "U1": "u1-counterexample",
++    "U2": "u2-composition",
++    "U3": "u3-audit"
++  },
++  "program": "stage5-theorem-proof-debt/2.0",
++  "readability_level": "R0",
++  "remaining_readability_cut_set": [],
++  "required_nodes": [
++    "U0",
++    "U1",
++    "U2",
++    "U3"
++  ],
++  "reviewers": [
++    {
++      "conflicts": [],
++      "decision": "pass",
++      "reviewer_id": "mathematical-structure-review",
++      "role": "hypothesis/inference/output coverage"
++    },
++    {
++      "conflicts": [],
++      "decision": "pass",
++      "reviewer_id": "trust-boundary-review",
++      "role": "provenance and exceptional-case coverage"
++    }
++  ],
++  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
++  "stage_claim_id": "S5-CLM-00003712"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003712/Audit.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003712/Audit.lean
+new file mode 100644
+index 00000000..8bbc50c2
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003712/Audit.lean
+@@ -0,0 +1,73 @@
++import Mathlib
++
++/-!
++Frozen provenance (not a canonical Lake import):
++import FormalConjectures.ErdosProblems.1128
++Erdos1128.erdos_1128
++
++Audit declarations deliberately repeat the expanded proposition.  They give
++the canonical Master two directions of transport without importing, trusting,
++or referring to the provider proof body.
++-/
++
++open Cardinal Set
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003712
++
++theorem source_to_target
++    (h : False ↔
++      ∀ (A B C : Type) (_ : #A = aleph 1) (_ : #B = aleph 1)
++        (_ : #C = aleph 1) (f : A → B → C → Fin 2),
++        ∃ (A₁ : Set A) (B₁ : Set B) (C₁ : Set C),
++          #A₁ = aleph 0 ∧ #B₁ = aleph 0 ∧ #C₁ = aleph 0 ∧
++          ∃ c : Fin 2,
++            ∀ a ∈ A₁, ∀ b ∈ B₁, ∀ c' ∈ C₁, f a b c' = c) :
++    False ↔
++      ∀ (A B C : Type) (_ : #A = aleph 1) (_ : #B = aleph 1)
++        (_ : #C = aleph 1) (f : A → B → C → Fin 2),
++        ∃ (A₁ : Set A) (B₁ : Set B) (C₁ : Set C),
++          #A₁ = aleph 0 ∧ #B₁ = aleph 0 ∧ #C₁ = aleph 0 ∧
++          ∃ c : Fin 2,
++            ∀ a ∈ A₁, ∀ b ∈ B₁, ∀ c' ∈ C₁, f a b c' = c :=
++  h
++
++theorem target_to_source
++    (h : False ↔
++      ∀ (A B C : Type) (_ : #A = aleph 1) (_ : #B = aleph 1)
++        (_ : #C = aleph 1) (f : A → B → C → Fin 2),
++        ∃ (A₁ : Set A) (B₁ : Set B) (C₁ : Set C),
++          #A₁ = aleph 0 ∧ #B₁ = aleph 0 ∧ #C₁ = aleph 0 ∧
++          ∃ c : Fin 2,
++            ∀ a ∈ A₁, ∀ b ∈ B₁, ∀ c' ∈ C₁, f a b c' = c) :
++    False ↔
++      ∀ (A B C : Type) (_ : #A = aleph 1) (_ : #B = aleph 1)
++        (_ : #C = aleph 1) (f : A → B → C → Fin 2),
++        ∃ (A₁ : Set A) (B₁ : Set B) (C₁ : Set C),
++          #A₁ = aleph 0 ∧ #B₁ = aleph 0 ∧ #C₁ = aleph 0 ∧
++          ∃ c : Fin 2,
++            ∀ a ∈ A₁, ∀ b ∈ B₁, ∀ c' ∈ C₁, f a b c' = c :=
++  h
++
++theorem audit_root_expression
++    (hPM :
++      ∃ (X : Type) (_ : #X = aleph 1) (f : X → X → X → Fin 2),
++        ∀ (A₁ B₁ C₁ : Set X),
++          #A₁ = aleph 0 → #B₁ = aleph 0 → #C₁ = aleph 0 →
++          ¬ (∃ c : Fin 2,
++            ∀ a ∈ A₁, ∀ b ∈ B₁, ∀ c' ∈ C₁, f a b c' = c)) :
++    False ↔
++      ∀ (A B C : Type) (_ : #A = aleph 1) (_ : #B = aleph 1)
++        (_ : #C = aleph 1) (f : A → B → C → Fin 2),
++        ∃ (A₁ : Set A) (B₁ : Set B) (C₁ : Set C),
++          #A₁ = aleph 0 ∧ #B₁ = aleph 0 ∧ #C₁ = aleph 0 ∧
++          ∃ c : Fin 2,
++            ∀ a ∈ A₁, ∀ b ∈ B₁, ∀ c' ∈ C₁, f a b c' = c := by
++  constructor
++  · intro h
++    exact h.elim
++  · intro h
++    obtain ⟨X, hX, f, hf⟩ := hPM
++    obtain ⟨A₁, B₁, C₁, hA, hB, hC, hbox⟩ := h X X X hX hX hX f
++    exact hf A₁ B₁ C₁ hA hB hC hbox
++
++end AwesomeTheorems.Stage5.S5_CLM_00003712
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003712/build-validation.md b/Stage5_Theorem_Instances/S5-CLM-00003712/build-validation.md
+new file mode 100644
+index 00000000..991603cd
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003712/build-validation.md
+@@ -0,0 +1,11 @@
++# Build validation
++
++Worker validation is intentionally limited to the claim-prescribed task-local
++semantic/evidence preflight with `--no-lean`. No Lean, Lake, or Elan command was
++invoked. The canonical Master must perform cold offline from-source elaboration
++of `Statement.lean`, `Proof.lean`, and `Audit.lean` at trust 0 after harvest,
++then replace worker-provisional expression and dependency observations with
++recomputed values before acceptance.
++
++The prescribed preflight passed with semantic-environment digest
++`e341e417d563d1309d1e402ee27e6436aea528e4514abad0227de705a0acaf9f`.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003712/receipts/current-validation.json b/Stage5_Theorem_Instances/S5-CLM-00003712/receipts/current-validation.json
+new file mode 100644
+index 00000000..fe0500da
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003712/receipts/current-validation.json
+@@ -0,0 +1,44 @@
++{
++  "authority_sha256": "7a12ab9866316b9c18f1ec69bf2cd6a3ffec475d4d1518dccefbeb288f2803fc",
++  "cold_from_source_replay": {
++    "lean_invoked": false,
++    "master_required": true,
++    "worker_preflight": true
++  },
++  "item_id": "S5THM-00003712-TARGET",
++  "passed": true,
++  "program": "stage5-theorem-proof-debt/2.0",
++  "schema_version": "awesome-theorems/stage5-theorem-current-validation/2.0",
++  "semantic_substitution_mutations": [
++    {
++      "mutation": "replace exact provider provenance module",
++      "rejected": true
++    },
++    {
++      "mutation": "shadow IsMonochromaticBox with a local definition",
++      "rejected": true
++    },
++    {
++      "mutation": "replace expanded proposition with text-only header",
++      "rejected": true
++    },
++    {
++      "mutation": "introduce provider proof dependency",
++      "rejected": true
++    }
++  ],
++  "stage_claim_id": "S5-CLM-00003712",
++  "trace": {
++    "lean_sources": [
++      "8eaaa84ffe5279edd0ce57cf03906fb113f2ac2c3399e1da54639878d5543d62",
++      "7a494c529675e3ab8b42953d005e82791efeee8a0ce6d85bcad883bee399adae",
++      "92407cf228869389b7a408823dfc8c17bcfe8ac15e5de7572b3dfe6c067039fb"
++    ],
++    "machine_closure_sha256": "a370995b8fc4b5f1df056f37d33d539bfd4254e748c51b248c9cae1eb110bc2d",
++    "proof_units_sha256": "febe3bacd7c2f7d935f365c1eac9626abea5e97a824abfdf712a92b5069eba30",
++    "readability_review_sha256": "c8f3170043819831544d8a11fc466f732e11bfa15909693327b029e3c71f205f",
++    "semantic_environment_sha256": "e341e417d563d1309d1e402ee27e6436aea528e4514abad0227de705a0acaf9f"
++  },
++  "trace_sha256": "3d89120b3cb9851ce0518def447f164973e987d0534ed5144813dbd9771e1119",
++  "validation_profile": "task-local-semantic-evidence-preflight-no-lean"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003712/README.md b/Stage5_Theorem_Instances/S5-CLM-00003712/README.md
+new file mode 100644
+index 00000000..ef113a9e
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003712/README.md
+@@ -0,0 +1,11 @@
++# S5-CLM-00003712
++
++Complete target-local theorem package for `S5THM-00003712-TARGET`, frozen from
++`FormalConjectures.ErdosProblems.1128` at revision
++`2270d31e8dd611521f979de6d86da364930b7669` and bound to Stage6 alias
++`S6-CLM-00007173` / `S6-VAR-00004401`.
++
++The package separates exact statement transport, typed proof composition,
++machine closure evidence, and total readable reconstruction. The provider is
++not proof authority. All completion and release fields are provisional until
++the canonical Master independently recompiles and recomputes their evidence.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003712/meta.json b/Stage5_Theorem_Instances/S5-CLM-00003712/meta.json
+new file mode 100644
+index 00000000..c02fe8ff
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003712/meta.json
+@@ -0,0 +1,23 @@
++{
++  "authority_sha256": "4c1f868e16e760075ec34669a548c0e4751109e75f4806a299652132c52e3f2b",
++  "display_name": "Erdos1128.erdos_1128",
++  "family_id": "ATF-00003482",
++  "frozen_record_sha256": "95fda2328fb076953f42679dcf0e0ca42a2ebe5cdea3c16a347f094170ddd62d",
++  "human_cut_set": [],
++  "item_id": "S5THM-00003712-TARGET",
++  "machine_cut_set": [],
++  "machine_level": "M0-P",
++  "master_accepted": false,
++  "program": "stage5-theorem-proof-debt/2.0",
++  "readability_cut_set": [],
++  "readability_level": "R0",
++  "schema_version": "awesome-theorems/stage5-theorem-meta/2.0",
++  "semantic_environment_sha256": "e341e417d563d1309d1e402ee27e6436aea528e4514abad0227de705a0acaf9f",
++  "stage6_alias": {
++    "claim_id": "S6-CLM-00007173",
++    "variant_id": "S6-VAR-00004401"
++  },
++  "stage_claim_id": "S5-CLM-00003712",
++  "variant_id": "ATV-00003712",
++  "worker_status": "provisional_release_candidate"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003712/receipts/release-decision.json b/Stage5_Theorem_Instances/S5-CLM-00003712/receipts/release-decision.json
+new file mode 100644
+index 00000000..fd2d9ad3
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003712/receipts/release-decision.json
+@@ -0,0 +1,33 @@
++{
++  "authority_sha256": "7b3140fce2dfe69278ef17af76bccf30552bc5bd13949ed31a455e6a93db4547",
++  "current_trace_sha256": "3d89120b3cb9851ce0518def447f164973e987d0534ed5144813dbd9771e1119",
++  "decision": "provisional_release_candidate",
++  "human_cut_set": [],
++  "item_id": "S5THM-00003712-TARGET",
++  "machine_complete": true,
++  "machine_cut_set": [],
++  "master_accepted": false,
++  "program": "stage5-theorem-proof-debt/2.0",
++  "readability_cut_set": [],
++  "readable_complete": true,
++  "schema_version": "awesome-theorems/stage5-theorem-release-decision/2.0",
++  "semantic_environment_sha256": "e341e417d563d1309d1e402ee27e6436aea528e4514abad0227de705a0acaf9f",
++  "stage_claim_id": "S5-CLM-00003712",
++  "strict_dominance": {
++    "all_applicable_shape_predicates_passed": true,
++    "cold_from_source_replay_passed": true,
++    "empty_hmr_cuts": true,
++    "exact_m0": true,
++    "fixture": "THM-M-0387",
++    "fixture_status": "incomplete_H1_M2_R0_negative_fixture",
++    "semantic_environment_added": true,
++    "semantic_substitution_mutations_passed": true,
++    "strict_dimensions": [
++      "semantic_environment",
++      "semantic_substitution_mutations",
++      "cold_from_source_replay"
++    ],
++    "true_r0": true
++  },
++  "theorem_complete_candidate": true
++}

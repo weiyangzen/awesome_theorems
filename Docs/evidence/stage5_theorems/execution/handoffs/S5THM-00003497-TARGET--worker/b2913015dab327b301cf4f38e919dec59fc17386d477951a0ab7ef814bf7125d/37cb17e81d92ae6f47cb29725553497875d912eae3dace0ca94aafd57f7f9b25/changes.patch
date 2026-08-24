@@ -1,0 +1,861 @@
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003497/intake.json b/Stage5_Theorem_Instances/S5-CLM-00003497/intake.json
+new file mode 100644
+index 00000000..86f1e5bd
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003497/intake.json
+@@ -0,0 +1,48 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-intake/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003497-TARGET",
++  "stage_claim_id": "S5-CLM-00003497",
++  "variant_id": "ATV-00003497",
++  "family_id": "ATF-00003267",
++  "cohort": "FC-SORRY",
++  "member_record_sha256": "cd32029cc277893b349e67d73fe78c518238a013e11e4100d73954f0b034b093",
++  "semantic_payload_sha256": "b42c5f39b69755a744b2fb012048128acec1baec3420f903f48fbb71506e11d3",
++  "statement_sha256": "35435540a5ab207cf09b72ee0e5aef54e9ed6a23062b853e6a55d7929b37cf05",
++  "formal_type_sha256": "28d0b38d2b325c0a91c657e776ed4a22b918c4c8c4dd0b4192bfac4c21edd21b",
++  "provider": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "module": "FormalConjectures.Arxiv.2001.02665.RingelConjecture",
++    "qualified_declaration": "Arxiv.«2001.02665».ringel_conjecture_large",
++    "source_path": "FormalConjectures/Arxiv/2001.02665/RingelConjecture.lean",
++    "source_file_sha256": "a4281f589ede2892402bd79340582deb9bafed7fe1ba1292471b2522683ee275",
++    "raw_block_sha256": "182f18f79264529f959a407bcc40f545d4481c594beefb4d27b7033f36dcd03c",
++    "source_lines": [
++      37,
++      53
++    ],
++    "source_bytes": [
++      1324,
++      2186
++    ],
++    "source_proof_status": "contains_sorryAx_and_is_statement_provenance_only"
++  },
++  "stage6_alias": {
++    "current_resolution_kind": "current",
++    "parent_variant_id": "ATV-00003497",
++    "stage6_claim_id": "S6-CLM-00006685",
++    "stage6_variant_id": "S6-VAR-00007620"
++  },
++  "subchecklist": {
++    "INTAKE": "complete",
++    "STATEMENT": "complete",
++    "ANCHOR": "complete",
++    "TREE": "complete",
++    "MACHINE": "complete_candidate",
++    "READABLE": "complete",
++    "VALIDATE": "worker_no_lean_passed",
++    "RELEASE": "provisional_release_candidate"
++  },
++  "authority_sha256": "d5d2582c5b1f34bb66496720ed964992a512e911637e72daa5940fd48f9b1102"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003497/Statement.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003497/Statement.lean
+new file mode 100644
+index 00000000..d04a179b
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003497/Statement.lean
+@@ -0,0 +1,44 @@
++/-
++Frozen provider provenance; this is deliberately not an executable import in
++the canonical Lake environment:
++import FormalConjectures.Arxiv.2001.02665.RingelConjecture
++Arxiv.«2001.02665».ringel_conjecture_large
++-/
++
++import Mathlib
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003497
++
++/-- The source-to-target leg for the text-identical Ringel proposition. -/
++theorem ringel_source_to_target
++    (h :
++      ∀ᶠ (n : ℕ) in Filter.atTop, ∀ {V : Type} [Finite V] (T : SimpleGraph V),
++        T.IsTree → T.edgeSet.ncard = n →
++        ∃ f : Fin (2 * n + 1) → (V ↪ Fin (2 * n + 1)),
++          Pairwise (fun i j =>
++            Disjoint (T.map (f i)).edgeSet (T.map (f j)).edgeSet) ∧
++          ⨆ i, T.map (f i) = (⊤ : SimpleGraph (Fin (2 * n + 1)))) :
++    ∀ᶠ (n : ℕ) in Filter.atTop, ∀ {V : Type} [Finite V] (T : SimpleGraph V),
++      T.IsTree → T.edgeSet.ncard = n →
++      ∃ f : Fin (2 * n + 1) → (V ↪ Fin (2 * n + 1)),
++        Pairwise (fun i j =>
++          Disjoint (T.map (f i)).edgeSet (T.map (f j)).edgeSet) ∧
++        ⨆ i, T.map (f i) = (⊤ : SimpleGraph (Fin (2 * n + 1))) := h
++
++/-- The target-to-source leg for the text-identical Ringel proposition. -/
++theorem ringel_target_to_source
++    (h :
++      ∀ᶠ (n : ℕ) in Filter.atTop, ∀ {V : Type} [Finite V] (T : SimpleGraph V),
++        T.IsTree → T.edgeSet.ncard = n →
++        ∃ f : Fin (2 * n + 1) → (V ↪ Fin (2 * n + 1)),
++          Pairwise (fun i j =>
++            Disjoint (T.map (f i)).edgeSet (T.map (f j)).edgeSet) ∧
++          ⨆ i, T.map (f i) = (⊤ : SimpleGraph (Fin (2 * n + 1)))) :
++    ∀ᶠ (n : ℕ) in Filter.atTop, ∀ {V : Type} [Finite V] (T : SimpleGraph V),
++      T.IsTree → T.edgeSet.ncard = n →
++      ∃ f : Fin (2 * n + 1) → (V ↪ Fin (2 * n + 1)),
++        Pairwise (fun i j =>
++          Disjoint (T.map (f i)).edgeSet (T.map (f j)).edgeSet) ∧
++        ⨆ i, T.map (f i) = (⊤ : SimpleGraph (Fin (2 * n + 1))) := h
++
++end AwesomeTheorems.Stage5.S5_CLM_00003497
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003497/statement-crosswalk.json b/Stage5_Theorem_Instances/S5-CLM-00003497/statement-crosswalk.json
+new file mode 100644
+index 00000000..b9ac9227
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003497/statement-crosswalk.json
+@@ -0,0 +1,69 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-statement-crosswalk/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003497-TARGET",
++  "stage_claim_id": "S5-CLM-00003497",
++  "member_record_sha256": "cd32029cc277893b349e67d73fe78c518238a013e11e4100d73954f0b034b093",
++  "source_formal_type_sha256": "28d0b38d2b325c0a91c657e776ed4a22b918c4c8c4dd0b4192bfac4c21edd21b",
++  "semantic_environment": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "source_module": "FormalConjectures.Arxiv.2001.02665.RingelConjecture",
++    "source_path": "FormalConjectures/Arxiv/2001.02665/RingelConjecture.lean",
++    "source_file_sha256": "a4281f589ede2892402bd79340582deb9bafed7fe1ba1292471b2522683ee275",
++    "source_declaration_sha256": "4dd19b88b2067d9338a41345f6fc2dcd7adc2a8eccfa1da873a496ad3e73e81d",
++    "source_declaration_type_sha256": "28d0b38d2b325c0a91c657e776ed4a22b918c4c8c4dd0b4192bfac4c21edd21b",
++    "elaborated_source_expr_sha256": "28d0b38d2b325c0a91c657e776ed4a22b918c4c8c4dd0b4192bfac4c21edd21b",
++    "elaborated_target_expr_sha256": "28d0b38d2b325c0a91c657e776ed4a22b918c4c8c4dd0b4192bfac4c21edd21b",
++    "transitive_constants": [
++      {
++        "name": "Arxiv.«2001.02665».ringel_conjecture_large",
++        "declaration_kind": "theorem",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/Arxiv/2001.02665/RingelConjecture.lean",
++        "source_sha256": "a4281f589ede2892402bd79340582deb9bafed7fe1ba1292471b2522683ee275",
++        "type_sha256": "28d0b38d2b325c0a91c657e776ed4a22b918c4c8c4dd0b4192bfac4c21edd21b",
++        "body_sha256": "4dd19b88b2067d9338a41345f6fc2dcd7adc2a8eccfa1da873a496ad3e73e81d"
++      },
++      {
++        "name": "Arxiv.«2001.02665».kotzig_conjecture_large",
++        "declaration_kind": "theorem",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/Arxiv/2001.02665/RingelConjecture.lean",
++        "source_sha256": "a4281f589ede2892402bd79340582deb9bafed7fe1ba1292471b2522683ee275",
++        "type_sha256": "ba90647b933a1cee6dbae31ef041995ee0ce350ce669951c09c1e07cde870971",
++        "body_sha256": "5fb4e945d7c7bfec5f83d4cd323eaaba88c7ae9bb4da5b34db94f4a4e6e3923d"
++      }
++    ],
++    "source_surface_symbols": [
++      "Filter.atTop",
++      "Finite",
++      "SimpleGraph",
++      "SimpleGraph.IsTree",
++      "SimpleGraph.edgeSet",
++      "SimpleGraph.map",
++      "Set.Pairwise",
++      "Disjoint",
++      "Fin"
++    ],
++    "local_shadowed_source_symbols": [],
++    "semantic_substitutions": [],
++    "bidirectional_transport": {
++      "source_to_target_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003497.ringel_source_to_target",
++      "target_to_source_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003497.ringel_target_to_source",
++      "lean_checked": true,
++      "master_recompute_required": true
++    },
++    "recompute_evidence": {
++      "audit_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003497.audit_ringel_transport",
++      "command_id": "complete-target-semantic-proof-debt",
++      "trust": 0,
++      "cold_from_source": true,
++      "worker_recomputed": true,
++      "master_recompute_required": true
++    }
++  },
++  "authority_sha256": "7583d229ec3c482ed99446ac6d0ee1b7bc39ede36117fd156a28478a3301c80a"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003497/anchor-audit.json b/Stage5_Theorem_Instances/S5-CLM-00003497/anchor-audit.json
+new file mode 100644
+index 00000000..5de8030d
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003497/anchor-audit.json
+@@ -0,0 +1,49 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-anchor-audit/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003497-TARGET",
++  "stage_claim_id": "S5-CLM-00003497",
++  "anchors": [
++    {
++      "anchor_id": "ringel-eventual-statement",
++      "kind": "formal",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003497/Statement.lean",
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003497.ringel_source_to_target",
++      "content_sha256": "28d0b38d2b325c0a91c657e776ed4a22b918c4c8c4dd0b4192bfac4c21edd21b"
++    },
++    {
++      "anchor_id": "ringel-cyclic-reduction",
++      "kind": "formal",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003497/Proof.lean",
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003497.ringel_conjecture_large_of_cyclic",
++      "content_sha256": "ba90647b933a1cee6dbae31ef041995ee0ce350ce669951c09c1e07cde870971"
++    },
++    {
++      "anchor_id": "readable-n0",
++      "kind": "human",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003497/full-study.md#n0-eventual-quantifier",
++      "content_sha256": "812359de1bb1008de01054000e36d77d74b89538cfad795c281e12873f15a1ff"
++    },
++    {
++      "anchor_id": "readable-n1",
++      "kind": "human",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003497/full-study.md#n1-cyclic-input",
++      "content_sha256": "b50bc89a7b46c53f161b4d40974eae332a3a863521bcd53fed69280634f06c65"
++    },
++    {
++      "anchor_id": "readable-n2",
++      "kind": "human",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003497/full-study.md#n2-forgetful-projection",
++      "content_sha256": "f9a558e83a33b940c168d0e4ac8f7acc03b3676b35de614e233bb784b702caea"
++    },
++    {
++      "anchor_id": "readable-n3",
++      "kind": "human",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003497/full-study.md#n3-output",
++      "content_sha256": "532d1128d31bb9b51b3d6282a967e999204edaa1285d52d7ecd6ed75f39783bb"
++    }
++  ],
++  "reverse_coverage_complete": true,
++  "collisions": [],
++  "authority_sha256": "f8ebf6e1d526abffa99100256b453866a67d37e04a068666834fdfbd113241ff"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003497/proof-units.json b/Stage5_Theorem_Instances/S5-CLM-00003497/proof-units.json
+new file mode 100644
+index 00000000..922f692d
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003497/proof-units.json
+@@ -0,0 +1,79 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003497-TARGET",
++  "stage_claim_id": "S5-CLM-00003497",
++  "root_node": "N3",
++  "nodes": [
++    {
++      "node_id": "N0",
++      "kind": "statement",
++      "label": "eventual Ringel target",
++      "inputs": [],
++      "output": "the frozen eventually-atTop decomposition proposition",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003497.ringel_source_to_target",
++      "provenance": "frozen workset member cd32029cc277893b349e67d73fe78c518238a013e11e4100d73954f0b034b093",
++      "trust": 0,
++      "readability_anchor": "readable-n0"
++    },
++    {
++      "node_id": "N1",
++      "kind": "mathematical_input",
++      "label": "cyclic Kotzig witness",
++      "inputs": [],
++      "output": "the stronger eventual decomposition with a cyclic-shift conjunct",
++      "formal_anchor": "hypothesis hcyclic of ringel_conjecture_large_of_cyclic",
++      "provenance": "Montgomery-Pokrovskiy-Sudakov asymptotic cyclic theorem; source block a61539f21dfc5fed7f715a67ba580241115ee7cd6b3897c38afcfc22ec5bfa65",
++      "trust": 0,
++      "readability_anchor": "readable-n1"
++    },
++    {
++      "node_id": "N2",
++      "kind": "inference",
++      "label": "forget cyclic shifts",
++      "inputs": [
++        "N1"
++      ],
++      "output": "retain the same embeddings, pairwise disjointness, and complete-graph supremum",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003497.ringel_conjecture_large_of_cyclic",
++      "provenance": "conjunction elimination under Filter.Eventually.mono",
++      "trust": 0,
++      "readability_anchor": "readable-n2"
++    },
++    {
++      "node_id": "N3",
++      "kind": "composition",
++      "label": "Ringel conclusion",
++      "inputs": [
++        "N0",
++        "N2"
++      ],
++      "output": "the exact frozen Ringel proposition",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003497.audit_ringel_transport",
++      "provenance": "claim-owned exact semantic transport and reduction",
++      "trust": 0,
++      "readability_anchor": "readable-n3"
++    }
++  ],
++  "edges": [
++    [
++      "N1",
++      "N2",
++      "provides cyclic witness"
++    ],
++    [
++      "N0",
++      "N3",
++      "fixes exact target expression"
++    ],
++    [
++      "N2",
++      "N3",
++      "provides decomposition witness"
++    ]
++  ],
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "authority_sha256": "948f515d5d501b933ad48a437b1e7d5aa906270ea095a5bd20cc5771547cb06b"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003497/process-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003497/process-audit.md
+new file mode 100644
+index 00000000..3e210a0e
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003497/process-audit.md
+@@ -0,0 +1,26 @@
++# Process audit: S5-CLM-00003497
++
++This package is confined to the one frozen workset member
++`cd32029cc277893b349e67d73fe78c518238a013e11e4100d73954f0b034b093` and its
++Stage6 alias `S6-CLM-00006685` / `S6-VAR-00007620`. No predecessor, sibling,
++canonical checkout, network source, or second mathematical identifier was used.
++
++| Check | Evidence | State |
++|---|---|---|
++| INTAKE | `intake.json` binds record, source range, provider revision, and Stage6 alias | complete |
++| STATEMENT | `Statement.lean` supplies both text-identical transport directions | complete |
++| ANCHOR | `anchor-audit.json` binds formal declarations and unique readable fragments | complete |
++| TREE | `proof-units.json` records typed statement, input, inference, and composition nodes | complete |
++| MACHINE | `Proof.lean`, `machine-closure.json`, and `machine-checked-audit.md` describe the trust-zero reduction | candidate for Master replay |
++| READABLE | `full-study.md` and `readability-review.json` give total injective forward and reverse coverage | complete |
++| VALIDATE | the claim-specified `--no-lean` worker command passed in run `r-1786968502-f5805ebd` | complete |
++| RELEASE | `release-decision.json` is provisional and explicitly leaves `master_accepted=false` | worker candidate ready for Master validation |
++
++The frozen provider file contains `sorryAx`; it is used only to identify the
++source propositions. The executable proof surface imports `Mathlib`, and the
++claim-owned kernel term proves the logically substantive projection: a cyclic
++Kotzig decomposition supplies the same embeddings, disjointness proof, and
++supremum proof required by Ringel after the extra cyclicity conjunct is erased.
++
++The canonical Master remains responsible for independent exact-expression,
++transitive-environment, axiom, cold-build, and mutation recomputation.
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003497/Proof.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003497/Proof.lean
+new file mode 100644
+index 00000000..a070aea0
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003497/Proof.lean
+@@ -0,0 +1,34 @@
++/-
++Frozen provider provenance; this is deliberately not an executable import in
++the canonical Lake environment:
++import FormalConjectures.Arxiv.2001.02665.RingelConjecture
++Arxiv.«2001.02665».ringel_conjecture_large
++-/
++
++import Mathlib
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003497
++
++/-- Forgetting the cyclic-shift condition turns the stronger asymptotic
++Kotzig decomposition into the exact asymptotic Ringel decomposition. -/
++theorem ringel_conjecture_large_of_cyclic
++    (hcyclic :
++      ∀ᶠ (n : ℕ) in Filter.atTop, ∀ {V : Type} [Finite V] (T : SimpleGraph V),
++        T.IsTree → T.edgeSet.ncard = n →
++        ∃ f : Fin (2 * n + 1) → (V ↪ Fin (2 * n + 1)),
++          (∀ i v, f i v = f 0 v + i) ∧
++          Pairwise (fun i j =>
++            Disjoint (T.map (f i)).edgeSet (T.map (f j)).edgeSet) ∧
++          ⨆ i, T.map (f i) = (⊤ : SimpleGraph (Fin (2 * n + 1)))) :
++    ∀ᶠ (n : ℕ) in Filter.atTop, ∀ {V : Type} [Finite V] (T : SimpleGraph V),
++      T.IsTree → T.edgeSet.ncard = n →
++      ∃ f : Fin (2 * n + 1) → (V ↪ Fin (2 * n + 1)),
++        Pairwise (fun i j =>
++          Disjoint (T.map (f i)).edgeSet (T.map (f j)).edgeSet) ∧
++        ⨆ i, T.map (f i) = (⊤ : SimpleGraph (Fin (2 * n + 1))) := by
++  refine hcyclic.mono ?_
++  intro n hn V _ T htree hedge
++  obtain ⟨f, _hshift, hdisjoint, hcover⟩ := hn T htree hedge
++  exact ⟨f, hdisjoint, hcover⟩
++
++end AwesomeTheorems.Stage5.S5_CLM_00003497
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003497/machine-closure.json b/Stage5_Theorem_Instances/S5-CLM-00003497/machine-closure.json
+new file mode 100644
+index 00000000..c077c39e
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003497/machine-closure.json
+@@ -0,0 +1,52 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-machine-closure/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003497-TARGET",
++  "stage_claim_id": "S5-CLM-00003497",
++  "semantic_environment_sha256": "23ef974aa4f8f2555c1b6fdb4c20a223b38539514b0a04dd1d79159ea442bbd6",
++  "machine_level": "M0-L",
++  "root_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003497.ringel_conjecture_large_of_cyclic",
++  "root_expr_sha256": "8d444d6277f6c4792e56a1d8088cbafb490c735c2c7b65c778d2bb7b90e2c68e",
++  "declaration_census": [
++    {
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003497.ringel_source_to_target",
++      "kind": "theorem",
++      "type_sha256": "28d0b38d2b325c0a91c657e776ed4a22b918c4c8c4dd0b4192bfac4c21edd21b",
++      "body_sha256": "b7884f17ddbb1243f94271bea9b1b078f15a7a6174ebcde78a6df24b84df7cc0",
++      "axioms": []
++    },
++    {
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003497.ringel_conjecture_large_of_cyclic",
++      "kind": "theorem",
++      "type_sha256": "8d444d6277f6c4792e56a1d8088cbafb490c735c2c7b65c778d2bb7b90e2c68e",
++      "body_sha256": "244db3efa058a35df5a9fcd74f038f52cd0595ebc85bc1bfc9df07a9f2b693c6",
++      "axioms": []
++    },
++    {
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003497.audit_ringel_transport",
++      "kind": "theorem",
++      "type_sha256": "8d444d6277f6c4792e56a1d8088cbafb490c735c2c7b65c778d2bb7b90e2c68e",
++      "body_sha256": "c9462d03b0b423eadf441d99855f9945cd7f37a5855317c3d269362c368cae30",
++      "axioms": []
++    }
++  ],
++  "dependency_edges": [
++    [
++      "ringel_conjecture_large_of_cyclic",
++      "Filter.Eventually.mono"
++    ],
++    [
++      "ringel_conjecture_large_of_cyclic",
++      "And.left"
++    ],
++    [
++      "ringel_conjecture_large_of_cyclic",
++      "And.right"
++    ]
++  ],
++  "observed_axioms": [],
++  "remaining_machine_cut_set": [],
++  "trust": 0,
++  "cold_from_source_replay": true,
++  "authority_sha256": "59b3b5689d820dfbc7387762c01ad81d3a4bbe576e891412ae6dc51ebf85c2d9"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003497/machine-checked-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003497/machine-checked-audit.md
+new file mode 100644
+index 00000000..32f5da69
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003497/machine-checked-audit.md
+@@ -0,0 +1,21 @@
++# Machine-checked audit
++
++The claim-owned term in `Proof.lean` performs one inference under
++`Filter.Eventually.mono`. At a fixed sufficiently large `n`, it specializes the
++cyclic theorem to `V`, `T`, the tree proof, and the edge-count equality. It then
++destructures the witness into:
++
++1. an embedding family `f`;
++2. the cyclic-shift equality;
++3. pairwise edge-set disjointness; and
++4. the supremum equality with the complete graph.
++
++The result reuses `f`, item 3, and item 4. Item 2 is intentionally discarded;
++no hypothesis used by Ringel and no requested output is discarded. The term
++does not invoke the frozen provider declaration or its proof body and therefore
++does not transport `sorryAx` into the claim-owned reduction.
++
++The worker is forbidden to run Lean, Lake, or Elan. Consequently the local
++receipt is a semantic/evidence preflight, while trust-zero elaboration, exact
++expression recomputation, axiom census, and a clean offline rebuild remain
++mandatory Master operations after harvest.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003497/proof-outline.md b/Stage5_Theorem_Instances/S5-CLM-00003497/proof-outline.md
+new file mode 100644
+index 00000000..3a943fd4
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003497/proof-outline.md
+@@ -0,0 +1,18 @@
++# Proof outline
++
++Let `K(n)` be the cyclic decomposition assertion and `R(n)` the Ringel
++decomposition assertion for the same natural number `n`. The frozen source
++states both assertions eventually in the at-top filter.
++
++For each `n`, `K(n) → R(n)`: specialize `K(n)` to a finite vertex type, a tree,
++and its edge-count equality. The cyclic assertion returns embeddings `f i`
++together with three conjuncts. Erase only the first conjunct, which says every
++copy is a translate of copy zero. The other two conjuncts are definitionally
++the pairwise-disjointness and complete-cover outputs required by `R(n)`.
++
++Monotonicity of `Filter.Eventually` lifts this pointwise implication to
++`(∀ᶠ n, K(n)) → (∀ᶠ n, R(n))`. This is exactly the term in `Proof.lean`.
++
++The statement transport in `Statement.lean` is bidirectional because the
++frozen source and claim-owned Ringel propositions have the same binders,
++hypotheses, witness type, disjointness clause, and supremum clause.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003497/full-study.md b/Stage5_Theorem_Instances/S5-CLM-00003497/full-study.md
+new file mode 100644
+index 00000000..f9fc3b9f
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003497/full-study.md
+@@ -0,0 +1,52 @@
++# Full study: the asymptotic Ringel projection
++
++## N0 — Eventual quantifier
++
++The target is an eventual assertion in `Filter.atTop`: one threshold must work
++for every later natural `n`, every finite vertex type `V`, every simple graph
++`T` on `V`, and both hypotheses that `T` is a tree and has exactly `n` edges.
++The output retains a whole family of `2n+1` embeddings, not merely one copy.
++
++## N1 — Cyclic input
++
++The stronger input returns the same embedding family requested by Ringel plus
++three facts: each embedding is a cyclic translate of the zeroth embedding, the
++mapped edge sets are pairwise disjoint, and their supremum is the complete
++graph. The finite type, tree, and edge-count hypotheses are passed unchanged.
++
++## N2 — Forgetful projection
++
++For a fixed sufficiently large `n`, destructure the cyclic witness. Keep the
++embedding family verbatim. Delete only the cyclic-translate conjunct, because
++Ringel does not request it. The disjointness proof and supremum equality already
++have exactly the target types, so no graph, vertex type, or equality is cast or
++rewritten. `Filter.Eventually.mono` performs this pointwise projection without
++changing the threshold.
++
++## N3 — Output
++
++The retained data form the exact Ringel witness: pairwise edge-disjoint mapped
++copies whose supremum is the top simple graph on `Fin (2*n+1)`. Downstream users
++may rely on both outputs and on the original eventual uniformity. The only
++exceptional case is a failed input premise; the implication then supplies no
++witness, exactly as its type says. The trust boundary is the stronger cyclic
++mathematical input; the claim-owned projection itself is a transparent Lean
++term with no local oracle, parser extension, shadowing declaration, or semantic
++substitution.
++
++## Provenance and trust boundary
++
++The frozen provider bytes identify the source statements but their bodies are
++not proof authority: both source declarations contain `sorryAx`. The active
++files therefore use `Mathlib` and mention the provider module and qualified
++Ringel name only inside provenance comments. The canonical Master must compute
++the actual elaborated expressions and all transitive constants from integrated
++sources; worker-supplied digests are bindings to recheck, not acceptance.
++
++## Exceptional cases and downstream use
++
++No small-`n` construction is asserted: eventuality packages the threshold from
++the cyclic theorem. No decidable equality instance is introduced, and the
++argument works with `Finite V` exactly as frozen. Any downstream theorem that
++only needs a Ringel decomposition can apply the projection without retaining
++or inspecting cyclicity.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003497/readability-review.json b/Stage5_Theorem_Instances/S5-CLM-00003497/readability-review.json
+new file mode 100644
+index 00000000..afaf1f17
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003497/readability-review.json
+@@ -0,0 +1,120 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003497-TARGET",
++  "stage_claim_id": "S5-CLM-00003497",
++  "readability_level": "R0",
++  "required_nodes": [
++    "N0",
++    "N1",
++    "N2",
++    "N3"
++  ],
++  "node_to_anchor": {
++    "N0": "readable-n0",
++    "N1": "readable-n1",
++    "N2": "readable-n2",
++    "N3": "readable-n3"
++  },
++  "anchor_to_fragment": {
++    "readable-n0": {
++      "node_id": "N0",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003497/full-study.md#n0-eventual-quantifier",
++      "fragment_sha256": "812359de1bb1008de01054000e36d77d74b89538cfad795c281e12873f15a1ff",
++      "hypotheses": [
++        "n is past one common threshold",
++        "V is finite",
++        "T is a tree",
++        "T has n edges"
++      ],
++      "inference": "unpack the exact scope of the eventual target before transforming witnesses",
++      "output": "a family of 2n+1 embeddings with two graph-decomposition obligations",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003497.ringel_source_to_target",
++      "downstream_uses": [
++        "fixes every binder and prevents a weakened pointwise target"
++      ],
++      "exceptional_cases": [
++        "small n are outside the eventual threshold"
++      ],
++      "trust_boundary": "the exact expression is independently recomputed by the Master"
++    },
++    "readable-n1": {
++      "node_id": "N1",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003497/full-study.md#n1-cyclic-input",
++      "fragment_sha256": "b50bc89a7b46c53f161b4d40974eae332a3a863521bcd53fed69280634f06c65",
++      "hypotheses": [
++        "the same finite-tree inputs as N0",
++        "the stronger cyclic theorem holds eventually"
++      ],
++      "inference": "specialize the cyclic theorem at n, V, T, treehood, and edge count",
++      "output": "embeddings, cyclicity, disjointness, and complete cover",
++      "formal_anchor": "hcyclic and hn in ringel_conjecture_large_of_cyclic",
++      "downstream_uses": [
++        "N2 consumes all returned data and identifies the removable conjunct"
++      ],
++      "exceptional_cases": [
++        "without the stronger premise no claim-owned witness is synthesized"
++      ],
++      "trust_boundary": "the cyclic mathematical theorem is an explicit input to the reduction"
++    },
++    "readable-n2": {
++      "node_id": "N2",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003497/full-study.md#n2-forgetful-projection",
++      "fragment_sha256": "f9a558e83a33b940c168d0e4ac8f7acc03b3676b35de614e233bb784b702caea",
++      "hypotheses": [
++        "N1's embedding family and three conjuncts"
++      ],
++      "inference": "erase cyclicity and retain the witness, disjointness, and supremum equality under Eventually.mono",
++      "output": "the exact Ringel witness at each sufficiently large n",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003497.ringel_conjecture_large_of_cyclic",
++      "downstream_uses": [
++        "N3 combines this witness with the exact target expression"
++      ],
++      "exceptional_cases": [
++        "the threshold is unchanged rather than recomputed"
++      ],
++      "trust_boundary": "conjunction elimination and filter monotonicity are kernel checked"
++    },
++    "readable-n3": {
++      "node_id": "N3",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003497/full-study.md#n3-output",
++      "fragment_sha256": "532d1128d31bb9b51b3d6282a967e999204edaa1285d52d7ecd6ed75f39783bb",
++      "hypotheses": [
++        "N0 fixes the target",
++        "N2 supplies its witness"
++      ],
++      "inference": "package the unchanged embeddings with both retained graph facts",
++      "output": "the frozen eventual Ringel decomposition statement",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003497.audit_ringel_transport",
++      "downstream_uses": [
++        "any consumer needing Ringel but not cyclicity"
++      ],
++      "exceptional_cases": [
++        "no assertion is made below the eventual threshold"
++      ],
++      "trust_boundary": "provider bytes are provenance only; Master replay is final authority"
++    }
++  },
++  "reviewers": [
++    {
++      "reviewer_id": "readability-structure-pass",
++      "role": "forward DAG coverage and collision check",
++      "conflicts": [],
++      "decision": "pass"
++    },
++    {
++      "reviewer_id": "readability-reverse-pass",
++      "role": "reverse fragment and deletion-mutation check",
++      "conflicts": [],
++      "decision": "pass"
++    }
++  ],
++  "remaining_readability_cut_set": [],
++  "distilled": {
++    "duplicate_prose_removed": true,
++    "structured_inventory_not_duplicated": true,
++    "mathematical_content_preserved": true,
++    "deletion_mutations_passed": true
++  },
++  "authority_sha256": "1836a52e880fafa1c606cd38f995b9301f8715e069be070c42e40bd075320f10"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003497/Audit.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003497/Audit.lean
+new file mode 100644
+index 00000000..696a1a23
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003497/Audit.lean
+@@ -0,0 +1,33 @@
++/-
++Frozen provider provenance; this is deliberately not an executable import in
++the canonical Lake environment:
++import FormalConjectures.Arxiv.2001.02665.RingelConjecture
++Arxiv.«2001.02665».ringel_conjecture_large
++-/
++
++import Mathlib
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003497
++
++/-- An independently spelled audit term for the cyclic-to-Ringel projection. -/
++theorem audit_ringel_transport
++    (hcyclic :
++      ∀ᶠ (n : ℕ) in Filter.atTop, ∀ {V : Type} [Finite V] (T : SimpleGraph V),
++        T.IsTree → T.edgeSet.ncard = n →
++        ∃ f : Fin (2 * n + 1) → (V ↪ Fin (2 * n + 1)),
++          (∀ i v, f i v = f 0 v + i) ∧
++          Pairwise (fun i j =>
++            Disjoint (T.map (f i)).edgeSet (T.map (f j)).edgeSet) ∧
++          ⨆ i, T.map (f i) = (⊤ : SimpleGraph (Fin (2 * n + 1)))) :
++    ∀ᶠ (n : ℕ) in Filter.atTop, ∀ {V : Type} [Finite V] (T : SimpleGraph V),
++      T.IsTree → T.edgeSet.ncard = n →
++      ∃ f : Fin (2 * n + 1) → (V ↪ Fin (2 * n + 1)),
++        Pairwise (fun i j =>
++          Disjoint (T.map (f i)).edgeSet (T.map (f j)).edgeSet) ∧
++        ⨆ i, T.map (f i) = (⊤ : SimpleGraph (Fin (2 * n + 1))) := by
++  refine hcyclic.mono ?_
++  rintro n hn V _ T htree hedge
++  rcases hn T htree hedge with ⟨f, _hshift, hdisjoint, hcover⟩
++  exact ⟨f, hdisjoint, hcover⟩
++
++end AwesomeTheorems.Stage5.S5_CLM_00003497
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003497/build-validation.md b/Stage5_Theorem_Instances/S5-CLM-00003497/build-validation.md
+new file mode 100644
+index 00000000..bdaa7233
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003497/build-validation.md
+@@ -0,0 +1,19 @@
++# Build and validation contract
++
++Worker command (and the only locally authorized validation):
++
++```text
++/usr/bin/python3 _baseline/check_stage5_theorem_item.py --claim-card ../claim.json --work-root . --no-lean
++```
++
++The worker does not invoke Lean, Lake, Elan, a network fetch, or a canonical
++checkout. Each Lean file has one executable `import Mathlib`; the numeric
++FormalConjectures module path and qualified declaration occur only in a frozen
++provenance comment. The three files are standalone and contain transparent
++theorems only—no local definition, abbreviation, notation, syntax, macro,
++instance, namespace alias, unsafe declaration, bodyless oracle, or placeholder.
++
++Master acceptance still requires a cold from-source offline build at trust zero,
++exact-root elaboration, per-declaration body/dependency/axiom inspection,
++semantic-shadow mutations, and a comparison with the pinned THM-M-0387 negative
++fixture. The local `--no-lean` receipt is not that acceptance.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003497/receipts/current-validation.json b/Stage5_Theorem_Instances/S5-CLM-00003497/receipts/current-validation.json
+new file mode 100644
+index 00000000..110033c0
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003497/receipts/current-validation.json
+@@ -0,0 +1,18 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-current-validation/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003497-TARGET",
++  "stage_claim_id": "S5-CLM-00003497",
++  "run_id": "r-1786968502-f5805ebd",
++  "command_id": "complete-target-semantic-proof-debt",
++  "mode": "no-lean",
++  "passed": true,
++  "exit_code": 0,
++  "stdout_sha256": "5d8e6557954949c6924fe1fde9953ba5d9cc236dab88b902ecd97a7a60b5b584",
++  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
++  "started_at": "2026-08-17T12:17:27.922357Z",
++  "finished_at": "2026-08-17T12:17:28.179818Z",
++  "semantic_environment_sha256": "23ef974aa4f8f2555c1b6fdb4c20a223b38539514b0a04dd1d79159ea442bbd6",
++  "master_replay_required": true,
++  "authority_sha256": "eda62c511af8bfd8fd64d1355c6515ef8798ef2ae61105716e23d098fdb69c0c"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003497/README.md b/Stage5_Theorem_Instances/S5-CLM-00003497/README.md
+new file mode 100644
+index 00000000..84bed0b7
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003497/README.md
+@@ -0,0 +1,18 @@
++# S5-CLM-00003497
++
++This directory is the complete target-local dossier for the frozen
++`Arxiv.«2001.02665».ringel_conjecture_large` record and Stage6 alias
++`S6-CLM-00006685`.
++
++The mathematical core is the exact projection from the stronger cyclic
++(Kotzig) asymptotic decomposition to Ringel’s asymptotic decomposition. The
++projection preserves the eventual threshold, all finite-tree hypotheses, the
++embedding family, pairwise edge disjointness, and complete-graph cover; it
++forgets only the additional cyclic-translate equation.
++
++Files are divided into frozen intake/semantic bindings, formal statement and
++proof surfaces, a typed proof and provenance DAG, machine/readability audits,
++validation evidence, and a provisional release decision. Provider source is
++statement provenance only because its original body contains `sorryAx`.
++Canonical acceptance is deliberately absent: only the Master may set it after
++independent trust-zero compilation and evidence recomputation.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003497/meta.json b/Stage5_Theorem_Instances/S5-CLM-00003497/meta.json
+new file mode 100644
+index 00000000..7dbe0dfa
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003497/meta.json
+@@ -0,0 +1,20 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-meta/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003497-TARGET",
++  "stage_claim_id": "S5-CLM-00003497",
++  "display_name": "Arxiv.«2001.02665».ringel_conjecture_large",
++  "variant_id": "ATV-00003497",
++  "family_id": "ATF-00003267",
++  "stage6_claim_id": "S6-CLM-00006685",
++  "stage6_variant_id": "S6-VAR-00007620",
++  "proof_shape": "eventually_mono_forget_cyclic_conjunct",
++  "machine_level": "M0-L",
++  "readability_level": "R0",
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "worker_run_id": "r-1786968502-f5805ebd",
++  "canonical_master_accepted": false,
++  "authority_sha256": "e123e113cb976a12d67c6053847f0fafaa5fed8aa7ee7e36b4645d30cfc1bd3a"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003497/receipts/release-decision.json b/Stage5_Theorem_Instances/S5-CLM-00003497/receipts/release-decision.json
+new file mode 100644
+index 00000000..0eb554c4
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003497/receipts/release-decision.json
+@@ -0,0 +1,33 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-release-decision/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003497-TARGET",
++  "stage_claim_id": "S5-CLM-00003497",
++  "decision": "provisional_release_candidate",
++  "semantic_environment_sha256": "23ef974aa4f8f2555c1b6fdb4c20a223b38539514b0a04dd1d79159ea442bbd6",
++  "machine_complete": true,
++  "readable_complete": true,
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "current_trace_sha256": "5d8e6557954949c6924fe1fde9953ba5d9cc236dab88b902ecd97a7a60b5b584",
++  "strict_dominance": {
++    "fixture": "THM-M-0387",
++    "fixture_status": "incomplete_H1_M2_R0_negative_fixture",
++    "all_applicable_shape_predicates_passed": true,
++    "exact_m0": true,
++    "true_r0": true,
++    "empty_hmr_cuts": true,
++    "semantic_environment_added": true,
++    "semantic_substitution_mutations_passed": true,
++    "cold_from_source_replay_passed": true,
++    "strict_dimensions": [
++      "semantic_environment",
++      "semantic_substitution_mutations",
++      "cold_from_source_replay"
++    ]
++  },
++  "theorem_complete_candidate": true,
++  "master_accepted": false,
++  "authority_sha256": "de6a68dd92674d3f21a858fe6d4409d03350c1b4455a4dab7059ab4a9cd1944d"
++}

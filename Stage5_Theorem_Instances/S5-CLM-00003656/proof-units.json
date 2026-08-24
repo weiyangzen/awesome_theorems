@@ -1,0 +1,109 @@
+{
+  "authority_sha256": "bf35f95fcb7f31a459b199d3b256b1f4437a172c05460cf8bcadd1c99f92ab24",
+  "complete": true,
+  "edges": [
+    {
+      "from": "N0-provenance",
+      "to": "N1-statement"
+    },
+    {
+      "from": "N0-provenance",
+      "to": "N2-closure"
+    },
+    {
+      "from": "N1-statement",
+      "to": "N2-closure"
+    },
+    {
+      "from": "N2-closure",
+      "to": "N3-review"
+    }
+  ],
+  "human_cut_set": [],
+  "item_id": "S5THM-00003656-TARGET",
+  "machine_cut_set": [],
+  "member_record_sha256": "36c46052b6fc61edd9bd065e17bb62ae9cd18e3743a59e917a12eb4cb0328d3e",
+  "nodes": [
+    {
+      "downstream_uses": [
+        "N1-statement",
+        "N2-closure"
+      ],
+      "formal_anchor": "H-STATEMENT-0001",
+      "hypotheses": [
+        "exact source locator and declaration digest"
+      ],
+      "inference": "bind the provider record and Stage6 alias",
+      "inputs": [
+        "frozen-member"
+      ],
+      "node_id": "N0-provenance",
+      "node_kind": "provenance",
+      "output": "identity lock",
+      "trust_boundary": "provider bytes are statement metadata, never proof authority"
+    },
+    {
+      "downstream_uses": [
+        "N2-closure"
+      ],
+      "formal_anchor": "H-STATEMENT-0001",
+      "hypotheses": [
+        "frozen formal type"
+      ],
+      "inference": "crosswalk source declaration to claim-owned surface",
+      "inputs": [
+        "N0-provenance"
+      ],
+      "node_id": "N1-statement",
+      "node_kind": "statement_transport",
+      "output": "root proposition binding",
+      "trust_boundary": "semantic identity awaits Master re-elaboration"
+    },
+    {
+      "downstream_uses": [
+        "N3-review"
+      ],
+      "formal_anchor": "M-CLOSURE-0001",
+      "hypotheses": [
+        "trust-zero Mathlib environment"
+      ],
+      "inference": "elaborate the claim-owned transport theorem and audit dependencies",
+      "inputs": [
+        "N1-statement"
+      ],
+      "node_id": "N2-closure",
+      "node_kind": "machine_closure",
+      "output": "M0-L closure candidate",
+      "trust_boundary": "canonical Master performs final kernel replay"
+    },
+    {
+      "downstream_uses": [],
+      "formal_anchor": "A-AUDIT-0001",
+      "hypotheses": [
+        "all proof inputs and exceptional cases are retained"
+      ],
+      "inference": "reconstruct and independently review the anchored DAG",
+      "inputs": [
+        "N0-provenance",
+        "N1-statement",
+        "N2-closure"
+      ],
+      "node_id": "N3-review",
+      "node_kind": "readability",
+      "output": "R0 review candidate",
+      "trust_boundary": "worker result is provisional until Master acceptance"
+    }
+  ],
+  "program": "stage5-theorem-proof-debt/2.0",
+  "readability_cut_set": [],
+  "root_node": "N3-review",
+  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
+  "stage6_alias": {
+    "current_resolution_kind": "current",
+    "parent_variant_id": "ATV-00003656",
+    "stage6_claim_id": "S6-CLM-00004874",
+    "stage6_variant_id": "S6-VAR-00003538"
+  },
+  "stage_claim_id": "S5-CLM-00003656",
+  "typed": true
+}

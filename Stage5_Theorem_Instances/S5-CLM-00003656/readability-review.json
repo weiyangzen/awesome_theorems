@@ -1,0 +1,89 @@
+{
+  "anchor_to_fragment": {
+    "A-AUDIT-0001": {
+      "downstream_uses": "release decision",
+      "exceptional_cases": "source-sorry provenance is not treated as proof authority; Master replay remains mandatory",
+      "formal_anchor": "A-AUDIT-0001",
+      "fragment_sha256": "3eb625208fd9c184c2ef0a623118b3358ccec708b6945a4ed6d4736c87a52594",
+      "hypotheses": "reconstruct the typed proof DAG",
+      "inference": "The audit surface records the exact formal anchor and the remaining review boundary without dropping hypotheses or exceptional cases.",
+      "node_id": "N3-review",
+      "output": "R0 review candidate",
+      "path": "Audit.lean",
+      "trust_boundary": "worker evidence remains provisional"
+    },
+    "H-STATEMENT-0001": {
+      "downstream_uses": "N1-statement",
+      "exceptional_cases": "source-sorry provenance is not treated as proof authority; Master replay remains mandatory",
+      "formal_anchor": "H-STATEMENT-0001",
+      "fragment_sha256": "363429cfb80632a463108f6ca4a0ae0808ac3ba4d285f2b670cd025cf8448c30",
+      "hypotheses": "bind exact source identity",
+      "inference": "The frozen provider declaration, source locator, declaration/type digests, and Stage6 alias are bound before any transport step.",
+      "node_id": "N0-provenance",
+      "output": "root identity lock",
+      "path": "Statement.lean",
+      "trust_boundary": "provider bytes are statement metadata only"
+    },
+    "M-CLOSURE-0001": {
+      "downstream_uses": "N3-review",
+      "exceptional_cases": "source-sorry provenance is not treated as proof authority; Master replay remains mandatory",
+      "formal_anchor": "M-CLOSURE-0001",
+      "fragment_sha256": "acde56fcae6bfc865830e006a8ac85a1756833421b2ffbb4d6ec565b55fe7766",
+      "hypotheses": "elaborate the transport surface",
+      "inference": "The claim-owned theorem surface is checked in a trust-zero environment; no placeholder, unsafe injection, or claim-specific axiom is admitted.",
+      "node_id": "N2-closure",
+      "output": "M0-L root candidate",
+      "path": "Proof.lean",
+      "trust_boundary": "Master repeats cold replay"
+    },
+    "R-REVIEW-0001": {
+      "downstream_uses": "N2-closure",
+      "exceptional_cases": "source-sorry provenance is not treated as proof authority; Master replay remains mandatory",
+      "formal_anchor": "R-REVIEW-0001",
+      "fragment_sha256": "1e55c00c809db2fa9a86816daefe49676761fa7a07505c933c21d111fc8cc0e6",
+      "hypotheses": "review total reverse coverage",
+      "inference": "The forward and reverse anchor maps cover every required node injectively, preserving hypotheses, inference, output, downstream use, exceptional cases, and trust boundary.",
+      "node_id": "N1-statement",
+      "output": "R0 mapping",
+      "path": "readability-review.json",
+      "trust_boundary": "independent reviewers and Master validate"
+    }
+  },
+  "authority_sha256": "f53f6e10ad0f4adff36dcaf07eadeb61dbf9f6263d654162c0e2a600fd63a039",
+  "distilled": {
+    "deletion_mutations_passed": true,
+    "duplicate_prose_removed": true,
+    "mathematical_content_preserved": true,
+    "structured_inventory_not_duplicated": true
+  },
+  "item_id": "S5THM-00003656-TARGET",
+  "node_to_anchor": {
+    "N0-provenance": "H-STATEMENT-0001",
+    "N1-statement": "R-REVIEW-0001",
+    "N2-closure": "M-CLOSURE-0001",
+    "N3-review": "A-AUDIT-0001"
+  },
+  "program": "stage5-theorem-proof-debt/2.0",
+  "readability_level": "R0",
+  "remaining_readability_cut_set": [],
+  "required_nodes": [
+    "N0-provenance",
+    "N1-statement",
+    "N2-closure",
+    "N3-review"
+  ],
+  "reviewers": [
+    {
+      "decision": "pass",
+      "reviewer_id": "reviewer-identity-a",
+      "scope": "forward DAG and hypothesis preservation"
+    },
+    {
+      "decision": "pass",
+      "reviewer_id": "reviewer-identity-b",
+      "scope": "reverse coverage and trust boundaries"
+    }
+  ],
+  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
+  "stage_claim_id": "S5-CLM-00003656"
+}

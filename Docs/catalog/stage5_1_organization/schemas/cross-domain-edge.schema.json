@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://awesome-theorems.invalid/stage5-1-organization/schemas/cross-domain-edge.schema.json",
+  "title": "Stage5.1 cross-domain relation projection JSONL row",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "edge_id", "relation_record_sha256", "provider_member_id",
+    "consumer_member_id", "provider_root_subject_ids", "consumer_root_subject_ids",
+    "provider_assignment_sha256", "consumer_assignment_sha256", "derived", "record_sha256"
+  ],
+  "properties": {
+    "schema_version": {"$ref": "common.schema.json#/$defs/schema_version"},
+    "edge_id": {"$ref": "common.schema.json#/$defs/edge_id"},
+    "relation_record_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+    "provider_member_id": {"$ref": "common.schema.json#/$defs/object_id"},
+    "consumer_member_id": {"$ref": "common.schema.json#/$defs/object_id"},
+    "provider_root_subject_ids": {
+      "type": "array", "minItems": 1, "items": {"$ref": "common.schema.json#/$defs/normal_subject_id"}, "uniqueItems": true
+    },
+    "consumer_root_subject_ids": {
+      "type": "array", "minItems": 1, "items": {"$ref": "common.schema.json#/$defs/normal_subject_id"}, "uniqueItems": true
+    },
+    "provider_assignment_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+    "consumer_assignment_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+    "derived": {"const": "accepted_non_sentinel_root_sets_differ"},
+    "record_sha256": {"$ref": "common.schema.json#/$defs/sha256"}
+  }
+}

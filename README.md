@@ -17,18 +17,87 @@ This repo is built for that gap. 🚀
 
 | Scope | Current signal |
 |---|---:|
-| Raw source entries | 3,338 |
+| Inherited raw source rows | 3,338 |
 | Deduplicated Stage0 blueprint items | 3,262 |
+| Stage4 numbered variants | 3,484 |
+| Stage4 curated additions | 146 |
+| Stage4 proved-claim projection | 83 |
+| Stage4 open/conditional projection | 39 |
+| Stage5 current release | 5.6 |
+| Stage5 5.6 catalog records | 5,525 |
+| Stage5 5.6 theorem-status records | 3,500 |
+| Kernel-checked, sorry-free theorem records | 2,000 |
+| Stage5 5.6 effective strict conjectures | 1,425 |
+| Stage5 5.6 broad open-claim records | 2,025 |
+| Stage5 5.6 `open_problem` records | 599 |
+| Stage5.1 organization members | 19,790 |
+| Stage5.1 theorem execution members | 3,500 |
+| Stage5.1 conjecture/occurrence execution members | 16,290 |
 | Blueprint subcategories | 285 |
 | Disciplines covered | 3 |
 
-Source breakdown:
+Inherited legacy source-row breakdown:
 
-- Mathematics: 1,666 theorems
-- Physics: 1,272 theorems
-- Computer science: 400 theorems
+- Mathematics: 1,666 rows
+- Physics: 1,272 rows
+- Computer science: 400 rows
 
 Most working documents are currently written in Chinese, but the structure is intended to be universal, reusable, and machine-friendly.
+
+The immutable Stage5 5.6 inventory is now materialized under
+[`Docs/catalog/v5`](./Docs/catalog/v5/README.md), with generated readable lists
+for [3,500 theorem-status records](./Docs/catalog/v5/readable/5.6/Theorem_List.md),
+[1,425 effective strict conjectures](./Docs/catalog/v5/readable/5.6/Strict_Conjecture_List.md),
+and a [2,025-row broad open-claim projection](./Docs/catalog/v5/readable/5.6/Open_Claim_List.md).
+The raw catalog contains 1,426 syntactic `conjecture` rows and 599 separately
+typed `open_problem` rows. One retained Moving Sofa conjecture has revoked
+strict credit, so the broad-open rows without strict credit total 600, while
+the effective strict denominator remains exactly 1,425.
+
+These numbers are an actual release inventory, not a plan. They are also not a
+claim of completeness for human mathematics. The inherited 1,500 Formal
+Conjectures theorem rows remain `source_asserted_not_replayed`. Releases 5.3,
+5.4, and 5.6 contribute 2,000 separately evidenced mathlib formal-proposition
+records that are `kernel_checked_sorry_free` at one pinned commit and compiled
+environment. Release 5.6 dynamically appends exactly 1,000 of those records;
+its 629 `theorem` and 371 `lemma` source declarations all elaborate to runtime
+`thmInfo`, but the release does not claim 1,000 distinct human-level named
+theorems or an independent universal importance ranking.
+
+Release 5.5 establishes separate quality and open-claim boundaries: 1,000
+important landmark identities, a disjoint 582-row additional-frontier set,
+and 425 new strict conjectures. The strict records were curated for proposition
+shape, status evidence, interest, rights, and semantic duplication; their
+current-open status remains bounded by the pinned sources and review date.
+
+The current project SSOT is the
+[`Stage5.1 organization release`](./Docs/catalog/stage5_1_organization/README.md),
+rooted at its sealed `Current_Release.json`. It preserves the Stage5 5.6
+identities and adds one reversible organization mapping, subject assignment,
+dependency assessment, and member-specific execution row for each of 19,790
+frozen members. Checklist state is owned only by the
+[`Stage5.1 theorem Blueprint`](./Docs/Stage5_1_Theorems_Blueprint.md) and
+[`Stage5.1 conjecture Blueprint`](./Docs/Stage5_1_Conjectures_Blueprint.md).
+The retired `Docs/catalog/v6/` draft tree is intentionally empty: Stage6
+catalog, renumbering, qualification, and execution drafts are not current
+inputs and cannot allocate identities. Any future Stage6 publication must be a
+separately reviewed append-only successor rooted in a published Stage5.1
+release.
+
+The frozen 1962--2025 Putnam source universe contains 768 problem coordinates,
+including the 675-key PutnamBench subset, plus 1,724 formal-language variants.
+Those problem, variant, closure, and relation surfaces receive zero Stage5 5.6
+catalog credit; they are not counted as theorem identities.
+
+The audited catalog gaps are now materialized in the
+[`Docs/catalog/v4`](./Docs/catalog/v4/README.md) Stage4 data release rather than
+remaining Blueprint-only tasks. It dispositions all 154 frozen gap candidates
+and 46 named regression fixtures, appends 146 source-backed exact records, and
+maps every inherited and new ATV to an immutable `S4-CLM-########` number. Its
+theorem and open/conditional lists are generated from the curated records.
+This is completion of the bounded audited-gap supplement and full number
+migration—not a claim that all 3,338 inherited machine-triage rows, or all
+theorems known to humanity, have completed semantic review.
 
 ## H/M/R Proof Debt
 
@@ -40,7 +109,7 @@ Stage1 v2 tracks three independent axes. A paper, a kernel check, and a readable
 | `M` machine-proof debt | Whether the exact node is kernel-checked under the accepted axiom policy, distinguishing local bodies, mathlib wrappers, and pinned external bodies. | `M0-L`, `M0-W`, or `M0-P` |
 | `R` readability debt | Whether the route, formal map, trust boundary, composition, and leaf ledger are publicly readable. | `R0` |
 
-Evidence is graded separately as `E0` through `E5`. [`Docs/Stage1_Blueprint_v2.md`](./Docs/Stage1_Blueprint_v2.md) is the sole current Stage1 requirements, ordering, acceptance, and task-state blueprint. Superseded Stage1 assurance material lives only in Git history and is not read by current commands. Each theorem keeps scope and content-addressed validation evidence in its instance artifacts, while all current `[ ]`, `[_]`, and `[x]` progress remains in the v2 blueprint.
+Evidence is graded separately as `E0` through `E5`. [`Docs/Stage1_Blueprint_v2.md`](./Docs/Stage1_Blueprint_v2.md) preserves the historical Stage1 integration cursor and evidence vocabulary; it is not the current project SSOT. Each theorem keeps scope and content-addressed validation evidence in its instance artifacts, while current execution state belongs to the corresponding Stage5.1 Blueprint.
 
 For this repository, Stage1 covers exactly the `1546` metadata-screened Lean 4 targets in
 [`Docs/Stage1_Target_Membership_v2.json`](./Docs/Stage1_Target_Membership_v2.json),
@@ -81,11 +150,26 @@ In short: this repo is for people who do not just want to read theorems, but wan
 
 ## 🛠️ How to Use This Repo
 
-### 1. Start from the blueprint
+### 1. Start from the current catalog or execution blueprint
 
-Read [`Docs/Stage1_Blueprint_v2.md`](./Docs/Stage1_Blueprint_v2.md) first. It is the only current Stage1 blueprint and the only writable Stage1 task-state source. The target JSON and DAG files are derived or membership surfaces; the old assurance document is optional historical provenance and is not an operational input or gate. [`Docs/Stage0_Blueprint.md`](./Docs/Stage0_Blueprint.md) is the upstream Stage0 catalog snapshot, not a competing Stage1 execution source.
+Start with the
+[`Stage5.1 organization design`](./Docs/Stage5_1_Organization_Design.md), its
+sealed [`current organization release`](./Docs/catalog/stage5_1_organization/Current_Release.json),
+and the theorem/conjecture Blueprints linked above. Together they are the
+current SSOT: the release owns identity/taxonomy/relation authorities, while
+the two Blueprints exclusively own their program checklist states.
 
-The v2 blueprint defines requirements and execution status. Per-theorem evidence supports acceptance but cannot override its checklist; generated DAGs and todo snapshots are not completion authority.
+For the immutable parent mathematics inventory, use the
+[`Stage5 catalog`](./Docs/catalog/v5/README.md) and its 5.6 readable theorem,
+strict-conjecture, and broad open-claim lists. Its JSON catalog, number
+registries, migration ledger, projections, and strict-credit ledger are data
+authorities rather than progress checklists. The
+[`Stage4 catalog`](./Docs/catalog/v4/README.md) remains the inherited migration
+baseline, not the current mathematics inventory entry point.
+
+Stage1, Stage2, Stage3, and Stage5 predecessor Blueprints remain historical
+migration/evidence surfaces. They cannot launch new work, own current
+checkmarks, or compete with Stage5.1.
 
 ### 2. Use the source collections for raw coverage
 
@@ -180,6 +264,24 @@ The real payoff is this:
 Docs/
   Stage0_Blueprint.md
   Blueprint_Guidelines.md
+  catalog/
+    v5/                          # append-only mathematics inventory releases
+      README.md
+      Current_Release.json
+      releases/5.6/
+        Claim_Catalog.json
+        Theorem_List.json
+        Open_Claim_List.json
+        Strict_Conjecture_Ledger.json
+        Release_Manifest.json
+      readable/5.6/
+        Theorem_List.md
+        Open_Claim_List.md
+        Strict_Conjecture_List.md
+    stage5_1_organization/       # current identity/taxonomy/relation SSOT
+      Current_Release.json
+      releases/1.0/
+    v4/                          # inherited Stage4 migration baseline
   case_studies/
     fermat_last_theorem_formalization_study.md  # redirect stub
   tools/
@@ -227,7 +329,23 @@ Formalizations/
 
 ## 🚧 Current Status
 
-This repo is still blueprint-first.
+The proof/formalization programme remains blueprint-driven. The mathematics
+inventory is concrete through immutable Stage5 release 5.6: 3,500
+theorem-status records, 1,425 effective strict conjectures, and a 2,025-row
+broad open projection. Of the theorem inventory, 2,000 mathlib formal
+proposition rows are kernel-checked and sorry-free at their exact pinned
+commit; the inherited 1,500 retain their weaker source-asserted evidence.
+Stage5.1 is the current organization and execution revision over those frozen
+Stage5 5.6 members. Its release currently remains activation-blocked until the
+BOOT/fence and complete explicit concurrency-prompt gates pass. These
+source-relative counts do not establish universal coverage or a universal
+importance ranking.
+
+The release directories, current pointers, generated readable projections, and
+their validation evidence are versioned under `Docs/catalog/`. “Published” in
+this README means that the immutable release artifacts are present in this
+repository; it does not turn source-relative evidence into a claim of universal
+mathematical coverage.
 
 That means the highest-value asset right now is the structure: the classification, deduplication, and execution framing.
 

@@ -1,0 +1,59 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003502-TARGET",
+  "stage_claim_id": "S5-CLM-00003502",
+  "root_node": "N5-closure",
+  "nodes": [
+    {
+      "node_id": "N1-frozen-statement",
+      "kind": "statement",
+      "type": "{k : Type*} [Field k] : IsCancellative k k[X]",
+      "provenance": "frozen member f189cce4d2d51c10d782f7fd442b503b21973d75b0eb3240e29b1f4696480203",
+      "trust": "statement bytes only",
+      "formal_anchor": "source-declaration"
+    },
+    {
+      "node_id": "N2-transparent-expansion",
+      "kind": "semantic-transport",
+      "type": "IsCancellative k k[X] iff its quantified AlgEquiv cancellation proposition",
+      "provenance": "transparent provider definition Arxiv.«2208.14736».IsCancellative",
+      "trust": "kernel elaboration at trust 0",
+      "formal_anchor": "statement-transport"
+    },
+    {
+      "node_id": "N3-stable-equivalence-input",
+      "kind": "hypothesis",
+      "type": "Nonempty (k[X][X] ≃ₐ[k] B[X])",
+      "provenance": "universal cancellation input",
+      "trust": "caller-supplied hypothesis",
+      "formal_anchor": "machine-composition"
+    },
+    {
+      "node_id": "N4-composition",
+      "kind": "inference",
+      "type": "the quantified closure specializes to B and consumes the stable equivalence",
+      "provenance": "cancellation_application",
+      "trust": "kernel-checked application",
+      "formal_anchor": "machine-composition"
+    },
+    {
+      "node_id": "N5-closure",
+      "kind": "output",
+      "type": "Nonempty (k[X] ≃ₐ[k] B), universally quantified in B",
+      "provenance": "cancellation_composition plus bidirectional audit",
+      "trust": "trust-zero Lean closure",
+      "formal_anchor": "independent-audit"
+    }
+  ],
+  "edges": [
+    {"from": "N1-frozen-statement", "to": "N2-transparent-expansion", "relation": "definitionally_expands"},
+    {"from": "N2-transparent-expansion", "to": "N4-composition", "relation": "types"},
+    {"from": "N3-stable-equivalence-input", "to": "N4-composition", "relation": "consumed_by"},
+    {"from": "N4-composition", "to": "N5-closure", "relation": "produces"}
+  ],
+  "composition_complete": true,
+  "provenance_complete": true,
+  "trust_boundaries_complete": true,
+  "remaining_cut_set": []
+}

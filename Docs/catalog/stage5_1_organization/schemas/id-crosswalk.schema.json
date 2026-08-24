@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://awesome-theorems.invalid/stage5-1-organization/schemas/id-crosswalk.schema.json",
+  "title": "Stage5 to Stage5.1 mathematical member crosswalk JSONL row",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "object_id", "object_kind", "legacy_item_id", "stage51_item_id",
+    "mapping_type", "identity_sha256", "stage5_claim_id", "variant_id", "pool_id",
+    "source_record_sha256", "legacy_task_authority_sha256", "legacy_state",
+    "stage51_initial_state", "state_transfer", "record_sha256"
+  ],
+  "properties": {
+    "schema_version": {"$ref": "common.schema.json#/$defs/schema_version"},
+    "object_id": {"$ref": "common.schema.json#/$defs/object_id"},
+    "object_kind": {"$ref": "common.schema.json#/$defs/member_kind"},
+    "legacy_item_id": {"$ref": "common.schema.json#/$defs/legacy_item_id"},
+    "stage51_item_id": {"$ref": "common.schema.json#/$defs/member_item_id"},
+    "mapping_type": {"const": "exact_member_successor"},
+    "identity_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+    "stage5_claim_id": {
+      "oneOf": [{"$ref": "common.schema.json#/$defs/stage5_claim_id"}, {"type": "null"}]
+    },
+    "variant_id": {
+      "oneOf": [{"$ref": "common.schema.json#/$defs/variant_id"}, {"type": "null"}]
+    },
+    "pool_id": {
+      "oneOf": [{"$ref": "common.schema.json#/$defs/pool_id"}, {"type": "null"}]
+    },
+    "source_record_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+    "legacy_task_authority_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+    "legacy_state": {"$ref": "common.schema.json#/$defs/legacy_state"},
+    "stage51_initial_state": {"$ref": "common.schema.json#/$defs/stage51_initial_state"},
+    "state_transfer": {"const": "evidence_only_revalidation_required"},
+    "record_sha256": {"$ref": "common.schema.json#/$defs/sha256"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"object_kind": {"const": "theorem"}}, "required": ["object_kind"]},
+      "then": {
+        "properties": {
+          "object_id": {"pattern": "^S51-THM-[0-9]{8}$"},
+          "stage51_item_id": {"pattern": "^S51THM-[0-9]{8}-TARGET$"},
+          "legacy_item_id": {"pattern": "^S5THM-[0-9]{8}-TARGET$"},
+          "stage5_claim_id": {"$ref": "common.schema.json#/$defs/stage5_claim_id"},
+          "variant_id": {"$ref": "common.schema.json#/$defs/variant_id"},
+          "pool_id": {"type": "null"}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"object_kind": {"const": "strict_conjecture"}}, "required": ["object_kind"]},
+      "then": {
+        "properties": {
+          "object_id": {"pattern": "^S51-CON-[0-9]{8}$"},
+          "stage51_item_id": {"pattern": "^S51CON-[0-9]{8}-TARGET$"},
+          "legacy_item_id": {"pattern": "^S5CON-[0-9]{8}-TARGET$"},
+          "stage5_claim_id": {"$ref": "common.schema.json#/$defs/stage5_claim_id"},
+          "variant_id": {"$ref": "common.schema.json#/$defs/variant_id"},
+          "pool_id": {"type": "null"}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"object_kind": {"const": "source_occurrence"}}, "required": ["object_kind"]},
+      "then": {
+        "properties": {
+          "object_id": {"pattern": "^S51-OCC-[0-9]{8}$"},
+          "stage51_item_id": {"pattern": "^S51CON-POOL-[0-9]{8}-INTAKE$"},
+          "legacy_item_id": {"pattern": "^S5CON-POOL-[0-9]{8}-INTAKE$"},
+          "stage5_claim_id": {"type": "null"},
+          "variant_id": {"type": "null"},
+          "pool_id": {"$ref": "common.schema.json#/$defs/pool_id"}
+        }
+      }
+    }
+  ]
+}

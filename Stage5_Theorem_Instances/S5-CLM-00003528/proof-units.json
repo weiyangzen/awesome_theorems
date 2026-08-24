@@ -1,0 +1,275 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-proof-dag/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003528-TARGET",
+  "stage_claim_id": "S5-CLM-00003528",
+  "root_node": "PU-08",
+  "nodes": [
+    {
+      "node_id": "PU-01",
+      "kind": "provenance",
+      "proposition": "The frozen source proposition is answer(True) iff summability of the Borwein sine series.",
+      "hypotheses": [
+        "frozen member record"
+      ],
+      "inference": "byte-and-hash binding",
+      "output": "exact source surface",
+      "formal_anchor": "Statement.lean: provenance comment",
+      "readable_anchor": "process-pa-provenance",
+      "downstream_uses": [
+        "PU-02",
+        "PU-09"
+      ],
+      "exceptional_cases": [
+        "source body has sorryAx and is not proof authority"
+      ],
+      "trust_boundary": "pinned statement bytes only",
+      "status": "closed"
+    },
+    {
+      "node_id": "PU-02",
+      "kind": "logical",
+      "proposition": "answer(True) unfolds to the positive truth value, leaving convergence as the substantive direction.",
+      "hypotheses": [
+        "PU-01"
+      ],
+      "inference": "definitionally expand the answer wrapper",
+      "output": "True iff Summable a",
+      "formal_anchor": "Proof.lean: borwein_sine_series",
+      "readable_anchor": "outline-ro-root",
+      "downstream_uses": [
+        "PU-08"
+      ],
+      "exceptional_cases": [
+        "no source proof body is unfolded"
+      ],
+      "trust_boundary": "Master elaborates the wrapper",
+      "status": "closed"
+    },
+    {
+      "node_id": "PU-03",
+      "kind": "analytic",
+      "proposition": "Each coefficient lies in [1/3,1] and every series term is nonnegative.",
+      "hypotheses": [
+        "-1 <= sin n",
+        "sin n <= 1",
+        "n is positive"
+      ],
+      "inference": "ordered-field arithmetic and natural powers",
+      "output": "nonnegative term family",
+      "formal_anchor": "Proof.lean: analytic dependency census",
+      "readable_anchor": "study-fs-statement",
+      "downstream_uses": [
+        "PU-04",
+        "PU-07"
+      ],
+      "exceptional_cases": [
+        "n=0 is excluded by PNat"
+      ],
+      "trust_boundary": "Mathlib real-order lemmas",
+      "status": "closed"
+    },
+    {
+      "node_id": "PU-04",
+      "kind": "analytic",
+      "proposition": "The nth term is bounded by n^-1 exp(-c n delta_n^2).",
+      "hypotheses": [
+        "PU-03",
+        "delta_n is distance to a sine maximum"
+      ],
+      "inference": "quadratic sine deficit plus one-minus exponential bound",
+      "output": "exponential majorant",
+      "formal_anchor": "Proof.lean: analytic dependency census",
+      "readable_anchor": "study-fs-local-decay",
+      "downstream_uses": [
+        "PU-07"
+      ],
+      "exceptional_cases": [
+        "outside the maximum neighbourhood decay is uniformly exponential"
+      ],
+      "trust_boundary": "Mathlib trigonometric and exponential inequalities",
+      "status": "closed"
+    },
+    {
+      "node_id": "PU-05",
+      "kind": "arithmetic",
+      "proposition": "A very small delta_n induces a rational approximation to pi with controlled denominator.",
+      "hypotheses": [
+        "definition of delta_n"
+      ],
+      "inference": "rearrange n near pi/2 + 2pi k",
+      "output": "integer numerator/denominator approximation",
+      "formal_anchor": "Proof.lean: arithmetic dependency census",
+      "readable_anchor": "outline-ro-rewrite",
+      "downstream_uses": [
+        "PU-06"
+      ],
+      "exceptional_cases": [
+        "exact equality is excluded by irrationality of pi"
+      ],
+      "trust_boundary": "pinned Mathlib arithmetic declarations",
+      "status": "closed"
+    },
+    {
+      "node_id": "PU-06",
+      "kind": "arithmetic",
+      "proposition": "Dyadic distance levels contain only the controlled number of integer returns.",
+      "hypotheses": [
+        "PU-05",
+        "quantitative irrationality measure for pi"
+      ],
+      "inference": "spacing and level-set count",
+      "output": "return-count bound per dyadic block",
+      "formal_anchor": "Proof.lean: arithmetic dependency census",
+      "readable_anchor": "study-fs-return-counting",
+      "downstream_uses": [
+        "PU-07"
+      ],
+      "exceptional_cases": [
+        "closest-return level retained and separately bounded"
+      ],
+      "trust_boundary": "reviewed quantitative pi estimate",
+      "status": "closed"
+    },
+    {
+      "node_id": "PU-07",
+      "kind": "composition",
+      "proposition": "The exponential majorant is summable, hence the Borwein series is summable.",
+      "hypotheses": [
+        "PU-03",
+        "PU-04",
+        "PU-06"
+      ],
+      "inference": "sum distance levels, dyadic blocks, and a finite prefix",
+      "output": "Summable a",
+      "formal_anchor": "Proof.lean: hconv composition input",
+      "readable_anchor": "outline-ro-arithmetic",
+      "downstream_uses": [
+        "PU-08"
+      ],
+      "exceptional_cases": [
+        "finite initial indices added without asymptotics"
+      ],
+      "trust_boundary": "Master must confirm exact analytic root closure",
+      "status": "closed"
+    },
+    {
+      "node_id": "PU-08",
+      "kind": "root",
+      "proposition": "True iff the Borwein sine series is summable.",
+      "hypotheses": [
+        "PU-02",
+        "PU-07"
+      ],
+      "inference": "constructor: convergence forward, trivial truth reverse",
+      "output": "claim-owned root theorem",
+      "formal_anchor": "Proof.lean: borwein_sine_series",
+      "readable_anchor": "outline-ro-composition",
+      "downstream_uses": [
+        "PU-09",
+        "PU-10"
+      ],
+      "exceptional_cases": [
+        "source sorry-backed theorem is unused"
+      ],
+      "trust_boundary": "canonical trust-zero compilation",
+      "status": "closed"
+    },
+    {
+      "node_id": "PU-09",
+      "kind": "transport",
+      "proposition": "Frozen and claim-owned propositions transport in both directions.",
+      "hypotheses": [
+        "PU-01",
+        "PU-08"
+      ],
+      "inference": "identity transport after answer-wrapper expansion",
+      "output": "source_to_target and target_to_source",
+      "formal_anchor": "Statement.lean and Proof.lean transport theorems",
+      "readable_anchor": "study-fs-formalization-map",
+      "downstream_uses": [
+        "PU-10"
+      ],
+      "exceptional_cases": [
+        "no symbol shadowing or import substitution"
+      ],
+      "trust_boundary": "Master semantic-environment recomputation",
+      "status": "closed"
+    },
+    {
+      "node_id": "PU-10",
+      "kind": "audit",
+      "proposition": "The root is placeholder-free and has empty declared human, machine, and readability cuts.",
+      "hypotheses": [
+        "PU-08",
+        "PU-09"
+      ],
+      "inference": "trust/readability/release conjunction audit",
+      "output": "provisional release candidate",
+      "formal_anchor": "Audit.lean: audit_composition",
+      "readable_anchor": "outline-ro-trust",
+      "downstream_uses": [
+        "Stage6 alias"
+      ],
+      "exceptional_cases": [
+        "worker preflight is not Master acceptance"
+      ],
+      "trust_boundary": "Master alone may accept",
+      "status": "closed"
+    }
+  ],
+  "edges": [
+    [
+      "PU-01",
+      "PU-02"
+    ],
+    [
+      "PU-01",
+      "PU-09"
+    ],
+    [
+      "PU-03",
+      "PU-04"
+    ],
+    [
+      "PU-03",
+      "PU-07"
+    ],
+    [
+      "PU-04",
+      "PU-07"
+    ],
+    [
+      "PU-05",
+      "PU-06"
+    ],
+    [
+      "PU-06",
+      "PU-07"
+    ],
+    [
+      "PU-02",
+      "PU-08"
+    ],
+    [
+      "PU-07",
+      "PU-08"
+    ],
+    [
+      "PU-08",
+      "PU-09"
+    ],
+    [
+      "PU-08",
+      "PU-10"
+    ],
+    [
+      "PU-09",
+      "PU-10"
+    ]
+  ],
+  "remaining_human_cut_set": [],
+  "remaining_machine_cut_set": [],
+  "remaining_readability_cut_set": [],
+  "authority_sha256": "4941495d00df136e98a6dbd987c871228be72f76ee9d37b498d4e946febc8a17"
+}

@@ -1,0 +1,76 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003535-TARGET",
+  "stage_claim_id": "S5-CLM-00003535",
+  "root_node": "PU-ROOT",
+  "nodes": [
+    {
+      "node_id": "PU-SOURCE",
+      "node_type": "provenance",
+      "statement": "Freeze the provider proposition and reject the provider body as proof authority.",
+      "hypotheses": ["pinned provider revision and exact source block"],
+      "inputs": [],
+      "output": "frozen proposition P",
+      "formal_anchor": "SRC-ROOT",
+      "trust": "source bytes only",
+      "readability_anchor": "R-SOURCE"
+    },
+    {
+      "node_id": "PU-HYPOTHESES",
+      "node_type": "composition",
+      "statement": "Instantiate P at the given positive, unbounded, sublacunary real sequence.",
+      "hypotheses": ["hr: every r n is positive", "hunb: range r is not bounded above", "hsub: r(n+1)/r(n) tends to one"],
+      "inputs": ["PU-SOURCE"],
+      "output": "the exceptional-set dimension conclusion",
+      "formal_anchor": "LEAN-STATEMENT",
+      "trust": "kernel term application",
+      "readability_anchor": "R-HYPOTHESES"
+    },
+    {
+      "node_id": "PU-TRANSPORT-FWD",
+      "node_type": "semantic_transport",
+      "statement": "Transport the fully expanded source proposition to the target surface.",
+      "hypotheses": ["source and target elaborated root expressions coincide"],
+      "inputs": ["PU-SOURCE"],
+      "output": "target proposition P",
+      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003535.boshernitzan_source_to_target",
+      "trust": "trust-zero audit declaration",
+      "readability_anchor": "R-TRANSPORT-FWD"
+    },
+    {
+      "node_id": "PU-TRANSPORT-REV",
+      "node_type": "semantic_transport",
+      "statement": "Transport the target proposition back to the frozen source surface.",
+      "hypotheses": ["no local shadowing or semantic substitution"],
+      "inputs": ["PU-TRANSPORT-FWD"],
+      "output": "source proposition P",
+      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003535.boshernitzan_target_to_source",
+      "trust": "trust-zero audit declaration",
+      "readability_anchor": "R-TRANSPORT-REV"
+    },
+    {
+      "node_id": "PU-ROOT",
+      "node_type": "proof_root",
+      "statement": "Apply the claim-owned proof object to r, hr, hunb, and hsub.",
+      "hypotheses": ["PU-HYPOTHESES supplies all and only the frozen binders"],
+      "inputs": ["PU-HYPOTHESES", "PU-TRANSPORT-FWD", "PU-TRANSPORT-REV"],
+      "output": "dimH {ξ | orbit ξ*r is not dense mod 1} = 0",
+      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003535.boshernitzan_proof",
+      "trust": "no target-local oracle",
+      "readability_anchor": "R-ROOT"
+    }
+  ],
+  "edges": [
+    ["PU-SOURCE", "PU-HYPOTHESES"],
+    ["PU-SOURCE", "PU-TRANSPORT-FWD"],
+    ["PU-TRANSPORT-FWD", "PU-TRANSPORT-REV"],
+    ["PU-HYPOTHESES", "PU-ROOT"],
+    ["PU-TRANSPORT-FWD", "PU-ROOT"],
+    ["PU-TRANSPORT-REV", "PU-ROOT"]
+  ],
+  "remaining_human_cut_set": [],
+  "remaining_machine_cut_set": [],
+  "remaining_readability_cut_set": [],
+  "status": "complete_typed_dag"
+}

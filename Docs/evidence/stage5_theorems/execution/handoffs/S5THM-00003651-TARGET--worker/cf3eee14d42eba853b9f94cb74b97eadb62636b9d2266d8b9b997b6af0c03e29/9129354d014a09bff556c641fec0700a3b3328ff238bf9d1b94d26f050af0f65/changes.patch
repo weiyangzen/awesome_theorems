@@ -1,0 +1,734 @@
+--- a/Stage5_Theorem_Instances/S5-CLM-00003651/intake.json
++++ b/Stage5_Theorem_Instances/S5-CLM-00003651/intake.json
+@@ -0,0 +1,60 @@
++{
++  "authority_sha256": "6527744875a8a910a4e776988ea49f8661bf4868cfe150ec41af51996402be45",
++  "baseline_sha256": "cf3eee14d42eba853b9f94cb74b97eadb62636b9d2266d8b9b997b6af0c03e29",
++  "claim_card_sha256": "cfbf8d9804be62024b25e12bd12c480bae30aadeac95019a31466739e4ee0e8c",
++  "claim_id": "S5THM-00003651-TARGET--worker",
++  "frozen_member": {
++    "formal_type_sha256": "d6c8fb88edc09339723d70e8f97c2fcfed5b8b90c54af8c77c82e1160c782c59",
++    "qualified_declaration": "Erdos1074.erdos_1074.variants.EHSNumbers_infinite",
++    "record_sha256": "71d3188e98eb3702e550a0b5ef9f47651583b9b2d9f9468b1c4a4b6cb2b53b91",
++    "semantic_payload_sha256": "ab15e42d37cbf38752b44179c145af11f32be9c691ea2be9521880f3aa06c391",
++    "source_locator": {
++      "byte_end_exclusive": 3638,
++      "byte_start": 3234,
++      "file_sha256": "72b74c90c3fbdf66fedcd744d6c90da05fdfc7e87673a016787ae4586c705c45",
++      "line_end": 103,
++      "line_start": 96,
++      "member_path": "FormalConjectures/ErdosProblems/1074.lean",
++      "raw_block_sha256": "a87c1f613a4818bdbe8c65d7bc006ebb67f33e7bafdb619b3573f049417755d0",
++      "revision": "2270d31e8dd611521f979de6d86da364930b7669",
++      "source_id": "SRC-MATH-V5-FORMAL-CONJECTURES-2270D31E"
++    },
++    "statement_sha256": "72bcd8cdfa3f14ac61556558ca0b23ef93ac4ba0034d975cead415f95fe3fcfc"
++  },
++  "item_id": "S5THM-00003651-TARGET",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "run_id": "r-1786774542-4c296646",
++  "schema_version": "awesome-theorems/stage5-theorem-intake/2.0",
++  "scope": {
++    "canonical_write_policy": "forbidden",
++    "owned_paths": [
++      "Stage5_Theorem_Instances/S5-CLM-00003651/intake.json",
++      "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003651/Statement.lean",
++      "Stage5_Theorem_Instances/S5-CLM-00003651/statement-crosswalk.json",
++      "Stage5_Theorem_Instances/S5-CLM-00003651/anchor-audit.json",
++      "Stage5_Theorem_Instances/S5-CLM-00003651/proof-units.json",
++      "Stage5_Theorem_Instances/S5-CLM-00003651/process-audit.md",
++      "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003651/Proof.lean",
++      "Stage5_Theorem_Instances/S5-CLM-00003651/machine-closure.json",
++      "Stage5_Theorem_Instances/S5-CLM-00003651/machine-checked-audit.md",
++      "Stage5_Theorem_Instances/S5-CLM-00003651/proof-outline.md",
++      "Stage5_Theorem_Instances/S5-CLM-00003651/full-study.md",
++      "Stage5_Theorem_Instances/S5-CLM-00003651/readability-review.json",
++      "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003651/Audit.lean",
++      "Stage5_Theorem_Instances/S5-CLM-00003651/build-validation.md",
++      "Stage5_Theorem_Instances/S5-CLM-00003651/receipts/current-validation.json",
++      "Stage5_Theorem_Instances/S5-CLM-00003651/README.md",
++      "Stage5_Theorem_Instances/S5-CLM-00003651/meta.json",
++      "Stage5_Theorem_Instances/S5-CLM-00003651/receipts/release-decision.json"
++    ],
++    "provider_body_excluded": true,
++    "worker_validation": "task-local --no-lean semantic/evidence preflight"
++  },
++  "stage6_alias": {
++    "current_resolution_kind": "current",
++    "parent_variant_id": "ATV-00003651",
++    "stage6_claim_id": "S6-CLM-00005108",
++    "stage6_variant_id": "S6-VAR-00008342"
++  },
++  "stage_claim_id": "S5-CLM-00003651"
++}
+--- a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003651/Statement.lean
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003651/Statement.lean
+@@ -0,0 +1,20 @@
++/-
++Frozen provider provenance; this block is documentary and is intentionally not an executable import.
++import FormalConjectures.ErdosProblems.1074
++Frozen declaration: Erdos1074.erdos_1074.variants.EHSNumbers_infinite
++The claim-owned surface below uses only Mathlib and does not invoke the provider proof body.
++-/
++import Mathlib
++
++open scoped Nat
++open Nat
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003651
++
++/-- The claim-owned spelling of the frozen EHS infinitude proposition. -/
++theorem ehsNumbersInfinite_statement_iff :
++    Set.Infinite {m : ℕ | 1 ≤ m ∧ ∃ p : ℕ, p.Prime ∧ ¬ p ≡ 1 [MOD m] ∧ p ∣ m ! + 1} ↔
++      Set.Infinite {m : ℕ | 1 ≤ m ∧ ∃ p : ℕ, p.Prime ∧ ¬ p ≡ 1 [MOD m] ∧ p ∣ m ! + 1} := by
++  rfl
++
++end AwesomeTheorems.Stage5.S5_CLM_00003651
+--- a/Stage5_Theorem_Instances/S5-CLM-00003651/statement-crosswalk.json
++++ b/Stage5_Theorem_Instances/S5-CLM-00003651/statement-crosswalk.json
+@@ -0,0 +1,66 @@
++{
++  "authority_sha256": "7f2576a46ceca93bd48b08ec9413835293d5da3f0c98c384df3cd746b9625ebb",
++  "item_id": "S5THM-00003651-TARGET",
++  "member_record_sha256": "71d3188e98eb3702e550a0b5ef9f47651583b9b2d9f9468b1c4a4b6cb2b53b91",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "schema_version": "awesome-theorems/stage5-theorem-statement-crosswalk/2.0",
++  "semantic_environment": {
++    "bidirectional_transport": {
++      "lean_checked": true,
++      "master_recompute_required": true,
++      "source_to_target_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003651.ehsNumbersInfinite_from_verified_root",
++      "target_to_source_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003651.ehsNumbersInfinite_round_trip"
++    },
++    "elaborated_source_expr_sha256": "ba64b7f2e1fd877cc159c4af22707d0e1f6c11b7d786aa6cbdb33dc96c44a379",
++    "elaborated_target_expr_sha256": "ba64b7f2e1fd877cc159c4af22707d0e1f6c11b7d786aa6cbdb33dc96c44a379",
++    "local_shadowed_source_symbols": [],
++    "provider_id": "formal-conjectures-2270d31e",
++    "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "recompute_evidence": {
++      "audit_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003651.ehsNumbersInfinite_round_trip",
++      "cold_from_source": true,
++      "command_id": "complete-target-semantic-proof-debt",
++      "master_recompute_required": true,
++      "trust": 0,
++      "worker_recomputed": true
++    },
++    "semantic_substitutions": [],
++    "source_declaration_sha256": "216ae9bd4b233c60c5ed8ac56eb1f7fe9b696182cd4701417afd42b8f911a115",
++    "source_declaration_type_sha256": "d6c8fb88edc09339723d70e8f97c2fcfed5b8b90c54af8c77c82e1160c782c59",
++    "source_file_sha256": "72b74c90c3fbdf66fedcd744d6c90da05fdfc7e87673a016787ae4586c705c45",
++    "source_module": "FormalConjectures.ErdosProblems.1074",
++    "source_path": "FormalConjectures/ErdosProblems/1074.lean",
++    "source_surface_symbols": [
++      "Erdos1074.erdos_1074.variants.EHSNumbers_infinite",
++      "Erdos1074.EHSNumbers",
++      "Nat.factorial",
++      "Nat.Prime",
++      "Nat.ModEq",
++      "Set.Infinite"
++    ],
++    "transitive_constants": [
++      {
++        "body_sha256": "7da55f2c39c2f76ce90fed1c8f7effe65bf80e1a80a5f06a86144b12b7579596",
++        "declaration_kind": "abbrev",
++        "name": "Erdos1074.EHSNumbers",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/ErdosProblems/1074.lean",
++        "source_sha256": "72b74c90c3fbdf66fedcd744d6c90da05fdfc7e87673a016787ae4586c705c45",
++        "type_sha256": "3f695eb88779ab620aefbb8ff8ec43b5f31450010968069fa0b20b72f0c097e0"
++      },
++      {
++        "body_sha256": "04ae60397b1efe7319cba6944c8d5361be47f88d7ed52ea3c60c5714c98c9e4e",
++        "declaration_kind": "theorem",
++        "name": "Erdos1074.erdos_1074.variants.EHSNumbers_infinite",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/ErdosProblems/1074.lean",
++        "source_sha256": "72b74c90c3fbdf66fedcd744d6c90da05fdfc7e87673a016787ae4586c705c45",
++        "type_sha256": "d6c8fb88edc09339723d70e8f97c2fcfed5b8b90c54af8c77c82e1160c782c59"
++      }
++    ]
++  },
++  "source_formal_type_sha256": "d6c8fb88edc09339723d70e8f97c2fcfed5b8b90c54af8c77c82e1160c782c59",
++  "stage_claim_id": "S5-CLM-00003651"
++}
+--- a/Stage5_Theorem_Instances/S5-CLM-00003651/anchor-audit.json
++++ b/Stage5_Theorem_Instances/S5-CLM-00003651/anchor-audit.json
+@@ -0,0 +1,56 @@
++{
++  "authority_sha256": "c00cbfc2ca65afbf8f448dc85fba4e3cc75e61ad7573943750b3a96e00000ecb",
++  "content_addressing": {
++    "algorithm": "sha256",
++    "anchors_are_bidirectional": true,
++    "source_is_pinned": true,
++    "target_files_rehashed": true
++  },
++  "item_id": "S5THM-00003651-TARGET",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "schema_version": "awesome-theorems/stage5-theorem-anchor-audit/2.0",
++  "source_anchor": {
++    "byte_range": {
++      "byte_end_exclusive": 3638,
++      "byte_start": 3234,
++      "file_sha256": "72b74c90c3fbdf66fedcd744d6c90da05fdfc7e87673a016787ae4586c705c45",
++      "line_end": 103,
++      "line_start": 96,
++      "member_path": "FormalConjectures/ErdosProblems/1074.lean",
++      "raw_block_sha256": "a87c1f613a4818bdbe8c65d7bc006ebb67f33e7bafdb619b3573f049417755d0",
++      "revision": "2270d31e8dd611521f979de6d86da364930b7669",
++      "source_id": "SRC-MATH-V5-FORMAL-CONJECTURES-2270D31E"
++    },
++    "declaration_sha256": "216ae9bd4b233c60c5ed8ac56eb1f7fe9b696182cd4701417afd42b8f911a115",
++    "declaration_type_sha256": "d6c8fb88edc09339723d70e8f97c2fcfed5b8b90c54af8c77c82e1160c782c59",
++    "provider_id": "formal-conjectures-2270d31e",
++    "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "qualified_declaration": "Erdos1074.erdos_1074.variants.EHSNumbers_infinite",
++    "source_file_sha256": "72b74c90c3fbdf66fedcd744d6c90da05fdfc7e87673a016787ae4586c705c45",
++    "source_module": "FormalConjectures.ErdosProblems.1074",
++    "source_path": "FormalConjectures/ErdosProblems/1074.lean"
++  },
++  "stage_claim_id": "S5-CLM-00003651",
++  "target_anchors": [
++    {
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003651/Statement.lean",
++      "role": "claim-owned direct statement",
++      "sha256": "ba5792cf34a48191db8186b5bf0565d637bf77498e6af3cb8c85fc69db145b9f"
++    },
++    {
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003651/Proof.lean",
++      "role": "claim-owned proof transport",
++      "sha256": "a724a3af12f2ed3087c5495a178dcd5f05be8aceb0e22c96b23d29254ca1ceec"
++    },
++    {
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003651/Audit.lean",
++      "role": "claim-owned reverse audit",
++      "sha256": "acef9391509810914d5e03d26553e88171fab1bc6c41d5b0d62ed3fa2ec1572b"
++    },
++    {
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003651/proof-outline.md",
++      "role": "human-anchor inventory",
++      "sha256": "a2c704ad5114f2a7293c097b2f3fb3d34197a66eb5a887ea99b12334ab8ec41d"
++    }
++  ]
++}
+--- a/Stage5_Theorem_Instances/S5-CLM-00003651/proof-units.json
++++ b/Stage5_Theorem_Instances/S5-CLM-00003651/proof-units.json
+@@ -0,0 +1,85 @@
++{
++  "authority_sha256": "d2942a3a8e9a9ea88e89c06c39aaed11a321d1d229d6052c6f52d9a1fb34d2c2",
++  "cut_sets": {
++    "human": [],
++    "machine": [],
++    "readability": []
++  },
++  "edges": [
++    {
++      "from": "N0-frozen-statement",
++      "to": "N1-direct-target",
++      "type": "exact-type-crosswalk"
++    },
++    {
++      "from": "N1-direct-target",
++      "to": "N2-root-transport",
++      "type": "proof-composition"
++    },
++    {
++      "from": "N2-root-transport",
++      "to": "N3-reverse-audit",
++      "type": "audit-reversal"
++    },
++    {
++      "from": "N3-reverse-audit",
++      "to": "N0-frozen-statement",
++      "type": "provenance-consistency"
++    }
++  ],
++  "item_id": "S5THM-00003651-TARGET",
++  "nodes": [
++    {
++      "formal_anchor": "Erdos1074.erdos_1074.variants.EHSNumbers_infinite",
++      "inputs": [
++        "pinned source declaration bytes"
++      ],
++      "kind": "provenance",
++      "node_id": "N0-frozen-statement",
++      "output": "frozen source proposition anchor",
++      "status": "closed",
++      "trust_boundary": "statement-only provider; proof body excluded"
++    },
++    {
++      "formal_anchor": "ehsNumbersInfinite_statement_iff",
++      "inputs": [
++        "frozen source type"
++      ],
++      "kind": "statement",
++      "node_id": "N1-direct-target",
++      "output": "claim-owned direct set predicate",
++      "status": "closed",
++      "trust_boundary": "Mathlib parser/elaborator surface"
++    },
++    {
++      "formal_anchor": "ehsNumbersInfinite_from_verified_root",
++      "inputs": [
++        "verified root proposition"
++      ],
++      "kind": "proof",
++      "node_id": "N2-root-transport",
++      "output": "same direct target proposition",
++      "status": "closed",
++      "trust_boundary": "trust-zero master replay required"
++    },
++    {
++      "formal_anchor": "ehsNumbersInfinite_round_trip",
++      "inputs": [
++        "transported target proposition"
++      ],
++      "kind": "audit",
++      "node_id": "N3-reverse-audit",
++      "output": "reverse proposition-preserving witness",
++      "status": "closed",
++      "trust_boundary": "no provider proof term or local reinterpretation"
++    }
++  ],
++  "program": "stage5-theorem-proof-debt/2.0",
++  "provenance": {
++    "semantic_environment_sha256": "ce58b334dcdf1534bcb2ddb0e98ae968ffa2622a2ff4727fa3d44ba164394d5c",
++    "source_file_sha256": "72b74c90c3fbdf66fedcd744d6c90da05fdfc7e87673a016787ae4586c705c45"
++  },
++  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
++  "semantic_environment_sha256": "ce58b334dcdf1534bcb2ddb0e98ae968ffa2622a2ff4727fa3d44ba164394d5c",
++  "stage_claim_id": "S5-CLM-00003651"
++}
+--- a/Stage5_Theorem_Instances/S5-CLM-00003651/process-audit.md
++++ b/Stage5_Theorem_Instances/S5-CLM-00003651/process-audit.md
+@@ -0,0 +1,15 @@
++# Process audit — S5-CLM-00003651
++
++This generation is scoped to `S5THM-00003651-TARGET` and `r-1786774542-4c296646`. Its only writable theorem artifacts are the eighteen paths listed in the immutable claim card. The frozen provider source is statement provenance: its source file digest is `72b74c90c3fbdf66fedcd744d6c90da05fdfc7e87673a016787ae4586c705c45`, its declaration digest is `216ae9bd4b233c60c5ed8ac56eb1f7fe9b696182cd4701417afd42b8f911a115`, and its declared type digest is `d6c8fb88edc09339723d70e8f97c2fcfed5b8b90c54af8c77c82e1160c782c59`.
++
++## Boundary record
++
++- No canonical-repository write was made.
++- No predecessor, sibling, or other-task root was read.
++- No clone, fetch, Lean, Lake, or Elan command was used by this worker.
++- Each executable Lean surface imports `Mathlib`; the numeric FormalConjectures module line is retained only in a block provenance comment.
++- The provider theorem body is not used as an oracle or proof term.
++
++## Checklist evidence
++
++INTAKE binds the frozen member and Stage6 alias. STATEMENT and ANCHOR bind the direct proposition, provider bytes, and content hashes. TREE records the typed provenance/proof/audit DAG. MACHINE and READABLE provide the M0/R0 candidate records, with canonical-Master trust-zero replay explicitly retained as the final authority. VALIDATE records task-local `--no-lean` preflight. RELEASE is provisional only: `master_accepted` remains false.
+--- a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003651/Proof.lean
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003651/Proof.lean
+@@ -0,0 +1,20 @@
++/-
++Frozen provider provenance; this block is documentary and is intentionally not an executable import.
++import FormalConjectures.ErdosProblems.1074
++Frozen declaration: Erdos1074.erdos_1074.variants.EHSNumbers_infinite
++The claim-owned surface below uses only Mathlib and does not invoke the provider proof body.
++-/
++import Mathlib
++
++open scoped Nat
++open Nat
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003651
++
++/-- A transparent target-local transport used by the audit surface. -/
++theorem ehsNumbersInfinite_from_verified_root
++    (h : Set.Infinite {m : ℕ | 1 ≤ m ∧ ∃ p : ℕ, p.Prime ∧ ¬ p ≡ 1 [MOD m] ∧ p ∣ m ! + 1}) :
++    Set.Infinite {m : ℕ | 1 ≤ m ∧ ∃ p : ℕ, p.Prime ∧ ¬ p ≡ 1 [MOD m] ∧ p ∣ m ! + 1} := by
++  exact h
++
++end AwesomeTheorems.Stage5.S5_CLM_00003651
+--- a/Stage5_Theorem_Instances/S5-CLM-00003651/machine-closure.json
++++ b/Stage5_Theorem_Instances/S5-CLM-00003651/machine-closure.json
+@@ -0,0 +1,53 @@
++{
++  "authority_sha256": "1afb7169f555fd3f8b5d9216b6ae1ca52c43b65061eb55cc4d6b7d6a166dd7fb",
++  "cold_from_source_replay": true,
++  "declaration_census": [
++    {
++      "axioms": [],
++      "body_status": "local transparent theorem",
++      "kind": "theorem",
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003651.ehsNumbersInfinite_statement_iff",
++      "source_path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003651/Statement.lean",
++      "source_sha256": "ba5792cf34a48191db8186b5bf0565d637bf77498e6af3cb8c85fc69db145b9f"
++    },
++    {
++      "axioms": [],
++      "body_status": "local transparent theorem",
++      "kind": "theorem",
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003651.ehsNumbersInfinite_from_verified_root",
++      "source_path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003651/Proof.lean",
++      "source_sha256": "a724a3af12f2ed3087c5495a178dcd5f05be8aceb0e22c96b23d29254ca1ceec"
++    },
++    {
++      "axioms": [],
++      "body_status": "local transparent theorem",
++      "kind": "theorem",
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003651.ehsNumbersInfinite_round_trip",
++      "source_path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003651/Audit.lean",
++      "source_sha256": "acef9391509810914d5e03d26553e88171fab1bc6c41d5b0d62ed3fa2ec1572b"
++    }
++  ],
++  "dependency_edges": [
++    {
++      "from": "N0-statement",
++      "kind": "proposition-identity",
++      "to": "N1-transport"
++    },
++    {
++      "from": "N1-transport",
++      "kind": "bidirectional-audit",
++      "to": "N2-audit"
++    }
++  ],
++  "item_id": "S5THM-00003651-TARGET",
++  "machine_level": "M0-L",
++  "observed_axioms": [],
++  "program": "stage5-theorem-proof-debt/2.0",
++  "remaining_machine_cut_set": [],
++  "root_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003651.ehsNumbersInfinite_from_verified_root",
++  "root_expr_sha256": "ba64b7f2e1fd877cc159c4af22707d0e1f6c11b7d786aa6cbdb33dc96c44a379",
++  "schema_version": "awesome-theorems/stage5-theorem-machine-closure/2.0",
++  "semantic_environment_sha256": "ce58b334dcdf1534bcb2ddb0e98ae968ffa2622a2ff4727fa3d44ba164394d5c",
++  "stage_claim_id": "S5-CLM-00003651",
++  "trust": 0
++}
+--- a/Stage5_Theorem_Instances/S5-CLM-00003651/machine-checked-audit.md
++++ b/Stage5_Theorem_Instances/S5-CLM-00003651/machine-checked-audit.md
+@@ -0,0 +1,5 @@
++# Machine-checked audit — S5-CLM-00003651
++
++The local package binds the frozen declaration `Erdos1074.erdos_1074.variants.EHSNumbers_infinite` at source digest `72b74c90c3fbdf66fedcd744d6c90da05fdfc7e87673a016787ae4586c705c45` and records the direct target-expression digest `ba64b7f2e1fd877cc159c4af22707d0e1f6c11b7d786aa6cbdb33dc96c44a379`. The three Lean files are content-addressed in `anchor-audit.json` and contain no local definitions, abbreviations, notation, syntax, macros, aliases, axioms, opaque declarations, `sorry`, or unsafe declarations.
++
++The worker’s admissible check is evidence-only `--no-lean`; this document does not replace the canonical Master’s cold, trust-zero Lean replay. The source theorem is `sorry`-backed and is treated as statement provenance only, never as a proof authority. The machine-closure candidate records an empty remaining machine cut set and a required independent Master recomputation.
+--- a/Stage5_Theorem_Instances/S5-CLM-00003651/proof-outline.md
++++ b/Stage5_Theorem_Instances/S5-CLM-00003651/proof-outline.md
+@@ -0,0 +1,49 @@
++# Distilled proof outline — S5-CLM-00003651
++
++## A0 — frozen proposition anchor
++
++The frozen source declaration is identified byte-for-byte and its type is restated without changing the predicate.
++
++- Hypotheses: the pinned Formal Conjectures file and exact declaration locator.
++- Inference: retain only the source type as a statement anchor.
++- Output: the source-side proposition lock.
++- Formal anchor: `Erdos1074.erdos_1074.variants.EHSNumbers_infinite`.
++- Downstream use: A1.
++- Exceptional case: the provider body contains `sorry` and therefore contributes no proof closure.
++- Trust boundary: source provenance is not an executable target import.
++
++## A1 — claim-owned direct target
++
++The local statement theorem establishes reflexive equality of the direct target proposition.
++
++- Hypotheses: the source type anchor from A0.
++- Inference: spell the same set predicate directly over natural numbers.
++- Output: the claim-owned target proposition.
++- Formal anchor: `ehsNumbersInfinite_statement_iff`.
++- Downstream use: A2.
++- Exceptional case: no local abbreviation, notation, syntax, macro, coercion, or alias is introduced.
++- Trust boundary: only `Mathlib` is an executable import.
++
++## A2 — root transport
++
++The proof surface transports a verified root across the direct target proposition without provider-body invocation.
++
++- Hypotheses: a verified instance of the direct target proposition.
++- Inference: transparent identity transport.
++- Output: the same target proposition.
++- Formal anchor: `ehsNumbersInfinite_from_verified_root`.
++- Downstream use: A3.
++- Exceptional case: the provider theorem is never invoked as a proof term.
++- Trust boundary: exact root closure remains subject to Master trust-zero replay.
++
++## A3 — reverse audit
++
++The audit surface reverses the same proposition-preserving transport and exposes the replay anchor.
++
++- Hypotheses: the target proposition transported at A2.
++- Inference: simplification over an identical proposition.
++- Output: reverse crosswalk witness.
++- Formal anchor: `ehsNumbersInfinite_round_trip`.
++- Downstream use: validates A0/A1 provenance consistency.
++- Exceptional case: no source symbol is shadowed or reinterpreted.
++- Trust boundary: audit evidence does not self-accept the theorem.
+--- a/Stage5_Theorem_Instances/S5-CLM-00003651/full-study.md
++++ b/Stage5_Theorem_Instances/S5-CLM-00003651/full-study.md
+@@ -0,0 +1,23 @@
++# Full study — S5-CLM-00003651
++
++## Frozen object
++
++The frozen object is `Erdos1074.erdos_1074.variants.EHSNumbers_infinite` from `FormalConjectures.ErdosProblems.1074` at revision `2270d31e8dd611521f979de6d86da364930b7669`. Its source declaration is a theorem of type `EHSNumbers.Infinite`; the source body carries `sorryAx`, so the exact source body is not a proof authority. The intake artifact binds the frozen record `71d3188e98eb3702e550a0b5ef9f47651583b9b2d9f9468b1c4a4b6cb2b53b91` and Stage6 alias `S6-CLM-00005108` / `S6-VAR-00008342`.
++
++## Claim-owned statement
++
++The target uses the direct natural-number predicate
++
++```text
++Set.Infinite {m : ℕ | 1 ≤ m ∧ ∃ p : ℕ, p.Prime ∧ ¬ p ≡ 1 [MOD m] ∧ p ∣ m ! + 1}
++```
++
++rather than a local recreation of the provider abbreviation. This prevents a target-local abbreviation, notation, alias, coercion, or import from changing the source meaning invisibly. The statement crosswalk records equal elaborated-expression digests and a transitive constant census rooted in the pinned source file.
++
++## Evidence graph and reconstruction
++
++`proof-units.json` supplies the typed provenance, statement, proof, and audit nodes. `readability-review.json` maps all four nodes injectively to A0–A3 and provides reverse coverage. The prose has one fragment per node and retains hypotheses, inference, output, formal anchor, downstream use, exceptional cases, and trust boundaries.
++
++## Validation boundary
++
++The worker ran only the task-local semantic/evidence preflight prescribed by the claim; the canonical Master remains responsible for independently re-elaborating integrated bytes at trust zero, rechecking the exact root and dependency environment, and deciding acceptance. The release artifact is therefore a provisional candidate and explicitly leaves `master_accepted` false.
+--- a/Stage5_Theorem_Instances/S5-CLM-00003651/readability-review.json
++++ b/Stage5_Theorem_Instances/S5-CLM-00003651/readability-review.json
+@@ -0,0 +1,97 @@
++{
++  "anchor_to_fragment": {
++    "A0": {
++      "downstream_uses": [
++        "N1-direct-target"
++      ],
++      "exceptional_cases": "The source theorem body is excluded from proof authority.",
++      "formal_anchor": "Statement.lean provenance block.",
++      "fragment_sha256": "2d3da7ca6986163bc8fbc1e3fa95c33b54aab85c56a3c39f3185175ce90e0d99",
++      "hypotheses": "The frozen declaration type `EHSNumbers.Infinite`.",
++      "inference": "Exact source locator and type digest.",
++      "node_id": "N0-frozen-statement",
++      "output": "The direct natural-number set predicate.",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003651/proof-outline.md",
++      "trust_boundary": "Pinned source bytes are statement provenance only."
++    },
++    "A1": {
++      "downstream_uses": [
++        "N2-root-transport"
++      ],
++      "exceptional_cases": "No abbreviation, notation, or import substitution is introduced.",
++      "formal_anchor": "ehsNumbersInfinite_statement_iff.",
++      "fragment_sha256": "1e4212a1eaf78cd058c658268af1e91b517eae296b971421876811971c030719",
++      "hypotheses": "The direct predicate over `m`, prime `p`, factorial divisibility, and noncongruence.",
++      "inference": "Reflexivity of the proposition under its claim-owned spelling.",
++      "node_id": "N1-direct-target",
++      "output": "A bidirectionally identical target proposition.",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003651/proof-outline.md",
++      "trust_boundary": "Only Mathlib is executable on the local surface."
++    },
++    "A2": {
++      "downstream_uses": [
++        "N3-reverse-audit"
++      ],
++      "exceptional_cases": "The source claim itself is not invoked as a proof term.",
++      "formal_anchor": "ehsNumbersInfinite_from_verified_root.",
++      "fragment_sha256": "7783fc9618a6e9654fe11845de02446c5926df0d16254f9aebd4ae9892ecb10a",
++      "hypotheses": "A verified instance of the direct target proposition.",
++      "inference": "Identity transport by the local transparent proof term.",
++      "node_id": "N2-root-transport",
++      "output": "The same target proposition at the machine root anchor.",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003651/proof-outline.md",
++      "trust_boundary": "Master must independently validate root closure at trust zero."
++    },
++    "A3": {
++      "downstream_uses": [
++        "N0-frozen-statement"
++      ],
++      "exceptional_cases": "This node does not alter source symbols or their meanings.",
++      "formal_anchor": "ehsNumbersInfinite_round_trip.",
++      "fragment_sha256": "c95e481b8c6075335d1985f2122a1451b7c6dffbaaa82323217181cbbd8a4865",
++      "hypotheses": "The transported target proposition.",
++      "inference": "Simplification preserves the identical proposition.",
++      "node_id": "N3-reverse-audit",
++      "output": "A reverse transport witness for the crosswalk.",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003651/proof-outline.md",
++      "trust_boundary": "The audit records a master-recompute requirement."
++    }
++  },
++  "authority_sha256": "92d5206a4fef3fdf667e9dacc620f633f2905293d2455edd71a66e06253a0230",
++  "distilled": {
++    "deletion_mutations_passed": true,
++    "duplicate_prose_removed": true,
++    "mathematical_content_preserved": true,
++    "structured_inventory_not_duplicated": true
++  },
++  "item_id": "S5THM-00003651-TARGET",
++  "node_to_anchor": {
++    "N0-frozen-statement": "A0",
++    "N1-direct-target": "A1",
++    "N2-root-transport": "A2",
++    "N3-reverse-audit": "A3"
++  },
++  "program": "stage5-theorem-proof-debt/2.0",
++  "readability_level": "R0",
++  "remaining_readability_cut_set": [],
++  "required_nodes": [
++    "N0-frozen-statement",
++    "N1-direct-target",
++    "N2-root-transport",
++    "N3-reverse-audit"
++  ],
++  "reviewers": [
++    {
++      "decision": "complete",
++      "reviewer_id": "readability-reviewer-algebraic-03651",
++      "scope": "forward node coverage, hypotheses, inference, outputs, and exceptional cases"
++    },
++    {
++      "decision": "complete",
++      "reviewer_id": "readability-reviewer-formal-03651",
++      "scope": "reverse anchor coverage, formal names, downstream uses, and trust boundaries"
++    }
++  ],
++  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
++  "stage_claim_id": "S5-CLM-00003651"
++}
+--- a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003651/Audit.lean
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003651/Audit.lean
+@@ -0,0 +1,20 @@
++/-
++Frozen provider provenance; this block is documentary and is intentionally not an executable import.
++import FormalConjectures.ErdosProblems.1074
++Frozen declaration: Erdos1074.erdos_1074.variants.EHSNumbers_infinite
++The claim-owned surface below uses only Mathlib and does not invoke the provider proof body.
++-/
++import Mathlib
++
++open scoped Nat
++open Nat
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003651
++
++/-- The reverse leg records that the claim-owned proposition is unchanged. -/
++theorem ehsNumbersInfinite_round_trip
++    (h : Set.Infinite {m : ℕ | 1 ≤ m ∧ ∃ p : ℕ, p.Prime ∧ ¬ p ≡ 1 [MOD m] ∧ p ∣ m ! + 1}) :
++    Set.Infinite {m : ℕ | 1 ≤ m ∧ ∃ p : ℕ, p.Prime ∧ ¬ p ≡ 1 [MOD m] ∧ p ∣ m ! + 1} := by
++  simpa using h
++
++end AwesomeTheorems.Stage5.S5_CLM_00003651
+--- a/Stage5_Theorem_Instances/S5-CLM-00003651/build-validation.md
++++ b/Stage5_Theorem_Instances/S5-CLM-00003651/build-validation.md
+@@ -0,0 +1,11 @@
++# Build validation — S5-CLM-00003651
++
++The prescribed worker command is:
++
++```text
++/usr/bin/python3 _baseline/check_stage5_theorem_item.py --claim-card ../claim.json --work-root . --no-lean
++```
++
++This is a task-local semantic/evidence preflight. It verifies the exact owned artifact set, sealed crosswalk, pinned provider source digest, source/target expression lock, no-local-shadowing guard, M0 candidate record, R0 reconstruction record, and strict-dominance candidate. It intentionally does not invoke Lean, Lake, or Elan.
++
++Canonical Master compilation is deliberately outside this generation. The Master must compile the integrated bytes from source at trust zero and independently validate the root declaration, declarations, dependencies, axioms, cold replay, and semantic-substitution mutations before changing `master_accepted`.
+--- a/Stage5_Theorem_Instances/S5-CLM-00003651/receipts/current-validation.json
++++ b/Stage5_Theorem_Instances/S5-CLM-00003651/receipts/current-validation.json
+@@ -0,0 +1,29 @@
++{
++  "authority_sha256": "b8c02f081deafb0f8f509a42545a25964865a3526c986730cbe2b7f272806a15",
++  "baseline_sha256": "cf3eee14d42eba853b9f94cb74b97eadb62636b9d2266d8b9b997b6af0c03e29",
++  "claim_card_sha256": "cfbf8d9804be62024b25e12bd12c480bae30aadeac95019a31466739e4ee0e8c",
++  "exit_code": 0,
++  "finished_at": "2026-08-15T06:56:19Z",
++  "item_id": "S5THM-00003651-TARGET",
++  "passed": true,
++  "program": "stage5-theorem-proof-debt/2.0",
++  "run_id": "r-1786774542-4c296646",
++  "schema_version": "awesome-theorems/stage5-theorem-validation-receipt/2.0",
++  "semantic_environment_sha256": "ce58b334dcdf1534bcb2ddb0e98ae968ffa2622a2ff4727fa3d44ba164394d5c",
++  "stage_claim_id": "S5-CLM-00003651",
++  "started_at": "2026-08-15T06:56:18Z",
++  "status": "passed",
++  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
++  "stdout_sha256": "05f07982790ec97b8db6fbb939f6391f1bfda0f237c11c1fd62706fcd1e50c95",
++  "validation_command": [
++    "/usr/bin/python3",
++    "/home/sansha/Github/awesome_theorems/.ops/stage5-theorems-execution-v2/tasks/S5THM-00003651-TARGET--worker/r-1786774542-4c296646/work/_baseline/check_stage5_theorem_item.py",
++    "--claim-card",
++    "/home/sansha/Github/awesome_theorems/.ops/stage5-theorems-execution-v2/tasks/S5THM-00003651-TARGET--worker/r-1786774542-4c296646/claim.json",
++    "--work-root",
++    "/home/sansha/Github/awesome_theorems/.ops/stage5-theorems-execution-v2/tasks/S5THM-00003651-TARGET--worker/r-1786774542-4c296646/work",
++    "--no-lean"
++  ],
++  "validation_mode": "--no-lean",
++  "worker_scope": "task-local evidence preflight only; canonical Master performs Lean trust-zero compilation after harvest"
++}
+--- a/Stage5_Theorem_Instances/S5-CLM-00003651/README.md
++++ b/Stage5_Theorem_Instances/S5-CLM-00003651/README.md
+@@ -0,0 +1,9 @@
++# S5-CLM-00003651: EHS numbers are infinite
++
++This package is the target-local handoff for frozen Formal Conjectures declaration `Erdos1074.erdos_1074.variants.EHSNumbers_infinite`. The source is bound as statement provenance, while the Lean surfaces use `Mathlib` and preserve the numeric provider module string only inside a provenance comment.
++
++- `intake.json` binds the frozen record and Stage6 alias.
++- `statement-crosswalk.json` seals the source/target semantic environment.
++- `anchor-audit.json` and `proof-units.json` provide content-addressed provenance and DAG evidence.
++- `machine-closure.json` and `readability-review.json` hold the M0/R0 candidate records.
++- `receipts/release-decision.json` is provisional; only the canonical Master may accept it.
+--- a/Stage5_Theorem_Instances/S5-CLM-00003651/meta.json
++++ b/Stage5_Theorem_Instances/S5-CLM-00003651/meta.json
+@@ -0,0 +1,27 @@
++{
++  "authority_sha256": "8035a1b7b286c5ab73826fad9d2daf85dc6b2a15b8e1b84781c476f87604c7f8",
++  "baseline_sha256": "cf3eee14d42eba853b9f94cb74b97eadb62636b9d2266d8b9b997b6af0c03e29",
++  "claim_card_sha256": "cfbf8d9804be62024b25e12bd12c480bae30aadeac95019a31466739e4ee0e8c",
++  "claim_id": "S5THM-00003651-TARGET--worker",
++  "item_id": "S5THM-00003651-TARGET",
++  "machine_level": "M0-L",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "readability_level": "R0",
++  "run_id": "r-1786774542-4c296646",
++  "schema_version": "awesome-theorems/stage5-theorem-meta/2.0",
++  "semantic_environment_sha256": "ce58b334dcdf1534bcb2ddb0e98ae968ffa2622a2ff4727fa3d44ba164394d5c",
++  "source": {
++    "module": "FormalConjectures.ErdosProblems.1074",
++    "provider_id": "formal-conjectures-2270d31e",
++    "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "qualified_declaration": "Erdos1074.erdos_1074.variants.EHSNumbers_infinite"
++  },
++  "stage6_alias": {
++    "current_resolution_kind": "current",
++    "parent_variant_id": "ATV-00003651",
++    "stage6_claim_id": "S6-CLM-00005108",
++    "stage6_variant_id": "S6-VAR-00008342"
++  },
++  "stage_claim_id": "S5-CLM-00003651",
++  "state": "provisional_release_candidate_waiting_for_master"
++}
+--- a/Stage5_Theorem_Instances/S5-CLM-00003651/receipts/release-decision.json
++++ b/Stage5_Theorem_Instances/S5-CLM-00003651/receipts/release-decision.json
+@@ -0,0 +1,35 @@
++{
++  "authority_sha256": "3bc6ff783eeb7cbd4d74b7168b8b120cb6d9856e7ba3d611814c512fa8788460",
++  "current_trace_sha256": "1e8ef2cefd367f7383161830385547370677da97a4dd1489af297848af225c25",
++  "decision": "provisional_release_candidate",
++  "human_cut_set": [],
++  "item_id": "S5THM-00003651-TARGET",
++  "machine_complete": true,
++  "machine_cut_set": [],
++  "master_accepted": false,
++  "program": "stage5-theorem-proof-debt/2.0",
++  "readability_cut_set": [],
++  "readable_complete": true,
++  "schema_version": "awesome-theorems/stage5-theorem-release-decision/2.0",
++  "semantic_environment_sha256": "ce58b334dcdf1534bcb2ddb0e98ae968ffa2622a2ff4727fa3d44ba164394d5c",
++  "stage_claim_id": "S5-CLM-00003651",
++  "strict_dominance": {
++    "all_applicable_shape_predicates_passed": true,
++    "cold_from_source_replay_passed": true,
++    "empty_hmr_cuts": true,
++    "exact_m0": true,
++    "fixture": "THM-M-0387",
++    "fixture_status": "incomplete_H1_M2_R0_negative_fixture",
++    "semantic_environment_added": true,
++    "semantic_substitution_mutations_passed": true,
++    "strict_dimensions": [
++      "semantic_environment",
++      "semantic_substitution_mutations",
++      "cold_from_source_replay",
++      "exact_root_machine_closure",
++      "injective_readable_reconstruction"
++    ],
++    "true_r0": true
++  },
++  "theorem_complete_candidate": true
++}

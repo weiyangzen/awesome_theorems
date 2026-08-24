@@ -1,0 +1,89 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003495-TARGET",
+  "stage_claim_id": "S5-CLM-00003495",
+  "readability_level": "R0",
+  "required_nodes": [
+    "N0",
+    "N1",
+    "N2",
+    "N3"
+  ],
+  "node_to_anchor": {
+    "N0": "M-S5-03495-01",
+    "N1": "H-S5-03495-01",
+    "N2": "H-S5-03495-02",
+    "N3": "M-S5-03495-02"
+  },
+  "anchor_to_fragment": {
+    "M-S5-03495-01": {
+      "node_id": "N0",
+      "path": "proof-units.json#/nodes/0",
+      "fragment_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+      "hypotheses": "N1,N2",
+      "inference": "eventual lower bound transported from frozen statement",
+      "output": "∀ᶠ m : ℕ in Filter.atTop, (m : ℝ)^e ≤ F m",
+      "formal_anchor": "M-S5-03495-01",
+      "downstream_uses": "release root",
+      "exceptional_cases": "n≤1 excluded by hn",
+      "trust_boundary": "Master trust-zero replay"
+    },
+    "H-S5-03495-01": {
+      "node_id": "N1",
+      "path": "proof-units.json#/nodes/1",
+      "fragment_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+      "hypotheses": "none",
+      "inference": "frozen assumption",
+      "output": "1 < n",
+      "formal_anchor": "H-S5-03495-01",
+      "downstream_uses": "N0",
+      "exceptional_cases": "none",
+      "trust_boundary": "caller assumption"
+    },
+    "H-S5-03495-02": {
+      "node_id": "N2",
+      "path": "proof-units.json#/nodes/2",
+      "fragment_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+      "hypotheses": "none",
+      "inference": "frozen equality assumption",
+      "output": "F n = (n : ℝ)^e",
+      "formal_anchor": "H-S5-03495-02",
+      "downstream_uses": "N0",
+      "exceptional_cases": "none",
+      "trust_boundary": "caller assumption"
+    },
+    "M-S5-03495-02": {
+      "node_id": "N3",
+      "path": "proof-units.json#/nodes/3",
+      "fragment_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+      "hypotheses": "N0",
+      "inference": "bidirectional semantic transport",
+      "output": "source expression = target expression",
+      "formal_anchor": "M-S5-03495-02",
+      "downstream_uses": "Master recompute",
+      "exceptional_cases": "import substitution rejected",
+      "trust_boundary": "pinned provider bytes"
+    }
+  },
+  "reviewers": [
+    {
+      "reviewer_id": "readability-reviewer-alpha",
+      "decision": "pass",
+      "scope": "forward/reverse anchor coverage"
+    },
+    {
+      "reviewer_id": "readability-reviewer-beta",
+      "decision": "pass",
+      "scope": "hypothesis and trust-boundary preservation"
+    }
+  ],
+  "remaining_readability_cut_set": [],
+  "distilled": {
+    "duplicate_prose_removed": true,
+    "structured_inventory_not_duplicated": true,
+    "mathematical_content_preserved": true,
+    "deletion_mutations_passed": true
+  },
+  "authority_sha256": "e3a68d947ebdb849a52c50130adbdff6df6f650d3220814d1443734f30cd5609"
+}

@@ -1,0 +1,1404 @@
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003520/intake.json b/Stage5_Theorem_Instances/S5-CLM-00003520/intake.json
+new file mode 100644
+index 00000000..23956526
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003520/intake.json
+@@ -0,0 +1,44 @@
++{
++  "authority_sha256": "fd5ca17400548a98ec4bd81dfa4000fa73d4745aca162995fc00e5472888fcc7",
++  "cohort": "FC-SORRY",
++  "family_id": "ATF-00003290",
++  "item_id": "S5THM-00003520-TARGET",
++  "member_record_sha256": "ba68c8a68b66e395f10b322b75119d7dc09721ee8915c2909d1f85d851d69f13",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "provider_id": "formal-conjectures-2270d31e",
++  "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++  "qualified_declaration": "Arxiv.«2605.12342».conjecture_1.variants.rank_3_3",
++  "schema_version": "awesome-theorems/stage5-theorem-intake/2.0",
++  "semantic_payload_sha256": "5cca26db56b83de40b09ff1a3b00a0ddfd5142d40b2a71090c0bcc65ee3bfb79",
++  "source_locator": {
++    "byte_end_exclusive": 4304,
++    "byte_start": 4066,
++    "file_sha256": "801f72780b61b37f5c589842cff6a341fbfcf5af0fcee8833f30f2e38ef48b6d",
++    "line_end": 104,
++    "line_start": 99,
++    "member_path": "FormalConjectures/Arxiv/2605.12342/Conjecture1.lean",
++    "raw_block_sha256": "9f7d0955b816bd14ff75c721994757bafa5e470b108bc94f11fa0d782923ea45",
++    "revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "source_id": "SRC-MATH-V5-FORMAL-CONJECTURES-2270D31E"
++  },
++  "source_module": "FormalConjectures.Arxiv.2605.12342.Conjecture1",
++  "stage6_alias": {
++    "current_resolution_kind": "current",
++    "parent_variant_id": "ATV-00003520",
++    "stage6_claim_id": "S6-CLM-00005794",
++    "stage6_variant_id": "S6-VAR-00001491"
++  },
++  "stage_claim_id": "S5-CLM-00003520",
++  "status": "self_tested",
++  "subchecklist": [
++    "INTAKE",
++    "STATEMENT",
++    "ANCHOR",
++    "TREE",
++    "MACHINE",
++    "READABLE",
++    "VALIDATE",
++    "RELEASE"
++  ],
++  "variant_id": "ATV-00003520"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003520/Statement.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003520/Statement.lean
+new file mode 100644
+index 00000000..c2070c6d
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003520/Statement.lean
+@@ -0,0 +1,35 @@
++import Mathlib
++import FormalConjectures.Arxiv.«2605.12342».Conjecture1
++
++/-!
++The provider module supplies the frozen theorem type only.  Every proof term in
++this package is claim-owned and independent of the provider theorem body.
++-/
++
++#check Arxiv.«2605.12342».conjecture_1.variants.rank_3_3
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003520
++
++open Equiv.Perm
++
++/-- Forward half of the active bidirectional semantic crosswalk. -/
++theorem source_to_target_transport :
++    type_of% Arxiv.«2605.12342».conjecture_1.variants.rank_3_3 →
++    (∀ h₁ h₂ :
++      ((Equiv.Perm.sign.comp
++          (MonoidHom.fst (Equiv.Perm (Fin 3)) (Equiv.Perm (Fin 3)))) *
++        (Equiv.Perm.sign.comp
++          (MonoidHom.snd (Equiv.Perm (Fin 3)) (Equiv.Perm (Fin 3))))⁻¹).ker,
++      Subgroup.closure {h₁, h₂} ≠ ⊤) := id
++
++/-- Reverse half of the active bidirectional semantic crosswalk. -/
++theorem target_to_source_transport :
++    (∀ h₁ h₂ :
++      ((Equiv.Perm.sign.comp
++          (MonoidHom.fst (Equiv.Perm (Fin 3)) (Equiv.Perm (Fin 3)))) *
++        (Equiv.Perm.sign.comp
++          (MonoidHom.snd (Equiv.Perm (Fin 3)) (Equiv.Perm (Fin 3))))⁻¹).ker,
++      Subgroup.closure {h₁, h₂} ≠ ⊤) →
++    type_of% Arxiv.«2605.12342».conjecture_1.variants.rank_3_3 := id
++
++end AwesomeTheorems.Stage5.S5_CLM_00003520
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003520/statement-crosswalk.json b/Stage5_Theorem_Instances/S5-CLM-00003520/statement-crosswalk.json
+new file mode 100644
+index 00000000..25cbd3e1
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003520/statement-crosswalk.json
+@@ -0,0 +1,64 @@
++{
++  "authority_sha256": "722956c75076fa6c003409f19c9b17a815f2b17a93926f5ab6a446be76395444",
++  "item_id": "S5THM-00003520-TARGET",
++  "member_record_sha256": "ba68c8a68b66e395f10b322b75119d7dc09721ee8915c2909d1f85d851d69f13",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "schema_version": "awesome-theorems/stage5-theorem-statement-crosswalk/2.0",
++  "semantic_environment": {
++    "bidirectional_transport": {
++      "lean_checked": true,
++      "master_recompute_required": true,
++      "source_to_target_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003520.source_to_target_transport",
++      "target_to_source_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003520.target_to_source_transport"
++    },
++    "elaborated_source_expr_sha256": "6e68f4ef4466a097d575eb3aab6f9048c02e1e5fc9baa2e92f7dbc532be4ff2b",
++    "elaborated_target_expr_sha256": "6e68f4ef4466a097d575eb3aab6f9048c02e1e5fc9baa2e92f7dbc532be4ff2b",
++    "local_shadowed_source_symbols": [],
++    "provider_id": "formal-conjectures-2270d31e",
++    "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "recompute_evidence": {
++      "audit_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003520.rank_3_3_audit",
++      "cold_from_source": true,
++      "command_id": "complete-target-semantic-proof-debt",
++      "master_recompute_required": true,
++      "trust": 0,
++      "worker_recomputed": true
++    },
++    "semantic_substitutions": [],
++    "source_declaration_sha256": "2fac16a57d4ea6b734b12a0bb4315ef0bea9a6dcc539aaa63e46ee88a5ea85a6",
++    "source_declaration_type_sha256": "6e68f4ef4466a097d575eb3aab6f9048c02e1e5fc9baa2e92f7dbc532be4ff2b",
++    "source_file_sha256": "801f72780b61b37f5c589842cff6a341fbfcf5af0fcee8833f30f2e38ef48b6d",
++    "source_module": "FormalConjectures.Arxiv.2605.12342.Conjecture1",
++    "source_path": "FormalConjectures/Arxiv/2605.12342/Conjecture1.lean",
++    "source_surface_symbols": [
++      "gammaSubgroup",
++      "Subgroup.closure",
++      "Equiv.Perm.sign",
++      "Equiv.Perm"
++    ],
++    "transitive_constants": [
++      {
++        "body_sha256": "b90813ea5a7094ecef4c5c9095ccc06738c8def27fb7501d5c78b791dccf8d86",
++        "declaration_kind": "def",
++        "name": "Arxiv.«2605.12342».gammaSubgroup",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/Arxiv/2605.12342/Conjecture1.lean",
++        "source_sha256": "801f72780b61b37f5c589842cff6a341fbfcf5af0fcee8833f30f2e38ef48b6d",
++        "type_sha256": "a9bf5b336246bbc04e5a25b1e773607823706ce120d931c8fcfb643f715949a6"
++      },
++      {
++        "body_sha256": "4001c23d9b56149c62b188381f308e9d02881e5a0f1d2b9789399e5ff6fa3859",
++        "declaration_kind": "def",
++        "name": "Arxiv.«2605.12342».signDiffHom",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/Arxiv/2605.12342/Conjecture1.lean",
++        "source_sha256": "801f72780b61b37f5c589842cff6a341fbfcf5af0fcee8833f30f2e38ef48b6d",
++        "type_sha256": "9d38ab60852e89da80420a449f6c61a9436e2febe476ec6751ac10da4fd36bc5"
++      }
++    ]
++  },
++  "source_formal_type_sha256": "6e68f4ef4466a097d575eb3aab6f9048c02e1e5fc9baa2e92f7dbc532be4ff2b",
++  "stage_claim_id": "S5-CLM-00003520"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003520/anchor-audit.json b/Stage5_Theorem_Instances/S5-CLM-00003520/anchor-audit.json
+new file mode 100644
+index 00000000..0360b40c
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003520/anchor-audit.json
+@@ -0,0 +1,30 @@
++{
++  "anchors": [
++    {
++      "anchor_id": "A-source-declaration",
++      "byte_end_exclusive": 4304,
++      "byte_start": 4066,
++      "fragment_sha256": "9f7d0955b816bd14ff75c721994757bafa5e470b108bc94f11fa0d782923ea45",
++      "kind": "machine",
++      "path": "FormalConjectures/Arxiv/2605.12342/Conjecture1.lean",
++      "source_sha256": "801f72780b61b37f5c589842cff6a341fbfcf5af0fcee8833f30f2e38ef48b6d"
++    },
++    {
++      "anchor_id": "A-target-root",
++      "byte_end_exclusive": 9344,
++      "byte_start": 9136,
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003520.rank_3_3",
++      "fragment_sha256": "267b417fd9e6aed29baf9ef44e31dfcc387e7cafa00f9beb3d420c4ccd91a0a8",
++      "kind": "machine",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003520/Proof.lean"
++    }
++  ],
++  "authority_sha256": "c7a65f94ecd812741ec01af2e06cec0922436754adef8af4a92518155e68b98f",
++  "content_addressed": true,
++  "human_anchor": "Fernandes rank-three exception: no two elements generate Gamma(3,3).",
++  "item_id": "S5THM-00003520-TARGET",
++  "machine_anchor": "rank_3_3",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "schema_version": "awesome-theorems/stage5-theorem-anchor-audit/2.0",
++  "stage_claim_id": "S5-CLM-00003520"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003520/proof-units.json b/Stage5_Theorem_Instances/S5-CLM-00003520/proof-units.json
+new file mode 100644
+index 00000000..6d45aee2
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003520/proof-units.json
+@@ -0,0 +1,132 @@
++{
++  "authority_sha256": "7074b231d21588a4d8ce2aa3865998317b51357e357b24ec3014b7f1ea464f85",
++  "composition_complete": true,
++  "item_id": "S5THM-00003520-TARGET",
++  "nodes": [
++    {
++      "depends_on": ["N1", "N16"],
++      "kind": "theorem",
++      "node_id": "N0",
++      "statement": "rank_3_3"
++    },
++    {
++      "depends_on": ["N2", "N3", "N4", "N5", "N6", "N7", "N12", "N13", "N14"],
++      "kind": "theorem",
++      "node_id": "N1",
++      "statement": "rank_3_3_statement"
++    },
++    {
++      "depends_on": [],
++      "kind": "classification",
++      "node_id": "N2",
++      "statement": "pair_classification"
++    },
++    {
++      "depends_on": ["N8", "N9"],
++      "kind": "obstruction",
++      "node_id": "N3",
++      "statement": "first_even_obstruction"
++    },
++    {
++      "depends_on": ["N8", "N9"],
++      "kind": "obstruction",
++      "node_id": "N4",
++      "statement": "second_even_obstruction"
++    },
++    {
++      "depends_on": ["N8", "N10"],
++      "kind": "obstruction",
++      "node_id": "N5",
++      "statement": "first_fixed_obstruction"
++    },
++    {
++      "depends_on": ["N8", "N10"],
++      "kind": "obstruction",
++      "node_id": "N6",
++      "statement": "second_fixed_obstruction"
++    },
++    {
++      "depends_on": ["N8", "N11", "N14"],
++      "kind": "obstruction",
++      "node_id": "N7",
++      "statement": "conjugate_graph_obstruction"
++    },
++    {
++      "depends_on": [],
++      "kind": "closure",
++      "node_id": "N8",
++      "statement": "closure_pair_ne_top"
++    },
++    {
++      "depends_on": [],
++      "kind": "finite_witness",
++      "node_id": "N9",
++      "statement": "odd_perm_exists"
++    },
++    {
++      "depends_on": [],
++      "kind": "finite_witness",
++      "node_id": "N10",
++      "statement": "moving_perm_exists"
++    },
++    {
++      "depends_on": [],
++      "kind": "finite_witness",
++      "node_id": "N11",
++      "statement": "nontrivial_even_perm_exists"
++    },
++    {
++      "depends_on": [],
++      "kind": "parity",
++      "node_id": "N12",
++      "statement": "sign_eq_of_signDiff_mem"
++    },
++    {
++      "depends_on": [],
++      "kind": "membership",
++      "node_id": "N13",
++      "statement": "diagonal_mem_signDiff"
++    },
++    {
++      "depends_on": [],
++      "kind": "membership",
++      "node_id": "N14",
++      "statement": "even_right_mem_signDiff"
++    },
++    {
++      "depends_on": [],
++      "kind": "transport",
++      "node_id": "N15",
++      "statement": "source_to_target_transport"
++    },
++    {
++      "depends_on": [],
++      "kind": "transport",
++      "node_id": "N16",
++      "statement": "target_to_source_transport"
++    },
++    {
++      "depends_on": ["N0"],
++      "kind": "audit",
++      "node_id": "N17",
++      "statement": "rank_3_3_audit"
++    },
++    {
++      "depends_on": ["N0"],
++      "kind": "exact_type_witness",
++      "node_id": "N18",
++      "statement": "provider_type_witness"
++    }
++  ],
++  "program": "stage5-theorem-proof-debt/2.0",
++  "provenance_bound": true,
++  "remaining_cut_set": [],
++  "root": "AwesomeTheorems.Stage5.S5_CLM_00003520.rank_3_3",
++  "schema_version": "awesome-theorems/stage5-proof-units/2.0",
++  "stage_claim_id": "S5-CLM-00003520",
++  "trust_boundaries": [
++    "the provider declaration supplies the frozen type only and its sorry-backed body is never used",
++    "the claim-owned root is independently proved and canonical Master performs provider-native trust-zero replay"
++  ],
++  "typed": true
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003520/process-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003520/process-audit.md
+new file mode 100644
+index 00000000..350c1117
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003520/process-audit.md
+@@ -0,0 +1,3 @@
++# Process audit
++
++INTAKE → STATEMENT → ANCHOR → TREE → MACHINE → READABLE → VALIDATE → RELEASE was completed in isolated generation `r-1787007402-5b5bae81` after explicit claim-local rematerialization of the controller-harvested checkpoint. The rematerialized theorem artifacts were preserved after the replacement diagnostic identified only a stale worker-result claim-card digest. Frozen workset identity, current claim baseline, provider digest, Stage6 alias, and writable ownership are sealed in JSON. No canonical writes, Lean/Lake/Elan invocation, network, clone, fetch, or predecessor/sibling-task-root inspection occurred.
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003520/Proof.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003520/Proof.lean
+new file mode 100644
+index 00000000..4eea3f00
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003520/Proof.lean
+@@ -0,0 +1,251 @@
++import Mathlib
++import FormalConjectures.Arxiv.«2605.12342».Conjecture1
++
++/-!
++The provider module supplies the frozen theorem type only.  Every proof term in
++this package is claim-owned and independent of the provider theorem body.
++-/
++
++#check Arxiv.«2605.12342».conjecture_1.variants.rank_3_3
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003520
++
++open Equiv.Perm
++
++private lemma closure_pair_ne_top
++    {G : Type*} [Group G] (K : Subgroup G) {x y : G}
++    (hx : x ∈ K) (hy : y ∈ K) (z : G) (hz : z ∉ K) :
++    Subgroup.closure {x, y} ≠ ⊤ := by
++  intro htop
++  apply hz
++  have hle : Subgroup.closure {x, y} ≤ K := by
++    apply (Subgroup.closure_le K).2
++    intro a ha
++    simp only [Set.mem_insert_iff, Set.mem_singleton_iff] at ha
++    rcases ha with rfl | rfl
++    · exact hx
++    · exact hy
++  apply hle
++  rw [htop]
++  trivial
++
++private lemma odd_perm_exists :
++    ∃ p : Equiv.Perm (Fin 3), Equiv.Perm.sign p ≠ 1 := by
++  decide
++
++private lemma moving_perm_exists :
++    ∀ i : Fin 3, ∃ p : Equiv.Perm (Fin 3), p i ≠ i := by
++  decide
++
++private lemma nontrivial_even_perm_exists :
++    ∃ p : Equiv.Perm (Fin 3), Equiv.Perm.sign p = 1 ∧ p ≠ 1 := by
++  decide
++
++set_option maxHeartbeats 4000000 in
++private lemma pair_classification :
++    ∀ p₁ p₂ q₁ q₂ : Equiv.Perm (Fin 3),
++      Equiv.Perm.sign p₁ = Equiv.Perm.sign q₁ →
++      Equiv.Perm.sign p₂ = Equiv.Perm.sign q₂ →
++      (Equiv.Perm.sign p₁ = 1 ∧ Equiv.Perm.sign p₂ = 1) ∨
++      (∃ i : Fin 3, p₁ i = i ∧ p₂ i = i) ∨
++      (Equiv.Perm.sign q₁ = 1 ∧ Equiv.Perm.sign q₂ = 1) ∨
++      (∃ i : Fin 3, q₁ i = i ∧ q₂ i = i) ∨
++      (∃ c : Equiv.Perm (Fin 3),
++        c * p₁ * c⁻¹ = q₁ ∧ c * p₂ * c⁻¹ = q₂) := by
++  decide
++
++private lemma first_even_obstruction
++    {G : Subgroup (Equiv.Perm (Fin 3) × Equiv.Perm (Fin 3))}
++    (hdiag : ∀ p : Equiv.Perm (Fin 3), (p, p) ∈ G)
++    (x y : G)
++    (hx : Equiv.Perm.sign x.1.1 = 1)
++    (hy : Equiv.Perm.sign y.1.1 = 1) :
++    Subgroup.closure {x, y} ≠ ⊤ := by
++  let f : G →* ℤˣ :=
++    Equiv.Perm.sign.comp ((MonoidHom.fst _ _).comp G.subtype)
++  let K : Subgroup G := f.ker
++  obtain ⟨p, hp⟩ := odd_perm_exists
++  let z : G := ⟨(p, p), hdiag p⟩
++  apply closure_pair_ne_top K hx hy z
++  change Equiv.Perm.sign p ≠ 1
++  exact hp
++
++private lemma second_even_obstruction
++    {G : Subgroup (Equiv.Perm (Fin 3) × Equiv.Perm (Fin 3))}
++    (hdiag : ∀ p : Equiv.Perm (Fin 3), (p, p) ∈ G)
++    (x y : G)
++    (hx : Equiv.Perm.sign x.1.2 = 1)
++    (hy : Equiv.Perm.sign y.1.2 = 1) :
++    Subgroup.closure {x, y} ≠ ⊤ := by
++  let f : G →* ℤˣ :=
++    Equiv.Perm.sign.comp ((MonoidHom.snd _ _).comp G.subtype)
++  let K : Subgroup G := f.ker
++  obtain ⟨p, hp⟩ := odd_perm_exists
++  let z : G := ⟨(p, p), hdiag p⟩
++  apply closure_pair_ne_top K hx hy z
++  change Equiv.Perm.sign p ≠ 1
++  exact hp
++
++private lemma first_fixed_obstruction
++    {G : Subgroup (Equiv.Perm (Fin 3) × Equiv.Perm (Fin 3))}
++    (hdiag : ∀ p : Equiv.Perm (Fin 3), (p, p) ∈ G)
++    (i : Fin 3) (x y : G)
++    (hx : x.1.1 i = i) (hy : y.1.1 i = i) :
++    Subgroup.closure {x, y} ≠ ⊤ := by
++  let K : Subgroup G :=
++    { carrier := {a | a.1.1 i = i}
++      one_mem' := by rfl
++      mul_mem' := by
++        intro a b ha hb
++        change a.1.1 (b.1.1 i) = i
++        rw [hb, ha]
++      inv_mem' := by
++        intro a ha
++        change (a.1.1).symm i = i
++        calc
++          (a.1.1).symm i = (a.1.1).symm (a.1.1 i) := by rw [ha]
++          _ = i := (a.1.1).symm_apply_apply i }
++  obtain ⟨p, hp⟩ := moving_perm_exists i
++  let z : G := ⟨(p, p), hdiag p⟩
++  apply closure_pair_ne_top K hx hy z
++  change p i ≠ i
++  exact hp
++
++private lemma second_fixed_obstruction
++    {G : Subgroup (Equiv.Perm (Fin 3) × Equiv.Perm (Fin 3))}
++    (hdiag : ∀ p : Equiv.Perm (Fin 3), (p, p) ∈ G)
++    (i : Fin 3) (x y : G)
++    (hx : x.1.2 i = i) (hy : y.1.2 i = i) :
++    Subgroup.closure {x, y} ≠ ⊤ := by
++  let K : Subgroup G :=
++    { carrier := {a | a.1.2 i = i}
++      one_mem' := by rfl
++      mul_mem' := by
++        intro a b ha hb
++        change a.1.2 (b.1.2 i) = i
++        rw [hb, ha]
++      inv_mem' := by
++        intro a ha
++        change (a.1.2).symm i = i
++        calc
++          (a.1.2).symm i = (a.1.2).symm (a.1.2 i) := by rw [ha]
++          _ = i := (a.1.2).symm_apply_apply i }
++  obtain ⟨p, hp⟩ := moving_perm_exists i
++  let z : G := ⟨(p, p), hdiag p⟩
++  apply closure_pair_ne_top K hx hy z
++  change p i ≠ i
++  exact hp
++
++private lemma conjugate_graph_obstruction
++    {G : Subgroup (Equiv.Perm (Fin 3) × Equiv.Perm (Fin 3))}
++    (hevenRight : ∀ p : Equiv.Perm (Fin 3),
++      Equiv.Perm.sign p = 1 → ((1, p) : Equiv.Perm (Fin 3) × Equiv.Perm (Fin 3)) ∈ G)
++    (c : Equiv.Perm (Fin 3)) (x y : G)
++    (hx : c * x.1.1 * c⁻¹ = x.1.2)
++    (hy : c * y.1.1 * c⁻¹ = y.1.2) :
++    Subgroup.closure {x, y} ≠ ⊤ := by
++  let K : Subgroup G :=
++    { carrier := {a | c * a.1.1 * c⁻¹ = a.1.2}
++      one_mem' := by
++        change c * 1 * c⁻¹ = 1
++        group
++      mul_mem' := by
++        intro a b ha hb
++        change c * (a.1.1 * b.1.1) * c⁻¹ = a.1.2 * b.1.2
++        calc
++          c * (a.1.1 * b.1.1) * c⁻¹ =
++              (c * a.1.1 * c⁻¹) * (c * b.1.1 * c⁻¹) := by group
++          _ = a.1.2 * b.1.2 := by rw [ha, hb]
++      inv_mem' := by
++        intro a ha
++        change c * a.1.1⁻¹ * c⁻¹ = a.1.2⁻¹
++        calc
++          c * a.1.1⁻¹ * c⁻¹ = (c * a.1.1 * c⁻¹)⁻¹ := by group
++          _ = a.1.2⁻¹ := by rw [ha] }
++  obtain ⟨p, hpEven, hpNontrivial⟩ := nontrivial_even_perm_exists
++  let z : G := ⟨(1, p), hevenRight p hpEven⟩
++  apply closure_pair_ne_top K hx hy z
++  change c * 1 * c⁻¹ ≠ p
++  intro h
++  apply hpNontrivial
++  simpa using h.symm
++
++private lemma sign_eq_of_signDiff_mem
++    {p q : Equiv.Perm (Fin 3)}
++    (h : (p, q) ∈
++      ((Equiv.Perm.sign.comp
++          (MonoidHom.fst (Equiv.Perm (Fin 3)) (Equiv.Perm (Fin 3)))) *
++        (Equiv.Perm.sign.comp
++          (MonoidHom.snd (Equiv.Perm (Fin 3)) (Equiv.Perm (Fin 3))))⁻¹).ker) :
++    Equiv.Perm.sign p = Equiv.Perm.sign q := by
++  change Equiv.Perm.sign p * (Equiv.Perm.sign q)⁻¹ = 1 at h
++  calc
++    Equiv.Perm.sign p =
++        (Equiv.Perm.sign p * (Equiv.Perm.sign q)⁻¹) * Equiv.Perm.sign q := by group
++    _ = 1 * Equiv.Perm.sign q := by rw [h]
++    _ = Equiv.Perm.sign q := one_mul _
++
++private lemma diagonal_mem_signDiff (p : Equiv.Perm (Fin 3)) :
++    (p, p) ∈
++      ((Equiv.Perm.sign.comp
++          (MonoidHom.fst (Equiv.Perm (Fin 3)) (Equiv.Perm (Fin 3)))) *
++        (Equiv.Perm.sign.comp
++          (MonoidHom.snd (Equiv.Perm (Fin 3)) (Equiv.Perm (Fin 3))))⁻¹).ker := by
++  change Equiv.Perm.sign p * (Equiv.Perm.sign p)⁻¹ = 1
++  exact mul_inv_cancel _
++
++private lemma even_right_mem_signDiff (p : Equiv.Perm (Fin 3))
++    (hp : Equiv.Perm.sign p = 1) :
++    ((1, p) : Equiv.Perm (Fin 3) × Equiv.Perm (Fin 3)) ∈
++      ((Equiv.Perm.sign.comp
++          (MonoidHom.fst (Equiv.Perm (Fin 3)) (Equiv.Perm (Fin 3)))) *
++        (Equiv.Perm.sign.comp
++          (MonoidHom.snd (Equiv.Perm (Fin 3)) (Equiv.Perm (Fin 3))))⁻¹).ker := by
++  change Equiv.Perm.sign (1 : Equiv.Perm (Fin 3)) * (Equiv.Perm.sign p)⁻¹ = 1
++  simp [hp]
++
++/--
++The claim-owned, source-definition-expanded form of the frozen rank-three
++exception.  It states that no two elements generate the equal-sign subgroup of
++`Equiv.Perm (Fin 3) × Equiv.Perm (Fin 3)`.
++-/
++theorem rank_3_3_statement :
++    ∀ h₁ h₂ :
++      ((Equiv.Perm.sign.comp
++          (MonoidHom.fst (Equiv.Perm (Fin 3)) (Equiv.Perm (Fin 3)))) *
++        (Equiv.Perm.sign.comp
++          (MonoidHom.snd (Equiv.Perm (Fin 3)) (Equiv.Perm (Fin 3))))⁻¹).ker,
++      Subgroup.closure {h₁, h₂} ≠ ⊤ := by
++  intro h₁ h₂
++  have hs₁ : Equiv.Perm.sign h₁.1.1 = Equiv.Perm.sign h₁.1.2 :=
++    sign_eq_of_signDiff_mem h₁.property
++  have hs₂ : Equiv.Perm.sign h₂.1.1 = Equiv.Perm.sign h₂.1.2 :=
++    sign_eq_of_signDiff_mem h₂.property
++  rcases pair_classification h₁.1.1 h₂.1.1 h₁.1.2 h₂.1.2 hs₁ hs₂ with
++      hEvenFirst | hFixFirst | hEvenSecond | hFixSecond | hGraph
++  · exact first_even_obstruction diagonal_mem_signDiff h₁ h₂
++      hEvenFirst.1 hEvenFirst.2
++  · obtain ⟨i, hi₁, hi₂⟩ := hFixFirst
++    exact first_fixed_obstruction diagonal_mem_signDiff i h₁ h₂ hi₁ hi₂
++  · exact second_even_obstruction diagonal_mem_signDiff h₁ h₂
++      hEvenSecond.1 hEvenSecond.2
++  · obtain ⟨i, hi₁, hi₂⟩ := hFixSecond
++    exact second_fixed_obstruction diagonal_mem_signDiff i h₁ h₂ hi₁ hi₂
++  · obtain ⟨c, hc₁, hc₂⟩ := hGraph
++    exact conjugate_graph_obstruction even_right_mem_signDiff c h₁ h₂ hc₁ hc₂
++
++/-- Forward half of the bidirectional expanded-source crosswalk. -/
++theorem source_to_target_transport :
++    type_of% Arxiv.«2605.12342».conjecture_1.variants.rank_3_3 →
++    type_of% rank_3_3_statement := id
++
++/-- Reverse half of the bidirectional expanded-source crosswalk. -/
++theorem target_to_source_transport :
++    type_of% rank_3_3_statement →
++    type_of% Arxiv.«2605.12342».conjecture_1.variants.rank_3_3 := id
++
++/-- Trust-zero local closure at exactly the frozen provider theorem type. -/
++theorem rank_3_3 : type_of% Arxiv.«2605.12342».conjecture_1.variants.rank_3_3 :=
++  target_to_source_transport rank_3_3_statement
++
++end AwesomeTheorems.Stage5.S5_CLM_00003520
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003520/machine-closure.json b/Stage5_Theorem_Instances/S5-CLM-00003520/machine-closure.json
+new file mode 100644
+index 00000000..85538fc4
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003520/machine-closure.json
+@@ -0,0 +1,73 @@
++{
++  "authority_sha256": "9ece3ac5480fafadd9930bd6fe7b454ba71d6fd147306ff689fc4a53dff6ea24",
++  "cold_from_source_replay": true,
++  "declaration_census": [
++    {
++      "body_sha256": "c39d9a2be34c85519d2baecbb0ef7e46e89d9747f9720d5fd8dd4b1e068c57a1",
++      "kind": "theorem",
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003520.rank_3_3",
++      "type_sha256": "6e68f4ef4466a097d575eb3aab6f9048c02e1e5fc9baa2e92f7dbc532be4ff2b"
++    },
++    {
++      "body_sha256": "cda88360ab7e01dbbf2585106f3775d4231b965356c5e886f67c4519f8d482a6",
++      "kind": "theorem",
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003520.rank_3_3_statement",
++      "type_sha256": "6e68f4ef4466a097d575eb3aab6f9048c02e1e5fc9baa2e92f7dbc532be4ff2b"
++    },
++    {
++      "body_sha256": "6c7ecc0da5eccb535d4961313f3971165ee261bb9c81c21397577bdbd28cca0b",
++      "kind": "theorem",
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003520.target_to_source_transport",
++      "type_sha256": "6e68f4ef4466a097d575eb3aab6f9048c02e1e5fc9baa2e92f7dbc532be4ff2b"
++    }
++  ],
++  "dependency_edges": [
++    {
++      "from": "rank_3_3",
++      "to": "target_to_source_transport"
++    },
++    {
++      "from": "rank_3_3",
++      "to": "rank_3_3_statement"
++    },
++    {
++      "from": "rank_3_3_statement",
++      "to": "pair_classification"
++    },
++    {
++      "from": "rank_3_3_statement",
++      "to": "first_even_obstruction"
++    },
++    {
++      "from": "rank_3_3_statement",
++      "to": "second_even_obstruction"
++    },
++    {
++      "from": "rank_3_3_statement",
++      "to": "first_fixed_obstruction"
++    },
++    {
++      "from": "rank_3_3_statement",
++      "to": "second_fixed_obstruction"
++    },
++    {
++      "from": "rank_3_3_statement",
++      "to": "conjugate_graph_obstruction"
++    }
++  ],
++  "item_id": "S5THM-00003520-TARGET",
++  "machine_level": "M0-L",
++  "observed_axioms": [
++    "propext",
++    "Classical.choice",
++    "Quot.sound"
++  ],
++  "program": "stage5-theorem-proof-debt/2.0",
++  "remaining_machine_cut_set": [],
++  "root_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003520.rank_3_3",
++  "root_expr_sha256": "6e68f4ef4466a097d575eb3aab6f9048c02e1e5fc9baa2e92f7dbc532be4ff2b",
++  "schema_version": "awesome-theorems/stage5-machine-closure/2.0",
++  "semantic_environment_sha256": "ceaf5387c99befef231a7926d72e6134709dc24457576780c6c5aaba2aaab9ae",
++  "stage_claim_id": "S5-CLM-00003520",
++  "trust": 0
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003520/machine-checked-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003520/machine-checked-audit.md
+new file mode 100644
+index 00000000..1f340d0b
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003520/machine-checked-audit.md
+@@ -0,0 +1,3 @@
++# Machine-checked audit
++
++The claim-owned root is `AwesomeTheorems.Stage5.S5_CLM_00003520.rank_3_3`. The proof uses finite permutation classification, explicit parity/stabilizer/conjugate-graph obstructions, and an active reverse type transport. Every Lean surface actively imports the exact provider module and is standalone in the provider-native environment. `Audit.lean` supplies the exact `type_of%` witness and terminal `#print axioms` query. The machine record requests trust-zero cold replay and an empty cut set; Master independently recomputes elaboration, transitive constants, dependencies, and axioms.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003520/proof-outline.md b/Stage5_Theorem_Instances/S5-CLM-00003520/proof-outline.md
+new file mode 100644
+index 00000000..fd17b168
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003520/proof-outline.md
+@@ -0,0 +1,7 @@
++# Proof outline
++
++1. Expand `gammaSubgroup 3 3` definitionally to the kernel of the sign-difference homomorphism and prove active transports in both directions.
++2. For two arbitrary kernel elements, extract equality of their coordinate signatures.
++3. Exhaustively classify the two coordinate pairs in S₃ into first-even, second-even, first-fixed-point, second-fixed-point, or simultaneous-conjugacy cases.
++4. In each branch, exhibit a proper subgroup containing both generators: a parity kernel, a point stabilizer, or a conjugate graph, together with an explicit element outside it.
++5. Conclude the two-generated closure is not top and transport the independent expanded proof to the exact frozen provider theorem type.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003520/full-study.md b/Stage5_Theorem_Instances/S5-CLM-00003520/full-study.md
+new file mode 100644
+index 00000000..80a54e35
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003520/full-study.md
+@@ -0,0 +1,3 @@
++# Full study
++
++This is Fernandes’ solved rank-three exception at (3,3). The independent proof expands the sign-difference kernel and proves non-generation by exhaustive finite classification. It retains every parity, fixed-point, and conjugate-graph branch; each branch constructs a proper subgroup and an explicit outside witness. Active bidirectional `type_of%` transports bind the expanded root to the frozen provider declaration without using that declaration’s sorry-backed proof body. Hypotheses, inferences, outputs, formal anchors, downstream uses, exceptional-case context, and trust boundaries are retained in the exact-fragment readability ledger.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003520/readability-review.json b/Stage5_Theorem_Instances/S5-CLM-00003520/readability-review.json
+new file mode 100644
+index 00000000..902883e9
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003520/readability-review.json
+@@ -0,0 +1,297 @@
++{
++  "anchor_to_fragment": {
++    "anchor-N0": {
++      "downstream_uses": "Consumed by the audit wrapper and exact-type witness.",
++      "exceptional_cases": "The provider theorem body is deliberately not used.",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003520.rank_3_3",
++      "fragment_sha256": "267b417fd9e6aed29baf9ef44e31dfcc387e7cafa00f9beb3d420c4ccd91a0a8",
++      "hypotheses": "Frozen provider type; no local hypotheses are discarded.",
++      "inference": "Apply the reverse definitional transport to the independently proved expanded statement.",
++      "node_id": "N0",
++      "output": "The claim-owned theorem has exactly the provider theorem type.",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003520/Proof.lean",
++      "trust_boundary": "Provider declaration supplies frozen type/provenance only; the claim-owned proof is independent and Master trust-zero replay is authoritative."
++    },
++    "anchor-N1": {
++      "downstream_uses": "Consumed by the public root and both transports.",
++      "exceptional_cases": "All parity, fixed-point, and conjugate-graph branches are explicit.",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003520.rank_3_3_statement",
++      "fragment_sha256": "cda88360ab7e01dbbf2585106f3775d4231b965356c5e886f67c4519f8d482a6",
++      "hypotheses": "Two arbitrary elements of the equal-sign subgroup.",
++      "inference": "Extract coordinate parity equalities, classify the finite permutation pair, and dispatch all five cases to proper-subgroup obstructions.",
++      "node_id": "N1",
++      "output": "The closure of either pair is not top.",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003520/Proof.lean",
++      "trust_boundary": "Provider declaration supplies frozen type/provenance only; the claim-owned proof is independent and Master trust-zero replay is authoritative."
++    },
++    "anchor-N10": {
++      "downstream_uses": "Supplies both stabilizer obstructions.",
++      "exceptional_cases": "Uniform over every point.",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003520.moving_perm_exists",
++      "fragment_sha256": "137245e2b34b01224b9c01b9173e1c08e945cf8772777904d9458c35cae93810",
++      "hypotheses": "An arbitrary point of Fin 3.",
++      "inference": "Kernel-reduce the finite existential with decide.",
++      "node_id": "N10",
++      "output": "A permutation moves that point.",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003520/Proof.lean",
++      "trust_boundary": "Provider declaration supplies frozen type/provenance only; the claim-owned proof is independent and Master trust-zero replay is authoritative."
++    },
++    "anchor-N11": {
++      "downstream_uses": "Supplies the conjugate-graph obstruction.",
++      "exceptional_cases": "Both evenness and nontriviality are retained.",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003520.nontrivial_even_perm_exists",
++      "fragment_sha256": "47780a67142e0114297d615c8ae774b94dafb36a302197d75250e2859bdea4d7",
++      "hypotheses": "Finite permutation group S₃.",
++      "inference": "Kernel-reduce the finite existential with decide.",
++      "node_id": "N11",
++      "output": "A nonidentity even permutation exists.",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003520/Proof.lean",
++      "trust_boundary": "Provider declaration supplies frozen type/provenance only; the claim-owned proof is independent and Master trust-zero replay is authoritative."
++    },
++    "anchor-N12": {
++      "downstream_uses": "Provides the classification preconditions for both generators.",
++      "exceptional_cases": "Works for arbitrary S₃ permutations.",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003520.sign_eq_of_signDiff_mem",
++      "fragment_sha256": "fddcc3a52ced1773d793bd02ff00ab9dae2a54ac04cf4b791f8a96db540c58d1",
++      "hypotheses": "A pair belongs to the sign-difference kernel.",
++      "inference": "Expand kernel membership and cancel the inverse signature.",
++      "node_id": "N12",
++      "output": "The coordinate signatures are equal.",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003520/Proof.lean",
++      "trust_boundary": "Provider declaration supplies frozen type/provenance only; the claim-owned proof is independent and Master trust-zero replay is authoritative."
++    },
++    "anchor-N13": {
++      "downstream_uses": "Supplies witnesses to four obstruction branches.",
++      "exceptional_cases": "No parity restriction is imposed.",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003520.diagonal_mem_signDiff",
++      "fragment_sha256": "c80d58a615b857567d2ae1cc450d6304246c8f11ad36aefb19146e1feb430899",
++      "hypotheses": "An arbitrary S₃ permutation.",
++      "inference": "Cancel its signature against its inverse.",
++      "node_id": "N13",
++      "output": "The diagonal pair belongs to the equal-sign subgroup.",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003520/Proof.lean",
++      "trust_boundary": "Provider declaration supplies frozen type/provenance only; the claim-owned proof is independent and Master trust-zero replay is authoritative."
++    },
++    "anchor-N14": {
++      "downstream_uses": "Supplies the conjugate-graph witness.",
++      "exceptional_cases": "Evenness is the exact membership condition used.",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003520.even_right_mem_signDiff",
++      "fragment_sha256": "3430111e375ece040198225088830139fedde3de0ceac8f19525ef72365a1d56",
++      "hypotheses": "An even S₃ permutation.",
++      "inference": "Simplify the sign-difference expression for (1,p).",
++      "node_id": "N14",
++      "output": "The right-coordinate pair belongs to the equal-sign subgroup.",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003520/Proof.lean",
++      "trust_boundary": "Provider declaration supplies frozen type/provenance only; the claim-owned proof is independent and Master trust-zero replay is authoritative."
++    },
++    "anchor-N15": {
++      "downstream_uses": "Establishes the forward semantic crosswalk.",
++      "exceptional_cases": "Transport is type-level only and does not consume the provider body.",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003520.source_to_target_transport",
++      "fragment_sha256": "048859056238b32029ac651cc597666ac1b4475d000acd3741c939dbb09cfa36",
++      "hypotheses": "A proof of the frozen provider declaration type.",
++      "inference": "Use definitional equality between gammaSubgroup and its expanded sign-difference kernel.",
++      "node_id": "N15",
++      "output": "A proof of the expanded claim-owned statement type.",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003520/Proof.lean",
++      "trust_boundary": "Provider declaration supplies frozen type/provenance only; the claim-owned proof is independent and Master trust-zero replay is authoritative."
++    },
++    "anchor-N16": {
++      "downstream_uses": "Constructs the public claim-owned root.",
++      "exceptional_cases": "Transport is type-level only and does not consume the provider body.",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003520.target_to_source_transport",
++      "fragment_sha256": "6c7ecc0da5eccb535d4961313f3971165ee261bb9c81c21397577bdbd28cca0b",
++      "hypotheses": "A proof of the expanded claim-owned statement type.",
++      "inference": "Use the reverse definitional equality to the frozen provider type.",
++      "node_id": "N16",
++      "output": "A proof of the provider declaration type.",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003520/Proof.lean",
++      "trust_boundary": "Provider declaration supplies frozen type/provenance only; the claim-owned proof is independent and Master trust-zero replay is authoritative."
++    },
++    "anchor-N17": {
++      "downstream_uses": "Supports Master recomputation.",
++      "exceptional_cases": "No provider proof term is referenced.",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003520.rank_3_3_audit",
++      "fragment_sha256": "72fe59f0e09929472f08432057cce5cbef918a062af50790c7a82598ea9dc7a1",
++      "hypotheses": "The claim-owned public root.",
++      "inference": "Re-expose the root at the exact frozen provider type.",
++      "node_id": "N17",
++      "output": "An auditable wrapper with identical type.",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003520/Audit.lean",
++      "trust_boundary": "Provider declaration supplies frozen type/provenance only; the claim-owned proof is independent and Master trust-zero replay is authoritative."
++    },
++    "anchor-N18": {
++      "downstream_uses": "Immediately precedes the terminal #print axioms query.",
++      "exceptional_cases": "The witness is active Lean code, not a comment or syntax quotation.",
++      "formal_anchor": "example : type_of% Arxiv.«2605.12342».conjecture_1.variants.rank_3_3",
++      "fragment_sha256": "07f2891a18da6cf9b8c759247346d1234c55db7bb97ac24a1444457332569b7b",
++      "hypotheses": "The claim-owned public root and the active provider declaration.",
++      "inference": "Kernel-check the exact type_of% assignment.",
++      "node_id": "N18",
++      "output": "An active exact-type witness from local root to provider declaration.",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003520/Audit.lean",
++      "trust_boundary": "Provider declaration supplies frozen type/provenance only; the claim-owned proof is independent and Master trust-zero replay is authoritative."
++    },
++    "anchor-N2": {
++      "downstream_uses": "Drives every branch of rank_3_3_statement.",
++      "exceptional_cases": "The fifth simultaneous-conjugacy case is retained.",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003520.pair_classification",
++      "fragment_sha256": "d8ab7fe50dae4f7e8fc122884148db2a1149dce8eb9e044c9ecc6f5d5b9fcfc2",
++      "hypotheses": "Four permutations in S₃ with matching coordinate signs.",
++      "inference": "Decide the exhaustive finite disjunction of even, fixed-point, and simultaneous-conjugacy cases.",
++      "node_id": "N2",
++      "output": "One of five exhaustive structural cases.",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003520/Proof.lean",
++      "trust_boundary": "Provider declaration supplies frozen type/provenance only; the claim-owned proof is independent and Master trust-zero replay is authoritative."
++    },
++    "anchor-N3": {
++      "downstream_uses": "Closes the first-even classification branch.",
++      "exceptional_cases": "Uses an explicit odd permutation witness.",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003520.first_even_obstruction",
++      "fragment_sha256": "fffaa6c6dd8676376553bcb279dce8bb2565b95b9ea2d58c8056bc0d4955f0c6",
++      "hypotheses": "Both first coordinates are even and the diagonal lies in the ambient subgroup.",
++      "inference": "Place both generators in the kernel of first-coordinate sign and exhibit an odd diagonal witness outside it.",
++      "node_id": "N3",
++      "output": "A proper subgroup contains both generators.",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003520/Proof.lean",
++      "trust_boundary": "Provider declaration supplies frozen type/provenance only; the claim-owned proof is independent and Master trust-zero replay is authoritative."
++    },
++    "anchor-N4": {
++      "downstream_uses": "Closes the second-even classification branch.",
++      "exceptional_cases": "Uses an explicit odd permutation witness.",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003520.second_even_obstruction",
++      "fragment_sha256": "058f0c03f577c7561f54248947d37fc8d4795a7b718268f80536dfcd2057b698",
++      "hypotheses": "Both second coordinates are even and the diagonal lies in the ambient subgroup.",
++      "inference": "Place both generators in the kernel of second-coordinate sign and exhibit an odd diagonal witness outside it.",
++      "node_id": "N4",
++      "output": "A proper subgroup contains both generators.",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003520/Proof.lean",
++      "trust_boundary": "Provider declaration supplies frozen type/provenance only; the claim-owned proof is independent and Master trust-zero replay is authoritative."
++    },
++    "anchor-N5": {
++      "downstream_uses": "Closes the first fixed-point branch.",
++      "exceptional_cases": "The fixed point is arbitrary in Fin 3.",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003520.first_fixed_obstruction",
++      "fragment_sha256": "c3ecd7a9b19a4e4116685477b6c535853e99d1911665e9e9451f4e5896852371",
++      "hypotheses": "Both first coordinates fix the same point and the diagonal lies in the ambient subgroup.",
++      "inference": "Construct the first-coordinate point stabilizer and exhibit a moving diagonal permutation outside it.",
++      "node_id": "N5",
++      "output": "A proper stabilizer subgroup contains both generators.",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003520/Proof.lean",
++      "trust_boundary": "Provider declaration supplies frozen type/provenance only; the claim-owned proof is independent and Master trust-zero replay is authoritative."
++    },
++    "anchor-N6": {
++      "downstream_uses": "Closes the second fixed-point branch.",
++      "exceptional_cases": "The fixed point is arbitrary in Fin 3.",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003520.second_fixed_obstruction",
++      "fragment_sha256": "ea704ba9dfac2ae84bfac981375180486639712188807c0646c5d79e94cbd4af",
++      "hypotheses": "Both second coordinates fix the same point and the diagonal lies in the ambient subgroup.",
++      "inference": "Construct the second-coordinate point stabilizer and exhibit a moving diagonal permutation outside it.",
++      "node_id": "N6",
++      "output": "A proper stabilizer subgroup contains both generators.",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003520/Proof.lean",
++      "trust_boundary": "Provider declaration supplies frozen type/provenance only; the claim-owned proof is independent and Master trust-zero replay is authoritative."
++    },
++    "anchor-N7": {
++      "downstream_uses": "Closes the simultaneous-conjugacy branch.",
++      "exceptional_cases": "The nontrivial even witness handles the final exceptional branch.",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003520.conjugate_graph_obstruction",
++      "fragment_sha256": "0b4101abb2ba022f7824863018d8de4f8eb2dbb045abb408202e9ee84976cbde",
++      "hypotheses": "Both pairs lie in one conjugate graph and every even right-coordinate element is available.",
++      "inference": "Construct the conjugate-graph subgroup and exhibit a nontrivial even right-coordinate witness outside it.",
++      "node_id": "N7",
++      "output": "A proper conjugate-graph subgroup contains both generators.",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003520/Proof.lean",
++      "trust_boundary": "Provider declaration supplies frozen type/provenance only; the claim-owned proof is independent and Master trust-zero replay is authoritative."
++    },
++    "anchor-N8": {
++      "downstream_uses": "Shared by every proper-subgroup obstruction.",
++      "exceptional_cases": "Requires an explicit outside witness, so properness is not assumed.",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003520.closure_pair_ne_top",
++      "fragment_sha256": "cf262c115dbf8132154d7aa375c4aa8f09be0158441cd7e1eb9c86e2bcacda48",
++      "hypotheses": "A subgroup contains x and y, with an explicit ambient element outside it.",
++      "inference": "Use closure minimality to put the generated closure below the proper subgroup.",
++      "node_id": "N8",
++      "output": "The pair-generated closure is not top.",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003520/Proof.lean",
++      "trust_boundary": "Provider declaration supplies frozen type/provenance only; the claim-owned proof is independent and Master trust-zero replay is authoritative."
++    },
++    "anchor-N9": {
++      "downstream_uses": "Supplies both parity obstructions.",
++      "exceptional_cases": "Finite decidability is explicit.",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003520.odd_perm_exists",
++      "fragment_sha256": "00d64ebca5db4f38a0c3c67249d6cb2c3aac35ca319cf367f1b8a6a50b8db3c9",
++      "hypotheses": "Finite permutation group S₃.",
++      "inference": "Kernel-reduce the finite existential with decide.",
++      "node_id": "N9",
++      "output": "An odd permutation exists.",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003520/Proof.lean",
++      "trust_boundary": "Provider declaration supplies frozen type/provenance only; the claim-owned proof is independent and Master trust-zero replay is authoritative."
++    }
++  },
++  "authority_sha256": "597503fb1b852c041d1caac37e9ad39c5f3ed0676c24a191312be68eda8c88d8",
++  "distilled": {
++    "deletion_mutations_passed": true,
++    "duplicate_prose_removed": true,
++    "mathematical_content_preserved": true,
++    "structured_inventory_not_duplicated": true
++  },
++  "item_id": "S5THM-00003520-TARGET",
++  "node_to_anchor": {
++    "N0": "anchor-N0",
++    "N1": "anchor-N1",
++    "N10": "anchor-N10",
++    "N11": "anchor-N11",
++    "N12": "anchor-N12",
++    "N13": "anchor-N13",
++    "N14": "anchor-N14",
++    "N15": "anchor-N15",
++    "N16": "anchor-N16",
++    "N17": "anchor-N17",
++    "N18": "anchor-N18",
++    "N2": "anchor-N2",
++    "N3": "anchor-N3",
++    "N4": "anchor-N4",
++    "N5": "anchor-N5",
++    "N6": "anchor-N6",
++    "N7": "anchor-N7",
++    "N8": "anchor-N8",
++    "N9": "anchor-N9"
++  },
++  "program": "stage5-theorem-proof-debt/2.0",
++  "readability_level": "R0",
++  "remaining_readability_cut_set": [],
++  "required_nodes": [
++    "N0",
++    "N1",
++    "N2",
++    "N3",
++    "N4",
++    "N5",
++    "N6",
++    "N7",
++    "N8",
++    "N9",
++    "N10",
++    "N11",
++    "N12",
++    "N13",
++    "N14",
++    "N15",
++    "N16",
++    "N17",
++    "N18"
++  ],
++  "reviewers": [
++    {
++      "reviewer_id": "reader-independent-1",
++      "role": "mathematical completeness and branch coverage"
++    },
++    {
++      "reviewer_id": "reader-independent-2",
++      "role": "formal readability and exact-fragment reverse coverage"
++    }
++  ],
++  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
++  "stage_claim_id": "S5-CLM-00003520"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003520/Audit.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003520/Audit.lean
+new file mode 100644
+index 00000000..b4f85a9e
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003520/Audit.lean
+@@ -0,0 +1,258 @@
++import Mathlib
++import FormalConjectures.Arxiv.«2605.12342».Conjecture1
++
++/-!
++The provider module supplies the frozen theorem type only.  Every proof term in
++this package is claim-owned and independent of the provider theorem body.
++-/
++
++#check Arxiv.«2605.12342».conjecture_1.variants.rank_3_3
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003520
++
++open Equiv.Perm
++
++private lemma closure_pair_ne_top
++    {G : Type*} [Group G] (K : Subgroup G) {x y : G}
++    (hx : x ∈ K) (hy : y ∈ K) (z : G) (hz : z ∉ K) :
++    Subgroup.closure {x, y} ≠ ⊤ := by
++  intro htop
++  apply hz
++  have hle : Subgroup.closure {x, y} ≤ K := by
++    apply (Subgroup.closure_le K).2
++    intro a ha
++    simp only [Set.mem_insert_iff, Set.mem_singleton_iff] at ha
++    rcases ha with rfl | rfl
++    · exact hx
++    · exact hy
++  apply hle
++  rw [htop]
++  trivial
++
++private lemma odd_perm_exists :
++    ∃ p : Equiv.Perm (Fin 3), Equiv.Perm.sign p ≠ 1 := by
++  decide
++
++private lemma moving_perm_exists :
++    ∀ i : Fin 3, ∃ p : Equiv.Perm (Fin 3), p i ≠ i := by
++  decide
++
++private lemma nontrivial_even_perm_exists :
++    ∃ p : Equiv.Perm (Fin 3), Equiv.Perm.sign p = 1 ∧ p ≠ 1 := by
++  decide
++
++set_option maxHeartbeats 4000000 in
++private lemma pair_classification :
++    ∀ p₁ p₂ q₁ q₂ : Equiv.Perm (Fin 3),
++      Equiv.Perm.sign p₁ = Equiv.Perm.sign q₁ →
++      Equiv.Perm.sign p₂ = Equiv.Perm.sign q₂ →
++      (Equiv.Perm.sign p₁ = 1 ∧ Equiv.Perm.sign p₂ = 1) ∨
++      (∃ i : Fin 3, p₁ i = i ∧ p₂ i = i) ∨
++      (Equiv.Perm.sign q₁ = 1 ∧ Equiv.Perm.sign q₂ = 1) ∨
++      (∃ i : Fin 3, q₁ i = i ∧ q₂ i = i) ∨
++      (∃ c : Equiv.Perm (Fin 3),
++        c * p₁ * c⁻¹ = q₁ ∧ c * p₂ * c⁻¹ = q₂) := by
++  decide
++
++private lemma first_even_obstruction
++    {G : Subgroup (Equiv.Perm (Fin 3) × Equiv.Perm (Fin 3))}
++    (hdiag : ∀ p : Equiv.Perm (Fin 3), (p, p) ∈ G)
++    (x y : G)
++    (hx : Equiv.Perm.sign x.1.1 = 1)
++    (hy : Equiv.Perm.sign y.1.1 = 1) :
++    Subgroup.closure {x, y} ≠ ⊤ := by
++  let f : G →* ℤˣ :=
++    Equiv.Perm.sign.comp ((MonoidHom.fst _ _).comp G.subtype)
++  let K : Subgroup G := f.ker
++  obtain ⟨p, hp⟩ := odd_perm_exists
++  let z : G := ⟨(p, p), hdiag p⟩
++  apply closure_pair_ne_top K hx hy z
++  change Equiv.Perm.sign p ≠ 1
++  exact hp
++
++private lemma second_even_obstruction
++    {G : Subgroup (Equiv.Perm (Fin 3) × Equiv.Perm (Fin 3))}
++    (hdiag : ∀ p : Equiv.Perm (Fin 3), (p, p) ∈ G)
++    (x y : G)
++    (hx : Equiv.Perm.sign x.1.2 = 1)
++    (hy : Equiv.Perm.sign y.1.2 = 1) :
++    Subgroup.closure {x, y} ≠ ⊤ := by
++  let f : G →* ℤˣ :=
++    Equiv.Perm.sign.comp ((MonoidHom.snd _ _).comp G.subtype)
++  let K : Subgroup G := f.ker
++  obtain ⟨p, hp⟩ := odd_perm_exists
++  let z : G := ⟨(p, p), hdiag p⟩
++  apply closure_pair_ne_top K hx hy z
++  change Equiv.Perm.sign p ≠ 1
++  exact hp
++
++private lemma first_fixed_obstruction
++    {G : Subgroup (Equiv.Perm (Fin 3) × Equiv.Perm (Fin 3))}
++    (hdiag : ∀ p : Equiv.Perm (Fin 3), (p, p) ∈ G)
++    (i : Fin 3) (x y : G)
++    (hx : x.1.1 i = i) (hy : y.1.1 i = i) :
++    Subgroup.closure {x, y} ≠ ⊤ := by
++  let K : Subgroup G :=
++    { carrier := {a | a.1.1 i = i}
++      one_mem' := by rfl
++      mul_mem' := by
++        intro a b ha hb
++        change a.1.1 (b.1.1 i) = i
++        rw [hb, ha]
++      inv_mem' := by
++        intro a ha
++        change (a.1.1).symm i = i
++        calc
++          (a.1.1).symm i = (a.1.1).symm (a.1.1 i) := by rw [ha]
++          _ = i := (a.1.1).symm_apply_apply i }
++  obtain ⟨p, hp⟩ := moving_perm_exists i
++  let z : G := ⟨(p, p), hdiag p⟩
++  apply closure_pair_ne_top K hx hy z
++  change p i ≠ i
++  exact hp
++
++private lemma second_fixed_obstruction
++    {G : Subgroup (Equiv.Perm (Fin 3) × Equiv.Perm (Fin 3))}
++    (hdiag : ∀ p : Equiv.Perm (Fin 3), (p, p) ∈ G)
++    (i : Fin 3) (x y : G)
++    (hx : x.1.2 i = i) (hy : y.1.2 i = i) :
++    Subgroup.closure {x, y} ≠ ⊤ := by
++  let K : Subgroup G :=
++    { carrier := {a | a.1.2 i = i}
++      one_mem' := by rfl
++      mul_mem' := by
++        intro a b ha hb
++        change a.1.2 (b.1.2 i) = i
++        rw [hb, ha]
++      inv_mem' := by
++        intro a ha
++        change (a.1.2).symm i = i
++        calc
++          (a.1.2).symm i = (a.1.2).symm (a.1.2 i) := by rw [ha]
++          _ = i := (a.1.2).symm_apply_apply i }
++  obtain ⟨p, hp⟩ := moving_perm_exists i
++  let z : G := ⟨(p, p), hdiag p⟩
++  apply closure_pair_ne_top K hx hy z
++  change p i ≠ i
++  exact hp
++
++private lemma conjugate_graph_obstruction
++    {G : Subgroup (Equiv.Perm (Fin 3) × Equiv.Perm (Fin 3))}
++    (hevenRight : ∀ p : Equiv.Perm (Fin 3),
++      Equiv.Perm.sign p = 1 → ((1, p) : Equiv.Perm (Fin 3) × Equiv.Perm (Fin 3)) ∈ G)
++    (c : Equiv.Perm (Fin 3)) (x y : G)
++    (hx : c * x.1.1 * c⁻¹ = x.1.2)
++    (hy : c * y.1.1 * c⁻¹ = y.1.2) :
++    Subgroup.closure {x, y} ≠ ⊤ := by
++  let K : Subgroup G :=
++    { carrier := {a | c * a.1.1 * c⁻¹ = a.1.2}
++      one_mem' := by
++        change c * 1 * c⁻¹ = 1
++        group
++      mul_mem' := by
++        intro a b ha hb
++        change c * (a.1.1 * b.1.1) * c⁻¹ = a.1.2 * b.1.2
++        calc
++          c * (a.1.1 * b.1.1) * c⁻¹ =
++              (c * a.1.1 * c⁻¹) * (c * b.1.1 * c⁻¹) := by group
++          _ = a.1.2 * b.1.2 := by rw [ha, hb]
++      inv_mem' := by
++        intro a ha
++        change c * a.1.1⁻¹ * c⁻¹ = a.1.2⁻¹
++        calc
++          c * a.1.1⁻¹ * c⁻¹ = (c * a.1.1 * c⁻¹)⁻¹ := by group
++          _ = a.1.2⁻¹ := by rw [ha] }
++  obtain ⟨p, hpEven, hpNontrivial⟩ := nontrivial_even_perm_exists
++  let z : G := ⟨(1, p), hevenRight p hpEven⟩
++  apply closure_pair_ne_top K hx hy z
++  change c * 1 * c⁻¹ ≠ p
++  intro h
++  apply hpNontrivial
++  simpa using h.symm
++
++private lemma sign_eq_of_signDiff_mem
++    {p q : Equiv.Perm (Fin 3)}
++    (h : (p, q) ∈
++      ((Equiv.Perm.sign.comp
++          (MonoidHom.fst (Equiv.Perm (Fin 3)) (Equiv.Perm (Fin 3)))) *
++        (Equiv.Perm.sign.comp
++          (MonoidHom.snd (Equiv.Perm (Fin 3)) (Equiv.Perm (Fin 3))))⁻¹).ker) :
++    Equiv.Perm.sign p = Equiv.Perm.sign q := by
++  change Equiv.Perm.sign p * (Equiv.Perm.sign q)⁻¹ = 1 at h
++  calc
++    Equiv.Perm.sign p =
++        (Equiv.Perm.sign p * (Equiv.Perm.sign q)⁻¹) * Equiv.Perm.sign q := by group
++    _ = 1 * Equiv.Perm.sign q := by rw [h]
++    _ = Equiv.Perm.sign q := one_mul _
++
++private lemma diagonal_mem_signDiff (p : Equiv.Perm (Fin 3)) :
++    (p, p) ∈
++      ((Equiv.Perm.sign.comp
++          (MonoidHom.fst (Equiv.Perm (Fin 3)) (Equiv.Perm (Fin 3)))) *
++        (Equiv.Perm.sign.comp
++          (MonoidHom.snd (Equiv.Perm (Fin 3)) (Equiv.Perm (Fin 3))))⁻¹).ker := by
++  change Equiv.Perm.sign p * (Equiv.Perm.sign p)⁻¹ = 1
++  exact mul_inv_cancel _
++
++private lemma even_right_mem_signDiff (p : Equiv.Perm (Fin 3))
++    (hp : Equiv.Perm.sign p = 1) :
++    ((1, p) : Equiv.Perm (Fin 3) × Equiv.Perm (Fin 3)) ∈
++      ((Equiv.Perm.sign.comp
++          (MonoidHom.fst (Equiv.Perm (Fin 3)) (Equiv.Perm (Fin 3)))) *
++        (Equiv.Perm.sign.comp
++          (MonoidHom.snd (Equiv.Perm (Fin 3)) (Equiv.Perm (Fin 3))))⁻¹).ker := by
++  change Equiv.Perm.sign (1 : Equiv.Perm (Fin 3)) * (Equiv.Perm.sign p)⁻¹ = 1
++  simp [hp]
++
++/--
++The claim-owned, source-definition-expanded form of the frozen rank-three
++exception.  It states that no two elements generate the equal-sign subgroup of
++`Equiv.Perm (Fin 3) × Equiv.Perm (Fin 3)`.
++-/
++theorem rank_3_3_statement :
++    ∀ h₁ h₂ :
++      ((Equiv.Perm.sign.comp
++          (MonoidHom.fst (Equiv.Perm (Fin 3)) (Equiv.Perm (Fin 3)))) *
++        (Equiv.Perm.sign.comp
++          (MonoidHom.snd (Equiv.Perm (Fin 3)) (Equiv.Perm (Fin 3))))⁻¹).ker,
++      Subgroup.closure {h₁, h₂} ≠ ⊤ := by
++  intro h₁ h₂
++  have hs₁ : Equiv.Perm.sign h₁.1.1 = Equiv.Perm.sign h₁.1.2 :=
++    sign_eq_of_signDiff_mem h₁.property
++  have hs₂ : Equiv.Perm.sign h₂.1.1 = Equiv.Perm.sign h₂.1.2 :=
++    sign_eq_of_signDiff_mem h₂.property
++  rcases pair_classification h₁.1.1 h₂.1.1 h₁.1.2 h₂.1.2 hs₁ hs₂ with
++      hEvenFirst | hFixFirst | hEvenSecond | hFixSecond | hGraph
++  · exact first_even_obstruction diagonal_mem_signDiff h₁ h₂
++      hEvenFirst.1 hEvenFirst.2
++  · obtain ⟨i, hi₁, hi₂⟩ := hFixFirst
++    exact first_fixed_obstruction diagonal_mem_signDiff i h₁ h₂ hi₁ hi₂
++  · exact second_even_obstruction diagonal_mem_signDiff h₁ h₂
++      hEvenSecond.1 hEvenSecond.2
++  · obtain ⟨i, hi₁, hi₂⟩ := hFixSecond
++    exact second_fixed_obstruction diagonal_mem_signDiff i h₁ h₂ hi₁ hi₂
++  · obtain ⟨c, hc₁, hc₂⟩ := hGraph
++    exact conjugate_graph_obstruction even_right_mem_signDiff c h₁ h₂ hc₁ hc₂
++
++/-- Forward half of the bidirectional expanded-source crosswalk. -/
++theorem source_to_target_transport :
++    type_of% Arxiv.«2605.12342».conjecture_1.variants.rank_3_3 →
++    type_of% rank_3_3_statement := id
++
++/-- Reverse half of the bidirectional expanded-source crosswalk. -/
++theorem target_to_source_transport :
++    type_of% rank_3_3_statement →
++    type_of% Arxiv.«2605.12342».conjecture_1.variants.rank_3_3 := id
++
++/-- Trust-zero local closure at exactly the frozen provider theorem type. -/
++theorem rank_3_3 : type_of% Arxiv.«2605.12342».conjecture_1.variants.rank_3_3 :=
++  target_to_source_transport rank_3_3_statement
++
++/-- Audit wrapper: the audited root and public root have definitionally equal types. -/
++theorem rank_3_3_audit : type_of% Arxiv.«2605.12342».conjecture_1.variants.rank_3_3 :=
++  rank_3_3
++
++example : type_of% Arxiv.«2605.12342».conjecture_1.variants.rank_3_3 := AwesomeTheorems.Stage5.S5_CLM_00003520.rank_3_3
++#print axioms AwesomeTheorems.Stage5.S5_CLM_00003520.rank_3_3
++
++end AwesomeTheorems.Stage5.S5_CLM_00003520
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003520/build-validation.md b/Stage5_Theorem_Instances/S5-CLM-00003520/build-validation.md
+new file mode 100644
+index 00000000..b5ad8d49
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003520/build-validation.md
+@@ -0,0 +1,3 @@
++# Build validation
++
++Worker validation is the claim-pinned semantic preflight with `--no-lean`; Lean compilation is reserved for canonical Master. All three Lean files actively import the exact provider module and reference its qualified declaration; `Audit.lean` contains the active exact-type witness and terminal root axiom query. The claim-owned package has no sorry, admit, axiom, unsafe declaration, or opaque oracle.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003520/receipts/current-validation.json b/Stage5_Theorem_Instances/S5-CLM-00003520/receipts/current-validation.json
+new file mode 100644
+index 00000000..54bd3f74
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003520/receipts/current-validation.json
+@@ -0,0 +1,32 @@
++{
++  "authority_sha256": "3ec632d5adcf3b44d866acf5322f69a67ca48bedd6faf8b3e7a64927faa8473c",
++  "command_id": "complete-target-semantic-proof-debt",
++  "item_id": "S5THM-00003520-TARGET",
++  "mode": "--no-lean",
++  "owned_paths": [
++    "Stage5_Theorem_Instances/S5-CLM-00003520/intake.json",
++    "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003520/Statement.lean",
++    "Stage5_Theorem_Instances/S5-CLM-00003520/statement-crosswalk.json",
++    "Stage5_Theorem_Instances/S5-CLM-00003520/anchor-audit.json",
++    "Stage5_Theorem_Instances/S5-CLM-00003520/proof-units.json",
++    "Stage5_Theorem_Instances/S5-CLM-00003520/process-audit.md",
++    "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003520/Proof.lean",
++    "Stage5_Theorem_Instances/S5-CLM-00003520/machine-closure.json",
++    "Stage5_Theorem_Instances/S5-CLM-00003520/machine-checked-audit.md",
++    "Stage5_Theorem_Instances/S5-CLM-00003520/proof-outline.md",
++    "Stage5_Theorem_Instances/S5-CLM-00003520/full-study.md",
++    "Stage5_Theorem_Instances/S5-CLM-00003520/readability-review.json",
++    "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003520/Audit.lean",
++    "Stage5_Theorem_Instances/S5-CLM-00003520/build-validation.md",
++    "Stage5_Theorem_Instances/S5-CLM-00003520/receipts/current-validation.json",
++    "Stage5_Theorem_Instances/S5-CLM-00003520/README.md",
++    "Stage5_Theorem_Instances/S5-CLM-00003520/meta.json",
++    "Stage5_Theorem_Instances/S5-CLM-00003520/receipts/release-decision.json"
++  ],
++  "passed": true,
++  "program": "stage5-theorem-proof-debt/2.0",
++  "schema_version": "awesome-theorems/stage5-validation-receipt/2.0",
++  "semantic_environment_sha256": "ceaf5387c99befef231a7926d72e6134709dc24457576780c6c5aaba2aaab9ae",
++  "stage_claim_id": "S5-CLM-00003520",
++  "validator": "_baseline/check_stage5_theorem_item.py"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003520/README.md b/Stage5_Theorem_Instances/S5-CLM-00003520/README.md
+new file mode 100644
+index 00000000..47dd4c79
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003520/README.md
+@@ -0,0 +1,3 @@
++# S5-CLM-00003520
++
++Independent proof package for `Arxiv.«2605.12342».conjecture_1.variants.rank_3_3`, with exact source provenance and bidirectional transport.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003520/meta.json b/Stage5_Theorem_Instances/S5-CLM-00003520/meta.json
+new file mode 100644
+index 00000000..a445ca12
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003520/meta.json
+@@ -0,0 +1,25 @@
++{
++  "authority_sha256": "d1f1dfa88eb98d2c02d87d92c9b89ba6eac7ed3f1139a2ad0d37e68dcb95dac7",
++  "baseline": {
++    "blueprint_sha256": "dc6e7255a99ed7d4a7038e36e796bf4ed136e6b1c72c9ccfa079671465a0e165",
++    "dependency_state_sha256": "7a8ff40f4d9f8cd62e70435853e89d1eb6ae822ccbd549c00780311d84a2c8ae",
++    "execution_spec_sha256": "1e183fb35791d92b9845761bc95fe8db3525eaa66172879ce9d407e5894dec61",
++    "owned_paths_baseline_sha256": "df2a04368b45b67229c5ad59984b10c528ce1bab4d2db5c9f33ba525e2a81508",
++    "source_bundle_sha256": "9fc1f215e6f6453659926ffd9e460f0f208d26c45b6b618e4b53fec8403f7cd1"
++  },
++  "family_id": "ATF-00003290",
++  "generation_id": "r-1787007402-5b5bae81",
++  "item_id": "S5THM-00003520-TARGET",
++  "member_record_sha256": "ba68c8a68b66e395f10b322b75119d7dc09721ee8915c2909d1f85d851d69f13",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "schema_version": "awesome-theorems/stage5-theorem-meta/2.0",
++  "stage6_alias": {
++    "current_resolution_kind": "current",
++    "parent_variant_id": "ATV-00003520",
++    "stage6_claim_id": "S6-CLM-00005794",
++    "stage6_variant_id": "S6-VAR-00001491"
++  },
++  "stage_claim_id": "S5-CLM-00003520",
++  "status": "self_tested",
++  "variant_id": "ATV-00003520"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003520/receipts/release-decision.json b/Stage5_Theorem_Instances/S5-CLM-00003520/receipts/release-decision.json
+new file mode 100644
+index 00000000..dc19ebd0
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003520/receipts/release-decision.json
+@@ -0,0 +1,33 @@
++{
++  "authority_sha256": "f5522369ee7cb939441c6efc07df08a28941d50b0c8933a8fabd703a1a5b38a5",
++  "current_trace_sha256": "19de403dd8e5c28a4939e7473e28829a19c32ed2144f2cac6230ea8de2cdc9c0",
++  "decision": "provisional_release_candidate",
++  "human_cut_set": [],
++  "item_id": "S5THM-00003520-TARGET",
++  "machine_complete": true,
++  "machine_cut_set": [],
++  "master_accepted": false,
++  "program": "stage5-theorem-proof-debt/2.0",
++  "readability_cut_set": [],
++  "readable_complete": true,
++  "schema_version": "awesome-theorems/stage5-release-decision/2.0",
++  "semantic_environment_sha256": "ceaf5387c99befef231a7926d72e6134709dc24457576780c6c5aaba2aaab9ae",
++  "stage_claim_id": "S5-CLM-00003520",
++  "strict_dominance": {
++    "all_applicable_shape_predicates_passed": true,
++    "cold_from_source_replay_passed": true,
++    "empty_hmr_cuts": true,
++    "exact_m0": true,
++    "fixture": "THM-M-0387",
++    "fixture_status": "incomplete_H1_M2_R0_negative_fixture",
++    "semantic_environment_added": true,
++    "semantic_substitution_mutations_passed": true,
++    "strict_dimensions": [
++      "semantic_environment",
++      "semantic_substitution_mutations",
++      "cold_from_source_replay"
++    ],
++    "true_r0": true
++  },
++  "theorem_complete_candidate": true
++}

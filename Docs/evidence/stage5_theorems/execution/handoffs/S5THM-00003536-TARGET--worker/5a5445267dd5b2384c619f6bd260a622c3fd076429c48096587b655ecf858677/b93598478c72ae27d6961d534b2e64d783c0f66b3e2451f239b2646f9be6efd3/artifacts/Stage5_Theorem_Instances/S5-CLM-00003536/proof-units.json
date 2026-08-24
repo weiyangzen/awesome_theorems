@@ -1,0 +1,95 @@
+{
+  "schema_version": "awesome-theorems/stage5-proof-units/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003536-TARGET",
+  "stage_claim_id": "S5-CLM-00003536",
+  "root_node_id": "PU-ROOT-CHECK",
+  "nodes": [
+    {
+      "node_id": "PU-ROOT",
+      "node_type": "mathematical_proof",
+      "inputs": [
+        "ξ : ℝ",
+        "hξ : Irrational ξ"
+      ],
+      "output_type_sha256": "ab333f404d4ba0f4b5bbc5c9927b7567cd7eb5b45de676d7d96edd5101279bf4",
+      "dependencies": [],
+      "composition": "Furstenberg topological recurrence for the multiplicatively independent circle maps ×2 and ×3",
+      "provenance": [
+        "Furstenberg 1967",
+        "frozen provider docstring [Fur67]"
+      ],
+      "machine_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003536.furstenberg_two_three_root_application",
+      "human_anchor": "HUMAN-PU-ROOT",
+      "trust_boundary": "independent local proof body; provider sorryAx excluded",
+      "status": "closed"
+    },
+    {
+      "node_id": "PU-TRANSPORT",
+      "node_type": "semantic_transport",
+      "inputs": [
+        "PU-ROOT",
+        "frozen declaration type"
+      ],
+      "output_type_sha256": "ab333f404d4ba0f4b5bbc5c9927b7567cd7eb5b45de676d7d96edd5101279bf4",
+      "dependencies": [
+        "PU-ROOT"
+      ],
+      "composition": "bidirectional definitional-identity transport",
+      "provenance": [
+        "Statement.lean",
+        "statement-crosswalk.json"
+      ],
+      "machine_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003536.source_to_target_statement",
+      "human_anchor": "HUMAN-PU-TRANSPORT",
+      "trust_boundary": "Master recomputes elaborated source and target expressions",
+      "status": "closed"
+    },
+    {
+      "node_id": "PU-ROOT-CHECK",
+      "node_type": "trust_replay",
+      "inputs": [
+        "PU-ROOT",
+        "PU-TRANSPORT",
+        "pinned provider bytes",
+        "pinned toolchain"
+      ],
+      "output_type_sha256": "ab333f404d4ba0f4b5bbc5c9927b7567cd7eb5b45de676d7d96edd5101279bf4",
+      "dependencies": [
+        "PU-ROOT",
+        "PU-TRANSPORT"
+      ],
+      "composition": "trust-zero exact-root elaboration, axiom census, cold replay, and mutation audit",
+      "provenance": [
+        "Audit.lean",
+        "machine-closure.json",
+        "receipts/current-validation.json"
+      ],
+      "machine_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003536.audit_exact_root_type",
+      "human_anchor": "HUMAN-PU-ROOT-CHECK",
+      "trust_boundary": "worker provisional; canonical Master independent acceptance required",
+      "status": "closed"
+    }
+  ],
+  "edges": [
+    {
+      "from": "PU-ROOT",
+      "to": "PU-TRANSPORT",
+      "kind": "proof"
+    },
+    {
+      "from": "PU-ROOT",
+      "to": "PU-ROOT-CHECK",
+      "kind": "audit"
+    },
+    {
+      "from": "PU-TRANSPORT",
+      "to": "PU-ROOT-CHECK",
+      "kind": "semantic_identity"
+    }
+  ],
+  "human_cut_set": [],
+  "machine_cut_set": [],
+  "readability_cut_set": [],
+  "authority_sha256": "1091d912c4810b5ad7dd762ea5789d6dab05df39f2723456d8cd6e63bdec3e08"
+}

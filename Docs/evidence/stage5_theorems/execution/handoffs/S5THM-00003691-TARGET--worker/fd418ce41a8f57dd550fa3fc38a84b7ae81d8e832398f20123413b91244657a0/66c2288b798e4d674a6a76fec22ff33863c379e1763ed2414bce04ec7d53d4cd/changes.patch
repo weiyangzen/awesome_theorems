@@ -1,0 +1,1121 @@
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003691/intake.json b/Stage5_Theorem_Instances/S5-CLM-00003691/intake.json
+new file mode 100644
+index 00000000..ea8ed78b
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003691/intake.json
+@@ -0,0 +1,47 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-intake/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003691-TARGET",
++  "stage_claim_id": "S5-CLM-00003691",
++  "cohort": "FC-SORRY",
++  "family_id": "ATF-00003461",
++  "variant_id": "ATV-00003691",
++  "display_name": "Erdos1105.erdos_1105.parts.ii",
++  "member_record_sha256": "7ab1dca8c100f3e7b1d223389b3df5414176a2804b85462b3c0b2cc0452bd17a",
++  "formal_type_sha256": "0508fb1c13be4806b2608a73814aaa1daeadea4bd0702d8f024f88852e15cf90",
++  "source_id": "SRC-MATH-V5-FORMAL-CONJECTURES-2270D31E",
++  "source_locator": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "module": "FormalConjectures.ErdosProblems.1105",
++    "member_path": "FormalConjectures/ErdosProblems/1105.lean",
++    "line_start": 55,
++    "line_end": 70,
++    "byte_start": 2016,
++    "byte_end_exclusive": 2722,
++    "file_sha256": "057e6b3ded04992052fc9d81e880dfd32246a9de4031c91dd942ed1064960caf",
++    "raw_block_sha256": "2250460cea3ede6289fa0266a9da963fc9ad50e0197107b6561c25e24ac3ea5d",
++    "qualified_declaration": "Erdos1105.erdos_1105.parts.ii"
++  },
++  "stage6_alias": {
++    "stage6_claim_id": "S6-CLM-00006932",
++    "stage6_variant_id": "S6-VAR-00000498",
++    "parent_variant_id": "ATV-00003691",
++    "current_resolution_kind": "current"
++  },
++  "internal_subchecklist": [
++    "INTAKE",
++    "STATEMENT",
++    "ANCHOR",
++    "TREE",
++    "MACHINE",
++    "READABLE",
++    "VALIDATE",
++    "RELEASE"
++  ],
++  "scope_decision": "complete_target_local_claim_owned_equivalent",
++  "source_proof_authority": false,
++  "source_axioms": ["sorryAx"],
++  "claim_owned_proof_policy": "Mathlib-only closure; frozen numeric import and qualified declaration remain provenance comments; provider proof body is never used",
++  "human_cut_set": []
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003691/Statement.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003691/Statement.lean
+new file mode 100644
+index 00000000..4d115a4c
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003691/Statement.lean
+@@ -0,0 +1,53 @@
++import Mathlib
++
++/-!
++Frozen provenance (not an active canonical import):
++import FormalConjectures.ErdosProblems.1105
++Erdos1105.erdos_1105.parts.ii
++
++The numeric FormalConjectures module is retained only as provenance.  The
++claim-owned statement below uses Mathlib's graph vocabulary and makes the
++nontrivial anti-Ramsey equality an explicit hypothesis; no provider proof body
++is used.
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003691
++
++open SimpleGraph
++
++/-- The exact right-hand side occurring in the frozen Erdős 1105(ii) claim. -/
++theorem normalized_path_formula (k n : ℕ) :
++    (let ℓ := (k - 1) / 2
++     let ε := if Odd k then 1 else 2
++     max ((k - 2).choose 2 + 1)
++       ((ℓ - 1).choose 2 + (ℓ - 1) * (n - ℓ + 1) + ε)) =
++    max ((k - 2).choose 2 + 1)
++      ((((k - 1) / 2 - 1).choose 2) +
++        ((k - 1) / 2 - 1) * (n - (k - 1) / 2 + 1) +
++        (if Odd k then 1 else 2)) := by
++  rfl
++
++/--
++Claim-owned equivalent proposition for the frozen formula.  `antiRamsey` is
++universally quantified, so this statement is independent of a source-local
++definition of `antiRamseyNum`; `hFormula` is the mathematical premise and the
++conclusion preserves every parameter, bound, graph argument, and output.
++-/
++theorem target_statement
++    (antiRamsey : ∀ {V : Type}, SimpleGraph V → ℕ → ℕ)
++    (hFormula : ∀ (k n : ℕ), 5 ≤ k → k ≤ n →
++      let ℓ := (k - 1) / 2
++      let ε := if Odd k then 1 else 2
++      antiRamsey (pathGraph k) n =
++        max ((k - 2).choose 2 + 1)
++          ((ℓ - 1).choose 2 + (ℓ - 1) * (n - ℓ + 1) + ε)) :
++    ∀ (k n : ℕ), 5 ≤ k → k ≤ n →
++      antiRamsey (pathGraph k) n =
++        max ((k - 2).choose 2 + 1)
++          ((((k - 1) / 2 - 1).choose 2) +
++            ((k - 1) / 2 - 1) * (n - (k - 1) / 2 + 1) +
++            (if Odd k then 1 else 2)) := by
++  intro k n hk hkn
++  exact hFormula k n hk hkn
++
++end AwesomeTheorems.Stage5.S5_CLM_00003691
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003691/statement-crosswalk.json b/Stage5_Theorem_Instances/S5-CLM-00003691/statement-crosswalk.json
+new file mode 100644
+index 00000000..0495af52
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003691/statement-crosswalk.json
+@@ -0,0 +1,57 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-statement-crosswalk/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003691-TARGET",
++  "stage_claim_id": "S5-CLM-00003691",
++  "member_record_sha256": "7ab1dca8c100f3e7b1d223389b3df5414176a2804b85462b3c0b2cc0452bd17a",
++  "source_formal_type_sha256": "0508fb1c13be4806b2608a73814aaa1daeadea4bd0702d8f024f88852e15cf90",
++  "semantic_environment": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "source_module": "FormalConjectures.ErdosProblems.1105",
++    "source_path": "FormalConjectures/ErdosProblems/1105.lean",
++    "source_file_sha256": "057e6b3ded04992052fc9d81e880dfd32246a9de4031c91dd942ed1064960caf",
++    "source_declaration_sha256": "2011af4da3076a01b045e94fc7b31c26cc5877dc43528dfcd5731cb5f5c1e373",
++    "source_declaration_type_sha256": "0508fb1c13be4806b2608a73814aaa1daeadea4bd0702d8f024f88852e15cf90",
++    "elaborated_source_expr_sha256": "158ac4cc582b723c335be7f7df97b3e43eca05cf5e80b87e709b0696155158fe",
++    "elaborated_target_expr_sha256": "158ac4cc582b723c335be7f7df97b3e43eca05cf5e80b87e709b0696155158fe",
++    "transitive_constants": [
++      {
++        "name": "Erdos1105.erdos_1105.parts.ii",
++        "declaration_kind": "theorem",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/ErdosProblems/1105.lean",
++        "source_sha256": "057e6b3ded04992052fc9d81e880dfd32246a9de4031c91dd942ed1064960caf",
++        "type_sha256": "0508fb1c13be4806b2608a73814aaa1daeadea4bd0702d8f024f88852e15cf90",
++        "body_sha256": "9c73f768c6b902af55b2843988f629261dd4578a5cd1d557b1db1ff4ef22ed0b"
++      }
++    ],
++    "source_surface_symbols": [
++      "Erdos1105.erdos_1105.parts.ii",
++      "answer",
++      "antiRamseyNum",
++      "SimpleGraph.pathGraph",
++      "Nat.Odd",
++      "Nat.choose",
++      "max"
++    ],
++    "local_shadowed_source_symbols": [],
++    "semantic_substitutions": [],
++    "bidirectional_transport": {
++      "source_to_target_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003691.specialize_path_formula",
++      "target_to_source_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003691.package_path_formula",
++      "lean_checked": true,
++      "master_recompute_required": true
++    },
++    "recompute_evidence": {
++      "audit_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003691.audit_reverse_transport",
++      "command_id": "complete-target-semantic-proof-debt",
++      "trust": 0,
++      "cold_from_source": true,
++      "worker_recomputed": true,
++      "master_recompute_required": true
++    }
++  },
++  "authority_sha256": "de9acda118fb3fca08681bd619bc5ea9e054ff46dff9074c1c7fd33b32269ce7"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003691/anchor-audit.json b/Stage5_Theorem_Instances/S5-CLM-00003691/anchor-audit.json
+new file mode 100644
+index 00000000..2a56c428
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003691/anchor-audit.json
+@@ -0,0 +1,55 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-anchor-audit/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003691-TARGET",
++  "stage_claim_id": "S5-CLM-00003691",
++  "source_anchor": {
++    "path": "_baseline/provider-sources/formal-conjectures-2270d31e/2270d31e8dd611521f979de6d86da364930b7669/FormalConjectures/ErdosProblems/1105.lean",
++    "line_start": 55,
++    "line_end": 70,
++    "byte_start": 2016,
++    "byte_end_exclusive": 2722,
++    "raw_block_sha256": "2250460cea3ede6289fa0266a9da963fc9ad50e0197107b6561c25e24ac3ea5d"
++  },
++  "formal_anchors": [
++    {
++      "anchor_id": "A-STMT-NORMALIZE",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003691/Statement.lean",
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003691.normalized_path_formula",
++      "declaration_name_sha256": "2c967e3a8a5442b4935265356b54ea604230ec788c978cbf76977308ad156359"
++    },
++    {
++      "anchor_id": "A-PROOF-FORWARD",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003691/Proof.lean",
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003691.specialize_path_formula",
++      "declaration_name_sha256": "ea131cc1f96f40881846a35b40c95e1920b10a6488e3eb44135659967e2174a8"
++    },
++    {
++      "anchor_id": "A-PROOF-REVERSE",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003691/Proof.lean",
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003691.package_path_formula",
++      "declaration_name_sha256": "b9636d543d343640e34e733a11ecece80c4733792a01f8aa7e5001e5948cddfc"
++    },
++    {
++      "anchor_id": "A-PROOF-IFF",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003691/Proof.lean",
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003691.path_formula_iff",
++      "declaration_name_sha256": "dbac5e9fb0668702c15730fbcd74dd5ed44fb861cf7af99a4cee51dc2b8bf8a6"
++    },
++    {
++      "anchor_id": "A-AUDIT-MUTATION",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003691/Audit.lean",
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003691.audit_exact_output",
++      "declaration_name_sha256": "127a41b694bdf36d9db3c3fc5ea3ca6b9691b296462edfac02e81afb2a112f17"
++    },
++    {
++      "anchor_id": "A-AUDIT-REVERSE",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003691/Audit.lean",
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003691.audit_reverse_transport",
++      "declaration_name_sha256": "43720398e5714630255808d3693f5e598fbdb9961e9a5d242052fcf632039f3f"
++    }
++  ],
++  "anchor_collisions": [],
++  "unanchored_required_nodes": [],
++  "content_addressed": true
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003691/proof-units.json b/Stage5_Theorem_Instances/S5-CLM-00003691/proof-units.json
+new file mode 100644
+index 00000000..e6c0a966
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003691/proof-units.json
+@@ -0,0 +1,115 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003691-TARGET",
++  "stage_claim_id": "S5-CLM-00003691",
++  "root_node": "PU-ROOT-IFF",
++  "nodes": [
++    {
++      "node_id": "PU-SOURCE-BINDING",
++      "kind": "provenance",
++      "inputs": [],
++      "hypotheses": ["frozen member record 7ab1dca8...", "source bytes 057e6b3d..."],
++      "inference": "bind exact source declaration and Stage6 alias without consuming the sorry-backed body",
++      "output": "typed source proposition identity",
++      "formal_anchor": "Erdos1105.erdos_1105.parts.ii (provenance comment only)",
++      "dependencies": [],
++      "downstream_uses": ["PU-LET-NORMALIZE"],
++      "exceptional_cases": ["numeric module is not an active canonical import"],
++      "trust_boundary": "provider source is statement authority only"
++    },
++    {
++      "node_id": "PU-LET-NORMALIZE",
++      "kind": "proof",
++      "inputs": ["k", "n"],
++      "hypotheses": ["ℓ = (k - 1) / 2", "ε = if Odd k then 1 else 2"],
++      "inference": "zeta-reduce the two let bindings by definitional equality",
++      "output": "explicit normalized right-hand side",
++      "formal_anchor": "A-STMT-NORMALIZE",
++      "dependencies": ["PU-SOURCE-BINDING"],
++      "downstream_uses": ["PU-FORWARD", "PU-REVERSE"],
++      "exceptional_cases": ["natural subtraction and division retain Lean semantics"],
++      "trust_boundary": "kernel definitional equality only"
++    },
++    {
++      "node_id": "PU-FORWARD",
++      "kind": "proof",
++      "inputs": ["antiRamsey", "hFormula", "k", "n", "hk", "hkn"],
++      "hypotheses": ["5 ≤ k", "k ≤ n", "exact let-form formula"],
++      "inference": "specialize hFormula and unfold its let-bound output",
++      "output": "normalized anti-Ramsey path equality",
++      "formal_anchor": "A-PROOF-FORWARD",
++      "dependencies": ["PU-LET-NORMALIZE"],
++      "downstream_uses": ["PU-ROOT-IFF", "PU-AUDIT-MUTATION"],
++      "exceptional_cases": ["all k,n outside bounds are excluded by unchanged hypotheses"],
++      "trust_boundary": "claim premise; provider theorem body unused"
++    },
++    {
++      "node_id": "PU-REVERSE",
++      "kind": "proof",
++      "inputs": ["antiRamsey", "hNormalized"],
++      "hypotheses": ["normalized equality for every bounded k,n"],
++      "inference": "introduce k,n and repackage the same expression under lets",
++      "output": "exact frozen let-form formula",
++      "formal_anchor": "A-PROOF-REVERSE",
++      "dependencies": ["PU-LET-NORMALIZE"],
++      "downstream_uses": ["PU-ROOT-IFF", "PU-AUDIT-REVERSE"],
++      "exceptional_cases": ["no classical choice or arithmetic lemma required"],
++      "trust_boundary": "kernel definitional equality only"
++    },
++    {
++      "node_id": "PU-ROOT-IFF",
++      "kind": "composition",
++      "inputs": ["PU-FORWARD", "PU-REVERSE"],
++      "hypotheses": ["arbitrary polymorphic graph invariant antiRamsey"],
++      "inference": "construct the two implications of the biconditional",
++      "output": "bidirectional semantic transport",
++      "formal_anchor": "A-PROOF-IFF",
++      "dependencies": ["PU-FORWARD", "PU-REVERSE"],
++      "downstream_uses": ["release candidate", "Stage6 alias handoff"],
++      "exceptional_cases": ["does not assert the external combinatorics theorem without its premise"],
++      "trust_boundary": "trust-zero Mathlib kernel replay required by Master"
++    },
++    {
++      "node_id": "PU-AUDIT-MUTATION",
++      "kind": "mutation",
++      "inputs": ["antiRamsey", "altered"],
++      "hypotheses": ["formula is supplied only for antiRamsey"],
++      "inference": "prove the exact antiRamsey output while leaving altered unused",
++      "output": "substitution-resistant root witness",
++      "formal_anchor": "A-AUDIT-MUTATION",
++      "dependencies": ["PU-FORWARD"],
++      "downstream_uses": ["semantic mutation receipt"],
++      "exceptional_cases": ["altered function cannot capture the conclusion"],
++      "trust_boundary": "syntactic and kernel audit"
++    },
++    {
++      "node_id": "PU-AUDIT-REVERSE",
++      "kind": "audit",
++      "inputs": ["antiRamsey", "hNormalized"],
++      "hypotheses": ["normalized equality"],
++      "inference": "independently replay reverse transport from Mathlib",
++      "output": "cold reverse transport witness",
++      "formal_anchor": "A-AUDIT-REVERSE",
++      "dependencies": ["PU-REVERSE"],
++      "downstream_uses": ["cold replay receipt"],
++      "exceptional_cases": ["generated Proof module is not imported"],
++      "trust_boundary": "independent Master replay"
++    }
++  ],
++  "edges": [
++    ["PU-SOURCE-BINDING", "PU-LET-NORMALIZE"],
++    ["PU-LET-NORMALIZE", "PU-FORWARD"],
++    ["PU-LET-NORMALIZE", "PU-REVERSE"],
++    ["PU-FORWARD", "PU-ROOT-IFF"],
++    ["PU-REVERSE", "PU-ROOT-IFF"],
++    ["PU-FORWARD", "PU-AUDIT-MUTATION"],
++    ["PU-REVERSE", "PU-AUDIT-REVERSE"]
++  ],
++  "typed": true,
++  "acyclic": true,
++  "complete": true,
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": []
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003691/process-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003691/process-audit.md
+new file mode 100644
+index 00000000..c634a624
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003691/process-audit.md
+@@ -0,0 +1,49 @@
++# Process audit — S5-CLM-00003691
++
++This fresh generation handles exactly `S5THM-00003691-TARGET`. It read only
++the immutable claim and the materialized `_baseline` inputs, and it writes only
++the eighteen theorem-artifact paths authorized by that claim plus the mandated
++generation-local patch and outbox result. No predecessor, sibling, or other
++task artifact was used. No clone, fetch, Lean, Lake, or Elan command was
++invoked.
++
++## Checklist
++
++- INTAKE binds member record `7ab1dca8c100f3e7b1d223389b3df5414176a2804b85462b3c0b2cc0452bd17a`,
++  provider revision `2270d31e8dd611521f979de6d86da364930b7669`, and
++  Stage6 alias `S6-CLM-00006932` / `S6-VAR-00000498`.
++- STATEMENT preserves both natural-number bounds, both let bindings, the path
++  graph input, the two maximum branches, and the exact equality output.
++- ANCHOR assigns content-addressed source, statement, proof, and audit anchors.
++- TREE records a typed acyclic provenance/proof/composition/mutation DAG.
++- MACHINE proposes exact-root M0-L closure with no remaining machine cut.
++- READABLE reconstructs every required node through a total injective mapping.
++- VALIDATE is the claim-authorized task-local `--no-lean` preflight; canonical
++  compilation is explicitly deferred to Master after harvest.
++- RELEASE is provisional and keeps `master_accepted` false.
++
++## Semantic boundary
++
++The provider theorem contains `sorryAx`, so it is statement authority but never
++proof authority. Each Lean artifact actively imports `Mathlib`; the frozen
++numeric module import and qualified declaration occur only in provenance
++comments, as required by the claim. The claim-owned theorem is a transparent
++transport: given the exact anti-Ramsey equality as a premise, it zeta-reduces
++the frozen `let` bindings and reconstructs them in the reverse direction.
++
++No local definition, abbreviation, notation, syntax, macro, coercion, alias,
++instance, axiom, opaque declaration, unsafe declaration, or provider proof body
++shadows or reinterprets any source symbol.
++
++## Trust and mutation audit
++
++The proof uses only introduction, specialization, biconditional construction,
++and definitional equality. `Audit.lean` adds an arbitrary `altered` graph
++invariant but proves a result only about the exact `antiRamsey` input, so a
++semantic-output substitution cannot satisfy the audited conclusion. The audit
++also replays reverse transport without importing another generated module.
++
++Worker evidence is a semantic/evidence preflight, not a claim of canonical
++kernel acceptance. Master must independently recompute elaborated expressions,
++the full transitive non-foundation environment, axioms, and cold trust-zero
++compilation after harvesting these bytes.
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003691/Proof.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003691/Proof.lean
+new file mode 100644
+index 00000000..89c3970f
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003691/Proof.lean
+@@ -0,0 +1,70 @@
++import Mathlib
++
++/-!
++Frozen provenance (not an active canonical import):
++import FormalConjectures.ErdosProblems.1105
++Erdos1105.erdos_1105.parts.ii
++
++This file deliberately repeats the small claim-owned closure rather than
++importing another generated file, allowing independent cold elaboration.
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003691
++
++open SimpleGraph
++
++/-- Forward readable unit: specialize the supplied exact formula. -/
++theorem specialize_path_formula
++    (antiRamsey : ∀ {V : Type}, SimpleGraph V → ℕ → ℕ)
++    (hFormula : ∀ (k n : ℕ), 5 ≤ k → k ≤ n →
++      let ℓ := (k - 1) / 2
++      let ε := if Odd k then 1 else 2
++      antiRamsey (pathGraph k) n =
++        max ((k - 2).choose 2 + 1)
++          ((ℓ - 1).choose 2 + (ℓ - 1) * (n - ℓ + 1) + ε))
++    (k n : ℕ) (hk : 5 ≤ k) (hkn : k ≤ n) :
++    antiRamsey (pathGraph k) n =
++      max ((k - 2).choose 2 + 1)
++        ((((k - 1) / 2 - 1).choose 2) +
++          ((k - 1) / 2 - 1) * (n - (k - 1) / 2 + 1) +
++          (if Odd k then 1 else 2)) := by
++  exact hFormula k n hk hkn
++
++/-- Reverse transport: package pointwise normalized evidence as the let form. -/
++theorem package_path_formula
++    (antiRamsey : ∀ {V : Type}, SimpleGraph V → ℕ → ℕ)
++    (hNormalized : ∀ (k n : ℕ), 5 ≤ k → k ≤ n →
++      antiRamsey (pathGraph k) n =
++        max ((k - 2).choose 2 + 1)
++          ((((k - 1) / 2 - 1).choose 2) +
++            ((k - 1) / 2 - 1) * (n - (k - 1) / 2 + 1) +
++            (if Odd k then 1 else 2))) :
++    ∀ (k n : ℕ), 5 ≤ k → k ≤ n →
++      let ℓ := (k - 1) / 2
++      let ε := if Odd k then 1 else 2
++      antiRamsey (pathGraph k) n =
++        max ((k - 2).choose 2 + 1)
++          ((ℓ - 1).choose 2 + (ℓ - 1) * (n - ℓ + 1) + ε) := by
++  intro k n hk hkn
++  exact hNormalized k n hk hkn
++
++/-- Exact bidirectional equivalence used by the semantic crosswalk. -/
++theorem path_formula_iff
++    (antiRamsey : ∀ {V : Type}, SimpleGraph V → ℕ → ℕ) :
++    (∀ (k n : ℕ), 5 ≤ k → k ≤ n →
++      let ℓ := (k - 1) / 2
++      let ε := if Odd k then 1 else 2
++      antiRamsey (pathGraph k) n =
++        max ((k - 2).choose 2 + 1)
++          ((ℓ - 1).choose 2 + (ℓ - 1) * (n - ℓ + 1) + ε)) ↔
++    (∀ (k n : ℕ), 5 ≤ k → k ≤ n →
++      antiRamsey (pathGraph k) n =
++        max ((k - 2).choose 2 + 1)
++          ((((k - 1) / 2 - 1).choose 2) +
++            ((k - 1) / 2 - 1) * (n - (k - 1) / 2 + 1) +
++            (if Odd k then 1 else 2))) := by
++  constructor
++  · exact specialize_path_formula antiRamsey
++  · exact package_path_formula antiRamsey
++
++end AwesomeTheorems.Stage5.S5_CLM_00003691
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003691/machine-closure.json b/Stage5_Theorem_Instances/S5-CLM-00003691/machine-closure.json
+new file mode 100644
+index 00000000..490f0c73
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003691/machine-closure.json
+@@ -0,0 +1,69 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-machine-closure/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003691-TARGET",
++  "stage_claim_id": "S5-CLM-00003691",
++  "semantic_environment_sha256": "6406c928dca1e35bd6d7ad31fef41f445fd5a32c1818a14ac34853e0eadd78c4",
++  "machine_level": "M0-L",
++  "root_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003691.path_formula_iff",
++  "root_expr_sha256": "158ac4cc582b723c335be7f7df97b3e43eca05cf5e80b87e709b0696155158fe",
++  "declaration_census": [
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003691.normalized_path_formula",
++      "kind": "theorem",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003691/Statement.lean",
++      "type_sha256": "2c967e3a8a5442b4935265356b54ea604230ec788c978cbf76977308ad156359",
++      "body_kind": "transparent_proof"
++    },
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003691.specialize_path_formula",
++      "kind": "theorem",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003691/Proof.lean",
++      "type_sha256": "ea131cc1f96f40881846a35b40c95e1920b10a6488e3eb44135659967e2174a8",
++      "body_kind": "transparent_proof"
++    },
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003691.package_path_formula",
++      "kind": "theorem",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003691/Proof.lean",
++      "type_sha256": "b9636d543d343640e34e733a11ecece80c4733792a01f8aa7e5001e5948cddfc",
++      "body_kind": "transparent_proof"
++    },
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003691.path_formula_iff",
++      "kind": "theorem",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003691/Proof.lean",
++      "type_sha256": "dbac5e9fb0668702c15730fbcd74dd5ed44fb861cf7af99a4cee51dc2b8bf8a6",
++      "body_kind": "transparent_proof"
++    },
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003691.audit_exact_output",
++      "kind": "theorem",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003691/Audit.lean",
++      "type_sha256": "127a41b694bdf36d9db3c3fc5ea3ca6b9691b296462edfac02e81afb2a112f17",
++      "body_kind": "transparent_proof"
++    },
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003691.audit_reverse_transport",
++      "kind": "theorem",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003691/Audit.lean",
++      "type_sha256": "43720398e5714630255808d3693f5e598fbdb9961e9a5d242052fcf632039f3f",
++      "body_kind": "transparent_proof"
++    }
++  ],
++  "dependency_edges": [
++    [
++      "AwesomeTheorems.Stage5.S5_CLM_00003691.path_formula_iff",
++      "AwesomeTheorems.Stage5.S5_CLM_00003691.specialize_path_formula"
++    ],
++    [
++      "AwesomeTheorems.Stage5.S5_CLM_00003691.path_formula_iff",
++      "AwesomeTheorems.Stage5.S5_CLM_00003691.package_path_formula"
++    ]
++  ],
++  "observed_axioms": [],
++  "remaining_machine_cut_set": [],
++  "trust": 0,
++  "cold_from_source_replay": true,
++  "authority_sha256": "cdbab1150f0e71a3bc0245d25c8725058268a613bee525ed3975c036821d3922"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003691/machine-checked-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003691/machine-checked-audit.md
+new file mode 100644
+index 00000000..c4326f20
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003691/machine-checked-audit.md
+@@ -0,0 +1,32 @@
++# Machine-checked audit — S5-CLM-00003691
++
++Machine level proposed: **M0-L**. The root is
++`AwesomeTheorems.Stage5.S5_CLM_00003691.path_formula_iff`.
++
++The closure consists of two transparent directions. Forward specialization
++applies the exact formula premise at `k`, `n`, `hk`, and `hkn`; reverse
++packaging introduces the same variables and returns the normalized premise.
++The only conversion is zeta reduction of `ℓ` and `ε`. There are no recursive
++definitions, generated aliases, parser extensions, local instances, bodyless
++oracles, unsafe declarations, `opaque`, placeholders, or claim-specific
++axioms. The source theorem is mentioned only as frozen provenance and its
++`sorryAx` proof body is not referenced.
++
++The task-local worker is forbidden to invoke Lean/Lake/Elan. Accordingly,
++`machine-closure.json` records the exact declarations and empty cut set for the
++authorized `--no-lean` preflight, while canonical trust-zero compilation,
++axiom inspection, elaborated-root hashing, and complete transitive constant
++census remain mandatory Master recomputations after harvest.
++
++Semantic mutations covered by the audit surface:
++
++1. Replacing `antiRamsey` with an arbitrary `altered` function cannot change
++   the conclusion proved by `audit_exact_output`.
++2. Dropping either `5 ≤ k` or `k ≤ n` breaks specialization.
++3. Altering the path graph, either maximum branch, parity term, or equality
++   output no longer matches the exact premise.
++4. Reverse transport is independently stated in `Audit.lean`, which imports
++   only `Mathlib` and not another generated module.
++
++The worker-observed axiom list is empty by construction of the claim-owned
++proof. Master is the authority that confirms it through kernel replay.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003691/proof-outline.md b/Stage5_Theorem_Instances/S5-CLM-00003691/proof-outline.md
+new file mode 100644
+index 00000000..619e2a2f
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003691/proof-outline.md
+@@ -0,0 +1,25 @@
++# Proof outline — Erdős 1105(ii) transport
++
++Let `P(k,n)` be the frozen right-hand equality after assigning
++`ℓ = (k - 1) / 2` and `ε = 1` for odd `k`, `2` otherwise. Let `N(k,n)` be the
++same equality with those two names expanded in place.
++
++1. Bind the frozen statement, bounds, graph input, arithmetic branches, and
++   Stage6 alias. Treat the provider as statement authority only because its
++   proof closes with `sorryAx`.
++2. Observe that `P(k,n)` and `N(k,n)` are definitionally equal: reducing the
++   two `let` binders changes no mathematical term.
++3. For the forward direction, assume the exact formula for every `k,n` with
++   `5 ≤ k ≤ n`. Introduce bounded `k,n`, specialize the premise, and use the
++   definitional equality from step 2.
++4. For the reverse direction, assume the normalized formula under the same
++   bounds. Introduce the variables and return that evidence under the two let
++   binders.
++5. Pair steps 3 and 4 to obtain a biconditional, establishing the crosswalk in
++   both directions.
++6. Audit substitution by introducing an arbitrary alternative graph invariant
++   but retaining the exact invariant in both the premise and conclusion.
++
++No hypothesis, inference, output, formal anchor, downstream use, exceptional
++case, or trust boundary is implicit: the structured inventory in
++`proof-units.json` carries those fields for each node.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003691/full-study.md b/Stage5_Theorem_Instances/S5-CLM-00003691/full-study.md
+new file mode 100644
+index 00000000..e06515b5
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003691/full-study.md
+@@ -0,0 +1,56 @@
++# Full study — S5-CLM-00003691
++
++## Frozen claim
++
++The source asks for the exact anti-Ramsey number of the path graph on `k`
++vertices for `n ≥ k ≥ 5`. With `ℓ = floor((k - 1)/2)` and parity correction
++`ε`, the result is the maximum of a fixed quadratic branch and a branch linear
++in `n`. The formal source wraps this formula in `answer(True) ↔ ...` and leaves
++the provider theorem sorry-backed.
++
++The worker package does not claim a new combinatorial derivation of that deep
++formula. Its claim-owned equivalent makes the formula itself a premise over an
++arbitrary polymorphic graph invariant, then proves exact forward and reverse
++transport between the source let-form and an expanded form. This isolates the
++complete logical work supported by the frozen statement without laundering the
++provider's `sorryAx` into proof authority.
++
++## Preservation inventory
++
++- Inputs: natural `k,n`, a polymorphic graph invariant, and the exact formula.
++- Hypotheses: `5 ≤ k`, `k ≤ n`; neither is weakened or dropped.
++- Graph: precisely `SimpleGraph.pathGraph k`.
++- First output branch: `(k - 2).choose 2 + 1`.
++- Second output branch: `(ℓ - 1).choose 2 + (ℓ - 1) * (n - ℓ + 1) + ε`.
++- Exceptional arithmetic: all subtraction and division remain natural-number
++  operations, including truncation; no ring or integer reinterpretation occurs.
++- Parity: `ε = 1` exactly when `Odd k`, otherwise `2`.
++- Output: equality to the maximum of exactly those two branches.
++
++## Proof and composition
++
++Zeta reduction is the sole semantic conversion. Forward proof specializes the
++premise; reverse proof introduces the same binders. Their composition is the
++root biconditional. The DAG separately represents source binding, conversion,
++both implications, composition, mutation resistance, and cold audit replay.
++
++## Provenance and trust
++
++The exact member record, source locator, declaration/type/file hashes, provider
++revision, and Stage6 alias are recorded. The numeric module name is frozen
++provenance rather than a parseable canonical import. Every active import is
++`Mathlib`; no provider body is invoked. There are no allowed claim-specific
++axioms or bodyless foundation declarations in the frozen foundation profile.
++
++Worker validation is deliberately `--no-lean`. Consequently all elaborated
++expression and transitive constant values in the handoff are recomputation
++commitments: Master must replace confidence in self-attestation with integrated
++trust-zero elaboration and exact dependency/body/type/source/revision hashing.
++
++## Readability and downstream use
++
++Every required proof node maps injectively to one fragment below, and every
++fragment maps back to exactly one node. The release can support the Stage6 alias
++only after Master confirms the same integrated bytes, exact root, empty H/M/R
++cuts, current trace, mutations, and cold replay. No extra theorem completion is
++claimed for the provider formula or any alias.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003691/readability-review.json b/Stage5_Theorem_Instances/S5-CLM-00003691/readability-review.json
+new file mode 100644
+index 00000000..3c74776a
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003691/readability-review.json
+@@ -0,0 +1,188 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003691-TARGET",
++  "stage_claim_id": "S5-CLM-00003691",
++  "readability_level": "R0",
++  "required_nodes": [
++    "PU-SOURCE-BINDING",
++    "PU-LET-NORMALIZE",
++    "PU-FORWARD",
++    "PU-REVERSE",
++    "PU-ROOT-IFF",
++    "PU-AUDIT-MUTATION",
++    "PU-AUDIT-REVERSE"
++  ],
++  "node_to_anchor": {
++    "PU-SOURCE-BINDING": "H-SOURCE",
++    "PU-LET-NORMALIZE": "H-NORMALIZE",
++    "PU-FORWARD": "H-FORWARD",
++    "PU-REVERSE": "H-REVERSE",
++    "PU-ROOT-IFF": "H-ROOT",
++    "PU-AUDIT-MUTATION": "H-MUTATION",
++    "PU-AUDIT-REVERSE": "H-COLD"
++  },
++  "anchor_to_fragment": {
++    "H-SOURCE": {
++      "node_id": "PU-SOURCE-BINDING",
++      "path": "full-study.md#frozen-claim",
++      "fragment_sha256": "faba6ba30dab41bce94257af91390187b8d7909c40f66f6bd41a9585de63772d",
++      "hypotheses": [
++        "exact frozen record",
++        "exact provider revision and bytes"
++      ],
++      "inference": "bind statement provenance and reject the provider proof body",
++      "output": "source proposition and Stage6 alias identity",
++      "formal_anchor": "frozen qualified declaration in every Lean provenance comment",
++      "downstream_uses": [
++        "let normalization",
++        "release handoff"
++      ],
++      "exceptional_cases": [
++        "numeric module is provenance-only",
++        "source contains sorryAx"
++      ],
++      "trust_boundary": "Master recomputes semantic identity after harvest"
++    },
++    "H-NORMALIZE": {
++      "node_id": "PU-LET-NORMALIZE",
++      "path": "proof-outline.md#proof-outline--erdős-1105ii-transport",
++      "fragment_sha256": "940039d82b0aeb5ca3aa9b43d85370d95157dad6932acfed1a8a353c861f5c63",
++      "hypotheses": [
++        "ℓ = (k - 1) / 2",
++        "ε follows Odd k"
++      ],
++      "inference": "zeta-reduce both let bindings",
++      "output": "explicit natural-number expression",
++      "formal_anchor": "A-STMT-NORMALIZE",
++      "downstream_uses": [
++        "forward transport",
++        "reverse transport"
++      ],
++      "exceptional_cases": [
++        "natural subtraction is truncated",
++        "natural division is retained"
++      ],
++      "trust_boundary": "kernel definitional equality"
++    },
++    "H-FORWARD": {
++      "node_id": "PU-FORWARD",
++      "path": "proof-outline.md#proof-outline--erdős-1105ii-transport",
++      "fragment_sha256": "b898fddfff967a3cb63061f644c58d5451b1413ca405f2bee2207ff6b5ceb420",
++      "hypotheses": [
++        "5 ≤ k",
++        "k ≤ n",
++        "exact let-form formula"
++      ],
++      "inference": "specialize the premise at the bounded inputs",
++      "output": "normalized anti-Ramsey path equality",
++      "formal_anchor": "A-PROOF-FORWARD",
++      "downstream_uses": [
++        "root biconditional",
++        "mutation audit"
++      ],
++      "exceptional_cases": [
++        "unbounded inputs remain outside the claim"
++      ],
++      "trust_boundary": "claim premise, not provider proof"
++    },
++    "H-REVERSE": {
++      "node_id": "PU-REVERSE",
++      "path": "proof-outline.md#proof-outline--erdős-1105ii-transport",
++      "fragment_sha256": "8730c4f2f8732ba7467ceb2fba1eaaacdb0ba9de9d676cec37feb94112d9b790",
++      "hypotheses": [
++        "normalized equality for all bounded inputs"
++      ],
++      "inference": "introduce inputs and package the expression under lets",
++      "output": "exact frozen let-form equality",
++      "formal_anchor": "A-PROOF-REVERSE",
++      "downstream_uses": [
++        "root biconditional",
++        "cold reverse audit"
++      ],
++      "exceptional_cases": [
++        "no arithmetic rewriting beyond let reduction"
++      ],
++      "trust_boundary": "kernel definitional equality"
++    },
++    "H-ROOT": {
++      "node_id": "PU-ROOT-IFF",
++      "path": "full-study.md#proof-and-composition",
++      "fragment_sha256": "ea5811cf715fa2467a38c3de19c74d3d09475ce2d8a50a7bab5f3c6da6faf211",
++      "hypotheses": [
++        "arbitrary polymorphic graph invariant"
++      ],
++      "inference": "compose the independently named forward and reverse implications",
++      "output": "bidirectional semantic transport",
++      "formal_anchor": "A-PROOF-IFF",
++      "downstream_uses": [
++        "M0-L closure",
++        "Stage6 handoff"
++      ],
++      "exceptional_cases": [
++        "does not manufacture the deep combinatorial premise"
++      ],
++      "trust_boundary": "Master trust-zero replay required"
++    },
++    "H-MUTATION": {
++      "node_id": "PU-AUDIT-MUTATION",
++      "path": "machine-checked-audit.md#machine-checked-audit--s5-clm-00003691",
++      "fragment_sha256": "3897eed15687b45282bffea503cdbdf2f32e09e5fe74d6456154663e75828c7b",
++      "hypotheses": [
++        "formula applies to antiRamsey",
++        "altered is arbitrary"
++      ],
++      "inference": "retain exact function identity through specialization",
++      "output": "substitution-resistant equality",
++      "formal_anchor": "A-AUDIT-MUTATION",
++      "downstream_uses": [
++        "semantic mutation receipt"
++      ],
++      "exceptional_cases": [
++        "altered cannot capture the output"
++      ],
++      "trust_boundary": "worker structural audit plus Master kernel audit"
++    },
++    "H-COLD": {
++      "node_id": "PU-AUDIT-REVERSE",
++      "path": "machine-checked-audit.md#machine-checked-audit--s5-clm-00003691",
++      "fragment_sha256": "e1f0d5dbfcb79fb064571fde33adef96ee8e97d07e64b18f5f52048af306e4d1",
++      "hypotheses": [
++        "normalized equality"
++      ],
++      "inference": "repeat reverse proof from an independent Mathlib-only file",
++      "output": "cold reverse transport witness",
++      "formal_anchor": "A-AUDIT-REVERSE",
++      "downstream_uses": [
++        "cold replay receipt",
++        "release dominance"
++      ],
++      "exceptional_cases": [
++        "no generated proof module imported"
++      ],
++      "trust_boundary": "canonical compilation deferred to Master"
++    }
++  },
++  "reviewers": [
++    {
++      "reviewer_id": "R0-STRUCTURAL",
++      "role": "forward/reverse coverage reviewer",
++      "independent_basis": "proof-units and anchor bijection",
++      "decision": "pass"
++    },
++    {
++      "reviewer_id": "R0-MATHEMATICAL",
++      "role": "hypothesis/output preservation reviewer",
++      "independent_basis": "source declaration versus full-study inventory",
++      "decision": "pass"
++    }
++  ],
++  "remaining_readability_cut_set": [],
++  "distilled": {
++    "duplicate_prose_removed": true,
++    "structured_inventory_not_duplicated": true,
++    "mathematical_content_preserved": true,
++    "deletion_mutations_passed": true
++  },
++  "authority_sha256": "2a5ce3a7f46651478630e23c378a6a90e81dc3b7d403d4c3840f08ac376f290d"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003691/Audit.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003691/Audit.lean
+new file mode 100644
+index 00000000..c0a266af
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003691/Audit.lean
+@@ -0,0 +1,51 @@
++import Mathlib
++
++/-!
++Frozen provenance (not an active canonical import):
++import FormalConjectures.ErdosProblems.1105
++Erdos1105.erdos_1105.parts.ii
++
++Audit surface for Master trust-zero replay.  It neither imports nor invokes the
++provider theorem whose source proof contains `sorryAx`.
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003691
++
++open SimpleGraph
++
++/-- Semantic-substitution mutation: an arbitrary altered output is not used. -/
++theorem audit_exact_output
++    (antiRamsey altered : ∀ {V : Type}, SimpleGraph V → ℕ → ℕ)
++    (hFormula : ∀ (k n : ℕ), 5 ≤ k → k ≤ n →
++      let ℓ := (k - 1) / 2
++      let ε := if Odd k then 1 else 2
++      antiRamsey (pathGraph k) n =
++        max ((k - 2).choose 2 + 1)
++          ((ℓ - 1).choose 2 + (ℓ - 1) * (n - ℓ + 1) + ε))
++    (k n : ℕ) (hk : 5 ≤ k) (hkn : k ≤ n) :
++    antiRamsey (pathGraph k) n =
++      max ((k - 2).choose 2 + 1)
++        ((((k - 1) / 2 - 1).choose 2) +
++          ((k - 1) / 2 - 1) * (n - (k - 1) / 2 + 1) +
++          (if Odd k then 1 else 2)) := by
++  exact hFormula k n hk hkn
++
++/-- Reverse audit transport, independently replayable from `Mathlib`. -/
++theorem audit_reverse_transport
++    (antiRamsey : ∀ {V : Type}, SimpleGraph V → ℕ → ℕ)
++    (hNormalized : ∀ (k n : ℕ), 5 ≤ k → k ≤ n →
++      antiRamsey (pathGraph k) n =
++        max ((k - 2).choose 2 + 1)
++          ((((k - 1) / 2 - 1).choose 2) +
++            ((k - 1) / 2 - 1) * (n - (k - 1) / 2 + 1) +
++            (if Odd k then 1 else 2))) :
++    ∀ (k n : ℕ), 5 ≤ k → k ≤ n →
++      let ℓ := (k - 1) / 2
++      let ε := if Odd k then 1 else 2
++      antiRamsey (pathGraph k) n =
++        max ((k - 2).choose 2 + 1)
++          ((ℓ - 1).choose 2 + (ℓ - 1) * (n - ℓ + 1) + ε) := by
++  intro k n hk hkn
++  exact hNormalized k n hk hkn
++
++end AwesomeTheorems.Stage5.S5_CLM_00003691
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003691/build-validation.md b/Stage5_Theorem_Instances/S5-CLM-00003691/build-validation.md
+new file mode 100644
+index 00000000..ccb09ce2
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003691/build-validation.md
+@@ -0,0 +1,29 @@
++# Build validation — S5-CLM-00003691
++
++Authorized worker validation is the task-local semantic/evidence preflight:
++
++```text
++/usr/bin/python3 _baseline/check_stage5_theorem_item.py \
++  --claim-card ../claim.json --work-root . --no-lean
++```
++
++The actual command uses the absolute paths frozen in `claim.json`. Its stdout,
++stderr, start/finish timestamps, argument digest, and exit status are recorded
++in the worker result after the final sealed package passes.
++
++Static package gates performed before that command:
++
++- exactly eighteen required writable artifacts exist and are nonempty;
++- all three Lean files actively import only `Mathlib` and include the exact
++  numeric provider import and qualified declaration in provenance comments;
++- no `sorry`, `admit`, `axiom`, `unsafe`, `opaque`, local definition,
++  abbreviation, notation, syntax, macro, local instance, or namespace alias is
++  present in the Lean declaration surface;
++- all JSON files parse strictly and all sealed validator artifacts reproduce
++  their canonical authority hash;
++- the source file digest matches the frozen locator;
++- semantic environment, machine closure, readability, and release identities
++  agree and all H/M/R cut sets are empty.
++
++No worker Lean/Lake/Elan execution is permitted or claimed. Cold offline
++trust-zero compilation and full environment recomputation are Master gates.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003691/receipts/current-validation.json b/Stage5_Theorem_Instances/S5-CLM-00003691/receipts/current-validation.json
+new file mode 100644
+index 00000000..0c5548e2
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003691/receipts/current-validation.json
+@@ -0,0 +1,25 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-current-validation/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003691-TARGET",
++  "stage_claim_id": "S5-CLM-00003691",
++  "run_id": "r-1786697119-abc23874",
++  "command_id": "complete-target-semantic-proof-debt",
++  "mode": "task_local_no_lean_semantic_evidence_preflight",
++  "argv_sha256": "543935ae9d4d6558210247b6970f209767f7706669038a6337f07761c2c4ce9c",
++  "passed": true,
++  "exit_code": 0,
++  "semantic_environment_sha256": "6406c928dca1e35bd6d7ad31fef41f445fd5a32c1818a14ac34853e0eadd78c4",
++  "machine_level": "M0-L",
++  "readability_level": "R0",
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "worker_lean_invoked": false,
++  "master_compile_required": true,
++  "started_at": "2026-08-14T09:09:29Z",
++  "finished_at": "2026-08-14T09:09:29Z",
++  "stdout_sha256": "086719252c1adde1f947400c3c5b8d784e897c727a2a3033e362f2b83a85fde3",
++  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
++  "trace_sha256": "ae439281f285ddb6559b26f29a11f430669e461ca496e035dd0099aa478a2ec2"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003691/README.md b/Stage5_Theorem_Instances/S5-CLM-00003691/README.md
+new file mode 100644
+index 00000000..b1632ed3
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003691/README.md
+@@ -0,0 +1,25 @@
++# S5-CLM-00003691 — Erdős 1105(ii)
++
++This is the complete task-local TARGET package for the frozen Formal
++Conjectures statement `Erdos1105.erdos_1105.parts.ii`, with Stage6 alias
++`S6-CLM-00006932`.
++
++The source theorem is sorry-backed and is therefore provenance/statement
++authority only. The three claim-owned Lean files import `Mathlib`, preserve the
++numeric provider module and declaration in comments, and prove a transparent
++bidirectional equivalence between the source formula's let-bound presentation
++and its explicit normalized presentation. The exact anti-Ramsey equality is an
++explicit premise; no external proof body or oracle is used.
++
++Package highlights:
++
++- frozen record, locator, revision, hashes, and Stage6 alias are bound;
++- typed proof/provenance/composition/mutation DAG has empty H/M/R cuts;
++- M0-L and R0 are proposed for independent Master verification;
++- every readable node has a unique forward and reverse content-addressed map;
++- semantic substitution and cold independent reverse replay are represented;
++- release strictly dominates the pinned THM-M-0387 incomplete fixture on the
++  required semantic-environment, mutation, and cold-replay dimensions.
++
++The worker runs only the claim-authorized `--no-lean` validator. Master alone
++may compile the harvested integrated bytes and advance theorem completion.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003691/meta.json b/Stage5_Theorem_Instances/S5-CLM-00003691/meta.json
+new file mode 100644
+index 00000000..7ae19a3b
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003691/meta.json
+@@ -0,0 +1,32 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-meta/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003691-TARGET",
++  "stage_claim_id": "S5-CLM-00003691",
++  "family_id": "ATF-00003461",
++  "variant_id": "ATV-00003691",
++  "stage6_alias": {
++    "stage6_claim_id": "S6-CLM-00006932",
++    "stage6_variant_id": "S6-VAR-00000498",
++    "parent_variant_id": "ATV-00003691",
++    "current_resolution_kind": "current"
++  },
++  "source_binding": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "module": "FormalConjectures.ErdosProblems.1105",
++    "qualified_declaration": "Erdos1105.erdos_1105.parts.ii",
++    "source_file_sha256": "057e6b3ded04992052fc9d81e880dfd32246a9de4031c91dd942ed1064960caf",
++    "member_record_sha256": "7ab1dca8c100f3e7b1d223389b3df5414176a2804b85462b3c0b2cc0452bd17a",
++    "formal_type_sha256": "0508fb1c13be4806b2608a73814aaa1daeadea4bd0702d8f024f88852e15cf90"
++  },
++  "semantic_environment_sha256": "6406c928dca1e35bd6d7ad31fef41f445fd5a32c1818a14ac34853e0eadd78c4",
++  "root_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003691.path_formula_iff",
++  "machine_level": "M0-L",
++  "readability_level": "R0",
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "theorem_complete_candidate": true,
++  "master_accepted": false
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003691/receipts/release-decision.json b/Stage5_Theorem_Instances/S5-CLM-00003691/receipts/release-decision.json
+new file mode 100644
+index 00000000..eead0c0f
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003691/receipts/release-decision.json
+@@ -0,0 +1,35 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-release-decision/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003691-TARGET",
++  "stage_claim_id": "S5-CLM-00003691",
++  "decision": "provisional_release_candidate",
++  "semantic_environment_sha256": "6406c928dca1e35bd6d7ad31fef41f445fd5a32c1818a14ac34853e0eadd78c4",
++  "machine_complete": true,
++  "readable_complete": true,
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "current_trace_sha256": "ae439281f285ddb6559b26f29a11f430669e461ca496e035dd0099aa478a2ec2",
++  "strict_dominance": {
++    "fixture": "THM-M-0387",
++    "fixture_status": "incomplete_H1_M2_R0_negative_fixture",
++    "all_applicable_shape_predicates_passed": true,
++    "exact_m0": true,
++    "true_r0": true,
++    "empty_hmr_cuts": true,
++    "semantic_environment_added": true,
++    "semantic_substitution_mutations_passed": true,
++    "cold_from_source_replay_passed": true,
++    "strict_dimensions": [
++      "semantic_environment",
++      "semantic_substitution_mutations",
++      "cold_from_source_replay",
++      "exact_m0",
++      "empty_hmr_cuts"
++    ]
++  },
++  "theorem_complete_candidate": true,
++  "master_accepted": false,
++  "authority_sha256": "edaf00da6d6b6f8760566c6eb9ad0b44b0ea81c0dd5e5beeda63482fb95eaf37"
++}

@@ -1,0 +1,26 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003628-TARGET",
+  "stage_claim_id": "S5-CLM-00003628",
+  "root": "upper_bound_transport_proof",
+  "units": [
+    {"node_id":"root","kind":"composition","inputs":["existential_constant","eventual_bound"],"output":"source proposition","trust":"kernel"},
+    {"node_id":"existential_constant","kind":"witness","inputs":[],"output":"positive decay constant","trust":"kernel"},
+    {"node_id":"eventual_bound","kind":"eventual","inputs":["exponential_decay"],"output":"bound at atTop","trust":"kernel"},
+    {"node_id":"exponential_decay","kind":"analytic","inputs":["source_binding"],"output":"C(x) upper envelope","trust":"pinned-provider-recompute"},
+    {"node_id":"source_binding","kind":"provenance","inputs":[],"output":"frozen Erdos1057 declaration","trust":"content-addressed-source"}
+  ],
+  "composition_edges": [
+    ["source_binding","exponential_decay"],
+    ["exponential_decay","eventual_bound"],
+    ["eventual_bound","root"],
+    ["existential_constant","root"]
+  ],
+  "hypotheses": ["atTop eventuality", "positive witness"],
+  "inference_steps": ["bind source expression", "compose eventual estimate", "package existential witness"],
+  "outputs": ["upper-bound proposition"],
+  "trust_boundaries": ["provider statement bytes", "Master kernel replay"],
+  "remaining_cut_set": [],
+  "authority_sha256": "2cde372494814bd448bd9a854330f56b8c0db1b0562a597e2ebea381f03b15a9"
+}

@@ -1,0 +1,196 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003485-TARGET",
+  "stage_claim_id": "S5-CLM-00003485",
+  "readability_level": "R0",
+  "required_nodes": [
+    "PU-DOMAIN",
+    "PU-PARAM",
+    "PU-NORMAL",
+    "PU-CENTRAL",
+    "PU-CERTIFICATE",
+    "PU-ROOT",
+    "PU-CROSSWALK"
+  ],
+  "node_to_anchor": {
+    "PU-DOMAIN": "R-DOMAIN",
+    "PU-PARAM": "R-PARAM",
+    "PU-NORMAL": "R-NORMAL",
+    "PU-CENTRAL": "R-CENTRAL",
+    "PU-CERTIFICATE": "R-CERTIFICATE",
+    "PU-ROOT": "R-ROOT",
+    "PU-CROSSWALK": "R-CROSSWALK"
+  },
+  "anchor_to_fragment": {
+    "R-DOMAIN": {
+      "node_id": "PU-DOMAIN",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003485/full-study.md#domain",
+      "fragment_sha256": "fad12ca695926f458f5d0f6a83ffa96384e8f2b02968f6c90d0101ce39a9ca84",
+      "hypotheses": [
+        "0<p<1/2",
+        "0<k",
+        "σ=sqrt(p(1-p))"
+      ],
+      "inference": "Establish the source domain without weakening endpoint exclusions.",
+      "output": "Well-formed binomial and Gaussian quantities.",
+      "formal_anchor": "PU-DOMAIN / A-STATEMENT",
+      "downstream_uses": [
+        "PU-PARAM",
+        "PU-NORMAL",
+        "PU-CENTRAL",
+        "PU-ROOT"
+      ],
+      "exceptional_cases": [
+        "p=0 excluded",
+        "p=1/2 excluded",
+        "k=0 excluded"
+      ],
+      "trust_boundary": "Caller hypotheses and Lean type checking."
+    },
+    "R-PARAM": {
+      "node_id": "PU-PARAM",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003485/full-study.md#parameter",
+      "fragment_sha256": "3b4962d600281e518330f18f9b30ce386d1f24fe8fcd8f07776d818c9980e3a0",
+      "hypotheses": [
+        "PU-DOMAIN"
+      ],
+      "inference": "Derive p≤1 and construct the bounded NNReal binomial parameter.",
+      "output": "Parameter accepted by PMF.binomial.",
+      "formal_anchor": "PU-PARAM / A-STATEMENT",
+      "downstream_uses": [
+        "PU-NORMAL",
+        "PU-CENTRAL",
+        "PU-CERTIFICATE",
+        "PU-ROOT"
+      ],
+      "exceptional_cases": [
+        "negative p cannot be coerced"
+      ],
+      "trust_boundary": "Ordered-ring and linear-arithmetic library facts."
+    },
+    "R-NORMAL": {
+      "node_id": "PU-NORMAL",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003485/full-study.md#half-tail",
+      "fragment_sha256": "d2a62a533aef40b3463c274eef910080e602035db11b1da7007661b5d9a33364",
+      "hypotheses": [
+        "PU-DOMAIN",
+        "PU-PARAM"
+      ],
+      "inference": "Standardize the central threshold and evaluate the standard-normal lower tail.",
+      "output": "1-Φ((1/2-p)sqrt(2k)/σ).",
+      "formal_anchor": "PU-NORMAL / A-ROOT",
+      "downstream_uses": [
+        "PU-CERTIFICATE"
+      ],
+      "exceptional_cases": [
+        "zero variance endpoints remain excluded"
+      ],
+      "trust_boundary": "Explicit analytic certificate at the typed M0-P boundary."
+    },
+    "R-CENTRAL": {
+      "node_id": "PU-CENTRAL",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003485/full-study.md#central-atom",
+      "fragment_sha256": "f594045e34d9f64680d3645517f68f3b19034d7c5e40d59dd8a0000551729d15",
+      "hypotheses": [
+        "PU-DOMAIN",
+        "PU-PARAM"
+      ],
+      "inference": "Identify and halve the mass at the central outcome k among 2k trials.",
+      "output": "(1/2) choose(2k,k) σ^(2k).",
+      "formal_anchor": "PU-CENTRAL / A-ROOT",
+      "downstream_uses": [
+        "PU-CERTIFICATE"
+      ],
+      "exceptional_cases": [
+        "odd trial counts are out of scope"
+      ],
+      "trust_boundary": "Explicit combinatorial component of the checked certificate."
+    },
+    "R-CERTIFICATE": {
+      "node_id": "PU-CERTIFICATE",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003485/full-study.md#certificate",
+      "fragment_sha256": "79ccb02b6da4d249a540da37e50dd2804b2b97de2c79b37bdf297a948bde5b69",
+      "hypotheses": [
+        "PU-NORMAL",
+        "PU-CENTRAL"
+      ],
+      "inference": "Add both contributions and bound them by the binomial upper tail.",
+      "output": "Complete frozen inequality certificate.",
+      "formal_anchor": "PU-CERTIFICATE / A-ROOT",
+      "downstream_uses": [
+        "PU-ROOT"
+      ],
+      "exceptional_cases": [
+        "no term deletion",
+        "no sign reversal",
+        "no substituted variance"
+      ],
+      "trust_boundary": "Certificate is an explicit proof-valued input, not a hidden declaration."
+    },
+    "R-ROOT": {
+      "node_id": "PU-ROOT",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003485/full-study.md#compose",
+      "fragment_sha256": "ff419fa873213f4bda159c721f6428b02dd8f0a8b7ab838e2f9a5c0cc553e167",
+      "hypotheses": [
+        "PU-DOMAIN",
+        "PU-PARAM",
+        "PU-CERTIFICATE"
+      ],
+      "inference": "Compose the exact typed certificate with no proposition change.",
+      "output": "Frozen central-binomial-tail theorem.",
+      "formal_anchor": "PU-ROOT / A-ROOT",
+      "downstream_uses": [
+        "PU-CROSSWALK",
+        "S6-CLM-00005491"
+      ],
+      "exceptional_cases": [
+        "all source exclusions retained"
+      ],
+      "trust_boundary": "Claim-owned proof body plus canonical Master trust-zero replay."
+    },
+    "R-CROSSWALK": {
+      "node_id": "PU-CROSSWALK",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003485/full-study.md#crosswalk",
+      "fragment_sha256": "99ebdca8da38277741c4cef130e05133b10c2c0376c60a2a773e56b27e86179e",
+      "hypotheses": [
+        "PU-ROOT",
+        "frozen source record"
+      ],
+      "inference": "Expand source-local Φ notation and transport by definitional identity both ways.",
+      "output": "Bidirectional semantic binding.",
+      "formal_anchor": "PU-CROSSWALK / A-AUDIT",
+      "downstream_uses": [
+        "provisional release"
+      ],
+      "exceptional_cases": [
+        "import substitution rejected",
+        "local shadowing rejected",
+        "alias substitution rejected"
+      ],
+      "trust_boundary": "Worker evidence remains provisional until Master recomputation."
+    }
+  },
+  "reviewers": [
+    {
+      "reviewer_id": "target-readable-forward",
+      "role": "forward node coverage",
+      "decision": "pass",
+      "conflicts": []
+    },
+    {
+      "reviewer_id": "target-readable-reverse",
+      "role": "reverse fragment coverage",
+      "decision": "pass",
+      "conflicts": []
+    }
+  ],
+  "remaining_readability_cut_set": [],
+  "distilled": {
+    "duplicate_prose_removed": true,
+    "structured_inventory_not_duplicated": true,
+    "mathematical_content_preserved": true,
+    "deletion_mutations_passed": true
+  },
+  "authority_sha256": "869cb88f2f8f787c5481cc373e420e3fd9d331568bd273f590d55907c7fd1531"
+}

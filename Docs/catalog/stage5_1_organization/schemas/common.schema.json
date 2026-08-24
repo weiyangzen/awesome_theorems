@@ -1,0 +1,499 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://awesome-theorems.invalid/stage5-1-organization/schemas/common.schema.json",
+  "title": "Stage5.1 organization common closed types",
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "schema_version": {
+      "type": "string",
+      "pattern": "^awesome-theorems/stage5[-_]1-organization/[a-z0-9-]+/1\\.0$"
+    },
+    "non_empty_string": {
+      "type": "string",
+      "minLength": 1
+    },
+    "repo_path": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[^\\u0000]+$"
+    },
+    "json_pointer_or_locator": {
+      "type": "string",
+      "minLength": 1
+    },
+    "organization_release": {
+      "const": "1.0"
+    },
+    "blueprint_revision": {
+      "const": "Stage5.1"
+    },
+    "base_catalog_release": {
+      "const": "5.6"
+    },
+    "program": {
+      "enum": [
+        "theorems",
+        "conjectures"
+      ]
+    },
+    "member_kind": {
+      "enum": [
+        "theorem",
+        "strict_conjecture",
+        "source_occurrence"
+      ]
+    },
+    "object_id": {
+      "type": "string",
+      "pattern": "^S51-(?:THM|CON|OCC)-[0-9]{8}$"
+    },
+    "stage51_item_id": {
+      "type": "string",
+      "pattern": "^S51(?:THM|CON)-[A-Z0-9][A-Z0-9-]*$"
+    },
+    "member_item_id": {
+      "type": "string",
+      "pattern": "^(?:S51THM-[0-9]{8}-TARGET|S51CON-[0-9]{8}-TARGET|S51CON-POOL-[0-9]{8}-INTAKE)$"
+    },
+    "subject_id": {
+      "type": "string",
+      "pattern": "^S51-SUB-(?:[0-9]{8}|UNCLASSIFIED|AMBIGUOUS|OUT-OF-SCOPE|REVIEW-PENDING)$"
+    },
+    "normal_subject_id": {
+      "type": "string",
+      "pattern": "^S51-SUB-[0-9]{8}$"
+    },
+    "legacy_item_id": {
+      "type": "string",
+      "pattern": "^(?:S5THM|S5CON)-[A-Z0-9][A-Z0-9-]*$"
+    },
+    "stage5_claim_id": {
+      "type": "string",
+      "pattern": "^S5-CLM-[0-9]{8}$"
+    },
+    "variant_id": {
+      "type": "string",
+      "pattern": "^ATV-[0-9]{8}$"
+    },
+    "pool_id": {
+      "type": "string",
+      "pattern": "^S5POOL-[0-9]{8}$"
+    },
+    "assignment_id": {
+      "type": "string",
+      "pattern": "^S51-ASG-(?:THM|CON|OCC)-[0-9]{8}$"
+    },
+    "assessment_id": {
+      "type": "string",
+      "pattern": "^S51-DEP-(?:THM|CON|OCC)-[0-9]{8}$"
+    },
+    "edge_id": {
+      "type": "string",
+      "pattern": "^S51-REL-[a-f0-9]{16}$"
+    },
+    "legacy_state": {
+      "enum": [
+        "not_done",
+        "handoff_waiting_master",
+        "master_accepted"
+      ]
+    },
+    "stage51_initial_state": {
+      "const": "not_done"
+    },
+    "assertion_state": {
+      "enum": [
+        "accepted",
+        "candidate",
+        "review_pending",
+        "ambiguous",
+        "unclassified",
+        "out_of_scope",
+        "rejected"
+      ]
+    },
+    "review_state": {
+      "enum": [
+        "verified",
+        "candidate",
+        "pending",
+        "rejected",
+        "unknown"
+      ]
+    },
+    "audit_status": {
+      "enum": [
+        "audited_edges_present",
+        "source_edges_present_pending_review",
+        "audited_no_admitted_edge",
+        "unknown_not_independent_proof_claim"
+      ]
+    },
+    "plane": {
+      "enum": [
+        "proof",
+        "mathematical_prerequisite",
+        "mathematical_semantic",
+        "identity",
+        "association",
+        "reuse_hint",
+        "taxonomy"
+      ]
+    },
+    "relation_evidence_tier": {
+      "enum": [
+        "A1_source_declaration",
+        "A2_target_owned_replay",
+        "B_content_bound_artifact",
+        "C_reviewed_semantic",
+        "D_source_reported",
+        "U_unreviewed"
+      ]
+    },
+    "assignment_evidence_level": {
+      "enum": [
+        "independent_review",
+        "source_exact",
+        "source_category",
+        "machine_crosswalk",
+        "statement_candidate",
+        "none"
+      ]
+    },
+    "scheduler_effect": {
+      "enum": [
+        "none",
+        "block_until_accepted"
+      ]
+    },
+    "provider_binding_kind": {
+      "enum": [
+        "none",
+        "external_source_reference",
+        "pinned_declaration",
+        "content_bound_artifact",
+        "target_owned_exact_replay"
+      ]
+    },
+    "classification_status": {
+      "enum": [
+        "accepted",
+        "candidate",
+        "review_pending",
+        "ambiguous",
+        "unclassified",
+        "out_of_scope",
+        "rejected"
+      ]
+    },
+    "granularity": {
+      "enum": [
+        "root",
+        "broad",
+        "intermediate",
+        "fine",
+        "sentinel"
+      ]
+    },
+    "activation_status": {
+      "enum": [
+        "blocked",
+        "candidate_unaccepted",
+        "accepted_inactive",
+        "active"
+      ]
+    },
+    "evidence_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256",
+        "evidence_kind"
+      ],
+      "properties": {
+        "path": {
+          "$ref": "#/$defs/repo_path"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "evidence_kind": {
+          "type": "string",
+          "minLength": 1
+        },
+        "locator": {
+          "$ref": "#/$defs/json_pointer_or_locator"
+        },
+        "authority_revision": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "source_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "$ref": "#/$defs/repo_path"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "locator": {
+          "$ref": "#/$defs/json_pointer_or_locator"
+        },
+        "source_label": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "artifact_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256",
+        "size_bytes",
+        "media_type"
+      ],
+      "properties": {
+        "path": {
+          "$ref": "#/$defs/repo_path"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "size_bytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "media_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rows": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "dependency_receipt_common": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "awesome-theorems/stage5-1-organization/dependency-binding-receipt/1.0"
+        },
+        "receipt_kind": {
+          "enum": ["provider_acceptance", "independent_review", "consumer_replay"]
+        },
+        "edge_id": {"$ref": "#/$defs/edge_id"},
+        "consumer_member_id": {"$ref": "#/$defs/object_id"},
+        "provider_member_id": {"$ref": "#/$defs/object_id"},
+        "direction_semantics": {"const": "consumer_requires_provider"},
+        "provider_artifact": {"$ref": "#/$defs/evidence_ref"},
+        "authority_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "provider_acceptance_receipt": {
+      "allOf": [
+        {"$ref": "#/$defs/dependency_receipt_common"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "schema_version", "receipt_kind", "edge_id", "consumer_member_id",
+            "provider_member_id", "direction_semantics", "provider_artifact",
+            "producer_actor_id", "acceptance_issuer_id", "decision", "authority_sha256"
+          ],
+          "properties": {
+            "schema_version": {"const": "awesome-theorems/stage5-1-organization/dependency-binding-receipt/1.0"},
+            "receipt_kind": {"const": "provider_acceptance"},
+            "edge_id": {"$ref": "#/$defs/edge_id"},
+            "consumer_member_id": {"$ref": "#/$defs/object_id"},
+            "provider_member_id": {"$ref": "#/$defs/object_id"},
+            "direction_semantics": {"const": "consumer_requires_provider"},
+            "provider_artifact": {"$ref": "#/$defs/evidence_ref"},
+            "producer_actor_id": {"$ref": "#/$defs/non_empty_string"},
+            "acceptance_issuer_id": {"$ref": "#/$defs/non_empty_string"},
+            "decision": {"const": "accepted"},
+            "authority_sha256": {"$ref": "#/$defs/sha256"}
+          }
+        }
+      ]
+    },
+    "independent_review_receipt": {
+      "allOf": [
+        {"$ref": "#/$defs/dependency_receipt_common"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "schema_version", "receipt_kind", "edge_id", "consumer_member_id",
+            "provider_member_id", "direction_semantics", "provider_artifact",
+            "reviewer_id", "issuer_authority_id", "decision", "authority_sha256"
+          ],
+          "properties": {
+            "schema_version": {"const": "awesome-theorems/stage5-1-organization/dependency-binding-receipt/1.0"},
+            "receipt_kind": {"const": "independent_review"},
+            "edge_id": {"$ref": "#/$defs/edge_id"},
+            "consumer_member_id": {"$ref": "#/$defs/object_id"},
+            "provider_member_id": {"$ref": "#/$defs/object_id"},
+            "direction_semantics": {"const": "consumer_requires_provider"},
+            "provider_artifact": {"$ref": "#/$defs/evidence_ref"},
+            "reviewer_id": {"$ref": "#/$defs/non_empty_string"},
+            "issuer_authority_id": {"$ref": "#/$defs/non_empty_string"},
+            "decision": {"const": "accepted"},
+            "authority_sha256": {"$ref": "#/$defs/sha256"}
+          }
+        }
+      ]
+    },
+    "consumer_replay_receipt": {
+      "allOf": [
+        {"$ref": "#/$defs/dependency_receipt_common"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "schema_version", "receipt_kind", "edge_id", "consumer_member_id",
+            "provider_member_id", "direction_semantics", "provider_artifact",
+            "consumer_owner_id", "acceptance_issuer_id", "outcome",
+            "consumption_verified", "replay_command_digest", "observed_output_digest",
+            "consumed_provider_artifact_sha256", "consumer_owned_result_path",
+            "consumer_owned_result_sha256", "authority_sha256"
+          ],
+          "properties": {
+            "schema_version": {"const": "awesome-theorems/stage5-1-organization/dependency-binding-receipt/1.0"},
+            "receipt_kind": {"const": "consumer_replay"},
+            "edge_id": {"$ref": "#/$defs/edge_id"},
+            "consumer_member_id": {"$ref": "#/$defs/object_id"},
+            "provider_member_id": {"$ref": "#/$defs/object_id"},
+            "direction_semantics": {"const": "consumer_requires_provider"},
+            "provider_artifact": {"$ref": "#/$defs/evidence_ref"},
+            "consumer_owner_id": {"$ref": "#/$defs/non_empty_string"},
+            "acceptance_issuer_id": {"$ref": "#/$defs/non_empty_string"},
+            "outcome": {"const": "accepted"},
+            "consumption_verified": {"const": true},
+            "replay_command_digest": {"$ref": "#/$defs/sha256"},
+            "observed_output_digest": {"$ref": "#/$defs/sha256"},
+            "consumed_provider_artifact_sha256": {"$ref": "#/$defs/sha256"},
+            "consumer_owned_result_path": {"$ref": "#/$defs/repo_path"},
+            "consumer_owned_result_sha256": {"$ref": "#/$defs/sha256"},
+            "authority_sha256": {"$ref": "#/$defs/sha256"}
+          }
+        }
+      ]
+    },
+    "schema_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "$ref": "#/$defs/repo_path"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "provider_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "binding_kind"
+      ],
+      "properties": {
+        "binding_kind": {
+          "$ref": "#/$defs/provider_binding_kind"
+        },
+        "declaration": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "body_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "source_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "provider_artifact": {
+          "$ref": "#/$defs/evidence_ref"
+        },
+        "provider_acceptance_receipt": {
+          "$ref": "#/$defs/evidence_ref"
+        },
+        "independent_review_receipt": {
+          "$ref": "#/$defs/evidence_ref"
+        },
+        "consumer_replay_receipt": {
+          "$ref": "#/$defs/evidence_ref"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "binding_kind": {
+                "const": "none"
+              }
+            },
+            "required": [
+              "binding_kind"
+            ]
+          },
+          "then": {
+            "maxProperties": 1
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "binding_kind": {
+                "const": "target_owned_exact_replay"
+              }
+            },
+            "required": [
+              "binding_kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "provider_artifact",
+              "provider_acceptance_receipt",
+              "independent_review_receipt",
+              "consumer_replay_receipt"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

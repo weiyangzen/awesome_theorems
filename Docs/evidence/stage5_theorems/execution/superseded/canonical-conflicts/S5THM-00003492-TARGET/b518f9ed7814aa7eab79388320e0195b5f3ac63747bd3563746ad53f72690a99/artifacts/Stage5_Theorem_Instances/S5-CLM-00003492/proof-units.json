@@ -1,0 +1,103 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003492-TARGET",
+  "stage_claim_id": "S5-CLM-00003492",
+  "root_node_id": "N5",
+  "nodes": [
+    {
+      "node_id": "N0",
+      "kind": "provenance_statement",
+      "typed_input": "n : ℕ; frozen maximalLength/IsIncreasing₂/lt₂ definitions",
+      "inference": "delta expansion without local replacement declarations",
+      "typed_output": "expanded supremum proposition",
+      "formal_anchor": "Statement.lean#statement_bidirectional_crosswalk",
+      "provenance": ["A-SOURCE-ROOT"],
+      "trust": "Master elaborated-expression recomputation required",
+      "readability_node": "N0"
+    },
+    {
+      "node_id": "N1",
+      "kind": "proof",
+      "typed_input": "bounded list s with s.length > n^2",
+      "inference": "map positions to first-coordinate pairs in a target of cardinality n^2",
+      "typed_output": "finite larger-domain/smaller-target map",
+      "formal_anchor": "Proof.lean#proof_exists_equal_first_two:htCard,hf",
+      "provenance": ["A-PIGEONHOLE"],
+      "trust": "Mathlib finite-set cardinality lemmas",
+      "readability_node": "N1"
+    },
+    {
+      "node_id": "N2",
+      "kind": "proof",
+      "typed_input": "finite map from N1",
+      "inference": "finite pigeonhole and product projections",
+      "typed_output": "distinct i,j with equal coordinates 0 and 1",
+      "formal_anchor": "Proof.lean#proof_exists_equal_first_two",
+      "provenance": ["A-PIGEONHOLE"],
+      "trust": "Finset.exists_ne_map_eq_of_card_lt_of_maps_to",
+      "readability_node": "N2"
+    },
+    {
+      "node_id": "N3",
+      "kind": "proof",
+      "typed_input": "a 0 = b 0 and a 1 = b 1",
+      "inference": "exhaust all pairs of Fin 3 coordinates",
+      "typed_output": "not two distinct strict coordinate increases",
+      "formal_anchor": "Proof.lean#proof_not_two_increases_of_equal_first_two",
+      "provenance": ["A-CONTRADICTION"],
+      "trust": "finite case split and strict-order irreflexivity",
+      "readability_node": "N3"
+    },
+    {
+      "node_id": "N4",
+      "kind": "composition",
+      "typed_input": "collision from N2; pairwise relation; contradiction from N3",
+      "inference": "orient unequal positions and query List.Pairwise in either direction",
+      "typed_output": "every admissible list length is at most n^2",
+      "formal_anchor": "Proof.lean#proof_maximalLength_le:pairwise-contradiction",
+      "provenance": ["A-PIGEONHOLE", "A-CONTRADICTION"],
+      "trust": "List.pairwise_iff_get",
+      "readability_node": "N4"
+    },
+    {
+      "node_id": "N5",
+      "kind": "root_composition",
+      "typed_input": "nonempty length set; uniform upper bound from N4",
+      "inference": "csSup_le",
+      "typed_output": "∀ n, expanded maximalLength n ≤ n^2",
+      "formal_anchor": "Proof.lean#proof_maximalLength_le",
+      "provenance": ["A-FORMAL-ROOT"],
+      "trust": "trust-zero kernel replay required",
+      "readability_node": "N5"
+    },
+    {
+      "node_id": "N6",
+      "kind": "semantic_transport",
+      "typed_input": "frozen source root and claim-owned expanded root",
+      "inference": "identity in both delta-expanded directions",
+      "typed_output": "source-to-target and target-to-source transports",
+      "formal_anchor": "Audit.lean#audit_source_to_target,audit_target_to_source",
+      "provenance": ["A-SOURCE-ROOT", "A-FORMAL-ROOT"],
+      "trust": "Master exact semantic equality recomputation required",
+      "readability_node": "N6"
+    }
+  ],
+  "edges": [
+    {"from": "N0", "to": "N1", "role": "types"},
+    {"from": "N1", "to": "N2", "role": "pigeonhole_input"},
+    {"from": "N2", "to": "N4", "role": "collision"},
+    {"from": "N3", "to": "N4", "role": "local_contradiction"},
+    {"from": "N4", "to": "N5", "role": "uniform_bound"},
+    {"from": "N0", "to": "N6", "role": "source_side"},
+    {"from": "N5", "to": "N6", "role": "target_side"}
+  ],
+  "acyclic": true,
+  "typed_complete": true,
+  "provenance_complete": true,
+  "trust_complete": true,
+  "readability_complete": true,
+  "remaining_human_cut_set": [],
+  "remaining_machine_cut_set": [],
+  "remaining_readability_cut_set": []
+}

@@ -1,0 +1,31 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003600-TARGET",
+  "stage_claim_id": "S5-CLM-00003600",
+  "readability_level": "R0",
+  "required_nodes": ["PU-SEMANTICS", "PU-WITNESS", "PU-ROOTS", "PU-COMPONENTS", "PU-NONCONVEX", "PU-ROOT"],
+  "node_to_anchor": {
+    "PU-SEMANTICS": "H-PROBLEM",
+    "PU-WITNESS": "H-COUNTEREXAMPLE",
+    "PU-ROOTS": "H-ROOTS",
+    "PU-COMPONENTS": "H-COMPONENTS",
+    "PU-NONCONVEX": "H-NONCONVEX",
+    "PU-ROOT": "H-ROOT"
+  },
+  "anchor_to_fragment": {
+    "H-PROBLEM": {"node_id": "PU-SEMANTICS", "path": "Stage5_Theorem_Instances/S5-CLM-00003600/proof-outline.md#h-problem", "fragment_sha256": "1c4d8d2191ab511922d32ad4dba991b59672450ea5e44fb00d4587fe713f4905", "hypotheses": "Frozen provider proposition and answer encoding", "inference": "Bidirectional elaborated-expression identity", "output": "Exact target proposition", "formal_anchor": "source_to_target_statement", "downstream_uses": ["PU-ROOT"], "exceptional_cases": "Provider body is admitted and excluded from proof authority", "trust_boundary": "Master recomputes elaboration"},
+    "H-COUNTEREXAMPLE": {"node_id": "PU-WITNESS", "path": "Stage5_Theorem_Instances/S5-CLM-00003600/proof-outline.md#h-counterexample", "fragment_sha256": "b39153d5f1738e1f61cce4501a38978208486b59fb96d7400742bf2b445a57f0", "hypotheses": "No external hypotheses", "inference": "Choose X^6-X and c=0.582", "output": "Explicit witness triple", "formal_anchor": "counterexample", "downstream_uses": ["PU-ROOTS", "PU-COMPONENTS", "PU-NONCONVEX"], "exceptional_cases": "Threshold positivity checked numerically", "trust_boundary": "Lean trust-zero arithmetic"},
+    "H-ROOTS": {"node_id": "PU-ROOTS", "path": "Stage5_Theorem_Instances/S5-CLM-00003600/proof-outline.md#h-roots", "fragment_sha256": "8c3fd19c3ed15626af7c5d846be252960353badea5bf769fffe093bf12481c9c", "hypotheses": "Witness polynomial", "inference": "Factorization and separability", "output": "Six distinct roots", "formal_anchor": "roots_card", "downstream_uses": ["PU-COMPONENTS", "PU-ROOT"], "exceptional_cases": "Zero excluded from roots of X^5-1", "trust_boundary": "Kernel-checked polynomial lemmas"},
+    "H-COMPONENTS": {"node_id": "PU-COMPONENTS", "path": "Stage5_Theorem_Instances/S5-CLM-00003600/proof-outline.md#h-components", "fragment_sha256": "44361741eb7f281385f2cefc68dcf4e4fa52153213f64b0b87f97221cfc1145b", "hypotheses": "Six roots and separation estimates", "inference": "Connected sets cannot cross disjoint open barriers", "output": "Six connected components", "formal_anchor": "components_card", "downstream_uses": ["PU-NONCONVEX", "PU-ROOT"], "exceptional_cases": "Circle/ray boundaries excluded strictly", "trust_boundary": "Kernel-checked topology and arithmetic"},
+    "H-NONCONVEX": {"node_id": "PU-NONCONVEX", "path": "Stage5_Theorem_Instances/S5-CLM-00003600/proof-outline.md#h-nonconvex", "fragment_sha256": "dfd72b4196406a148293328bc3515f39eb05338890b86a5971f13890fb6b84a3", "hypotheses": "Two radial segments in zero component", "inference": "Convexity would include excluded midpoint", "output": "One component is not convex", "formal_anchor": "zero_component_not_convex", "downstream_uses": ["PU-ROOT"], "exceptional_cases": "Midpoint modulus is certified directly", "trust_boundary": "Kernel-checked norm calculation"},
+    "H-ROOT": {"node_id": "PU-ROOT", "path": "Stage5_Theorem_Instances/S5-CLM-00003600/proof-outline.md#h-root", "fragment_sha256": "98280cf488c6593f137601c1587c36f2eef984815974dd5f59e06ec3cd629df5", "hypotheses": "Exact semantics and explicit counterexample", "inference": "Refute universal proposition; close false iff false", "output": "Frozen Erdős 1047 theorem", "formal_anchor": "erdos_1047_complete", "downstream_uses": ["S6-CLM-00006497"], "exceptional_cases": "No admitted provider body consumed", "trust_boundary": "Master acceptance remains external"}
+  },
+  "reviewers": [
+    {"reviewer_id": "claim-structure-review", "scope": "total node and reverse-anchor coverage", "independent": true},
+    {"reviewer_id": "mathematical-content-review", "scope": "hypotheses, inferences, outputs, exceptions, downstream uses, trust", "independent": true}
+  ],
+  "remaining_readability_cut_set": [],
+  "distilled": {"duplicate_prose_removed": true, "structured_inventory_not_duplicated": true, "mathematical_content_preserved": true, "deletion_mutations_passed": true},
+  "authority_sha256": "fa802ca78f771dc9a515ea8782364fdb274fc37b17ae23b2ce554a7bf63561c3"
+}

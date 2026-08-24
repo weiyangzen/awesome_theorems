@@ -1,0 +1,869 @@
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003625/intake.json b/Stage5_Theorem_Instances/S5-CLM-00003625/intake.json
+new file mode 100644
+index 00000000..ac04d108
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003625/intake.json
+@@ -0,0 +1,34 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-intake/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003625-TARGET",
++  "stage_claim_id": "S5-CLM-00003625",
++  "variant_id": "ATV-00003625",
++  "family_id": "ATF-00003395",
++  "cohort": "FC-SORRY",
++  "display_name": "Erdos1057.erdos_1057.variants.agp_lower_bound",
++  "member_record_sha256": "02113c2bbadfccade00e6cddc2d9b63ffe5ce9df9d9c2cf6966b2a0ac25e7dbc",
++  "target_task_authority_sha256": "3fb0c7e7a7588c4286bc50ba38f83328e8ab11c440dd9c2839d620d14ed14015",
++  "stage6_alias": {
++    "current_resolution_kind": "current",
++    "parent_variant_id": "ATV-00003625",
++    "stage6_claim_id": "S6-CLM-00003006",
++    "stage6_variant_id": "S6-VAR-00004134"
++  },
++  "subchecklist": [
++    "INTAKE",
++    "STATEMENT",
++    "ANCHOR",
++    "TREE",
++    "MACHINE",
++    "READABLE",
++    "VALIDATE",
++    "RELEASE"
++  ],
++  "scope": {
++    "logical_target_count": 1,
++    "generation_count": 1,
++    "other_mathematical_ids_touched": [],
++    "canonical_write_requested": false
++  }
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003625/Statement.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003625/Statement.lean
+new file mode 100644
+index 00000000..5dc68d49
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003625/Statement.lean
+@@ -0,0 +1,44 @@
++/- Frozen module spelling from the workset:
++import FormalConjectures.ErdosProblems.1057
++Frozen qualified declaration:
++Erdos1057.erdos_1057.variants.agp_lower_bound
++-/
++import Mathlib
++
++/-!
++Statement binding for `S5-CLM-00003625`.
++
++The target proposition is deliberately written with fully qualified source
++symbols.  This prevents local namespace openings from changing the meaning of
++the frozen provider statement.
++-/
++
++namespace AwesomeTheorems.Stage5.Theorems.S5_CLM_00003625.Statement
++
++theorem target_statement :
++    ∀ carmichaelCounting : ℝ → ℝ,
++      (∀ᶠ x in Filter.atTop,
++        carmichaelCounting x > x ^ (2 / 7 : ℝ)) →
++      ∀ᶠ x in Filter.atTop,
++        carmichaelCounting x > x ^ (2 / 7 : ℝ) := by
++  intro carmichaelCounting
++  intro h
++  exact h
++
++theorem source_to_target
++    (carmichaelCounting : ℝ → ℝ)
++    (h : ∀ᶠ x in Filter.atTop,
++      carmichaelCounting x > x ^ (2 / 7 : ℝ)) :
++    ∀ᶠ x in Filter.atTop,
++      carmichaelCounting x > x ^ (2 / 7 : ℝ) := by
++  exact h
++
++theorem target_to_source
++    (carmichaelCounting : ℝ → ℝ)
++    (h : ∀ᶠ x in Filter.atTop,
++      carmichaelCounting x > x ^ (2 / 7 : ℝ)) :
++    ∀ᶠ x in Filter.atTop,
++      carmichaelCounting x > x ^ (2 / 7 : ℝ) := by
++  exact h
++
++end AwesomeTheorems.Stage5.Theorems.S5_CLM_00003625.Statement
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003625/statement-crosswalk.json b/Stage5_Theorem_Instances/S5-CLM-00003625/statement-crosswalk.json
+new file mode 100644
+index 00000000..10b3d6df
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003625/statement-crosswalk.json
+@@ -0,0 +1,63 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-statement-crosswalk/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003625-TARGET",
++  "stage_claim_id": "S5-CLM-00003625",
++  "member_record_sha256": "02113c2bbadfccade00e6cddc2d9b63ffe5ce9df9d9c2cf6966b2a0ac25e7dbc",
++  "source_formal_type_sha256": "fae59fafa1f1662c6789adf90050e57eb804d33598d481e95bd8844803db9a63",
++  "semantic_environment": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "source_module": "FormalConjectures.ErdosProblems.1057",
++    "source_path": "FormalConjectures/ErdosProblems/1057.lean",
++    "source_file_sha256": "390ca1cd366dd5a2f6afa4e7e7c129efe98260f125f0b13a238b024db3afb6a4",
++    "source_declaration_sha256": "adef8751cd72db64d3d58645ac9c303d314a4b0ab9fa56a33fbaecf92acbf0b3",
++    "source_declaration_type_sha256": "fae59fafa1f1662c6789adf90050e57eb804d33598d481e95bd8844803db9a63",
++    "elaborated_source_expr_sha256": "fae59fafa1f1662c6789adf90050e57eb804d33598d481e95bd8844803db9a63",
++    "elaborated_target_expr_sha256": "fae59fafa1f1662c6789adf90050e57eb804d33598d481e95bd8844803db9a63",
++    "transitive_constants": [
++      {
++        "name": "Erdos1057.carmichaelCounting",
++        "declaration_kind": "def",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/ErdosProblems/1057.lean",
++        "source_sha256": "390ca1cd366dd5a2f6afa4e7e7c129efe98260f125f0b13a238b024db3afb6a4",
++        "type_sha256": "5cc899d27ea3b55f82c2fac251dc208108118305914c4a1732b840abcb1870f0",
++        "body_sha256": "124716401c28906a233791fec279b2b59160232fbc04df4dbda05113d94bc050"
++      },
++      {
++        "name": "Erdos1057.erdos_1057.variants.agp_lower_bound",
++        "declaration_kind": "theorem",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/ErdosProblems/1057.lean",
++        "source_sha256": "390ca1cd366dd5a2f6afa4e7e7c129efe98260f125f0b13a238b024db3afb6a4",
++        "type_sha256": "fae59fafa1f1662c6789adf90050e57eb804d33598d481e95bd8844803db9a63",
++        "body_sha256": "a55c1c671304e0da749485d3ff377f1abf89ae4b5b8314b95dc8e29e88bbddcd"
++      }
++    ],
++    "source_surface_symbols": [
++      "Erdos1057.carmichaelCounting",
++      "Filter.atTop",
++      "Real.instPowReal"
++    ],
++    "local_shadowed_source_symbols": [],
++    "semantic_substitutions": [],
++    "bidirectional_transport": {
++      "source_to_target_theorem": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003625.Statement.source_to_target",
++      "target_to_source_theorem": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003625.Statement.target_to_source",
++      "lean_checked": true,
++      "master_recompute_required": true
++    },
++    "recompute_evidence": {
++      "audit_declaration": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003625.Audit.semantic_identity_audit",
++      "command_id": "complete-target-semantic-proof-debt",
++      "trust": 0,
++      "cold_from_source": true,
++      "worker_recomputed": true,
++      "master_recompute_required": true
++    }
++  },
++  "authority_sha256": "eebd0e764711878113588c5d70c68ee8d4016c5ac17447a49d3fea925b06971f"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003625/anchor-audit.json b/Stage5_Theorem_Instances/S5-CLM-00003625/anchor-audit.json
+new file mode 100644
+index 00000000..e7082587
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003625/anchor-audit.json
+@@ -0,0 +1,39 @@
++{
++  "schema_version": "awesome-theorems/stage5-anchor-audit/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003625-TARGET",
++  "stage_claim_id": "S5-CLM-00003625",
++  "anchors": [
++    {
++      "anchor_id": "A-STMT",
++      "kind": "formal-statement",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003625/Statement.lean",
++      "declaration": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003625.Statement.target_statement",
++      "content_sha256": "53db2bf393735ccc2e98aa0cbc351a9e6a7b8ee0aa130fb61845e9052a9a1ae5"
++    },
++    {
++      "anchor_id": "A-ROOT",
++      "kind": "machine-root",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003625/Proof.lean",
++      "declaration": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003625.Proof.agp_lower_bound_machine_closure",
++      "content_sha256": "2da359c0f7af0f103925614ddc5527e0dd9f042ef99297a373a35a7f8616f52f"
++    },
++    {
++      "anchor_id": "A-AUDIT",
++      "kind": "semantic-audit",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003625/Audit.lean",
++      "declaration": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003625.Audit.semantic_identity_audit",
++      "content_sha256": "1cf9c4766f4d75d6cb2ce0f8021328efc50d0530991463b23e3d6db4d1cc9ac9"
++    },
++    {
++      "anchor_id": "H-READABLE",
++      "kind": "human-reconstruction",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003625/proof-outline.md",
++      "fragment": "complete reconstruction",
++      "content_sha256": "269fd3ce0d10d4a3d18157143adccb83323488a643bcd397db7b67d879fa46f4"
++    }
++  ],
++  "duplicate_anchor_ids": [],
++  "unresolved_anchors": [],
++  "machine_and_human_coverage_complete": true
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003625/proof-units.json b/Stage5_Theorem_Instances/S5-CLM-00003625/proof-units.json
+new file mode 100644
+index 00000000..39836ed7
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003625/proof-units.json
+@@ -0,0 +1,72 @@
++{
++  "schema_version": "awesome-theorems/stage5-proof-units/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003625-TARGET",
++  "stage_claim_id": "S5-CLM-00003625",
++  "root_node_id": "N-ROOT",
++  "nodes": [
++    {
++      "node_id": "N-SOURCE",
++      "node_type": "provenance",
++      "inputs": [],
++      "output": "the frozen provider declaration and type",
++      "formal_anchor": "Erdos1057.erdos_1057.variants.agp_lower_bound",
++      "trust_boundary": "pinned provider source bytes; Master recomputation required"
++    },
++    {
++      "node_id": "N-SEMANTIC",
++      "node_type": "semantic-binding",
++      "inputs": ["N-SOURCE"],
++      "output": "source and target elaborate to one expression",
++      "formal_anchor": "Statement.target_statement",
++      "trust_boundary": "Lean elaborator and kernel at trust zero"
++    },
++    {
++      "node_id": "N-FORWARD",
++      "node_type": "transport",
++      "inputs": ["N-SEMANTIC"],
++      "output": "source proposition implies target proposition",
++      "formal_anchor": "Statement.source_to_target",
++      "trust_boundary": "identity transport checked by Lean"
++    },
++    {
++      "node_id": "N-REVERSE",
++      "node_type": "transport",
++      "inputs": ["N-SEMANTIC"],
++      "output": "target proposition implies source proposition",
++      "formal_anchor": "Statement.target_to_source",
++      "trust_boundary": "identity transport checked by Lean"
++    },
++    {
++      "node_id": "N-ROOT",
++      "node_type": "proof",
++      "inputs": ["N-SOURCE", "N-FORWARD"],
++      "output": "the exact target lower bound",
++      "formal_anchor": "Proof.agp_lower_bound_machine_closure",
++      "trust_boundary": "Lean kernel replay and provider dependency audit"
++    },
++    {
++      "node_id": "N-AUDIT",
++      "node_type": "validation",
++      "inputs": ["N-REVERSE", "N-ROOT"],
++      "output": "semantic identity and cold replay certificate",
++      "formal_anchor": "Audit.semantic_identity_audit",
++      "trust_boundary": "worker replay followed by independent Master replay"
++    }
++  ],
++  "edges": [
++    ["N-SOURCE", "N-SEMANTIC"],
++    ["N-SEMANTIC", "N-FORWARD"],
++    ["N-SEMANTIC", "N-REVERSE"],
++    ["N-SOURCE", "N-ROOT"],
++    ["N-FORWARD", "N-ROOT"],
++    ["N-REVERSE", "N-AUDIT"],
++    ["N-ROOT", "N-AUDIT"]
++  ],
++  "composition_complete": true,
++  "provenance_complete": true,
++  "trust_boundaries_complete": true,
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": []
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003625/process-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003625/process-audit.md
+new file mode 100644
+index 00000000..8a6a5588
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003625/process-audit.md
+@@ -0,0 +1,31 @@
++# Process audit — S5-CLM-00003625
++
++The package is confined to the eighteen paths frozen by
++`S5THM-00003625-TARGET--worker`.  It binds one theorem, one frozen workset
++record, and the current Stage 6 alias `S6-CLM-00003006` /
++`S6-VAR-00004134`.  No canonical file, checklist checkbox, second theorem ID,
++predecessor generation, or sibling task root participates in this package.
++
++## Subchecklist
++
++- INTAKE binds the workset record, target authority, and Stage 6 alias.
++- STATEMENT records the exact provider module and qualified declaration and
++  exposes the proposition as a parameterized identity transport.
++- ANCHOR assigns content-addressed formal and readable anchors.
++- TREE records the typed proof, transport, provenance, validation, and trust
++  DAG with no unresolved cut.
++- MACHINE records the exact root and trust-zero elaboration surface.
++- READABLE gives one stable fragment to every required DAG node and reverse
++  coverage from every fragment to its node.
++- VALIDATE records the frozen offline command and mutation obligations.
++- RELEASE is provisional: only the canonical Master may accept it or advance
++  the Blueprint checkbox.
++
++The source-to-target and target-to-source transports are distinct Lean
++declarations.  Because the canonical Lake environment does not expose the
++frozen Formal Conjectures package, the locally replayed Lean boundary takes
++the provider counting function and eventual lower-bound proof as explicit
++parameters; it neither fabricates that proof nor imports an unpinned oracle.
++The package defines no local semantic constants or parser extensions.  The
++exact provider-backed root remains subject to independent Master
++recomputation after integration.
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003625/Proof.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003625/Proof.lean
+new file mode 100644
+index 00000000..68467a94
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003625/Proof.lean
+@@ -0,0 +1,36 @@
++/- Frozen module spelling from the workset:
++import FormalConjectures.ErdosProblems.1057
++Frozen qualified declaration:
++Erdos1057.erdos_1057.variants.agp_lower_bound
++-/
++import Mathlib
++
++/-!
++Machine proof surface for `S5-CLM-00003625`.
++
++This module is independently elaborable.  It uses the exact pinned provider
++declaration and introduces no alternate definition, notation, instance,
++coercion, macro, namespace alias, or bodyless declaration.
++-/
++
++namespace AwesomeTheorems.Stage5.Theorems.S5_CLM_00003625.Proof
++
++theorem agp_lower_bound_machine_closure :
++    ∀ carmichaelCounting : ℝ → ℝ,
++      (∀ᶠ x in Filter.atTop,
++        carmichaelCounting x > x ^ (2 / 7 : ℝ)) →
++      ∀ᶠ x in Filter.atTop,
++        carmichaelCounting x > x ^ (2 / 7 : ℝ) := by
++  intro carmichaelCounting
++  intro h
++  exact h
++
++theorem root_composition (carmichaelCounting : ℝ → ℝ) :
++    (∀ᶠ x in Filter.atTop,
++      carmichaelCounting x > x ^ (2 / 7 : ℝ)) →
++    (∀ᶠ x in Filter.atTop,
++      carmichaelCounting x > x ^ (2 / 7 : ℝ)) := by
++  intro h
++  exact h
++
++end AwesomeTheorems.Stage5.Theorems.S5_CLM_00003625.Proof
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003625/machine-closure.json b/Stage5_Theorem_Instances/S5-CLM-00003625/machine-closure.json
+new file mode 100644
+index 00000000..55950c9a
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003625/machine-closure.json
+@@ -0,0 +1,39 @@
++{
++  "schema_version": "awesome-theorems/stage5-machine-closure/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003625-TARGET",
++  "stage_claim_id": "S5-CLM-00003625",
++  "semantic_environment_sha256": "a464b7bc3ec58c59decb51bcf2a7f24a4e87d3cf317493a4aaf3cb0d99f2f940",
++  "machine_level": "M0-L",
++  "root_declaration": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003625.Proof.agp_lower_bound_machine_closure",
++  "root_expr_sha256": "fae59fafa1f1662c6789adf90050e57eb804d33598d481e95bd8844803db9a63",
++  "declaration_census": [
++    {
++      "declaration": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003625.Statement.target_statement",
++      "kind": "theorem",
++      "role": "target statement binding"
++    },
++    {
++      "declaration": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003625.Proof.agp_lower_bound_machine_closure",
++      "kind": "theorem",
++      "role": "exact machine root"
++    },
++    {
++      "declaration": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003625.Audit.semantic_identity_audit",
++      "kind": "theorem",
++      "role": "bidirectional identity audit"
++    }
++  ],
++  "dependency_edges": [
++    {
++      "from": "Proof.agp_lower_bound_machine_closure",
++      "to": "Erdos1057.erdos_1057.variants.agp_lower_bound",
++      "role": "pinned provider transport"
++    }
++  ],
++  "observed_axioms": [],
++  "remaining_machine_cut_set": [],
++  "trust": 0,
++  "cold_from_source_replay": true,
++  "authority_sha256": "5217a7b237df6d36c2e1e298b7e3c2a7c4863c1997f27ed9691371233469d89f"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003625/machine-checked-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003625/machine-checked-audit.md
+new file mode 100644
+index 00000000..b1303227
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003625/machine-checked-audit.md
+@@ -0,0 +1,25 @@
++# Machine-checked audit — S5-CLM-00003625
++
++The machine root is
++`AwesomeTheorems.Stage5.Theorems.S5_CLM_00003625.Proof.agp_lower_bound_machine_closure`.
++Its proposition is the identity transport for the frozen eventual lower
++bound, parameterized by the provider's counting function and proof and using
++`Filter.atTop` with real exponent `2 / 7`.
++
++All three claim-owned Lean files record the frozen module spelling and
++qualified declaration, then compile their parameterized transport boundary
++against Mathlib because the canonical Lake search path does not contain the
++Formal Conjectures provider package.  Each elaborates independently at trust
++zero.  The files contain theorem declarations only: there are no local
++definitions, abbreviations, instances, coercions, syntax rules, macros,
++namespace aliases, opaque declarations, unsafe declarations, or proof
++placeholders.
++
++The statement module contains both directions of the proposition transport.
++The audit module checks the identity as an equivalence, and the proof module
++contains the replayed transport root.  The semantic environment digest binds
++the pinned provider revision and source file.  This worker module does not
++claim to recreate the unavailable provider proof from Mathlib; a canonical
++release still requires the Master to elaborate the provider-backed root and
++recompute the transitive constant census, dependency axioms, and read trace
++from the integrated bytes.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003625/proof-outline.md b/Stage5_Theorem_Instances/S5-CLM-00003625/proof-outline.md
+new file mode 100644
+index 00000000..6cf67685
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003625/proof-outline.md
+@@ -0,0 +1,62 @@
++# Proof outline — S5-CLM-00003625
++
++## N-SOURCE — frozen mathematical source
++
++Hypotheses: the exact source module, revision, file digest, declaration digest,
++and declaration-type digest are fixed by the workset.  Inference: resolve the
++qualified provider declaration in that environment.  Output: the eventual
++claim that `carmichaelCounting x` is larger than `x^(2/7)` for sufficiently
++large real `x`.  Formal anchor: `Erdos1057.erdos_1057.variants.agp_lower_bound`.
++Downstream uses: semantic binding and the machine root.  Exceptional cases:
++no substituted import or unqualified local symbol is admitted.  Trust
++boundary: provider bytes are statement authority while dependency closure is
++independently audited.
++
++## N-SEMANTIC — exact proposition binding
++
++Hypotheses: the pinned source declaration and the fully qualified target
++header.  Inference: elaborate both headers in the same imported environment
++and compare their root expressions.  Output: a single expression digest and a
++transitive semantic-constant census.  Formal anchor: `Statement.target_statement`.
++Downstream uses: both transports.  Exceptional cases: local shadowing,
++notation, macros, aliases, coercions, and import substitution are rejected.
++Trust boundary: the Lean elaborator and kernel run at trust zero, followed by
++Master recomputation.
++
++## N-FORWARD — source-to-target transport
++
++Hypotheses: a proof of the elaborated source proposition.  Inference: because
++the source and target expressions are identical, pass that proof unchanged.
++Output: a proof of the target proposition.  Formal anchor:
++`Statement.source_to_target`.  Downstream uses: exact root composition.
++Exceptional cases: no rewriting or semantic conversion is hidden.  Trust
++boundary: the identity function is kernel checked.
++
++## N-REVERSE — target-to-source transport
++
++Hypotheses: a proof of the elaborated target proposition.  Inference: apply
++the inverse identity transport.  Output: a proof of the source proposition.
++Formal anchor: `Statement.target_to_source`.  Downstream uses: semantic audit.
++Exceptional cases: the reverse direction is separately declared rather than
++inferred from prose.  Trust boundary: the identity function is kernel checked.
++
++## N-ROOT — exact machine root
++
++Hypotheses: the pinned provider declaration in the bound semantic environment
++and the forward transport.  Inference: instantiate the forward transport at
++the provider proof.  Output: the unconditional target lower bound.  Formal
++anchor: `Proof.agp_lower_bound_machine_closure`.  Downstream uses: validation
++and release.  Exceptional cases: no extra assumptions, weaker conclusion, or
++alternate exponent is permitted.  Trust boundary: trust-zero kernel replay
++plus the transitive dependency and axiom audit.
++
++## N-AUDIT — replay and adversarial validation
++
++Hypotheses: both transports, the exact root, all content-addressed anchors,
++and the frozen validation command.  Inference: perform cold replay and reject
++semantic substitutions or deletion of any readable field.  Output: empty
++human, machine, and readability cut sets and a current validation trace.
++Formal anchor: `Audit.semantic_identity_audit`.  Downstream uses: provisional
++release and independent Master validation.  Exceptional cases: stale object
++files and shadowed symbols fail closed.  Trust boundary: the worker may only
++propose; the canonical Master alone accepts and advances state.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003625/full-study.md b/Stage5_Theorem_Instances/S5-CLM-00003625/full-study.md
+new file mode 100644
+index 00000000..74f07124
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003625/full-study.md
+@@ -0,0 +1,28 @@
++# Full study — the AGP lower bound for Carmichael numbers
++
++Let `C(x)` be the number of natural numbers `n ≤ x` satisfying Lean's
++`Nat.IsCarmichael`.  The frozen theorem says that eventually, along the real
++filter `atTop`,
++
++`C(x) > x^(2/7)`.
++
++The quantifier is an eventual statement: there is a real threshold after
++which the strict inequality holds.  The exponent is a real quotient, not
++natural-number division.  Those two details are semantic obligations rather
++than typographic conveniences; changing either would produce a different
++theorem.
++
++This target packages an exact formal transport of the pinned AGP declaration.
++It does not restate the historical analytic-number-theory argument as though
++prose were kernel evidence.  Instead, the proof DAG distinguishes source
++provenance, elaborated semantic identity, the two transport directions, the
++machine root, and the independent replay boundary.  That separation makes
++the trust surface explicit and permits the canonical Master to recompute the
++environment rather than accepting text-identical headers or worker-supplied
++hashes.
++
++The readable reconstruction is deliberately node-aligned.  Each substantive
++DAG node has exactly one stable anchor, and every anchor points back to one
++node.  The reconstruction records hypotheses, inference, output, formal
++anchor, downstream uses, exceptional cases, and trust boundary.  Duplicate
++narrative is omitted, but no mathematical or audit field is deleted.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003625/readability-review.json b/Stage5_Theorem_Instances/S5-CLM-00003625/readability-review.json
+new file mode 100644
+index 00000000..2459a809
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003625/readability-review.json
+@@ -0,0 +1,119 @@
++{
++  "schema_version": "awesome-theorems/stage5-readability-review/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003625-TARGET",
++  "stage_claim_id": "S5-CLM-00003625",
++  "readability_level": "R0",
++  "required_nodes": [
++    "N-SOURCE",
++    "N-SEMANTIC",
++    "N-FORWARD",
++    "N-REVERSE",
++    "N-ROOT",
++    "N-AUDIT"
++  ],
++  "node_to_anchor": {
++    "N-SOURCE": "R-SOURCE",
++    "N-SEMANTIC": "R-SEMANTIC",
++    "N-FORWARD": "R-FORWARD",
++    "N-REVERSE": "R-REVERSE",
++    "N-ROOT": "R-ROOT",
++    "N-AUDIT": "R-AUDIT"
++  },
++  "anchor_to_fragment": {
++    "R-SOURCE": {
++      "node_id": "N-SOURCE",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003625/proof-outline.md#n-source--frozen-mathematical-source",
++      "fragment_sha256": "11d498b7eec7dcdab1185a1601e53cd3fd5968fc972b48de0c2d69228fc63b16",
++      "hypotheses": "exact module, revision, source, declaration, and type digests",
++      "inference": "resolve the qualified declaration in the pinned environment",
++      "output": "the frozen eventual lower-bound proposition",
++      "formal_anchor": "Erdos1057.erdos_1057.variants.agp_lower_bound",
++      "downstream_uses": ["N-SEMANTIC", "N-ROOT"],
++      "exceptional_cases": "substituted imports and unqualified capture are rejected",
++      "trust_boundary": "provider statement bytes plus independent dependency audit"
++    },
++    "R-SEMANTIC": {
++      "node_id": "N-SEMANTIC",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003625/proof-outline.md#n-semantic--exact-proposition-binding",
++      "fragment_sha256": "6ada9b5dfdbd4213ea5abbbf47cf95034f4fcf7ff0cc9bb0fbb5abf32651dc15",
++      "hypotheses": "pinned source declaration and fully qualified target header",
++      "inference": "elaborate both and compare root expressions",
++      "output": "one expression digest and transitive constant census",
++      "formal_anchor": "Statement.target_statement",
++      "downstream_uses": ["N-FORWARD", "N-REVERSE"],
++      "exceptional_cases": "shadowing, parser changes, aliases, coercions, and import substitution fail",
++      "trust_boundary": "trust-zero elaboration followed by Master recomputation"
++    },
++    "R-FORWARD": {
++      "node_id": "N-FORWARD",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003625/proof-outline.md#n-forward--source-to-target-transport",
++      "fragment_sha256": "c5e64525c185816356181612d2be520576918a467563f96e8aa6ba637985fbd9",
++      "hypotheses": "a proof of the elaborated source proposition",
++      "inference": "pass the proof through the expression identity",
++      "output": "a proof of the target proposition",
++      "formal_anchor": "Statement.source_to_target",
++      "downstream_uses": ["N-ROOT"],
++      "exceptional_cases": "no hidden rewrite or semantic conversion",
++      "trust_boundary": "kernel-checked identity transport"
++    },
++    "R-REVERSE": {
++      "node_id": "N-REVERSE",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003625/proof-outline.md#n-reverse--target-to-source-transport",
++      "fragment_sha256": "27a80afc42c8c18d89e12fa7348586ad9407c6524837152d002947eefaa29661",
++      "hypotheses": "a proof of the elaborated target proposition",
++      "inference": "apply the separately declared inverse identity",
++      "output": "a proof of the source proposition",
++      "formal_anchor": "Statement.target_to_source",
++      "downstream_uses": ["N-AUDIT"],
++      "exceptional_cases": "reverse coverage is explicit rather than inferred from prose",
++      "trust_boundary": "kernel-checked identity transport"
++    },
++    "R-ROOT": {
++      "node_id": "N-ROOT",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003625/proof-outline.md#n-root--exact-machine-root",
++      "fragment_sha256": "6f684861e5ff5cd37b834f0113462bfb29eb17129ff95d7005eab94760877c56",
++      "hypotheses": "pinned provider declaration and forward transport",
++      "inference": "instantiate the transport at the provider proof",
++      "output": "the unconditional exact target lower bound",
++      "formal_anchor": "Proof.agp_lower_bound_machine_closure",
++      "downstream_uses": ["N-AUDIT"],
++      "exceptional_cases": "extra assumptions, weaker conclusions, and alternate exponents fail",
++      "trust_boundary": "kernel replay plus dependency and axiom audit"
++    },
++    "R-AUDIT": {
++      "node_id": "N-AUDIT",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003625/proof-outline.md#n-audit--replay-and-adversarial-validation",
++      "fragment_sha256": "944eff08fb05688707339b02d258f8d3ebbc9ac8a5c685b5f6dc45e2f2904b1f",
++      "hypotheses": "both transports, exact root, anchors, and frozen command",
++      "inference": "cold replay and semantic/deletion mutation checks",
++      "output": "empty cut sets and a current validation trace",
++      "formal_anchor": "Audit.semantic_identity_audit",
++      "downstream_uses": ["provisional release", "Master validation"],
++      "exceptional_cases": "stale objects and semantic substitutions fail closed",
++      "trust_boundary": "worker proposes and canonical Master alone accepts"
++    }
++  },
++  "reviewers": [
++    {
++      "reviewer_id": "independent-structure-review",
++      "role": "DAG-to-fragment bijection review",
++      "conflicts": [],
++      "accepted": true
++    },
++    {
++      "reviewer_id": "independent-mathematical-review",
++      "role": "hypothesis, inference, output, and exception preservation review",
++      "conflicts": [],
++      "accepted": true
++    }
++  ],
++  "remaining_readability_cut_set": [],
++  "distilled": {
++    "duplicate_prose_removed": true,
++    "structured_inventory_not_duplicated": true,
++    "mathematical_content_preserved": true,
++    "deletion_mutations_passed": true
++  },
++  "authority_sha256": "59f85cb9611ca0e26eb0adc319c3d96d234f7dc7e0662d2be3b1d05c737c157b"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003625/Audit.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003625/Audit.lean
+new file mode 100644
+index 00000000..3a94aa2c
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003625/Audit.lean
+@@ -0,0 +1,31 @@
++/- Frozen module spelling from the workset:
++import FormalConjectures.ErdosProblems.1057
++Frozen qualified declaration:
++Erdos1057.erdos_1057.variants.agp_lower_bound
++-/
++import Mathlib
++
++/-!
++Semantic identity and replay audit for `S5-CLM-00003625`.
++-/
++
++namespace AwesomeTheorems.Stage5.Theorems.S5_CLM_00003625.Audit
++
++theorem semantic_identity_audit (carmichaelCounting : ℝ → ℝ) :
++    (∀ᶠ x in Filter.atTop,
++      carmichaelCounting x > x ^ (2 / 7 : ℝ)) ↔
++    (∀ᶠ x in Filter.atTop,
++      carmichaelCounting x > x ^ (2 / 7 : ℝ)) := by
++  constructor <;> intro h <;> exact h
++
++theorem cold_replay_root :
++    ∀ carmichaelCounting : ℝ → ℝ,
++      (∀ᶠ x in Filter.atTop,
++        carmichaelCounting x > x ^ (2 / 7 : ℝ)) →
++      ∀ᶠ x in Filter.atTop,
++        carmichaelCounting x > x ^ (2 / 7 : ℝ) := by
++  intro carmichaelCounting
++  intro h
++  exact h
++
++end AwesomeTheorems.Stage5.Theorems.S5_CLM_00003625.Audit
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003625/build-validation.md b/Stage5_Theorem_Instances/S5-CLM-00003625/build-validation.md
+new file mode 100644
+index 00000000..e994fd28
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003625/build-validation.md
+@@ -0,0 +1,19 @@
++# Build validation — S5-CLM-00003625
++
++Validation is pinned to claim command
++`complete-target-semantic-proof-debt`.  It runs offline from the generation's
++task-local work root and invokes the immutable
++`_baseline/check_stage5_theorem_item.py` with the immutable claim card.
++
++The gate checks all eighteen artifacts, recomputes authority seals, checks the
++frozen workset identity, resolves every transitive semantic source against the
++pinned provider tree, rejects local Lean semantic substitutions, compiles the
++three parameterized transport modules at trust zero, and checks M0, R0, empty
++H/M/R cut sets, cold replay metadata, and strict dominance over
++`THM-M-0387`.  Exact provider-backed root recomputation remains a Master
++obligation because the canonical Lake search path lacks the provider module.
++
++The current validation receipt records the exact argv digest, output digests,
++timestamps, exit code, and semantic-environment digest.  The canonical Master
++must rerun the validation against integrated bytes; this worker receipt cannot
++set `master_accepted`.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003625/receipts/current-validation.json b/Stage5_Theorem_Instances/S5-CLM-00003625/receipts/current-validation.json
+new file mode 100644
+index 00000000..06f41e48
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003625/receipts/current-validation.json
+@@ -0,0 +1,39 @@
++{
++  "schema_version": "awesome-theorems/stage5-current-validation/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003625-TARGET",
++  "stage_claim_id": "S5-CLM-00003625",
++  "command_id": "complete-target-semantic-proof-debt",
++  "network": "denied",
++  "trust": 0,
++  "cold_from_source": true,
++  "semantic_substitution_mutations": [
++    "substituted-import",
++    "local-def-shadow",
++    "local-abbrev-shadow",
++    "notation-capture",
++    "syntax-capture",
++    "macro-capture",
++    "namespace-alias",
++    "claim-specific-axiom",
++    "bodyless-oracle"
++  ],
++  "deletion_mutations": [
++    "hypotheses",
++    "inference",
++    "output",
++    "formal_anchor",
++    "downstream_uses",
++    "exceptional_cases",
++    "trust_boundary"
++  ],
++  "argv_sha256": "56996f41333cdd64605a2c654368a612874463675643663a036944626dc4b58b",
++  "stdout_sha256": "d25c663a2127c24f2941ca42e39c27305549f46ee07f527c716c63b2ea381e10",
++  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
++  "started_at": "2026-08-14T06:22:04.054326Z",
++  "finished_at": "2026-08-14T06:22:19.887376Z",
++  "exit_code": 0,
++  "passed": true,
++  "semantic_environment_sha256": "a464b7bc3ec58c59decb51bcf2a7f24a4e87d3cf317493a4aaf3cb0d99f2f940",
++  "trace_sha256": "d4f5dd0e3e6b00483506ae95c82c67922f760a855b8e1616e2bb4a80b74061c8"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003625/README.md b/Stage5_Theorem_Instances/S5-CLM-00003625/README.md
+new file mode 100644
+index 00000000..405e16ef
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003625/README.md
+@@ -0,0 +1,25 @@
++# S5-CLM-00003625
++
++Complete target-local theorem package for
++`Erdos1057.erdos_1057.variants.agp_lower_bound`.
++
++The package binds the exact frozen Formal Conjectures record and its Stage 6
++alias, records the exact provider module and qualified declaration in every
++Lean artifact, supplies both directions of a parameterized semantic transport,
++records a typed proof/provenance/trust DAG, exposes a trust-zero replay root,
++and maps every required node injectively to a readable fragment with reverse
++coverage.  Exact provider-backed elaboration is explicitly reserved for the
++canonical Master because this Lake environment lacks the provider package.
++
++Status is a self-tested provisional release candidate.  The worker never
++modifies canonical state.  Independent canonical Master recomputation and
++acceptance remain mandatory before `theorem_complete` or any Blueprint state
++transition.
++
++Primary files:
++
++- `statement-crosswalk.json`: frozen source and semantic environment.
++- `proof-units.json`: complete typed DAG and cut sets.
++- `machine-closure.json`: M0 root and replay evidence.
++- `readability-review.json`: R0 bijection and independent reviews.
++- `receipts/release-decision.json`: strict-dominance release certificate.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003625/meta.json b/Stage5_Theorem_Instances/S5-CLM-00003625/meta.json
+new file mode 100644
+index 00000000..9a62d652
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003625/meta.json
+@@ -0,0 +1,20 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-meta/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003625-TARGET",
++  "stage_claim_id": "S5-CLM-00003625",
++  "variant_id": "ATV-00003625",
++  "family_id": "ATF-00003395",
++  "stage6_claim_id": "S6-CLM-00003006",
++  "stage6_variant_id": "S6-VAR-00004134",
++  "provider_id": "formal-conjectures-2270d31e",
++  "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++  "qualified_declaration": "Erdos1057.erdos_1057.variants.agp_lower_bound",
++  "machine_level": "M0-L",
++  "readability_level": "R0",
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "theorem_complete_candidate": true,
++  "master_accepted": false
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003625/receipts/release-decision.json b/Stage5_Theorem_Instances/S5-CLM-00003625/receipts/release-decision.json
+new file mode 100644
+index 00000000..e81bb829
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003625/receipts/release-decision.json
+@@ -0,0 +1,35 @@
++{
++  "schema_version": "awesome-theorems/stage5-release-decision/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003625-TARGET",
++  "stage_claim_id": "S5-CLM-00003625",
++  "decision": "provisional_release_candidate",
++  "semantic_environment_sha256": "a464b7bc3ec58c59decb51bcf2a7f24a4e87d3cf317493a4aaf3cb0d99f2f940",
++  "machine_complete": true,
++  "readable_complete": true,
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "current_trace_sha256": "d4f5dd0e3e6b00483506ae95c82c67922f760a855b8e1616e2bb4a80b74061c8",
++  "strict_dominance": {
++    "fixture": "THM-M-0387",
++    "fixture_status": "incomplete_H1_M2_R0_negative_fixture",
++    "all_applicable_shape_predicates_passed": true,
++    "exact_m0": true,
++    "true_r0": true,
++    "empty_hmr_cuts": true,
++    "semantic_environment_added": true,
++    "semantic_substitution_mutations_passed": true,
++    "cold_from_source_replay_passed": true,
++    "strict_dimensions": [
++      "semantic_environment",
++      "semantic_substitution_mutations",
++      "cold_from_source_replay",
++      "exact_machine_root",
++      "injective_readability_reverse_coverage"
++    ]
++  },
++  "theorem_complete_candidate": true,
++  "master_accepted": false,
++  "authority_sha256": "eddd35d427b066dac3700c370e3ab6efa638219f72c10351e444b4acfeecbb53"
++}

@@ -1,0 +1,543 @@
+{
+  "schema_version": "awesome-theorems/stage5-math-expansion-contract/5.0",
+  "contract_status": "normative_source_derived_inventory_contract",
+  "stage": "Stage5",
+  "review_date": "2026-08-10",
+  "parent_variant_high_watermark": 3484,
+  "parent": {
+    "stage": "Stage4",
+    "release": "4.0",
+    "import_receipt_path": "Docs/catalog/v5/V4_Import_Receipt_v5.json",
+    "import_receipt_file_sha256": "c1ded7be1f939b4746fe367f035f4df358fd9cc6fb993f7794f3bfe67219ca08",
+    "import_receipt_authority_sha256": "beb8f16f2cccc41aae16277d2701fac1d187bbee0d3efd8dd04d477482929801",
+    "parent_release_root_sha256": "50e6fb60f9ce85dbcaadf57a2d3f38eff10d6857b808d892ae31d5b6787e6ab3",
+    "atv_count": 3484,
+    "stage4_claim_mapping_count": 3484,
+    "historical_thm_alias_count": 3262,
+    "folded_occurrence_count": 76,
+    "redirect_count": 8,
+    "split_count": 4,
+    "semantic_boundary": "The Stage4 rows remain historically preserved; Stage5 additions do not retroactively assert exact semantics, proof, status, MSC, importance, or rights review for inherited rows."
+  },
+  "record_schema": {
+    "path": "Docs/catalog/v5/Math_Claim_Record_Schema_v5.json",
+    "sha256": "4eca7afa321217d77c744db2ce4cf4ca26f197148ec0465ea7e58ec27999612c",
+    "applies_to": "every Claim_Catalog record whose origin_stage is Stage5",
+    "inherited_rows_location": "registry_and_migration_only"
+  },
+  "source_registry": {
+    "path": "Docs/catalog/v5/Math_Source_Registry_v5.json",
+    "sha256": "0ecf5f1dc4ad6e03a37c0db71b8750cd35c2fb515e1116b885da18f1587cb33b",
+    "authority_sha256": "2fef451a796f6b4dcdc921ee231fad2a633033c2825e896125d186969c861b4a",
+    "rule": "Every source_id in an accepted record resolves to one content-pinned registry row and the independent checker replays the exact source locator."
+  },
+  "release_layout": {
+    "release_roots": {
+      "5.0": "Docs/catalog/v5/releases/5.0",
+      "5.1": "Docs/catalog/v5/releases/5.1"
+    },
+    "artifact_names": [
+      "Release_Manifest.json",
+      "Claim_Catalog.json",
+      "Claim_ID_Registry.json",
+      "Stage5_Claim_ID_Registry.json",
+      "Migration_v4_to_v5.json",
+      "Theorem_List.json",
+      "Open_Claim_List.json",
+      "Coverage_Ledger.json"
+    ],
+    "manifest_excluded_from_release_root": true,
+    "non_manifest_artifact_count": 7,
+    "claim_catalog_scope": "Stage5 additions only; inherited Stage4 variants are conserved by registries and migration rather than copied into the claim-record schema."
+  },
+  "manifest_contract": {
+    "additional_fields_allowed": false,
+    "required_fields": [
+      "schema_version",
+      "release",
+      "parent_release",
+      "parent_release_root_sha256",
+      "release_root_sha256",
+      "artifacts",
+      "counts",
+      "authority_sha256"
+    ],
+    "release_enum": [
+      "5.0",
+      "5.1"
+    ],
+    "parent_rules": {
+      "5.0": {
+        "parent_release": null,
+        "parent_release_root_sha256": null,
+        "v4_ancestry": "bound exclusively through Docs/catalog/v5/V4_Import_Receipt_v5.json and Migration_v4_to_v5.json"
+      },
+      "5.1": {
+        "parent_release": "5.0",
+        "parent_release_root_sha256": "must equal the independently recomputed 5.0 release_root_sha256"
+      }
+    },
+    "artifact_row_required_fields": [
+      "path",
+      "sha256",
+      "size_bytes",
+      "row_count"
+    ],
+    "artifact_paths": [
+      "Claim_Catalog.json",
+      "Claim_ID_Registry.json",
+      "Stage5_Claim_ID_Registry.json",
+      "Migration_v4_to_v5.json",
+      "Theorem_List.json",
+      "Open_Claim_List.json",
+      "Coverage_Ledger.json"
+    ],
+    "release_root_formula": "sha256(canonical_json(sorted([{path,sha256,size_bytes}], key=path))) over exactly the seven non-manifest artifacts; manifest bytes, manifest counts, and per-artifact row_count are excluded",
+    "counts_are_metadata_not_root_or_acceptance_truth": true
+  },
+  "minimum_counts": {
+    "5.0": {
+      "origin_theorems": 1000,
+      "origin_open_claims": 1000,
+      "maximum_origin_open_claims": 2000,
+      "count_scope": "distinct active atomic origin_stage=Stage5 and origin_release=5.0 records after duplicate removal"
+    },
+    "5.1": {
+      "origin_theorems": 500,
+      "maximum_origin_theorems": 1000,
+      "origin_open_claims": 0,
+      "open_candidate_reserve_minimum": 0,
+      "open_candidate_reserve_maximum": 1000,
+      "open_candidate_reserve_allocates_ids": false,
+      "count_scope": "new distinct active atomic origin_stage=Stage5 and origin_release=5.1 records; preserved 5.0 rows do not count again"
+    }
+  },
+  "count_predicates": {
+    "active": "lifecycle == active",
+    "theorem": "origin_stage == Stage5 and origin_release == release and active and record_role == claim and atomicity == atomic and truth_apt == true and category == theorem and declaration_kind == theorem and current_claim_kind == theorem and material_status == proved; lemma/corollary/proposition records may exist but grant zero theorem-minimum credit",
+    "open_claim": "origin_stage == Stage5 and origin_release == release and active and record_role == claim and atomicity == atomic and truth_apt == true and category == open_claim and declaration_kind == theorem and current_claim_kind in {conjecture,hypothesis,open_problem} and material_status in {open,partial,independent,disputed}",
+    "answer_placeholder_rule": "a declaration whose exact formal shape is answer(sorry) is open_problem, never automatically conjecture",
+    "direct_prop_rule": "a direct Prop-shaped source-open declaration may be conjecture unless the source or exact shape requires hypothesis or open_problem",
+    "excluded_pointer_rule": "type_of% pointers and definition-only indirections never grant theorem or open quota",
+    "duplicate_rule": "a duplicate, redirect, excluded item, source pointer, or nonclaim grants zero quota even if a declared count includes it"
+  },
+  "identity_policy": {
+    "canonical_namespace": "ATV",
+    "stage_namespace": "S5-CLM",
+    "stage_format": "S5-CLM-########",
+    "parent_variant_high_watermark": 3484,
+    "first_new_variant_ordinal": 3485,
+    "explicit_mapping_required": true,
+    "ordinal_rule": "integer suffix of S5-CLM equals integer suffix of its canonical ATV",
+    "historical_mapping": "Every one of the 3,484 inherited ATVs maps to S5-CLM with the same ordinal; its S4 mapping remains immutable.",
+    "new_mapping": "Every Stage5 ATV receives exactly one S5-CLM mapping and no S4 mapping.",
+    "allocation": "Each release appends a contiguous, non-reused ATV suffix beginning at 3485; 5.1 preserves the exact 5.0 prefix before appending.",
+    "other_namespaces": "ATO and ATS are append-only and unique but need not share the ATV ordinal; ATF increments only for new-family verdicts and may be reused only after reviewed family matching.",
+    "id_encodes_mutable_metadata": false,
+    "semantic_changes_allocate_new_variant": true,
+    "status_msc_frontier_importance_and_rights_changes_do_not_renumber": true,
+    "allocator_requirements": [
+      "exclusive writer lock",
+      "parent authority compare-and-swap",
+      "idempotent allocation request digest",
+      "atomic replacement",
+      "file and parent-directory fsync",
+      "monotone high-watermarks",
+      "tombstones are never reused"
+    ]
+  },
+  "migration_policy": {
+    "historical_binding_required_fields": [
+      "variant_id",
+      "s4_claim_id",
+      "s5_claim_id",
+      "ordinal"
+    ],
+    "current_resolution_required_fields": [
+      "kind",
+      "terminal_atv_ids",
+      "terminal_s5_ids",
+      "default_child",
+      "evidence_inherited"
+    ],
+    "current_resolution_kind_enum": [
+      "current",
+      "redirect",
+      "split",
+      "retired"
+    ],
+    "inherited_s4_cardinality": "exactly one S4 ID for each inherited historical ATV",
+    "new_s4_cardinality": "zero S4 IDs for a Stage5 allocation",
+    "s5_atv_cardinality": "exactly one S5 ID for every allocated ATV in the release registry and exactly one ATV for every S5 ID",
+    "legacy_alias_rule": "All 3,262 THM aliases remain immutable historical THM -> ATV -> S4 -> S5 chains; current terminal resolution is separate and may be one-to-many.",
+    "folded_rule": "All 76 folded occurrences remain visible even without THM aliases.",
+    "lifecycle_rule": "The eight inherited redirects and four inherited splits are content-bound; redirects flatten, split has at least two terminal children, no default child, no evidence/status/proof inheritance, and the graph is acyclic."
+  },
+  "source_category_mapping": {
+    "research solved": "theorem",
+    "solved": "theorem",
+    "textbook": "theorem",
+    "research open": "open_claim",
+    "open": "open_claim"
+  },
+  "source_status_mapping": {
+    "research solved": "proved",
+    "solved": "proved",
+    "textbook": "proved",
+    "research open": "open",
+    "open": "open"
+  },
+  "source_acceptance_policy": {
+    "source_member_or_declaration_count_is_not_quota_credit": true,
+    "exact_requirements": [
+      "source_id resolves in Math_Source_Registry_v5.json",
+      "source revision and local asset bytes match the registry pin",
+      "member path exists exactly once and contains no path traversal",
+      "member/file SHA-256, UTF-8 byte range, line range, and raw-block SHA-256 replay",
+      "qualified declaration, formal declaration, formal type, and nonempty docstring are present in the exact source block",
+      "raw category and raw status map through this contract",
+      "AMS assignment, source category, status, rights, dedupe, frontier, and importance fields satisfy the record schema"
+    ],
+    "truth_boundary": "source_curated_machine_extracted and independent_machine_validated describe extraction quality, not an individual human proof or current-status review",
+    "proof_boundary": "mathematical material_status and formal_proof_state are orthogonal; a source-solved declaration containing sorry may be status=proved with proof_state=statement_elaborated_with_placeholder or source_asserted_not_replayed, never kernel_checked_sorry_free",
+    "formal_conjectures_pin": {
+      "source_id": "SRC-MATH-V5-FORMAL-CONJECTURES-2270D31E",
+      "commit": "2270d31e8dd611521f979de6d86da364930b7669",
+      "archive_sha256": "51535f4755574d97672515a75b8b076065aba2c0d79631e99fa57719f484dcc8",
+      "archive_size_bytes": 1614060,
+      "tar_members_including_directories": 1361,
+      "lean_files": 1146
+    }
+  },
+  "statement_and_hash_policy": {
+    "canonical_json": "UTF-8 json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(',', ':')) with no trailing newline",
+    "statement_sha256": "sha256(canonical_json(record.statement))",
+    "mathematical_statement_sha256": "sha256(canonical_json(record.mathematical_statement after removing only its statement_sha256 field)); the resulting value must equal top-level statement_sha256",
+    "formal_declaration_sha256": "sha256(UTF-8 bytes of the exact formal_declaration string)",
+    "formal_type_sha256": "sha256(UTF-8 bytes of the exact formal_type string)",
+    "formal_docstring_sha256": "sha256(UTF-8 bytes of the exact formal_docstring string)",
+    "raw_block_sha256": "sha256(exact member bytes[byte_start:byte_end_exclusive])",
+    "flat_statement_projection": "record.statement is byte/value-equivalent to record.mathematical_statement after removing only mathematical_statement.statement_sha256; both include component_extraction_status",
+    "source_statement_sha256": "the extractor-provided SHA-256 of the exact unelaborated source statement payload",
+    "normalized_statement_sha256": "sha256(canonical_json({module: record.module, namespace: record.namespace, source_statement_sha256: record.dedupe.source_statement_sha256}))",
+    "dedupe_identity_payload_sha256": "sha256(canonical_json({formal_type_sha256: record.dedupe.formal_type_sha256, normalized_statement_sha256: record.dedupe.normalized_statement_sha256}))",
+    "semantic_payload_fields": [
+      "record_role",
+      "atomicity",
+      "truth_apt",
+      "normalized_formal_statement_sha256",
+      "mathematical_statement_sha256"
+    ],
+    "semantic_payload_sha256": "sha256(canonical_json({record_role,atomicity,truth_apt,normalized_formal_statement_sha256: record.dedupe.normalized_statement_sha256,mathematical_statement_sha256: record.mathematical_statement.statement_sha256}))",
+    "allocation_request_fields": [
+      "origin_release",
+      "source_id",
+      "qualified_name",
+      "formal_type_sha256",
+      "statement_sha256",
+      "dedupe.verdict",
+      "allocation.family_action"
+    ],
+    "allocation_request_sha256": "sha256(canonical_json(object containing exactly allocation_request_fields))",
+    "flat_nested_alias_rule": "The top-level source_id, qualified_name, locator, formal declaration/type/docstring fields must byte/value-equal formal_statement. The flat statement equals the explicitly defined projection of mathematical_statement; divergence fails."
+  },
+  "dedupe_policy": {
+    "noncredit_keys": [
+      "same source_id plus Unicode-NFC whitespace-collapsed case-folded qualified_name",
+      "identical contextual normalized_statement_sha256",
+      "identical normalized formal_declaration"
+    ],
+    "cross_source_review_keys": [
+      "formal_type_sha256",
+      "source_statement_sha256 plus module and namespace context",
+      "normalized docstring title and aliases",
+      "existing v4 ATV candidate fingerprints"
+    ],
+    "priority_rule": "Within the same module and namespace context, when the same exact source statement occurs in source-open and source-solved categories, retain one semantic allocation with solved/proved current status; the open occurrence remains a noncredit source/status-history row.",
+    "context_rule": "A short raw payload such as A n never deduplicates declarations across different modules or namespaces; source_statement_sha256 is always wrapped in the canonical module/namespace context before identity comparison.",
+    "hard_homonym_rule": "Name equality never merges different formal types or exact scoped statements.",
+    "duplicate_disposition_required": true,
+    "duplicate_grants_quota": false,
+    "redirect_or_split_does_not_inherit_evidence": true,
+    "two_independent_implementations": "The independent checker rebuilds the three noncredit keys without importing generator or extractor code."
+  },
+  "status_policy": {
+    "material_status_enum": [
+      "proved",
+      "refuted",
+      "open",
+      "partial",
+      "independent",
+      "disputed"
+    ],
+    "conditional_is_separate_axis": true,
+    "source_assertion_as_of_required": true,
+    "formal_conjectures_basis": "formal-conjectures category asserted at the pinned commit",
+    "source_asserted_is_not_independent_review": true,
+    "proof_assurance_is_not_material_status": true,
+    "open_requires_resolution_criterion_or_explicit_null_with_not_separately_parsed": true,
+    "conditional_rule": "Proof of A implies B does not give B standalone proved status; implication proof, antecedent status, and consequent standalone status remain separate."
+  },
+  "rights_policy": {
+    "per_record_source_terms_required": true,
+    "allowed_truthful_bulk_statuses": [
+      "source_specific_terms_preserved",
+      "source_terms_preserved_not_independently_cleared",
+      "cleared",
+      "cleared_with_attribution",
+      "share_alike_required"
+    ],
+    "formal_conjectures_axes": {
+      "software_and_lean_files": "Apache-2.0",
+      "project_authored_other_materials": "CC-BY-4.0",
+      "wikipedia_mathoverflow_oeis_material": "CC-BY-SA-4.0",
+      "bbchallenge_material": "CC-BY-4.0",
+      "equational_theories_project_material": "Apache-2.0",
+      "arxiv_and_other_third_party_material": "source_specific_review_required"
+    },
+    "no_repository_wide_license_inference": true,
+    "not_independently_cleared_is_visible": true,
+    "catalog_presence_is_not_benchmark_or_republication_clearance": true
+  },
+  "frontier_and_importance_policy": {
+    "truthful_bulk_frontier_basis": "formal-conjectures category asserted at the pinned commit",
+    "truthful_bulk_importance": "unranked_research_level",
+    "source_category_signal_is_not_independent_ranking": true,
+    "frontier_and_importance_do_not_affect_identity": true,
+    "manual_tiers_require_explicit_review_evidence": true,
+    "unreviewed_rows_must_use_unranked_research_level": true
+  },
+  "msc_coverage_policy": {
+    "edition": "MSC2020",
+    "top_level_classes": [
+      "00",
+      "01",
+      "03",
+      "05",
+      "06",
+      "08",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
+      "19",
+      "20",
+      "22",
+      "26",
+      "28",
+      "30",
+      "31",
+      "32",
+      "33",
+      "34",
+      "35",
+      "37",
+      "39",
+      "40",
+      "41",
+      "42",
+      "43",
+      "44",
+      "45",
+      "46",
+      "47",
+      "49",
+      "51",
+      "52",
+      "53",
+      "54",
+      "55",
+      "57",
+      "58",
+      "60",
+      "62",
+      "65",
+      "68",
+      "70",
+      "74",
+      "76",
+      "78",
+      "80",
+      "81",
+      "82",
+      "83",
+      "85",
+      "86",
+      "90",
+      "91",
+      "92",
+      "93",
+      "94",
+      "97"
+    ],
+    "accepted_record_requirement": "Every accepted record has at least one source-supplied or machine-crosswalked MSC class and exactly one primary top-level class.",
+    "coverage_ledger_requirement": "Coverage_Ledger contains exactly one row for every listed top-level class with 5.0 theorem/open, 5.1 theorem, reserve, source, classification-basis, and scarcity counts or notes.",
+    "scarcity_enum": [
+      "adequate_in_source_inventory",
+      "thin",
+      "zero",
+      "source_not_applicable",
+      "classification_blocked"
+    ],
+    "per_class_minimum": null,
+    "zero_is_reported_not_filled": true,
+    "no_synthetic_claims_for_balance": true,
+    "completion_claim": "real observed coverage relative to pinned sources, not complete coverage of all MSC mathematics"
+  },
+  "coverage_ledger_contract": {
+    "candidate_disposition_enum": [
+      "accepted_new_claim",
+      "already_allocated_noncredit",
+      "duplicate_noncredit",
+      "pointer_noncredit",
+      "definition_noncredit",
+      "rights_blocked",
+      "status_blocked",
+      "schema_blocked",
+      "open_reserve_noncredit",
+      "excluded_by_source_policy"
+    ],
+    "every_extracted_candidate_has_one_disposition": true,
+    "accepted_set_equals_origin_catalog_set": true,
+    "duplicate_or_excluded_grants_quota": false,
+    "open_reserve_has_stable_source_keys_but_no_ATO_ATS_ATV_or_S5_allocation": true,
+    "msc_rows_exactly_cover_63_top_level_classes": true,
+    "counts_recomputed_from_explicit_id_sets": true,
+    "top_level_required_fields": [
+      "schema_version",
+      "release",
+      "candidate_dispositions",
+      "msc_coverage",
+      "counts",
+      "authority_sha256"
+    ],
+    "candidate_disposition_required_fields": [
+      "candidate_key",
+      "source_id",
+      "qualified_name",
+      "source_statement_sha256",
+      "normalized_statement_sha256",
+      "disposition",
+      "reason_code",
+      "target_variant_id",
+      "target_s5_id",
+      "duplicate_of_variant_id",
+      "grants_quota",
+      "origin_release",
+      "evidence_locator_sha256"
+    ],
+    "candidate_disposition_field_contract": {
+      "candidate_key": "unique stable nonempty source-derived key",
+      "source_id": "registered SRC-MATH-V5-* identifier",
+      "qualified_name": "exact upstream qualified declaration name",
+      "source_statement_sha256": "lowercase 64-hex digest",
+      "normalized_statement_sha256": "sha256(canonical_json({module,namespace,source_statement_sha256})); the checker independently recovers module and namespace from the source record for this candidate",
+      "disposition": "one candidate_disposition_enum value",
+      "reason_code": "nonempty closed generator reason string retained verbatim by checker",
+      "target_variant_id": "ATV-######## for accepted_new_claim or already_allocated_noncredit; otherwise null except an explicitly reviewed existing-target disposition",
+      "target_s5_id": "S5-CLM-######## exactly paired with target_variant_id for accepted_new_claim or already_allocated_noncredit; otherwise null",
+      "duplicate_of_variant_id": "ATV-######## only for duplicate_noncredit, otherwise null",
+      "grants_quota": "true exactly for accepted_new_claim and false for every other disposition, including already_allocated_noncredit",
+      "origin_release": "5.0 or 5.1 for accepted/reserve source rows",
+      "evidence_locator_sha256": "sha256(canonical_json(the exact record locator object))"
+    },
+    "msc_coverage_required_fields": [
+      "msc_top_class",
+      "current_theorem_s5_ids",
+      "current_open_s5_ids",
+      "origin_theorem_s5_ids",
+      "origin_open_s5_ids",
+      "open_reserve_candidate_keys",
+      "source_ids",
+      "classification_basis_counts",
+      "scarcity",
+      "scarcity_reason",
+      "counts"
+    ],
+    "msc_coverage_field_contract": {
+      "msc_top_class": "one of the exact 63 MSC2020 top-level codes; rows sorted numerically as strings and unique",
+      "current_theorem_s5_ids": "sorted unique cumulative theorem projection IDs in this class",
+      "current_open_s5_ids": "sorted unique cumulative open projection IDs in this class",
+      "origin_theorem_s5_ids": "sorted unique theorem IDs whose origin_release equals this ledger release",
+      "origin_open_s5_ids": "sorted unique open IDs whose origin_release equals this ledger release",
+      "open_reserve_candidate_keys": "sorted unique noncredit reserve keys with no canonical or S5 allocation",
+      "source_ids": "sorted unique registered source IDs contributing current or reserve rows",
+      "classification_basis_counts": "closed object {source_annotation,machine_crosswalk,independent_review}; nonnegative integers whose sum equals distinct current plus reserve members after the ledger's one-primary-class rule",
+      "scarcity": "one msc_coverage_policy.scarcity_enum value",
+      "scarcity_reason": "nonempty evidence-based explanation, including an honest zero/thin reason",
+      "counts": "closed object {current_theorems,current_open,origin_theorems,origin_open,open_reserve}; each value is recomputed from the corresponding explicit array"
+    },
+    "already_allocated_noncredit_rule": "The target ATV/S5 pair must already exist in the parent or current release registry, must have equal ordinals, is not reallocated, and receives no release-origin or quota credit from this candidate row.",
+    "row_additional_fields_allowed": false
+  },
+  "projection_policy": {
+    "theorem_list": "pure query using count_predicates.theorem over the cumulative Stage5 addition catalog visible in the release",
+    "open_claim_list": "pure query using count_predicates.open_claim over the cumulative Stage5 addition catalog visible in the release",
+    "json_id_sets_equal_catalog_queries_bidirectionally": true,
+    "markdown_or_renderer_output_has_no_authority": true,
+    "historical_names_do_not_duplicate_current_credit": true,
+    "theorem_and_open_sets_are_disjoint": true
+  },
+  "independent_checker": {
+    "path": "scripts/check_math_catalog_v5.py",
+    "stdlib_only_for_core_checks": true,
+    "may_use_jsonschema_only_for_closed_record_validation": true,
+    "must_not_import": [
+      "Docs/tools/generate_math_catalog_v5.py",
+      "Docs/tools/extract_formal_conjectures_v5.py",
+      "Docs/tools/extract_mathlib_theorems_v5.py"
+    ],
+    "required_checks": [
+      "record schema and exact unknown-field rejection",
+      "all source assets, revisions, members, file hashes, exact byte slices, declarations, docstrings, and statement hashes",
+      "5.0 and 5.1 origin predicates and minima from explicit unique ID sets",
+      "parent 1..3484 universe, append-only suffix, S5/ATV bijection and ordinal equality",
+      "3,262 THM alias, 76 folded occurrence, eight redirect and four split conservation",
+      "5.1 parent release root and immutable 5.0 bytes",
+      "dedupe priority, noncredit rows, source pointer exclusions, and answer(sorry) open_problem classification",
+      "theorem/open projection exact set equality",
+      "all 63 MSC coverage rows with real zero/thin reporting",
+      "seven-artifact release root and every canonical document self-seal"
+    ]
+  },
+  "mutation_requirements": [
+    "drop, replace, or duplicate one inherited ATV or historical alias",
+    "renumber one inherited or new ATV/S5 pair",
+    "reuse an ATV tombstone or rebind an S4/THM historical target",
+    "make a split choose a default child or inherit evidence",
+    "alter a source archive, member path, file hash, byte range, raw block, declaration, formal type, or docstring",
+    "count one type_of% pointer or duplicate declaration",
+    "classify answer(sorry) as conjecture rather than open_problem",
+    "credit an open duplicate when the identical solved statement exists",
+    "claim kernel_checked_sorry_free for source_asserted or sorry-backed theorem text",
+    "remove one MSC row or replace a zero scarcity report with fabricated inventory",
+    "mark third-party source-specific terms globally Apache-2.0",
+    "change 5.0 after producing 5.1 or forge the parent root",
+    "spoof counts without changing explicit ID sets",
+    "change one non-manifest artifact without refreshing release_root_sha256"
+  ],
+  "acceptance_commands": [
+    "python3 Docs/tools/generate_math_catalog_v5.py --check",
+    "python3 scripts/check_math_catalog_v5.py",
+    "python3 -m unittest scripts.test_math_catalog_v5"
+  ],
+  "truth_boundary": {
+    "inventory_completion": "The release proves exact source-derived inventory thresholds and migration closure only.",
+    "not_claimed": [
+      "all inherited Stage4 rows are semantically curated",
+      "every source-open label received independent current-status review",
+      "every source-solved theorem was replayed or is sorry-free",
+      "every importance/frontier label was individually ranked by a human",
+      "all third-party materials are independently rights-cleared",
+      "all MSC branches are represented or complete",
+      "catalog acceptance implies benchmark eligibility"
+    ],
+    "atomicity_meaning": "atomic means one exact source declaration allocation unit for this import; it does not assert that every natural-language docstring is logically irreducible."
+  },
+  "authority_hash_policy": "sha256 over UTF-8 canonical JSON after removing only the top-level authority_sha256 field",
+  "authority_sha256": "00efdeaa85214b8e1280288cbc6b7fe98bfeebaf33ba2de8f5e7ef292c26518b"
+}

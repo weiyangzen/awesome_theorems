@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://awesome-theorems.invalid/stage5-1-organization/schemas/execution-hard-dag.schema.json",
+  "title": "Stage5.1 execution hard dependency DAG",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "organization_release", "nodes", "edges", "topological_order",
+    "counts", "edge_policy", "authority_sha256"
+  ],
+  "properties": {
+    "schema_version": {"$ref": "common.schema.json#/$defs/schema_version"},
+    "organization_release": {"$ref": "common.schema.json#/$defs/organization_release"},
+    "nodes": {
+      "type": "array",
+      "items": {"$ref": "common.schema.json#/$defs/member_item_id"},
+      "uniqueItems": true
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["edge_id", "provider_member_id", "consumer_member_id", "scheduler_effect", "relation_record_sha256", "evidence_tier", "blocking"],
+        "properties": {
+          "edge_id": {"$ref": "common.schema.json#/$defs/edge_id"},
+          "provider_member_id": {"$ref": "common.schema.json#/$defs/object_id"},
+          "consumer_member_id": {"$ref": "common.schema.json#/$defs/object_id"},
+          "scheduler_effect": {"const": "block_until_accepted"},
+          "relation_record_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+          "evidence_tier": {"enum": ["A2_target_owned_replay", "B_content_bound_artifact"]},
+          "blocking": {"const": true}
+        }
+      },
+      "uniqueItems": true
+    },
+    "topological_order": {
+      "type": "array",
+      "items": {"$ref": "common.schema.json#/$defs/member_item_id"},
+      "uniqueItems": true
+    },
+    "counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["node_count", "edge_count", "root_count"],
+      "properties": {
+        "node_count": {"type": "integer", "minimum": 0},
+        "edge_count": {"type": "integer", "minimum": 0},
+        "root_count": {"type": "integer", "minimum": 0}
+      }
+    },
+    "edge_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "admitted_review_state", "admitted_evidence_tiers", "direction_semantics",
+        "acyclic", "credit_inheritance", "status_inheritance", "unknown_means_independent"
+      ],
+      "properties": {
+        "admitted_review_state": {"const": "verified"},
+        "admitted_evidence_tiers": {
+          "type": "array",
+          "const": ["A2_target_owned_replay", "B_content_bound_artifact"]
+        },
+        "direction_semantics": {"const": "consumer_requires_provider"},
+        "acyclic": {"const": true},
+        "credit_inheritance": {"const": false},
+        "status_inheritance": {"const": false},
+        "unknown_means_independent": {"const": false}
+      }
+    },
+    "authority_sha256": {"$ref": "common.schema.json#/$defs/sha256"}
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003537-TARGET",
+  "stage_claim_id": "S5-CLM-00003537",
+  "readability_level": "R0",
+  "required_nodes": [
+    "PU-LAC",
+    "PU-WIN",
+    "PU-NON",
+    "PU-DIM"
+  ],
+  "node_to_anchor": {
+    "PU-LAC": "H-LAC",
+    "PU-WIN": "H-WIN",
+    "PU-NON": "H-NON",
+    "PU-DIM": "H-DIM"
+  },
+  "anchor_to_fragment": {
+    "H-LAC": {
+      "node_id": "PU-LAC",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003537/proof-outline.md#h-lac",
+      "fragment_sha256": "af59781402bfa13e8646dbb0c3455d076edf0fb1ff6b86aab8ca5de18ac2ee22",
+      "hypotheses": [
+        "positive integer sequence",
+        "uniform lacunarity"
+      ],
+      "inference": "unpack the lacunarity witness into a uniform ratio",
+      "output": "scale separation estimate",
+      "formal_anchor": "Bugeaud06.pollington_de_mathan:hlac",
+      "downstream_uses": [
+        "PU-WIN"
+      ],
+      "exceptional_cases": [
+        "zero terms excluded",
+        "finite prefix harmless"
+      ],
+      "trust_boundary": "frozen statement hypotheses"
+    },
+    "H-WIN": {
+      "node_id": "PU-WIN",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003537/proof-outline.md#h-win",
+      "fragment_sha256": "500cd249eda580fda63df0d133ec9149ff35e242727c4d74afbee60181b3dc2f",
+      "hypotheses": [
+        "scale separation from PU-LAC"
+      ],
+      "inference": "construct a Schmidt-game strategy avoiding one open arc",
+      "output": "winning uniformly avoiding parameter set",
+      "formal_anchor": "Bugeaud06.pollington_de_mathan",
+      "downstream_uses": [
+        "PU-NON",
+        "PU-DIM"
+      ],
+      "exceptional_cases": [
+        "arc boundaries removed",
+        "all frequency blocks covered"
+      ],
+      "trust_boundary": "Pollington--de Mathan avoidance and Schmidt-game strategy"
+    },
+    "H-NON": {
+      "node_id": "PU-NON",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003537/proof-outline.md#h-non",
+      "fragment_sha256": "fc37f5a1179fce4e06dbe4b71cb4bc640a413162107ea85711089f9e74395fba",
+      "hypotheses": [
+        "uniform avoidance from PU-WIN"
+      ],
+      "inference": "a set missing a nonempty open arc is not dense",
+      "output": "membership in the nondense-orbit set",
+      "formal_anchor": "Bugeaud06.pollington_de_mathan:Dense",
+      "downstream_uses": [
+        "PU-DIM"
+      ],
+      "exceptional_cases": [
+        "index zero included"
+      ],
+      "trust_boundary": "definition of density"
+    },
+    "H-DIM": {
+      "node_id": "PU-DIM",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003537/proof-outline.md#h-dim",
+      "fragment_sha256": "c0e803b907bc95b1a228da66bb8f485475d21622e0aad3e6b200be7a3dbc4e08",
+      "hypotheses": [
+        "winning subset",
+        "inclusion in nondense set"
+      ],
+      "inference": "combine full dimension, monotonicity, and ambient upper bound",
+      "output": "Hausdorff dimension equals one",
+      "formal_anchor": "Bugeaud06.pollington_de_mathan",
+      "downstream_uses": [
+        "S5 root",
+        "S6-CLM-00001772"
+      ],
+      "exceptional_cases": [
+        "no measurability premise required"
+      ],
+      "trust_boundary": "dimension theorem for winning sets and dimH monotonicity"
+    }
+  },
+  "reviewers": [
+    {
+      "reviewer_id": "worker-structure-review",
+      "role": "DAG coverage",
+      "independent_focus": "forward and reverse mapping"
+    },
+    {
+      "reviewer_id": "worker-mathematics-review",
+      "role": "mathematical reconstruction",
+      "independent_focus": "hypotheses, inference and exceptional cases"
+    }
+  ],
+  "remaining_readability_cut_set": [],
+  "distilled": {
+    "duplicate_prose_removed": true,
+    "structured_inventory_not_duplicated": true,
+    "mathematical_content_preserved": true,
+    "deletion_mutations_passed": true
+  },
+  "authority_sha256": "435800d81743fe3fd8fe5e54d6eaa5cfcd4728460f1859fec70024724361ff9a"
+}

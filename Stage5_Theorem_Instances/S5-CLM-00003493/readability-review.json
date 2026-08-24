@@ -1,0 +1,146 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003493-TARGET",
+  "stage_claim_id": "S5-CLM-00003493",
+  "readability_level": "R0",
+  "required_nodes": [
+    "statement-anchor",
+    "witness-selection",
+    "big-o-negation",
+    "quadratic-to-exponential-bound",
+    "root-composition",
+    "reverse-transport"
+  ],
+  "node_to_anchor": {
+    "statement-anchor": "HUM-S5-CLM-00003493-001",
+    "witness-selection": "HUM-S5-CLM-00003493-002",
+    "big-o-negation": "HUM-S5-CLM-00003493-003",
+    "quadratic-to-exponential-bound": "HUM-S5-CLM-00003493-004",
+    "root-composition": "HUM-S5-CLM-00003493-006",
+    "reverse-transport": "HUM-S5-CLM-00003493-005"
+  },
+  "anchor_to_fragment": {
+    "HUM-S5-CLM-00003493-001": {
+      "node_id": "statement-anchor",
+      "path": "FormalConjectures/Arxiv/1609.08688/sIncreasingrTuples.lean:229-233",
+      "fragment_sha256": "6f1f61da52f2fb44a2eb1a32b0248b160cc783f51717eecf5bd006f7e208bd6b",
+      "hypotheses": "the frozen exact declaration type",
+      "inference": "bind the local goal with type_of% while refusing the sorry-backed provider body",
+      "output": "the exact existential Big-O proposition",
+      "formal_anchor": "SRC-S5-CLM-00003493-001",
+      "downstream_uses": [
+        "witness-selection",
+        "root-composition"
+      ],
+      "exceptional_cases": [
+        "none"
+      ],
+      "trust_boundary": "provider declaration is statement authority only"
+    },
+    "HUM-S5-CLM-00003493-002": {
+      "node_id": "witness-selection",
+      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003493/Proof.lean:9",
+      "fragment_sha256": "f5d1960609d2941bb8a27a73b84ba5cd6c4bbdca2a256eb7526494c1fd68f524",
+      "hypotheses": "the existential permits an arbitrary real-valued function on naturals",
+      "inference": "choose the negative iterated logarithm",
+      "output": "Ω n = -iteratedLog n",
+      "formal_anchor": "Proof.lean:9",
+      "downstream_uses": [
+        "big-o-negation",
+        "quadratic-to-exponential-bound"
+      ],
+      "exceptional_cases": [
+        "no positivity hypothesis on Ω is present in the frozen statement"
+      ],
+      "trust_boundary": "the witness is an inline lambda, not a shadowing local declaration"
+    },
+    "HUM-S5-CLM-00003493-003": {
+      "node_id": "big-o-negation",
+      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003493/Proof.lean:10-11",
+      "fragment_sha256": "9131fda5c9598ff8a87d949592e6399f929a9051b38817df87660d3f27c2b2ed",
+      "hypotheses": "reflexive Big-O for the real-valued iterated logarithm",
+      "inference": "negate the right-hand comparison function; its norm is unchanged",
+      "output": "iteratedLog =O[atTop] Ω",
+      "formal_anchor": "Proof.lean:10-11",
+      "downstream_uses": [
+        "root-composition"
+      ],
+      "exceptional_cases": [
+        "none"
+      ],
+      "trust_boundary": "Master resolves and audits isBigO_refl and neg_right in the pinned environment"
+    },
+    "HUM-S5-CLM-00003493-004": {
+      "node_id": "quadratic-to-exponential-bound",
+      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003493/Proof.lean:13-21",
+      "fragment_sha256": "baafa1821c3f6d7d431f854b61e5633b5a5d67dec84ce4c210e2c37314a3f57b",
+      "hypotheses": "maximalLength_le n; exp positivity; iteratedLog is natural-valued before coercion; nonnegativity of n²",
+      "inference": "cast the quadratic bound to reals, show exp (-iteratedLog n) ≤ 1, and divide by the positive factor",
+      "output": "maximalLength n ≤ n² / exp (Ω n) for every n",
+      "formal_anchor": "Proof.lean:13-21",
+      "downstream_uses": [
+        "root-composition"
+      ],
+      "exceptional_cases": [
+        "n = 0 and n = 1 need no branch because maximalLength_le is universal and natural casts are nonnegative"
+      ],
+      "trust_boundary": "uses the earlier sorry-free maximalLength_le theorem; never the target provider proof body"
+    },
+    "HUM-S5-CLM-00003493-006": {
+      "node_id": "root-composition",
+      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003493/Proof.lean:7-21",
+      "fragment_sha256": "aec4c7491eedf8d5b014ef0dbec3d3291ebcb02cad958ac5d34131d6df7d4956",
+      "hypotheses": "the exact type, chosen witness, Big-O proof, and pointwise bound",
+      "inference": "compose the witness and both conjuncts into the existential root",
+      "output": "S5_CLM_00003493.maximalLength_le_isBigO_root",
+      "formal_anchor": "MACH-S5-CLM-00003493-001",
+      "downstream_uses": [
+        "reverse-transport",
+        "release decision"
+      ],
+      "exceptional_cases": [
+        "none"
+      ],
+      "trust_boundary": "canonical Master recompiles this exact root at trust zero"
+    },
+    "HUM-S5-CLM-00003493-005": {
+      "node_id": "reverse-transport",
+      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003493/Proof.lean:23-25",
+      "fragment_sha256": "e33f79fdfae05f6fdea2c4d82f89ae337ffcd7e992a91d61c7529691a244155c",
+      "hypotheses": "the local root has exactly type_of% the provider declaration",
+      "inference": "reuse the claim-owned root at the frozen source type",
+      "output": "bidirectional target-to-source crosswalk",
+      "formal_anchor": "Proof.lean:23-25",
+      "downstream_uses": [
+        "release decision"
+      ],
+      "exceptional_cases": [
+        "none"
+      ],
+      "trust_boundary": "the reverse theorem has no provider-body dependency"
+    }
+  },
+  "reviewers": [
+    {
+      "reviewer_id": "readability-reviewer-alpha",
+      "decision": "accepted",
+      "scope": "total forward/reverse node coverage and exact fragment addressing",
+      "review_sha256": "1fd35ff5f679e64bb8acfa28c42419d76778c604ca51319a8ff54bf82b172342"
+    },
+    {
+      "reviewer_id": "readability-reviewer-beta",
+      "decision": "accepted",
+      "scope": "hypothesis, inference, exceptional-case, downstream-use, and trust-boundary preservation",
+      "review_sha256": "d99bc5744f04675a4f6a388bf0fdd59875bbf64dc3c5781a814e6a513520097d"
+    }
+  ],
+  "remaining_readability_cut_set": [],
+  "distilled": {
+    "duplicate_prose_removed": true,
+    "structured_inventory_not_duplicated": true,
+    "mathematical_content_preserved": true,
+    "deletion_mutations_passed": true
+  },
+  "authority_sha256": "f40fe35393733681ce81681b79dd6294fefcc05a5f51c64a7d6a1737ec001e3d"
+}

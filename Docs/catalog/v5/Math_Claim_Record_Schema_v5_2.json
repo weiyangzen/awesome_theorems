@@ -1,0 +1,1190 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:awesome-theorems:schema:stage5-math-claim-record:5.2",
+  "title": "Stage5 5.2 source-faithful LaTeX conjecture record",
+  "description": "Closed schema for one 5.2 OpenConjecture claim. The source is an exact LaTeX conjecture block with paper metadata and a source-model label; it is not a Lean declaration, a formalization, a proof, or an independently reviewed current-status assertion.",
+  "authority_hash_policy": "sha256 over UTF-8 json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(',', ':')) after removing only the top-level authority_sha256 field; no trailing newline enters the digest",
+  "authority_sha256": "747f4ea32b21487b37150f25b72b9d441c0e1b99ec5f6bcfc8d865d9a45778d5",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "release_id",
+    "origin_stage",
+    "origin_release",
+    "curation_key",
+    "allocation",
+    "occurrence_id",
+    "family_id",
+    "sense_id",
+    "variant_id",
+    "stage_claim_id",
+    "display_name",
+    "aliases",
+    "owner_domain",
+    "membership_domains",
+    "record_role",
+    "claim_kind",
+    "current_claim_kind",
+    "historical_kind",
+    "atomicity",
+    "atomicity_detail",
+    "truth_apt",
+    "category",
+    "material_status",
+    "source_id",
+    "source_locator",
+    "source_block",
+    "paper",
+    "model_label",
+    "curator_disposition",
+    "mathematical_statement",
+    "status_detail",
+    "classification",
+    "provenance",
+    "rights",
+    "dedupe",
+    "frontier",
+    "importance",
+    "lifecycle",
+    "lineage",
+    "semantic_key",
+    "content_payload_sha256",
+    "source_payload_sha256",
+    "semantic_payload_sha256"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "awesome-theorems/stage5-math-claim-record/5.2"
+    },
+    "release_id": {
+      "const": "5.2"
+    },
+    "origin_stage": {
+      "const": "Stage5"
+    },
+    "origin_release": {
+      "const": "5.2"
+    },
+    "curation_key": {
+      "type": "string",
+      "pattern": "^openconjecture/[a-f0-9]{64}$"
+    },
+    "allocation": {
+      "$ref": "#/$defs/allocation"
+    },
+    "occurrence_id": {
+      "$ref": "#/$defs/ato_id"
+    },
+    "family_id": {
+      "$ref": "#/$defs/atf_id"
+    },
+    "sense_id": {
+      "$ref": "#/$defs/ats_id"
+    },
+    "variant_id": {
+      "$ref": "#/$defs/atv_id"
+    },
+    "stage_claim_id": {
+      "$ref": "#/$defs/s5_id"
+    },
+    "display_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "aliases": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "owner_domain": {
+      "const": "mathematics"
+    },
+    "membership_domains": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "mathematics",
+          "physics",
+          "computer_science",
+          "cross_domain"
+        ]
+      },
+      "contains": {
+        "const": "mathematics"
+      },
+      "minContains": 1,
+      "maxContains": 1
+    },
+    "record_role": {
+      "const": "claim"
+    },
+    "claim_kind": {
+      "const": "conjecture"
+    },
+    "current_claim_kind": {
+      "const": "conjecture"
+    },
+    "historical_kind": {
+      "const": "conjecture"
+    },
+    "atomicity": {
+      "const": "atomic"
+    },
+    "atomicity_detail": {
+      "$ref": "#/$defs/atomicity_detail"
+    },
+    "truth_apt": {
+      "const": true
+    },
+    "category": {
+      "const": "open_claim"
+    },
+    "material_status": {
+      "const": "open"
+    },
+    "source_id": {
+      "const": "SRC-MATH-V5-OPENCONJECTURE-FA03D85"
+    },
+    "source_locator": {
+      "$ref": "#/$defs/source_locator"
+    },
+    "source_block": {
+      "$ref": "#/$defs/source_block"
+    },
+    "paper": {
+      "$ref": "#/$defs/paper"
+    },
+    "model_label": {
+      "$ref": "#/$defs/model_label"
+    },
+    "curator_disposition": {
+      "$ref": "#/$defs/curator_disposition"
+    },
+    "mathematical_statement": {
+      "$ref": "#/$defs/mathematical_statement"
+    },
+    "status_detail": {
+      "$ref": "#/$defs/status_detail"
+    },
+    "classification": {
+      "$ref": "#/$defs/classification"
+    },
+    "provenance": {
+      "$ref": "#/$defs/provenance"
+    },
+    "rights": {
+      "$ref": "#/$defs/rights"
+    },
+    "dedupe": {
+      "$ref": "#/$defs/dedupe"
+    },
+    "frontier": {
+      "$ref": "#/$defs/frontier"
+    },
+    "importance": {
+      "$ref": "#/$defs/importance"
+    },
+    "lifecycle": {
+      "const": "active"
+    },
+    "lineage": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/lineage_edge"
+      }
+    },
+    "semantic_key": {
+      "type": "string",
+      "pattern": "^openconjecture-semantic/[a-f0-9]{64}$"
+    },
+    "content_payload_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "source_payload_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "semantic_payload_sha256": {
+      "$ref": "#/$defs/sha256"
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "date_time": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "ato_id": {
+      "type": "string",
+      "pattern": "^ATO-[0-9]{8}$"
+    },
+    "atf_id": {
+      "type": "string",
+      "pattern": "^ATF-[0-9]{8}$"
+    },
+    "ats_id": {
+      "type": "string",
+      "pattern": "^ATS-[0-9]{8}$"
+    },
+    "atv_id": {
+      "type": "string",
+      "pattern": "^ATV-[0-9]{8}$"
+    },
+    "s5_id": {
+      "type": "string",
+      "pattern": "^S5-CLM-[0-9]{8}$"
+    },
+    "source_ref_array": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "const": "SRC-MATH-V5-OPENCONJECTURE-FA03D85"
+      }
+    },
+    "allocation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "parent_release_root_sha256",
+        "parent_registry_authority_sha256",
+        "allocation_request_sha256",
+        "transaction_id",
+        "family_action",
+        "append_only"
+      ],
+      "properties": {
+        "parent_release_root_sha256": {
+          "const": "ba0aeacfcad136df7eff5b08932a76bf87127bb393b6d9f8ad1eef525cf55016"
+        },
+        "parent_registry_authority_sha256": {
+          "const": "e6c9a5bb3f93bf8a35147b1363faa0a8135cccd4ba02e0bee8c7237e9386c423"
+        },
+        "allocation_request_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "transaction_id": {
+          "type": "string",
+          "pattern": "^S5-ALLOC-[0-9]{8,}$"
+        },
+        "family_action": {
+          "enum": [
+            "new_family",
+            "reuse_reviewed_family"
+          ]
+        },
+        "append_only": {
+          "const": true
+        }
+      }
+    },
+    "atomicity_detail": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "allocation_unit",
+        "whole_coherent_compound_block_allowed",
+        "logical_irreducibility_asserted"
+      ],
+      "properties": {
+        "allocation_unit": {
+          "const": "one_exact_source_conjecture_environment"
+        },
+        "whole_coherent_compound_block_allowed": {
+          "const": true
+        },
+        "logical_irreducibility_asserted": {
+          "const": false
+        }
+      }
+    },
+    "source_locator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_id",
+        "upstream_asset_path",
+        "upstream_asset_sha256",
+        "upstream_asset_size_bytes",
+        "eligible_pool_path",
+        "eligible_pool_sha256",
+        "eligible_pool_size_bytes",
+        "github_commit",
+        "huggingface_commit",
+        "upstream_line_number",
+        "eligible_pool_line_number",
+        "source_record_id",
+        "source_record_sha256",
+        "arxiv_id",
+        "source_url",
+        "source_file",
+        "index_in_file",
+        "line_start",
+        "line_end",
+        "content_hash"
+      ],
+      "properties": {
+        "source_id": {
+          "const": "SRC-MATH-V5-OPENCONJECTURE-FA03D85"
+        },
+        "upstream_asset_path": {
+          "const": "Docs/catalog/v5/sources/openconjecture-fa03d85-public.jsonl"
+        },
+        "upstream_asset_sha256": {
+          "const": "8cf0a7ce4baff47769fe1ca0c40b11eed0767480c858c208a7beae8f5829dd14"
+        },
+        "upstream_asset_size_bytes": {
+          "const": 9695990
+        },
+        "eligible_pool_path": {
+          "const": "Docs/catalog/v5/sources/openconjecture-fa03d85-cc-by-real-conf090.jsonl"
+        },
+        "eligible_pool_sha256": {
+          "const": "8a698e3af53ca0605a2a8ecd2e3a9944ad84157440a86f3c319effaf9792c6ce"
+        },
+        "eligible_pool_size_bytes": {
+          "const": 2490006
+        },
+        "github_commit": {
+          "const": "d2e3afe62098611fabd7236998acc73f64e4b3b7"
+        },
+        "huggingface_commit": {
+          "const": "fa03d85db95e6edad4ff751b490704fa8a0d9358"
+        },
+        "upstream_line_number": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4415
+        },
+        "eligible_pool_line_number": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 889
+        },
+        "source_record_id": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "source_record_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "arxiv_id": {
+          "type": "string",
+          "pattern": "^[0-9]{4}\\.[0-9]{4,5}v[1-9][0-9]*$"
+        },
+        "source_url": {
+          "type": "string",
+          "pattern": "^https://arxiv\\.org/e-print/[0-9]{4}\\.[0-9]{4,5}v[1-9][0-9]*$"
+        },
+        "source_file": {
+          "type": "string",
+          "minLength": 1
+        },
+        "index_in_file": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "line_start": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "line_end": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "content_hash": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "source_block": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "language",
+        "block_kind",
+        "extraction_scope",
+        "body_tex",
+        "body_tex_sha256",
+        "plain_text",
+        "plain_text_sha256",
+        "content_hash",
+        "source_record_sha256"
+      ],
+      "properties": {
+        "language": {
+          "const": "LaTeX"
+        },
+        "block_kind": {
+          "const": "source_conjecture_environment"
+        },
+        "extraction_scope": {
+          "const": "exact_upstream_body_tex_field"
+        },
+        "body_tex": {
+          "type": "string",
+          "minLength": 1
+        },
+        "body_tex_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "plain_text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "plain_text_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "content_hash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "source_record_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "paper": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "arxiv_id",
+        "title",
+        "authors",
+        "published_at",
+        "updated_at",
+        "categories",
+        "primary_category",
+        "doi",
+        "journal_ref",
+        "comments",
+        "abs_url",
+        "pdf_url",
+        "source_url",
+        "metadata_payload_sha256"
+      ],
+      "properties": {
+        "arxiv_id": {
+          "type": "string",
+          "pattern": "^[0-9]{4}\\.[0-9]{4,5}v[1-9][0-9]*$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "authors": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "published_at": {
+          "$ref": "#/$defs/date_time"
+        },
+        "updated_at": {
+          "$ref": "#/$defs/date_time"
+        },
+        "categories": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "primary_category": {
+          "type": "string"
+        },
+        "doi": {
+          "type": "string"
+        },
+        "journal_ref": {
+          "type": "string"
+        },
+        "comments": {
+          "type": "string"
+        },
+        "abs_url": {
+          "type": "string",
+          "minLength": 1
+        },
+        "pdf_url": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_url": {
+          "type": "string",
+          "pattern": "^https://arxiv\\.org/e-print/[0-9]{4}\\.[0-9]{4,5}v[1-9][0-9]*$"
+        },
+        "metadata_payload_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "model_label": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label_model",
+        "label",
+        "label_confidence",
+        "assessment_version",
+        "label_rationale",
+        "evidence_snippet",
+        "labeled_at",
+        "interestingness_score",
+        "interestingness_confidence",
+        "interestingness_rationale",
+        "viability_score",
+        "viability_confidence",
+        "viability_rationale",
+        "source_model_assertion_not_independent_status_review",
+        "source_model_assertion_not_proof",
+        "model_label_payload_sha256"
+      ],
+      "properties": {
+        "label_model": {
+          "const": "gpt-5-mini"
+        },
+        "label": {
+          "const": "real_open_conjecture"
+        },
+        "label_confidence": {
+          "type": "number",
+          "minimum": 0.9,
+          "maximum": 1
+        },
+        "assessment_version": {
+          "const": "gpt5mini-v5-open-exact-v1"
+        },
+        "label_rationale": {
+          "type": "string"
+        },
+        "evidence_snippet": {
+          "type": "string"
+        },
+        "labeled_at": {
+          "$ref": "#/$defs/date_time"
+        },
+        "interestingness_score": {
+          "type": "number",
+          "minimum": 0.5,
+          "maximum": 1
+        },
+        "interestingness_confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "interestingness_rationale": {
+          "type": "string"
+        },
+        "viability_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "viability_confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "viability_rationale": {
+          "type": "string"
+        },
+        "source_model_assertion_not_independent_status_review": {
+          "const": true
+        },
+        "source_model_assertion_not_proof": {
+          "const": true
+        },
+        "model_label_payload_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "curator_disposition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ledger_path",
+        "ledger_authority_sha256",
+        "ledger_row_sha256",
+        "candidate_key",
+        "selected_rank",
+        "disposition",
+        "basis",
+        "grants_release_entry",
+        "grants_strict_conjecture_credit",
+        "human_status_review_performed",
+        "duplicate_of_variant_id",
+        "reviewed_as_of",
+        "disposition_payload_sha256"
+      ],
+      "properties": {
+        "ledger_path": {
+          "const": "Docs/catalog/v5/curation/OpenConjecture_Curation_v5_2.json"
+        },
+        "ledger_authority_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "ledger_row_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "candidate_key": {
+          "type": "string",
+          "pattern": "^openconjecture:[a-f0-9]{64}$"
+        },
+        "selected_rank": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 600
+        },
+        "disposition": {
+          "const": "accepted_new_strict_open_claim"
+        },
+        "basis": {
+          "const": "curator_accepted_after_closed_source_semantic_nonclaim_and_rights_gates"
+        },
+        "grants_release_entry": {
+          "const": true
+        },
+        "grants_strict_conjecture_credit": {
+          "const": true
+        },
+        "human_status_review_performed": {
+          "const": false
+        },
+        "duplicate_of_variant_id": {
+          "type": "null"
+        },
+        "reviewed_as_of": {
+          "$ref": "#/$defs/date"
+        },
+        "disposition_payload_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "mathematical_statement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "language",
+        "representation",
+        "completeness",
+        "component_extraction_status",
+        "body_tex",
+        "body_tex_sha256",
+        "plain_text",
+        "plain_text_sha256",
+        "statement_sha256"
+      ],
+      "properties": {
+        "language": {
+          "const": "LaTeX"
+        },
+        "representation": {
+          "const": "verbatim_source_conjecture_block"
+        },
+        "completeness": {
+          "const": "exact_source_body_tex_plus_upstream_plain_text"
+        },
+        "component_extraction_status": {
+          "const": "not_separately_parsed"
+        },
+        "body_tex": {
+          "type": "string",
+          "minLength": 1
+        },
+        "body_tex_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "plain_text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "plain_text_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "statement_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "status_detail": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status_as_of",
+        "basis",
+        "evidence_level",
+        "source_refs",
+        "resolution_criterion",
+        "independent_current_status_review",
+        "status_payload_sha256"
+      ],
+      "properties": {
+        "status_as_of": {
+          "$ref": "#/$defs/date"
+        },
+        "basis": {
+          "const": "pinned OpenConjecture source/model label preserved as a source assertion"
+        },
+        "evidence_level": {
+          "const": "source_dataset_model_assertion"
+        },
+        "source_refs": {
+          "$ref": "#/$defs/source_ref_array"
+        },
+        "resolution_criterion": {
+          "const": "prove or refute the exact source LaTeX conjecture block under its stated context"
+        },
+        "independent_current_status_review": {
+          "const": false
+        },
+        "status_payload_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "classification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_categories",
+        "source_primary_category",
+        "classification_system",
+        "classification_status",
+        "msc_codes",
+        "msc_status",
+        "classification_payload_sha256"
+      ],
+      "properties": {
+        "source_categories": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "source_primary_category": {
+          "type": "string"
+        },
+        "classification_system": {
+          "const": "arXiv"
+        },
+        "classification_status": {
+          "enum": [
+            "source_metadata_only",
+            "source_metadata_missing"
+          ]
+        },
+        "msc_codes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^[0-9]{2}(?:[A-Z][0-9]{2})?$"
+          }
+        },
+        "msc_status": {
+          "enum": [
+            "unassigned",
+            "machine_crosswalked",
+            "curator_assigned"
+          ]
+        },
+        "classification_payload_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "source_categories": {
+                "maxItems": 0
+              }
+            },
+            "required": [
+              "source_categories"
+            ]
+          },
+          "then": {
+            "properties": {
+              "source_primary_category": {
+                "const": ""
+              },
+              "classification_status": {
+                "const": "source_metadata_missing"
+              },
+              "msc_codes": {
+                "maxItems": 0
+              },
+              "msc_status": {
+                "const": "unassigned"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "source_categories": {
+                "minItems": 1
+              }
+            },
+            "required": [
+              "source_categories"
+            ]
+          },
+          "then": {
+            "properties": {
+              "source_primary_category": {
+                "type": "string",
+                "minLength": 1
+              },
+              "classification_status": {
+                "const": "source_metadata_only"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_refs",
+        "extraction_mode",
+        "extractor_version",
+        "extractor_schema_version",
+        "source_record_sha256",
+        "eligible_pool_sha256",
+        "curation_ledger_path",
+        "curation_ledger_authority_sha256",
+        "curation_ledger_row_sha256",
+        "source_assertion_not_independent_truth_review",
+        "no_formalization_claimed",
+        "provenance_payload_sha256"
+      ],
+      "properties": {
+        "source_refs": {
+          "$ref": "#/$defs/source_ref_array"
+        },
+        "extraction_mode": {
+          "const": "exact_jsonl_record_and_verbatim_latex_block"
+        },
+        "extractor_version": {
+          "const": "1.0.0"
+        },
+        "extractor_schema_version": {
+          "const": "awesome-theorems/openconjecture-eligible-pool/5.2"
+        },
+        "source_record_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "eligible_pool_sha256": {
+          "const": "8a698e3af53ca0605a2a8ecd2e3a9944ad84157440a86f3c319effaf9792c6ce"
+        },
+        "curation_ledger_path": {
+          "const": "Docs/catalog/v5/curation/OpenConjecture_Curation_v5_2.json"
+        },
+        "curation_ledger_authority_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "curation_ledger_row_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "source_assertion_not_independent_truth_review": {
+          "const": true
+        },
+        "no_formalization_claimed": {
+          "const": true
+        },
+        "provenance_payload_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "rights": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "spdx_expression",
+        "license_family",
+        "license_url",
+        "normalized_license_url",
+        "publication_decision",
+        "publication_text_allowed",
+        "publication_text_reason",
+        "publication_policy_version",
+        "text_withheld",
+        "attribution_authors",
+        "attribution_title",
+        "attribution_arxiv_id",
+        "attribution_payload_sha256",
+        "redistribution_mode",
+        "catalog_relicenses_source",
+        "source_refs",
+        "rights_payload_sha256"
+      ],
+      "properties": {
+        "spdx_expression": {
+          "const": "CC-BY-4.0"
+        },
+        "license_family": {
+          "const": "cc_by"
+        },
+        "license_url": {
+          "const": "http://creativecommons.org/licenses/by/4.0/"
+        },
+        "normalized_license_url": {
+          "const": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "publication_decision": {
+          "const": "publish_text"
+        },
+        "publication_text_allowed": {
+          "const": true
+        },
+        "publication_text_reason": {
+          "const": "creativecommons_license_treated_as_publishable"
+        },
+        "publication_policy_version": {
+          "const": "hf-publication-v2"
+        },
+        "text_withheld": {
+          "const": false
+        },
+        "attribution_authors": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "attribution_title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "attribution_arxiv_id": {
+          "type": "string",
+          "pattern": "^[0-9]{4}\\.[0-9]{4,5}v[1-9][0-9]*$"
+        },
+        "attribution_payload_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "redistribution_mode": {
+          "const": "verbatim_cc_by_4_0_with_per_record_attribution"
+        },
+        "catalog_relicenses_source": {
+          "const": false
+        },
+        "source_refs": {
+          "$ref": "#/$defs/source_ref_array"
+        },
+        "rights_payload_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "dedupe": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "identity_payload_sha256",
+        "semantic_key",
+        "semantic_key_sha256",
+        "content_hash",
+        "body_tex_sha256",
+        "normalized_latex_sha256",
+        "source_record_sha256",
+        "candidate_atv_ids",
+        "verdict",
+        "validation_status",
+        "content_hash_unique_in_eligible_pool",
+        "semantic_key_unique_in_release",
+        "duplicate_grants_quota",
+        "no_evidence_or_status_inheritance"
+      ],
+      "properties": {
+        "identity_payload_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "semantic_key": {
+          "type": "string",
+          "pattern": "^openconjecture-semantic/[a-f0-9]{64}$"
+        },
+        "semantic_key_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "content_hash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "body_tex_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "normalized_latex_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "source_record_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "candidate_atv_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/atv_id"
+          }
+        },
+        "verdict": {
+          "enum": [
+            "unique_new_claim",
+            "distinct_variant_existing_family",
+            "hard_homonym_new_claim"
+          ]
+        },
+        "validation_status": {
+          "const": "independent_machine_validated_exact"
+        },
+        "content_hash_unique_in_eligible_pool": {
+          "const": true
+        },
+        "semantic_key_unique_in_release": {
+          "const": true
+        },
+        "duplicate_grants_quota": {
+          "const": false
+        },
+        "no_evidence_or_status_inheritance": {
+          "const": true
+        }
+      }
+    },
+    "frontier": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "class",
+        "as_of",
+        "basis",
+        "source_refs",
+        "evidence_level",
+        "independent_review"
+      ],
+      "properties": {
+        "class": {
+          "const": "source_model_asserted_open_frontier"
+        },
+        "as_of": {
+          "$ref": "#/$defs/date"
+        },
+        "basis": {
+          "const": "pinned OpenConjecture real_open_conjecture label"
+        },
+        "source_refs": {
+          "$ref": "#/$defs/source_ref_array"
+        },
+        "evidence_level": {
+          "const": "source_model_label"
+        },
+        "independent_review": {
+          "const": false
+        }
+      }
+    },
+    "importance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tier",
+        "basis",
+        "source_score",
+        "source_score_confidence",
+        "rationale",
+        "independent_ranking"
+      ],
+      "properties": {
+        "tier": {
+          "const": "source_scored_research_interest"
+        },
+        "basis": {
+          "const": "source_model_interestingness_signal_only"
+        },
+        "source_score": {
+          "type": "number",
+          "minimum": 0.5,
+          "maximum": 1
+        },
+        "source_score_confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "rationale": {
+          "type": "string"
+        },
+        "independent_ranking": {
+          "const": false
+        }
+      }
+    },
+    "lineage_edge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "relation_type",
+        "target_atv_id",
+        "validation_status",
+        "evidence_inherited"
+      ],
+      "properties": {
+        "relation_type": {
+          "enum": [
+            "same_claim",
+            "checked_equivalent",
+            "specializes",
+            "generalizes",
+            "refines",
+            "same_name_different_claim",
+            "supersedes"
+          ]
+        },
+        "target_atv_id": {
+          "$ref": "#/$defs/atv_id"
+        },
+        "validation_status": {
+          "enum": [
+            "machine_candidate",
+            "independent_machine_validated",
+            "human_reviewed",
+            "disputed"
+          ]
+        },
+        "evidence_inherited": {
+          "const": false
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003506-TARGET",
+  "stage_claim_id": "S5-CLM-00003506",
+  "root_node": "PU-composition",
+  "nodes": [
+    {
+      "node_id": "PU-source-provenance",
+      "node_type": "provenance",
+      "proposition": "The frozen occurrence is answer(False) ↔ P at provider revision 2270d31e8dd611521f979de6d86da364930b7669.",
+      "inputs": [],
+      "outputs": ["frozen statement binding"],
+      "formal_anchors": ["Arxiv.id2303_01089.conjecture_1_4"],
+      "human_anchors": ["full-study.md#frozen-statement"],
+      "trust": "statement bytes only; source proof excluded",
+      "downstream_uses": ["PU-composition"],
+      "exceptional_cases": ["Provider sorryAx is explicitly non-authoritative."]
+    },
+    {
+      "node_id": "PU-forward",
+      "node_type": "proof",
+      "proposition": "(False ↔ P) → ¬ P",
+      "inputs": ["h : False ↔ P", "hP : P"],
+      "outputs": ["¬ P"],
+      "formal_anchors": ["answer_false_to_negation", "source_to_target_theorem"],
+      "human_anchors": ["A-forward"],
+      "trust": "Lean primitive implication and Iff elimination",
+      "downstream_uses": ["PU-composition"],
+      "exceptional_cases": ["none"]
+    },
+    {
+      "node_id": "PU-reverse",
+      "node_type": "proof",
+      "proposition": "¬ P → (False ↔ P)",
+      "inputs": ["h : ¬ P"],
+      "outputs": ["False ↔ P"],
+      "formal_anchors": ["negation_to_answer_false", "target_to_source_theorem"],
+      "human_anchors": ["A-reverse"],
+      "trust": "Lean primitive false elimination and implication introduction",
+      "downstream_uses": ["PU-composition"],
+      "exceptional_cases": ["impossible False premise handled by False.elim"]
+    },
+    {
+      "node_id": "PU-composition",
+      "node_type": "composition",
+      "proposition": "(False ↔ P) ↔ ¬ P",
+      "inputs": ["PU-source-provenance", "PU-forward", "PU-reverse"],
+      "outputs": ["exact claim-owned root"],
+      "formal_anchors": ["conjecture_1_4_claim_owned_root", "audit_exact_root"],
+      "human_anchors": ["A-composition"],
+      "trust": "trust-zero composition proposal; Master replay required",
+      "downstream_uses": ["machine-closure", "release-decision"],
+      "exceptional_cases": ["none"]
+    }
+  ],
+  "edges": [
+    {"from": "PU-source-provenance", "to": "PU-composition", "kind": "provenance"},
+    {"from": "PU-forward", "to": "PU-composition", "kind": "left implication"},
+    {"from": "PU-reverse", "to": "PU-composition", "kind": "right implication"}
+  ],
+  "composition_complete": true,
+  "provenance_complete": true,
+  "trust_complete": true,
+  "readability_complete": true,
+  "remaining_cut_set": [],
+  "authority_sha256": "32d33d3113112178514bec9280c761ee6cad06c01e5635aaaef319b551e259df"
+}

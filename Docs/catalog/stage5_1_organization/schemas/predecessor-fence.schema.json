@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://awesome-theorems.invalid/stage5-1-organization/schemas/predecessor-fence.schema.json",
+  "title": "Stage5.1 predecessor drain/fence acceptance receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "organization_release", "status", "evidence_as_of",
+    "manifest_sha256", "crontab_sha256", "checker", "reviewer_id",
+    "review_receipt_sha256", "prompt_digests", "predecessors", "authority_sha256"
+  ],
+  "properties": {
+    "schema_version": {"const": "awesome-theorems/stage5-1-predecessor-fence/1.0"},
+    "organization_release": {"const": "1.0"},
+    "status": {"const": "accepted"},
+    "evidence_as_of": {"type": "string", "format": "date-time"},
+    "manifest_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+    "crontab_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+    "checker": {
+      "type": "object", "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"const": "Docs/tools/check_stage5_1_activation_fence.py"},
+        "sha256": {"$ref": "common.schema.json#/$defs/sha256"}
+      }
+    },
+    "reviewer_id": {"type": "string", "minLength": 1},
+    "review_receipt_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+    "prompt_digests": {
+      "type": "object", "additionalProperties": false,
+      "required": ["theorems", "conjectures"],
+      "properties": {
+        "theorems": {"$ref": "common.schema.json#/$defs/sha256"},
+        "conjectures": {"$ref": "common.schema.json#/$defs/sha256"}
+      }
+    },
+    "predecessors": {
+      "type": "object", "additionalProperties": false,
+      "required": ["theorems", "conjectures"],
+      "properties": {
+        "theorems": {"$ref": "#/$defs/predecessor"},
+        "conjectures": {"$ref": "#/$defs/predecessor"}
+      }
+    },
+    "authority_sha256": {"$ref": "common.schema.json#/$defs/sha256"}
+  },
+  "$defs": {
+    "predecessor": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "runtime_root", "state_sha256", "admission_fenced",
+        "live_generations_zero", "reservations_zero", "queues_dispositioned",
+        "owner_processes_zero", "tmux_sockets_zero", "leases_released",
+        "queue_inventory_sha256"
+      ],
+      "properties": {
+        "runtime_root": {"$ref": "common.schema.json#/$defs/repo_path"},
+        "state_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+        "admission_fenced": {"const": true},
+        "live_generations_zero": {"const": true},
+        "reservations_zero": {"const": true},
+        "queues_dispositioned": {"const": true},
+        "owner_processes_zero": {"const": true},
+        "tmux_sockets_zero": {"const": true},
+        "leases_released": {"const": true},
+        "queue_inventory_sha256": {"$ref": "common.schema.json#/$defs/sha256"}
+      }
+    }
+  }
+}

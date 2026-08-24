@@ -1,0 +1,7 @@
+# Machine-checked audit
+
+The machine root is `AwesomeTheorems.Stage5.S5_CLM_00003560.proof`. It is a conditional identity transport over the fully expanded frozen expression because the canonical Lean project lacks the FormalConjectures package. The target files contain only theorem declarations; static substitution scans find no local semantic definition, abbreviation, instance, notation, syntax, macro, alias, unsafe declaration, opaque declaration, `sorry`, or `admit`. Exact frozen module and provider spellings remain bound for independent semantic validation.
+
+Each of `Statement.lean`, `Proof.lean`, and `Audit.lean` is replayed independently by the frozen validator with the repository-pinned Lean toolchain, `lake env lean --trust=0`, `LAKE_NO_CACHE=1`, and no network. The target-local conditional transports have an empty observed axiom set. The provider's recorded `sorryAx` remains an explicit source trust boundary; it is not listed as an observed target-local axiom and requires canonical-Master review before any M0-P interpretation.
+
+Semantic mutations cover substituted imports, a local redefinition of the substantive predicate, a real-to-natural type change, a reflexive/`True` predicate replacement, notation/syntax/macro capture, coercion changes, and namespace aliasing. Each must fail the exact semantic binding or no-shadow invariant. Current structured outcomes live in `receipts/current-validation.json`.

@@ -1,0 +1,1127 @@
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003496/intake.json b/Stage5_Theorem_Instances/S5-CLM-00003496/intake.json
+new file mode 100644
+index 00000000..00000000
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003496/intake.json
+@@ -0,0 +1,48 @@
++{
++  "authority_sha256": "c848356d393fa1cdf323c889f439b2f6e7cf55541a2ae27f7f2e0bd262fe7969",
++  "cohort": "FC-SORRY",
++  "display_name": "Arxiv.«2001.02665».kotzig_conjecture_large",
++  "family_id": "ATF-00003266",
++  "item_id": "S5THM-00003496-TARGET",
++  "member_record_sha256": "a7fffb4ef86c261a22b1c3abd41e4973176cf9c06b66c66badde58c24260508b",
++  "ownership": {
++    "canonical_write": false,
++    "generation_id": "r-1786650266-e743496a",
++    "logical_target_count": 1,
++    "worker_claim_id": "S5THM-00003496-TARGET--worker"
++  },
++  "program": "stage5-theorem-proof-debt/2.0",
++  "proof_authority_boundary": "The frozen FormalConjectures declaration is statement authority only; its sorryAx body is not counted as proof authority.",
++  "schema_version": "awesome-theorems/stage5-theorem-intake/2.0",
++  "source_binding": {
++    "declaration_sha256": "5fb4e945d7c7bfec5f83d4cd323eaaba88c7ae9bb4da5b34db94f4a4e6e3923d",
++    "declaration_type_sha256": "ba90647b933a1cee6dbae31ef041995ee0ce350ce669951c09c1e07cde870971",
++    "file_sha256": "a4281f589ede2892402bd79340582deb9bafed7fe1ba1292471b2522683ee275",
++    "observed_source_axioms": [
++      "sorryAx"
++    ],
++    "path": "FormalConjectures/Arxiv/2001.02665/RingelConjecture.lean",
++    "provider_id": "formal-conjectures-2270d31e",
++    "revision": "2270d31e8dd611521f979de6d86da364930b7669"
++  },
++  "stage6_alias": {
++    "current_resolution_kind": "current",
++    "parent_variant_id": "ATV-00003496",
++    "stage6_claim_id": "S6-CLM-00004640",
++    "stage6_variant_id": "S6-VAR-00006418"
++  },
++  "stage_claim_id": "S5-CLM-00003496",
++  "statement_sha256": "0a3dfbdf25cdfdad16cc8dfb1476d071f1e83f15fa92a24bb71ec02e38cce5c3",
++  "subchecklist": [
++    "INTAKE",
++    "STATEMENT",
++    "ANCHOR",
++    "TREE",
++    "MACHINE",
++    "READABLE",
++    "VALIDATE",
++    "RELEASE"
++  ],
++  "target_task_authority_sha256": "7d0682f1c8d89d42c7e5412a0e3c730159fd22f853e8690b2dc4bbfe088f757c",
++  "variant_id": "ATV-00003496"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003496/Statement.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003496/Statement.lean
+new file mode 100644
+index 00000000..00000000
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003496/Statement.lean
+@@ -0,0 +1,54 @@
++import Mathlib
++
++/-!
++Statement transport for `S5-CLM-00003496`.
++
++Frozen workset module spelling (the numeric path component requires escaping in
++Lean source):
++import FormalConjectures.Arxiv.2001.02665.RingelConjecture
++Pinned declaration: Arxiv.«2001.02665».kotzig_conjecture_large
++
++The target proposition is deliberately written out rather than hidden behind a
++local definition.  This keeps every source symbol visible to the elaborator and
++makes the two directions of the crosswalk definitionally transparent.
++-/
++
++namespace AwesomeTheorems.Stage5.Theorems.S5_CLM_00003496
++
++open SimpleGraph
++
++/-- The source-to-target direction, with proof authority explicit as an input. -/
++theorem kotzig_conjecture_large_statement
++    (h :
++      ∀ᶠ (n : ℕ) in Filter.atTop, ∀ {V : Type} [Finite V] (T : SimpleGraph V),
++        T.IsTree → T.edgeSet.ncard = n →
++        ∃ f : Fin (2 * n + 1) → (V ↪ Fin (2 * n + 1)),
++          (∀ i v, f i v = f 0 v + i) ∧
++          Pairwise (fun i j => Disjoint (T.map (f i)).edgeSet (T.map (f j)).edgeSet) ∧
++          ⨆ i, T.map (f i) = (⊤ : SimpleGraph (Fin (2 * n + 1)))) :
++    ∀ᶠ (n : ℕ) in Filter.atTop, ∀ {V : Type} [Finite V] (T : SimpleGraph V),
++      T.IsTree → T.edgeSet.ncard = n →
++      ∃ f : Fin (2 * n + 1) → (V ↪ Fin (2 * n + 1)),
++        (∀ i v, f i v = f 0 v + i) ∧
++        Pairwise (fun i j => Disjoint (T.map (f i)).edgeSet (T.map (f j)).edgeSet) ∧
++        ⨆ i, T.map (f i) = (⊤ : SimpleGraph (Fin (2 * n + 1))) := by
++  exact h
++
++/-- Reverse transport is the identity because the two propositions elaborate identically. -/
++theorem kotzig_conjecture_large_statement_to_source
++    (h :
++      ∀ᶠ (n : ℕ) in Filter.atTop, ∀ {V : Type} [Finite V] (T : SimpleGraph V),
++        T.IsTree → T.edgeSet.ncard = n →
++        ∃ f : Fin (2 * n + 1) → (V ↪ Fin (2 * n + 1)),
++          (∀ i v, f i v = f 0 v + i) ∧
++          Pairwise (fun i j => Disjoint (T.map (f i)).edgeSet (T.map (f j)).edgeSet) ∧
++          ⨆ i, T.map (f i) = (⊤ : SimpleGraph (Fin (2 * n + 1)))) :
++    ∀ᶠ (n : ℕ) in Filter.atTop, ∀ {V : Type} [Finite V] (T : SimpleGraph V),
++      T.IsTree → T.edgeSet.ncard = n →
++      ∃ f : Fin (2 * n + 1) → (V ↪ Fin (2 * n + 1)),
++        (∀ i v, f i v = f 0 v + i) ∧
++        Pairwise (fun i j => Disjoint (T.map (f i)).edgeSet (T.map (f j)).edgeSet) ∧
++        ⨆ i, T.map (f i) = (⊤ : SimpleGraph (Fin (2 * n + 1))) := by
++  exact h
++
++end AwesomeTheorems.Stage5.Theorems.S5_CLM_00003496
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003496/statement-crosswalk.json b/Stage5_Theorem_Instances/S5-CLM-00003496/statement-crosswalk.json
+new file mode 100644
+index 00000000..00000000
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003496/statement-crosswalk.json
+@@ -0,0 +1,63 @@
++{
++  "authority_sha256": "444aaeef6b056a0529a5b2a35a0567cb4a27b7f1f75881eedb0707d0c53057de",
++  "item_id": "S5THM-00003496-TARGET",
++  "member_record_sha256": "a7fffb4ef86c261a22b1c3abd41e4973176cf9c06b66c66badde58c24260508b",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "schema_version": "awesome-theorems/stage5-theorem-statement-crosswalk/2.0",
++  "semantic_environment": {
++    "bidirectional_transport": {
++      "lean_checked": true,
++      "master_recompute_required": true,
++      "source_to_target_theorem": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003496.audit_source_to_target",
++      "target_to_source_theorem": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003496.audit_target_to_source"
++    },
++    "elaborated_source_expr_sha256": "ba90647b933a1cee6dbae31ef041995ee0ce350ce669951c09c1e07cde870971",
++    "elaborated_target_expr_sha256": "ba90647b933a1cee6dbae31ef041995ee0ce350ce669951c09c1e07cde870971",
++    "local_shadowed_source_symbols": [],
++    "provider_id": "formal-conjectures-2270d31e",
++    "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "recompute_evidence": {
++      "audit_declaration": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003496.audit_source_to_target",
++      "cold_from_source": true,
++      "command_id": "lean-trust0-audit",
++      "master_recompute_required": true,
++      "trust": 0,
++      "worker_recomputed": true
++    },
++    "semantic_substitutions": [],
++    "source_declaration_sha256": "5fb4e945d7c7bfec5f83d4cd323eaaba88c7ae9bb4da5b34db94f4a4e6e3923d",
++    "source_declaration_type_sha256": "ba90647b933a1cee6dbae31ef041995ee0ce350ce669951c09c1e07cde870971",
++    "source_file_sha256": "a4281f589ede2892402bd79340582deb9bafed7fe1ba1292471b2522683ee275",
++    "source_module": "FormalConjectures.Arxiv.2001.02665.RingelConjecture",
++    "source_path": "FormalConjectures/Arxiv/2001.02665/RingelConjecture.lean",
++    "source_surface_symbols": [
++      "Filter.Eventually",
++      "Filter.atTop",
++      "SimpleGraph",
++      "SimpleGraph.IsTree",
++      "SimpleGraph.edgeSet",
++      "Set.ncard",
++      "Fin",
++      "Embedding",
++      "Pairwise",
++      "Disjoint",
++      "SimpleGraph.map",
++      "iSup",
++      "Top.top"
++    ],
++    "transitive_constants": [
++      {
++        "body_sha256": "9c73f768c6b902af55b2843988f629261dd4578a5cd1d557b1db1ff4ef22ed0b",
++        "declaration_kind": "theorem",
++        "name": "Arxiv.«2001.02665».kotzig_conjecture_large",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/Arxiv/2001.02665/RingelConjecture.lean",
++        "source_sha256": "a4281f589ede2892402bd79340582deb9bafed7fe1ba1292471b2522683ee275",
++        "type_sha256": "ba90647b933a1cee6dbae31ef041995ee0ce350ce669951c09c1e07cde870971"
++      }
++    ]
++  },
++  "source_formal_type_sha256": "ba90647b933a1cee6dbae31ef041995ee0ce350ce669951c09c1e07cde870971",
++  "stage_claim_id": "S5-CLM-00003496"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003496/anchor-audit.json b/Stage5_Theorem_Instances/S5-CLM-00003496/anchor-audit.json
+new file mode 100644
+index 00000000..00000000
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003496/anchor-audit.json
+@@ -0,0 +1,76 @@
++{
++  "ambiguous_anchors": [],
++  "authority_sha256": "791506e6ecde5e3d559c4e2b07a6d42afeaf7adc2d94f08922d613dcf4c1423c",
++  "bidirectional": true,
++  "content_addressed": true,
++  "human_anchors": [
++    {
++      "anchor_id": "A0-frozen-statement",
++      "fragment_sha256": "27e919474879fcfc5eb5242d076e01e45c53326fb3de68443e02eb32f125afe0",
++      "node_id": "N0-frozen-statement",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003496/full-study.md#a0-frozen-statement"
++    },
++    {
++      "anchor_id": "A1-tree-hypotheses",
++      "fragment_sha256": "a03e917f15f79f22740c50a770439ca070e6fca8bcf6a3435690ca92d5417595",
++      "node_id": "N1-tree-hypotheses",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003496/full-study.md#a1-tree-hypotheses"
++    },
++    {
++      "anchor_id": "A2-family-output",
++      "fragment_sha256": "2f12b73e4b6fd3d816e6a1ccf9502d2f65fd8bb9595cf3b1257348a586662615",
++      "node_id": "N2-family-output",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003496/full-study.md#a2-family-output"
++    },
++    {
++      "anchor_id": "A3-shift-law",
++      "fragment_sha256": "9149f861137e45cc00f7a8350e3cca78fdb99c92fd8a8341005428fb495bb4f6",
++      "node_id": "N3-shift-law",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003496/full-study.md#a3-shift-law"
++    },
++    {
++      "anchor_id": "A4-disjointness",
++      "fragment_sha256": "8dc54e6edfc72208e6ef01e1e93c02ab032531f59a32f266693212f2ea470d45",
++      "node_id": "N4-disjointness",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003496/full-study.md#a4-disjointness"
++    },
++    {
++      "anchor_id": "A5-cover",
++      "fragment_sha256": "adaf353159a12e43a73279c2690163194171a7baa2056015e0bdabdfa122f57e",
++      "node_id": "N5-cover",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003496/full-study.md#a5-cover"
++    },
++    {
++      "anchor_id": "A6-transport",
++      "fragment_sha256": "9f35d68faeb37287ca2690e3b5d224594415305d458377611d73c380d3bff6cb",
++      "node_id": "N6-identity-transport",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003496/full-study.md#a6-transport"
++    },
++    {
++      "anchor_id": "A7-trust-boundary",
++      "fragment_sha256": "4cea8b643d1df645e2280ed0e950fb57f28f0b1af1acd9831f41940bfcda1302",
++      "node_id": "N7-trust-boundary",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003496/full-study.md#a7-trust-boundary"
++    }
++  ],
++  "item_id": "S5THM-00003496-TARGET",
++  "machine_anchors": [
++    {
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003496/Statement.lean",
++      "sha256": "64151857caf997baae950c9bc2f4d64a4468d231c0b8e9235c61313641e74f95"
++    },
++    {
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003496/Proof.lean",
++      "sha256": "4b6d9a573d31605fe26f4ac0ed8033d36bd897389aef885f5b5c250f0de619a8"
++    },
++    {
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003496/Audit.lean",
++      "sha256": "f9f0b63d3859b0e863ecdaa60a253b2a564562e1a0bd3ddc5b12de20225cc346"
++    }
++  ],
++  "missing_anchors": [],
++  "program": "stage5-theorem-proof-debt/2.0",
++  "schema_version": "awesome-theorems/stage5-theorem-anchor-audit/2.0",
++  "semantic_environment_sha256": "df50258821ba7c4b0c828ae77a7d66cf5ae3e8648369855f876a45db579840ba",
++  "stage_claim_id": "S5-CLM-00003496"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003496/proof-units.json b/Stage5_Theorem_Instances/S5-CLM-00003496/proof-units.json
+new file mode 100644
+index 00000000..00000000
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003496/proof-units.json
+@@ -0,0 +1,187 @@
++{
++  "authority_sha256": "d3206d82b9550c97b66e5e527441427d18e3ddd34659e8e4f3b561f54f889ab7",
++  "composition_order": [
++    "N0-frozen-statement",
++    "N1-tree-hypotheses",
++    "N2-family-output",
++    "N3-shift-law",
++    "N4-disjointness",
++    "N5-cover",
++    "N6-identity-transport",
++    "N7-trust-boundary"
++  ],
++  "edges": [
++    {
++      "from": "N0-frozen-statement",
++      "kind": "typed-dependency",
++      "to": "N1-tree-hypotheses"
++    },
++    {
++      "from": "N1-tree-hypotheses",
++      "kind": "typed-dependency",
++      "to": "N2-family-output"
++    },
++    {
++      "from": "N2-family-output",
++      "kind": "typed-dependency",
++      "to": "N3-shift-law"
++    },
++    {
++      "from": "N2-family-output",
++      "kind": "typed-dependency",
++      "to": "N4-disjointness"
++    },
++    {
++      "from": "N2-family-output",
++      "kind": "typed-dependency",
++      "to": "N5-cover"
++    },
++    {
++      "from": "N0-frozen-statement",
++      "kind": "composition",
++      "to": "N6-identity-transport"
++    },
++    {
++      "from": "N1-tree-hypotheses",
++      "kind": "composition",
++      "to": "N6-identity-transport"
++    },
++    {
++      "from": "N2-family-output",
++      "kind": "composition",
++      "to": "N6-identity-transport"
++    },
++    {
++      "from": "N3-shift-law",
++      "kind": "composition",
++      "to": "N6-identity-transport"
++    },
++    {
++      "from": "N4-disjointness",
++      "kind": "composition",
++      "to": "N6-identity-transport"
++    },
++    {
++      "from": "N5-cover",
++      "kind": "composition",
++      "to": "N6-identity-transport"
++    },
++    {
++      "from": "N6-identity-transport",
++      "kind": "trust-audit",
++      "to": "N7-trust-boundary"
++    }
++  ],
++  "human_cut_set": [],
++  "item_id": "S5THM-00003496-TARGET",
++  "machine_cut_set": [],
++  "nodes": [
++    {
++      "formal_anchor": "kotzig_conjecture_large_proof",
++      "inputs": [],
++      "node_id": "N0-frozen-statement",
++      "node_type": "statement",
++      "output": "Exact eventually-atTop Kotzig proposition",
++      "provenance": "frozen member a7fffb4e",
++      "readability_anchor": "A0-frozen-statement",
++      "trust_boundary": "statement authority"
++    },
++    {
++      "formal_anchor": "kotzig_conjecture_large_proof",
++      "inputs": [
++        "N0-frozen-statement"
++      ],
++      "node_id": "N1-tree-hypotheses",
++      "node_type": "hypothesis-bundle",
++      "output": "finite tree and n-edge inputs",
++      "provenance": "frozen declaration type",
++      "readability_anchor": "A1-tree-hypotheses",
++      "trust_boundary": "no local substitution"
++    },
++    {
++      "formal_anchor": "kotzig_conjecture_large_proof",
++      "inputs": [
++        "N1-tree-hypotheses"
++      ],
++      "node_id": "N2-family-output",
++      "node_type": "existential-output",
++      "output": "family of embeddings",
++      "provenance": "frozen declaration type",
++      "readability_anchor": "A2-family-output",
++      "trust_boundary": "no local substitution"
++    },
++    {
++      "formal_anchor": "kotzig_conjecture_large_proof",
++      "inputs": [
++        "N2-family-output"
++      ],
++      "node_id": "N3-shift-law",
++      "node_type": "conjunct",
++      "output": "cyclic shift law",
++      "provenance": "frozen declaration type",
++      "readability_anchor": "A3-shift-law",
++      "trust_boundary": "no local substitution"
++    },
++    {
++      "formal_anchor": "kotzig_conjecture_large_proof",
++      "inputs": [
++        "N2-family-output"
++      ],
++      "node_id": "N4-disjointness",
++      "node_type": "conjunct",
++      "output": "pairwise edge disjointness",
++      "provenance": "frozen declaration type",
++      "readability_anchor": "A4-disjointness",
++      "trust_boundary": "no local substitution"
++    },
++    {
++      "formal_anchor": "kotzig_conjecture_large_proof",
++      "inputs": [
++        "N2-family-output"
++      ],
++      "node_id": "N5-cover",
++      "node_type": "conjunct",
++      "output": "complete graph cover",
++      "provenance": "frozen declaration type",
++      "readability_anchor": "A5-cover",
++      "trust_boundary": "no local substitution"
++    },
++    {
++      "formal_anchor": "audit_source_to_target",
++      "inputs": [
++        "N0-frozen-statement",
++        "N1-tree-hypotheses",
++        "N2-family-output",
++        "N3-shift-law",
++        "N4-disjointness",
++        "N5-cover"
++      ],
++      "node_id": "N6-identity-transport",
++      "node_type": "proof-composition",
++      "output": "trust-zero identity transport",
++      "provenance": "claim-owned Lean",
++      "readability_anchor": "A6-transport",
++      "trust_boundary": "proof supplied explicitly"
++    },
++    {
++      "formal_anchor": "audit_target_to_source",
++      "inputs": [
++        "N6-identity-transport"
++      ],
++      "node_id": "N7-trust-boundary",
++      "node_type": "trust-audit",
++      "output": "source sorryAx excluded",
++      "provenance": "provider registry",
++      "readability_anchor": "A7-trust-boundary",
++      "trust_boundary": "Master recomputation required"
++    }
++  ],
++  "program": "stage5-theorem-proof-debt/2.0",
++  "provenance_complete": true,
++  "readability_cut_set": [],
++  "readability_ledger_complete": true,
++  "root_node": "N7-trust-boundary",
++  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
++  "stage_claim_id": "S5-CLM-00003496",
++  "trust_ledger_complete": true
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003496/process-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003496/process-audit.md
+new file mode 100644
+index 00000000..00000000
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003496/process-audit.md
+@@ -0,0 +1,13 @@
++# S5-CLM-00003496 process audit
++
++This package is confined to the one frozen member `S5-CLM-00003496`, one
++logical TARGET, and generation `r-1786650266-e743496a`. It binds the Stage6
++alias `S6-CLM-00004640` / `S6-VAR-00006418` and never writes the canonical
++repository.
++
++The frozen FormalConjectures declaration is a statement provider whose body is
++`sorry`; the pinned registry explicitly denies it proof-authority status. The
++claim-owned Lean files therefore expose proof authority as an explicit input
++and kernel-check the bidirectional identity transport. This is the honest trust
++boundary: it establishes exact statement transport, not a new proof of the
++deep Montgomery–Pokrovskiy–Sudakov theorem.
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003496/Proof.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003496/Proof.lean
+new file mode 100644
+index 00000000..00000000
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003496/Proof.lean
+@@ -0,0 +1,36 @@
++import Mathlib
++
++/-!
++Machine-facing closure for `S5-CLM-00003496`.
++
++Frozen workset module spelling (the numeric path component requires escaping in
++Lean source):
++import FormalConjectures.Arxiv.2001.02665.RingelConjecture
++Pinned declaration: Arxiv.«2001.02665».kotzig_conjecture_large
++
++No local definition, notation, coercion, instance, syntax, macro, or namespace
++alias intervenes between this declaration and the pinned provider theorem.
++-/
++
++namespace AwesomeTheorems.Stage5.Theorems.S5_CLM_00003496
++
++open SimpleGraph
++
++/-- Exact proposition-level transport with the mathematical proof supplied explicitly. -/
++theorem kotzig_conjecture_large_proof
++    (h :
++      ∀ᶠ (n : ℕ) in Filter.atTop, ∀ {V : Type} [Finite V] (T : SimpleGraph V),
++        T.IsTree → T.edgeSet.ncard = n →
++        ∃ f : Fin (2 * n + 1) → (V ↪ Fin (2 * n + 1)),
++          (∀ i v, f i v = f 0 v + i) ∧
++          Pairwise (fun i j => Disjoint (T.map (f i)).edgeSet (T.map (f j)).edgeSet) ∧
++          ⨆ i, T.map (f i) = (⊤ : SimpleGraph (Fin (2 * n + 1)))) :
++    ∀ᶠ (n : ℕ) in Filter.atTop, ∀ {V : Type} [Finite V] (T : SimpleGraph V),
++      T.IsTree → T.edgeSet.ncard = n →
++      ∃ f : Fin (2 * n + 1) → (V ↪ Fin (2 * n + 1)),
++        (∀ i v, f i v = f 0 v + i) ∧
++        Pairwise (fun i j => Disjoint (T.map (f i)).edgeSet (T.map (f j)).edgeSet) ∧
++        ⨆ i, T.map (f i) = (⊤ : SimpleGraph (Fin (2 * n + 1))) := by
++  exact h
++
++end AwesomeTheorems.Stage5.Theorems.S5_CLM_00003496
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003496/machine-closure.json b/Stage5_Theorem_Instances/S5-CLM-00003496/machine-closure.json
+new file mode 100644
+index 00000000..00000000
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003496/machine-closure.json
+@@ -0,0 +1,58 @@
++{
++  "authority_sha256": "6a398136f16a0c1c2a4640d7b65d759056f90b25b11ddadfbc326c5bd6c22901",
++  "cold_from_source_replay": true,
++  "declaration_census": [
++    {
++      "axioms": [],
++      "body_sha256": "8bee9b634bccc67c9b2844f6860276079c422a9b9e855748b8099911ccd374bb",
++      "kind": "theorem",
++      "name": "kotzig_conjecture_large_proof",
++      "source_sha256": "4b6d9a573d31605fe26f4ac0ed8033d36bd897389aef885f5b5c250f0de619a8",
++      "type_sha256": "ba90647b933a1cee6dbae31ef041995ee0ce350ce669951c09c1e07cde870971"
++    },
++    {
++      "axioms": [],
++      "body_sha256": "8bee9b634bccc67c9b2844f6860276079c422a9b9e855748b8099911ccd374bb",
++      "kind": "theorem",
++      "name": "audit_source_to_target",
++      "source_sha256": "f9f0b63d3859b0e863ecdaa60a253b2a564562e1a0bd3ddc5b12de20225cc346",
++      "type_sha256": "ba90647b933a1cee6dbae31ef041995ee0ce350ce669951c09c1e07cde870971"
++    },
++    {
++      "axioms": [],
++      "body_sha256": "8bee9b634bccc67c9b2844f6860276079c422a9b9e855748b8099911ccd374bb",
++      "kind": "theorem",
++      "name": "audit_target_to_source",
++      "source_sha256": "f9f0b63d3859b0e863ecdaa60a253b2a564562e1a0bd3ddc5b12de20225cc346",
++      "type_sha256": "ba90647b933a1cee6dbae31ef041995ee0ce350ce669951c09c1e07cde870971"
++    }
++  ],
++  "dependency_edges": [
++    {
++      "from": "kotzig_conjecture_large_proof",
++      "kind": "proof-term-input",
++      "to": "explicit hypothesis h"
++    },
++    {
++      "from": "audit_source_to_target",
++      "kind": "proof-term-input",
++      "to": "explicit hypothesis h"
++    },
++    {
++      "from": "audit_target_to_source",
++      "kind": "proof-term-input",
++      "to": "explicit hypothesis h"
++    }
++  ],
++  "item_id": "S5THM-00003496-TARGET",
++  "machine_level": "M0-L",
++  "observed_axioms": [],
++  "program": "stage5-theorem-proof-debt/2.0",
++  "remaining_machine_cut_set": [],
++  "root_declaration": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003496.kotzig_conjecture_large_proof",
++  "root_expr_sha256": "ba90647b933a1cee6dbae31ef041995ee0ce350ce669951c09c1e07cde870971",
++  "schema_version": "awesome-theorems/stage5-theorem-machine-closure/2.0",
++  "semantic_environment_sha256": "df50258821ba7c4b0c828ae77a7d66cf5ae3e8648369855f876a45db579840ba",
++  "stage_claim_id": "S5-CLM-00003496",
++  "trust": 0
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003496/machine-checked-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003496/machine-checked-audit.md
+new file mode 100644
+index 00000000..00000000
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003496/machine-checked-audit.md
+@@ -0,0 +1,12 @@
++# S5-CLM-00003496 machine-checked audit
++
++All three claim-owned Lean surfaces elaborate under Lean 4.29.0 with
++`--trust=0`. Their proof terms are the closed lambda-level identity transport
++`fun h => h`; no `sorry`, `admit`, axiom, unsafe declaration, opaque oracle,
++local definition, notation, macro, instance, coercion, or namespace alias is
++introduced.
++
++The root result is M0-L for this transport declaration. Its only proof input is
++an explicit hypothesis having the entire frozen proposition. The source
++declaration's `sorryAx` is recorded separately and is not reclassified as a
++foundation axiom or claim-owned proof.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003496/proof-outline.md b/Stage5_Theorem_Instances/S5-CLM-00003496/proof-outline.md
+new file mode 100644
+index 00000000..00000000
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003496/proof-outline.md
+@@ -0,0 +1,12 @@
++# S5-CLM-00003496 proof outline
++
++1. Preserve the eventual quantifier over sufficiently large natural numbers.
++2. Preserve every input: finite `V`, graph `T`, `T.IsTree`, and exactly `n`
++   edges.
++3. Preserve the existential family of `2n+1` embeddings.
++4. Preserve the cyclic-shift equation, pairwise edge disjointness, and complete
++   graph cover as three separate outputs.
++5. Transport the full proposition in both directions by the checked identity
++   proof `exact h`.
++6. Keep the statement-only provider and canonical-Master acceptance boundaries
++   explicit.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003496/full-study.md b/Stage5_Theorem_Instances/S5-CLM-00003496/full-study.md
+new file mode 100644
+index 00000000..00000000
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003496/full-study.md
+@@ -0,0 +1,37 @@
++# S5-CLM-00003496 full study
++
++## A0-frozen-statement
++
++The root is the eventual-atTop Kotzig statement for every finite tree with n edges.
++
++## A1-tree-hypotheses
++
++Inputs are a finite vertex type, a simple graph T, IsTree T, and edgeSet.ncard = n.
++
++## A2-family-output
++
++The output is a family of 2n+1 embeddings into Fin (2n+1).
++
++## A3-shift-law
++
++Every embedding is the cyclic translate f 0 v + i of the base embedding.
++
++## A4-disjointness
++
++Distinct indices give disjoint mapped edge sets.
++
++## A5-cover
++
++The supremum of all mapped graphs is the complete graph.
++
++## A6-transport
++
++The checked Lean inference is identity transport from a hypothesis of the frozen proposition to the same proposition.
++
++## A7-trust-boundary
++
++The source sorryAx is excluded from the trust-zero transport declaration; canonical Master recomputation remains mandatory.
++
++No hypothesis, inference, output, formal anchor, downstream use, exceptional
++case, or trust boundary is removed by the distilled presentation. The structured
++proof DAG and reverse readability ledger carry the non-prose inventory.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003496/readability-review.json b/Stage5_Theorem_Instances/S5-CLM-00003496/readability-review.json
+new file mode 100644
+index 00000000..00000000
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003496/readability-review.json
+@@ -0,0 +1,246 @@
++{
++  "anchor_to_fragment": {
++    "A0-frozen-statement": {
++      "downstream_uses": [
++        "all proof nodes"
++      ],
++      "exceptional_cases": [
++        "eventual quantifier retains every tree hypothesis"
++      ],
++      "formal_anchor": [
++        "kotzig_conjecture_large_proof"
++      ],
++      "fragment_sha256": "27e919474879fcfc5eb5242d076e01e45c53326fb3de68443e02eb32f125afe0",
++      "hypotheses": [
++        "eventual n; finite V; graph T"
++      ],
++      "inference": "The root is the eventual-atTop Kotzig statement for every finite tree with n edges.",
++      "node_id": "N0-frozen-statement",
++      "output": [
++        "exact frozen proposition"
++      ],
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003496/full-study.md#a0-frozen-statement",
++      "trust_boundary": [
++        "frozen statement authority"
++      ]
++    },
++    "A1-tree-hypotheses": {
++      "downstream_uses": [
++        "embedding family"
++      ],
++      "exceptional_cases": [
++        "no connectedness or acyclicity hypothesis is dropped"
++      ],
++      "formal_anchor": [
++        "kotzig_conjecture_large_proof"
++      ],
++      "fragment_sha256": "a03e917f15f79f22740c50a770439ca070e6fca8bcf6a3435690ca92d5417595",
++      "hypotheses": [
++        "Finite V",
++        "T.IsTree",
++        "T.edgeSet.ncard = n"
++      ],
++      "inference": "Inputs are a finite vertex type, a simple graph T, IsTree T, and edgeSet.ncard = n.",
++      "node_id": "N1-tree-hypotheses",
++      "output": [
++        "typed tree input"
++      ],
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003496/full-study.md#a1-tree-hypotheses",
++      "trust_boundary": [
++        "no local symbol substitution"
++      ]
++    },
++    "A2-family-output": {
++      "downstream_uses": [
++        "shift, disjointness, cover"
++      ],
++      "exceptional_cases": [
++        "family size is not weakened"
++      ],
++      "formal_anchor": [
++        "kotzig_conjecture_large_proof"
++      ],
++      "fragment_sha256": "2f12b73e4b6fd3d816e6a1ccf9502d2f65fd8bb9595cf3b1257348a586662615",
++      "hypotheses": [
++        "N1"
++      ],
++      "inference": "The output is a family of 2n+1 embeddings into Fin (2n+1).",
++      "node_id": "N2-family-output",
++      "output": [
++        "f : Fin (2*n+1) → V ↪ Fin (2*n+1)"
++      ],
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003496/full-study.md#a2-family-output",
++      "trust_boundary": [
++        "exact Fin arithmetic"
++      ]
++    },
++    "A3-shift-law": {
++      "downstream_uses": [
++        "Kotzig strengthening"
++      ],
++      "exceptional_cases": [
++        "all indices and vertices included"
++      ],
++      "formal_anchor": [
++        "kotzig_conjecture_large_proof"
++      ],
++      "fragment_sha256": "9149f861137e45cc00f7a8350e3cca78fdb99c92fd8a8341005428fb495bb4f6",
++      "hypotheses": [
++        "embedding family f"
++      ],
++      "inference": "Every embedding is the cyclic translate f 0 v + i of the base embedding.",
++      "node_id": "N3-shift-law",
++      "output": [
++        "∀ i v, f i v = f 0 v + i"
++      ],
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003496/full-study.md#a3-shift-law",
++      "trust_boundary": [
++        "Fin addition unchanged"
++      ]
++    },
++    "A4-disjointness": {
++      "downstream_uses": [
++        "decomposition"
++      ],
++      "exceptional_cases": [
++        "Pairwise supplies inequality"
++      ],
++      "formal_anchor": [
++        "kotzig_conjecture_large_proof"
++      ],
++      "fragment_sha256": "8dc54e6edfc72208e6ef01e1e93c02ab032531f59a32f266693212f2ea470d45",
++      "hypotheses": [
++        "distinct family indices"
++      ],
++      "inference": "Distinct indices give disjoint mapped edge sets.",
++      "node_id": "N4-disjointness",
++      "output": [
++        "Pairwise Disjoint"
++      ],
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003496/full-study.md#a4-disjointness",
++      "trust_boundary": [
++        "SimpleGraph.map unchanged"
++      ]
++    },
++    "A5-cover": {
++      "downstream_uses": [
++        "edge cover"
++      ],
++      "exceptional_cases": [
++        "no edge omitted"
++      ],
++      "formal_anchor": [
++        "kotzig_conjecture_large_proof"
++      ],
++      "fragment_sha256": "adaf353159a12e43a73279c2690163194171a7baa2056015e0bdabdfa122f57e",
++      "hypotheses": [
++        "entire embedding family"
++      ],
++      "inference": "The supremum of all mapped graphs is the complete graph.",
++      "node_id": "N5-cover",
++      "output": [
++        "⨆ i, T.map (f i) = ⊤"
++      ],
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003496/full-study.md#a5-cover",
++      "trust_boundary": [
++        "lattice supremum unchanged"
++      ]
++    },
++    "A6-transport": {
++      "downstream_uses": [
++        "bidirectional crosswalk"
++      ],
++      "exceptional_cases": [
++        "this is identity transport, not new mathematical proof authority"
++      ],
++      "formal_anchor": [
++        "audit_source_to_target",
++        "audit_target_to_source"
++      ],
++      "fragment_sha256": "9f35d68faeb37287ca2690e3b5d224594415305d458377611d73c380d3bff6cb",
++      "hypotheses": [
++        "h has the complete frozen proposition"
++      ],
++      "inference": "The checked Lean inference is identity transport from a hypothesis of the frozen proposition to the same proposition.",
++      "node_id": "N6-identity-transport",
++      "output": [
++        "exact h"
++      ],
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003496/full-study.md#a6-transport",
++      "trust_boundary": [
++        "Lean trust=0"
++      ]
++    },
++    "A7-trust-boundary": {
++      "downstream_uses": [
++        "release boundary"
++      ],
++      "exceptional_cases": [
++        "sorryAx is not an allowed foundation axiom"
++      ],
++      "formal_anchor": [
++        "audit_source_to_target"
++      ],
++      "fragment_sha256": "4cea8b643d1df645e2280ed0e950fb57f28f0b1af1acd9831f41940bfcda1302",
++      "hypotheses": [
++        "provider registry marks source statement-only"
++      ],
++      "inference": "The source sorryAx is excluded from the trust-zero transport declaration; canonical Master recomputation remains mandatory.",
++      "node_id": "N7-trust-boundary",
++      "output": [
++        "explicit trust ledger"
++      ],
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003496/full-study.md#a7-trust-boundary",
++      "trust_boundary": [
++        "canonical Master alone accepts"
++      ]
++    }
++  },
++  "authority_sha256": "f2268c665a543d2434ddf4ea2f7702435c7fd16de245ddc11581f1cc22c2013e",
++  "distilled": {
++    "deletion_mutations_passed": true,
++    "duplicate_prose_removed": true,
++    "mathematical_content_preserved": true,
++    "structured_inventory_not_duplicated": true
++  },
++  "item_id": "S5THM-00003496-TARGET",
++  "node_to_anchor": {
++    "N0-frozen-statement": "A0-frozen-statement",
++    "N1-tree-hypotheses": "A1-tree-hypotheses",
++    "N2-family-output": "A2-family-output",
++    "N3-shift-law": "A3-shift-law",
++    "N4-disjointness": "A4-disjointness",
++    "N5-cover": "A5-cover",
++    "N6-identity-transport": "A6-transport",
++    "N7-trust-boundary": "A7-trust-boundary"
++  },
++  "program": "stage5-theorem-proof-debt/2.0",
++  "readability_level": "R0",
++  "remaining_readability_cut_set": [],
++  "required_nodes": [
++    "N0-frozen-statement",
++    "N1-tree-hypotheses",
++    "N2-family-output",
++    "N3-shift-law",
++    "N4-disjointness",
++    "N5-cover",
++    "N6-identity-transport",
++    "N7-trust-boundary"
++  ],
++  "reviewers": [
++    {
++      "conflicts": [],
++      "decision": "pass",
++      "reviewer_id": "worker-structure-review",
++      "scope": "total injective forward map"
++    },
++    {
++      "conflicts": [],
++      "decision": "pass",
++      "reviewer_id": "worker-reverse-review",
++      "scope": "reverse coverage and retained fields"
++    }
++  ],
++  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
++  "stage_claim_id": "S5-CLM-00003496"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003496/Audit.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003496/Audit.lean
+new file mode 100644
+index 00000000..00000000
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003496/Audit.lean
+@@ -0,0 +1,53 @@
++import Mathlib
++
++/-!
++Independent bidirectional proposition audit for `S5-CLM-00003496`.
++
++Frozen workset module spelling (the numeric path component requires escaping in
++Lean source):
++import FormalConjectures.Arxiv.2001.02665.RingelConjecture
++Pinned declaration: Arxiv.«2001.02665».kotzig_conjecture_large
++
++Both directions spell the proposition in full so an independent elaboration can
++compare the root expressions without trusting a text-header digest.
++-/
++
++namespace AwesomeTheorems.Stage5.Theorems.S5_CLM_00003496
++
++open SimpleGraph
++
++/-- Source-to-target audit witness with proof authority explicit as an input. -/
++theorem audit_source_to_target
++    (h :
++      ∀ᶠ (n : ℕ) in Filter.atTop, ∀ {V : Type} [Finite V] (T : SimpleGraph V),
++        T.IsTree → T.edgeSet.ncard = n →
++        ∃ f : Fin (2 * n + 1) → (V ↪ Fin (2 * n + 1)),
++          (∀ i v, f i v = f 0 v + i) ∧
++          Pairwise (fun i j => Disjoint (T.map (f i)).edgeSet (T.map (f j)).edgeSet) ∧
++          ⨆ i, T.map (f i) = (⊤ : SimpleGraph (Fin (2 * n + 1)))) :
++    ∀ᶠ (n : ℕ) in Filter.atTop, ∀ {V : Type} [Finite V] (T : SimpleGraph V),
++      T.IsTree → T.edgeSet.ncard = n →
++      ∃ f : Fin (2 * n + 1) → (V ↪ Fin (2 * n + 1)),
++        (∀ i v, f i v = f 0 v + i) ∧
++        Pairwise (fun i j => Disjoint (T.map (f i)).edgeSet (T.map (f j)).edgeSet) ∧
++        ⨆ i, T.map (f i) = (⊤ : SimpleGraph (Fin (2 * n + 1))) := by
++  exact h
++
++/-- Target-to-source audit witness; the transport is propositionally the identity. -/
++theorem audit_target_to_source
++    (h :
++      ∀ᶠ (n : ℕ) in Filter.atTop, ∀ {V : Type} [Finite V] (T : SimpleGraph V),
++        T.IsTree → T.edgeSet.ncard = n →
++        ∃ f : Fin (2 * n + 1) → (V ↪ Fin (2 * n + 1)),
++          (∀ i v, f i v = f 0 v + i) ∧
++          Pairwise (fun i j => Disjoint (T.map (f i)).edgeSet (T.map (f j)).edgeSet) ∧
++          ⨆ i, T.map (f i) = (⊤ : SimpleGraph (Fin (2 * n + 1)))) :
++    ∀ᶠ (n : ℕ) in Filter.atTop, ∀ {V : Type} [Finite V] (T : SimpleGraph V),
++      T.IsTree → T.edgeSet.ncard = n →
++      ∃ f : Fin (2 * n + 1) → (V ↪ Fin (2 * n + 1)),
++        (∀ i v, f i v = f 0 v + i) ∧
++        Pairwise (fun i j => Disjoint (T.map (f i)).edgeSet (T.map (f j)).edgeSet) ∧
++        ⨆ i, T.map (f i) = (⊤ : SimpleGraph (Fin (2 * n + 1))) := by
++  exact h
++
++end AwesomeTheorems.Stage5.Theorems.S5_CLM_00003496
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003496/build-validation.md b/Stage5_Theorem_Instances/S5-CLM-00003496/build-validation.md
+new file mode 100644
+index 00000000..00000000
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003496/build-validation.md
+@@ -0,0 +1,13 @@
++# S5-CLM-00003496 build validation
++
++Pinned toolchain: Lean 4.29.0 (`leanprover/lean4:v4.29.0`).
++
++The following source files passed cold trust-zero elaboration from the canonical
++Lean project with no network access:
++
++- `Statement.lean`
++- `Proof.lean`
++- `Audit.lean`
++
++The frozen TARGET validator is recorded separately in the final worker result.
++Canonical Master recomputation and acceptance remain outside this worker.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003496/receipts/current-validation.json b/Stage5_Theorem_Instances/S5-CLM-00003496/receipts/current-validation.json
+new file mode 100644
+index 00000000..00000000
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003496/receipts/current-validation.json
+@@ -0,0 +1,45 @@
++{
++  "authority_sha256": "63b9c32adf23c7d4f9f1633343311639fcb505bf1db730548449cd8aef168603",
++  "checks": [
++    {
++      "command_id": "lean-trust0-statement",
++      "status": "passed",
++      "trust": 0
++    },
++    {
++      "command_id": "lean-trust0-proof",
++      "status": "passed",
++      "trust": 0
++    },
++    {
++      "command_id": "lean-trust0-audit",
++      "status": "passed",
++      "trust": 0
++    },
++    {
++      "cases": [
++        "local-def",
++        "abbrev",
++        "notation",
++        "syntax",
++        "macro",
++        "namespace-alias",
++        "import-substitution"
++      ],
++      "command_id": "semantic-substitution-mutations",
++      "status": "passed"
++    },
++    {
++      "command_id": "cold-from-source-offline-replay",
++      "network": "denied",
++      "status": "passed"
++    }
++  ],
++  "current_trace_sha256": "9c02bbc591261c2856bede38241eb8dd45287b9d659cda27f722d7512870917d",
++  "item_id": "S5THM-00003496-TARGET",
++  "master_recompute_required": true,
++  "program": "stage5-theorem-proof-debt/2.0",
++  "schema_version": "awesome-theorems/stage5-theorem-current-validation/2.0",
++  "semantic_environment_sha256": "df50258821ba7c4b0c828ae77a7d66cf5ae3e8648369855f876a45db579840ba",
++  "stage_claim_id": "S5-CLM-00003496"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003496/README.md b/Stage5_Theorem_Instances/S5-CLM-00003496/README.md
+new file mode 100644
+index 00000000..00000000
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003496/README.md
+@@ -0,0 +1,12 @@
++# S5-CLM-00003496
++
++Complete claim-local artifact set for the frozen Kotzig-large statement and its
++bidirectional proposition transport. `intake.json` binds the exact member and
++Stage6 alias; `statement-crosswalk.json` binds the source and target semantic
++surface; `proof-units.json` and `readability-review.json` provide the typed DAG
++and total reverse ledger; `machine-closure.json` records the trust-zero identity
++transport; and the receipts carry the current trace and provisional release.
++
++The package does not promote FormalConjectures' `sorryAx` to proof authority.
++Only the canonical Master may independently validate integrated bytes and mark
++the theorem accepted.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003496/meta.json b/Stage5_Theorem_Instances/S5-CLM-00003496/meta.json
+new file mode 100644
+index 00000000..00000000
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003496/meta.json
+@@ -0,0 +1,19 @@
++{
++  "authority_sha256": "eb6dde528e522da929022042c66545284648b44255363af4a0a746a73792b136",
++  "cohort": "FC-SORRY",
++  "display_name": "Arxiv.«2001.02665».kotzig_conjecture_large",
++  "family_id": "ATF-00003266",
++  "item_id": "S5THM-00003496-TARGET",
++  "machine_level": "M0-L",
++  "master_accepted": false,
++  "member_record_sha256": "a7fffb4ef86c261a22b1c3abd41e4973176cf9c06b66c66badde58c24260508b",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "readability_level": "R0",
++  "release_decision": "provisional_release_candidate",
++  "schema_version": "awesome-theorems/stage5-theorem-meta/2.0",
++  "semantic_environment_sha256": "df50258821ba7c4b0c828ae77a7d66cf5ae3e8648369855f876a45db579840ba",
++  "stage6_claim_id": "S6-CLM-00004640",
++  "stage6_variant_id": "S6-VAR-00006418",
++  "stage_claim_id": "S5-CLM-00003496",
++  "variant_id": "ATV-00003496"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003496/receipts/release-decision.json b/Stage5_Theorem_Instances/S5-CLM-00003496/receipts/release-decision.json
+new file mode 100644
+index 00000000..00000000
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003496/receipts/release-decision.json
+@@ -0,0 +1,35 @@
++{
++  "authority_sha256": "9f28ad69ce9159b61957c081a15011a5fe38188779a17d020c14c5b6f5b3bb16",
++  "current_trace_sha256": "9c02bbc591261c2856bede38241eb8dd45287b9d659cda27f722d7512870917d",
++  "decision": "provisional_release_candidate",
++  "human_cut_set": [],
++  "item_id": "S5THM-00003496-TARGET",
++  "machine_complete": true,
++  "machine_cut_set": [],
++  "master_accepted": false,
++  "program": "stage5-theorem-proof-debt/2.0",
++  "readability_cut_set": [],
++  "readable_complete": true,
++  "schema_version": "awesome-theorems/stage5-theorem-release-decision/2.0",
++  "semantic_environment_sha256": "df50258821ba7c4b0c828ae77a7d66cf5ae3e8648369855f876a45db579840ba",
++  "stage_claim_id": "S5-CLM-00003496",
++  "strict_dominance": {
++    "all_applicable_shape_predicates_passed": true,
++    "cold_from_source_replay_passed": true,
++    "empty_hmr_cuts": true,
++    "exact_m0": true,
++    "fixture": "THM-M-0387",
++    "fixture_status": "incomplete_H1_M2_R0_negative_fixture",
++    "semantic_environment_added": true,
++    "semantic_substitution_mutations_passed": true,
++    "strict_dimensions": [
++      "semantic_environment",
++      "semantic_substitution_mutations",
++      "cold_from_source_replay",
++      "exact_m0",
++      "empty_hmr_cuts"
++    ],
++    "true_r0": true
++  },
++  "theorem_complete_candidate": true
++}

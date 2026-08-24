@@ -1,0 +1,1049 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:awesome-theorems:schema:stage5-math-claim-record:5.3",
+  "title": "Stage5 5.3 pinned-mathlib literal theorem record",
+  "description": "Closed schema for one origin-5.3 theorem selected from the pinned mathlib inventory. Credit requires literal Lean theorem syntax and kernel-checked, sorry-free evidence at the exact commit. A Lean lemma, source rank, cohort, module documentation signal, or thmInfo classification alone never grants theorem credit.",
+  "authority_hash_policy": "sha256 over UTF-8 json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(',', ':')) after removing only the top-level authority_sha256 field; no trailing newline enters the digest",
+  "authority_sha256": "160de5babf18c2b299f2a04a097f6d4c78de6ff39211dd54d471598922dd6d0a",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "release_id",
+    "origin_stage",
+    "origin_release",
+    "curation_key",
+    "allocation",
+    "occurrence_id",
+    "family_id",
+    "sense_id",
+    "variant_id",
+    "stage_claim_id",
+    "display_name",
+    "aliases",
+    "owner_domain",
+    "membership_domains",
+    "record_role",
+    "claim_kind",
+    "current_claim_kind",
+    "historical_kind",
+    "atomicity",
+    "truth_apt",
+    "category",
+    "material_status",
+    "source_id",
+    "source_locator",
+    "formal_statement",
+    "theorem_selection",
+    "curator_disposition",
+    "mathematical_statement",
+    "status_detail",
+    "classification",
+    "provenance",
+    "rights",
+    "dedupe",
+    "proof_evidence",
+    "importance",
+    "lifecycle",
+    "lineage",
+    "semantic_key",
+    "content_payload_sha256",
+    "source_payload_sha256",
+    "proof_payload_sha256",
+    "semantic_payload_sha256"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "awesome-theorems/stage5-math-claim-record/5.3"
+    },
+    "release_id": {
+      "const": "5.3"
+    },
+    "origin_stage": {
+      "const": "Stage5"
+    },
+    "origin_release": {
+      "const": "5.3"
+    },
+    "curation_key": {
+      "type": "string",
+      "pattern": "^mathlib/ML4-[A-F0-9]{20}$"
+    },
+    "allocation": {
+      "$ref": "#/$defs/allocation"
+    },
+    "occurrence_id": {
+      "$ref": "#/$defs/ato_id"
+    },
+    "family_id": {
+      "$ref": "#/$defs/atf_id"
+    },
+    "sense_id": {
+      "$ref": "#/$defs/ats_id"
+    },
+    "variant_id": {
+      "$ref": "#/$defs/atv_id"
+    },
+    "stage_claim_id": {
+      "$ref": "#/$defs/s5_id"
+    },
+    "display_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "aliases": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "owner_domain": {
+      "const": "mathematics"
+    },
+    "membership_domains": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "enum": [
+          "mathematics",
+          "physics",
+          "computer_science",
+          "cross_domain"
+        ]
+      },
+      "contains": {
+        "const": "mathematics"
+      },
+      "uniqueItems": true
+    },
+    "record_role": {
+      "const": "claim"
+    },
+    "claim_kind": {
+      "const": "theorem"
+    },
+    "current_claim_kind": {
+      "const": "theorem"
+    },
+    "historical_kind": {
+      "const": "theorem"
+    },
+    "atomicity": {
+      "const": "atomic",
+      "description": "One literal source theorem declaration is one allocation unit; this does not claim logical irreducibility of its proposition."
+    },
+    "truth_apt": {
+      "const": true
+    },
+    "category": {
+      "const": "theorem"
+    },
+    "material_status": {
+      "const": "proved"
+    },
+    "source_id": {
+      "const": "SRC-MATH-V5-MATHLIB-8A178386"
+    },
+    "source_locator": {
+      "$ref": "#/$defs/source_locator"
+    },
+    "formal_statement": {
+      "$ref": "#/$defs/formal_statement"
+    },
+    "theorem_selection": {
+      "$ref": "#/$defs/theorem_selection"
+    },
+    "curator_disposition": {
+      "$ref": "#/$defs/curator_disposition"
+    },
+    "mathematical_statement": {
+      "$ref": "#/$defs/mathematical_statement"
+    },
+    "status_detail": {
+      "$ref": "#/$defs/status_detail"
+    },
+    "classification": {
+      "$ref": "#/$defs/classification"
+    },
+    "provenance": {
+      "$ref": "#/$defs/provenance"
+    },
+    "rights": {
+      "$ref": "#/$defs/rights"
+    },
+    "dedupe": {
+      "$ref": "#/$defs/dedupe"
+    },
+    "proof_evidence": {
+      "$ref": "#/$defs/proof_evidence"
+    },
+    "importance": {
+      "$ref": "#/$defs/importance"
+    },
+    "lifecycle": {
+      "const": "active"
+    },
+    "lineage": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/lineage_edge"
+      }
+    },
+    "semantic_key": {
+      "type": "string",
+      "pattern": "^mathlib-theorem-semantic/[a-f0-9]{64}$"
+    },
+    "content_payload_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "source_payload_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "proof_payload_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "semantic_payload_sha256": {
+      "$ref": "#/$defs/sha256"
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "ato_id": {
+      "type": "string",
+      "pattern": "^ATO-[0-9]{8}$"
+    },
+    "atf_id": {
+      "type": "string",
+      "pattern": "^ATF-[0-9]{8}$"
+    },
+    "ats_id": {
+      "type": "string",
+      "pattern": "^ATS-[0-9]{8}$"
+    },
+    "atv_id": {
+      "type": "string",
+      "pattern": "^ATV-[0-9]{8}$"
+    },
+    "s5_id": {
+      "type": "string",
+      "pattern": "^S5-CLM-[0-9]{8}$"
+    },
+    "source_ref_array": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "const": "SRC-MATH-V5-MATHLIB-8A178386"
+      },
+      "uniqueItems": true
+    },
+    "allocation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "parent_registry_authority_sha256",
+        "parent_release_root_sha256",
+        "allocation_request_sha256",
+        "transaction_id",
+        "family_action",
+        "append_only"
+      ],
+      "properties": {
+        "parent_registry_authority_sha256": {
+          "const": "2a570cdd80c4cfa197399fdd06ff6f64f09d48a211fc2ea5e4bd03bdfd7f7d4d"
+        },
+        "parent_release_root_sha256": {
+          "const": "edee3a3e5f29a345a16fb526654aecfeaeaaf62da0e0101ed5e9bd2cbb374e2e"
+        },
+        "allocation_request_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "transaction_id": {
+          "type": "string",
+          "pattern": "^S5-ALLOC-[0-9]{8}$"
+        },
+        "family_action": {
+          "const": "new_family"
+        },
+        "append_only": {
+          "const": true
+        }
+      }
+    },
+    "source_range": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "line_start",
+        "line_end",
+        "column_start_zero_based",
+        "column_end_zero_based"
+      ],
+      "properties": {
+        "line_start": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "line_end": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "column_start_zero_based": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "column_end_zero_based": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "source_locator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_id",
+        "artifact_path",
+        "artifact_sha256",
+        "artifact_size_bytes",
+        "record_index",
+        "source_record_id",
+        "source_record_sha256",
+        "mathlib_commit",
+        "module",
+        "source_path",
+        "source_sha256",
+        "url",
+        "source_range",
+        "selection_range"
+      ],
+      "properties": {
+        "source_id": {
+          "const": "SRC-MATH-V5-MATHLIB-8A178386"
+        },
+        "artifact_path": {
+          "const": "Docs/catalog/v5/sources/mathlib-theorems-8a178386.json"
+        },
+        "artifact_sha256": {
+          "const": "236b9f6ac192eaf87215663bfd7fadb80c439b452049cef1747ea804c458637a"
+        },
+        "artifact_size_bytes": {
+          "const": 6316287
+        },
+        "record_index": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1499
+        },
+        "source_record_id": {
+          "type": "string",
+          "pattern": "^ML4-[A-F0-9]{20}$"
+        },
+        "source_record_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "mathlib_commit": {
+          "const": "8a178386ffc0f5fef0b77738bb5449d50efeea95"
+        },
+        "module": {
+          "type": "string",
+          "pattern": "^Mathlib(?:\\.[A-Za-z0-9_']+)+$"
+        },
+        "source_path": {
+          "type": "string",
+          "pattern": "^Mathlib/.+\\.lean$"
+        },
+        "source_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^https://github\\.com/leanprover-community/mathlib4/blob/8a178386ffc0f5fef0b77738bb5449d50efeea95/Mathlib/.+\\.lean#L[0-9]+-L[0-9]+$"
+        },
+        "source_range": {
+          "$ref": "#/$defs/source_range"
+        },
+        "selection_range": {
+          "$ref": "#/$defs/source_range"
+        }
+      }
+    },
+    "formal_statement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "language",
+        "completeness",
+        "declaration",
+        "declaration_kind",
+        "source_syntax_kind",
+        "module",
+        "formal_type",
+        "formal_type_sha256",
+        "formal_docstring",
+        "formal_docstring_origin",
+        "formal_docstring_sha256"
+      ],
+      "properties": {
+        "language": {
+          "const": "Lean4"
+        },
+        "completeness": {
+          "const": "exact_runtime_formal_type_and_source_locator"
+        },
+        "declaration": {
+          "type": "string",
+          "minLength": 1
+        },
+        "declaration_kind": {
+          "const": "theorem"
+        },
+        "source_syntax_kind": {
+          "const": "theorem"
+        },
+        "module": {
+          "type": "string",
+          "pattern": "^Mathlib(?:\\.[A-Za-z0-9_']+)+$"
+        },
+        "formal_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "formal_type_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "formal_docstring": {
+          "type": "string",
+          "minLength": 1
+        },
+        "formal_docstring_origin": {
+          "enum": [
+            "declaration_docstring",
+            "module_main_result_docstring"
+          ]
+        },
+        "formal_docstring_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "mathlib_module_signal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "description",
+        "heading",
+        "module",
+        "source_path"
+      ],
+      "properties": {
+        "kind": {
+          "const": "mathlib_module_main_result"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "heading": {
+          "type": "string",
+          "minLength": 1
+        },
+        "module": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_path": {
+          "type": "string",
+          "pattern": "^Mathlib/.+\\.lean$"
+        }
+      }
+    },
+    "mathlib_1000_signal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "external_id",
+        "formalization_status",
+        "source_path",
+        "title"
+      ],
+      "properties": {
+        "kind": {
+          "const": "mathlib_1000_theorems"
+        },
+        "external_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "formalization_status": {
+          "const": "formalized"
+        },
+        "msc2020": {
+          "type": "string",
+          "pattern": "^[0-9]{2}$"
+        },
+        "source_path": {
+          "const": "docs/1000.yaml"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "upstream_title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "wikipedia_links": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "importance_signal": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/mathlib_module_signal"
+        },
+        {
+          "$ref": "#/$defs/mathlib_1000_signal"
+        }
+      ]
+    },
+    "theorem_selection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_record_id",
+        "selection_cohort",
+        "selection_rank",
+        "display_label",
+        "exact_curated_summary",
+        "importance_signals",
+        "selection_phase",
+        "phase_rank",
+        "module_root"
+      ],
+      "properties": {
+        "source_record_id": {
+          "type": "string",
+          "pattern": "^ML4-[A-F0-9]{20}$"
+        },
+        "selection_cohort": {
+          "enum": [
+            "baseline",
+            "dynamic_expansion"
+          ]
+        },
+        "selection_rank": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1500
+        },
+        "display_label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "exact_curated_summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "importance_signals": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/importance_signal"
+          }
+        },
+        "selection_phase": {
+          "enum": [
+            "selected_docs_1000_priority_seed",
+            "selected_module_main_round_robin_fill"
+          ]
+        },
+        "phase_rank": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 320
+        },
+        "module_root": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_']+$"
+        }
+      }
+    },
+    "curator_disposition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "curation_ledger_path",
+        "curation_ledger_file_sha256",
+        "curation_ledger_authority_sha256",
+        "source_index",
+        "source_record_id",
+        "curation_row_sha256",
+        "disposition",
+        "reason_code",
+        "accepted_rank",
+        "target_variant_id",
+        "target_s5_id",
+        "grants_catalog_entry",
+        "grants_theorem_credit",
+        "semantic_key"
+      ],
+      "properties": {
+        "curation_ledger_path": {
+          "const": "Docs/catalog/v5/curation/Mathlib_Theorem_Curation_v5_3.json"
+        },
+        "curation_ledger_file_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "curation_ledger_authority_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "source_index": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1499
+        },
+        "source_record_id": {
+          "type": "string",
+          "pattern": "^ML4-[A-F0-9]{20}$"
+        },
+        "curation_row_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "disposition": {
+          "const": "accepted_new_kernel_checked_theorem"
+        },
+        "reason_code": {
+          "enum": [
+            "selected_docs_1000_priority_seed",
+            "selected_module_main_round_robin_fill"
+          ]
+        },
+        "accepted_rank": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 500
+        },
+        "target_variant_id": {
+          "$ref": "#/$defs/atv_id"
+        },
+        "target_s5_id": {
+          "$ref": "#/$defs/s5_id"
+        },
+        "grants_catalog_entry": {
+          "const": true
+        },
+        "grants_theorem_credit": {
+          "const": true
+        },
+        "semantic_key": {
+          "type": "string",
+          "pattern": "^mathlib-theorem-semantic/[a-f0-9]{64}$"
+        }
+      }
+    },
+    "mathematical_statement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "completeness",
+        "language",
+        "natural_language",
+        "formal_type",
+        "formal_type_sha256",
+        "statement_sha256"
+      ],
+      "properties": {
+        "completeness": {
+          "const": "exact_formal"
+        },
+        "language": {
+          "const": "Lean4"
+        },
+        "natural_language": {
+          "type": "string",
+          "minLength": 1
+        },
+        "formal_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "formal_type_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "statement_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "status_detail": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_material_status",
+        "status_as_of_commit",
+        "basis",
+        "source_refs",
+        "evidence_level",
+        "later_commit_status_not_inferred"
+      ],
+      "properties": {
+        "source_material_status": {
+          "const": "proved_formal"
+        },
+        "status_as_of_commit": {
+          "const": "8a178386ffc0f5fef0b77738bb5449d50efeea95"
+        },
+        "basis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_refs": {
+          "$ref": "#/$defs/source_ref_array"
+        },
+        "evidence_level": {
+          "const": "kernel_checked_sorry_free_at_pinned_commit"
+        },
+        "later_commit_status_not_inferred": {
+          "const": true
+        }
+      }
+    },
+    "classification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "msc2020_code",
+        "basis",
+        "status",
+        "module_root"
+      ],
+      "properties": {
+        "msc2020_code": {
+          "type": "string",
+          "pattern": "^[0-9]{2}$"
+        },
+        "basis": {
+          "enum": [
+            "1000_plus_curated",
+            "mathlib_module_root_crosswalk"
+          ]
+        },
+        "status": {
+          "enum": [
+            "source_curated_exact",
+            "machine_root_crosswalk"
+          ]
+        },
+        "module_root": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_']+$"
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "formal_source_ref",
+        "source_refs",
+        "extraction_mode",
+        "extractor_path",
+        "extractor_version",
+        "extractor_file_sha256",
+        "source_asset_sha256",
+        "source_record_id",
+        "source_record_sha256",
+        "mathlib_commit",
+        "exact_source_replay_required"
+      ],
+      "properties": {
+        "formal_source_ref": {
+          "const": "SRC-MATH-V5-MATHLIB-8A178386"
+        },
+        "source_refs": {
+          "$ref": "#/$defs/source_ref_array"
+        },
+        "extraction_mode": {
+          "const": "pinned_mathlib_runtime_extraction"
+        },
+        "extractor_path": {
+          "const": "Docs/tools/extract_mathlib_theorems_v5.py"
+        },
+        "extractor_version": {
+          "const": "1.1.0"
+        },
+        "extractor_file_sha256": {
+          "const": "0e26af2b6740abf4626f3cf43d84fb8f7e1f1a6104096e71f1f9b1f2c33189af"
+        },
+        "source_asset_sha256": {
+          "const": "236b9f6ac192eaf87215663bfd7fadb80c439b452049cef1747ea804c458637a"
+        },
+        "source_record_id": {
+          "type": "string",
+          "pattern": "^ML4-[A-F0-9]{20}$"
+        },
+        "source_record_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "mathlib_commit": {
+          "const": "8a178386ffc0f5fef0b77738bb5449d50efeea95"
+        },
+        "exact_source_replay_required": {
+          "const": true
+        }
+      }
+    },
+    "rights": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "formal_code_terms",
+        "docstring_terms",
+        "optional_metadata_terms",
+        "status",
+        "redistribution_mode",
+        "attribution",
+        "source_refs",
+        "mathlib_license_sha256",
+        "catalog_relicenses_source",
+        "rights_payload_sha256"
+      ],
+      "properties": {
+        "formal_code_terms": {
+          "const": "Apache-2.0"
+        },
+        "docstring_terms": {
+          "const": "Apache-2.0"
+        },
+        "optional_metadata_terms": {
+          "enum": [
+            "Unlicense",
+            "not_applicable"
+          ]
+        },
+        "status": {
+          "const": "cleared_with_attribution"
+        },
+        "redistribution_mode": {
+          "const": "apache_2_0_with_attribution"
+        },
+        "attribution": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "contains": {
+            "const": "The mathlib Community"
+          },
+          "uniqueItems": true
+        },
+        "source_refs": {
+          "$ref": "#/$defs/source_ref_array"
+        },
+        "mathlib_license_sha256": {
+          "const": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1"
+        },
+        "catalog_relicenses_source": {
+          "const": false
+        },
+        "rights_payload_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "dedupe": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "normalized_declaration_key",
+        "formal_type_sha256",
+        "source_record_sha256",
+        "semantic_key",
+        "candidate_atv_ids",
+        "parent_catalog_file_sha256",
+        "verdict",
+        "validation_status",
+        "duplicate_grants_quota",
+        "no_evidence_or_status_inheritance"
+      ],
+      "properties": {
+        "normalized_declaration_key": {
+          "type": "string",
+          "minLength": 1
+        },
+        "formal_type_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "source_record_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "semantic_key": {
+          "type": "string",
+          "pattern": "^mathlib-theorem-semantic/[a-f0-9]{64}$"
+        },
+        "candidate_atv_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/atv_id"
+          },
+          "uniqueItems": true
+        },
+        "parent_catalog_file_sha256": {
+          "const": "cb40df5487b1dd14abea62e625d9c9dca840b2b78292efe2a7dcfbbba3f27f82"
+        },
+        "verdict": {
+          "const": "unique_after_source_and_parent_curation"
+        },
+        "validation_status": {
+          "const": "machine_replayed_and_manifest_bound_curation"
+        },
+        "duplicate_grants_quota": {
+          "const": false
+        },
+        "no_evidence_or_status_inheritance": {
+          "const": true
+        }
+      }
+    },
+    "proof_evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "formal_proof_state",
+        "verification",
+        "uses_sorry",
+        "compiled_module",
+        "ilean_path",
+        "ilean_sha256",
+        "olean_path",
+        "olean_sha256",
+        "batch_axiom_dependency_union",
+        "axiom_evidence_scope",
+        "mathlib_commit",
+        "proof_payload_sha256"
+      ],
+      "properties": {
+        "formal_proof_state": {
+          "const": "kernel_checked_sorry_free"
+        },
+        "verification": {
+          "const": "lean_checked_environment_thmInfo_and_collectAxioms_without_sorryAx"
+        },
+        "uses_sorry": {
+          "const": false
+        },
+        "compiled_module": {
+          "type": "string",
+          "pattern": "^Mathlib(?:\\.[A-Za-z0-9_']+)+$"
+        },
+        "ilean_path": {
+          "type": "string",
+          "pattern": "^\\.lake/build/lib/lean/Mathlib/.+\\.ilean$"
+        },
+        "ilean_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "olean_path": {
+          "type": "string",
+          "pattern": "^\\.lake/build/lib/lean/Mathlib/.+\\.olean$"
+        },
+        "olean_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "batch_axiom_dependency_union": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true,
+          "not": {
+            "contains": {
+              "const": "sorryAx"
+            }
+          }
+        },
+        "axiom_evidence_scope": {
+          "const": "batch_union_not_per_declaration_exact_dependencies"
+        },
+        "mathlib_commit": {
+          "const": "8a178386ffc0f5fef0b77738bb5449d50efeea95"
+        },
+        "proof_payload_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "importance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tier",
+        "basis",
+        "rationale",
+        "evidence_level",
+        "independent_universal_ranking_claimed"
+      ],
+      "properties": {
+        "tier": {
+          "const": "source_signaled_mathlib_theorem"
+        },
+        "basis": {
+          "enum": [
+            "mathlib_1000_formalized_signal",
+            "mathlib_module_main_result_signal"
+          ]
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_level": {
+          "const": "source_documentation_signal"
+        },
+        "independent_universal_ranking_claimed": {
+          "const": false
+        }
+      }
+    },
+    "lineage_edge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "relation",
+        "target_variant_id",
+        "evidence_inherited"
+      ],
+      "properties": {
+        "relation": {
+          "enum": [
+            "alias_of",
+            "equivalent_to",
+            "special_case_of",
+            "generalizes"
+          ]
+        },
+        "target_variant_id": {
+          "$ref": "#/$defs/atv_id"
+        },
+        "evidence_inherited": {
+          "const": false
+        }
+      }
+    }
+  }
+}

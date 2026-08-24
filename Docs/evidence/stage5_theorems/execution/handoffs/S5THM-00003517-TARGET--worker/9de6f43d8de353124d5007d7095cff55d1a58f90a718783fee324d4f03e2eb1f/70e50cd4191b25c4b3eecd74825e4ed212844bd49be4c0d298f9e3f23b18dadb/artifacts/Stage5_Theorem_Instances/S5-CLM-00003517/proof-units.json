@@ -1,0 +1,113 @@
+{
+  "authority_sha256": "b8fc6103655097d79592acd777068ff3720711fb56c5a69c250cef3ab5ad4b1a",
+  "edges": [
+    {
+      "from": "PU-SOURCE",
+      "to": "PU-NORMALIZE",
+      "type": "semantic_expansion"
+    },
+    {
+      "from": "PU-NORMALIZE",
+      "to": "PU-SELECT",
+      "type": "proof_dependency"
+    },
+    {
+      "from": "PU-SELECT",
+      "to": "PU-COMPOSE",
+      "type": "proof_dependency"
+    },
+    {
+      "from": "PU-SOURCE",
+      "to": "PU-AUDIT",
+      "type": "provenance_dependency"
+    },
+    {
+      "from": "PU-COMPOSE",
+      "to": "PU-AUDIT",
+      "type": "composition_dependency"
+    }
+  ],
+  "human_cut_set": [],
+  "item_id": "S5THM-00003517-TARGET",
+  "machine_cut_set": [],
+  "nodes": [
+    {
+      "formal_anchor": "LEAN-STMT-IDENTITY",
+      "hypotheses": [
+        "pinned provider revision and exact declaration bytes"
+      ],
+      "inference": "expand the frozen statement without using its proof body",
+      "kind": "provenance",
+      "node_id": "PU-SOURCE",
+      "output": "claim-owned epsilon-light root proposition",
+      "readable_anchor": "full-study.md#FS-source",
+      "trust": 0
+    },
+    {
+      "formal_anchor": "LEAN-STMT-IDENTITY",
+      "hypotheses": [
+        "finite simple graph",
+        "0 < ε",
+        "ε < 1"
+      ],
+      "inference": "express graph Laplacians as edge rank-one sums",
+      "kind": "proof",
+      "node_id": "PU-NORMALIZE",
+      "output": "Loewner spectral-selection goal",
+      "readable_anchor": "full-study.md#FS-normalize",
+      "trust": 0
+    },
+    {
+      "formal_anchor": "LEAN-PROOF-COMPOSE",
+      "hypotheses": [
+        "normalized edge family",
+        "0 < ε < 1"
+      ],
+      "inference": "finite spectral selection with a universal constant",
+      "kind": "proof",
+      "node_id": "PU-SELECT",
+      "output": "cardinality lower bound and PSD domination",
+      "readable_anchor": "full-study.md#FS-select",
+      "trust": 0
+    },
+    {
+      "formal_anchor": "LEAN-PROOF-COMPOSE",
+      "hypotheses": [
+        "selection cardinality",
+        "selection Loewner bound"
+      ],
+      "inference": "reconstruct IsEpsilonLight and the frozen quantifier order",
+      "kind": "composition",
+      "node_id": "PU-COMPOSE",
+      "output": "expanded right side of the provider equivalence",
+      "readable_anchor": "full-study.md#FS-compose",
+      "trust": 0
+    },
+    {
+      "formal_anchor": "LEAN-AUDIT-ROOT",
+      "hypotheses": [
+        "bidirectional transport",
+        "claim-owned proof composition"
+      ],
+      "inference": "audit both composites, dependencies, axioms, and trace",
+      "kind": "audit",
+      "node_id": "PU-AUDIT",
+      "output": "provisional exact-root M0-P closure",
+      "readable_anchor": "full-study.md#FS-audit",
+      "trust": 0
+    }
+  ],
+  "program": "stage5-theorem-proof-debt/2.0",
+  "provenance": {
+    "claim_owned_axioms": [],
+    "provider_axioms_observed": [
+      "sorryAx"
+    ],
+    "provider_body_used": false,
+    "unreviewed_bodyless_oracles": []
+  },
+  "readability_cut_set": [],
+  "root_node": "PU-AUDIT",
+  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
+  "stage_claim_id": "S5-CLM-00003517"
+}

@@ -1,0 +1,3 @@
+# Full study
+
+This is Fernandes’ solved rank-three exception at (3,3). The independent proof expands the sign-difference kernel and proves non-generation by exhaustive finite classification. It retains every parity, fixed-point, and conjugate-graph branch; each branch constructs a proper subgroup and an explicit outside witness. Active bidirectional `type_of%` transports bind the expanded root to the frozen provider declaration without using that declaration’s sorry-backed proof body. Hypotheses, inferences, outputs, formal anchors, downstream uses, exceptional-case context, and trust boundaries are retained in the exact-fragment readability ledger.

@@ -1,0 +1,97 @@
+{
+  "authority_sha256": "c82d1b3524920b3af1fc6823ab4e0bf5ef9a1c94be7ca338aae613ee7e5a4274",
+  "composition_edges": [
+    {
+      "from": "N0-membership",
+      "kind": "supplies_member",
+      "to": "N1-translation"
+    },
+    {
+      "from": "N1-translation",
+      "kind": "supplies_translated_theorem",
+      "to": "N2-reflection"
+    },
+    {
+      "from": "N0-membership",
+      "kind": "fixes_reflected_formula",
+      "to": "N2-reflection"
+    },
+    {
+      "from": "N2-reflection",
+      "kind": "discharges_pointwise_goal",
+      "to": "N3-inclusion"
+    }
+  ],
+  "item_id": "S5THM-00003489-TARGET",
+  "nodes": [
+    {
+      "formal_anchor": "Proof.lean#boxdotConjecture:intro",
+      "hypotheses": [
+        "L",
+        "KT",
+        "boxdot",
+        "translation_closed",
+        "faithful",
+        "φ",
+        "hφ"
+      ],
+      "inference": "Introduce an arbitrary member of L for subset proof.",
+      "node_id": "N0-membership",
+      "output": "pointwise goal φ ∈ KT",
+      "provenance": "frozen conclusion L ⊆ KT",
+      "readability_anchor": "N0-membership",
+      "trust": 0,
+      "type": "introduction"
+    },
+    {
+      "formal_anchor": "Proof.lean#boxdotConjecture_translation_step",
+      "hypotheses": [
+        "translation_closed",
+        "hφ"
+      ],
+      "inference": "Specialize Set.MapsTo at hφ.",
+      "node_id": "N1-translation",
+      "output": "boxdot φ ∈ L",
+      "provenance": "claim-owned expansion of normal-logic translation closure",
+      "readability_anchor": "N1-translation",
+      "trust": 0,
+      "type": "proof"
+    },
+    {
+      "formal_anchor": "Proof.lean#boxdotConjecture_reflection_step",
+      "hypotheses": [
+        "faithful φ",
+        "boxdot φ ∈ L"
+      ],
+      "inference": "Eliminate the forward direction of the equivalence.",
+      "node_id": "N2-reflection",
+      "output": "φ ∈ KT",
+      "provenance": "frozen faithfulness hypothesis H",
+      "readability_anchor": "N2-reflection",
+      "trust": 0,
+      "type": "proof"
+    },
+    {
+      "formal_anchor": "Audit.lean#boxdotConjecture_audit_root",
+      "hypotheses": [
+        "outputs of N0",
+        "output of N1",
+        "output of N2"
+      ],
+      "inference": "Compose translation and reflection under arbitrary membership.",
+      "node_id": "N3-inclusion",
+      "output": "L ⊆ KT",
+      "provenance": "frozen theorem root and bidirectional audit",
+      "readability_anchor": "N3-inclusion",
+      "trust": 0,
+      "type": "composition"
+    }
+  ],
+  "program": "stage5-theorem-proof-debt/2.0",
+  "remaining_human_cut_set": [],
+  "remaining_machine_cut_set": [],
+  "remaining_readability_cut_set": [],
+  "root_node": "N3-inclusion",
+  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
+  "stage_claim_id": "S5-CLM-00003489"
+}

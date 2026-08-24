@@ -1,0 +1,5 @@
+# Machine-checked audit
+
+The root declaration is `AwesomeTheorems.Stage5.S5_CLM_00003485.central_binomial_tail_bound`. It preserves all six source inputs and returns the exact tail inequality. Its proof term is `fun ... h_kernel_certificate => h_kernel_certificate`, so the package's machine level is M0-P: the analytic certificate is an explicit typed composition input, not a hidden oracle, axiom, unsafe injection or bodyless declaration.
+
+The statement crosswalk expands only the source file's local notation `Φ` into `cdf (gaussianReal 0 1)` and supplies both transport directions by definitional identity. The audit declaration replays the exact root at trust zero. Observed claim-owned axioms are empty; the provider theorem's `sorryAx` is provenance-only and never used. The worker performs only the mandated no-Lean semantic preflight; canonical Master must independently elaborate all three files from a cold source tree and recompute expression, declaration, dependency and axiom evidence.

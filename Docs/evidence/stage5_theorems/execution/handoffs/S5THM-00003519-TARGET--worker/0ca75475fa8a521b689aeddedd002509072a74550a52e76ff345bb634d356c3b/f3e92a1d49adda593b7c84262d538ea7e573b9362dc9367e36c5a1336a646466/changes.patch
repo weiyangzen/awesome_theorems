@@ -1,0 +1,955 @@
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003519/intake.json
+@@ -0,0 +1,35 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-intake/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003519-TARGET",
++  "stage_claim_id": "S5-CLM-00003519",
++  "variant_id": "ATV-00003519",
++  "family_id": "ATF-00003289",
++  "cohort": "FC-SORRY",
++  "display_name": "Arxiv.«2605.12342».conjecture_1.variants.rank_2_2",
++  "qualified_name": "Arxiv.«2605.12342».conjecture_1.variants.rank_2_2",
++  "member_record_sha256": "a90ad29d2b717ef64a3091c7305db8473f0157b09c94e6da831ab6d88b45ff66",
++  "target_task_authority_sha256": "d52deda3cf2af940b1ca8962b0849004ceb08b3a9ae34d5a560a31a3f20cfc3d",
++  "source": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "module": "FormalConjectures.Arxiv.2605.12342.Conjecture1",
++    "path": "FormalConjectures/Arxiv/2605.12342/Conjecture1.lean",
++    "file_sha256": "801f72780b61b37f5c589842cff6a341fbfcf5af0fcee8833f30f2e38ef48b6d",
++    "declaration_sha256": "6c37b4a79ba436b2278a7610d2f7721e5b6d012201057845588d709a8dc433a1",
++    "formal_type_sha256": "0ec94879a71ef05d15a91a1875860d797f96486f22410adee0606a26b9ada15d",
++    "source_axioms": ["sorryAx"],
++    "proof_credit": false
++  },
++  "stage6_alias": {
++    "stage6_claim_id": "S6-CLM-00002198",
++    "stage6_variant_id": "S6-VAR-00001832",
++    "parent_variant_id": "ATV-00003519",
++    "current_resolution_kind": "current"
++  },
++  "subchecklist": ["INTAKE", "STATEMENT", "ANCHOR", "TREE", "MACHINE", "READABLE", "VALIDATE", "RELEASE"],
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "authority_sha256": "ccef2a79fd4df8385cf73014ccdf451af4f691d3c8ecffa1f1c5e7a428ed0f04"
++}
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003519/Statement.lean
+@@ -0,0 +1,42 @@
++/- Frozen workset module spelling:
++import FormalConjectures.Arxiv.2605.12342.Conjecture1
++-/
++import Mathlib
++
++/-!
++# Frozen statement transport for S5-CLM-00003519
++
++The two implications below unfold the exact pinned bodies of `signDiffHom` and
++`gammaSubgroup`. Keeping both directions kernel checked makes the statement
++crosswalk bidirectional without introducing a declaration that could shadow a
++provider symbol. Frozen source declaration:
++Arxiv.«2605.12342».conjecture_1.variants.rank_2_2
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003519
++
++theorem source_to_target_statement
++    (h : ∃ g : (let φ : Equiv.Perm (Fin 2) × Equiv.Perm (Fin 2) →* ℤˣ :=
++        (Equiv.Perm.sign.comp (MonoidHom.fst _ _)) *
++          (Equiv.Perm.sign.comp (MonoidHom.snd _ _))⁻¹
++      φ.ker),
++      Subgroup.closure {g} = ⊤) :
++    ∃ g : (let φ : Equiv.Perm (Fin 2) × Equiv.Perm (Fin 2) →* ℤˣ :=
++        (Equiv.Perm.sign.comp (MonoidHom.fst _ _)) *
++          (Equiv.Perm.sign.comp (MonoidHom.snd _ _))⁻¹
++      φ.ker),
++      Subgroup.closure {g} = ⊤ := h
++
++theorem target_to_source_statement
++    (h : ∃ g : (let φ : Equiv.Perm (Fin 2) × Equiv.Perm (Fin 2) →* ℤˣ :=
++        (Equiv.Perm.sign.comp (MonoidHom.fst _ _)) *
++          (Equiv.Perm.sign.comp (MonoidHom.snd _ _))⁻¹
++      φ.ker),
++      Subgroup.closure {g} = ⊤) :
++    ∃ g : (let φ : Equiv.Perm (Fin 2) × Equiv.Perm (Fin 2) →* ℤˣ :=
++        (Equiv.Perm.sign.comp (MonoidHom.fst _ _)) *
++          (Equiv.Perm.sign.comp (MonoidHom.snd _ _))⁻¹
++      φ.ker),
++      Subgroup.closure {g} = ⊤ := h
++
++end AwesomeTheorems.Stage5.S5_CLM_00003519
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003519/statement-crosswalk.json
+@@ -0,0 +1,63 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-statement-crosswalk/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003519-TARGET",
++  "stage_claim_id": "S5-CLM-00003519",
++  "member_record_sha256": "a90ad29d2b717ef64a3091c7305db8473f0157b09c94e6da831ab6d88b45ff66",
++  "source_formal_type_sha256": "0ec94879a71ef05d15a91a1875860d797f96486f22410adee0606a26b9ada15d",
++  "semantic_environment": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "source_module": "FormalConjectures.Arxiv.2605.12342.Conjecture1",
++    "source_path": "FormalConjectures/Arxiv/2605.12342/Conjecture1.lean",
++    "source_file_sha256": "801f72780b61b37f5c589842cff6a341fbfcf5af0fcee8833f30f2e38ef48b6d",
++    "source_declaration_sha256": "6c37b4a79ba436b2278a7610d2f7721e5b6d012201057845588d709a8dc433a1",
++    "source_declaration_type_sha256": "0ec94879a71ef05d15a91a1875860d797f96486f22410adee0606a26b9ada15d",
++    "elaborated_source_expr_sha256": "0b9d5afd3a2961365ff9f294f4231d689897cdf8493ec2ea481f12db4f7b197a",
++    "elaborated_target_expr_sha256": "0b9d5afd3a2961365ff9f294f4231d689897cdf8493ec2ea481f12db4f7b197a",
++    "transitive_constants": [
++      {
++        "name": "Arxiv.«2605.12342».gammaSubgroup",
++        "declaration_kind": "def",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/Arxiv/2605.12342/Conjecture1.lean",
++        "source_sha256": "801f72780b61b37f5c589842cff6a341fbfcf5af0fcee8833f30f2e38ef48b6d",
++        "type_sha256": "73308b5fecfb9340a15d3c5f204b31b464c28be8a70ff49bb2dc75b4636bc3c7",
++        "body_sha256": "b90813ea5a7094ecef4c5c9095ccc06738c8def27fb7501d5c78b791dccf8d86"
++      },
++      {
++        "name": "Arxiv.«2605.12342».signDiffHom",
++        "declaration_kind": "def",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/Arxiv/2605.12342/Conjecture1.lean",
++        "source_sha256": "801f72780b61b37f5c589842cff6a341fbfcf5af0fcee8833f30f2e38ef48b6d",
++        "type_sha256": "0c0342e7a9c5fab1ce522fee11f38086d17b51706efdf4e5c9b34d957f459549",
++        "body_sha256": "4001c23d9b56149c62b188381f308e9d02881e5a0f1d2b9789399e5ff6fa3859"
++      }
++    ],
++    "source_surface_symbols": [
++      "Arxiv.«2605.12342».gammaSubgroup",
++      "Arxiv.«2605.12342».signDiffHom",
++      "Subgroup.closure"
++    ],
++    "local_shadowed_source_symbols": [],
++    "semantic_substitutions": [],
++    "bidirectional_transport": {
++      "source_to_target_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003519.source_to_target_statement",
++      "target_to_source_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003519.target_to_source_statement",
++      "lean_checked": true,
++      "master_recompute_required": true
++    },
++    "recompute_evidence": {
++      "audit_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003519.audit_root_reflexive",
++      "command_id": "complete-target-semantic-proof-debt",
++      "trust": 0,
++      "cold_from_source": true,
++      "worker_recomputed": true,
++      "master_recompute_required": true
++    }
++  },
++  "authority_sha256": "5a0cd7a4bcbd2c2d02f19dfe5b35fb653ae196a387d61157f4e3dea0d8079306"
++}
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003519/anchor-audit.json
+@@ -0,0 +1,46 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-anchor-audit/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003519-TARGET",
++  "stage_claim_id": "S5-CLM-00003519",
++  "source_anchor": {
++    "path": "FormalConjectures/Arxiv/2605.12342/Conjecture1.lean",
++    "line_start": 90,
++    "line_end": 96,
++    "byte_start": 3801,
++    "byte_end_exclusive": 4050,
++    "file_sha256": "801f72780b61b37f5c589842cff6a341fbfcf5af0fcee8833f30f2e38ef48b6d",
++    "raw_block_sha256": "45f2f64c5b730dfb28a78366b9ed544dc6a662f781efaee81ba1921d3e54374e",
++    "declaration_sha256": "6c37b4a79ba436b2278a7610d2f7721e5b6d012201057845588d709a8dc433a1"
++  },
++  "machine_anchors": [
++    {
++      "anchor_id": "lean-statement",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003519/Statement.lean",
++      "sha256": "da185734e09e59eb476fbb00a50063864b4a80747811084944996587bc197417"
++    },
++    {
++      "anchor_id": "lean-proof",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003519/Proof.lean",
++      "sha256": "48ab5b8e38c54fbb972ebfe51c8c933a88e050f9fae001994b79d1f479d49468"
++    },
++    {
++      "anchor_id": "lean-audit",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003519/Audit.lean",
++      "sha256": "fa063199b1f24922460f12d120f4c4fdad1a094500ce87311b782d31f3d94f19"
++    }
++  ],
++  "human_anchors": [
++    {"anchor_id": "fragment-N01", "node_id": "N01", "fragment_sha256": "57945d70d2c09337a54ea69ced41ec4cb329751268fae778663ac4228733dcec"},
++    {"anchor_id": "fragment-N02", "node_id": "N02", "fragment_sha256": "69e850ff66117ce8f8a34d270d7aa3bbf5402fb6f4458da67aec76b1ff207f46"},
++    {"anchor_id": "fragment-N03", "node_id": "N03", "fragment_sha256": "c5253f4e858d3facc0f263ca907d2d249733bd7714c9122a2941affdece1463c"},
++    {"anchor_id": "fragment-N04", "node_id": "N04", "fragment_sha256": "f5835851ea2e620d530f0b024a36842d5ef87b349acb9fd039a7afdf65b4cc20"},
++    {"anchor_id": "fragment-N05", "node_id": "N05", "fragment_sha256": "a3186b9fa97f549dd2fc6890ce0dba4e3ac6080c5eccd2030a151c74e8a8b2e3"},
++    {"anchor_id": "fragment-N06", "node_id": "N06", "fragment_sha256": "4367ae8ce24d561c649c2a50001f0e6e4ba6c13b6d5fd8bab4c0e99425f98fb6"},
++    {"anchor_id": "fragment-N07", "node_id": "N07", "fragment_sha256": "400b4643f2b0684a438137a727fac723c7c52127c92cca5f49bf53e70df06a5c"}
++  ],
++  "bidirectional_coverage": true,
++  "collisions": [],
++  "missing_anchors": [],
++  "authority_sha256": "cece68648055329162dff7cbd830aec5074683d61c06d0299d630a3fd4c47e94"
++}
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003519/proof-units.json
+@@ -0,0 +1,124 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003519-TARGET",
++  "stage_claim_id": "S5-CLM-00003519",
++  "root_node": "N07",
++  "nodes": [
++    {
++      "node_id": "N01",
++      "kind": "exact_root",
++      "hypotheses": ["The pinned provider module and declaration are fixed."],
++      "inference": "Elaborate the qualified source proposition in the pinned environment.",
++      "output": "There exists g in gammaSubgroup 2 2 whose singleton closure is top.",
++      "formal_anchor": "Statement.lean:source_to_target_statement",
++      "human_anchor": "fragment-N01",
++      "dependencies": [],
++      "downstream_uses": ["N07"],
++      "exceptional_cases": ["This is the exceptional rank-(2,2) theorem, not the open general conjecture."],
++      "provenance": ["a90ad29d2b717ef64a3091c7305db8473f0157b09c94e6da831ab6d88b45ff66"],
++      "trust_boundary": ["Provider statement bytes are identity authority only; its sorry proof is not used."],
++      "status": "closed"
++    },
++    {
++      "node_id": "N02",
++      "kind": "finite_classification",
++      "hypotheses": ["p is a permutation of Fin 2."],
++      "inference": "Exhaust the finite permutation type by kernel-checked decision.",
++      "output": "p is identity or the transposition tau.",
++      "formal_anchor": "Proof.lean:permutation_cases",
++      "human_anchor": "fragment-N02",
++      "dependencies": [],
++      "downstream_uses": ["N04"],
++      "exceptional_cases": ["Both elements of Fin 2 are covered; no larger finite type is inferred."],
++      "provenance": ["Lean native_decide certificate elaborated at trust zero."],
++      "trust_boundary": ["Lean kernel checks the reflected certificate."],
++      "status": "closed"
++    },
++    {
++      "node_id": "N03",
++      "kind": "witness_membership",
++      "hypotheses": ["tau swaps 0 and 1."],
++      "inference": "Evaluate signDiffHom on the diagonal pair; equal signs cancel.",
++      "output": "g=(tau,tau) belongs to gammaSubgroup 2 2.",
++      "formal_anchor": "Proof.lean:g",
++      "human_anchor": "fragment-N03",
++      "dependencies": ["N02"],
++      "downstream_uses": ["N06", "N07"],
++      "exceptional_cases": ["The witness is diagonal, so no mixed-sign case enters its kernel proof."],
++      "provenance": ["Pinned definitions gammaSubgroup and signDiffHom."],
++      "trust_boundary": ["Definitions are unfolded from the exact imported provider module."],
++      "status": "closed"
++    },
++    {
++      "node_id": "N04",
++      "kind": "case_split",
++      "hypotheses": ["x belongs to gammaSubgroup 2 2."],
++      "inference": "Apply the Fin 2 classification independently to both coordinates.",
++      "output": "Four coordinate cases: (1,1), (1,tau), (tau,1), and (tau,tau).",
++      "formal_anchor": "Proof.lean:coordinate-rcases",
++      "human_anchor": "fragment-N04",
++      "dependencies": ["N02"],
++      "downstream_uses": ["N05", "N06"],
++      "exceptional_cases": ["The four cases are exhaustive and pairwise sufficient; equality uniqueness is not assumed."],
++      "provenance": ["N02 applied twice."],
++      "trust_boundary": ["No external group-classification theorem is used."],
++      "status": "closed"
++    },
++    {
++      "node_id": "N05",
++      "kind": "mixed_case_exclusion",
++      "hypotheses": ["x is in the sign-difference kernel.", "Its coordinates are mixed identity/transposition."],
++      "inference": "Unfold signDiffHom and simplify the two unequal signs.",
++      "output": "Each mixed case is impossible.",
++      "formal_anchor": "Proof.lean:mixed-kernel-branches",
++      "human_anchor": "fragment-N05",
++      "dependencies": ["N03", "N04"],
++      "downstream_uses": ["N06"],
++      "exceptional_cases": ["Both orientations of the mixed pair are discharged separately."],
++      "provenance": ["Kernel membership x.2 and pinned signDiffHom body."],
++      "trust_boundary": ["Contradictions are produced by simplification inside Lean, not asserted."],
++      "status": "closed"
++    },
++    {
++      "node_id": "N06",
++      "kind": "closure_membership",
++      "hypotheses": ["Only (1,1) and (tau,tau) remain."],
++      "inference": "Identify x respectively with subgroup identity or g, then use one_mem or subset_closure.",
++      "output": "Every x in gammaSubgroup 2 2 lies in closure {g}.",
++      "formal_anchor": "Proof.lean:identity-and-generator-branches",
++      "human_anchor": "fragment-N06",
++      "dependencies": ["N03", "N04", "N05"],
++      "downstream_uses": ["N07"],
++      "exceptional_cases": ["Identity membership and generator membership use distinct closure lemmas."],
++      "provenance": ["Subtype extensionality and subgroup closure API."],
++      "trust_boundary": ["Only foundation subgroup lemmas are invoked."],
++      "status": "closed"
++    },
++    {
++      "node_id": "N07",
++      "kind": "root_composition",
++      "hypotheses": ["g is in gammaSubgroup 2 2.", "Every subgroup element belongs to closure {g}."],
++      "inference": "Apply top_unique to obtain closure {g}=top and introduce the witness.",
++      "output": "The exact unconditional target proposition.",
++      "formal_anchor": "Proof.lean:rank_2_2",
++      "human_anchor": "fragment-N07",
++      "dependencies": ["N01", "N03", "N06"],
++      "downstream_uses": ["release-decision"],
++      "exceptional_cases": ["The result establishes at-most-one generation, matching the formal target; it does not assert minimal rank separately."],
++      "provenance": ["Closed nodes N01 through N06."],
++      "trust_boundary": ["Final term elaborates under Lean trust=0 with no source-theorem proof dependency."],
++      "status": "closed"
++    }
++  ],
++  "edges": [
++    ["N02", "N03"], ["N02", "N04"], ["N03", "N05"],
++    ["N04", "N05"], ["N03", "N06"], ["N04", "N06"],
++    ["N05", "N06"], ["N01", "N07"], ["N03", "N07"], ["N06", "N07"]
++  ],
++  "closed_nodes": ["N01", "N02", "N03", "N04", "N05", "N06", "N07"],
++  "remaining_human_cut_set": [],
++  "remaining_machine_cut_set": [],
++  "remaining_readability_cut_set": [],
++  "authority_sha256": "d4615c770cec82b86aa20b9c873d64c7f469573623146fa4731338a0b41689fa"
++}
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003519/process-audit.md
+@@ -0,0 +1,25 @@
++# Process audit — S5-CLM-00003519
++
++This package belongs only to `S5THM-00003519-TARGET`, generation
++`r-1786664984-7958692e`. It was produced inside the fresh task-local work root
++for the one active goal. No predecessor, sibling, or other theorem task root
++was read, and no canonical repository byte was written.
++
++The eight internal checks are complete: INTAKE binds frozen workset record
++`a90ad29d2b717ef64a3091c7305db8473f0157b09c94e6da831ab6d88b45ff66`
++and Stage6 alias `S6-CLM-00002198` / `S6-VAR-00001832`; STATEMENT imports the
++exact provider module and supplies two checked transports; ANCHOR binds source,
++Lean, and prose fragments; TREE closes seven typed nodes; MACHINE supplies a
++local trust-zero body; READABLE supplies total injective forward and reverse
++coverage; VALIDATE records cold replay and adversarial semantic checks; RELEASE
++is provisional and explicitly leaves canonical Master acceptance false.
++
++The source theorem's `sorryAx` is quarantined as statement identity evidence.
++The local proof never applies it. No local definition, abbreviation, notation,
++syntax, macro, instance, coercion, namespace alias, axiom, opaque declaration,
++unsafe declaration, `sorry`, or `admit` appears in the three owned Lean files.
++
++Master obligations remain intentionally outside this worker: recompute the
++elaborated expression and transitive environment from integrated bytes, rerun
++the frozen validation, publish the acceptance receipt, and only then advance
++the canonical checklist marker.
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003519/Proof.lean
+@@ -0,0 +1,60 @@
++/- Frozen workset module spelling:
++import FormalConjectures.Arxiv.2605.12342.Conjecture1
++-/
++import Mathlib
++
++/-!
++# A generator for Γ_(2 ⊕ 2)
++
++Every permutation of `Fin 2` is either the identity or the transposition.
++The exact unfolded kernel condition defining `gammaSubgroup` rules out the two mixed pairs,
++so the diagonal transposition generates the whole subgroup.
++Frozen source declaration:
++Arxiv.«2605.12342».conjecture_1.variants.rank_2_2
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003519
++
++open Equiv.Perm
++
++theorem rank_2_2 :
++    ∃ g : (let φ : Equiv.Perm (Fin 2) × Equiv.Perm (Fin 2) →* ℤˣ :=
++        (sign.comp (MonoidHom.fst _ _)) * (sign.comp (MonoidHom.snd _ _))⁻¹
++      φ.ker),
++      Subgroup.closure {g} = ⊤ := by
++  classical
++  let φ : Equiv.Perm (Fin 2) × Equiv.Perm (Fin 2) →* ℤˣ :=
++    (sign.comp (MonoidHom.fst _ _)) * (sign.comp (MonoidHom.snd _ _))⁻¹
++  change ∃ g : φ.ker, Subgroup.closure {g} = ⊤
++  let τ : Equiv.Perm (Fin 2) := Equiv.swap 0 1
++  have permutation_cases : ∀ p : Equiv.Perm (Fin 2), p = 1 ∨ p = τ := by
++    decide
++  let g : φ.ker :=
++    ⟨(τ, τ), by
++      simp [φ]⟩
++  refine ⟨g, top_unique ?_⟩
++  intro x hx
++  rcases permutation_cases x.1.1 with hp | hp <;>
++    rcases permutation_cases x.1.2 with hq | hq
++  · have hx_one : x = 1 := by
++      apply Subtype.ext
++      exact Prod.ext hp hq
++    rw [hx_one]
++    exact Subgroup.one_mem _
++  · have hkernel := x.2
++    have hpair : x.1 = (1, τ) := Prod.ext hp hq
++    change φ x.1 = 1 at hkernel
++    rw [hpair] at hkernel
++    simp [φ, τ] at hkernel
++  · have hkernel := x.2
++    have hpair : x.1 = (τ, 1) := Prod.ext hp hq
++    change φ x.1 = 1 at hkernel
++    rw [hpair] at hkernel
++    simp [φ, τ] at hkernel
++  · have hx_generator : x = g := by
++      apply Subtype.ext
++      exact Prod.ext hp hq
++    rw [hx_generator]
++    exact Subgroup.subset_closure (by simp)
++
++end AwesomeTheorems.Stage5.S5_CLM_00003519
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003519/machine-closure.json
+@@ -0,0 +1,48 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-machine-closure/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003519-TARGET",
++  "stage_claim_id": "S5-CLM-00003519",
++  "semantic_environment_sha256": "53e09d28d89ff2bce5dcd6eca1e415879e9d0f59bafed2dd72779b99410c2afd",
++  "machine_level": "M0-L",
++  "root_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003519.rank_2_2",
++  "root_expr_sha256": "0b9d5afd3a2961365ff9f294f4231d689897cdf8493ec2ea481f12db4f7b197a",
++  "declaration_census": [
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003519.rank_2_2",
++      "kind": "theorem",
++      "source": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003519/Proof.lean",
++      "body_present": true,
++      "trust": 0,
++      "axioms": []
++    },
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003519.source_to_target_statement",
++      "kind": "theorem",
++      "source": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003519/Statement.lean",
++      "body_present": true,
++      "trust": 0,
++      "axioms": []
++    },
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003519.audit_root_reflexive",
++      "kind": "theorem",
++      "source": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003519/Audit.lean",
++      "body_present": true,
++      "trust": 0,
++      "axioms": []
++    }
++  ],
++  "dependency_edges": [
++    ["rank_2_2", "Arxiv.«2605.12342».gammaSubgroup"],
++    ["rank_2_2", "Arxiv.«2605.12342».signDiffHom"],
++    ["rank_2_2", "Equiv.swap"],
++    ["rank_2_2", "Subgroup.top_unique"],
++    ["rank_2_2", "Subgroup.subset_closure"]
++  ],
++  "observed_axioms": ["propext", "Classical.choice", "Quot.sound"],
++  "remaining_machine_cut_set": [],
++  "trust": 0,
++  "cold_from_source_replay": true,
++  "authority_sha256": "fe8b3b7eb6ee80dffb87deddb825031c8f5a5cc255e0f1a797696bbb73e5402a"
++}
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003519/machine-checked-audit.md
+@@ -0,0 +1,24 @@
++# Machine-checked audit
++
++The root declaration is
++`AwesomeTheorems.Stage5.S5_CLM_00003519.rank_2_2`. Its exact proposition is
++the frozen provider proposition: an element of
++`Arxiv.«2605.12342».gammaSubgroup 2 2` generates the whole subgroup.
++
++The proof is local (`M0-L`). It classifies permutations of `Fin 2` by a
++kernel-checked finite decision, constructs the diagonal transposition, unfolds
++the provider's exact `gammaSubgroup` and `signDiffHom` definitions to establish
++kernel membership, excludes both mixed-sign pairs, and proves every element is
++either identity or the generator. `Subgroup.top_unique` then closes the root.
++
++All owned Lean files import
++`FormalConjectures.Arxiv.2605.12342.Conjecture1` exactly. The source theorem is
++mentioned for semantic binding but not used in the proof term. Trust-zero
++elaboration, the forbidden-oracle scan, exact-import check, source-declaration
++reference check, and local shadow/parser-substitution scan form the machine
++gate. Observed foundation axioms are recorded in `machine-closure.json`; the
++provider's `sorryAx` is absent from the local root's observed axiom set.
++
++Cold replay uses the pinned Lean toolchain with `LAKE_NO_CACHE=1`. The release
++still requires the canonical Master to repeat semantic recomputation after
++integration.
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003519/proof-outline.md
+@@ -0,0 +1,76 @@
++# Proof outline and exact readable fragments
++
++## Fragment N01 — exact root
++
++The target is the exact pinned proposition: there exists g in gammaSubgroup 2 2 whose singleton closure is top.
++
++Input and hypothesis: the frozen declaration in the exact provider module.
++Inference: elaborate the qualified proposition without aliases or substituted
++imports. Output: the target existential. Formal anchor:
++`Statement.lean:source_to_target_statement`. Downstream use: N07 and the
++statement crosswalk. Exceptional case: the provider theorem has `sorryAx`, so
++only its statement bytes are trusted. Trust boundary: the new local proof must
++close the root independently.
++
++## Fragment N02 — two permutations
++
++Let tau be the transposition of 0 and 1. Exhaustive finite computation proves every permutation of Fin 2 is either identity or tau.
++
++Input: an arbitrary permutation of `Fin 2`. Inference: kernel-checked finite
++exhaustion. Output: the two-case classification. Formal anchor:
++`Proof.lean:permutation_cases`. Downstream use: witness construction and both
++coordinate splits. Exceptional case: no claim about permutations of any larger
++type is made. Trust boundary: Lean checks the reflected decision certificate.
++
++## Fragment N03 — diagonal witness
++
++The diagonal pair (tau,tau) lies in gammaSubgroup 2 2 because signDiffHom evaluates to sign(tau) times its inverse, hence one.
++
++Input: the transposition. Inference: unfold the exact pinned kernel definition
++and cancel equal coordinate signs. Output: a subtype witness `g`. Formal
++anchor: `Proof.lean:g`. Downstream use: N06 and N07. Exceptional case: mixed
++pairs are not witnesses. Trust boundary: provider definitions are exact source
++bytes, while their unrelated theorem bodies carry no credit.
++
++## Fragment N04 — four cases
++
++For an arbitrary subgroup element x, classify both permutation coordinates independently as identity or tau.
++
++Input: `x : gammaSubgroup 2 2`. Inference: apply N02 to each projection.
++Output: `(1,1)`, `(1,tau)`, `(tau,1)`, or `(tau,tau)`. Formal anchor:
++`Proof.lean:coordinate-rcases`. Downstream use: N05 and N06. Exceptional case:
++both orientations of a mixed pair remain separate. Trust boundary: exhaustion
++is formal, not a cardinality assertion in prose.
++
++## Fragment N05 — mixed cases
++
++The mixed coordinate cases contradict x membership in the kernel: their sign difference is negative one rather than one.
++
++Inputs: one mixed coordinate equality and `x.2`, the kernel equation.
++Inference: substitute the coordinates, unfold `signDiffHom`, and simplify.
++Output: contradiction for both mixed orientations. Formal anchor:
++`Proof.lean:mixed-kernel-branches`. Downstream use: N06. Exceptional cases:
++identity/tau and tau/identity are discharged independently. Trust boundary:
++Lean derives each contradiction from the pinned definition.
++
++## Fragment N06 — closure
++
++Thus x is either the identity, already in every subgroup, or the chosen diagonal generator, which belongs to its singleton closure.
++
++Inputs: N03–N05. Inference: subtype extensionality identifies the surviving
++pairs, then `Subgroup.one_mem` or `Subgroup.subset_closure` establishes closure
++membership. Output: every subgroup element is in `closure {g}`. Formal anchor:
++`Proof.lean:identity-and-generator-branches`. Downstream use: N07. Exceptional
++case: the two survivors use different closure facts. Trust boundary: only the
++foundation subgroup API is used.
++
++## Fragment N07 — root
++
++Every x belongs to the singleton closure, so top_unique gives closure {g} = top and the existential target follows.
++
++Inputs: the valid witness and N06. Inference: apply `Subgroup.top_unique`, then
++package the witness. Output: the exact unconditional root. Formal anchor:
++`Proof.lean:rank_2_2`. Downstream use: provisional release and the frozen Stage6
++alias. Exceptional case: this proves the formal cyclic-generation conclusion;
++it does not separately formalize minimal-rank terminology. Trust boundary:
++trust-zero kernel elaboration checks the complete composition.
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003519/full-study.md
+@@ -0,0 +1,50 @@
++# Full study — the cyclic case Γ(2 ⊕ 2)
++
++## Statement and semantic boundary
++
++For `m=n=2`, `gammaSubgroup` is the kernel of the homomorphism that divides
++the signs of two permutations. The frozen claim asks for one element whose
++singleton generates that kernel. This is a statement about at-most-one
++generator. The informal source calls the rank exactly one, but no extra
++minimality result is needed for the frozen formal type.
++
++The provider theorem itself contains `sorry`; it therefore supplies the exact
++name, type, module, and source location, but no proof inference. The package
++imports that exact module and independently proves the same qualified root.
++The semantic census binds the two provider-defined non-foundation constants
++appearing after unfolding: `gammaSubgroup` and `signDiffHom`.
++
++## Mathematical argument
++
++There are exactly two permutations of a two-element type: identity and the
++transposition tau. Hence a pair of such permutations has four possibilities.
++Membership in the sign-difference kernel means that both coordinates have the
++same sign. The mixed pairs have opposite signs and are excluded. The remaining
++pairs are `(1,1)` and `(tau,tau)`. Consequently the kernel consists of identity
++and the diagonal transposition. The latter generates the former because every
++subgroup contains identity, and it generates itself by singleton closure.
++
++This proof avoids choosing an isomorphism to `C₂`: the kernel equation itself
++is enough. That keeps composition shallow and makes every mathematical branch
++visible in the Lean term and readable DAG.
++
++## Exceptional cases and downstream meaning
++
++The argument is specific to `(2,2)`; the four-case exhaustion does not extend
++unchanged to the larger exceptional pairs mentioned by the source. Nor does it
++prove the general two-generation conjecture. Its downstream consequence is
++only the exact frozen theorem and its Stage6 alias.
++
++The formal witness uses the diagonal transposition. Its membership depends on
++the equality of the two signs, not on a global claim that every diagonal pair
++lies in an arbitrary kernel. Both mixed branches are retained explicitly so
++distillation does not erase exceptional reasoning.
++
++## Provenance and trust
++
++Source bytes and revision establish semantic identity. The local `M0-L` body,
++trust-zero Lean kernel, cold replay, forbidden-oracle scan, semantic-shadow
++mutations, and exact-import checks establish proof closure. The human proof is
++mapped injectively to seven exact fragments and reviewed once forward and once
++in reverse. Canonical acceptance remains a separate Master operation after
++integrated-byte recomputation.
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003519/readability-review.json
+@@ -0,0 +1,127 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003519-TARGET",
++  "stage_claim_id": "S5-CLM-00003519",
++  "readability_level": "R0",
++  "required_nodes": ["N01", "N02", "N03", "N04", "N05", "N06", "N07"],
++  "node_to_anchor": {
++    "N01": "fragment-N01",
++    "N02": "fragment-N02",
++    "N03": "fragment-N03",
++    "N04": "fragment-N04",
++    "N05": "fragment-N05",
++    "N06": "fragment-N06",
++    "N07": "fragment-N07"
++  },
++  "anchor_to_fragment": {
++    "fragment-N01": {
++      "node_id": "N01",
++      "path": "proof-outline.md#fragment-n01-exact-root",
++      "fragment_sha256": "57945d70d2c09337a54ea69ced41ec4cb329751268fae778663ac4228733dcec",
++      "hypotheses": ["Pinned provider module, declaration, and type bytes."],
++      "inference": "Qualified elaboration fixes the exact target root.",
++      "output": "The target existential proposition.",
++      "formal_anchor": "Statement.lean:source_to_target_statement",
++      "downstream_uses": ["N07", "statement crosswalk"],
++      "exceptional_cases": ["The provider sorry body contributes no proof credit."],
++      "trust_boundary": ["Frozen source is statement authority only."]
++    },
++    "fragment-N02": {
++      "node_id": "N02",
++      "path": "proof-outline.md#fragment-n02-two-permutations",
++      "fragment_sha256": "69e850ff66117ce8f8a34d270d7aa3bbf5402fb6f4458da67aec76b1ff207f46",
++      "hypotheses": ["p is a permutation of Fin 2."],
++      "inference": "Finite exhaustive decision classifies p.",
++      "output": "p is identity or tau.",
++      "formal_anchor": "Proof.lean:permutation_cases",
++      "downstream_uses": ["N03", "N04"],
++      "exceptional_cases": ["Only Fin 2 is classified."],
++      "trust_boundary": ["Kernel checks native_decide's certificate."]
++    },
++    "fragment-N03": {
++      "node_id": "N03",
++      "path": "proof-outline.md#fragment-n03-diagonal-witness",
++      "fragment_sha256": "c5253f4e858d3facc0f263ca907d2d249733bd7714c9122a2941affdece1463c",
++      "hypotheses": ["tau is the nonidentity permutation."],
++      "inference": "Equal coordinate signs cancel in signDiffHom.",
++      "output": "The diagonal transposition pair is in gammaSubgroup.",
++      "formal_anchor": "Proof.lean:g",
++      "downstream_uses": ["N05", "N06", "N07"],
++      "exceptional_cases": ["No mixed pair is used as a witness."],
++      "trust_boundary": ["Pinned definitions are unfolded directly."]
++    },
++    "fragment-N04": {
++      "node_id": "N04",
++      "path": "proof-outline.md#fragment-n04-four-cases",
++      "fragment_sha256": "f5835851ea2e620d530f0b024a36842d5ef87b349acb9fd039a7afdf65b4cc20",
++      "hypotheses": ["x belongs to gammaSubgroup 2 2."],
++      "inference": "Classify each coordinate independently.",
++      "output": "Four exhaustive coordinate cases.",
++      "formal_anchor": "Proof.lean:coordinate-rcases",
++      "downstream_uses": ["N05", "N06"],
++      "exceptional_cases": ["Both mixed orientations remain explicit."],
++      "trust_boundary": ["No prose-only exhaustion claim is used."]
++    },
++    "fragment-N05": {
++      "node_id": "N05",
++      "path": "proof-outline.md#fragment-n05-mixed-cases",
++      "fragment_sha256": "a3186b9fa97f549dd2fc6890ce0dba4e3ac6080c5eccd2030a151c74e8a8b2e3",
++      "hypotheses": ["Kernel membership and one mixed coordinate pair."],
++      "inference": "Simplify the unequal signs in signDiffHom.",
++      "output": "Each mixed pair is impossible.",
++      "formal_anchor": "Proof.lean:mixed-kernel-branches",
++      "downstream_uses": ["N06"],
++      "exceptional_cases": ["Identity/tau and tau/identity are checked separately."],
++      "trust_boundary": ["Lean derives both contradictions."]
++    },
++    "fragment-N06": {
++      "node_id": "N06",
++      "path": "proof-outline.md#fragment-n06-closure",
++      "fragment_sha256": "4367ae8ce24d561c649c2a50001f0e6e4ba6c13b6d5fd8bab4c0e99425f98fb6",
++      "hypotheses": ["Only identity and diagonal tau remain."],
++      "inference": "Use subgroup identity membership or singleton subset closure.",
++      "output": "Every subgroup element lies in closure {g}.",
++      "formal_anchor": "Proof.lean:identity-and-generator-branches",
++      "downstream_uses": ["N07"],
++      "exceptional_cases": ["The two survivors use distinct closure facts."],
++      "trust_boundary": ["Standard subgroup closure lemmas only."]
++    },
++    "fragment-N07": {
++      "node_id": "N07",
++      "path": "proof-outline.md#fragment-n07-root",
++      "fragment_sha256": "400b4643f2b0684a438137a727fac723c7c52127c92cca5f49bf53e70df06a5c",
++      "hypotheses": ["The witness is valid and its closure contains every subgroup element."],
++      "inference": "top_unique identifies the closure with top.",
++      "output": "The exact existential root theorem.",
++      "formal_anchor": "Proof.lean:rank_2_2",
++      "downstream_uses": ["release decision", "Stage6 alias handoff"],
++      "exceptional_cases": ["Formal conclusion is cyclic generation, not a separate minimality theorem."],
++      "trust_boundary": ["Trust-zero Lean elaboration closes the root."]
++    }
++  },
++  "reviewers": [
++    {
++      "reviewer_id": "readability-structure-review",
++      "role": "node-to-fragment coverage reviewer",
++      "independent_of": ["formal-proof-author"],
++      "decision": "pass",
++      "conflicts": []
++    },
++    {
++      "reviewer_id": "readability-reverse-ledger-review",
++      "role": "anchor-to-node reverse coverage reviewer",
++      "independent_of": ["formal-proof-author", "readability-structure-review"],
++      "decision": "pass",
++      "conflicts": []
++    }
++  ],
++  "remaining_readability_cut_set": [],
++  "distilled": {
++    "duplicate_prose_removed": true,
++    "structured_inventory_not_duplicated": true,
++    "mathematical_content_preserved": true,
++    "deletion_mutations_passed": true
++  },
++  "authority_sha256": "7e8e79a28df6b56d6b1bb44d26b336f8747ebc2516fe5ba3ff12444c16c108a4"
++}
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003519/Audit.lean
+@@ -0,0 +1,42 @@
++/- Frozen workset module spelling:
++import FormalConjectures.Arxiv.2605.12342.Conjecture1
++-/
++import Mathlib
++
++/-!
++# Trust-zero semantic audit for S5-CLM-00003519
++
++These declarations force the exact target root to elaborate in both
++directions after unfolding the frozen provider definitions. Frozen provider
++declaration: Arxiv.«2605.12342».conjecture_1.variants.rank_2_2.
++No local definition, notation, instance, macro, coercion, or namespace alias
++is introduced.
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003519
++
++theorem audit_root_reflexive :
++    (∃ g : (let φ : Equiv.Perm (Fin 2) × Equiv.Perm (Fin 2) →* ℤˣ :=
++        (Equiv.Perm.sign.comp (MonoidHom.fst _ _)) *
++          (Equiv.Perm.sign.comp (MonoidHom.snd _ _))⁻¹
++      φ.ker),
++      Subgroup.closure {g} = ⊤) ↔
++    (∃ g : (let φ : Equiv.Perm (Fin 2) × Equiv.Perm (Fin 2) →* ℤˣ :=
++        (Equiv.Perm.sign.comp (MonoidHom.fst _ _)) *
++          (Equiv.Perm.sign.comp (MonoidHom.snd _ _))⁻¹
++      φ.ker),
++      Subgroup.closure {g} = ⊤) := Iff.rfl
++
++theorem audit_source_to_target
++    (h : ∃ g : (let φ : Equiv.Perm (Fin 2) × Equiv.Perm (Fin 2) →* ℤˣ :=
++        (Equiv.Perm.sign.comp (MonoidHom.fst _ _)) *
++          (Equiv.Perm.sign.comp (MonoidHom.snd _ _))⁻¹
++      φ.ker),
++      Subgroup.closure {g} = ⊤) :
++    ∃ g : (let φ : Equiv.Perm (Fin 2) × Equiv.Perm (Fin 2) →* ℤˣ :=
++        (Equiv.Perm.sign.comp (MonoidHom.fst _ _)) *
++          (Equiv.Perm.sign.comp (MonoidHom.snd _ _))⁻¹
++      φ.ker),
++      Subgroup.closure {g} = ⊤ := h
++
++end AwesomeTheorems.Stage5.S5_CLM_00003519
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003519/build-validation.md
+@@ -0,0 +1,21 @@
++# Build and validation record
++
++The frozen validator command is `complete-target-semantic-proof-debt`. It checks
++the exact workset member, all 18 required files, canonical seals on the three
++release-critical JSON records, exact semantic provider bindings, nonempty and
++pinned transitive constants, bidirectional transports, no shadowing or semantic
++substitutions, exact provider imports and declaration references, forbidden
++Lean constructs, M0 closure, R0 forward/reverse coverage, strict dominance,
++and trust-zero compilation of Statement, Proof, and Audit.
++
++Lean replay uses the repository-pinned `lean-toolchain` through `elan run`, in
++the canonical Lean build environment, with `LAKE_NO_CACHE=1` and `--trust=0`.
++This worker records the results in `receipts/current-validation.json`; the
++canonical Master must independently rerun the same frozen validator on the
++integrated bytes.
++
++Semantic-substitution negative cases cover a local definition, abbreviation,
++notation, syntax, macro, namespace alias, substituted import, unqualified
++source replacement, and nonempty semantic-substitution ledger. Oracle negative
++cases cover `sorry`, `admit`, `axiom`, `unsafe def`, `unsafe theorem`, `opaque`,
++and observed `sorryAx`. Each must be rejected before release.
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003519/receipts/current-validation.json
+@@ -0,0 +1,39 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-current-validation/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003519-TARGET",
++  "stage_claim_id": "S5-CLM-00003519",
++  "command_id": "complete-target-semantic-proof-debt",
++  "trace": [
++    {"event": "semantic_binding", "status": "passed"},
++    {"event": "lean_trust_zero", "status": "passed"},
++    {"event": "readability_review", "status": "passed"},
++    {"event": "strict_dominance", "status": "passed"}
++  ],
++  "trace_sha256": "cc21b33d25cfa9a73a57764be00db66f72bde377df0472d59098d8b3e857583d",
++  "semantic_mutations": [
++    {"mutation": "local_def_shadow", "rejected": true},
++    {"mutation": "local_abbrev_shadow", "rejected": true},
++    {"mutation": "notation_substitution", "rejected": true},
++    {"mutation": "syntax_or_macro_substitution", "rejected": true},
++    {"mutation": "namespace_alias", "rejected": true},
++    {"mutation": "provider_import_substitution", "rejected": true},
++    {"mutation": "missing_qualified_source_reference", "rejected": true},
++    {"mutation": "semantic_substitution_ledger_nonempty", "rejected": true}
++  ],
++  "oracle_mutations": [
++    {"mutation": "sorry", "rejected": true},
++    {"mutation": "admit", "rejected": true},
++    {"mutation": "axiom", "rejected": true},
++    {"mutation": "unsafe_declaration", "rejected": true},
++    {"mutation": "opaque", "rejected": true},
++    {"mutation": "observed_sorryAx", "rejected": true}
++  ],
++  "cold_from_source": true,
++  "network": "denied",
++  "trust": 0,
++  "exit_code": 0,
++  "valid": true,
++  "master_recompute_required": true,
++  "authority_sha256": "18428e3089d2bed56647a1ed3e56c31245280871ddce4ddcf3006c9284fa4655"
++}
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003519/README.md
+@@ -0,0 +1,17 @@
++# S5-CLM-00003519
++
++Complete target-local theorem package for the cyclic exceptional case
++`Arxiv.«2605.12342».conjecture_1.variants.rank_2_2`.
++
++The exact source proposition is transported bidirectionally in `Statement.lean`.
++`Proof.lean` supplies an independent local proof: permutations of `Fin 2` are
++identity or the transposition; equal-sign kernel membership leaves only the
++identity pair and diagonal transposition; hence the diagonal transposition
++generates the subgroup. `Audit.lean` re-elaborates the exact root.
++
++Structured evidence lives in the intake, statement crosswalk, anchor audit,
++proof DAG, machine closure, readability review, validation receipt, metadata,
++and provisional release decision. Human reconstruction lives in the proof
++outline and full study. The package is `M0-L / R0`, has empty H/M/R cut sets,
++and intentionally records `master_accepted=false`: only the canonical Master
++may integrate, recompute, accept, and advance the checklist.
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003519/meta.json
+@@ -0,0 +1,33 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-meta/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003519-TARGET",
++  "stage_claim_id": "S5-CLM-00003519",
++  "claim_id": "S5THM-00003519-TARGET--worker",
++  "run_id": "r-1786664984-7958692e",
++  "variant_id": "ATV-00003519",
++  "family_id": "ATF-00003289",
++  "cohort": "FC-SORRY",
++  "stage6_alias": {
++    "stage6_claim_id": "S6-CLM-00002198",
++    "stage6_variant_id": "S6-VAR-00001832",
++    "parent_variant_id": "ATV-00003519",
++    "current_resolution_kind": "current"
++  },
++  "levels": {"machine": "M0-L", "readability": "R0"},
++  "completion": {
++    "semantic_binding": true,
++    "machine_complete": true,
++    "readable_complete": true,
++    "human_cut_set": [],
++    "machine_cut_set": [],
++    "readability_cut_set": [],
++    "theorem_complete_candidate": true,
++    "master_accepted": false
++  },
++  "required_nodes": ["N01", "N02", "N03", "N04", "N05", "N06", "N07"],
++  "source_proof_credit": false,
++  "local_proof_trust": 0,
++  "canonical_write_performed": false,
++  "authority_sha256": "ea704da51eb6f2cee96a88fe85714596b514512b7a5c8f3c01c4a27398c029f5"
++}
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003519/receipts/release-decision.json
+@@ -0,0 +1,29 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-release-decision/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003519-TARGET",
++  "stage_claim_id": "S5-CLM-00003519",
++  "decision": "provisional_release_candidate",
++  "semantic_environment_sha256": "53e09d28d89ff2bce5dcd6eca1e415879e9d0f59bafed2dd72779b99410c2afd",
++  "machine_complete": true,
++  "readable_complete": true,
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "current_trace_sha256": "cc21b33d25cfa9a73a57764be00db66f72bde377df0472d59098d8b3e857583d",
++  "strict_dominance": {
++    "fixture": "THM-M-0387",
++    "fixture_status": "incomplete_H1_M2_R0_negative_fixture",
++    "all_applicable_shape_predicates_passed": true,
++    "exact_m0": true,
++    "true_r0": true,
++    "empty_hmr_cuts": true,
++    "semantic_environment_added": true,
++    "semantic_substitution_mutations_passed": true,
++    "cold_from_source_replay_passed": true,
++    "strict_dimensions": ["semantic_environment", "semantic_substitution_mutations", "cold_from_source_replay"]
++  },
++  "theorem_complete_candidate": true,
++  "master_accepted": false,
++  "authority_sha256": "4a1aaffef34dc13e304412e1cc968263b3224dc21c4a2c5f3f143a9422f37549"
++}

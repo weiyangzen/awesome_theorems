@@ -1,0 +1,166 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003700-TARGET",
+  "stage_claim_id": "S5-CLM-00003700",
+  "root_node_id": "N4",
+  "nodes": [
+    {
+      "node_id": "N0",
+      "kind": "provenance_root",
+      "inputs": [
+        "frozen member ee6194654ef21d94eafb85380a953225bc1b8ec04045e9de1b2315f9d47bf27b"
+      ],
+      "hypotheses": [
+        "unconditional root; no mathematical hypotheses"
+      ],
+      "inference": "expand the pinned statement and definition of Erdos1109.f",
+      "output": "exact real-valued atTop Big-O proposition",
+      "formal_anchor": "F0-statement",
+      "downstream_uses": [
+        "N1",
+        "N4"
+      ],
+      "exceptional_cases": [
+        "provider body has sorryAx and is not proof authority"
+      ],
+      "trust_boundary": [
+        "frozen source bytes are statement authority only"
+      ],
+      "readability_anchor": "node-frozen-root"
+    },
+    {
+      "node_id": "N1",
+      "kind": "mathematical_construction",
+      "inputs": [
+        "N0 extremal squarefree-sum definition"
+      ],
+      "hypotheses": [
+        "N is beyond the construction threshold"
+      ],
+      "inference": "small-prime congruence selection followed by large-square sieve",
+      "output": "admissible A_N with cardinality at least c log(log N)(log N)^2",
+      "formal_anchor": "F1-forward",
+      "downstream_uses": [
+        "N2"
+      ],
+      "exceptional_cases": [
+        "diagonal sums",
+        "small N",
+        "large square divisors"
+      ],
+      "trust_boundary": [
+        "human reconstruction must be realized by the claim-owned kernel proof"
+      ],
+      "readability_anchor": "node-sieve-family"
+    },
+    {
+      "node_id": "N2",
+      "kind": "composition",
+      "inputs": [
+        "N0 supremum definition",
+        "N1 admissible witness"
+      ],
+      "hypotheses": [
+        "A_N is a finite subset of Finset.Icc 1 N"
+      ],
+      "inference": "insert A_N.card in the defining set and apply the sSup upper property",
+      "output": "eventual pointwise lower bound for the real cast of f N",
+      "formal_anchor": "F1-forward",
+      "downstream_uses": [
+        "N3"
+      ],
+      "exceptional_cases": [
+        "natural supremum boundedness",
+        "Nat-to-Real coercion"
+      ],
+      "trust_boundary": [
+        "order/cast lemmas are pinned Mathlib dependencies"
+      ],
+      "readability_anchor": "node-supremum"
+    },
+    {
+      "node_id": "N3",
+      "kind": "composition",
+      "inputs": [
+        "N2 eventual pointwise bound"
+      ],
+      "hypotheses": [
+        "the construction constant c is positive"
+      ],
+      "inference": "choose 1/c as the IsBigO norm constant and absorb the finite prefix",
+      "output": "claim-owned unconditional Konyagin lower-bound root",
+      "formal_anchor": "F1-forward",
+      "downstream_uses": [
+        "N4"
+      ],
+      "exceptional_cases": [
+        "logarithms before the eventual threshold"
+      ],
+      "trust_boundary": [
+        "Asymptotics.IsBigO semantics are pinned Mathlib dependencies"
+      ],
+      "readability_anchor": "node-asymptotic"
+    },
+    {
+      "node_id": "N4",
+      "kind": "semantic_transport",
+      "inputs": [
+        "N0 frozen root",
+        "N3 claim-owned root"
+      ],
+      "hypotheses": [
+        "source and target elaborate to the same expanded expression"
+      ],
+      "inference": "apply both identity transports and independent round-trip audit",
+      "output": "exact source/target closure candidate for Master replay",
+      "formal_anchor": "F3-audit",
+      "downstream_uses": [
+        "release decision"
+      ],
+      "exceptional_cases": [
+        "numeric provider module is provenance-only in canonical Lake"
+      ],
+      "trust_boundary": [
+        "Master independently recomputes semantics and trust-zero closure"
+      ],
+      "readability_anchor": "node-transport"
+    }
+  ],
+  "edges": [
+    {
+      "from": "N0",
+      "to": "N1",
+      "kind": "statement"
+    },
+    {
+      "from": "N0",
+      "to": "N2",
+      "kind": "definition"
+    },
+    {
+      "from": "N1",
+      "to": "N2",
+      "kind": "witness"
+    },
+    {
+      "from": "N2",
+      "to": "N3",
+      "kind": "eventual_bound"
+    },
+    {
+      "from": "N0",
+      "to": "N4",
+      "kind": "source_side"
+    },
+    {
+      "from": "N3",
+      "to": "N4",
+      "kind": "target_side"
+    }
+  ],
+  "human_cut_set": [],
+  "machine_cut_set": [],
+  "readability_cut_set": [],
+  "authority_sha256": "93fd5f88371ed4eff179428a128443dd87bdf89c1daea3dd60fe069d4c802790"
+}

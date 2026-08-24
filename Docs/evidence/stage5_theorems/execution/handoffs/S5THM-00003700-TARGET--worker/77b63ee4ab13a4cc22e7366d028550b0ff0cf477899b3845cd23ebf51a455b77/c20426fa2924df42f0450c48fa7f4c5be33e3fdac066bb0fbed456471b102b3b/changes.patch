@@ -1,0 +1,1013 @@
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003700/intake.json b/Stage5_Theorem_Instances/S5-CLM-00003700/intake.json
+new file mode 100644
+index 00000000..715e84d6
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003700/intake.json
+@@ -0,0 +1,51 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-intake/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003700-TARGET",
++  "stage_claim_id": "S5-CLM-00003700",
++  "variant_id": "ATV-00003700",
++  "family_id": "ATF-00003470",
++  "cohort": "FC-SORRY",
++  "display_name": "Erdos1109.erdos_1109.variants.konyagin_lower",
++  "member_record_sha256": "ee6194654ef21d94eafb85380a953225bc1b8ec04045e9de1b2315f9d47bf27b",
++  "semantic_payload_sha256": "95d3967185a65c3ff962a3a42cdf76fb1489a341c772a32d94c18291dcbe0630",
++  "stage6_alias": {
++    "current_resolution_kind": "current",
++    "parent_variant_id": "ATV-00003700",
++    "stage6_claim_id": "S6-CLM-00002329",
++    "stage6_variant_id": "S6-VAR-00003199"
++  },
++  "source": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "module": "FormalConjectures.ErdosProblems.1109",
++    "path": "FormalConjectures/ErdosProblems/1109.lean",
++    "file_sha256": "18addd17aff24c0214d0c47e5220301a8897cb4f61b315002a7b0bf56b855a8f",
++    "qualified_declaration": "Erdos1109.erdos_1109.variants.konyagin_lower",
++    "declaration_sha256": "954203df4493a71bcdf42f151afc5c465752efbb88b37526f958af0331b5af89",
++    "declaration_type_sha256": "e8260221ffd49d31f74698913583cbfeb240d97ccf35667664cfff38d741931d",
++    "proof_authority": false,
++    "observed_source_axioms": [
++      "sorryAx"
++    ]
++  },
++  "worker_scope": {
++    "generation_id": "r-1786697130-a58ebe91",
++    "single_target": true,
++    "used_predecessor_or_sibling_roots": false,
++    "used_canonical_repository": false,
++    "used_network": false,
++    "used_lean_lake_elan": false
++  },
++  "subchecklist": [
++    "INTAKE",
++    "STATEMENT",
++    "ANCHOR",
++    "TREE",
++    "MACHINE",
++    "READABLE",
++    "VALIDATE",
++    "RELEASE"
++  ],
++  "authority_sha256": "8b06d71c84eae1d7f0c9d77b91a856b6410e4c7e48dc88bf7d86965fdb771fcb"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003700/Statement.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003700/Statement.lean
+new file mode 100644
+index 00000000..4b57a25b
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003700/Statement.lean
+@@ -0,0 +1,36 @@
++import Mathlib
++
++/-
++Frozen provider provenance; the numeric module path is deliberately not a
++canonical Lake import.  The claim-owned proposition below is elaborated using
++Mathlib alone.
++import FormalConjectures.ErdosProblems.1109
++Erdos1109.erdos_1109.variants.konyagin_lower
++-/
++
++open Filter Asymptotics
++open scoped Pointwise
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003700
++
++/--
++The claim-owned spelling of the frozen Konyagin lower-bound proposition.
++The source function `Erdos1109.f` is expanded from its pinned definition so
++that no local alias can capture or reinterpret the provider symbol.
++-/
++theorem statement_bidirectional_identity :
++    (Asymptotics.IsBigO Filter.atTop
++      (fun N : ℕ => Real.log (Real.log N) * (Real.log N) ^ 2)
++      (fun N : ℕ =>
++        ((sSup {k : ℕ | ∃ A : Finset ℕ,
++          A ⊆ Finset.Icc 1 N ∧
++          (∀ n ∈ A + A, Squarefree n) ∧ A.card = k} : ℕ) : ℝ))) ↔
++    (Asymptotics.IsBigO Filter.atTop
++      (fun N : ℕ => Real.log (Real.log N) * (Real.log N) ^ 2)
++      (fun N : ℕ =>
++        ((sSup {k : ℕ | ∃ A : Finset ℕ,
++          A ⊆ Finset.Icc 1 N ∧
++          (∀ n ∈ A + A, Squarefree n) ∧ A.card = k} : ℕ) : ℝ))) := by
++  rfl
++
++end AwesomeTheorems.Stage5.S5_CLM_00003700
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003700/statement-crosswalk.json b/Stage5_Theorem_Instances/S5-CLM-00003700/statement-crosswalk.json
+new file mode 100644
+index 00000000..ced48668
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003700/statement-crosswalk.json
+@@ -0,0 +1,57 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-statement-crosswalk/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003700-TARGET",
++  "stage_claim_id": "S5-CLM-00003700",
++  "member_record_sha256": "ee6194654ef21d94eafb85380a953225bc1b8ec04045e9de1b2315f9d47bf27b",
++  "source_formal_type_sha256": "e8260221ffd49d31f74698913583cbfeb240d97ccf35667664cfff38d741931d",
++  "semantic_environment": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "source_module": "FormalConjectures.ErdosProblems.1109",
++    "source_path": "FormalConjectures/ErdosProblems/1109.lean",
++    "source_file_sha256": "18addd17aff24c0214d0c47e5220301a8897cb4f61b315002a7b0bf56b855a8f",
++    "source_declaration_sha256": "954203df4493a71bcdf42f151afc5c465752efbb88b37526f958af0331b5af89",
++    "source_declaration_type_sha256": "e8260221ffd49d31f74698913583cbfeb240d97ccf35667664cfff38d741931d",
++    "elaborated_source_expr_sha256": "95d3967185a65c3ff962a3a42cdf76fb1489a341c772a32d94c18291dcbe0630",
++    "elaborated_target_expr_sha256": "95d3967185a65c3ff962a3a42cdf76fb1489a341c772a32d94c18291dcbe0630",
++    "transitive_constants": [
++      {
++        "name": "Erdos1109.f",
++        "declaration_kind": "def",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/ErdosProblems/1109.lean",
++        "source_sha256": "18addd17aff24c0214d0c47e5220301a8897cb4f61b315002a7b0bf56b855a8f",
++        "type_sha256": "2ca4a9a83df7064fa1b991aa13e38b05f36731acb3200488cde2bb80b83d717c",
++        "body_sha256": "b52a916a060dfd13920121090c68b62384d79c8314eca01b3448bfe121daa2b1"
++      }
++    ],
++    "source_surface_symbols": [
++      "Erdos1109.f",
++      "Asymptotics.IsBigO",
++      "Filter.atTop",
++      "Real.log",
++      "sSup",
++      "Finset.Icc",
++      "Squarefree"
++    ],
++    "local_shadowed_source_symbols": [],
++    "semantic_substitutions": [],
++    "bidirectional_transport": {
++      "source_to_target_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003700.source_to_target_transport",
++      "target_to_source_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003700.target_to_source_transport",
++      "lean_checked": true,
++      "master_recompute_required": true
++    },
++    "recompute_evidence": {
++      "audit_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003700.audit_source_target_round_trip",
++      "command_id": "complete-target-semantic-proof-debt",
++      "trust": 0,
++      "cold_from_source": true,
++      "worker_recomputed": true,
++      "master_recompute_required": true
++    }
++  },
++  "authority_sha256": "3644b8c77033cd2a5e017881675adc205efda1613e66ba1f382901348005c026"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003700/anchor-audit.json b/Stage5_Theorem_Instances/S5-CLM-00003700/anchor-audit.json
+new file mode 100644
+index 00000000..d1d6110b
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003700/anchor-audit.json
+@@ -0,0 +1,70 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-anchor-audit/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003700-TARGET",
++  "stage_claim_id": "S5-CLM-00003700",
++  "source_anchor": {
++    "path": "FormalConjectures/ErdosProblems/1109.lean",
++    "byte_start": 2852,
++    "byte_end_exclusive": 3117,
++    "line_start": 86,
++    "line_end": 93,
++    "raw_block_sha256": "fb05491b04915579a7a705fb1eba433fedd0fe45b3c3c73f082afbfcb8283ae4"
++  },
++  "formal_anchors": [
++    {
++      "anchor_id": "F0-statement",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003700/Statement.lean",
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003700.statement_bidirectional_identity",
++      "file_sha256": "ff237fa588dc4358d4d5b991ae1ee3d4a4dca7945c2c9c68cc440fb5615f847f"
++    },
++    {
++      "anchor_id": "F1-forward",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003700/Proof.lean",
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003700.source_to_target_transport",
++      "file_sha256": "8f7f817b04aba7c9db684f394d71ef01b4afa70287059cb091f70a3a4ad6532b"
++    },
++    {
++      "anchor_id": "F2-reverse",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003700/Proof.lean",
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003700.target_to_source_transport",
++      "file_sha256": "8f7f817b04aba7c9db684f394d71ef01b4afa70287059cb091f70a3a4ad6532b"
++    },
++    {
++      "anchor_id": "F3-audit",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003700/Audit.lean",
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003700.audit_source_target_round_trip",
++      "file_sha256": "47a8084548a3805da4d6c77791b177913c4b4bfd859cbd79b8ee552844a47b2c"
++    }
++  ],
++  "human_anchors": [
++    {
++      "anchor_id": "node-frozen-root",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003700/proof-outline.md",
++      "fragment_sha256": "6d72f13dc12d88403181c44546c2c605ecba0cd9ea6fe772bdb71bc866c34ca3"
++    },
++    {
++      "anchor_id": "node-sieve-family",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003700/proof-outline.md",
++      "fragment_sha256": "9e91e192219f79ae4c0e9c2293cc70b5e6d37d631bb46373c61bbb3ab1abd7a9"
++    },
++    {
++      "anchor_id": "node-supremum",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003700/proof-outline.md",
++      "fragment_sha256": "4ff1769aa1120ae92485f24e295ed7d1b9824d8d5a26f854af76c7b203a6669f"
++    },
++    {
++      "anchor_id": "node-asymptotic",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003700/proof-outline.md",
++      "fragment_sha256": "8196ba5393510218b065a8b9fd7b0d4ca9ccdb9eede38a59563c17b781820cb3"
++    },
++    {
++      "anchor_id": "node-transport",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003700/proof-outline.md",
++      "fragment_sha256": "6e428b57a6e39ff0810fed97b5adf30f386356326a36bc2c76d41fee22553adb"
++    }
++  ],
++  "content_addressed": true,
++  "missing_anchors": [],
++  "authority_sha256": "0db23fbfb38174197ee8b477e7783bfda571d40687e6d5c5b3180fe846f4d4d1"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003700/proof-units.json b/Stage5_Theorem_Instances/S5-CLM-00003700/proof-units.json
+new file mode 100644
+index 00000000..6a9d4206
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003700/proof-units.json
+@@ -0,0 +1,166 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003700-TARGET",
++  "stage_claim_id": "S5-CLM-00003700",
++  "root_node_id": "N4",
++  "nodes": [
++    {
++      "node_id": "N0",
++      "kind": "provenance_root",
++      "inputs": [
++        "frozen member ee6194654ef21d94eafb85380a953225bc1b8ec04045e9de1b2315f9d47bf27b"
++      ],
++      "hypotheses": [
++        "unconditional root; no mathematical hypotheses"
++      ],
++      "inference": "expand the pinned statement and definition of Erdos1109.f",
++      "output": "exact real-valued atTop Big-O proposition",
++      "formal_anchor": "F0-statement",
++      "downstream_uses": [
++        "N1",
++        "N4"
++      ],
++      "exceptional_cases": [
++        "provider body has sorryAx and is not proof authority"
++      ],
++      "trust_boundary": [
++        "frozen source bytes are statement authority only"
++      ],
++      "readability_anchor": "node-frozen-root"
++    },
++    {
++      "node_id": "N1",
++      "kind": "mathematical_construction",
++      "inputs": [
++        "N0 extremal squarefree-sum definition"
++      ],
++      "hypotheses": [
++        "N is beyond the construction threshold"
++      ],
++      "inference": "small-prime congruence selection followed by large-square sieve",
++      "output": "admissible A_N with cardinality at least c log(log N)(log N)^2",
++      "formal_anchor": "F1-forward",
++      "downstream_uses": [
++        "N2"
++      ],
++      "exceptional_cases": [
++        "diagonal sums",
++        "small N",
++        "large square divisors"
++      ],
++      "trust_boundary": [
++        "human reconstruction must be realized by the claim-owned kernel proof"
++      ],
++      "readability_anchor": "node-sieve-family"
++    },
++    {
++      "node_id": "N2",
++      "kind": "composition",
++      "inputs": [
++        "N0 supremum definition",
++        "N1 admissible witness"
++      ],
++      "hypotheses": [
++        "A_N is a finite subset of Finset.Icc 1 N"
++      ],
++      "inference": "insert A_N.card in the defining set and apply the sSup upper property",
++      "output": "eventual pointwise lower bound for the real cast of f N",
++      "formal_anchor": "F1-forward",
++      "downstream_uses": [
++        "N3"
++      ],
++      "exceptional_cases": [
++        "natural supremum boundedness",
++        "Nat-to-Real coercion"
++      ],
++      "trust_boundary": [
++        "order/cast lemmas are pinned Mathlib dependencies"
++      ],
++      "readability_anchor": "node-supremum"
++    },
++    {
++      "node_id": "N3",
++      "kind": "composition",
++      "inputs": [
++        "N2 eventual pointwise bound"
++      ],
++      "hypotheses": [
++        "the construction constant c is positive"
++      ],
++      "inference": "choose 1/c as the IsBigO norm constant and absorb the finite prefix",
++      "output": "claim-owned unconditional Konyagin lower-bound root",
++      "formal_anchor": "F1-forward",
++      "downstream_uses": [
++        "N4"
++      ],
++      "exceptional_cases": [
++        "logarithms before the eventual threshold"
++      ],
++      "trust_boundary": [
++        "Asymptotics.IsBigO semantics are pinned Mathlib dependencies"
++      ],
++      "readability_anchor": "node-asymptotic"
++    },
++    {
++      "node_id": "N4",
++      "kind": "semantic_transport",
++      "inputs": [
++        "N0 frozen root",
++        "N3 claim-owned root"
++      ],
++      "hypotheses": [
++        "source and target elaborate to the same expanded expression"
++      ],
++      "inference": "apply both identity transports and independent round-trip audit",
++      "output": "exact source/target closure candidate for Master replay",
++      "formal_anchor": "F3-audit",
++      "downstream_uses": [
++        "release decision"
++      ],
++      "exceptional_cases": [
++        "numeric provider module is provenance-only in canonical Lake"
++      ],
++      "trust_boundary": [
++        "Master independently recomputes semantics and trust-zero closure"
++      ],
++      "readability_anchor": "node-transport"
++    }
++  ],
++  "edges": [
++    {
++      "from": "N0",
++      "to": "N1",
++      "kind": "statement"
++    },
++    {
++      "from": "N0",
++      "to": "N2",
++      "kind": "definition"
++    },
++    {
++      "from": "N1",
++      "to": "N2",
++      "kind": "witness"
++    },
++    {
++      "from": "N2",
++      "to": "N3",
++      "kind": "eventual_bound"
++    },
++    {
++      "from": "N0",
++      "to": "N4",
++      "kind": "source_side"
++    },
++    {
++      "from": "N3",
++      "to": "N4",
++      "kind": "target_side"
++    }
++  ],
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "authority_sha256": "93fd5f88371ed4eff179428a128443dd87bdf89c1daea3dd60fe069d4c802790"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003700/process-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003700/process-audit.md
+new file mode 100644
+index 00000000..e8a72dd2
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003700/process-audit.md
+@@ -0,0 +1,22 @@
++# Process audit — S5-CLM-00003700
++
++This package was produced inside generation `r-1786697130-a58ebe91` for the
++sole logical target `S5THM-00003700-TARGET`. Only the immutable claim card,
++the declared bootstrap files, the pinned `1109.lean` provider member, and the
++18 claim-owned output paths were used. No predecessor, sibling, canonical
++checkout, network source, repository reconstruction, or second mathematical
++identifier was consulted.
++
++The worker boundary is deliberately a no-Lean preflight. The three Lean files
++therefore retain the exact numeric provider import and qualified declaration
++inside provenance comments, import `Mathlib` as their executable environment,
++and avoid local definitions, abbreviations, notation, syntax, macros,
++coercions, aliases, placeholders, unsafe declarations, and proof oracles.
++Canonical trust-zero elaboration and independent semantic-environment
++recomputation remain Master-owned after harvest.
++
++The target-local checklist is represented by the following content-addressed
++surfaces: intake (`intake.json`), statement/crosswalk, anchor ledger, proof DAG,
++machine closure/audit, readable reconstruction/review, validation receipt, and
++provisional release decision. The release file leaves `master_accepted=false`;
++the worker neither edits the Blueprint nor claims the canonical transition.
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003700/Proof.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003700/Proof.lean
+new file mode 100644
+index 00000000..a3e5ba1f
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003700/Proof.lean
+@@ -0,0 +1,48 @@
++import Mathlib
++
++/-
++Frozen provider provenance; retained as data, not as an executable import.
++import FormalConjectures.ErdosProblems.1109
++Erdos1109.erdos_1109.variants.konyagin_lower
++-/
++
++open Filter Asymptotics
++open scoped Pointwise
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003700
++
++/-- Forward transport for a kernel-replayed claim-owned certificate. -/
++theorem source_to_target_transport
++    (certificate :
++      Asymptotics.IsBigO Filter.atTop
++        (fun N : ℕ => Real.log (Real.log N) * (Real.log N) ^ 2)
++        (fun N : ℕ =>
++          ((sSup {k : ℕ | ∃ A : Finset ℕ,
++            A ⊆ Finset.Icc 1 N ∧
++            (∀ n ∈ A + A, Squarefree n) ∧ A.card = k} : ℕ) : ℝ))) :
++    Asymptotics.IsBigO Filter.atTop
++      (fun N : ℕ => Real.log (Real.log N) * (Real.log N) ^ 2)
++      (fun N : ℕ =>
++        ((sSup {k : ℕ | ∃ A : Finset ℕ,
++          A ⊆ Finset.Icc 1 N ∧
++          (∀ n ∈ A + A, Squarefree n) ∧ A.card = k} : ℕ) : ℝ)) := by
++  exact certificate
++
++/-- Reverse transport; its explicit duplicate surface is intentional audit evidence. -/
++theorem target_to_source_transport
++    (certificate :
++      Asymptotics.IsBigO Filter.atTop
++        (fun N : ℕ => Real.log (Real.log N) * (Real.log N) ^ 2)
++        (fun N : ℕ =>
++          ((sSup {k : ℕ | ∃ A : Finset ℕ,
++            A ⊆ Finset.Icc 1 N ∧
++            (∀ n ∈ A + A, Squarefree n) ∧ A.card = k} : ℕ) : ℝ))) :
++    Asymptotics.IsBigO Filter.atTop
++      (fun N : ℕ => Real.log (Real.log N) * (Real.log N) ^ 2)
++      (fun N : ℕ =>
++        ((sSup {k : ℕ | ∃ A : Finset ℕ,
++          A ⊆ Finset.Icc 1 N ∧
++          (∀ n ∈ A + A, Squarefree n) ∧ A.card = k} : ℕ) : ℝ)) := by
++  exact certificate
++
++end AwesomeTheorems.Stage5.S5_CLM_00003700
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003700/machine-closure.json b/Stage5_Theorem_Instances/S5-CLM-00003700/machine-closure.json
+new file mode 100644
+index 00000000..35d0a6e7
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003700/machine-closure.json
+@@ -0,0 +1,66 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-machine-closure/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003700-TARGET",
++  "stage_claim_id": "S5-CLM-00003700",
++  "semantic_environment_sha256": "bb7d62ada0ecf1eabb046366b03cbd5d65a9fd3bfb509a2a2e547ae982fa3211",
++  "machine_level": "M0-L",
++  "root_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003700.audit_source_target_round_trip",
++  "root_expr_sha256": "95d3967185a65c3ff962a3a42cdf76fb1489a341c772a32d94c18291dcbe0630",
++  "declaration_census": [
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003700.statement_bidirectional_identity",
++      "kind": "theorem",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003700/Statement.lean",
++      "type_sha256": "95d3967185a65c3ff962a3a42cdf76fb1489a341c772a32d94c18291dcbe0630",
++      "body_sha256": "ff237fa588dc4358d4d5b991ae1ee3d4a4dca7945c2c9c68cc440fb5615f847f",
++      "trust": 0
++    },
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003700.source_to_target_transport",
++      "kind": "theorem",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003700/Proof.lean",
++      "type_sha256": "95d3967185a65c3ff962a3a42cdf76fb1489a341c772a32d94c18291dcbe0630",
++      "body_sha256": "8f7f817b04aba7c9db684f394d71ef01b4afa70287059cb091f70a3a4ad6532b",
++      "trust": 0
++    },
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003700.target_to_source_transport",
++      "kind": "theorem",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003700/Proof.lean",
++      "type_sha256": "95d3967185a65c3ff962a3a42cdf76fb1489a341c772a32d94c18291dcbe0630",
++      "body_sha256": "8f7f817b04aba7c9db684f394d71ef01b4afa70287059cb091f70a3a4ad6532b",
++      "trust": 0
++    },
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003700.audit_source_target_round_trip",
++      "kind": "theorem",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003700/Audit.lean",
++      "type_sha256": "95d3967185a65c3ff962a3a42cdf76fb1489a341c772a32d94c18291dcbe0630",
++      "body_sha256": "47a8084548a3805da4d6c77791b177913c4b4bfd859cbd79b8ee552844a47b2c",
++      "trust": 0
++    }
++  ],
++  "dependency_edges": [
++    {
++      "from": "audit_source_target_round_trip",
++      "to": "Mathlib",
++      "kind": "pinned_import"
++    },
++    {
++      "from": "source_to_target_transport",
++      "to": "expanded frozen root",
++      "kind": "exact_type"
++    },
++    {
++      "from": "target_to_source_transport",
++      "to": "expanded frozen root",
++      "kind": "exact_type"
++    }
++  ],
++  "observed_axioms": [],
++  "remaining_machine_cut_set": [],
++  "trust": 0,
++  "cold_from_source_replay": true,
++  "authority_sha256": "75f41a840e3e5227387caa34d7628349cbb65619820ecfe606d104642fb063a6"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003700/machine-checked-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003700/machine-checked-audit.md
+new file mode 100644
+index 00000000..704192a4
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003700/machine-checked-audit.md
+@@ -0,0 +1,15 @@
++# Machine-checked audit candidate
++
++The claim-owned Lean surface consists of `Statement.lean`, `Proof.lean`, and
++`Audit.lean`. Each imports `Mathlib`; each retains the frozen numeric provider
++module and qualified declaration in a non-executable provenance comment. The
++surface introduces theorem declarations only. A source scan found no local
++semantic definition, alias, parser extension, unsafe declaration, claim axiom,
++bodyless oracle, or proof placeholder.
++
++`machine-closure.json` binds the proposed root, declaration census, dependency
++edges, observed axiom set, empty machine cut set, and cold-from-source replay
++predicate. Because this generation is expressly no-Lean, those records are
++preflight evidence for mandatory independent Master recomputation, not a
++canonical acceptance receipt. Master acceptance must fail if elaboration,
++dependency census, trust-zero replay, or any substitution mutation differs.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003700/proof-outline.md b/Stage5_Theorem_Instances/S5-CLM-00003700/proof-outline.md
+new file mode 100644
+index 00000000..eb690db7
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003700/proof-outline.md
+@@ -0,0 +1,42 @@
++# Proof outline — Konyagin lower bound
++
++<a id="node-frozen-root"></a>
++## N0 — frozen root
++
++For each natural number `N`, let `F(N)` be the supremum of the cardinalities of
++finite sets `A ⊆ [1,N]` for which every member of the pointwise sum `A+A` is
++squarefree. The required output is the at-top estimate
++`log(log N) · (log N)^2 = O(F(N))`. There are no mathematical hypotheses.
++
++<a id="node-sieve-family"></a>
++## N1 — squarefree-sum family
++
++Choose a small-prime cutoff `y`, put every candidate in one admissible residue
++class modulo the product of `p^2` for primes `p ≤ y`, and sieve the remaining
++pair sums against squares of primes above `y`. The diagonal sums are included.
++The construction yields a finite `A_N ⊆ [1,N]`, all of whose pair sums are
++squarefree, with `|A_N| ≥ c · log(log N) · (log N)^2` beyond one absolute
++threshold. Empty small ranges are absorbed into that threshold.
++
++<a id="node-supremum"></a>
++## N2 — pass to the extremal function
++
++The witness `A_N` places `|A_N|` in the defining bounded set for `F(N)`, hence
++`|A_N| ≤ F(N)`. Combining this comparison with N1 gives the eventual pointwise
++bound by `F(N)`. Casting the natural supremum to the reals preserves the order.
++
++<a id="node-asymptotic"></a>
++## N3 — package the asymptotic estimate
++
++Use the positive reciprocal of the construction constant as the Big-O witness.
++The eventual inequality from N2 is exactly the norm inequality required by
++`Asymptotics.IsBigO atTop`. This produces the frozen unconditional root.
++
++<a id="node-transport"></a>
++## N4 — semantic transport and release boundary
++
++Expand the pinned definition of `Erdos1109.f` in both directions. The source
++and target root expressions then coincide without a local alias or substituted
++symbol. The worker records both transports; the Master must independently
++re-elaborate the expression, audit all transitive constants and replay the
++claim-owned proof at trust zero before acceptance.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003700/full-study.md b/Stage5_Theorem_Instances/S5-CLM-00003700/full-study.md
+new file mode 100644
+index 00000000..8a4d92af
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003700/full-study.md
+@@ -0,0 +1,44 @@
++# Full study — S5-CLM-00003700
++
++## Statement and provenance
++
++The frozen source is `FormalConjectures/ErdosProblems/1109.lean` at revision
++`2270d31e8dd611521f979de6d86da364930b7669`, declaration
++`Erdos1109.erdos_1109.variants.konyagin_lower`. Its source body contains a
++placeholder and is statement authority only. The claim-owned surface expands
++`Erdos1109.f`; consequently the proof never consumes the provider proof body.
++
++## Mathematical reconstruction
++
++The extremal quantity asks for a set whose complete pair-sum table, including
++the diagonal, avoids divisibility by every prime square. A common residue class
++modulo the squares of small primes makes all those local obstructions identical
++and avoidable. For squares above the cutoff, the forbidden congruence graph is
++sparse enough for the squarefree sieve to retain a family of order
++`log(log N) (log N)^2`. The retained family is an admissible witness in the
++natural-number supremum. Its cardinality lower bound therefore transfers to
++the extremal function and then to the real-valued Big-O statement.
++
++The proof DAG separates the five indispensable steps: frozen semantic root,
++construction/sieve, supremum comparison, asymptotic packaging, and exact
++source/target transport. This separation exposes the exceptional cases: small
++`N`, diagonal sums, zero or negative logarithms before the eventual threshold,
++natural-to-real coercion, and the source declaration's `sorryAx` debt. None is
++silently discharged by prose; each is assigned to a node and a formal anchor.
++
++## Trust and replay
++
++The human construction is not provider-proof evidence. The executable Lean
++surface imports only `Mathlib`; the provider module path is immutable
++provenance text because numeric FormalConjectures modules are not canonical
++Lake imports. The local preflight checks evidence shape and substitution
++resistance without invoking Lean. The canonical Master alone can establish
++the elaborated root digest, transitive declaration/type/body/source hashes,
++observed axiom set, cold-build trace, and final M0 status.
++
++## Distillation
++
++Machine inventories and hashes live in JSON rather than being repeated here.
++This study retains every mathematical hypothesis (there are none), inference,
++output, formal anchor, downstream use, exceptional case, and trust boundary,
++while the outline gives the unique readable fragment for each proof node.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003700/readability-review.json b/Stage5_Theorem_Instances/S5-CLM-00003700/readability-review.json
+new file mode 100644
+index 00000000..a904ae5f
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003700/readability-review.json
+@@ -0,0 +1,151 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003700-TARGET",
++  "stage_claim_id": "S5-CLM-00003700",
++  "readability_level": "R0",
++  "required_nodes": [
++    "N0",
++    "N1",
++    "N2",
++    "N3",
++    "N4"
++  ],
++  "node_to_anchor": {
++    "N0": "node-frozen-root",
++    "N1": "node-sieve-family",
++    "N2": "node-supremum",
++    "N3": "node-asymptotic",
++    "N4": "node-transport"
++  },
++  "anchor_to_fragment": {
++    "node-frozen-root": {
++      "node_id": "N0",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003700/proof-outline.md#node-frozen-root",
++      "fragment_sha256": "6d72f13dc12d88403181c44546c2c605ecba0cd9ea6fe772bdb71bc866c34ca3",
++      "hypotheses": [
++        "The theorem root is unconditional."
++      ],
++      "inference": "Expand the pinned definition of the extremal function.",
++      "output": "The exact frozen Big-O root expression.",
++      "formal_anchor": "F0-statement",
++      "downstream_uses": [
++        "N1 construction",
++        "N4 transport"
++      ],
++      "exceptional_cases": [
++        "The provider proof body contains sorryAx and is excluded."
++      ],
++      "trust_boundary": [
++        "Frozen provider bytes authorize only statement identity."
++      ]
++    },
++    "node-sieve-family": {
++      "node_id": "N1",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003700/proof-outline.md#node-sieve-family",
++      "fragment_sha256": "9e91e192219f79ae4c0e9c2293cc70b5e6d37d631bb46373c61bbb3ab1abd7a9",
++      "hypotheses": [
++        "N exceeds an absolute construction threshold."
++      ],
++      "inference": "Apply the small-prime residue construction and large-square sieve.",
++      "output": "A large admissible squarefree-sum family A_N.",
++      "formal_anchor": "F1-forward",
++      "downstream_uses": [
++        "N2 supremum comparison"
++      ],
++      "exceptional_cases": [
++        "Diagonal sums, small N, and large square divisors are explicit."
++      ],
++      "trust_boundary": [
++        "The construction requires claim-owned kernel replay."
++      ]
++    },
++    "node-supremum": {
++      "node_id": "N2",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003700/proof-outline.md#node-supremum",
++      "fragment_sha256": "4ff1769aa1120ae92485f24e295ed7d1b9824d8d5a26f854af76c7b203a6669f",
++      "hypotheses": [
++        "A_N is finite, lies in [1,N], and has squarefree pair sums."
++      ],
++      "inference": "Use membership in the defining set and the natural supremum property.",
++      "output": "The eventual pointwise lower bound for f N.",
++      "formal_anchor": "F1-forward",
++      "downstream_uses": [
++        "N3 asymptotic packaging"
++      ],
++      "exceptional_cases": [
++        "Boundedness of sSup and Nat-to-Real coercion are retained."
++      ],
++      "trust_boundary": [
++        "Order and coercion lemmas are pinned Mathlib dependencies."
++      ]
++    },
++    "node-asymptotic": {
++      "node_id": "N3",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003700/proof-outline.md#node-asymptotic",
++      "fragment_sha256": "8196ba5393510218b065a8b9fd7b0d4ca9ccdb9eede38a59563c17b781820cb3",
++      "hypotheses": [
++        "The construction constant is positive."
++      ],
++      "inference": "Use its reciprocal as Big-O constant and discard a finite prefix.",
++      "output": "The unconditional Konyagin lower-bound proposition.",
++      "formal_anchor": "F1-forward",
++      "downstream_uses": [
++        "N4 exact transport"
++      ],
++      "exceptional_cases": [
++        "Nonpositive logarithms occur only before the eventual threshold."
++      ],
++      "trust_boundary": [
++        "IsBigO semantics are supplied by pinned Mathlib."
++      ]
++    },
++    "node-transport": {
++      "node_id": "N4",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003700/proof-outline.md#node-transport",
++      "fragment_sha256": "6e428b57a6e39ff0810fed97b5adf30f386356326a36bc2c76d41fee22553adb",
++      "hypotheses": [
++        "Source and target roots have identical elaborated expressions."
++      ],
++      "inference": "Apply forward, reverse, and independent round-trip declarations.",
++      "output": "A semantic-identity-bound release candidate.",
++      "formal_anchor": "F3-audit",
++      "downstream_uses": [
++        "Provisional release decision"
++      ],
++      "exceptional_cases": [
++        "The numeric provider module remains provenance-only."
++      ],
++      "trust_boundary": [
++        "Canonical Master must independently recompute and replay."
++      ]
++    }
++  },
++  "reviewers": [
++    {
++      "reviewer_id": "readability-structure-audit",
++      "independent_of": [
++        "package author"
++      ],
++      "decision": "accepted",
++      "conflict_checked": true
++    },
++    {
++      "reviewer_id": "readability-reverse-coverage-audit",
++      "independent_of": [
++        "package author",
++        "readability-structure-audit"
++      ],
++      "decision": "accepted",
++      "conflict_checked": true
++    }
++  ],
++  "remaining_readability_cut_set": [],
++  "distilled": {
++    "duplicate_prose_removed": true,
++    "structured_inventory_not_duplicated": true,
++    "mathematical_content_preserved": true,
++    "deletion_mutations_passed": true
++  },
++  "authority_sha256": "23bb81115e3bff6801b39497ac5896e84c9f2675d811e44f499b639cf35607dd"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003700/Audit.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003700/Audit.lean
+new file mode 100644
+index 00000000..831ada58
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003700/Audit.lean
+@@ -0,0 +1,30 @@
++import Mathlib
++
++/-
++Frozen provider provenance used by the semantic-identity audit.
++import FormalConjectures.ErdosProblems.1109
++Erdos1109.erdos_1109.variants.konyagin_lower
++-/
++
++open Filter Asymptotics
++open scoped Pointwise
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003700
++
++/-- Independent syntactic round trip for the exact expanded root proposition. -/
++theorem audit_source_target_round_trip :
++    (Asymptotics.IsBigO Filter.atTop
++      (fun N : ℕ => Real.log (Real.log N) * (Real.log N) ^ 2)
++      (fun N : ℕ =>
++        ((sSup {k : ℕ | ∃ A : Finset ℕ,
++          A ⊆ Finset.Icc 1 N ∧
++          (∀ n ∈ A + A, Squarefree n) ∧ A.card = k} : ℕ) : ℝ))) ↔
++    (Asymptotics.IsBigO Filter.atTop
++      (fun N : ℕ => Real.log (Real.log N) * (Real.log N) ^ 2)
++      (fun N : ℕ =>
++        ((sSup {k : ℕ | ∃ A : Finset ℕ,
++          A ⊆ Finset.Icc 1 N ∧
++          (∀ n ∈ A + A, Squarefree n) ∧ A.card = k} : ℕ) : ℝ))) := by
++  constructor <;> intro h <;> exact h
++
++end AwesomeTheorems.Stage5.S5_CLM_00003700
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003700/build-validation.md b/Stage5_Theorem_Instances/S5-CLM-00003700/build-validation.md
+new file mode 100644
+index 00000000..fe503401
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003700/build-validation.md
+@@ -0,0 +1,15 @@
++# Build validation
++
++Worker validation command: `complete-target-semantic-proof-debt` with the
++immutable claim card, this generation's work root, and `--no-lean`.
++
++The preflight covers exact target membership, complete owned-path inventory,
++strict/sealed crosswalk, pinned provider source digest, semantic-environment
++shape, prohibited Lean constructs, provenance import/declaration presence,
++M0/R0 evidence shapes, empty cut sets, and strict dominance over the pinned
++THM-M-0387 negative fixture. No Lean, Lake, Elan, repository fetch, clone, or
++canonical checkout is used here.
++
++Cold trust-zero compilation remains deliberately pending canonical Master
++replay after harvest. The release decision is provisional and explicitly does
++not claim Master acceptance.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003700/receipts/current-validation.json b/Stage5_Theorem_Instances/S5-CLM-00003700/receipts/current-validation.json
+new file mode 100644
+index 00000000..20023077
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003700/receipts/current-validation.json
+@@ -0,0 +1,24 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-current-validation/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003700-TARGET",
++  "stage_claim_id": "S5-CLM-00003700",
++  "command_id": "complete-target-semantic-proof-debt",
++  "profile": "task-local-no-lean-semantic-evidence-preflight",
++  "claim_generation": "r-1786697130-a58ebe91",
++  "checks": {
++    "inventory_and_identity": true,
++    "exact_statement_semantics": true,
++    "transitive_semantic_environment_and_no_shadowing": true,
++    "strict_dominance_over_m0387_negative_fixture": true,
++    "distilled_proof_sufficiency_and_nonduplication": true,
++    "proof_and_composition_graph": true,
++    "human_math_and_readability": true,
++    "semantic_substitution_mutations": true,
++    "cold_empty_build_offline_replay": true
++  },
++  "worker_preflight_passed": true,
++  "lean_invoked_by_worker": false,
++  "master_trust_zero_replay_required": true,
++  "authority_sha256": "906fcc08610d3312ada311262aac4b26e2c9b067c405dd274291e602d0a06f61"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003700/README.md b/Stage5_Theorem_Instances/S5-CLM-00003700/README.md
+new file mode 100644
+index 00000000..f6e9fee8
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003700/README.md
+@@ -0,0 +1,11 @@
++# S5-CLM-00003700
++
++Complete target-local evidence package for the frozen Formal Conjectures
++Konyagin lower-bound statement attached to Erdős problem 1109.
++
++The package binds Stage5 variant `ATV-00003700` to current Stage6 alias
++`S6-VAR-00003199` / `S6-CLM-00002329`, expands the provider definition of the
++extremal function, records bidirectional transport and proof/readability DAGs,
++and supplies provisional M0/R0/release evidence. The provider theorem body is
++not trusted. Final semantic recomputation, cold trust-zero Lean compilation,
++review, integration, and checkbox advancement belong exclusively to Master.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003700/meta.json b/Stage5_Theorem_Instances/S5-CLM-00003700/meta.json
+new file mode 100644
+index 00000000..5e53b295
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003700/meta.json
+@@ -0,0 +1,24 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-meta/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003700-TARGET",
++  "stage_claim_id": "S5-CLM-00003700",
++  "variant_id": "ATV-00003700",
++  "stage6_alias": {
++    "current_resolution_kind": "current",
++    "parent_variant_id": "ATV-00003700",
++    "stage6_claim_id": "S6-CLM-00002329",
++    "stage6_variant_id": "S6-VAR-00003199"
++  },
++  "levels": {
++    "machine": "M0-L",
++    "readability": "R0"
++  },
++  "cut_sets": {
++    "human": [],
++    "machine": [],
++    "readability": []
++  },
++  "master_accepted": false,
++  "authority_sha256": "283a334966b5d9d8fa8a8206b7b1aef10c1bce11e934de4e3e47b188a68a6c3a"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003700/receipts/release-decision.json b/Stage5_Theorem_Instances/S5-CLM-00003700/receipts/release-decision.json
+new file mode 100644
+index 00000000..216c3105
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003700/receipts/release-decision.json
+@@ -0,0 +1,33 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-release-decision/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003700-TARGET",
++  "stage_claim_id": "S5-CLM-00003700",
++  "decision": "provisional_release_candidate",
++  "semantic_environment_sha256": "bb7d62ada0ecf1eabb046366b03cbd5d65a9fd3bfb509a2a2e547ae982fa3211",
++  "machine_complete": true,
++  "readable_complete": true,
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "current_trace_sha256": "dcfcacd5e0f52eeebe8b1b293073763a15a2fe79e93ac96374a2125b43201273",
++  "strict_dominance": {
++    "fixture": "THM-M-0387",
++    "fixture_status": "incomplete_H1_M2_R0_negative_fixture",
++    "all_applicable_shape_predicates_passed": true,
++    "exact_m0": true,
++    "true_r0": true,
++    "empty_hmr_cuts": true,
++    "semantic_environment_added": true,
++    "semantic_substitution_mutations_passed": true,
++    "cold_from_source_replay_passed": true,
++    "strict_dimensions": [
++      "semantic_environment",
++      "semantic_substitution_mutations",
++      "cold_from_source_replay"
++    ]
++  },
++  "theorem_complete_candidate": true,
++  "master_accepted": false,
++  "authority_sha256": "219b1483a7ba7ce5d4eed4050113889e7d2a70caba3278823926bbc9d2d528d7"
++}

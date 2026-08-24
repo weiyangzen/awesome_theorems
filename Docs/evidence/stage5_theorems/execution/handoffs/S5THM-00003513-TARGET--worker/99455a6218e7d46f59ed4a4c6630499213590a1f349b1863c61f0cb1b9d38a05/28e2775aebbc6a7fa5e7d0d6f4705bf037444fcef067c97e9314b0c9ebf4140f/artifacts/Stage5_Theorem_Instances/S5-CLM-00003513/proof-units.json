@@ -1,0 +1,158 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003513-TARGET",
+  "stage_claim_id": "S5-CLM-00003513",
+  "root_node_id": "PU-07",
+  "nodes": [
+    {
+      "node_id": "PU-01",
+      "kind": "hypothesis",
+      "type": "Field F ∧ Fintype F ∧ ringChar F ∈ {3,5,7,11}",
+      "inputs": [],
+      "output": "characteristic branch retained",
+      "formal_declarations": [
+        "AwesomeTheorems.Stage5.S5_CLM_00003513.statement"
+      ],
+      "provenance": [
+        "Margulis.huang_shi_theorem_1_2:hchar"
+      ],
+      "trust": 0,
+      "readability_anchor": "fragment-pu-01"
+    },
+    {
+      "node_id": "PU-02",
+      "kind": "semantic_context",
+      "type": "exact A, K, quotient, D, orbit, closure and closedness semantics",
+      "inputs": [
+        "PU-01"
+      ],
+      "output": "fixed homogeneous-space context",
+      "formal_declarations": [
+        "AwesomeTheorems.Stage5.S5_CLM_00003513.statement"
+      ],
+      "provenance": [
+        "Margulis.polyToLaurent",
+        "Margulis.huang_shi_theorem_1_2"
+      ],
+      "trust": 0,
+      "readability_anchor": "fragment-pu-02"
+    },
+    {
+      "node_id": "PU-03",
+      "kind": "witness_construction",
+      "type": "z : SL(4,K) / Γ with compact-closure and nonclosed-orbit obligations",
+      "inputs": [
+        "PU-01",
+        "PU-02"
+      ],
+      "output": "common witness z",
+      "formal_declarations": [
+        "AwesomeTheorems.Stage5.S5_CLM_00003513.huangShiWitnessComposition"
+      ],
+      "provenance": [
+        "Huang--Shi Theorem 1.2 construction"
+      ],
+      "trust": 0,
+      "readability_anchor": "fragment-pu-03"
+    },
+    {
+      "node_id": "PU-04",
+      "kind": "proof",
+      "type": "IsCompact (closure (MulAction.orbit D z))",
+      "inputs": [
+        "PU-02",
+        "PU-03"
+      ],
+      "output": "compact orbit closure",
+      "formal_declarations": [
+        "AwesomeTheorems.Stage5.S5_CLM_00003513.huangShiWitnessComposition:hcompact"
+      ],
+      "provenance": [
+        "Huang--Shi bounded-orbit construction"
+      ],
+      "trust": 0,
+      "readability_anchor": "fragment-pu-04"
+    },
+    {
+      "node_id": "PU-05",
+      "kind": "proof",
+      "type": "¬ IsClosed (MulAction.orbit D z)",
+      "inputs": [
+        "PU-02",
+        "PU-03"
+      ],
+      "output": "orbit is not closed",
+      "formal_declarations": [
+        "AwesomeTheorems.Stage5.S5_CLM_00003513.huangShiWitnessComposition:hnonclosed"
+      ],
+      "provenance": [
+        "Huang--Shi nonclosed-orbit construction"
+      ],
+      "trust": 0,
+      "readability_anchor": "fragment-pu-05"
+    },
+    {
+      "node_id": "PU-06",
+      "kind": "composition",
+      "type": "CompactClosure z ∧ NonclosedOrbit z",
+      "inputs": [
+        "PU-04",
+        "PU-05"
+      ],
+      "output": "both properties at the same z",
+      "formal_declarations": [
+        "AwesomeTheorems.Stage5.S5_CLM_00003513.huangShiWitnessComposition"
+      ],
+      "provenance": [
+        "And.intro"
+      ],
+      "trust": 0,
+      "readability_anchor": "fragment-pu-06"
+    },
+    {
+      "node_id": "PU-07",
+      "kind": "root",
+      "type": "∃ z, CompactClosure z ∧ NonclosedOrbit z",
+      "inputs": [
+        "PU-06"
+      ],
+      "output": "frozen existential-conjunction root",
+      "formal_declarations": [
+        "AwesomeTheorems.Stage5.S5_CLM_00003513.statement",
+        "AwesomeTheorems.Stage5.S5_CLM_00003513.huangShiWitnessComposition",
+        "AwesomeTheorems.Stage5.S5_CLM_00003513.auditRoundTrip"
+      ],
+      "provenance": [
+        "Exists.intro"
+      ],
+      "trust": 0,
+      "readability_anchor": "fragment-pu-07"
+    }
+  ],
+  "edges": [
+    ["PU-01", "PU-02"],
+    ["PU-01", "PU-03"],
+    ["PU-02", "PU-03"],
+    ["PU-02", "PU-04"],
+    ["PU-03", "PU-04"],
+    ["PU-02", "PU-05"],
+    ["PU-03", "PU-05"],
+    ["PU-04", "PU-06"],
+    ["PU-05", "PU-06"],
+    ["PU-06", "PU-07"]
+  ],
+  "acyclic": true,
+  "root_relevant_nodes": [
+    "PU-01",
+    "PU-02",
+    "PU-03",
+    "PU-04",
+    "PU-05",
+    "PU-06",
+    "PU-07"
+  ],
+  "remaining_human_cut_set": [],
+  "remaining_machine_cut_set": [],
+  "remaining_readability_cut_set": []
+}

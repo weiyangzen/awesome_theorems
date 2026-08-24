@@ -1,0 +1,125 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-machine-closure/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003493-TARGET",
+  "stage_claim_id": "S5-CLM-00003493",
+  "semantic_environment_sha256": "fea82c87d8dd7e34a3cd1947d066f73960499ca9d6fafbef3b1c3adea6f9be5e",
+  "machine_level": "M0-P",
+  "root_declaration": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003493.maximalLength_le_isBigO_proof",
+  "root_expr_sha256": "681a3221453bd25218dbc8b9e28f9180aba1150f5c71bef67df38da6017d05d3",
+  "declaration_census": [
+    {
+      "name": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003493.not_two_less_of_fixed",
+      "kind": "lemma",
+      "type_sha256": "f4b541a06709409127dd0501967a90a2ce8e31409137530f5929aa0cbcb45ce9",
+      "body_sha256": "114786e695efbfc2a94c86396d1f3fdbfdbeb77b6cae8fe3326692d05b1c9ec9",
+      "source_sha256": "adc1d787ba94cedaf43c4c2dc8f20cd379e4f8f132dbcd907ab6e7748d10ced6",
+      "dependencies": [
+        "Fin 3 order exhaustion",
+        "not_lt_of_ge"
+      ],
+      "axioms": []
+    },
+    {
+      "name": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003493.exists_first_two_collision",
+      "kind": "lemma",
+      "type_sha256": "38eff5cc2df1399140524256e87a3d6f41fcb4959679e83a5d940ab12ffb35c4",
+      "body_sha256": "1a318dc6087e55795c287d7324e791283914e7b8f7b9ba83fba82acf53fffb28",
+      "source_sha256": "adc1d787ba94cedaf43c4c2dc8f20cd379e4f8f132dbcd907ab6e7748d10ced6",
+      "dependencies": [
+        "Finset.exists_ne_map_eq_of_card_lt_of_maps_to",
+        "Nat.card_Icc",
+        "List.getElem_mem"
+      ],
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003493.unfolded_maximalLength_le",
+      "kind": "theorem",
+      "type_sha256": "f271b99137fbde8ae5a00d48f6935677125905277b47943c691d9643ec738fd4",
+      "body_sha256": "1b55add4b9fc72e9ccb09990da2f28996c297b321e4e9aee31905e54eece4ce7",
+      "source_sha256": "adc1d787ba94cedaf43c4c2dc8f20cd379e4f8f132dbcd907ab6e7748d10ced6",
+      "dependencies": [
+        "not_two_less_of_fixed",
+        "exists_first_two_collision",
+        "csSup_le",
+        "List.pairwise_iff_get"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003493.maximalLength_le_isBigO_proof",
+      "kind": "theorem",
+      "type_sha256": "681a3221453bd25218dbc8b9e28f9180aba1150f5c71bef67df38da6017d05d3",
+      "body_sha256": "146121df78708282219ac67e5a4b8d9e844b07bd4e3ad64694655672af268b24",
+      "source_sha256": "adc1d787ba94cedaf43c4c2dc8f20cd379e4f8f132dbcd907ab6e7748d10ced6",
+      "dependencies": [
+        "unfolded_maximalLength_le",
+        "Asymptotics.isBigO_refl",
+        "Asymptotics.IsBigO.neg_right",
+        "Real.exp_le_one_iff",
+        "Real.exp_pos",
+        "le_div_iff₀"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003493.audit_exact_root",
+      "kind": "theorem",
+      "type_sha256": "681a3221453bd25218dbc8b9e28f9180aba1150f5c71bef67df38da6017d05d3",
+      "body_sha256": "eef4be3dce9f39aaa22013aec28e4e7fe668835931b7479953948e9425d740b2",
+      "source_sha256": "bc292f6e77f46080054aa0817fb9aef474efe53a53a7515330456880b09606c8",
+      "dependencies": [
+        "audit_unfolded_maximalLength_le",
+        "Asymptotics.isBigO_refl",
+        "Asymptotics.IsBigO.neg_right",
+        "Real.exp_le_one_iff",
+        "Real.exp_pos",
+        "le_div_iff₀"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "dependency_edges": [
+    [
+      "not_two_less_of_fixed",
+      "unfolded_maximalLength_le"
+    ],
+    [
+      "exists_first_two_collision",
+      "unfolded_maximalLength_le"
+    ],
+    [
+      "unfolded_maximalLength_le",
+      "maximalLength_le_isBigO_proof"
+    ],
+    [
+      "audit_unfolded_maximalLength_le",
+      "audit_exact_root"
+    ]
+  ],
+  "observed_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "remaining_machine_cut_set": [],
+  "trust": 0,
+  "cold_from_source_replay": true,
+  "authority_sha256": "7ca78a31240a5b62e64b1c5675d4260d5b13caf8447107b15980d8d5fd06d5da"
+}

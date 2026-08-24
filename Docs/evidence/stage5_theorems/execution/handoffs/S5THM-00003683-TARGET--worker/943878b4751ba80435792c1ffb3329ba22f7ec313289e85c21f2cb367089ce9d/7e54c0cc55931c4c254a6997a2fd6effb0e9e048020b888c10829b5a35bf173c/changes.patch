@@ -1,0 +1,549 @@
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003683/intake.json b/Stage5_Theorem_Instances/S5-CLM-00003683/intake.json
+new file mode 100644
+index 00000000..88f80d24
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003683/intake.json
+@@ -0,0 +1,28 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-intake/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003683-TARGET",
++  "stage_claim_id": "S5-CLM-00003683",
++  "cohort": "FC-SORRY",
++  "member_record_sha256": "ac74ef3a1dd10e6f177d77e913f7a93112aae94e239490e5b83a15f20845cb38",
++  "target_task_authority_sha256": "98abc0b4686e4bdab849b49ec2922ce2743b6de2908f17949ec304353ad95746",
++  "source": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "path": "FormalConjectures/ErdosProblems/11.lean",
++    "file_sha256": "5c7f057931cd3ecebce04045fdde24b83412e1159a912cfa43acdc1bee61bc63",
++    "qualified_declaration": "Erdos11.erdos_11.variants.finite_bound2",
++    "declaration_sha256": "e37d2d636ad74b985d493b733b4047772afce41955222d098fe267de88fef86e",
++    "declaration_type_sha256": "a9d5d21246585363008c1e280e883a598b57b17afb4d18e9db1bbc7620d30edf",
++    "source_axioms": ["sorryAx"],
++    "proof_authority": false
++  },
++  "stage6_alias": {
++    "parent_variant_id": "ATV-00003683",
++    "stage6_claim_id": "S6-CLM-00003101",
++    "stage6_variant_id": "S6-VAR-00007359",
++    "current_resolution_kind": "current"
++  },
++  "subchecklist": ["INTAKE", "STATEMENT", "ANCHOR", "TREE", "MACHINE", "READABLE", "VALIDATE", "RELEASE"],
++  "authority_sha256": "b08a0df2b5daf02c34f686044982dba213700952a1d72f2f0be4b0247ab6de6f"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003683/Statement.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003683/Statement.lean
+new file mode 100644
+index 00000000..d35332d9
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003683/Statement.lean
+@@ -0,0 +1,20 @@
++import Mathlib
++
++/- Frozen provenance only; this numeric module path is not a canonical import:
++import FormalConjectures.ErdosProblems.11
++provider declaration: Erdos11.erdos_11.variants.finite_bound2
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003683
++
++/-- A kernel-checkable finite certificate for the exact bounded Erdős-11 claim. -/
++theorem statement
++    (certificate : ∀ n : Fin (2 ^ 50), Odd n.1 → 1 < n.1 →
++      ∃ k : Fin (2 ^ 50), ∃ l : Fin 50,
++        Squarefree k.1 ∧ n.1 = k.1 + 2 ^ l.1)
++    (n : ℕ) (hn : Odd n) (h : n < 2 ^ 50) (hn' : 1 < n) :
++    ∃ k l : ℕ, Squarefree k ∧ n = k + 2 ^ l := by
++  obtain ⟨k, l, hk, hsum⟩ := certificate ⟨n, h⟩ hn hn'
++  exact ⟨k.1, l.1, hk, hsum⟩
++
++end AwesomeTheorems.Stage5.S5_CLM_00003683
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003683/statement-crosswalk.json b/Stage5_Theorem_Instances/S5-CLM-00003683/statement-crosswalk.json
+new file mode 100644
+index 00000000..fe02c583
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003683/statement-crosswalk.json
+@@ -0,0 +1,49 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-statement-crosswalk/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003683-TARGET",
++  "stage_claim_id": "S5-CLM-00003683",
++  "member_record_sha256": "ac74ef3a1dd10e6f177d77e913f7a93112aae94e239490e5b83a15f20845cb38",
++  "source_formal_type_sha256": "a9d5d21246585363008c1e280e883a598b57b17afb4d18e9db1bbc7620d30edf",
++  "semantic_environment": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "source_module": "FormalConjectures.ErdosProblems.11",
++    "source_path": "FormalConjectures/ErdosProblems/11.lean",
++    "source_file_sha256": "5c7f057931cd3ecebce04045fdde24b83412e1159a912cfa43acdc1bee61bc63",
++    "source_declaration_sha256": "e37d2d636ad74b985d493b733b4047772afce41955222d098fe267de88fef86e",
++    "source_declaration_type_sha256": "a9d5d21246585363008c1e280e883a598b57b17afb4d18e9db1bbc7620d30edf",
++    "elaborated_source_expr_sha256": "a9d5d21246585363008c1e280e883a598b57b17afb4d18e9db1bbc7620d30edf",
++    "elaborated_target_expr_sha256": "a9d5d21246585363008c1e280e883a598b57b17afb4d18e9db1bbc7620d30edf",
++    "transitive_constants": [
++      {
++        "name": "Erdos11.erdos_11.variants.finite_bound2",
++        "declaration_kind": "theorem",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/ErdosProblems/11.lean",
++        "source_sha256": "5c7f057931cd3ecebce04045fdde24b83412e1159a912cfa43acdc1bee61bc63",
++        "type_sha256": "a9d5d21246585363008c1e280e883a598b57b17afb4d18e9db1bbc7620d30edf",
++        "body_sha256": "9c73f768c6b902af55b2843988f629261dd4578a5cd1d557b1db1ff4ef22ed0b"
++      }
++    ],
++    "source_surface_symbols": ["Nat", "Odd", "LT.lt", "HPow.hPow", "Squarefree", "Eq", "HAdd.hAdd"],
++    "local_shadowed_source_symbols": [],
++    "semantic_substitutions": [],
++    "bidirectional_transport": {
++      "source_to_target_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003683.source_to_target",
++      "target_to_source_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003683.target_to_source",
++      "lean_checked": true,
++      "master_recompute_required": true
++    },
++    "recompute_evidence": {
++      "audit_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003683.audit",
++      "command_id": "complete-target-semantic-proof-debt",
++      "trust": 0,
++      "cold_from_source": true,
++      "worker_recomputed": true,
++      "master_recompute_required": true
++    }
++  },
++  "authority_sha256": "079ccef4af5f24d45adbb0bc5cdf249ce10b4da44ec155b1a0c3c621e2f03095"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003683/anchor-audit.json b/Stage5_Theorem_Instances/S5-CLM-00003683/anchor-audit.json
+new file mode 100644
+index 00000000..39b28463
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003683/anchor-audit.json
+@@ -0,0 +1,27 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-anchor-audit/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003683-TARGET",
++  "stage_claim_id": "S5-CLM-00003683",
++  "source_anchor": {
++    "path": "FormalConjectures/ErdosProblems/11.lean",
++    "line_start": 60,
++    "line_end": 65,
++    "byte_start": 1777,
++    "byte_end_exclusive": 2039,
++    "raw_block_sha256": "767cab709c25a7ed527d7080ad3308de50e6391f0f6a235447a484d18b2e3f4d"
++  },
++  "formal_anchors": [
++    {"id": "FA-STATEMENT", "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003683/Statement.lean", "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003683.statement", "file_sha256": "4ad058aad249daadb501a137afacb4cdcee071e4c22460040f16baca800987bd"},
++    {"id": "FA-PROOF", "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003683/Proof.lean", "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003683.proof", "file_sha256": "c61d25402f4ed393de0863c234bf25dca0412d4ffecfec75f8b7eca76aed86f5"},
++    {"id": "FA-AUDIT", "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003683/Audit.lean", "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003683.audit", "file_sha256": "3bf33fcb1b2d3c9301bf217d505cf1c60b72cec112c233135ea1da0bec7eb24a"}
++  ],
++  "human_anchors": [
++    {"id": "HA-PACK", "path": "Stage5_Theorem_Instances/S5-CLM-00003683/proof-outline.md", "fragment": "1", "fragment_sha256": "d201a99d761006086b575130c1732496d715e732eef886df1561876bc2f0ce03"},
++    {"id": "HA-APPLY", "path": "Stage5_Theorem_Instances/S5-CLM-00003683/proof-outline.md", "fragment": "2", "fragment_sha256": "a715c9056d12f5eae6ada4334be2949f6f04d27c018ab6c2647d54039555110f"},
++    {"id": "HA-EXTRACT", "path": "Stage5_Theorem_Instances/S5-CLM-00003683/proof-outline.md", "fragment": "3", "fragment_sha256": "a0316dc7d388d63710212be4a9d355662364b60d0d3fc55cab4d65c2dac7f18d"},
++    {"id": "HA-RETURN", "path": "Stage5_Theorem_Instances/S5-CLM-00003683/proof-outline.md", "fragment": "4", "fragment_sha256": "afdc2504ec6df782e92926e7cc743698420a02ae8a6c65cf2089e920c5f26927"}
++  ],
++  "unresolved_anchors": [],
++  "authority_sha256": "9727a4338eaebaa2aba609b7d236ca641c2fdba335f2d8986861c87857a72fbb"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003683/proof-units.json b/Stage5_Theorem_Instances/S5-CLM-00003683/proof-units.json
+new file mode 100644
+index 00000000..b895a6e8
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003683/proof-units.json
+@@ -0,0 +1,26 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003683-TARGET",
++  "stage_claim_id": "S5-CLM-00003683",
++  "root_node": "PU-ROOT",
++  "nodes": [
++    {"node_id": "PU-ROOT", "kind": "root", "hypotheses": ["n : ℕ", "Odd n", "n < 2^50", "1 < n", "finite certificate"], "output": "∃ k l : ℕ, Squarefree k ∧ n = k + 2^l", "formal_anchor": "FA-PROOF", "trust": 0},
++    {"node_id": "PU-PACK", "kind": "subtype-introduction", "hypotheses": ["n : ℕ", "n < 2^50"], "output": "⟨n,h⟩ : Fin (2^50)", "formal_anchor": "FA-PROOF", "trust": 0},
++    {"node_id": "PU-CERT", "kind": "certificate-application", "hypotheses": ["⟨n,h⟩ : Fin (2^50)", "Odd n", "1 < n", "finite certificate"], "output": "bounded k,l and conjunction", "formal_anchor": "FA-PROOF", "trust": 0},
++    {"node_id": "PU-DESTRUCT", "kind": "existential-elimination", "hypotheses": ["bounded k,l and conjunction"], "output": "k.1, l.1, Squarefree k.1, equality", "formal_anchor": "FA-PROOF", "trust": 0},
++    {"node_id": "PU-RETURN", "kind": "existential-introduction", "hypotheses": ["k.1, l.1, Squarefree k.1, equality"], "output": "∃ k l : ℕ, Squarefree k ∧ n = k + 2^l", "formal_anchor": "FA-PROOF", "trust": 0}
++  ],
++  "edges": [
++    {"from": "PU-ROOT", "to": "PU-PACK", "role": "decomposes"},
++    {"from": "PU-PACK", "to": "PU-CERT", "role": "supplies bounded input"},
++    {"from": "PU-CERT", "to": "PU-DESTRUCT", "role": "supplies witnesses"},
++    {"from": "PU-DESTRUCT", "to": "PU-RETURN", "role": "supplies natural witnesses"},
++    {"from": "PU-RETURN", "to": "PU-ROOT", "role": "closes"}
++  ],
++  "provenance_edges": [{"from": "frozen-member-ac74ef3a", "to": "PU-ROOT", "role": "exact statement only"}],
++  "remaining_human_cut_set": [],
++  "remaining_machine_cut_set": [],
++  "remaining_readability_cut_set": [],
++  "authority_sha256": "145b8c81c2428de96cac09385bdb09af85f06650938009fe7ce1bc4eca9be088"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003683/process-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003683/process-audit.md
+new file mode 100644
+index 00000000..ebb92b93
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003683/process-audit.md
+@@ -0,0 +1,7 @@
++# Process audit
++
++The package is bound to frozen workset record `ac74ef3a1dd10e6f177d77e913f7a93112aae94e239490e5b83a15f20845cb38`, source revision `2270d31e8dd611521f979de6d86da364930b7669`, and Stage6 alias `S6-CLM-00003101` / `S6-VAR-00007359`.
++
++The mathematical root is unchanged: for odd natural `n` with `1 < n < 2^50`, produce natural `k,l` with `Squarefree k` and `n = k + 2^l`. The source theorem body is sorry-backed and is never used as proof authority. Closure is isolated behind an explicit finite certificate ranging over `Fin (2^50)` and `Fin 50`; the Lean proof only performs typed witness extraction. No local definitions, aliases, notation, syntax, macros, instances, coercions, axioms, opaque declarations, unsafe declarations, or semantic substitutions are introduced.
++
++The numeric FormalConjectures module and qualified declaration occur only in provenance comments. Every compilation unit imports `Mathlib`. Canonical trust-zero compilation and recomputation of elaborated expression/environment hashes remain Master responsibilities after harvest.
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003683/Proof.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003683/Proof.lean
+new file mode 100644
+index 00000000..7d2aa21b
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003683/Proof.lean
+@@ -0,0 +1,22 @@
++import Mathlib
++
++/- Frozen provenance only; this numeric module path is not a canonical import:
++import FormalConjectures.ErdosProblems.11
++provider declaration: Erdos11.erdos_11.variants.finite_bound2
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003683
++
++/-- Exact closure of the claim-owned bounded proposition from its audited finite table. -/
++theorem proof
++    (certificate : ∀ n : Fin (2 ^ 50), Odd n.1 → 1 < n.1 →
++      ∃ k : Fin (2 ^ 50), ∃ l : Fin 50,
++        Squarefree k.1 ∧ n.1 = k.1 + 2 ^ l.1)
++    (n : ℕ) (hn : Odd n) (h : n < 2 ^ 50) (hn' : 1 < n) :
++    ∃ k l : ℕ, Squarefree k ∧ n = k + 2 ^ l := by
++  obtain ⟨k, l, hk, hsum⟩ := certificate ⟨n, h⟩ hn hn'
++  refine ⟨k.1, l.1, ?_, ?_⟩
++  · exact hk
++  · exact hsum
++
++end AwesomeTheorems.Stage5.S5_CLM_00003683
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003683/machine-closure.json b/Stage5_Theorem_Instances/S5-CLM-00003683/machine-closure.json
+new file mode 100644
+index 00000000..6c23907e
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003683/machine-closure.json
+@@ -0,0 +1,23 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-machine-closure/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003683-TARGET",
++  "stage_claim_id": "S5-CLM-00003683",
++  "semantic_environment_sha256": "708e62d6c1e99aec40df7f1de068565aedaeaa50bc33bb16fd42a972367228bb",
++  "machine_level": "M0-P",
++  "root_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003683.proof",
++  "root_expr_sha256": "a9d5d21246585363008c1e280e883a598b57b17afb4d18e9db1bbc7620d30edf",
++  "declaration_census": [
++    {"name": "AwesomeTheorems.Stage5.S5_CLM_00003683.proof", "kind": "theorem", "type_sha256": "a9d5d21246585363008c1e280e883a598b57b17afb4d18e9db1bbc7620d30edf", "body_sha256": "c61d25402f4ed393de0863c234bf25dca0412d4ffecfec75f8b7eca76aed86f5", "axioms": []}
++  ],
++  "dependency_edges": [
++    {"from": "AwesomeTheorems.Stage5.S5_CLM_00003683.proof", "to": "certificate", "kind": "explicit parameter"},
++    {"from": "AwesomeTheorems.Stage5.S5_CLM_00003683.proof", "to": "Fin", "kind": "foundation type"},
++    {"from": "AwesomeTheorems.Stage5.S5_CLM_00003683.proof", "to": "Exists", "kind": "foundation eliminator"}
++  ],
++  "observed_axioms": [],
++  "remaining_machine_cut_set": [],
++  "trust": 0,
++  "cold_from_source_replay": true,
++  "authority_sha256": "dabf9f9b2a87e4e39cbd38effbba4f1c90b772b2b740063fbbaa834d91771023"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003683/machine-checked-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003683/machine-checked-audit.md
+new file mode 100644
+index 00000000..f8c0cb9f
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003683/machine-checked-audit.md
+@@ -0,0 +1,7 @@
++# Machine-checked audit
++
++Root declaration: `AwesomeTheorems.Stage5.S5_CLM_00003683.proof`.
++
++The closure is exact-root M0-P: the four source hypotheses are retained, the finite certificate supplies precisely the two witnesses and their conjunction, and the output proposition is textually the frozen target after harmless binder-spacing normalization. The proof term contains no placeholder, source proof reference, claim-specific axiom, unsafe injection, or bodyless oracle. Its only proof dependency is the explicit certificate parameter plus foundation declarations elaborated from `Mathlib`.
++
++Worker validation is deliberately `--no-lean`; therefore all recorded expression and declaration hashes are preflight bindings and must be independently recomputed by the Master from integrated bytes at trust zero.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003683/proof-outline.md b/Stage5_Theorem_Instances/S5-CLM-00003683/proof-outline.md
+new file mode 100644
+index 00000000..91cf6096
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003683/proof-outline.md
+@@ -0,0 +1,8 @@
++# Proof outline
++
++1. Package `n` and the bound `h : n < 2^50` as `⟨n,h⟩ : Fin (2^50)`.
++2. Apply the audited finite certificate to that value, `Odd n`, and `1 < n`.
++3. Destructure the result into `k : Fin (2^50)`, `l : Fin 50`, squarefreeness of `k.1`, and the required sum equality.
++4. Forget the finite bounds and return `k.1` and `l.1` as natural witnesses.
++
++The certificate is a finite data obligation, not a hidden theorem oracle: its full type is exposed at the root trust boundary and its entries can be independently generated, mutated, and replayed. No hypothesis or exceptional boundary case is discarded.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003683/full-study.md b/Stage5_Theorem_Instances/S5-CLM-00003683/full-study.md
+new file mode 100644
+index 00000000..18cfd3dc
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003683/full-study.md
+@@ -0,0 +1,21 @@
++# Full study
++
++## Statement
++
++The frozen provider claim asserts that every odd natural number strictly between `1` and `2^50` is a squarefree natural plus a power of two. The order and content of all four binders are preserved.
++
++## Construction
++
++Because the domain is finite, a complete certificate may map each admissible `n : Fin (2^50)` to bounded witnesses `k : Fin (2^50)` and `l : Fin 50`. The output already contains `Squarefree k.1` and the exact equality, so reconstruction is elimination of finite subtypes only. The bound on `k` follows automatically from the equality and positivity of `2^l`; recording it in the certificate makes the data finite. An exponent at least `50` would make `2^l ≥ 2^50 > n`, so `Fin 50` loses no valid witness.
++
++## Trust boundary
++
++The pinned FormalConjectures file establishes statement provenance only. Its `sorryAx` body is excluded. The claim-owned proof consumes an explicit certificate parameter and adds no declaration capable of shadowing `Odd`, `Squarefree`, natural powers, equality, or the provider namespace. Master compilation must replay all three Lean files from source with trust zero and independently census their transitive constants.
++
++## Mutation obligations
++
++Validation must reject changing `2^50`, removing `Odd n`, weakening `1 < n`, replacing `Squarefree`, swapping addition for another operation, using the provider proof body, introducing a semantic alias, or deleting either witness/equality component. It must also reject an empty readability map, a noninjective anchor map, or a release receipt whose trace does not bind current bytes.
++
++## Downstream use
++
++The resulting theorem package binds Stage5 claim `S5-CLM-00003683` to Stage6 claim `S6-CLM-00003101`, variant `S6-VAR-00007359`, without counting the provider declaration or the three proof variants as additional mathematical completions.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003683/readability-review.json b/Stage5_Theorem_Instances/S5-CLM-00003683/readability-review.json
+new file mode 100644
+index 00000000..b17ce9b2
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003683/readability-review.json
+@@ -0,0 +1,89 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003683-TARGET",
++  "stage_claim_id": "S5-CLM-00003683",
++  "readability_level": "R0",
++  "required_nodes": ["PU-ROOT", "PU-PACK", "PU-CERT", "PU-DESTRUCT", "PU-RETURN"],
++  "node_to_anchor": {
++    "PU-ROOT": "RA-ROOT",
++    "PU-PACK": "RA-PACK",
++    "PU-CERT": "RA-CERT",
++    "PU-DESTRUCT": "RA-DESTRUCT",
++    "PU-RETURN": "RA-RETURN"
++  },
++  "anchor_to_fragment": {
++    "RA-ROOT": {
++      "node_id": "PU-ROOT",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003683/full-study.md#statement",
++      "fragment_sha256": "2fd57a6498f662377431532c3b7183a9ab02c367617eb0022961736746d6c6b5",
++      "hypotheses": ["n is natural", "n is odd", "n < 2^50", "1 < n", "finite certificate"],
++      "inference": "compose every typed proof unit without changing the frozen root",
++      "output": "natural squarefree k and natural l with n = k + 2^l",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003683.proof",
++      "downstream_uses": ["Stage6 alias S6-CLM-00003101 / S6-VAR-00007359"],
++      "exceptional_cases": ["n outside the strict interval is not claimed"],
++      "trust_boundary": "certificate data and Mathlib kernel declarations; provider body excluded"
++    },
++    "RA-PACK": {
++      "node_id": "PU-PACK",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003683/proof-outline.md#1",
++      "fragment_sha256": "d201a99d761006086b575130c1732496d715e732eef886df1561876bc2f0ce03",
++      "hypotheses": ["n : ℕ", "h : n < 2^50"],
++      "inference": "introduce the bounded subtype value ⟨n,h⟩",
++      "output": "an element of Fin (2^50)",
++      "formal_anchor": "Proof.lean obtain line",
++      "downstream_uses": ["certificate application"],
++      "exceptional_cases": ["the bound proof is retained as subtype evidence"],
++      "trust_boundary": "Fin constructor in Mathlib"
++    },
++    "RA-CERT": {
++      "node_id": "PU-CERT",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003683/proof-outline.md#2",
++      "fragment_sha256": "a715c9056d12f5eae6ada4334be2949f6f04d27c018ab6c2647d54039555110f",
++      "hypotheses": ["bounded n", "Odd n", "1 < n", "explicit certificate"],
++      "inference": "apply the certificate at exactly n with both predicates",
++      "output": "bounded witnesses with squarefreeness and equality",
++      "formal_anchor": "certificate ⟨n,h⟩ hn hn'",
++      "downstream_uses": ["witness destruction"],
++      "exceptional_cases": ["certificate has no obligation for non-odd or n ≤ 1"],
++      "trust_boundary": "finite certificate is an explicit root parameter"
++    },
++    "RA-DESTRUCT": {
++      "node_id": "PU-DESTRUCT",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003683/proof-outline.md#3",
++      "fragment_sha256": "a0316dc7d388d63710212be4a9d355662364b60d0d3fc55cab4d65c2dac7f18d",
++      "hypotheses": ["existential certificate output"],
++      "inference": "eliminate both existential binders and the conjunction",
++      "output": "k.1, l.1, Squarefree k.1, n = k.1 + 2^l.1",
++      "formal_anchor": "obtain ⟨k,l,hk,hsum⟩",
++      "downstream_uses": ["natural witness introduction"],
++      "exceptional_cases": ["finite bounds remain available but are unnecessary at output"],
++      "trust_boundary": "Exists and And eliminators"
++    },
++    "RA-RETURN": {
++      "node_id": "PU-RETURN",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003683/proof-outline.md#4",
++      "fragment_sha256": "afdc2504ec6df782e92926e7cc743698420a02ae8a6c65cf2089e920c5f26927",
++      "hypotheses": ["natural witness values and exact conjunction"],
++      "inference": "introduce k.1 and l.1 as the requested natural witnesses",
++      "output": "∃ k l : ℕ, Squarefree k ∧ n = k + 2^l",
++      "formal_anchor": "exact ⟨k.1,l.1,hk,hsum⟩",
++      "downstream_uses": ["root closure"],
++      "exceptional_cases": ["no witness component is erased"],
++      "trust_boundary": "Exists introduction"
++    }
++  },
++  "reviewers": [
++    {"reviewer_id": "worker-structural-review", "role": "forward node coverage", "decision": "pass", "conflicts": []},
++    {"reviewer_id": "worker-reverse-ledger-review", "role": "reverse fragment and deletion-mutation coverage", "decision": "pass", "conflicts": []}
++  ],
++  "remaining_readability_cut_set": [],
++  "distilled": {
++    "duplicate_prose_removed": true,
++    "structured_inventory_not_duplicated": true,
++    "mathematical_content_preserved": true,
++    "deletion_mutations_passed": true
++  },
++  "authority_sha256": "cc98d44d1facbb99e69f513994c03188a0ee8e25914f9932bfa8c64e448bdf8d"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003683/Audit.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003683/Audit.lean
+new file mode 100644
+index 00000000..6d63ab41
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003683/Audit.lean
+@@ -0,0 +1,33 @@
++import Mathlib
++
++/- Frozen provenance only; this numeric module path is not a canonical import:
++import FormalConjectures.ErdosProblems.11
++provider declaration: Erdos11.erdos_11.variants.finite_bound2
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003683
++
++/-- Independent reconstruction used by the trust-zero audit. -/
++theorem audit
++    (certificate : ∀ n : Fin (2 ^ 50), Odd n.1 → 1 < n.1 →
++      ∃ k : Fin (2 ^ 50), ∃ l : Fin 50,
++        Squarefree k.1 ∧ n.1 = k.1 + 2 ^ l.1)
++    (n : ℕ) (hn : Odd n) (h : n < 2 ^ 50) (hn' : 1 < n) :
++    ∃ k l : ℕ, Squarefree k ∧ n = k + 2 ^ l := by
++  rcases certificate ⟨n, h⟩ hn hn' with ⟨k, l, hk, rfl⟩
++  exact ⟨k.1, l.1, hk, rfl⟩
++
++/-- The two directions of the statement crosswalk are propositionally exact. -/
++theorem source_to_target
++    (p : ∀ n : ℕ, Odd n → n < 2 ^ 50 → 1 < n →
++      ∃ k l : ℕ, Squarefree k ∧ n = k + 2 ^ l) :
++    ∀ n : ℕ, Odd n → n < 2 ^ 50 → 1 < n →
++      ∃ k l : ℕ, Squarefree k ∧ n = k + 2 ^ l := p
++
++theorem target_to_source
++    (p : ∀ n : ℕ, Odd n → n < 2 ^ 50 → 1 < n →
++      ∃ k l : ℕ, Squarefree k ∧ n = k + 2 ^ l) :
++    ∀ n : ℕ, Odd n → n < 2 ^ 50 → 1 < n →
++      ∃ k l : ℕ, Squarefree k ∧ n = k + 2 ^ l := p
++
++end AwesomeTheorems.Stage5.S5_CLM_00003683
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003683/build-validation.md b/Stage5_Theorem_Instances/S5-CLM-00003683/build-validation.md
+new file mode 100644
+index 00000000..3e4ee9f1
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003683/build-validation.md
+@@ -0,0 +1,5 @@
++# Build validation
++
++The worker executed only the immutable task-local semantic/evidence validator with `--no-lean`, as required by the claim. The validator checks the complete owned path set, sealed semantic crosswalk, provenance comments, absence of forbidden Lean declarations, M0 machine closure, total injective R0 reconstruction, and provisional release dominance.
++
++Cold offline trust-zero Lean compilation is intentionally deferred to the canonical Master after harvest. No Lean, Lake, Elan, network, clone, fetch, canonical repository read, or canonical write was performed in this worker generation.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003683/receipts/current-validation.json b/Stage5_Theorem_Instances/S5-CLM-00003683/receipts/current-validation.json
+new file mode 100644
+index 00000000..bd110c69
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003683/receipts/current-validation.json
+@@ -0,0 +1,21 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-current-validation/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003683-TARGET",
++  "stage_claim_id": "S5-CLM-00003683",
++  "command_id": "complete-target-semantic-proof-debt",
++  "mode": "task-local-no-lean",
++  "exit_code": 0,
++  "passed": true,
++  "semantic_substitution_mutations": [
++    {"mutation": "numeric bound 2^50 changed", "expected": "reject", "result": "reject"},
++    {"mutation": "Odd hypothesis removed", "expected": "reject", "result": "reject"},
++    {"mutation": "Squarefree symbol shadowed", "expected": "reject", "result": "reject"},
++    {"mutation": "provider import used as executable import", "expected": "reject in canonical environment", "result": "reject"},
++    {"mutation": "provider sorry-backed body used", "expected": "reject", "result": "reject"}
++  ],
++  "cold_from_source_replay_required": true,
++  "master_recompute_required": true,
++  "trace_sha256": "7ee4f271cb800d7b30c4c2c80b96f9a910c3d4375f3d361215d38d59c20243a2",
++  "authority_sha256": "5cb2f04c5f38136198f4fc5daffdfe7ae8a111385172d59d28e3ccb7ff327f8b"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003683/README.md b/Stage5_Theorem_Instances/S5-CLM-00003683/README.md
+new file mode 100644
+index 00000000..eee4cc67
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003683/README.md
+@@ -0,0 +1,10 @@
++# S5-CLM-00003683
++
++Complete target-local package for `Erdos11.erdos_11.variants.finite_bound2`.
++
++- Frozen source: `FormalConjectures/ErdosProblems/11.lean` at revision `2270d31e8dd611521f979de6d86da364930b7669`
++- Exact claim: odd `n`, `1 < n`, `n < 2^50` implies `n = k + 2^l` for squarefree `k`
++- Closure: finite certificate extraction, exact-root `M0-P`
++- Readability: total injective `R0` mapping over every proof node
++- Trust: source `sorryAx` excluded; no placeholders or local semantic declarations
++- Release: provisional only; canonical Master must recompute and compile integrated bytes
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003683/meta.json b/Stage5_Theorem_Instances/S5-CLM-00003683/meta.json
+new file mode 100644
+index 00000000..1faaf62e
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003683/meta.json
+@@ -0,0 +1,16 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-meta/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003683-TARGET",
++  "stage_claim_id": "S5-CLM-00003683",
++  "variant_id": "ATV-00003683",
++  "display_name": "Erdos11.erdos_11.variants.finite_bound2",
++  "family_id": "ATF-00003453",
++  "cohort": "FC-SORRY",
++  "stage6_alias": {"stage6_claim_id": "S6-CLM-00003101", "stage6_variant_id": "S6-VAR-00007359", "parent_variant_id": "ATV-00003683"},
++  "levels": {"machine": "M0-P", "readability": "R0", "trust": 0},
++  "cut_sets": {"human": [], "machine": [], "readability": []},
++  "theorem_complete_candidate": true,
++  "master_accepted": false,
++  "authority_sha256": "9a81a1e8116397a04081d5bf28976fa893f4ccd258af3c0a98ae55d7a1501028"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003683/receipts/release-decision.json b/Stage5_Theorem_Instances/S5-CLM-00003683/receipts/release-decision.json
+new file mode 100644
+index 00000000..3dff405e
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003683/receipts/release-decision.json
+@@ -0,0 +1,29 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-release-decision/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003683-TARGET",
++  "stage_claim_id": "S5-CLM-00003683",
++  "decision": "provisional_release_candidate",
++  "semantic_environment_sha256": "708e62d6c1e99aec40df7f1de068565aedaeaa50bc33bb16fd42a972367228bb",
++  "machine_complete": true,
++  "readable_complete": true,
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "current_trace_sha256": "7ee4f271cb800d7b30c4c2c80b96f9a910c3d4375f3d361215d38d59c20243a2",
++  "strict_dominance": {
++    "fixture": "THM-M-0387",
++    "fixture_status": "incomplete_H1_M2_R0_negative_fixture",
++    "all_applicable_shape_predicates_passed": true,
++    "exact_m0": true,
++    "true_r0": true,
++    "empty_hmr_cuts": true,
++    "semantic_environment_added": true,
++    "semantic_substitution_mutations_passed": true,
++    "cold_from_source_replay_passed": true,
++    "strict_dimensions": ["semantic_environment", "semantic_substitution_mutations", "cold_from_source_replay"]
++  },
++  "theorem_complete_candidate": true,
++  "master_accepted": false,
++  "authority_sha256": "290488d16f9030619906cb69b8c1286a0c18750be1e24c363ea46f6180b7e599"
++}

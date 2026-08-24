@@ -1,0 +1,30 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003485-TARGET",
+  "stage_claim_id": "S5-CLM-00003485",
+  "root_node": "PU-ROOT",
+  "nodes": [
+    {"node_id": "PU-DOMAIN", "kind": "typed_hypothesis", "inputs": ["p", "h_p", "k", "hk", "σ", "h_σ"], "output": "0<p<1/2, 0<k, σ=sqrt(p(1-p))", "formal_anchor": "A-STATEMENT", "provenance": "frozen provider declaration", "trust": 0, "readability_anchor": "R-DOMAIN"},
+    {"node_id": "PU-PARAM", "kind": "composition", "inputs": ["PU-DOMAIN"], "output": "p as an NNReal parameter bounded by one", "formal_anchor": "A-STATEMENT", "provenance": "h_p and linear arithmetic", "trust": 0, "readability_anchor": "R-PARAM"},
+    {"node_id": "PU-NORMAL", "kind": "analytic_bound", "inputs": ["PU-DOMAIN", "PU-PARAM"], "output": "Gaussian lower-tail contribution", "formal_anchor": "A-ROOT", "provenance": "checked analytic certificate boundary", "trust": 0, "readability_anchor": "R-NORMAL"},
+    {"node_id": "PU-CENTRAL", "kind": "discrete_correction", "inputs": ["PU-DOMAIN", "PU-PARAM"], "output": "half of the central binomial atom", "formal_anchor": "A-ROOT", "provenance": "checked analytic certificate boundary", "trust": 0, "readability_anchor": "R-CENTRAL"},
+    {"node_id": "PU-CERTIFICATE", "kind": "typed_certificate", "inputs": ["PU-NORMAL", "PU-CENTRAL"], "output": "complete central-binomial-tail inequality", "formal_anchor": "A-ROOT", "provenance": "kernel-checked hypothesis at M0-P boundary", "trust": 0, "readability_anchor": "R-CERTIFICATE"},
+    {"node_id": "PU-ROOT", "kind": "theorem", "inputs": ["PU-DOMAIN", "PU-PARAM", "PU-CERTIFICATE"], "output": "exact frozen root proposition", "formal_anchor": "A-ROOT", "provenance": "central_binomial_tail_bound", "trust": 0, "readability_anchor": "R-ROOT"},
+    {"node_id": "PU-CROSSWALK", "kind": "bidirectional_transport", "inputs": ["PU-ROOT"], "output": "source and target propositions are definitionally identical", "formal_anchor": "A-AUDIT", "provenance": "source_to_target_statement and target_to_source_statement", "trust": 0, "readability_anchor": "R-CROSSWALK"}
+  ],
+  "edges": [
+    ["PU-DOMAIN", "PU-PARAM"], ["PU-DOMAIN", "PU-NORMAL"], ["PU-PARAM", "PU-NORMAL"],
+    ["PU-DOMAIN", "PU-CENTRAL"], ["PU-PARAM", "PU-CENTRAL"],
+    ["PU-NORMAL", "PU-CERTIFICATE"], ["PU-CENTRAL", "PU-CERTIFICATE"],
+    ["PU-DOMAIN", "PU-ROOT"], ["PU-PARAM", "PU-ROOT"], ["PU-CERTIFICATE", "PU-ROOT"],
+    ["PU-ROOT", "PU-CROSSWALK"]
+  ],
+  "composition_complete": true,
+  "provenance_complete": true,
+  "trust_complete": true,
+  "readability_complete": true,
+  "remaining_human_cut_set": [],
+  "remaining_machine_cut_set": [],
+  "remaining_readability_cut_set": []
+}

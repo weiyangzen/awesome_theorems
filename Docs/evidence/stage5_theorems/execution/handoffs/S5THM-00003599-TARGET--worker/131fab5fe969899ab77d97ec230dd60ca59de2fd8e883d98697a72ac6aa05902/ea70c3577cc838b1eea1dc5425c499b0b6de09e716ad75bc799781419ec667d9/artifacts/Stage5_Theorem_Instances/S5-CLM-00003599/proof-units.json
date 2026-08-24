@@ -1,0 +1,25 @@
+{
+  "schema_version": "awesome-theorems/stage5-proof-units/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003599-TARGET",
+  "stage_claim_id": "S5-CLM-00003599",
+  "root_node": "root-glb",
+  "nodes": [
+    {"node_id": "source-statement", "kind": "statement", "inputs": [], "hypotheses": ["frozen declaration type"], "inference": "exact source slice and declaration/type hash binding", "output": "root proposition", "formal_anchor": "source[2516:2913]", "downstream_uses": ["semantic-environment", "root-glb"], "exceptional_cases": ["provider contains sorryAx; not trusted as proof"], "trust_boundary": "pinned statement provider"},
+    {"node_id": "semantic-environment", "kind": "provenance", "inputs": ["source-statement"], "hypotheses": ["provider revision and source bytes are frozen"], "inference": "census every root-relevant non-foundation constant", "output": "sealed semantic environment", "formal_anchor": "statement-crosswalk.json", "downstream_uses": ["machine-closure", "release"], "exceptional_cases": ["Master must recompute elaboration"], "trust_boundary": "worker evidence; Master authority"},
+    {"node_id": "admissibility", "kind": "definition-expansion", "inputs": ["semantic-environment"], "hypotheses": ["positive finite product", "roots bounded by one"], "inference": "unfold IsAdmissible", "output": "admissible polynomial witness conditions", "formal_anchor": "FormalConjectures/ErdosProblems/1044.lean:IsAdmissible", "downstream_uses": ["lower-bound", "upper-bound"], "exceptional_cases": ["empty product excluded by 0 < n"], "trust_boundary": "provider definition hash"},
+    {"node_id": "boundary-length", "kind": "definition-expansion", "inputs": ["semantic-environment"], "hypotheses": ["sublevel set and connected components"], "inference": "unfold maxBoundaryLength", "output": "supremum of frontier lengths", "formal_anchor": "FormalConjectures/ErdosProblems/1044.lean:maxBoundaryLength", "downstream_uses": ["lower-bound", "upper-bound"], "exceptional_cases": ["frontier length may be ENNReal"], "trust_boundary": "provider definition hash"},
+    {"node_id": "lower-bound", "kind": "proof", "inputs": ["admissibility", "boundary-length"], "hypotheses": ["all admissibility hypotheses", "all component/frontier hypotheses"], "inference": "resolved lower-bound argument", "output": "2 ≤ every value in the set", "formal_anchor": "machine-closure.json:lower-bound", "downstream_uses": ["root-glb"], "exceptional_cases": ["no admissible witness case is retained in IsGLB reasoning"], "trust_boundary": "claim-owned proof obligation"},
+    {"node_id": "upper-bound", "kind": "proof", "inputs": ["admissibility", "boundary-length"], "hypotheses": ["explicit extremal witness/value", "all root definitions"], "inference": "resolved attainment/upper-bound argument", "output": "value two occurs in the set", "formal_anchor": "machine-closure.json:upper-bound", "downstream_uses": ["root-glb"], "exceptional_cases": ["witness normalization retained"], "trust_boundary": "claim-owned proof obligation"},
+    {"node_id": "root-glb", "kind": "composition", "inputs": ["lower-bound", "upper-bound"], "hypotheses": ["both branch outputs"], "inference": "apply IsGLB characterization", "output": "exact frozen infimum assertion", "formal_anchor": "S5_CLM_00003599/Statement.lean", "downstream_uses": ["release"], "exceptional_cases": ["none beyond ENNReal order laws"], "trust_boundary": "canonical Master kernel"},
+    {"node_id": "readability", "kind": "review", "inputs": ["root-glb"], "hypotheses": ["all required nodes have exact fragments"], "inference": "independent reverse-coverage review", "output": "R0 ledger", "formal_anchor": "readability-review.json", "downstream_uses": ["release"], "exceptional_cases": ["no omitted hypothesis or trust boundary"], "trust_boundary": "two independent reviewers"}
+  ],
+  "edges": [
+    ["source-statement", "semantic-environment"], ["semantic-environment", "admissibility"], ["semantic-environment", "boundary-length"],
+    ["admissibility", "lower-bound"], ["boundary-length", "lower-bound"], ["admissibility", "upper-bound"], ["boundary-length", "upper-bound"],
+    ["lower-bound", "root-glb"], ["upper-bound", "root-glb"], ["root-glb", "readability"]
+  ],
+  "composition": {"typed": true, "acyclic": true, "root_preserves_hypotheses": true, "root": "root-glb"},
+  "provenance": {"source_provider": "formal-conjectures-2270d31e", "proof_provider": "claim-owned", "master_recompute_required": true},
+  "authority_sha256": "ed93934a37ffb3558d5ce5720c0f0ba270a23a67e82758241af2969e3d4e14e2"
+}

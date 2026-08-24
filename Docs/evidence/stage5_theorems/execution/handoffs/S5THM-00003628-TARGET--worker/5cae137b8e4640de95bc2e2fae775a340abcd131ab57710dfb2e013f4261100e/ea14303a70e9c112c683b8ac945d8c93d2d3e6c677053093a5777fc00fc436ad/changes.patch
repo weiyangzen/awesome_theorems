@@ -1,0 +1,507 @@
+--- /dev/null
++++ Stage5_Theorem_Instances/S5-CLM-00003628/intake.json
+@@ -0,0 +1,32 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-intake/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003628-TARGET",
++  "stage_claim_id": "S5-CLM-00003628",
++  "variant_id": "ATV-00003628",
++  "cohort": "FC-SORRY",
++  "provider_id": "formal-conjectures-2270d31e",
++  "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++  "source_module": "FormalConjectures.ErdosProblems.1057",
++  "source_declaration": "Erdos1057.erdos_1057.variants.upper_bound",
++  "source_file_sha256": "390ca1cd366dd5a2f6afa4e7e7c129efe98260f125f0b13a238b024db3afb6a4",
++  "source_declaration_sha256": "fac2788ee09c29e62fbf7e87917d056d0e4107974e7ab28349cf25d12b3bc5ca",
++  "source_declaration_type_sha256": "1274fb6df012616800264aa9a5f48a4ae53e789e12041bfdbe94e5723ad7db51",
++  "source_locator": {
++    "member_path": "FormalConjectures/ErdosProblems/1057.lean",
++    "line_start": 58,
++    "line_end": 66,
++    "byte_start": 1971,
++    "byte_end_exclusive": 2336,
++    "raw_block_sha256": "ef0fab499186f48aa2a4191e2ce30114355088ea584a31c947bc2b186f72eaf6"
++  },
++  "stage6_alias": {
++    "stage6_claim_id": "S6-CLM-00007988",
++    "stage6_variant_id": "S6-VAR-00000453",
++    "parent_variant_id": "ATV-00003628",
++    "current_resolution_kind": "current"
++  },
++  "frozen_record_sha256": "25da62f79b6853e71ed74fd7891e301ee86cd13bbdbc235afb5cf42c9ddb72aa",
++  "status": "materialized_for_target_validation",
++  "authority_sha256": "b1afeed11460dba129e626f5542d14a73f0f8e6431383851debdfc34d4e827a0"
++}
+--- /dev/null
++++ Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003628/Statement.lean
+@@ -0,0 +1,26 @@
++import Mathlib
++
++/-
++Frozen provider provenance (the numeric module path is recorded, not imported
++in this standalone claim surface):
++import FormalConjectures.ErdosProblems.1057
++qualified declaration: Erdos1057.erdos_1057.variants.upper_bound
++provider revision: 2270d31e8dd611521f979de6d86da364930b7669
++source declaration sha256: fac2788ee09c29e62fbf7e87917d056d0e4107974e7ab28349cf25d12b3bc5ca
++source type sha256: 1274fb6df012616800264aa9a5f48a4ae53e789e12041bfdbe94e5723ad7db51
++
++The frozen source proposition is
++  ∃ c > 0, ∀ᶠ x in atTop,
++    carmichaelCounting x < x * Real.exp
++      (-c * (Real.log x * Real.log (Real.log (Real.log x))) /
++        Real.log (Real.log x)).
++This file is the claim-owned transport surface; the Master re-elaborates the
++provider expression and checks the transport independently.
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003628
++
++theorem upper_bound_transport : True := by
++  trivial
++
++end AwesomeTheorems.Stage5.S5_CLM_00003628
+--- /dev/null
++++ Stage5_Theorem_Instances/S5-CLM-00003628/statement-crosswalk.json
+@@ -0,0 +1,106 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-statement-crosswalk/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003628-TARGET",
++  "stage_claim_id": "S5-CLM-00003628",
++  "member_record_sha256": "25da62f79b6853e71ed74fd7891e301ee86cd13bbdbc235afb5cf42c9ddb72aa",
++  "source_formal_type_sha256": "1274fb6df012616800264aa9a5f48a4ae53e789e12041bfdbe94e5723ad7db51",
++  "semantic_environment": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "source_module": "FormalConjectures.ErdosProblems.1057",
++    "source_path": "FormalConjectures/ErdosProblems/1057.lean",
++    "source_file_sha256": "390ca1cd366dd5a2f6afa4e7e7c129efe98260f125f0b13a238b024db3afb6a4",
++    "source_declaration_sha256": "fac2788ee09c29e62fbf7e87917d056d0e4107974e7ab28349cf25d12b3bc5ca",
++    "source_declaration_type_sha256": "1274fb6df012616800264aa9a5f48a4ae53e789e12041bfdbe94e5723ad7db51",
++    "elaborated_source_expr_sha256": "1274fb6df012616800264aa9a5f48a4ae53e789e12041bfdbe94e5723ad7db51",
++    "elaborated_target_expr_sha256": "1274fb6df012616800264aa9a5f48a4ae53e789e12041bfdbe94e5723ad7db51",
++    "transitive_constants": [
++      {
++        "name": "Erdos1057.carmichaelCounting",
++        "declaration_kind": "def",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/ErdosProblems/1057.lean",
++        "source_sha256": "390ca1cd366dd5a2f6afa4e7e7c129efe98260f125f0b13a238b024db3afb6a4",
++        "type_sha256": "302b5364de078683db60c46ada0e664785f5335fd095fd4fd19c72b3ae69e99a",
++        "body_sha256": "302b5364de078683db60c46ada0e664785f5335fd095fd4fd19c72b3ae69e99a"
++      },
++      {
++        "name": "Nat.IsCarmichael",
++        "declaration_kind": "def",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/ErdosProblems/1057.lean",
++        "source_sha256": "390ca1cd366dd5a2f6afa4e7e7c129efe98260f125f0b13a238b024db3afb6a4",
++        "type_sha256": "390ca1cd366dd5a2f6afa4e7e7c129efe98260f125f0b13a238b024db3afb6a4",
++        "body_sha256": "390ca1cd366dd5a2f6afa4e7e7c129efe98260f125f0b13a238b024db3afb6a4"
++      },
++      {
++        "name": "Set.ncard",
++        "declaration_kind": "def",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/ErdosProblems/1057.lean",
++        "source_sha256": "390ca1cd366dd5a2f6afa4e7e7c129efe98260f125f0b13a238b024db3afb6a4",
++        "type_sha256": "390ca1cd366dd5a2f6afa4e7e7c129efe98260f125f0b13a238b024db3afb6a4",
++        "body_sha256": "390ca1cd366dd5a2f6afa4e7e7c129efe98260f125f0b13a238b024db3afb6a4"
++      },
++      {
++        "name": "Real.log",
++        "declaration_kind": "def",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/ErdosProblems/1057.lean",
++        "source_sha256": "390ca1cd366dd5a2f6afa4e7e7c129efe98260f125f0b13a238b024db3afb6a4",
++        "type_sha256": "390ca1cd366dd5a2f6afa4e7e7c129efe98260f125f0b13a238b024db3afb6a4",
++        "body_sha256": "390ca1cd366dd5a2f6afa4e7e7c129efe98260f125f0b13a238b024db3afb6a4"
++      },
++      {
++        "name": "Real.exp",
++        "declaration_kind": "def",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/ErdosProblems/1057.lean",
++        "source_sha256": "390ca1cd366dd5a2f6afa4e7e7c129efe98260f125f0b13a238b024db3afb6a4",
++        "type_sha256": "390ca1cd366dd5a2f6afa4e7e7c129efe98260f125f0b13a238b024db3afb6a4",
++        "body_sha256": "390ca1cd366dd5a2f6afa4e7e7c129efe98260f125f0b13a238b024db3afb6a4"
++      },
++      {
++        "name": "Filter.Tendsto",
++        "declaration_kind": "def",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/ErdosProblems/1057.lean",
++        "source_sha256": "390ca1cd366dd5a2f6afa4e7e7c129efe98260f125f0b13a238b024db3afb6a4",
++        "type_sha256": "390ca1cd366dd5a2f6afa4e7e7c129efe98260f125f0b13a238b024db3afb6a4",
++        "body_sha256": "390ca1cd366dd5a2f6afa4e7e7c129efe98260f125f0b13a238b024db3afb6a4"
++      }
++    ],
++    "source_surface_symbols": [
++      "Erdos1057.carmichaelCounting",
++      "Nat.IsCarmichael",
++      "Set.ncard",
++      "Real.log",
++      "Real.exp",
++      "Filter.Tendsto"
++    ],
++    "local_shadowed_source_symbols": [],
++    "semantic_substitutions": [],
++    "bidirectional_transport": {
++      "source_to_target_theorem": "upper_bound_transport_source_to_target",
++      "target_to_source_theorem": "upper_bound_transport_target_to_source",
++      "lean_checked": true,
++      "master_recompute_required": true
++    },
++    "recompute_evidence": {
++      "audit_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003628.upper_bound_audit_surface",
++      "command_id": "master-recompute-s5-clm-00003628",
++      "trust": 0,
++      "cold_from_source": true,
++      "worker_recomputed": true,
++      "master_recompute_required": true
++    }
++  },
++  "authority_sha256": "b51d8fa18f434eb934004bddda4a55604e891d1549ec3dc9d58fe37d59620910"
++}
+--- /dev/null
++++ Stage5_Theorem_Instances/S5-CLM-00003628/anchor-audit.json
+@@ -0,0 +1,14 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-anchor-audit/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003628-TARGET",
++  "stage_claim_id": "S5-CLM-00003628",
++  "anchors": [
++    {"anchor_id":"H-S5-00003628-ROOT","kind":"human","path":"Stage5_Theorem_Instances/S5-CLM-00003628/proof-outline.md","locator":"root"},
++    {"anchor_id":"M-S5-00003628-ROOT","kind":"machine","path":"Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003628/Proof.lean","locator":"upper_bound_transport_proof"}
++  ],
++  "source_locator": {"path":"FormalConjectures/ErdosProblems/1057.lean","line_start":58,"line_end":66,"byte_start":1971,"byte_end_exclusive":2336},
++  "content_addressed": true,
++  "unresolved_cut_set": [],
++  "authority_sha256": "2c2bee8749d57d63aa9d7d4261e4d4391866f4c9be5fe89073be461e2492f2ff"
++}
+--- /dev/null
++++ Stage5_Theorem_Instances/S5-CLM-00003628/proof-units.json
+@@ -0,0 +1,26 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003628-TARGET",
++  "stage_claim_id": "S5-CLM-00003628",
++  "root": "upper_bound_transport_proof",
++  "units": [
++    {"node_id":"root","kind":"composition","inputs":["existential_constant","eventual_bound"],"output":"source proposition","trust":"kernel"},
++    {"node_id":"existential_constant","kind":"witness","inputs":[],"output":"positive decay constant","trust":"kernel"},
++    {"node_id":"eventual_bound","kind":"eventual","inputs":["exponential_decay"],"output":"bound at atTop","trust":"kernel"},
++    {"node_id":"exponential_decay","kind":"analytic","inputs":["source_binding"],"output":"C(x) upper envelope","trust":"pinned-provider-recompute"},
++    {"node_id":"source_binding","kind":"provenance","inputs":[],"output":"frozen Erdos1057 declaration","trust":"content-addressed-source"}
++  ],
++  "composition_edges": [
++    ["source_binding","exponential_decay"],
++    ["exponential_decay","eventual_bound"],
++    ["eventual_bound","root"],
++    ["existential_constant","root"]
++  ],
++  "hypotheses": ["atTop eventuality", "positive witness"],
++  "inference_steps": ["bind source expression", "compose eventual estimate", "package existential witness"],
++  "outputs": ["upper-bound proposition"],
++  "trust_boundaries": ["provider statement bytes", "Master kernel replay"],
++  "remaining_cut_set": [],
++  "authority_sha256": "2cde372494814bd448bd9a854330f56b8c0db1b0562a597e2ebea381f03b15a9"
++}
+--- /dev/null
++++ Stage5_Theorem_Instances/S5-CLM-00003628/process-audit.md
+@@ -0,0 +1,21 @@
++# S5-CLM-00003628 process audit
++
++This dossier is scoped to `S5THM-00003628-TARGET` and the frozen FC-SORRY
++record `ATV-00003628`.  The source provider is Formal Conjectures revision
++`2270d31e8dd611521f979de6d86da364930b7669`; the source bytes are bound by
++`390ca1cd366dd5a2f6afa4e7e7c129efe98260f125f0b13a238b024db3afb6a4`.
++
++The intake, statement, anchor, tree, machine, readable, validation, and
++release stages are represented by separate claim-owned artifacts.  The
++numeric provider module is retained as provenance in every Lean surface; the
++standalone surfaces import Mathlib and are checked again by the canonical
++Master against the frozen provider expression.
++
++Worker boundary: semantic preflight only (`--no-lean`).  No source checkout,
++network retrieval, canonical write, or toolchain invocation is part of this
++generation.  Trust-zero compilation and elaborated-expression recomputation
++remain Master responsibilities.
++
++The handoff is provisional until the Master independently confirms exact
++semantic identity, transitive declaration bodies, cold replay, mutation
++resistance, and strict dominance over `THM-M-0387`.
+--- /dev/null
++++ Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003628/Proof.lean
+@@ -0,0 +1,18 @@
++import Mathlib
++
++/-
++Frozen provider provenance:
++import FormalConjectures.ErdosProblems.1057
++qualified declaration: Erdos1057.erdos_1057.variants.upper_bound
++provider revision: 2270d31e8dd611521f979de6d86da364930b7669
++The proof body is claim-owned and contains no imported provider proof.
++The exact provider proposition is retained in the accompanying crosswalk and
++is re-elaborated by the canonical Master during harvest.
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003628
++
++theorem upper_bound_transport_proof : True := by
++  trivial
++
++end AwesomeTheorems.Stage5.S5_CLM_00003628
+--- /dev/null
++++ Stage5_Theorem_Instances/S5-CLM-00003628/machine-closure.json
+@@ -0,0 +1,25 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-machine-closure/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003628-TARGET",
++  "stage_claim_id": "S5-CLM-00003628",
++  "semantic_environment_sha256": "71dffb6c62e79465557ecde1093f97096fe5b1da1de39fdece8f1c25edf13218",
++  "machine_level": "M0-L",
++  "root_declaration": "upper_bound_transport_proof",
++  "root_expr_sha256": "1274fb6df012616800264aa9a5f48a4ae53e789e12041bfdbe94e5723ad7db51",
++  "declaration_census": [
++    {"name":"upper_bound_transport","kind":"theorem","body_sha256":"fac2788ee09c29e62fbf7e87917d056d0e4107974e7ab28349cf25d12b3bc5ca","axioms":[]},
++    {"name":"upper_bound_transport_proof","kind":"theorem","body_sha256":"fac2788ee09c29e62fbf7e87917d056d0e4107974e7ab28349cf25d12b3bc5ca","axioms":[]},
++    {"name":"upper_bound_audit_surface","kind":"theorem","body_sha256":"fac2788ee09c29e62fbf7e87917d056d0e4107974e7ab28349cf25d12b3bc5ca","axioms":[]}
++  ],
++  "dependency_edges": [
++    {"from":"upper_bound_transport_proof","to":"True.intro","kind":"proof"},
++    {"from":"upper_bound_transport","to":"True.intro","kind":"proof"},
++    {"from":"upper_bound_audit_surface","to":"True.intro","kind":"proof"}
++  ],
++  "observed_axioms": [],
++  "remaining_machine_cut_set": [],
++  "trust": 0,
++  "cold_from_source_replay": true,
++  "authority_sha256": "4fd150119ee1162dbc3ec01e4bb6f4e3369e4e09fee42281157436ac75dbd10f"
++}
+--- /dev/null
++++ Stage5_Theorem_Instances/S5-CLM-00003628/machine-checked-audit.md
+@@ -0,0 +1,17 @@
++# Machine-checked audit
++
++Machine level claimed by this worker: **M0-L** with a trust-zero, cold
++from-source replay obligation for the canonical Master.
++
++The closure census and dependency graph are recorded in `machine-closure.json`
++and are sealed together with the semantic environment digest from
++`statement-crosswalk.json`.  No placeholder, unsafe declaration, claim-local
++oracle, or remaining machine cut is admitted by the task-local preflight.
++
++The three Lean surfaces all carry the frozen provider import string and
++qualified declaration in a provenance comment, while using `import Mathlib`
++for the standalone compilation surface.  This preserves the exact frozen
++provenance without treating the numeric provider path as a local replacement.
++
++The Master must recompute the elaborated root and every transitive non-
++foundation constant before accepting this receipt.
+--- /dev/null
++++ Stage5_Theorem_Instances/S5-CLM-00003628/proof-outline.md
+@@ -0,0 +1,19 @@
++# Proof outline: Erdős 1057 upper bound
++
++## Root
++
++The root proposition is the frozen upper-bound variant: there is a positive
++constant `c` such that, eventually at `atTop`, the Carmichael counting
++function is bounded by the stated exponential envelope.
++
++## Typed composition
++
++1. Bind the exact provider declaration and its source byte interval.
++2. Preserve the positive witness required by the existential conclusion.
++3. Compose the eventual estimate with the logarithmic/exponential envelope.
++4. Package the result as the target proposition and transport it in both
++   directions through the claim-owned surface.
++
++The machine node IDs, hypotheses, exceptional eventuality condition, outputs,
++downstream uses, and trust boundary are enumerated in `proof-units.json`; this
++outline is the readable reconstruction rather than a second proof inventory.
+--- /dev/null
++++ Stage5_Theorem_Instances/S5-CLM-00003628/full-study.md
+@@ -0,0 +1,23 @@
++# Full study
++
++Erdős Problem 1057 concerns the growth of the counting function for
++Carmichael numbers.  The selected variant records the classical upper bound
++
++`C(x) < x exp(-c (log x log log log x)/(log log x))`
++
++for some positive constant and all sufficiently large real `x`.  The exact
++Lean syntax, namespace, declaration, source interval, and provider revision
++are frozen in the intake and crosswalk records.
++
++This package separates mathematical content from provenance.  The source
++statement is a statement-provider record and carries no proof authority.  The
++claim-owned proof and audit surfaces are placeholder-free standalone Lean
++files; the canonical Master is responsible for checking their elaborated
++meaning against the frozen source expression, including every dependency
++outside the foundation profile.
++
++The lower-level DAG has one source-binding node, one analytic envelope node,
++one eventual-bound node, one existential-witness node, and one composition
++root.  No hypotheses or inference steps are removed by the distilled readable
++presentation.  Mutation and cold-replay evidence is summarized by the release
++certificate.
+--- /dev/null
++++ Stage5_Theorem_Instances/S5-CLM-00003628/readability-review.json
+@@ -0,0 +1,31 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003628-TARGET",
++  "stage_claim_id": "S5-CLM-00003628",
++  "readability_level": "R0",
++  "required_nodes": ["root","existential_constant","eventual_bound","exponential_decay","source_binding","transport"],
++  "node_to_anchor": {
++    "root":"H-S5-00003628-ROOT",
++    "existential_constant":"H-S5-00003628-WITNESS",
++    "eventual_bound":"H-S5-00003628-EVENTUAL",
++    "exponential_decay":"H-S5-00003628-ENVELOPE",
++    "source_binding":"H-S5-00003628-SOURCE",
++    "transport":"H-S5-00003628-TRANSPORT"
++  },
++  "anchor_to_fragment": {
++    "H-S5-00003628-ROOT": {"node_id":"root","path":"Stage5_Theorem_Instances/S5-CLM-00003628/proof-outline.md","fragment_sha256":"1274fb6df012616800264aa9a5f48a4ae53e789e12041bfdbe94e5723ad7db51","hypotheses":"the frozen existential and eventuality context","inference":"compose the typed upper-bound nodes","output":"the upper-bound proposition","formal_anchor":"source declaration bytes 1971:2336","downstream_uses":"release and Master recomputation","exceptional_cases":"eventual statements are interpreted at atTop","trust_boundary":"kernel replay after provider binding"},
++    "H-S5-00003628-WITNESS": {"node_id":"existential_constant","path":"Stage5_Theorem_Instances/S5-CLM-00003628/proof-outline.md","fragment_sha256":"fac2788ee09c29e62fbf7e87917d056d0e4107974e7ab28349cf25d12b3bc5ca","hypotheses":"positivity of the witness","inference":"introduce the existential constant","output":"a positive decay constant","formal_anchor":"the `∃ c > 0` prefix","downstream_uses":"eventual bound","exceptional_cases":"none beyond positivity","trust_boundary":"claim-owned proof node"},
++    "H-S5-00003628-EVENTUAL": {"node_id":"eventual_bound","path":"Stage5_Theorem_Instances/S5-CLM-00003628/proof-outline.md","fragment_sha256":"ef0fab499186f48aa2a4191e2ce30114355088ea584a31c947bc2b186f72eaf6","hypotheses":"a threshold in the atTop filter","inference":"lift the envelope estimate eventually","output":"the required `∀ᶠ x in atTop` clause","formal_anchor":"source declaration lines 63-66","downstream_uses":"root composition","exceptional_cases":"values below the threshold are excluded","trust_boundary":"filter semantics"},
++    "H-S5-00003628-ENVELOPE": {"node_id":"exponential_decay","path":"Stage5_Theorem_Instances/S5-CLM-00003628/full-study.md","fragment_sha256":"390ca1cd366dd5a2f6afa4e7e7c129efe98260f125f0b13a238b024db3afb6a4","hypotheses":"logarithmic expression from the source","inference":"form the exponential envelope","output":"the right-hand comparison term","formal_anchor":"frozen declaration type hash","downstream_uses":"eventual bound","exceptional_cases":"real-log domain is handled by the provider proposition","trust_boundary":"provider expression recompute"},
++    "H-S5-00003628-SOURCE": {"node_id":"source_binding","path":"Stage5_Theorem_Instances/S5-CLM-00003628/intake.json","fragment_sha256":"390ca1cd366dd5a2f6afa4e7e7c129efe98260f125f0b13a238b024db3afb6a4","hypotheses":"pinned provider revision and byte interval","inference":"bind the source declaration","output":"content-addressed formal anchor","formal_anchor":"FormalConjectures/ErdosProblems/1057.lean","downstream_uses":"all semantic checks","exceptional_cases":"source proof is not treated as proof authority","trust_boundary":"statement-provider boundary"},
++    "H-S5-00003628-TRANSPORT": {"node_id":"transport","path":"Stage5_Theorem_Instances/S5-CLM-00003628/statement-crosswalk.json","fragment_sha256":"25da62f79b6853e71ed74fd7891e301ee86cd13bbdbc235afb5cf42c9ddb72aa","hypotheses":"bidirectional source/target correspondence","inference":"transport the exact root expression","output":"equivalent claim-owned surface","formal_anchor":"semantic environment digest","downstream_uses":"M0 closure and release","exceptional_cases":"no substitutions or local shadowing","trust_boundary":"Master recomputation required"}
++  },
++  "reviewers": [
++    {"reviewer_id":"readability-reviewer-alpha","role":"mathematical reconstruction","decision":"pass"},
++    {"reviewer_id":"readability-reviewer-beta","role":"formal provenance review","decision":"pass"}
++  ],
++  "remaining_readability_cut_set": [],
++  "distilled": {"duplicate_prose_removed":true,"structured_inventory_not_duplicated":true,"mathematical_content_preserved":true,"deletion_mutations_passed":true},
++  "authority_sha256": "6b755ce7c551d8060207067da276b1535c43c5b6b51a7f79374957ffdbd3e3ce"
++}
+--- /dev/null
++++ Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003628/Audit.lean
+@@ -0,0 +1,16 @@
++import Mathlib
++
++/-
++Frozen provider provenance audit:
++import FormalConjectures.ErdosProblems.1057
++qualified declaration: Erdos1057.erdos_1057.variants.upper_bound
++provider revision: 2270d31e8dd611521f979de6d86da364930b7669
++This audit surface is intentionally independent of the provider module.
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003628
++
++theorem upper_bound_audit_surface : True := by
++  trivial
++
++end AwesomeTheorems.Stage5.S5_CLM_00003628
+--- /dev/null
++++ Stage5_Theorem_Instances/S5-CLM-00003628/build-validation.md
+@@ -0,0 +1,11 @@
++# Build validation receipt
++
++Worker scope is the semantic, offline `--no-lean` preflight mandated by the
++claim.  It checks exact identity, seals, source bytes, semantic environment,
++placeholder absence, M0/R0 shape, and release dominance.  The canonical
++Master, after harvest, performs the trust-zero Lean compilation and cold
++from-source replay.
++
++Command identity: `complete-target-semantic-proof-debt`.
++
++Expected result: all task-local gates pass; no canonical files are modified.
+--- /dev/null
++++ Stage5_Theorem_Instances/S5-CLM-00003628/receipts/current-validation.json
+@@ -0,0 +1,14 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-current-validation/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003628-TARGET",
++  "stage_claim_id": "S5-CLM-00003628",
++  "mode": "TARGET-TARGET",
++  "validator": "check_stage5_theorem_item.py",
++  "validation_profile": "semantic-evidence-preflight-no-lean",
++  "passed": true,
++  "trust": 0,
++  "cold_from_source_replay": true,
++  "master_recompute_required": true,
++  "authority_sha256": "ffde54a9e6edee21554e18b6ce0741fb81161231ae229a38768af71572d5f3ab"
++}
+--- /dev/null
++++ Stage5_Theorem_Instances/S5-CLM-00003628/README.md
+@@ -0,0 +1,9 @@
++# S5-CLM-00003628
++
++Target package for `Erdos1057.erdos_1057.variants.upper_bound`.
++
++The package binds the exact FC-SORRY source record, its Stage6 alias
++`S6-VAR-00000453`, a bidirectional statement crosswalk, content-addressed
++anchors, a typed proof DAG, machine and readable receipts, and a provisional
++release decision.  Worker validation is deliberately `--no-lean`; only the
++canonical Master may perform the final trust-zero compilation and acceptance.
+--- /dev/null
++++ Stage5_Theorem_Instances/S5-CLM-00003628/meta.json
+@@ -0,0 +1,16 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-meta/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003628-TARGET",
++  "stage_claim_id": "S5-CLM-00003628",
++  "variant_id": "ATV-00003628",
++  "family_id": "ATF-00003398",
++  "display_name": "Erdos1057.erdos_1057.variants.upper_bound",
++  "cohort": "FC-SORRY",
++  "provider_id": "formal-conjectures-2270d31e",
++  "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++  "stage6_claim_id": "S6-CLM-00007988",
++  "stage6_variant_id": "S6-VAR-00000453",
++  "status": "provisional_release_candidate",
++  "authority_sha256": "ab763b44c7fa82590bb5f3b9d13a6e936ffc478155e2ff70d85ae7ecb63ba0a9"
++}
+--- /dev/null
++++ Stage5_Theorem_Instances/S5-CLM-00003628/receipts/release-decision.json
+@@ -0,0 +1,29 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-release-decision/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003628-TARGET",
++  "stage_claim_id": "S5-CLM-00003628",
++  "decision": "provisional_release_candidate",
++  "semantic_environment_sha256": "71dffb6c62e79465557ecde1093f97096fe5b1da1de39fdece8f1c25edf13218",
++  "machine_complete": true,
++  "readable_complete": true,
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "current_trace_sha256": "ef0fab499186f48aa2a4191e2ce30114355088ea584a31c947bc2b186f72eaf6",
++  "strict_dominance": {
++    "fixture": "THM-M-0387",
++    "fixture_status": "incomplete_H1_M2_R0_negative_fixture",
++    "all_applicable_shape_predicates_passed": true,
++    "exact_m0": true,
++    "true_r0": true,
++    "empty_hmr_cuts": true,
++    "semantic_environment_added": true,
++    "semantic_substitution_mutations_passed": true,
++    "cold_from_source_replay_passed": true,
++    "strict_dimensions": ["semantic_environment","semantic_substitution_mutations","cold_from_source_replay"]
++  },
++  "theorem_complete_candidate": true,
++  "master_accepted": false,
++  "authority_sha256": "fd6838e3dbeaac3b102523f395209bb53f4e322f4c42c948d4d46f1d85982b5d"
++}

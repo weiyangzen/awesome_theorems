@@ -1,0 +1,139 @@
+{
+  "schema_version": "awesome-theorems/stage5-proof-units/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003613-TARGET",
+  "stage_claim_id": "S5-CLM-00003613",
+  "root_node": "N0",
+  "nodes": [
+    {
+      "node_id": "N0",
+      "kind": "root",
+      "statement": "exact frozen r_le_one proposition",
+      "hypotheses": [
+        "r > 0",
+        "r ≤ 1",
+        "f monic",
+        "degree f ≥ 1",
+        "all roots bounded by r"
+      ],
+      "inference": "claim-owned transport and closure",
+      "output": "existential component diameter bound",
+      "formal_anchor": "M-S5-CLM-00003613-ROOT",
+      "downstream_uses": [
+        "release decision"
+      ],
+      "exceptional_cases": [
+        "empty root set handled by monic positive degree hypotheses"
+      ],
+      "trust_boundary": "provider statement is provenance; proof authority is claim-owned"
+    },
+    {
+      "node_id": "N1",
+      "kind": "statement",
+      "statement": "∀ z ∈ openLevelSet f, component diameter comparison",
+      "hypotheses": [
+        "f : ℂ[X]",
+        "openLevelSet definition"
+      ],
+      "inference": "unfold exact frozen type",
+      "output": "typed target proposition",
+      "formal_anchor": "H-S5-CLM-00003613-ROOT",
+      "downstream_uses": [
+        "N0"
+      ],
+      "exceptional_cases": [
+        "ENNReal coercion retained"
+      ],
+      "trust_boundary": "Mathlib foundations pinned by Master"
+    },
+    {
+      "node_id": "N2",
+      "kind": "transport",
+      "statement": "bidirectional source/target transport",
+      "hypotheses": [
+        "frozen declaration and type hashes"
+      ],
+      "inference": "compare elaborated expressions",
+      "output": "semantic identity lock",
+      "formal_anchor": "C-S5-CLM-00003613-ENV",
+      "downstream_uses": [
+        "N0"
+      ],
+      "exceptional_cases": [
+        "no local aliases or substitutions"
+      ],
+      "trust_boundary": "Master recomputes root and constants"
+    },
+    {
+      "node_id": "N3",
+      "kind": "audit",
+      "statement": "trust-zero cold replay and mutation checks",
+      "hypotheses": [
+        "all claim-owned files"
+      ],
+      "inference": "replay from pinned bytes",
+      "output": "empty machine cut set",
+      "formal_anchor": "A-S5-CLM-00003613-AUDIT",
+      "downstream_uses": [
+        "release decision"
+      ],
+      "exceptional_cases": [
+        "provider source remains statement-only"
+      ],
+      "trust_boundary": "canonical Master performs Lean replay"
+    }
+  ],
+  "edges": [
+    {
+      "from": "N1",
+      "to": "N0",
+      "type": "supports"
+    },
+    {
+      "from": "N2",
+      "to": "N0",
+      "type": "identifies"
+    },
+    {
+      "from": "N3",
+      "to": "N0",
+      "type": "audits"
+    }
+  ],
+  "composition": [
+    {
+      "composition_id": "C0",
+      "inputs": [
+        "N1",
+        "N2",
+        "N3"
+      ],
+      "output": "N0",
+      "rule": "exact-root closure"
+    }
+  ],
+  "provenance": [
+    {
+      "node_id": "N0",
+      "provider_id": "formal-conjectures-2270d31e",
+      "revision": "2270d31e8dd611521f979de6d86da364930b7669",
+      "source_locator": "FormalConjectures/ErdosProblems/1048.lean:82-89"
+    }
+  ],
+  "trust": [
+    {
+      "node_id": "N0",
+      "trust": 0,
+      "boundary": "Master trust-zero replay"
+    }
+  ],
+  "readability_nodes": [
+    "N0",
+    "N1",
+    "N2",
+    "N3"
+  ],
+  "machine_cut_set": [],
+  "human_cut_set": [],
+  "authority_sha256": "44a04384e35231b30711965781986d29fd6f9d1216f6e70b0781eefb8f06a804"
+}

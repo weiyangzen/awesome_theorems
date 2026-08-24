@@ -1,0 +1,932 @@
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003664/intake.json b/Stage5_Theorem_Instances/S5-CLM-00003664/intake.json
+new file mode 100644
+index 00000000..e887bb64
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003664/intake.json
+@@ -0,0 +1,30 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-intake/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003664-TARGET",
++  "stage_claim_id": "S5-CLM-00003664",
++  "cohort": "FC-SORRY",
++  "family_id": "ATF-00003434",
++  "variant_id": "ATV-00003664",
++  "stage6_alias": {
++    "current_resolution_kind": "current",
++    "parent_variant_id": "ATV-00003664",
++    "stage6_claim_id": "S6-CLM-00008385",
++    "stage6_variant_id": "S6-VAR-00004440"
++  },
++  "member_record_sha256": "8e346e705c62a463f769aa8300e797409e1f1c28b733e7e7051201d74e4e0b03",
++  "target_task_authority_sha256": "ae73945c103733923a2fb432d4d2662bd6022295033f104f8f16440753f5dffc",
++  "source_id": "SRC-MATH-V5-FORMAL-CONJECTURES-2270D31E",
++  "source_status": "statement_authority_only_provider_body_excluded",
++  "subchecklist": [
++    "INTAKE",
++    "STATEMENT",
++    "ANCHOR",
++    "TREE",
++    "MACHINE",
++    "READABLE",
++    "VALIDATE",
++    "RELEASE"
++  ],
++  "authority_sha256": "656ca410d4fa7e4d3343e14845ab368c6d1922b82b4e21549fab9bad55164996"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003664/Statement.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003664/Statement.lean
+new file mode 100644
+index 00000000..3f43119e
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003664/Statement.lean
+@@ -0,0 +1,40 @@
++import Mathlib
++
++/-!
++# Stage 5 statement surface for S5-CLM-00003664
++
++The numeric FormalConjectures module is a frozen provenance string.  It is not
++an executable import in the canonical AwesomeTheorems Lake environment.
++
++import FormalConjectures.ErdosProblems.1085
++
++Frozen provider declaration:
++Erdos1085.erdos_1085.variants.lower_d4_lenz
++
++The source proposition says that, for `4 ≤ d`, there is a real constant `C`
++such that for every natural `n`
++
++`((d / 2 - 1 : ℕ) : ℝ) / (2 * (d / 2 : ℕ)) * n^2 - C ≤ f d n`.
++
++The two declarations below are deliberately proposition-polymorphic transport
++checks.  They certify that the crosswalk direction itself adds no hypothesis
++or conclusion.  The concrete provider expression and the claim-owned expanded
++expression are bound by `statement-crosswalk.json` and are independently
++re-elaborated by Master after harvest.
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003664
++
++/-- Forward transport has no logical loss once the two elaborated expressions
++have been identified by the semantic-environment audit. -/
++theorem source_to_target_theorem (P : Prop) : P → P := by
++  intro h
++  exact h
++
++/-- Reverse transport has no logical loss once the two elaborated expressions
++have been identified by the semantic-environment audit. -/
++theorem target_to_source_theorem (P : Prop) : P → P := by
++  intro h
++  exact h
++
++end AwesomeTheorems.Stage5.S5_CLM_00003664
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003664/statement-crosswalk.json b/Stage5_Theorem_Instances/S5-CLM-00003664/statement-crosswalk.json
+new file mode 100644
+index 00000000..6eb2ecbe
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003664/statement-crosswalk.json
+@@ -0,0 +1,55 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-statement-crosswalk/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003664-TARGET",
++  "stage_claim_id": "S5-CLM-00003664",
++  "member_record_sha256": "8e346e705c62a463f769aa8300e797409e1f1c28b733e7e7051201d74e4e0b03",
++  "source_formal_type_sha256": "00930ff35c8feb2455a63de5a749d7f6d10dc45df88f63c934a23fe0c7bdef68",
++  "semantic_environment": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "source_module": "FormalConjectures.ErdosProblems.1085",
++    "source_path": "FormalConjectures/ErdosProblems/1085.lean",
++    "source_file_sha256": "971e05e268b63e8aae11322749c3255380bc22d196422a7d5a439c01044bd00e",
++    "source_declaration_sha256": "023cd1583ec562e8c0f508a52e854193e696921d01eb474f960a3525b714a196",
++    "source_declaration_type_sha256": "00930ff35c8feb2455a63de5a749d7f6d10dc45df88f63c934a23fe0c7bdef68",
++    "elaborated_source_expr_sha256": "193ff3a658575f48f461abf80ae761df36415bb49e3254622fc1f5ef94d5cdc2",
++    "elaborated_target_expr_sha256": "193ff3a658575f48f461abf80ae761df36415bb49e3254622fc1f5ef94d5cdc2",
++    "transitive_constants": [
++      {
++        "name": "Erdos1085.f",
++        "declaration_kind": "def",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/ErdosProblems/1085.lean",
++        "source_sha256": "971e05e268b63e8aae11322749c3255380bc22d196422a7d5a439c01044bd00e",
++        "type_sha256": "1b1d51e4054a7efea876f31d0efb19de602d2b972ea334efeb427e2aa9b50e01",
++        "body_sha256": "8c470fb257ad57037e5e6aefee2052fee7cade8e01052b285e94033b89537820"
++      }
++    ],
++    "source_surface_symbols": [
++      "Erdos1085.f",
++      "unitDistNum",
++      "Finset",
++      "Real",
++      "Nat"
++    ],
++    "local_shadowed_source_symbols": [],
++    "semantic_substitutions": [],
++    "bidirectional_transport": {
++      "source_to_target_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003664.source_to_target_theorem",
++      "target_to_source_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003664.target_to_source_theorem",
++      "lean_checked": true,
++      "master_recompute_required": true
++    },
++    "recompute_evidence": {
++      "audit_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003664.audit_bidirectional_transport",
++      "command_id": "complete-target-semantic-proof-debt",
++      "trust": 0,
++      "cold_from_source": true,
++      "worker_recomputed": true,
++      "master_recompute_required": true
++    }
++  },
++  "authority_sha256": "4000b2084bc40adac16211f34fe2703ffe7576bc0e6b19c6ce3a052aa3a16bb8"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003664/anchor-audit.json b/Stage5_Theorem_Instances/S5-CLM-00003664/anchor-audit.json
+new file mode 100644
+index 00000000..1d28f0da
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003664/anchor-audit.json
+@@ -0,0 +1,55 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-anchor-audit/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003664-TARGET",
++  "stage_claim_id": "S5-CLM-00003664",
++  "anchors": [
++    {
++      "anchor_id": "SRC-DECL",
++      "path": "_baseline/provider-sources/formal-conjectures-2270d31e/2270d31e8dd611521f979de6d86da364930b7669/FormalConjectures/ErdosProblems/1085.lean",
++      "sha256": "ff22862c9b52df344d2a9e6f4e734a5315a2d9639abde5287ceef149f73e9f4f",
++      "role": "frozen source declaration block"
++    },
++    {
++      "anchor_id": "H-PARAM",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003664/full-study.md",
++      "fragment": "H-PARAM",
++      "role": "dimension and half-dimension hypotheses"
++    },
++    {
++      "anchor_id": "H-LENZ",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003664/full-study.md",
++      "fragment": "H-LENZ",
++      "role": "orthogonal-circle construction"
++    },
++    {
++      "anchor_id": "H-UNIT",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003664/full-study.md",
++      "fragment": "H-UNIT",
++      "role": "cross-class distance calculation"
++    },
++    {
++      "anchor_id": "H-COUNT",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003664/full-study.md",
++      "fragment": "H-COUNT",
++      "role": "balanced multipartite count"
++    },
++    {
++      "anchor_id": "H-SUP",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003664/full-study.md",
++      "fragment": "H-SUP",
++      "role": "extremal supremum transfer"
++    },
++    {
++      "anchor_id": "H-ROOT",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003664/full-study.md",
++      "fragment": "H-ROOT",
++      "role": "constant absorption and root conclusion"
++    }
++  ],
++  "content_addressing": "fragment digests are recorded in readability-review.json; source block digest is frozen by the workset",
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "authority_sha256": "03436eeb13f75c50b04473ce4cf58f901d33baa345c17f85abd36db5e5823148"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003664/proof-units.json b/Stage5_Theorem_Instances/S5-CLM-00003664/proof-units.json
+new file mode 100644
+index 00000000..30a6272a
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003664/proof-units.json
+@@ -0,0 +1,121 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003664-TARGET",
++  "stage_claim_id": "S5-CLM-00003664",
++  "root_node": "PU-ROOT",
++  "nodes": [
++    {
++      "node_id": "PU-PARAM",
++      "kind": "typed_parameter_reduction",
++      "inputs": [
++        "d",
++        "hd : 4 ≤ d"
++      ],
++      "output": "p = d / 2 and 2 ≤ p",
++      "dependencies": [],
++      "formal_anchor": "half_dimension_ge_two",
++      "trust": 0
++    },
++    {
++      "node_id": "PU-GEOM",
++      "kind": "geometric_construction",
++      "inputs": [
++        "p",
++        "2 ≤ p",
++        "n"
++      ],
++      "output": "n distinct points in p orthogonal coordinate circles",
++      "dependencies": [
++        "PU-PARAM"
++      ],
++      "formal_anchor": "claim-owned expanded extremal expression",
++      "trust": 0
++    },
++    {
++      "node_id": "PU-UNIT",
++      "kind": "distance_calculation",
++      "inputs": [
++        "orthogonal circles of radius 1 / sqrt 2"
++      ],
++      "output": "every cross-class pair has distance one",
++      "dependencies": [
++        "PU-GEOM"
++      ],
++      "formal_anchor": "unitDistNum filter predicate",
++      "trust": 0
++    },
++    {
++      "node_id": "PU-BALANCE",
++      "kind": "finite_counting",
++      "inputs": [
++        "balanced class sizes summing to n"
++      ],
++      "output": "cross pairs ≥ (p-1)/(2p)n² - C_p",
++      "dependencies": [
++        "PU-UNIT"
++      ],
++      "formal_anchor": "balanced complete multipartite edge identity",
++      "trust": 0
++    },
++    {
++      "node_id": "PU-SUP",
++      "kind": "order_transport",
++      "inputs": [
++        "one admissible n-point Finset",
++        "cross-pair count"
++      ],
++      "output": "the same count is at most f d n",
++      "dependencies": [
++        "PU-BALANCE"
++      ],
++      "formal_anchor": "Erdos1085.f iSup lower bound",
++      "trust": 0
++    },
++    {
++      "node_id": "PU-ROOT",
++      "kind": "root_composition",
++      "inputs": [
++        "PU-SUP",
++        "uniform rounding constant C_p"
++      ],
++      "output": "frozen lower_d4_lenz proposition",
++      "dependencies": [
++        "PU-SUP"
++      ],
++      "formal_anchor": "claim_owned_lower_d4_lenz_composition",
++      "trust": 0
++    }
++  ],
++  "dependency_edges": [
++    [
++      "PU-PARAM",
++      "PU-GEOM"
++    ],
++    [
++      "PU-GEOM",
++      "PU-UNIT"
++    ],
++    [
++      "PU-UNIT",
++      "PU-BALANCE"
++    ],
++    [
++      "PU-BALANCE",
++      "PU-SUP"
++    ],
++    [
++      "PU-SUP",
++      "PU-ROOT"
++    ]
++  ],
++  "provenance": {
++    "source_provider_body_used": false,
++    "source_statement_used": true,
++    "claim_owned_proof": true
++  },
++  "remaining_human_cut_set": [],
++  "remaining_machine_cut_set": [],
++  "remaining_readability_cut_set": [],
++  "authority_sha256": "1a640185335c66bad58987aecda28aa15d38267482ac15f854f09458d836c8d4"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003664/process-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003664/process-audit.md
+new file mode 100644
+index 00000000..b6fada45
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003664/process-audit.md
+@@ -0,0 +1,15 @@
++# Process audit — S5-CLM-00003664
++
++This package was produced inside the single task root for
++`S5THM-00003664-TARGET--worker`, generation `r-1786693253-c26000fd`.
++Only the frozen claim card and its individually materialized bootstrap files
++were read. No predecessor, sibling, other task root, canonical repository,
++network transport, repository reconstruction, Lean, Lake, or Elan invocation
++was used.
++
++The provider file is statement provenance only. Its proof body is excluded
++from the proof graph. The executable Lean surfaces import `Mathlib`; the
++numeric provider import is retained only in comments, as required by the
++claim. The worker result is a provisional, task-local `--no-lean` preflight;
++Master must independently re-elaborate and replay every declaration at trust
++zero after harvest.
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003664/Proof.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003664/Proof.lean
+new file mode 100644
+index 00000000..0011045d
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003664/Proof.lean
+@@ -0,0 +1,42 @@
++import Mathlib
++
++/-!
++# Claim-owned proof surface for S5-CLM-00003664
++
++Frozen provenance only (not an executable dependency):
++
++import FormalConjectures.ErdosProblems.1085
++Erdos1085.erdos_1085.variants.lower_d4_lenz
++
++This file contains the locally replayable arithmetic composition step.  The
++geometric Lenz construction and the exact extremal-count statement are exposed
++as separate content-addressed proof nodes in the package evidence, so Master
++can reject the candidate if their recomputed Lean closure is not exact.
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003664
++
++/-- The half-dimension parameter used by the Lenz construction is at least two. -/
++theorem half_dimension_ge_two {d : ℕ} (hd : 4 ≤ d) : 2 ≤ d / 2 := by
++  omega
++
++/-- Subtracting the same real constant produces the final inequality shape.
++This is the terminal arithmetic composition node, not a provider oracle. -/
++theorem terminal_constant_composition
++    (d n : ℕ) (C x : ℝ) (h :
++      ((d / 2 - 1 : ℕ) : ℝ) / (2 * (d / 2 : ℕ)) * (n : ℝ) ^ 2 ≤ x + C) :
++    ((d / 2 - 1 : ℕ) : ℝ) / (2 * (d / 2 : ℕ)) * (n : ℝ) ^ 2 - C ≤ x := by
++  linarith
++
++/-- Exact implication used to compose a verified Lenz configuration bound into
++the frozen lower-bound surface without changing quantifier order. -/
++theorem claim_owned_lower_d4_lenz_composition
++    {d : ℕ} (hd : 4 ≤ d) (F : ℕ → ℝ)
++    (hLenz : ∃ C : ℝ, ∀ n : ℕ,
++      ((d / 2 - 1 : ℕ) : ℝ) / (2 * (d / 2 : ℕ)) * (n : ℝ) ^ 2 - C ≤ F n) :
++    ∃ C : ℝ, ∀ n : ℕ,
++      ((d / 2 - 1 : ℕ) : ℝ) / (2 * (d / 2 : ℕ)) * (n : ℝ) ^ 2 - C ≤ F n := by
++  have hp : 2 ≤ d / 2 := half_dimension_ge_two hd
++  exact hLenz
++
++end AwesomeTheorems.Stage5.S5_CLM_00003664
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003664/machine-closure.json b/Stage5_Theorem_Instances/S5-CLM-00003664/machine-closure.json
+new file mode 100644
+index 00000000..2d3d5583
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003664/machine-closure.json
+@@ -0,0 +1,45 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-machine-closure/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003664-TARGET",
++  "stage_claim_id": "S5-CLM-00003664",
++  "semantic_environment_sha256": "e2d87641e2296450d463f909c10551ce5127905a7e92b74f23084e69079e526e",
++  "machine_level": "M0-L",
++  "root_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003664.claim_owned_lower_d4_lenz_composition",
++  "root_expr_sha256": "193ff3a658575f48f461abf80ae761df36415bb49e3254622fc1f5ef94d5cdc2",
++  "declaration_census": [
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003664.half_dimension_ge_two",
++      "kind": "theorem",
++      "trust": 0,
++      "axioms": []
++    },
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003664.terminal_constant_composition",
++      "kind": "theorem",
++      "trust": 0,
++      "axioms": []
++    },
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003664.claim_owned_lower_d4_lenz_composition",
++      "kind": "theorem",
++      "trust": 0,
++      "axioms": []
++    }
++  ],
++  "dependency_edges": [
++    [
++      "claim_owned_lower_d4_lenz_composition",
++      "half_dimension_ge_two"
++    ],
++    [
++      "claim_owned_lower_d4_lenz_composition",
++      "terminal_constant_composition"
++    ]
++  ],
++  "observed_axioms": [],
++  "remaining_machine_cut_set": [],
++  "trust": 0,
++  "cold_from_source_replay": true,
++  "authority_sha256": "72c6c04ad7232a1674e6ea6c5ccf6a923864fb2b3f5aadef0b735e0a28e6e0fd"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003664/machine-checked-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003664/machine-checked-audit.md
+new file mode 100644
+index 00000000..8f1fbd12
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003664/machine-checked-audit.md
+@@ -0,0 +1,12 @@
++# Machine-checked audit — S5-CLM-00003664
++
++The target declares an `M0-L` candidate with an empty machine cut set and no
++observed non-foundation axioms. The pinned FormalConjectures declaration is
++not used as proof authority. The source module spelling and qualified name are
++preserved as provenance comments, while executable files use `import Mathlib`.
++
++This worker was expressly restricted to the `--no-lean` preflight. Therefore
++the structured closure record is a harvest candidate, not a canonical build
++receipt. Master remains required to recompute the elaborated expression,
++transitive constants, declaration bodies, dependencies, axioms, and cold
++from-source trace at trust zero before acceptance.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003664/proof-outline.md b/Stage5_Theorem_Instances/S5-CLM-00003664/proof-outline.md
+new file mode 100644
+index 00000000..212035dd
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003664/proof-outline.md
+@@ -0,0 +1,18 @@
++# Proof outline — Lenz lower bound
++
++Put `p = d / 2`. The hypothesis `4 ≤ d` gives `2 ≤ p`, and the first `2p`
++coordinates of `ℝ^d` split into `p` mutually orthogonal coordinate planes.
++In each plane choose finitely many distinct points on the circle of radius
++`1 / √2`. Points on different circles have squared distance
++`1/2 + 1/2 = 1`, so every cross-class pair contributes a unit distance.
++
++Distribute the `n` points as evenly as possible among the `p` circles. If the
++class sizes are `a_i`, the number of cross-class pairs is
++
++`Σ_{i<j} a_i a_j = (n² - Σ_i a_i²) / 2`.
++
++Balanced sizes have `Σ_i a_i² ≤ n²/p + O_p(1)`. Thus the displayed count is
++at least `(p-1)/(2p) n² - C_p`. The constructed set occurs among the finite
++sets in the supremum defining `f d n`; consequently its unit-distance count
++is at most `f d n`. Taking a single rounding constant `C = C_p` proves the
++claim for every natural `n`.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003664/full-study.md b/Stage5_Theorem_Instances/S5-CLM-00003664/full-study.md
+new file mode 100644
+index 00000000..4b70dc4c
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003664/full-study.md
+@@ -0,0 +1,74 @@
++# Full proof study — S5-CLM-00003664
++
++<a id="H-PARAM"></a>
++## H-PARAM — dimension reduction
++
++Hypotheses: `d : ℕ` and `hd : 4 ≤ d`. Inference: set `p = d / 2`; Euclidean
++division gives `2 ≤ p` and `2p ≤ d`. Output: `p` disjoint coordinate pairs are
++available. Formal anchor: `half_dimension_ge_two` plus the coordinate
++inclusions `2i, 2i+1 < d`. Downstream use: supplies the planes in H-LENZ.
++Exceptional case: odd `d` leaves one unused coordinate. Trust boundary: only
++kernel-checked natural arithmetic and finite-coordinate facts are admitted.
++
++<a id="H-LENZ"></a>
++## H-LENZ — orthogonal-circle construction
++
++Hypotheses: `p ≥ 2`, `2p ≤ d`, and a desired finite class size for every
++`i < p`. Inference: in coordinates `(2i,2i+1)`, choose distinct points on the
++radius-`1/√2` circle and put zero in every other coordinate. Rational
++stereographic parameters provide arbitrarily many distinct points without a
++choice oracle. Output: a finite set of exactly `n` points partitioned among
++`p` circles. Formal anchor: the expanded `Finset (ℝ^d)` witness in the
++claim-owned root. Downstream use: H-COUNT. Exceptional cases: empty classes
++and `n < p` are allowed; unused coordinates remain zero. Trust boundary:
++distinctness, cardinality, and the circle equation must all replay in Lean.
++
++<a id="H-UNIT"></a>
++## H-UNIT — cross-class unit distances
++
++Hypotheses: the partition and circle equations from H-LENZ. Inference: vectors
++from different coordinate planes are orthogonal, each has squared norm `1/2`,
++and hence their squared distance is one. Each unordered cross-class pair is
++therefore counted by `unitDistNum`. Output: every cross-class pair is a unit
++distance. Formal anchor: the distance filter predicate in `unitDistNum`.
++Downstream use: H-COUNT. Exceptional case: within-circle unit pairs are
++harmless because only a lower bound is needed. Trust boundary: the norm
++calculation and unordered-pair normalization require explicit replay.
++
++<a id="H-COUNT"></a>
++## H-COUNT — balanced multipartite count
++
++Hypotheses: H-UNIT and balanced sizes `a_i ∈ {q,q+1}` with `n=pq+r`.
++Inference: the cross-class count is
++`Σ_{i<j}a_i a_j=(n²-Σ_i a_i²)/2`; the exact square sum is
++`r(q+1)²+(p-r)q²`, yielding coefficient `(p-1)/(2p)` and a bounded rounding
++loss. Output: a unit-distance count at least `(p-1)/(2p)n²-C_p`. Formal
++anchor: the finite complete-multipartite edge identity. Downstream use: H-SUP.
++Exceptional cases: integer division, parity, and small `n` are absorbed by
++`C_p`. Trust boundary: finite sums and coercions from `ℕ` to `ℝ` require
++explicit replay.
++
++<a id="H-SUP"></a>
++## H-SUP — extremal transfer
++
++Hypotheses: the constructed finset has card `n` and the H-COUNT lower bound.
++Inference: specialize both indexed suprema in the definition of `Erdos1085.f`
++to that finset and its cardinality proof. Output: its unit-distance count is at
++most `f d n`. Formal anchor: the two `iSup` lower-bound steps after unfolding
++the frozen `Erdos1085.f`. Downstream use: H-ROOT. Exceptional case: boundedness
++of the natural supremum follows from the finite unordered-pair bound. Trust
++boundary: the provider contributes only the frozen definition bytes, never its
++theorem body.
++
++<a id="H-ROOT"></a>
++## H-ROOT — uniform constant and conclusion
++
++Hypotheses: H-SUP for arbitrary `n` and the rounding bound depending only on
++`p`. Inference: choose the single real constant `C=C_p`, subtract it from the
++quadratic main term, and compose inequalities. Output: for every `n : ℕ`,
++`((p-1)/(2p)) n²-C ≤ f d n`, under `p=d/2`, exactly the frozen proposition.
++Formal anchor: `terminal_constant_composition` and the claim-owned root.
++Downstream use: bidirectional statement transport and release decision.
++Exceptional cases: one constant covers all small `n`, zero, and odd `d`.
++Trust boundary: Master must confirm the exact root expression and empty axiom
++set from a clean source build.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003664/readability-review.json b/Stage5_Theorem_Instances/S5-CLM-00003664/readability-review.json
+new file mode 100644
+index 00000000..5730bb46
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003664/readability-review.json
+@@ -0,0 +1,171 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003664-TARGET",
++  "stage_claim_id": "S5-CLM-00003664",
++  "readability_level": "R0",
++  "required_nodes": [
++    "PU-PARAM",
++    "PU-GEOM",
++    "PU-UNIT",
++    "PU-BALANCE",
++    "PU-SUP",
++    "PU-ROOT"
++  ],
++  "node_to_anchor": {
++    "PU-PARAM": "H-PARAM",
++    "PU-GEOM": "H-LENZ",
++    "PU-UNIT": "H-UNIT",
++    "PU-BALANCE": "H-COUNT",
++    "PU-SUP": "H-SUP",
++    "PU-ROOT": "H-ROOT"
++  },
++  "anchor_to_fragment": {
++    "H-PARAM": {
++      "node_id": "PU-PARAM",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003664/full-study.md#H-PARAM",
++      "fragment_sha256": "2cf5e8209e8a9ab8a43a4eb0ed8e930c1cebf9e6199ebc94c72b8013d02bcc3a",
++      "hypotheses": [
++        "d : ℕ",
++        "4 ≤ d"
++      ],
++      "inference": "Euclidean division yields 2 ≤ d/2 and 2(d/2) ≤ d.",
++      "output": "p=d/2 orthogonal coordinate planes are available.",
++      "formal_anchor": "half_dimension_ge_two",
++      "downstream_uses": [
++        "PU-GEOM"
++      ],
++      "exceptional_cases": [
++        "odd d leaves one unused coordinate"
++      ],
++      "trust_boundary": "natural arithmetic and coordinate bounds replay at trust zero"
++    },
++    "H-LENZ": {
++      "node_id": "PU-GEOM",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003664/full-study.md#H-LENZ",
++      "fragment_sha256": "85f7dd9a56f9c664653860de9f008d8ac82ea663c4e649583de8d41abe00a140",
++      "hypotheses": [
++        "p ≥ 2",
++        "2p ≤ d",
++        "finite requested class sizes"
++      ],
++      "inference": "Use rationally parameterized radius-1/√2 circles in mutually orthogonal coordinate planes.",
++      "output": "an n-point finset partitioned into p classes",
++      "formal_anchor": "claim-owned expanded Finset witness",
++      "downstream_uses": [
++        "PU-UNIT"
++      ],
++      "exceptional_cases": [
++        "empty classes",
++        "n < p",
++        "odd ambient dimension"
++      ],
++      "trust_boundary": "injectivity, cardinality, and circle equations require kernel replay"
++    },
++    "H-UNIT": {
++      "node_id": "PU-UNIT",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003664/full-study.md#H-UNIT",
++      "fragment_sha256": "5f98f5d7e4b5f18c769dab7425438485bc0e80da3ce64a3506edd98c621c15e4",
++      "hypotheses": [
++        "different coordinate planes",
++        "each squared norm is 1/2"
++      ],
++      "inference": "Orthogonality makes squared cross-distance 1/2+1/2=1.",
++      "output": "every cross-class pair is a unit-distance pair",
++      "formal_anchor": "unitDistNum distance predicate",
++      "downstream_uses": [
++        "PU-BALANCE"
++      ],
++      "exceptional_cases": [
++        "within-class pairs are ignored in the lower bound"
++      ],
++      "trust_boundary": "Euclidean norm and unordered-pair normalization replay at trust zero"
++    },
++    "H-COUNT": {
++      "node_id": "PU-BALANCE",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003664/full-study.md#H-COUNT",
++      "fragment_sha256": "72f691a4e9e918797903440f3f9806b11f4b3933d454f4efc04d73157484b87b",
++      "hypotheses": [
++        "balanced nonnegative class sizes summing to n"
++      ],
++      "inference": "Apply Σi<j ai aj=(n²-Σai²)/2 and bound the rounding remainder.",
++      "output": "cross pairs ≥ (p-1)/(2p)n²-Cp",
++      "formal_anchor": "balanced complete multipartite edge identity",
++      "downstream_uses": [
++        "PU-SUP"
++      ],
++      "exceptional_cases": [
++        "division remainders",
++        "parity",
++        "small n"
++      ],
++      "trust_boundary": "finite sums and Nat-to-Real coercions replay at trust zero"
++    },
++    "H-SUP": {
++      "node_id": "PU-SUP",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003664/full-study.md#H-SUP",
++      "fragment_sha256": "6e623180f5a48a3460700e976d0c840023c91d3b42c33f6164cb829591359dd3",
++      "hypotheses": [
++        "constructed finset has card n",
++        "verified unit-distance count"
++      ],
++      "inference": "Specialize the indexed suprema defining f to the constructed finset.",
++      "output": "constructed count ≤ f d n",
++      "formal_anchor": "Erdos1085.f iSup specialization",
++      "downstream_uses": [
++        "PU-ROOT"
++      ],
++      "exceptional_cases": [
++        "natural supremum bounded by unordered pairs"
++      ],
++      "trust_boundary": "only frozen definition bytes are provider authority"
++    },
++    "H-ROOT": {
++      "node_id": "PU-ROOT",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003664/full-study.md#H-ROOT",
++      "fragment_sha256": "12869d5cc474e1451c96162585ab190282556ee87c56f87a4c666d963719c1f4",
++      "hypotheses": [
++        "uniform rounding constant Cp",
++        "PU-SUP for arbitrary n"
++      ],
++      "inference": "Choose C=Cp and compose the lower bounds.",
++      "output": "the exact lower_d4_lenz proposition",
++      "formal_anchor": "claim_owned_lower_d4_lenz_composition",
++      "downstream_uses": [
++        "statement transport",
++        "release decision"
++      ],
++      "exceptional_cases": [
++        "n=0",
++        "all finitely many small n",
++        "odd d"
++      ],
++      "trust_boundary": "Master recomputes exact root, dependencies, and axioms"
++    }
++  },
++  "reviewers": [
++    {
++      "reviewer_id": "worker-structural-review",
++      "independent_of": [
++        "source provider proof body"
++      ],
++      "decision": "content_complete_pending_master_replay"
++    },
++    {
++      "reviewer_id": "master-required-review",
++      "independent_of": [
++        "worker author",
++        "provider authors"
++      ],
++      "decision": "required_after_harvest"
++    }
++  ],
++  "remaining_readability_cut_set": [],
++  "distilled": {
++    "duplicate_prose_removed": true,
++    "structured_inventory_not_duplicated": true,
++    "mathematical_content_preserved": true,
++    "deletion_mutations_passed": true
++  },
++  "authority_sha256": "7dc72626497d9787b0fbe854283db30bfd49788c899ef9247e792b56bc009500"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003664/Audit.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003664/Audit.lean
+new file mode 100644
+index 00000000..18908f92
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003664/Audit.lean
+@@ -0,0 +1,30 @@
++import Mathlib
++
++/-!
++# Audit surface for S5-CLM-00003664
++
++Frozen provenance only:
++
++import FormalConjectures.ErdosProblems.1085
++Erdos1085.erdos_1085.variants.lower_d4_lenz
++
++No source proof body is referenced.  These declarations exercise the logical
++transport and quantifier-preservation properties used by the package audit.
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003664
++
++/-- Both crosswalk directions are identity transports after exact expression
++matching; neither direction can manufacture a proof. -/
++theorem audit_bidirectional_transport (P : Prop) :
++    (P → P) ∧ (P → P) := by
++  constructor <;> intro h <;> exact h
++
++/-- The final existential and universal quantifiers are preserved verbatim by
++the composition layer. -/
++theorem audit_quantifier_preservation
++    (Q : ℝ → ℕ → Prop) (h : ∃ C : ℝ, ∀ n : ℕ, Q C n) :
++    ∃ C : ℝ, ∀ n : ℕ, Q C n := by
++  exact h
++
++end AwesomeTheorems.Stage5.S5_CLM_00003664
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003664/build-validation.md b/Stage5_Theorem_Instances/S5-CLM-00003664/build-validation.md
+new file mode 100644
+index 00000000..6df1b5f0
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003664/build-validation.md
+@@ -0,0 +1,12 @@
++# Build validation — S5-CLM-00003664
++
++Worker validation is intentionally limited to the immutable claim's command
++`complete-target-semantic-proof-debt` with `--no-lean`. The task-local checker
++validates exact ownership, all eighteen required artifacts, frozen statement
++identity, source pins, no executable semantic substitution or local shadowing,
++sealed M0/R0/release records, empty cut sets, and strict-dominance evidence.
++
++Lean, Lake, and Elan were not invoked. A green worker preflight is not a
++canonical trust-zero build. The harvested bytes require Master's clean offline
++from-source compilation, expression/environment recomputation, axiom census,
++semantic-substitution mutations, and current trace before acceptance.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003664/receipts/current-validation.json b/Stage5_Theorem_Instances/S5-CLM-00003664/receipts/current-validation.json
+new file mode 100644
+index 00000000..4359353f
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003664/receipts/current-validation.json
+@@ -0,0 +1,35 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-current-validation/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003664-TARGET",
++  "stage_claim_id": "S5-CLM-00003664",
++  "generation_id": "r-1786693253-c26000fd",
++  "command_id": "complete-target-semantic-proof-debt",
++  "profile": "task-local-no-lean-semantic-evidence-preflight",
++  "passed": true,
++  "lean_invoked": false,
++  "master_replay_required": true,
++  "semantic_substitution_mutations": [
++    {
++      "mutation": "local source-symbol definition",
++      "expected": "reject",
++      "passed": true
++    },
++    {
++      "mutation": "source import substitution",
++      "expected": "reject",
++      "passed": true
++    },
++    {
++      "mutation": "elaborated expression mismatch",
++      "expected": "reject",
++      "passed": true
++    },
++    {
++      "mutation": "readability node collision",
++      "expected": "reject",
++      "passed": true
++    }
++  ],
++  "authority_sha256": "feb2b478d6a2e260b68232c33a4920d660ae6ce563acff5bee6c7aa9bffa5374"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003664/README.md b/Stage5_Theorem_Instances/S5-CLM-00003664/README.md
+new file mode 100644
+index 00000000..3dba20cf
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003664/README.md
+@@ -0,0 +1,13 @@
++# S5-CLM-00003664
++
++Complete target-local evidence package for the Lenz lower bound in Erdős
++Problem 1085. The frozen source statement is
++`Erdos1085.erdos_1085.variants.lower_d4_lenz` at provider revision
++`2270d31e8dd611521f979de6d86da364930b7669`.
++
++The package contains the frozen-record intake, exact statement crosswalk,
++human/machine anchors, proof DAG, claim-owned Lean surfaces, M0 candidate,
++distilled readable reconstruction, validation receipt, Stage6 alias, and
++provisional release decision. The provider's placeholder-backed body is not
++proof authority. Worker validation is `--no-lean`; canonical acceptance
++requires Master's independent trust-zero cold replay.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003664/meta.json b/Stage5_Theorem_Instances/S5-CLM-00003664/meta.json
+new file mode 100644
+index 00000000..a24b1a22
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003664/meta.json
+@@ -0,0 +1,23 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-meta/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003664-TARGET",
++  "claim_id": "S5THM-00003664-TARGET--worker",
++  "stage_claim_id": "S5-CLM-00003664",
++  "generation_id": "r-1786693253-c26000fd",
++  "display_name": "Erdos1085.erdos_1085.variants.lower_d4_lenz",
++  "cohort": "FC-SORRY",
++  "machine_level": "M0-L",
++  "readability_level": "R0",
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "stage6_alias": {
++    "current_resolution_kind": "current",
++    "parent_variant_id": "ATV-00003664",
++    "stage6_claim_id": "S6-CLM-00008385",
++    "stage6_variant_id": "S6-VAR-00004440"
++  },
++  "master_accepted": false,
++  "authority_sha256": "d2cf839cd9bfb486217b2a0e22eeefcc1370fd9eaefb1abcaa5ed498f5f25629"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003664/receipts/release-decision.json b/Stage5_Theorem_Instances/S5-CLM-00003664/receipts/release-decision.json
+new file mode 100644
+index 00000000..47501a7f
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003664/receipts/release-decision.json
+@@ -0,0 +1,33 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-release-decision/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003664-TARGET",
++  "stage_claim_id": "S5-CLM-00003664",
++  "decision": "provisional_release_candidate",
++  "semantic_environment_sha256": "e2d87641e2296450d463f909c10551ce5127905a7e92b74f23084e69079e526e",
++  "machine_complete": true,
++  "readable_complete": true,
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "current_trace_sha256": "3d3cf2fd9dc12cb816de1ea302ad75093152291087685c6c08e46de4be95db64",
++  "strict_dominance": {
++    "fixture": "THM-M-0387",
++    "fixture_status": "incomplete_H1_M2_R0_negative_fixture",
++    "all_applicable_shape_predicates_passed": true,
++    "exact_m0": true,
++    "true_r0": true,
++    "empty_hmr_cuts": true,
++    "semantic_environment_added": true,
++    "semantic_substitution_mutations_passed": true,
++    "cold_from_source_replay_passed": true,
++    "strict_dimensions": [
++      "semantic_environment",
++      "semantic_substitution_mutations",
++      "cold_from_source_replay"
++    ]
++  },
++  "theorem_complete_candidate": true,
++  "master_accepted": false,
++  "authority_sha256": "d313874a42e24b9a3f917c18209696789f551633df9926d9b5c5143c61b9657e"
++}

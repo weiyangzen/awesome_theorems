@@ -1,0 +1,263 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003516-TARGET",
+  "stage_claim_id": "S5-CLM-00003516",
+  "root_node": "root-answer",
+  "nodes": [
+    {
+      "node_id": "root-answer",
+      "kind": "root",
+      "type": "answer(True) ↔ ∀ p q, FourProp p q 3",
+      "hypotheses": [
+        "frozen declaration"
+      ],
+      "inference": "unfold affirmative answer and assemble all cubics",
+      "output": "frozen proposition",
+      "formal_anchor": "claim_owned_four_3",
+      "provenance": [
+        "Arxiv.«2602.05192».four_3"
+      ],
+      "trust": 0,
+      "readability_anchor": "root-answer",
+      "downstream_uses": [
+        "release"
+      ],
+      "exceptional_cases": [
+        "none"
+      ],
+      "trust_boundary": [
+        "Master exact transport"
+      ]
+    },
+    {
+      "node_id": "normalize-cubics",
+      "kind": "reduction",
+      "type": "monic real-rooted cubic → centered invariants",
+      "hypotheses": [
+        "monic",
+        "degree=3",
+        "roots.card=3"
+      ],
+      "inference": "translate roots to zero mean",
+      "output": "x^3-3*a*x-u and x^3-3*b*x-v",
+      "formal_anchor": "FourProp",
+      "provenance": [
+        "FirstProof4.lean"
+      ],
+      "trust": 0,
+      "readability_anchor": "normalize-cubics",
+      "downstream_uses": [
+        "add-invariants",
+        "discriminant-bound"
+      ],
+      "exceptional_cases": [
+        "multiple roots retained"
+      ],
+      "trust_boundary": [
+        "Master coefficient replay"
+      ]
+    },
+    {
+      "node_id": "add-invariants",
+      "kind": "composition",
+      "type": "(a,u),(b,v) ↦ (a+b,u+v)",
+      "hypotheses": [
+        "centered inputs"
+      ],
+      "inference": "expand n=3 convolution coefficients",
+      "output": "centered output invariants",
+      "formal_anchor": "finiteAdditiveConvolution",
+      "provenance": [
+        "FirstProof4.lean:30-38"
+      ],
+      "trust": 0,
+      "readability_anchor": "add-invariants",
+      "downstream_uses": [
+        "cauchy-core"
+      ],
+      "exceptional_cases": [
+        "none"
+      ],
+      "trust_boundary": [
+        "Master source elaboration"
+      ]
+    },
+    {
+      "node_id": "discriminant-bound",
+      "kind": "lemma",
+      "type": "u^2≤4*a^3 ∧ v^2≤4*b^3",
+      "hypotheses": [
+        "real-rooted centered cubics"
+      ],
+      "inference": "nonnegative cubic discriminant",
+      "output": "closed discriminant region",
+      "formal_anchor": "cubic discriminant identity",
+      "provenance": [
+        "standard algebra"
+      ],
+      "trust": 0,
+      "readability_anchor": "discriminant-bound",
+      "downstream_uses": [
+        "phi-identity",
+        "repeated-root"
+      ],
+      "exceptional_cases": [
+        "equality means repeated root"
+      ],
+      "trust_boundary": [
+        "polynomial identity"
+      ]
+    },
+    {
+      "node_id": "phi-identity",
+      "kind": "lemma",
+      "type": "1/Φ=(4*a^3-u^2)/(6*a^2)",
+      "hypotheses": [
+        "distinct roots",
+        "centered cubic"
+      ],
+      "inference": "common denominator over pairwise root differences",
+      "output": "rational invariant formula",
+      "formal_anchor": "Φ",
+      "provenance": [
+        "FirstProof4.lean:107-115"
+      ],
+      "trust": 0,
+      "readability_anchor": "phi-identity",
+      "downstream_uses": [
+        "cauchy-core"
+      ],
+      "exceptional_cases": [
+        "a=0 is triple root"
+      ],
+      "trust_boundary": [
+        "ENNReal coercion replay"
+      ]
+    },
+    {
+      "node_id": "cauchy-core",
+      "kind": "lemma",
+      "type": "a*b*(u+v)^2≤(a+b)*(b*u^2+a*v^2)",
+      "hypotheses": [
+        "a≥0",
+        "b≥0"
+      ],
+      "inference": "gap equals (b*u-a*v)^2",
+      "output": "distinct-root inequality",
+      "formal_anchor": "cubic_cauchy_core",
+      "provenance": [
+        "Proof.lean"
+      ],
+      "trust": 0,
+      "readability_anchor": "cauchy-core",
+      "downstream_uses": [
+        "assemble"
+      ],
+      "exceptional_cases": [
+        "a=0",
+        "b=0"
+      ],
+      "trust_boundary": [
+        "Lean ring kernel"
+      ]
+    },
+    {
+      "node_id": "repeated-root",
+      "kind": "case",
+      "type": "¬Nodup roots → reciprocal Φ branch",
+      "hypotheses": [
+        "multiple root"
+      ],
+      "inference": "Φ=⊤ and inverse top=0",
+      "output": "boundary inequality",
+      "formal_anchor": "Φ if-branch",
+      "provenance": [
+        "FirstProof4.lean:107-115"
+      ],
+      "trust": 0,
+      "readability_anchor": "repeated-root",
+      "downstream_uses": [
+        "assemble"
+      ],
+      "exceptional_cases": [
+        "double root",
+        "triple root",
+        "output multiple root"
+      ],
+      "trust_boundary": [
+        "Mathlib ENNReal laws"
+      ]
+    },
+    {
+      "node_id": "assemble",
+      "kind": "composition",
+      "type": "∀ p q, FourProp p q 3",
+      "hypotheses": [
+        "generic and boundary branches"
+      ],
+      "inference": "complete nodup case split",
+      "output": "affirmative cubic theorem",
+      "formal_anchor": "source_to_target",
+      "provenance": [
+        "claim-owned proof"
+      ],
+      "trust": 0,
+      "readability_anchor": "assemble",
+      "downstream_uses": [
+        "root-answer"
+      ],
+      "exceptional_cases": [
+        "all nodup combinations"
+      ],
+      "trust_boundary": [
+        "Master full Lean transport"
+      ]
+    }
+  ],
+  "composition_edges": [
+    [
+      "normalize-cubics",
+      "add-invariants"
+    ],
+    [
+      "normalize-cubics",
+      "discriminant-bound"
+    ],
+    [
+      "discriminant-bound",
+      "phi-identity"
+    ],
+    [
+      "add-invariants",
+      "cauchy-core"
+    ],
+    [
+      "phi-identity",
+      "cauchy-core"
+    ],
+    [
+      "discriminant-bound",
+      "repeated-root"
+    ],
+    [
+      "cauchy-core",
+      "assemble"
+    ],
+    [
+      "repeated-root",
+      "assemble"
+    ],
+    [
+      "assemble",
+      "root-answer"
+    ]
+  ],
+  "provenance_complete": true,
+  "trust_complete": true,
+  "readability_complete": true,
+  "human_cut_set": [],
+  "machine_cut_set": [],
+  "readability_cut_set": [],
+  "authority_sha256": "8889c046449fce880a8d404f8a8e01ac44a73f4a4413dd209a927ab55564d291"
+}

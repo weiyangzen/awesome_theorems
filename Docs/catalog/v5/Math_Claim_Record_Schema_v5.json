@@ -1,0 +1,1241 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:awesome-theorems:schema:stage5-math-claim-record:5.0",
+  "title": "Stage5 source-faithful mathematics claim record",
+  "description": "Closed schema for one newly allocated, active Stage5 mathematics inventory record. It records deterministic extraction and source assertions without pretending that 2,500 rows received individual human proof, importance, status, or rights review.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "release_id",
+    "origin_stage",
+    "origin_release",
+    "curation_key",
+    "allocation",
+    "occurrence_id",
+    "family_id",
+    "sense_id",
+    "variant_id",
+    "stage_claim_id",
+    "display_name",
+    "aliases",
+    "owner_domain",
+    "membership_domains",
+    "record_role",
+    "claim_kind",
+    "current_claim_kind",
+    "historical_kind",
+    "atomicity",
+    "truth_apt",
+    "source_id",
+    "qualified_name",
+    "module",
+    "namespace",
+    "declaration_kind",
+    "formal_shape",
+    "formal_proof_state",
+    "locator",
+    "formal_declaration",
+    "formal_declaration_sha256",
+    "formal_type",
+    "formal_type_sha256",
+    "formal_docstring",
+    "formal_docstring_sha256",
+    "formal_statement",
+    "raw_category",
+    "category",
+    "raw_status",
+    "ams",
+    "primary_ams_class",
+    "classification_status",
+    "statement",
+    "statement_sha256",
+    "mathematical_statement",
+    "material_status",
+    "status_detail",
+    "conditionality",
+    "provenance",
+    "rights",
+    "dedupe",
+    "frontier",
+    "importance",
+    "lifecycle",
+    "lineage",
+    "semantic_payload_sha256"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "awesome-theorems/stage5-math-claim-record/5.0"
+    },
+    "release_id": {
+      "enum": [
+        "5.0",
+        "5.1"
+      ]
+    },
+    "origin_stage": {
+      "const": "Stage5"
+    },
+    "origin_release": {
+      "enum": [
+        "5.0",
+        "5.1"
+      ]
+    },
+    "curation_key": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]{2,255}$"
+    },
+    "allocation": {
+      "$ref": "#/$defs/allocation"
+    },
+    "occurrence_id": {
+      "$ref": "#/$defs/ato_id"
+    },
+    "family_id": {
+      "$ref": "#/$defs/atf_id"
+    },
+    "sense_id": {
+      "$ref": "#/$defs/ats_id"
+    },
+    "variant_id": {
+      "$ref": "#/$defs/atv_id"
+    },
+    "stage_claim_id": {
+      "$ref": "#/$defs/s5_id"
+    },
+    "display_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "aliases": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "owner_domain": {
+      "const": "mathematics"
+    },
+    "membership_domains": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "mathematics",
+          "physics",
+          "computer_science",
+          "cross_domain"
+        ]
+      },
+      "contains": {
+        "const": "mathematics"
+      },
+      "minContains": 1,
+      "maxContains": 1
+    },
+    "record_role": {
+      "const": "claim"
+    },
+    "claim_kind": {
+      "$ref": "#/$defs/claim_kind"
+    },
+    "current_claim_kind": {
+      "$ref": "#/$defs/claim_kind"
+    },
+    "historical_kind": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/claim_kind"
+        },
+        {
+          "const": "none"
+        }
+      ]
+    },
+    "atomicity": {
+      "const": "atomic"
+    },
+    "truth_apt": {
+      "const": true
+    },
+    "source_id": {
+      "$ref": "#/$defs/source_id"
+    },
+    "qualified_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "module": {
+      "type": "string",
+      "minLength": 1
+    },
+    "namespace": {
+      "type": "string"
+    },
+    "declaration_kind": {
+      "enum": [
+        "theorem",
+        "lemma",
+        "axiom",
+        "def"
+      ]
+    },
+    "formal_shape": {
+      "enum": [
+        "direct_prop",
+        "answer_placeholder"
+      ]
+    },
+    "formal_proof_state": {
+      "enum": [
+        "kernel_checked_sorry_free",
+        "statement_elaborated_with_placeholder",
+        "source_asserted_not_replayed"
+      ]
+    },
+    "locator": {
+      "$ref": "#/$defs/source_locator"
+    },
+    "formal_declaration": {
+      "type": "string",
+      "minLength": 1
+    },
+    "formal_declaration_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "formal_type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "formal_type_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "formal_docstring": {
+      "type": "string",
+      "minLength": 1
+    },
+    "formal_docstring_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "formal_statement": {
+      "$ref": "#/$defs/formal_statement"
+    },
+    "raw_category": {
+      "type": "string",
+      "minLength": 1
+    },
+    "category": {
+      "enum": [
+        "theorem",
+        "open_claim"
+      ]
+    },
+    "raw_status": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ams": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[0-9]{2}(?:[A-Z][0-9]{2})?$"
+      }
+    },
+    "primary_ams_class": {
+      "$ref": "#/$defs/msc_top_class"
+    },
+    "classification_status": {
+      "enum": [
+        "source_curated_machine_extracted",
+        "machine_validated_exact",
+        "independent_machine_validated",
+        "curator_reviewed",
+        "independently_reviewed"
+      ]
+    },
+    "statement": {
+      "$ref": "#/$defs/statement"
+    },
+    "statement_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "mathematical_statement": {
+      "$ref": "#/$defs/mathematical_statement"
+    },
+    "material_status": {
+      "enum": [
+        "proved",
+        "refuted",
+        "open",
+        "partial",
+        "independent",
+        "disputed"
+      ]
+    },
+    "status_detail": {
+      "$ref": "#/$defs/status_detail"
+    },
+    "conditionality": {
+      "$ref": "#/$defs/conditionality"
+    },
+    "provenance": {
+      "$ref": "#/$defs/provenance"
+    },
+    "rights": {
+      "$ref": "#/$defs/rights"
+    },
+    "dedupe": {
+      "$ref": "#/$defs/dedupe"
+    },
+    "frontier": {
+      "$ref": "#/$defs/frontier"
+    },
+    "importance": {
+      "$ref": "#/$defs/importance"
+    },
+    "lifecycle": {
+      "const": "active"
+    },
+    "lineage": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/lineage_edge"
+      }
+    },
+    "semantic_payload_sha256": {
+      "$ref": "#/$defs/sha256"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "category": {
+            "const": "theorem"
+          }
+        },
+        "required": [
+          "category"
+        ]
+      },
+      "then": {
+        "properties": {
+          "current_claim_kind": {
+            "enum": [
+              "theorem",
+              "lemma",
+              "corollary",
+              "proposition"
+            ]
+          },
+          "claim_kind": {
+            "enum": [
+              "theorem",
+              "lemma",
+              "corollary",
+              "proposition"
+            ]
+          },
+          "material_status": {
+            "const": "proved"
+          },
+          "formal_proof_state": {
+            "enum": [
+              "kernel_checked_sorry_free",
+              "statement_elaborated_with_placeholder",
+              "source_asserted_not_replayed"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "category": {
+            "const": "open_claim"
+          }
+        },
+        "required": [
+          "category"
+        ]
+      },
+      "then": {
+        "properties": {
+          "current_claim_kind": {
+            "enum": [
+              "conjecture",
+              "hypothesis",
+              "open_problem"
+            ]
+          },
+          "claim_kind": {
+            "enum": [
+              "conjecture",
+              "hypothesis",
+              "open_problem"
+            ]
+          },
+          "material_status": {
+            "enum": [
+              "open",
+              "partial",
+              "independent",
+              "disputed"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "formal_shape": {
+            "const": "answer_placeholder"
+          }
+        },
+        "required": [
+          "formal_shape"
+        ]
+      },
+      "then": {
+        "properties": {
+          "category": {
+            "const": "open_claim"
+          },
+          "claim_kind": {
+            "const": "open_problem"
+          },
+          "current_claim_kind": {
+            "const": "open_problem"
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "source_id": {
+      "type": "string",
+      "pattern": "^SRC-MATH-V5-[A-Z0-9][A-Z0-9._-]*$"
+    },
+    "ato_id": {
+      "type": "string",
+      "pattern": "^ATO-[0-9]{8}$"
+    },
+    "atf_id": {
+      "type": "string",
+      "pattern": "^ATF-[0-9]{8}$"
+    },
+    "ats_id": {
+      "type": "string",
+      "pattern": "^ATS-[0-9]{8}$"
+    },
+    "atv_id": {
+      "type": "string",
+      "pattern": "^ATV-[0-9]{8}$"
+    },
+    "s5_id": {
+      "type": "string",
+      "pattern": "^S5-CLM-[0-9]{8}$"
+    },
+    "claim_kind": {
+      "enum": [
+        "theorem",
+        "lemma",
+        "corollary",
+        "proposition",
+        "conjecture",
+        "hypothesis",
+        "open_problem"
+      ]
+    },
+    "source_ref_array": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/source_id"
+      }
+    },
+    "allocation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "parent_registry_authority_sha256",
+        "allocation_request_sha256",
+        "transaction_id",
+        "family_action",
+        "append_only"
+      ],
+      "properties": {
+        "parent_registry_authority_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "allocation_request_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "transaction_id": {
+          "type": "string",
+          "pattern": "^S5-ALLOC-[0-9]{8,}$"
+        },
+        "family_action": {
+          "enum": [
+            "new_family",
+            "reuse_reviewed_family"
+          ]
+        },
+        "append_only": {
+          "const": true
+        }
+      }
+    },
+    "source_locator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_id",
+        "revision",
+        "member_path",
+        "file_sha256",
+        "byte_start",
+        "byte_end_exclusive",
+        "line_start",
+        "line_end",
+        "raw_block_sha256"
+      ],
+      "properties": {
+        "source_id": {
+          "$ref": "#/$defs/source_id"
+        },
+        "revision": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40,64}$"
+        },
+        "member_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "file_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "byte_start": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "byte_end_exclusive": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "line_start": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "line_end": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "raw_block_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "formal_statement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "language",
+        "locator",
+        "module",
+        "namespace",
+        "declaration_name",
+        "qualified_declaration",
+        "declaration_kind",
+        "declaration_text",
+        "declaration_sha256",
+        "declaration_type",
+        "declaration_type_sha256",
+        "docstring",
+        "docstring_sha256",
+        "elaboration_status",
+        "axioms",
+        "sorry_free"
+      ],
+      "properties": {
+        "language": {
+          "const": "Lean4"
+        },
+        "locator": {
+          "$ref": "#/$defs/source_locator"
+        },
+        "module": {
+          "type": "string",
+          "minLength": 1
+        },
+        "namespace": {
+          "type": "string"
+        },
+        "declaration_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "qualified_declaration": {
+          "type": "string",
+          "minLength": 1
+        },
+        "declaration_kind": {
+          "enum": [
+            "theorem",
+            "lemma",
+            "axiom",
+            "def"
+          ]
+        },
+        "declaration_text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "declaration_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "declaration_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "declaration_type_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "docstring": {
+          "type": "string",
+          "minLength": 1
+        },
+        "docstring_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "elaboration_status": {
+          "enum": [
+            "kernel_checked_sorry_free",
+            "statement_elaborated_with_placeholder",
+            "source_repository_statement"
+          ]
+        },
+        "axioms": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "sorry_free": {
+          "enum": [
+            true,
+            false,
+            "unknown",
+            null
+          ]
+        }
+      }
+    },
+    "statement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "completeness",
+        "component_extraction_status",
+        "language",
+        "natural_language",
+        "hypotheses",
+        "conclusion",
+        "scope",
+        "formal_type"
+      ],
+      "properties": {
+        "completeness": {
+          "enum": [
+            "exact_formal_only",
+            "source_docstring_plus_exact_formal",
+            "normalized_prose_plus_exact_formal"
+          ]
+        },
+        "component_extraction_status": {
+          "enum": [
+            "not_separately_parsed",
+            "machine_parsed_from_formal_type",
+            "source_structured"
+          ]
+        },
+        "language": {
+          "type": "string",
+          "minLength": 2
+        },
+        "natural_language": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "hypotheses": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "conclusion": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "scope": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "formal_type": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "mathematical_statement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "completeness",
+        "component_extraction_status",
+        "language",
+        "natural_language",
+        "hypotheses",
+        "conclusion",
+        "scope",
+        "formal_type",
+        "statement_sha256"
+      ],
+      "properties": {
+        "completeness": {
+          "enum": [
+            "exact_formal_only",
+            "source_docstring_plus_exact_formal",
+            "normalized_prose_plus_exact_formal"
+          ]
+        },
+        "component_extraction_status": {
+          "enum": [
+            "not_separately_parsed",
+            "machine_parsed_from_formal_type",
+            "source_structured"
+          ]
+        },
+        "language": {
+          "type": "string",
+          "minLength": 2
+        },
+        "natural_language": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "hypotheses": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "conclusion": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "scope": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "formal_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "statement_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "msc_top_class": {
+      "enum": [
+        "00",
+        "01",
+        "03",
+        "05",
+        "06",
+        "08",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "22",
+        "26",
+        "28",
+        "30",
+        "31",
+        "32",
+        "33",
+        "34",
+        "35",
+        "37",
+        "39",
+        "40",
+        "41",
+        "42",
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "49",
+        "51",
+        "52",
+        "53",
+        "54",
+        "55",
+        "57",
+        "58",
+        "60",
+        "62",
+        "65",
+        "68",
+        "70",
+        "74",
+        "76",
+        "78",
+        "80",
+        "81",
+        "82",
+        "83",
+        "85",
+        "86",
+        "90",
+        "91",
+        "92",
+        "93",
+        "94",
+        "97"
+      ]
+    },
+    "status_detail": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status_as_of",
+        "basis",
+        "source_refs",
+        "evidence_level",
+        "resolution_criterion",
+        "known_special_cases"
+      ],
+      "properties": {
+        "status_as_of": {
+          "$ref": "#/$defs/date"
+        },
+        "basis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_refs": {
+          "$ref": "#/$defs/source_ref_array"
+        },
+        "evidence_level": {
+          "enum": [
+            "source_asserted_as_of",
+            "machine_validated_source_assertion",
+            "independent_machine_validated",
+            "curator_reviewed",
+            "independently_reviewed"
+          ]
+        },
+        "resolution_criterion": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "known_special_cases": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "conditionality": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "assumption_variant_ids",
+        "implication_proof_status",
+        "antecedent_status",
+        "consequent_standalone_status",
+        "no_status_inheritance"
+      ],
+      "properties": {
+        "mode": {
+          "enum": [
+            "none",
+            "ordinary_hypotheses",
+            "open_assumption",
+            "relative_to_axioms"
+          ]
+        },
+        "assumption_variant_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/atv_id"
+          }
+        },
+        "implication_proof_status": {
+          "enum": [
+            "not_applicable",
+            "proved",
+            "open",
+            "unknown"
+          ]
+        },
+        "antecedent_status": {
+          "enum": [
+            "not_applicable",
+            "proved",
+            "refuted",
+            "open",
+            "independent",
+            "disputed",
+            "unknown"
+          ]
+        },
+        "consequent_standalone_status": {
+          "enum": [
+            "not_applicable",
+            "proved",
+            "refuted",
+            "open",
+            "partial",
+            "independent",
+            "disputed",
+            "unknown"
+          ]
+        },
+        "no_status_inheritance": {
+          "const": true
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "formal_source_ref",
+        "source_refs",
+        "extraction_mode",
+        "extractor_version",
+        "extraction_receipt_sha256",
+        "source_assertion_not_independent_truth_review"
+      ],
+      "properties": {
+        "formal_source_ref": {
+          "$ref": "#/$defs/source_id"
+        },
+        "source_refs": {
+          "$ref": "#/$defs/source_ref_array"
+        },
+        "extraction_mode": {
+          "enum": [
+            "source_curated_machine_extracted",
+            "machine_validated_exact",
+            "independent_machine_validated",
+            "curator_reviewed",
+            "independently_reviewed"
+          ]
+        },
+        "extractor_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "extraction_receipt_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "source_assertion_not_independent_truth_review": {
+          "const": true
+        }
+      }
+    },
+    "rights": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "formal_code_terms",
+        "docstring_terms",
+        "status",
+        "redistribution_mode",
+        "attribution",
+        "source_refs",
+        "not_independently_cleared"
+      ],
+      "properties": {
+        "formal_code_terms": {
+          "type": "string",
+          "minLength": 1
+        },
+        "docstring_terms": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "source_specific_terms_preserved",
+            "source_terms_preserved_not_independently_cleared",
+            "cleared",
+            "cleared_with_attribution",
+            "share_alike_required"
+          ]
+        },
+        "redistribution_mode": {
+          "const": "source_terms_preserved_in_repository_inventory"
+        },
+        "attribution": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "source_refs": {
+          "$ref": "#/$defs/source_ref_array"
+        },
+        "not_independently_cleared": {
+          "type": "boolean"
+        }
+      }
+    },
+    "dedupe": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "identity_payload_sha256",
+        "formal_type_sha256",
+        "source_statement_sha256",
+        "normalized_statement_sha256",
+        "qualified_name_key",
+        "candidate_atv_ids",
+        "verdict",
+        "validation_status",
+        "duplicate_grants_quota",
+        "no_evidence_or_status_inheritance"
+      ],
+      "properties": {
+        "identity_payload_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "formal_type_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "source_statement_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "normalized_statement_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "qualified_name_key": {
+          "type": "string",
+          "minLength": 1
+        },
+        "candidate_atv_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/atv_id"
+          }
+        },
+        "verdict": {
+          "enum": [
+            "unique_exact_source_declaration",
+            "new_family",
+            "distinct_variant_existing_family",
+            "specializes_existing",
+            "generalizes_existing",
+            "refines_existing",
+            "hard_homonym_new_claim",
+            "split_child"
+          ]
+        },
+        "validation_status": {
+          "enum": [
+            "machine_validated_exact",
+            "source_curated_machine_extracted",
+            "independent_machine_validated",
+            "curator_reviewed",
+            "independently_reviewed"
+          ]
+        },
+        "duplicate_grants_quota": {
+          "const": false
+        },
+        "no_evidence_or_status_inheritance": {
+          "const": true
+        }
+      }
+    },
+    "frontier": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "class",
+        "as_of",
+        "basis",
+        "source_refs",
+        "evidence_level"
+      ],
+      "properties": {
+        "class": {
+          "enum": [
+            "source_asserted_open_frontier",
+            "source_asserted_solved",
+            "research_level_unranked",
+            "established",
+            "historical"
+          ]
+        },
+        "as_of": {
+          "$ref": "#/$defs/date"
+        },
+        "basis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_refs": {
+          "$ref": "#/$defs/source_ref_array"
+        },
+        "evidence_level": {
+          "enum": [
+            "source_category_signal",
+            "machine_validated_source_assertion",
+            "independent_machine_validated",
+            "curator_reviewed",
+            "independently_reviewed"
+          ]
+        }
+      }
+    },
+    "importance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tier",
+        "basis",
+        "rationale",
+        "evidence_level"
+      ],
+      "properties": {
+        "tier": {
+          "enum": [
+            "unranked_research_level",
+            "landmark",
+            "major",
+            "core",
+            "specialized",
+            "niche"
+          ]
+        },
+        "basis": {
+          "enum": [
+            "source_category_signal_only",
+            "source_metadata",
+            "curator_assessment",
+            "independent_assessment"
+          ]
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_level": {
+          "enum": [
+            "unranked",
+            "source_asserted",
+            "curator_reviewed",
+            "independently_reviewed"
+          ]
+        }
+      }
+    },
+    "lineage_edge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "relation_type",
+        "target_atv_id",
+        "validation_status",
+        "evidence_inherited"
+      ],
+      "properties": {
+        "relation_type": {
+          "enum": [
+            "same_claim",
+            "checked_equivalent",
+            "specializes",
+            "generalizes",
+            "refines",
+            "historical_name_of",
+            "translation_of",
+            "same_name_different_claim",
+            "supersedes"
+          ]
+        },
+        "target_atv_id": {
+          "$ref": "#/$defs/atv_id"
+        },
+        "validation_status": {
+          "enum": [
+            "machine_candidate",
+            "machine_validated_exact",
+            "independent_machine_validated",
+            "human_reviewed",
+            "independently_reviewed",
+            "disputed"
+          ]
+        },
+        "evidence_inherited": {
+          "const": false
+        }
+      }
+    }
+  }
+}

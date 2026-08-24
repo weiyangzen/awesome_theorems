@@ -1,0 +1,163 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003569-TARGET",
+  "stage_claim_id": "S5-CLM-00003569",
+  "root_node": "root",
+  "nodes": [
+    {
+      "node_id": "root",
+      "node_kind": "statement",
+      "inputs": [
+        "source-record",
+        "semantic-environment"
+      ],
+      "hypotheses": "The exact frozen theorem type and provider bindings are assumptions of the transport record.",
+      "inference": "Read the source declaration at its pinned byte range and bind its elaborated type digest.",
+      "output": "The target root proposition is fixed for Master recomputation.",
+      "formal_anchor": "M-S5-00003569-ROOT",
+      "downstream_uses": [
+        "transport-forward",
+        "transport-backward",
+        "release-certificate"
+      ],
+      "exceptional_cases": "Any source, revision, type, or environment mismatch blocks release.",
+      "trust_boundary": "Provider bytes are statement authority only; kernel replay is Master authority."
+    },
+    {
+      "node_id": "transport-forward",
+      "node_kind": "composition",
+      "inputs": [
+        "root"
+      ],
+      "hypotheses": "The target surface preserves the frozen source symbol references without local shadowing.",
+      "inference": "Apply the source-to-target transport theorem under the bound environment.",
+      "output": "Forward semantic transport obligation is discharged for replay.",
+      "formal_anchor": "M-S5-00003569-FORWARD",
+      "downstream_uses": [
+        "transport-backward",
+        "machine-root"
+      ],
+      "exceptional_cases": "Import substitution or parser capture invalidates this edge.",
+      "trust_boundary": "Theorem body is checked by Lean at trust zero after harvest."
+    },
+    {
+      "node_id": "transport-backward",
+      "node_kind": "composition",
+      "inputs": [
+        "transport-forward"
+      ],
+      "hypotheses": "The forward transport preserves all source hypotheses and outputs.",
+      "inference": "Apply the target-to-source reverse transport theorem and compare root digests.",
+      "output": "Bidirectional crosswalk closes the semantic identity loop.",
+      "formal_anchor": "M-S5-00003569-BACKWARD",
+      "downstream_uses": [
+        "readable-root",
+        "release-certificate"
+      ],
+      "exceptional_cases": "A non-injective crosswalk leaves a readability cut.",
+      "trust_boundary": "Reverse transport remains provisional until Master recomputation."
+    },
+    {
+      "node_id": "machine-root",
+      "node_kind": "machine-closure",
+      "inputs": [
+        "root",
+        "transport-forward",
+        "transport-backward"
+      ],
+      "hypotheses": "All root-relevant declarations have pinned source/type/body/dependency evidence.",
+      "inference": "Replay the exact root from source with trust set to zero and inspect axioms.",
+      "output": "M0 closure candidate with empty machine cut set.",
+      "formal_anchor": "machine-closure.json#root_declaration",
+      "downstream_uses": [
+        "readable-root",
+        "release-certificate"
+      ],
+      "exceptional_cases": "Any placeholder, unsafe injection, or stale object rejects closure.",
+      "trust_boundary": "Only canonical Master compilation can promote this candidate."
+    },
+    {
+      "node_id": "readable-root",
+      "node_kind": "readability",
+      "inputs": [
+        "root",
+        "machine-root"
+      ],
+      "hypotheses": "Every substantive proof/DAG node has one exact content-addressed fragment.",
+      "inference": "Review forward and reverse anchor ledgers for totality and injectivity.",
+      "output": "R0 readability candidate with empty readability cut set.",
+      "formal_anchor": "readability-review.json#node_to_anchor",
+      "downstream_uses": [
+        "release-certificate"
+      ],
+      "exceptional_cases": "Deletion of a hypothesis, inference, output, or trust boundary fails review.",
+      "trust_boundary": "Two independent reviewers are distinct from the worker and Master."
+    },
+    {
+      "node_id": "release-certificate",
+      "node_kind": "release",
+      "inputs": [
+        "machine-root",
+        "readable-root"
+      ],
+      "hypotheses": "M0, R0, semantic identity, mutation, and cold replay predicates all pass.",
+      "inference": "Compare every applicable predicate against the pinned THM-M-0387 negative fixture.",
+      "output": "Provisional release candidate awaiting canonical Master acceptance.",
+      "formal_anchor": "release-decision.json#strict_dominance",
+      "downstream_uses": [
+        "immutable-handoff"
+      ],
+      "exceptional_cases": "Master acceptance is intentionally false in worker output.",
+      "trust_boundary": "The canonical Master alone may advance the repository checklist."
+    }
+  ],
+  "edges": [
+    [
+      "root",
+      "transport-forward"
+    ],
+    [
+      "transport-forward",
+      "transport-backward"
+    ],
+    [
+      "root",
+      "machine-root"
+    ],
+    [
+      "transport-forward",
+      "machine-root"
+    ],
+    [
+      "transport-backward",
+      "machine-root"
+    ],
+    [
+      "machine-root",
+      "readable-root"
+    ],
+    [
+      "readable-root",
+      "release-certificate"
+    ],
+    [
+      "machine-root",
+      "release-certificate"
+    ]
+  ],
+  "provenance": {
+    "source": "FormalConjectures/ErdosProblems/1022.lean",
+    "revision": "2270d31e8dd611521f979de6d86da364930b7669",
+    "provider": "formal-conjectures-2270d31e",
+    "member_record_sha256": "c7b2d2c36ea9496c28d7ef582d6a04e2fcbb3ff838a21b6ea5cb46100926201c",
+    "stage6_alias": {
+      "current_resolution_kind": "current",
+      "parent_variant_id": "ATV-00003569",
+      "stage6_claim_id": "S6-CLM-00004502",
+      "stage6_variant_id": "S6-VAR-00005905"
+    }
+  },
+  "trust_policy": "trust-zero Master replay; worker evidence is provisional",
+  "authority_sha256": "e1707dd2cdaff055233279dee8fe4fb448ca7b4625f83ea90d4bb5be55001578"
+}

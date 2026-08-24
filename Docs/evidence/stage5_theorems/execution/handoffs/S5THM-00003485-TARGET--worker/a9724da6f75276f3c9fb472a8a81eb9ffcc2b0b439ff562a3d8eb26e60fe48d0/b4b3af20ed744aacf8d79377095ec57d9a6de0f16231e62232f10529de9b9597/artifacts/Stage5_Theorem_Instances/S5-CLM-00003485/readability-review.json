@@ -1,0 +1,138 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003485-TARGET",
+  "stage_claim_id": "S5-CLM-00003485",
+  "readability_level": "R0",
+  "required_nodes": ["PU-01", "PU-02", "PU-03", "PU-04", "PU-05", "PU-06", "PU-07", "PU-08"],
+  "node_to_anchor": {
+    "PU-01": "R-ANCHOR-01",
+    "PU-02": "R-ANCHOR-02",
+    "PU-03": "R-ANCHOR-03",
+    "PU-04": "R-ANCHOR-04",
+    "PU-05": "R-ANCHOR-05",
+    "PU-06": "R-ANCHOR-06",
+    "PU-07": "R-ANCHOR-07",
+    "PU-08": "R-ANCHOR-08"
+  },
+  "anchor_to_fragment": {
+    "R-ANCHOR-01": {
+      "node_id": "PU-01",
+      "path": "proof-outline.md#proof-outline",
+      "fragment_sha256": "3819209ae253c2e4454cf9a3befe6ef95ae9eaf7cf7a292f684ac3cb2d691c3e",
+      "hypotheses": ["0<p<1/2", "0<k", "sigma=sqrt(p(1-p))"],
+      "inference": "Bind every parameter, hypothesis, source symbol, and conclusion to the frozen provider declaration.",
+      "output": "An unchanged target proposition with an explicit bidirectional transport obligation.",
+      "formal_anchor": "frozen_statement_surface; arxiv_id0911_2077_conjecture6_3",
+      "downstream_uses": ["PU-02", "PU-03"],
+      "exceptional_cases": ["No endpoint is admitted because the source interval is open."],
+      "trust_boundary": "Lean kernel and independent Master root-expression recomputation"
+    },
+    "R-ANCHOR-02": {
+      "node_id": "PU-02",
+      "path": "full-study.md#integral-model-of-the-binomial-tail",
+      "fragment_sha256": "e627bdc1b1616e452fa791cd52a8555ce0828bb364057431b174b99da819d1b5",
+      "hypotheses": ["0<k", "k≤n", "0<p<1"],
+      "inference": "Differentiate the finite binomial tail, telescope adjacent terms, and identify the zero boundary value with the beta integral.",
+      "output": "PMF tail equals choose(n,k)·k times the beta integral, including its even midpoint value.",
+      "formal_anchor": "binomial_tail_eq_integral; pmf_binomial_tail_toReal_eq_integral; binomial_tail_integral_half_even",
+      "downstream_uses": ["PU-04", "PU-06", "PU-08"],
+      "exceptional_cases": ["The condition k>0 prevents the k-1 exponent from representing an excluded threshold case."],
+      "trust_boundary": "Lean kernel over finite sums, PMFs, and interval integrals"
+    },
+    "R-ANCHOR-03": {
+      "node_id": "PU-03",
+      "path": "full-study.md#gaussian-and-correction-derivatives",
+      "fragment_sha256": "6f38ec87f7c67fa5f85348b72e93dcb36f29ba334a58ddb371b18d2eced38635",
+      "hypotheses": ["0<p<1/2", "positive variance p(1-p)"],
+      "inference": "Apply the standard-normal CDF derivative and chain rule to the standardized displacement; establish the two analytic tail regions.",
+      "output": "Exact Gaussian derivative, endpoint limits, and regional inequalities.",
+      "formal_anchor": "gaussian_cdf_hasDerivAt_lemma; gaussian_tail_bound_region2_analytic_ineq; gaussian_tail_bound_deriv_ineq_large_p_simp",
+      "downstream_uses": ["PU-05", "PU-06"],
+      "exceptional_cases": ["Variance positivity makes every square-root denominator nonzero."],
+      "trust_boundary": "Lean kernel using Mathlib Gaussian density and real calculus"
+    },
+    "R-ANCHOR-04": {
+      "node_id": "PU-04",
+      "path": "full-study.md#gaussian-and-correction-derivatives",
+      "fragment_sha256": "b6987d08586dd2084b76fd2e76cea36edc03e7dcf313e57d4610c6441dc9f839",
+      "hypotheses": ["0<k", "central index k of 2k"],
+      "inference": "Convert the central choose coefficient to a Wallis-product identity and apply the Wallis inequality.",
+      "output": "The central-binomial bounds needed for the logarithmic crossing constant.",
+      "formal_anchor": "central_binom_sq_eq_wallis; wallis_inequality_for_binom; central_binom_bound_sqrt; psi_half_le_C",
+      "downstream_uses": ["PU-05"],
+      "exceptional_cases": ["k=0 is excluded by the theorem hypothesis."],
+      "trust_boundary": "Lean kernel using Mathlib Wallis and choose identities"
+    },
+    "R-ANCHOR-05": {
+      "node_id": "PU-05",
+      "path": "full-study.md#single-crossing-geometry",
+      "fragment_sha256": "1400d4242f645a9fb47aac65a6494e96b6eca24fae6447d799fe2457562ad6b1",
+      "hypotheses": ["PU-03 Gaussian controls", "PU-04 central-binomial bound"],
+      "inference": "Factor the gap derivative into positive factors and a scalar psi comparison, then prove that comparison crosses once.",
+      "output": "A point c with nonnegative gap derivative before c and nonpositive derivative after c.",
+      "formal_anchor": "psi_crossing_exists_analytic; deriv_gap_sign_iff_psi; deriv_gap_shape",
+      "downstream_uses": ["PU-06", "PU-07"],
+      "exceptional_cases": ["The proof splits k=1 Gaussian regions and the general crossing analysis explicitly."],
+      "trust_boundary": "Lean kernel; no numerical oracle"
+    },
+    "R-ANCHOR-06": {
+      "node_id": "PU-06",
+      "path": "full-study.md#endpoint-and-exceptional-case-audit",
+      "fragment_sha256": "b514558b1e3e5168c62f71d38566ec44364811e0b3ec002a06035ebaa22eed37",
+      "hypotheses": ["PU-02 midpoint integral identity", "PU-03 endpoint limits", "PU-05 derivative shape"],
+      "inference": "Extend the gap by zero at the left endpoint and combine one-sided limits with the exact midpoint identity.",
+      "output": "Continuous closed-interval gap, differentiable interior, and zero values at 0 and 1/2.",
+      "formal_anchor": "gap_limit_at_zero; gap_at_half_eq_zero; gap_ext_regular",
+      "downstream_uses": ["PU-07"],
+      "exceptional_cases": ["Continuity at zero is one-sided; differentiability is asserted only on the open interval."],
+      "trust_boundary": "Lean kernel and established limit theorems"
+    },
+    "R-ANCHOR-07": {
+      "node_id": "PU-07",
+      "path": "proof-outline.md#proof-outline",
+      "fragment_sha256": "6c0d9885071dc4d1ef915199992e16738145f08a17067f5077eab422c87a4024",
+      "hypotheses": ["zero endpoint values", "single-crossing derivative sign", "closed-interval continuity"],
+      "inference": "Use monotonicity on each side of the crossing: the gap rises from zero then descends to zero.",
+      "output": "The analytic gap is nonnegative throughout [0,1/2].",
+      "formal_anchor": "unimodal_gap_lemma; gap_ext_regular",
+      "downstream_uses": ["PU-08"],
+      "exceptional_cases": ["The crossing lies strictly inside the interval, so both monotonic pieces are nonempty."],
+      "trust_boundary": "Lean kernel via mean-value/derivative monotonicity"
+    },
+    "R-ANCHOR-08": {
+      "node_id": "PU-08",
+      "path": "proof-outline.md#proof-outline",
+      "fragment_sha256": "4af3feb8153914526da33051c6ae1f1df7493fcf501e5fef6bf2b97ae68e8642",
+      "hypotheses": ["PU-02 PMF-integral equality", "PU-07 nonnegative gap", "sigma=sqrt(p(1-p))"],
+      "inference": "Rewrite the nonnegative integral gap as the finite PMF tail and substitute n=2k and sigma.",
+      "output": "The exact frozen Conjecture 6.3 lower bound.",
+      "formal_anchor": "conjecture6_3_proof; arxiv_id0911_2077_conjecture6_3",
+      "downstream_uses": ["release candidate root"],
+      "exceptional_cases": ["Proof irrelevance identifies the two witnesses of p≤1 used by the PMF constructor."],
+      "trust_boundary": "Lean kernel; source sorry-backed body is not referenced"
+    }
+  },
+  "reviewers": [
+    {
+      "reviewer_id": "worker-formal-coverage",
+      "role": "formal-anchor and dependency coverage",
+      "decision": "pass",
+      "independent_focus": "every required node has a named Lean declaration and downstream edge"
+    },
+    {
+      "reviewer_id": "worker-readable-reconstruction",
+      "role": "mathematical reconstruction and exceptional cases",
+      "decision": "pass",
+      "independent_focus": "hypotheses, inference, output, exceptions, and trust boundary remain explicit"
+    }
+  ],
+  "remaining_readability_cut_set": [],
+  "distilled": {
+    "duplicate_prose_removed": true,
+    "structured_inventory_not_duplicated": true,
+    "mathematical_content_preserved": true,
+    "deletion_mutations_passed": true
+  },
+  "authority_sha256": "a477f5150b31805df9b6d46a4c90187ef8dedaa5cea4faed042b394c48fdefd2"
+}

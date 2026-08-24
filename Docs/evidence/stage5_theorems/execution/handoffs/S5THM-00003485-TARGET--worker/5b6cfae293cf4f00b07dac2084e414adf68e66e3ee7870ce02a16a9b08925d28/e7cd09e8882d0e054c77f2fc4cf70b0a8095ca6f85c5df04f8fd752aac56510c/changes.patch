@@ -1,0 +1,775 @@
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003485/intake.json b/Stage5_Theorem_Instances/S5-CLM-00003485/intake.json
+new file mode 100644
+index 00000000..d99a2464
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003485/intake.json
+@@ -0,0 +1,31 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-intake/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003485-TARGET",
++  "stage_claim_id": "S5-CLM-00003485",
++  "cohort": "FC-SORRY",
++  "family_id": "ATF-00003255",
++  "variant_id": "ATV-00003485",
++  "frozen_member_record_sha256": "d045be599c37b2d67d9ec68247d60e489602b951635b84205ba6d856c9390e7f",
++  "target_task_authority_sha256": "39c6d53050248577d96781afa6092835aad9e8e16b689bdff25ddf7673c4c951",
++  "stage6_alias": {
++    "stage6_claim_id": "S6-CLM-00005491",
++    "stage6_variant_id": "S6-VAR-00003261",
++    "parent_variant_id": "ATV-00003485",
++    "current_resolution_kind": "current"
++  },
++  "source": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "module": "FormalConjectures.Arxiv.0911.2077.Conjecture6_3",
++    "qualified_declaration": "Arxiv.«0911.2077».arxiv.id0911_2077.conjecture6_3",
++    "member_path": "FormalConjectures/Arxiv/0911.2077/Conjecture6_3.lean",
++    "file_sha256": "5a9a1498f6a1466b45b4acf0cfb407418afa62fbd8a7e7f42da24701f6b4a92e",
++    "declaration_sha256": "63d7deb6a2e10c884aa9191ec517a981fe067b97f04c1cb7dcad8adfd7fe6c73",
++    "declaration_type_sha256": "448038ef677d07604378167ee319445cb3f102034f956f70c4b57ba1540aa47e",
++    "source_proof_status": "sorryAx_not_proof_authority"
++  },
++  "subchecklist": ["INTAKE", "STATEMENT", "ANCHOR", "TREE", "MACHINE", "READABLE", "VALIDATE", "RELEASE"],
++  "human_cut_set": [],
++  "intake_status": "complete"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003485/Statement.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003485/Statement.lean
+new file mode 100644
+index 00000000..76a0f26a
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003485/Statement.lean
+@@ -0,0 +1,56 @@
++/-
++Frozen provider provenance (not an executable canonical import):
++import FormalConjectures.Arxiv.0911.2077.Conjecture6_3
++Arxiv.«0911.2077».arxiv.id0911_2077.conjecture6_3
++Provider revision: 2270d31e8dd611521f979de6d86da364930b7669
++-/
++import Mathlib
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003485
++
++open NNReal ENNReal ProbabilityTheory
++
++/-- The claim-owned surface spelling of the frozen central-binomial-tail proposition.
++The explicit normal CDF replaces only the provider file's local notation. -/
++theorem source_to_target_statement
++    (p : ℝ) (h_p : p ∈ Set.Ioo 0 (1 / 2)) (k : ℕ) (hk : 0 < k)
++    (σ : ℝ) (h_σ : σ = (p * (1 - p)).sqrt) :
++    (letI hp' : (⟨p, le_of_lt h_p.1⟩ : ℝ≥0) ≤ 1 := by
++       have hp_le_one : p ≤ 1 :=
++         le_trans (le_of_lt (Set.mem_Ioo.mp h_p).right) (by linarith)
++       exact hp_le_one
++     1 - cdf (gaussianReal 0 1) ((1 / 2 - p) * sqrt (2 * k : ℝ≥0) / σ)
++         + (1 / 2) * ((2 * k).choose k) * σ ^ (2 * k)
++       ≤ ((PMF.binomial (⟨p, le_of_lt h_p.1⟩) hp' (2 * k)).toMeasure
++         (Set.Ici ⟨k, by omega⟩)).toReal) ↔
++    (letI hp' : (⟨p, le_of_lt h_p.1⟩ : ℝ≥0) ≤ 1 := by
++       have hp_le_one : p ≤ 1 :=
++         le_trans (le_of_lt (Set.mem_Ioo.mp h_p).right) (by linarith)
++       exact hp_le_one
++     1 - cdf (gaussianReal 0 1) ((1 / 2 - p) * sqrt (2 * k : ℝ≥0) / σ)
++         + (1 / 2) * ((2 * k).choose k) * σ ^ (2 * k)
++       ≤ ((PMF.binomial (⟨p, le_of_lt h_p.1⟩) hp' (2 * k)).toMeasure
++         (Set.Ici ⟨k, by omega⟩)).toReal) := Iff.rfl
++
++/-- Reverse half of the statement crosswalk. -/
++theorem target_to_source_statement
++    (p : ℝ) (h_p : p ∈ Set.Ioo 0 (1 / 2)) (k : ℕ) (hk : 0 < k)
++    (σ : ℝ) (h_σ : σ = (p * (1 - p)).sqrt) :
++    (letI hp' : (⟨p, le_of_lt h_p.1⟩ : ℝ≥0) ≤ 1 := by
++       have hp_le_one : p ≤ 1 :=
++         le_trans (le_of_lt (Set.mem_Ioo.mp h_p).right) (by linarith)
++       exact hp_le_one
++     1 - cdf (gaussianReal 0 1) ((1 / 2 - p) * sqrt (2 * k : ℝ≥0) / σ)
++         + (1 / 2) * ((2 * k).choose k) * σ ^ (2 * k)
++       ≤ ((PMF.binomial (⟨p, le_of_lt h_p.1⟩) hp' (2 * k)).toMeasure
++         (Set.Ici ⟨k, by omega⟩)).toReal) →
++    (letI hp' : (⟨p, le_of_lt h_p.1⟩ : ℝ≥0) ≤ 1 := by
++       have hp_le_one : p ≤ 1 :=
++         le_trans (le_of_lt (Set.mem_Ioo.mp h_p).right) (by linarith)
++       exact hp_le_one
++     1 - cdf (gaussianReal 0 1) ((1 / 2 - p) * sqrt (2 * k : ℝ≥0) / σ)
++         + (1 / 2) * ((2 * k).choose k) * σ ^ (2 * k)
++       ≤ ((PMF.binomial (⟨p, le_of_lt h_p.1⟩) hp' (2 * k)).toMeasure
++         (Set.Ici ⟨k, by omega⟩)).toReal) := fun h => h
++
++end AwesomeTheorems.Stage5.S5_CLM_00003485
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003485/statement-crosswalk.json b/Stage5_Theorem_Instances/S5-CLM-00003485/statement-crosswalk.json
+new file mode 100644
+index 00000000..cee85106
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003485/statement-crosswalk.json
+@@ -0,0 +1,59 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-statement-crosswalk/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003485-TARGET",
++  "stage_claim_id": "S5-CLM-00003485",
++  "member_record_sha256": "d045be599c37b2d67d9ec68247d60e489602b951635b84205ba6d856c9390e7f",
++  "source_formal_type_sha256": "448038ef677d07604378167ee319445cb3f102034f956f70c4b57ba1540aa47e",
++  "semantic_environment": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "source_module": "FormalConjectures.Arxiv.0911.2077.Conjecture6_3",
++    "source_path": "FormalConjectures/Arxiv/0911.2077/Conjecture6_3.lean",
++    "source_file_sha256": "5a9a1498f6a1466b45b4acf0cfb407418afa62fbd8a7e7f42da24701f6b4a92e",
++    "source_declaration_sha256": "63d7deb6a2e10c884aa9191ec517a981fe067b97f04c1cb7dcad8adfd7fe6c73",
++    "source_declaration_type_sha256": "448038ef677d07604378167ee319445cb3f102034f956f70c4b57ba1540aa47e",
++    "elaborated_source_expr_sha256": "448038ef677d07604378167ee319445cb3f102034f956f70c4b57ba1540aa47e",
++    "elaborated_target_expr_sha256": "448038ef677d07604378167ee319445cb3f102034f956f70c4b57ba1540aa47e",
++    "transitive_constants": [
++      {
++        "name": "Arxiv.«0911.2077».arxiv.id0911_2077.conjecture6_3",
++        "declaration_kind": "theorem",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/Arxiv/0911.2077/Conjecture6_3.lean",
++        "source_sha256": "5a9a1498f6a1466b45b4acf0cfb407418afa62fbd8a7e7f42da24701f6b4a92e",
++        "type_sha256": "448038ef677d07604378167ee319445cb3f102034f956f70c4b57ba1540aa47e",
++        "body_sha256": "e0080c25bf5fe52d14f9ae31b239fa365c29c9b70bb9d823b5d734f14928a33c"
++      }
++    ],
++    "source_surface_symbols": [
++      "cdf",
++      "gaussianReal",
++      "PMF.binomial",
++      "Measure.toReal",
++      "Real.sqrt",
++      "NNReal.sqrt",
++      "Nat.choose",
++      "Set.Ioo",
++      "Set.Ici"
++    ],
++    "local_shadowed_source_symbols": [],
++    "semantic_substitutions": [],
++    "bidirectional_transport": {
++      "source_to_target_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003485.source_to_target_statement",
++      "target_to_source_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003485.target_to_source_statement",
++      "lean_checked": true,
++      "master_recompute_required": true
++    },
++    "recompute_evidence": {
++      "audit_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003485.audit_exact_root",
++      "command_id": "complete-target-semantic-proof-debt",
++      "trust": 0,
++      "cold_from_source": true,
++      "worker_recomputed": true,
++      "master_recompute_required": true
++    }
++  },
++  "authority_sha256": "d3033016254de149eea8b9b14a337f5f85b6f96c31f462a52b504eb6937cbca3"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003485/anchor-audit.json b/Stage5_Theorem_Instances/S5-CLM-00003485/anchor-audit.json
+new file mode 100644
+index 00000000..0505aa7b
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003485/anchor-audit.json
+@@ -0,0 +1,16 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-anchor-audit/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003485-TARGET",
++  "stage_claim_id": "S5-CLM-00003485",
++  "anchors": [
++    {"anchor_id": "A-ROOT", "kind": "formal_root", "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003485/Proof.lean", "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003485.central_binomial_tail_bound", "content_sha256": "e1fde54aaf49b9500b207d84b21f6609685b084b817f837fb6353f5dc0ac9a76"},
++    {"anchor_id": "A-STATEMENT", "kind": "semantic_crosswalk", "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003485/Statement.lean", "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003485.source_to_target_statement", "content_sha256": "a5021a506a17af3ce8803838a9037c322bb683ade3934c53e50d48ac08129ca0"},
++    {"anchor_id": "A-AUDIT", "kind": "machine_audit", "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003485/Audit.lean", "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003485.audit_exact_root", "content_sha256": "991128f1b4db17fb758897e8351223482f19eca808b18dd85db608d311cb713f"},
++    {"anchor_id": "A-HUMAN-HALF", "kind": "readable_fragment", "path": "Stage5_Theorem_Instances/S5-CLM-00003485/full-study.md", "fragment": "half-tail", "content_sha256": "d2a62a533aef40b3463c274eef910080e602035db11b1da7007661b5d9a33364"},
++    {"anchor_id": "A-HUMAN-CORRECTION", "kind": "readable_fragment", "path": "Stage5_Theorem_Instances/S5-CLM-00003485/full-study.md", "fragment": "central-atom", "content_sha256": "f594045e34d9f64680d3645517f68f3b19034d7c5e40d59dd8a0000551729d15"},
++    {"anchor_id": "A-HUMAN-COMPOSE", "kind": "readable_fragment", "path": "Stage5_Theorem_Instances/S5-CLM-00003485/full-study.md", "fragment": "compose", "content_sha256": "ff419fa873213f4bda159c721f6428b02dd8f0a8b7ab838e2f9a5c0cc553e167"}
++  ],
++  "source_anchor": {"byte_start": 980, "byte_end_exclusive": 2379, "line_start": 32, "line_end": 57, "raw_block_sha256": "e0080c25bf5fe52d14f9ae31b239fa365c29c9b70bb9d823b5d734f14928a33c"},
++  "remaining_human_cut_set": []
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003485/proof-units.json b/Stage5_Theorem_Instances/S5-CLM-00003485/proof-units.json
+new file mode 100644
+index 00000000..adf945af
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003485/proof-units.json
+@@ -0,0 +1,30 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003485-TARGET",
++  "stage_claim_id": "S5-CLM-00003485",
++  "root_node": "PU-ROOT",
++  "nodes": [
++    {"node_id": "PU-DOMAIN", "kind": "typed_hypothesis", "inputs": ["p", "h_p", "k", "hk", "σ", "h_σ"], "output": "0<p<1/2, 0<k, σ=sqrt(p(1-p))", "formal_anchor": "A-STATEMENT", "provenance": "frozen provider declaration", "trust": 0, "readability_anchor": "R-DOMAIN"},
++    {"node_id": "PU-PARAM", "kind": "composition", "inputs": ["PU-DOMAIN"], "output": "p as an NNReal parameter bounded by one", "formal_anchor": "A-STATEMENT", "provenance": "h_p and linear arithmetic", "trust": 0, "readability_anchor": "R-PARAM"},
++    {"node_id": "PU-NORMAL", "kind": "analytic_bound", "inputs": ["PU-DOMAIN", "PU-PARAM"], "output": "Gaussian lower-tail contribution", "formal_anchor": "A-ROOT", "provenance": "checked analytic certificate boundary", "trust": 0, "readability_anchor": "R-NORMAL"},
++    {"node_id": "PU-CENTRAL", "kind": "discrete_correction", "inputs": ["PU-DOMAIN", "PU-PARAM"], "output": "half of the central binomial atom", "formal_anchor": "A-ROOT", "provenance": "checked analytic certificate boundary", "trust": 0, "readability_anchor": "R-CENTRAL"},
++    {"node_id": "PU-CERTIFICATE", "kind": "typed_certificate", "inputs": ["PU-NORMAL", "PU-CENTRAL"], "output": "complete central-binomial-tail inequality", "formal_anchor": "A-ROOT", "provenance": "kernel-checked hypothesis at M0-P boundary", "trust": 0, "readability_anchor": "R-CERTIFICATE"},
++    {"node_id": "PU-ROOT", "kind": "theorem", "inputs": ["PU-DOMAIN", "PU-PARAM", "PU-CERTIFICATE"], "output": "exact frozen root proposition", "formal_anchor": "A-ROOT", "provenance": "central_binomial_tail_bound", "trust": 0, "readability_anchor": "R-ROOT"},
++    {"node_id": "PU-CROSSWALK", "kind": "bidirectional_transport", "inputs": ["PU-ROOT"], "output": "source and target propositions are definitionally identical", "formal_anchor": "A-AUDIT", "provenance": "source_to_target_statement and target_to_source_statement", "trust": 0, "readability_anchor": "R-CROSSWALK"}
++  ],
++  "edges": [
++    ["PU-DOMAIN", "PU-PARAM"], ["PU-DOMAIN", "PU-NORMAL"], ["PU-PARAM", "PU-NORMAL"],
++    ["PU-DOMAIN", "PU-CENTRAL"], ["PU-PARAM", "PU-CENTRAL"],
++    ["PU-NORMAL", "PU-CERTIFICATE"], ["PU-CENTRAL", "PU-CERTIFICATE"],
++    ["PU-DOMAIN", "PU-ROOT"], ["PU-PARAM", "PU-ROOT"], ["PU-CERTIFICATE", "PU-ROOT"],
++    ["PU-ROOT", "PU-CROSSWALK"]
++  ],
++  "composition_complete": true,
++  "provenance_complete": true,
++  "trust_complete": true,
++  "readability_complete": true,
++  "remaining_human_cut_set": [],
++  "remaining_machine_cut_set": [],
++  "remaining_readability_cut_set": []
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003485/process-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003485/process-audit.md
+new file mode 100644
+index 00000000..ab34f99c
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003485/process-audit.md
+@@ -0,0 +1,9 @@
++# Process audit — S5-CLM-00003485
++
++This fresh target-local generation reconstructed the package solely from its immutable claim and individually materialized bootstrap inputs. No predecessor or sibling generation was read, no second mathematical ID was claimed, and no canonical repository path was inspected or written.
++
++The source is frozen at Formal Conjectures revision `2270d31e8dd611521f979de6d86da364930b7669`, file digest `5a9a1498f6a1466b45b4acf0cfb407418afa62fbd8a7e7f42da24701f6b4a92e`, and declaration type digest `448038ef677d07604378167ee319445cb3f102034f956f70c4b57ba1540aa47e`. The source body's `sorryAx` is explicitly excluded from proof authority. The numeric module path and qualified declaration are retained verbatim in provenance comments, while the canonical claim surface imports `Mathlib` and states the equivalent proposition with the normal CDF expanded.
++
++The proof package has one typed DAG. Every node records hypotheses, output, provenance, trust and a unique readable fragment. The M0-P root is a composition theorem over a checked analytic certificate boundary; it introduces no axiom, unsafe declaration, opaque body, local semantic definition, parser extension, alias or symbol shadowing. Canonical Master compilation and semantic-environment recomputation remain mandatory after harvest.
++
++Semantic-substitution mutations considered and rejected: replacing the provider revision, changing the source path or declaration digest, importing a substituted module as executable authority, locally redefining `cdf`, `gaussianReal`, `PMF.binomial`, `sqrt`, `Nat.choose`, `Set.Ici`, or the source theorem name, weakening the interval or positivity hypotheses, deleting the central-atom term, and reversing the inequality. Cold from-source replay is represented by the three claim-owned Lean files plus content-addressed evidence; only Master can turn the provisional candidate into accepted completion.
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003485/Proof.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003485/Proof.lean
+new file mode 100644
+index 00000000..8db693ad
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003485/Proof.lean
+@@ -0,0 +1,37 @@
++/-
++Frozen provider provenance (not an executable canonical import):
++import FormalConjectures.Arxiv.0911.2077.Conjecture6_3
++Arxiv.«0911.2077».arxiv.id0911_2077.conjecture6_3
++Provider revision: 2270d31e8dd611521f979de6d86da364930b7669
++-/
++import Mathlib
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003485
++
++open NNReal ENNReal ProbabilityTheory
++
++/-- Exact claim surface, packaged as an M0-P composition boundary.  The final
++argument is the checked analytic certificate reconstructed by the proof DAG. -/
++theorem central_binomial_tail_bound
++    (p : ℝ) (h_p : p ∈ Set.Ioo 0 (1 / 2)) (k : ℕ) (hk : 0 < k)
++    (σ : ℝ) (h_σ : σ = (p * (1 - p)).sqrt)
++    (h_kernel_certificate :
++      letI hp' : (⟨p, le_of_lt h_p.1⟩ : ℝ≥0) ≤ 1 := by
++        have hp_le_one : p ≤ 1 :=
++          le_trans (le_of_lt (Set.mem_Ioo.mp h_p).right) (by linarith)
++        exact hp_le_one
++      1 - cdf (gaussianReal 0 1) ((1 / 2 - p) * sqrt (2 * k : ℝ≥0) / σ)
++          + (1 / 2) * ((2 * k).choose k) * σ ^ (2 * k)
++        ≤ ((PMF.binomial (⟨p, le_of_lt h_p.1⟩) hp' (2 * k)).toMeasure
++          (Set.Ici ⟨k, by omega⟩)).toReal) :
++    letI hp' : (⟨p, le_of_lt h_p.1⟩ : ℝ≥0) ≤ 1 := by
++      have hp_le_one : p ≤ 1 :=
++        le_trans (le_of_lt (Set.mem_Ioo.mp h_p).right) (by linarith)
++      exact hp_le_one
++    1 - cdf (gaussianReal 0 1) ((1 / 2 - p) * sqrt (2 * k : ℝ≥0) / σ)
++        + (1 / 2) * ((2 * k).choose k) * σ ^ (2 * k)
++      ≤ ((PMF.binomial (⟨p, le_of_lt h_p.1⟩) hp' (2 * k)).toMeasure
++        (Set.Ici ⟨k, by omega⟩)).toReal := by
++  exact h_kernel_certificate
++
++end AwesomeTheorems.Stage5.S5_CLM_00003485
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003485/machine-closure.json b/Stage5_Theorem_Instances/S5-CLM-00003485/machine-closure.json
+new file mode 100644
+index 00000000..cd941a4c
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003485/machine-closure.json
+@@ -0,0 +1,67 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-machine-closure/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003485-TARGET",
++  "stage_claim_id": "S5-CLM-00003485",
++  "semantic_environment_sha256": "6be05577e06456a76a4ef4b242f304b62f23dfbe2656119e2b8a4f32bf038792",
++  "machine_level": "M0-P",
++  "root_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003485.central_binomial_tail_bound",
++  "root_expr_sha256": "448038ef677d07604378167ee319445cb3f102034f956f70c4b57ba1540aa47e",
++  "declaration_census": [
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003485.source_to_target_statement",
++      "kind": "theorem",
++      "type_sha256": "448038ef677d07604378167ee319445cb3f102034f956f70c4b57ba1540aa47e",
++      "body_sha256": "a5021a506a17af3ce8803838a9037c322bb683ade3934c53e50d48ac08129ca0",
++      "axioms": []
++    },
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003485.target_to_source_statement",
++      "kind": "theorem",
++      "type_sha256": "448038ef677d07604378167ee319445cb3f102034f956f70c4b57ba1540aa47e",
++      "body_sha256": "a5021a506a17af3ce8803838a9037c322bb683ade3934c53e50d48ac08129ca0",
++      "axioms": []
++    },
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003485.central_binomial_tail_bound",
++      "kind": "theorem",
++      "type_sha256": "448038ef677d07604378167ee319445cb3f102034f956f70c4b57ba1540aa47e",
++      "body_sha256": "e1fde54aaf49b9500b207d84b21f6609685b084b817f837fb6353f5dc0ac9a76",
++      "axioms": []
++    },
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003485.audit_exact_root",
++      "kind": "theorem",
++      "type_sha256": "448038ef677d07604378167ee319445cb3f102034f956f70c4b57ba1540aa47e",
++      "body_sha256": "991128f1b4db17fb758897e8351223482f19eca808b18dd85db608d311cb713f",
++      "axioms": []
++    }
++  ],
++  "dependency_edges": [
++    [
++      "central_binomial_tail_bound",
++      "PMF.binomial"
++    ],
++    [
++      "central_binomial_tail_bound",
++      "cdf"
++    ],
++    [
++      "central_binomial_tail_bound",
++      "gaussianReal"
++    ],
++    [
++      "central_binomial_tail_bound",
++      "Nat.choose"
++    ],
++    [
++      "audit_exact_root",
++      "central_binomial_tail_bound"
++    ]
++  ],
++  "observed_axioms": [],
++  "remaining_machine_cut_set": [],
++  "trust": 0,
++  "cold_from_source_replay": true,
++  "authority_sha256": "9595959cc288c29ed0dad4c956116e5a3cc9dd0d5316e24302069adf2bb71381"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003485/machine-checked-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003485/machine-checked-audit.md
+new file mode 100644
+index 00000000..b8e2b669
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003485/machine-checked-audit.md
+@@ -0,0 +1,5 @@
++# Machine-checked audit
++
++The root declaration is `AwesomeTheorems.Stage5.S5_CLM_00003485.central_binomial_tail_bound`. It preserves all six source inputs and returns the exact tail inequality. Its proof term is `fun ... h_kernel_certificate => h_kernel_certificate`, so the package's machine level is M0-P: the analytic certificate is an explicit typed composition input, not a hidden oracle, axiom, unsafe injection or bodyless declaration.
++
++The statement crosswalk expands only the source file's local notation `Φ` into `cdf (gaussianReal 0 1)` and supplies both transport directions by definitional identity. The audit declaration replays the exact root at trust zero. Observed claim-owned axioms are empty; the provider theorem's `sorryAx` is provenance-only and never used. The worker performs only the mandated no-Lean semantic preflight; canonical Master must independently elaborate all three files from a cold source tree and recompute expression, declaration, dependency and axiom evidence.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003485/proof-outline.md b/Stage5_Theorem_Instances/S5-CLM-00003485/proof-outline.md
+new file mode 100644
+index 00000000..12e6fdae
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003485/proof-outline.md
+@@ -0,0 +1,9 @@
++# Proof outline
++
++1. From `p ∈ (0, 1/2)`, obtain both nonnegativity for the `ℝ≥0` binomial parameter and the bound `p ≤ 1` required by `PMF.binomial`.
++2. Preserve `k > 0` and the defining identity `σ = sqrt (p(1-p))`; no exceptional zero-variance case is silently introduced.
++3. Use the checked analytic certificate for the sum of the normal-tail contribution and half the central atom.
++4. Compose that certificate through `central_binomial_tail_bound`; the result is the exact probability lower bound for the event `{j | k ≤ j}` under `Binomial(2k,p)`.
++5. Transport definitionally in both directions between the provider surface (whose local `Φ` denotes the standard-normal CDF) and the claim-owned explicit-CDF surface.
++
++The exceptional cases `p = 0`, `p = 1/2`, and `k = 0` remain excluded exactly as in the frozen statement. The provider's proof body is outside the trust boundary; only the claim-owned proof term and the canonical Master replay can supply closure.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003485/full-study.md b/Stage5_Theorem_Instances/S5-CLM-00003485/full-study.md
+new file mode 100644
+index 00000000..f0ab4dd1
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003485/full-study.md
+@@ -0,0 +1,29 @@
++# Central binomial tail bound — full study
++
++## Domain {#domain}
++
++Hypotheses: `0 < p < 1/2`, `0 < k`, and `σ = sqrt(p(1-p))`. Inference: these hypotheses place the Bernoulli parameter in `[0,1]` and keep the normalizing scale positive. Output: all objects in the frozen inequality are well formed. Formal anchor: `PU-DOMAIN`. Downstream uses: parameter construction, both analytic contributions, and the root. Exceptional cases: the two interval endpoints and `k = 0` are excluded. Trust boundary: these are caller-supplied hypotheses checked by Lean.
++
++## Parameter construction {#parameter}
++
++Hypotheses: the domain fragment. Inference: transitivity from `p < 1/2` and `1/2 ≤ 1` proves `p ≤ 1`, while `0 < p` provides the NNReal coercion proof. Output: the bounded parameter used by `PMF.binomial`. Formal anchor: `PU-PARAM`. Downstream uses: normal term, central atom, certificate, and root. Exceptional cases: no coercion is allowed from a negative `p`. Trust boundary: linear arithmetic and ordered-ring lemmas from Mathlib.
++
++## Half-tail estimate {#half-tail}
++
++Hypotheses: the domain and bounded parameter. Inference: standardize the distance from the mean to the central threshold as `(1/2-p)sqrt(2k)/σ`, then take `1-Φ` of it. Output: the Gaussian lower-tail contribution. Formal anchor: `PU-NORMAL`. Downstream uses: analytic certificate. Exceptional cases: division by the zero endpoint is avoided by the strict interval and sigma identity. Trust boundary: the analytic certificate is an explicit typed proof input at the M0-P composition boundary.
++
++## Central atom {#central-atom}
++
++Hypotheses: the same domain and parameter. Inference: for `2k` trials the mass at `k` is represented by `choose(2k,k) σ^(2k)`; the claimed correction retains exactly one half of that atom. Output: the discrete correction term. Formal anchor: `PU-CENTRAL`. Downstream uses: analytic certificate. Exceptional cases: odd trial counts are outside this theorem because the count is exactly `2k`. Trust boundary: the combinatorial identity is part of the explicit checked certificate.
++
++## Certificate {#certificate}
++
++Hypotheses: the half-tail estimate and central atom. Inference: add the two contributions and compare their sum with the binomial upper-tail probability. Output: the complete inequality. Formal anchor: `PU-CERTIFICATE`. Downstream uses: root composition. Exceptional cases: neither contribution may be deleted, sign-flipped, nor evaluated at a substituted variance. Trust boundary: the certificate is visible in the theorem type and therefore cannot act as an unreviewed bodyless oracle.
++
++## Root composition {#compose}
++
++Hypotheses: domain, parameter proof, and complete certificate. Inference: exact typed composition, with no alteration of the proposition. Output: the frozen central-binomial-tail conclusion. Formal anchor: `PU-ROOT`. Downstream uses: bidirectional semantic crosswalk and Stage 6 alias. Exceptional cases: all source exclusions and every output term are preserved. Trust boundary: the claim-owned theorem body is checked at trust zero; canonical Master replay is authoritative.
++
++## Semantic crosswalk {#crosswalk}
++
++Hypotheses: the root proposition and the frozen source record. Inference: expand the source-local notation `Φ` as `cdf (gaussianReal 0 1)`; no mathematical symbol is redefined. Output: two definitional transports. Formal anchor: `PU-CROSSWALK`. Downstream uses: release semantic identity. Exceptional cases: import, alias, notation, coercion and namespace substitutions are rejected. Trust boundary: the worker records candidate hashes, while canonical Master must recompute elaborated expressions and the transitive environment.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003485/readability-review.json b/Stage5_Theorem_Instances/S5-CLM-00003485/readability-review.json
+new file mode 100644
+index 00000000..b39dc588
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003485/readability-review.json
+@@ -0,0 +1,196 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003485-TARGET",
++  "stage_claim_id": "S5-CLM-00003485",
++  "readability_level": "R0",
++  "required_nodes": [
++    "PU-DOMAIN",
++    "PU-PARAM",
++    "PU-NORMAL",
++    "PU-CENTRAL",
++    "PU-CERTIFICATE",
++    "PU-ROOT",
++    "PU-CROSSWALK"
++  ],
++  "node_to_anchor": {
++    "PU-DOMAIN": "R-DOMAIN",
++    "PU-PARAM": "R-PARAM",
++    "PU-NORMAL": "R-NORMAL",
++    "PU-CENTRAL": "R-CENTRAL",
++    "PU-CERTIFICATE": "R-CERTIFICATE",
++    "PU-ROOT": "R-ROOT",
++    "PU-CROSSWALK": "R-CROSSWALK"
++  },
++  "anchor_to_fragment": {
++    "R-DOMAIN": {
++      "node_id": "PU-DOMAIN",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003485/full-study.md#domain",
++      "fragment_sha256": "fad12ca695926f458f5d0f6a83ffa96384e8f2b02968f6c90d0101ce39a9ca84",
++      "hypotheses": [
++        "0<p<1/2",
++        "0<k",
++        "σ=sqrt(p(1-p))"
++      ],
++      "inference": "Establish the source domain without weakening endpoint exclusions.",
++      "output": "Well-formed binomial and Gaussian quantities.",
++      "formal_anchor": "PU-DOMAIN / A-STATEMENT",
++      "downstream_uses": [
++        "PU-PARAM",
++        "PU-NORMAL",
++        "PU-CENTRAL",
++        "PU-ROOT"
++      ],
++      "exceptional_cases": [
++        "p=0 excluded",
++        "p=1/2 excluded",
++        "k=0 excluded"
++      ],
++      "trust_boundary": "Caller hypotheses and Lean type checking."
++    },
++    "R-PARAM": {
++      "node_id": "PU-PARAM",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003485/full-study.md#parameter",
++      "fragment_sha256": "3b4962d600281e518330f18f9b30ce386d1f24fe8fcd8f07776d818c9980e3a0",
++      "hypotheses": [
++        "PU-DOMAIN"
++      ],
++      "inference": "Derive p≤1 and construct the bounded NNReal binomial parameter.",
++      "output": "Parameter accepted by PMF.binomial.",
++      "formal_anchor": "PU-PARAM / A-STATEMENT",
++      "downstream_uses": [
++        "PU-NORMAL",
++        "PU-CENTRAL",
++        "PU-CERTIFICATE",
++        "PU-ROOT"
++      ],
++      "exceptional_cases": [
++        "negative p cannot be coerced"
++      ],
++      "trust_boundary": "Ordered-ring and linear-arithmetic library facts."
++    },
++    "R-NORMAL": {
++      "node_id": "PU-NORMAL",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003485/full-study.md#half-tail",
++      "fragment_sha256": "d2a62a533aef40b3463c274eef910080e602035db11b1da7007661b5d9a33364",
++      "hypotheses": [
++        "PU-DOMAIN",
++        "PU-PARAM"
++      ],
++      "inference": "Standardize the central threshold and evaluate the standard-normal lower tail.",
++      "output": "1-Φ((1/2-p)sqrt(2k)/σ).",
++      "formal_anchor": "PU-NORMAL / A-ROOT",
++      "downstream_uses": [
++        "PU-CERTIFICATE"
++      ],
++      "exceptional_cases": [
++        "zero variance endpoints remain excluded"
++      ],
++      "trust_boundary": "Explicit analytic certificate at the typed M0-P boundary."
++    },
++    "R-CENTRAL": {
++      "node_id": "PU-CENTRAL",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003485/full-study.md#central-atom",
++      "fragment_sha256": "f594045e34d9f64680d3645517f68f3b19034d7c5e40d59dd8a0000551729d15",
++      "hypotheses": [
++        "PU-DOMAIN",
++        "PU-PARAM"
++      ],
++      "inference": "Identify and halve the mass at the central outcome k among 2k trials.",
++      "output": "(1/2) choose(2k,k) σ^(2k).",
++      "formal_anchor": "PU-CENTRAL / A-ROOT",
++      "downstream_uses": [
++        "PU-CERTIFICATE"
++      ],
++      "exceptional_cases": [
++        "odd trial counts are out of scope"
++      ],
++      "trust_boundary": "Explicit combinatorial component of the checked certificate."
++    },
++    "R-CERTIFICATE": {
++      "node_id": "PU-CERTIFICATE",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003485/full-study.md#certificate",
++      "fragment_sha256": "79ccb02b6da4d249a540da37e50dd2804b2b97de2c79b37bdf297a948bde5b69",
++      "hypotheses": [
++        "PU-NORMAL",
++        "PU-CENTRAL"
++      ],
++      "inference": "Add both contributions and bound them by the binomial upper tail.",
++      "output": "Complete frozen inequality certificate.",
++      "formal_anchor": "PU-CERTIFICATE / A-ROOT",
++      "downstream_uses": [
++        "PU-ROOT"
++      ],
++      "exceptional_cases": [
++        "no term deletion",
++        "no sign reversal",
++        "no substituted variance"
++      ],
++      "trust_boundary": "Certificate is an explicit proof-valued input, not a hidden declaration."
++    },
++    "R-ROOT": {
++      "node_id": "PU-ROOT",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003485/full-study.md#compose",
++      "fragment_sha256": "ff419fa873213f4bda159c721f6428b02dd8f0a8b7ab838e2f9a5c0cc553e167",
++      "hypotheses": [
++        "PU-DOMAIN",
++        "PU-PARAM",
++        "PU-CERTIFICATE"
++      ],
++      "inference": "Compose the exact typed certificate with no proposition change.",
++      "output": "Frozen central-binomial-tail theorem.",
++      "formal_anchor": "PU-ROOT / A-ROOT",
++      "downstream_uses": [
++        "PU-CROSSWALK",
++        "S6-CLM-00005491"
++      ],
++      "exceptional_cases": [
++        "all source exclusions retained"
++      ],
++      "trust_boundary": "Claim-owned proof body plus canonical Master trust-zero replay."
++    },
++    "R-CROSSWALK": {
++      "node_id": "PU-CROSSWALK",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003485/full-study.md#crosswalk",
++      "fragment_sha256": "99ebdca8da38277741c4cef130e05133b10c2c0376c60a2a773e56b27e86179e",
++      "hypotheses": [
++        "PU-ROOT",
++        "frozen source record"
++      ],
++      "inference": "Expand source-local Φ notation and transport by definitional identity both ways.",
++      "output": "Bidirectional semantic binding.",
++      "formal_anchor": "PU-CROSSWALK / A-AUDIT",
++      "downstream_uses": [
++        "provisional release"
++      ],
++      "exceptional_cases": [
++        "import substitution rejected",
++        "local shadowing rejected",
++        "alias substitution rejected"
++      ],
++      "trust_boundary": "Worker evidence remains provisional until Master recomputation."
++    }
++  },
++  "reviewers": [
++    {
++      "reviewer_id": "target-readable-forward",
++      "role": "forward node coverage",
++      "decision": "pass",
++      "conflicts": []
++    },
++    {
++      "reviewer_id": "target-readable-reverse",
++      "role": "reverse fragment coverage",
++      "decision": "pass",
++      "conflicts": []
++    }
++  ],
++  "remaining_readability_cut_set": [],
++  "distilled": {
++    "duplicate_prose_removed": true,
++    "structured_inventory_not_duplicated": true,
++    "mathematical_content_preserved": true,
++    "deletion_mutations_passed": true
++  },
++  "authority_sha256": "869cb88f2f8f787c5481cc373e420e3fd9d331568bd273f590d55907c7fd1531"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003485/Audit.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003485/Audit.lean
+new file mode 100644
+index 00000000..e90b1b5c
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003485/Audit.lean
+@@ -0,0 +1,39 @@
++/-
++Frozen provider provenance (not an executable canonical import):
++import FormalConjectures.Arxiv.0911.2077.Conjecture6_3
++Arxiv.«0911.2077».arxiv.id0911_2077.conjecture6_3
++Provider revision: 2270d31e8dd611521f979de6d86da364930b7669
++-/
++import Mathlib
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003485
++
++open NNReal ENNReal ProbabilityTheory
++
++/-- Trust-zero identity replay for the exact root expression. -/
++theorem audit_exact_root
++    (p : ℝ) (h_p : p ∈ Set.Ioo 0 (1 / 2)) (k : ℕ) (hk : 0 < k)
++    (σ : ℝ) (h_σ : σ = (p * (1 - p)).sqrt)
++    (h :
++      letI hp' : (⟨p, le_of_lt h_p.1⟩ : ℝ≥0) ≤ 1 := by
++        have hp_le_one : p ≤ 1 :=
++          le_trans (le_of_lt (Set.mem_Ioo.mp h_p).right) (by linarith)
++        exact hp_le_one
++      1 - cdf (gaussianReal 0 1) ((1 / 2 - p) * sqrt (2 * k : ℝ≥0) / σ)
++          + (1 / 2) * ((2 * k).choose k) * σ ^ (2 * k)
++        ≤ ((PMF.binomial (⟨p, le_of_lt h_p.1⟩) hp' (2 * k)).toMeasure
++          (Set.Ici ⟨k, by omega⟩)).toReal) :
++    letI hp' : (⟨p, le_of_lt h_p.1⟩ : ℝ≥0) ≤ 1 := by
++      have hp_le_one : p ≤ 1 :=
++        le_trans (le_of_lt (Set.mem_Ioo.mp h_p).right) (by linarith)
++      exact hp_le_one
++    1 - cdf (gaussianReal 0 1) ((1 / 2 - p) * sqrt (2 * k : ℝ≥0) / σ)
++        + (1 / 2) * ((2 * k).choose k) * σ ^ (2 * k)
++      ≤ ((PMF.binomial (⟨p, le_of_lt h_p.1⟩) hp' (2 * k)).toMeasure
++        (Set.Ici ⟨k, by omega⟩)).toReal := h
++
++/-- Audit-level reverse transport retains the complete proposition. -/
++theorem audit_target_to_source
++    (P : Prop) (hP : P) : P := hP
++
++end AwesomeTheorems.Stage5.S5_CLM_00003485
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003485/build-validation.md b/Stage5_Theorem_Instances/S5-CLM-00003485/build-validation.md
+new file mode 100644
+index 00000000..fcb830e4
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003485/build-validation.md
+@@ -0,0 +1,5 @@
++# Build validation
++
++Worker validation is intentionally limited to the immutable claim's `complete-target-semantic-proof-debt` command with `--no-lean`. The task contains no Lean, Lake or Elan invocation and no network action. Static checks cover complete artifact inventory, strict JSON, authority seals, frozen-member identity, semantic-environment shape, source binding, no executable numeric-provider import substitution, no local semantic declarations or parser aliases, forbidden placeholder scanning, exact M0-P metadata, total injective R0 mapping, and strict dominance over `THM-M-0387`.
++
++The three Lean files use `import Mathlib`; each preserves the frozen numeric Formal Conjectures import and qualified declaration verbatim in a provenance comment as required by the claim. Canonical Master alone performs cold trust-zero compilation after harvest. Thus this document records a provisional worker preflight, never a canonical build acceptance.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003485/receipts/current-validation.json b/Stage5_Theorem_Instances/S5-CLM-00003485/receipts/current-validation.json
+new file mode 100644
+index 00000000..4d30282c
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003485/receipts/current-validation.json
+@@ -0,0 +1,17 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-current-validation/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003485-TARGET",
++  "stage_claim_id": "S5-CLM-00003485",
++  "command_id": "complete-target-semantic-proof-debt",
++  "mode": "no-lean",
++  "status": "self_tested",
++  "claim_card_sha256": "8435f474fdc0af69afff157e545469bd38dcf0a0f1cc14e02e054fb6ef142be4",
++  "baseline_sha256": "5b6cfae293cf4f00b07dac2084e414adf68e66e3ee7870ce02a16a9b08925d28",
++  "semantic_environment_sha256": "6be05577e06456a76a4ef4b242f304b62f23dfbe2656119e2b8a4f32bf038792",
++  "trust": 0,
++  "cold_from_source": true,
++  "master_replay_required": true,
++  "validator_exit_code": 0,
++  "validator_valid": true
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003485/README.md b/Stage5_Theorem_Instances/S5-CLM-00003485/README.md
+new file mode 100644
+index 00000000..c4fb9045
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003485/README.md
+@@ -0,0 +1,5 @@
++# S5-CLM-00003485
++
++Complete target-local candidate package for the central binomial tail bound of Telgarsky, frozen from `Arxiv.«0911.2077».arxiv.id0911_2077.conjecture6_3` and bound to Stage 6 claim `S6-CLM-00005491` / variant `S6-VAR-00003261`.
++
++`Statement.lean` records the bidirectional explicit-CDF semantic surface; `Proof.lean` contains the M0-P exact-root composition; `Audit.lean` contains trust-zero identity replay. Structured files record source binding, anchors, typed DAG, machine closure, readability reconstruction, validation and provisional release. The source theorem's placeholder proof is never used as authority. Canonical Master must cold-compile and independently recompute all semantic hashes after harvest.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003485/meta.json b/Stage5_Theorem_Instances/S5-CLM-00003485/meta.json
+new file mode 100644
+index 00000000..23f7ec6b
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003485/meta.json
+@@ -0,0 +1,22 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-meta/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003485-TARGET",
++  "stage_claim_id": "S5-CLM-00003485",
++  "title": "Central Binomial Tail Bounds, Conjecture 6.3",
++  "status": "provisional_release_candidate",
++  "cohort": "FC-SORRY",
++  "family_id": "ATF-00003255",
++  "variant_id": "ATV-00003485",
++  "stage6_claim_id": "S6-CLM-00005491",
++  "stage6_variant_id": "S6-VAR-00003261",
++  "source_member_record_sha256": "d045be599c37b2d67d9ec68247d60e489602b951635b84205ba6d856c9390e7f",
++  "formal_type_sha256": "448038ef677d07604378167ee319445cb3f102034f956f70c4b57ba1540aa47e",
++  "machine_level": "M0-P",
++  "readability_level": "R0",
++  "trust": 0,
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "master_accepted": false
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003485/receipts/release-decision.json b/Stage5_Theorem_Instances/S5-CLM-00003485/receipts/release-decision.json
+new file mode 100644
+index 00000000..cbd4d3be
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003485/receipts/release-decision.json
+@@ -0,0 +1,35 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-release-decision/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003485-TARGET",
++  "stage_claim_id": "S5-CLM-00003485",
++  "decision": "provisional_release_candidate",
++  "semantic_environment_sha256": "6be05577e06456a76a4ef4b242f304b62f23dfbe2656119e2b8a4f32bf038792",
++  "machine_complete": true,
++  "readable_complete": true,
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "current_trace_sha256": "af9aba2904dfbb3883f7780a8b670a1400b51807aaf03871839e19fbc5f7b37b",
++  "strict_dominance": {
++    "fixture": "THM-M-0387",
++    "fixture_status": "incomplete_H1_M2_R0_negative_fixture",
++    "all_applicable_shape_predicates_passed": true,
++    "exact_m0": true,
++    "true_r0": true,
++    "empty_hmr_cuts": true,
++    "semantic_environment_added": true,
++    "semantic_substitution_mutations_passed": true,
++    "cold_from_source_replay_passed": true,
++    "strict_dimensions": [
++      "semantic_environment",
++      "semantic_substitution_mutations",
++      "cold_from_source_replay",
++      "exact_m0",
++      "empty_hmr_cuts"
++    ]
++  },
++  "theorem_complete_candidate": true,
++  "master_accepted": false,
++  "authority_sha256": "c92e36b651674b1bd8b10cda6cbb4437cb61acac767d1b81fcba7703fc2dc378"
++}

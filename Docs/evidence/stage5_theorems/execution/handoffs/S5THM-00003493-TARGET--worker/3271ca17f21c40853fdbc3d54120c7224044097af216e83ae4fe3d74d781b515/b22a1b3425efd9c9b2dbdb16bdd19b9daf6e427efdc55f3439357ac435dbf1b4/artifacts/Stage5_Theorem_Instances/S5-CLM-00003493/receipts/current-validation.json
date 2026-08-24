@@ -1,0 +1,142 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-current-validation/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003493-TARGET",
+  "stage_claim_id": "S5-CLM-00003493",
+  "run_id": "r-1786655701-2436cf35",
+  "claim_card_sha256": "69600ea139653c5c63f347b657b5b8e988bc673cef706916fb361c3eafcc7ddf",
+  "semantic_environment_sha256": "fea82c87d8dd7e34a3cd1947d066f73960499ca9d6fafbef3b1c3adea6f9be5e",
+  "lean_toolchain_sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
+  "commands": [
+    {
+      "command_id": "statement-trust-zero",
+      "argv": [
+        "elan",
+        "run",
+        "leanprover/lean4:v4.29.0",
+        "lake",
+        "env",
+        "lean",
+        "--trust=0",
+        "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003493/Statement.lean"
+      ],
+      "exit_code": 0,
+      "passed": true,
+      "observed_axioms": []
+    },
+    {
+      "command_id": "proof-trust-zero",
+      "argv": [
+        "elan",
+        "run",
+        "leanprover/lean4:v4.29.0",
+        "lake",
+        "env",
+        "lean",
+        "--trust=0",
+        "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003493/Proof.lean"
+      ],
+      "exit_code": 0,
+      "passed": true,
+      "observed_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "command_id": "cold-trust-zero-audit",
+      "argv": [
+        "elan",
+        "run",
+        "leanprover/lean4:v4.29.0",
+        "lake",
+        "env",
+        "lean",
+        "--trust=0",
+        "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003493/Audit.lean"
+      ],
+      "exit_code": 0,
+      "passed": true,
+      "observed_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "command_id": "complete-target-semantic-proof-debt",
+      "argv": [
+        "/usr/bin/python3",
+        "_baseline/check_stage5_theorem_item.py",
+        "--claim-card",
+        "../claim.json",
+        "--work-root",
+        "."
+      ],
+      "exit_code": 0,
+      "passed": true,
+      "observed_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "semantic_substitution_mutations": [
+    {
+      "mutation_id": "MUT-IMPORT",
+      "change": "replace the frozen provider module identifier",
+      "rejected_by": "exact-provider-import gate",
+      "passed": true
+    },
+    {
+      "mutation_id": "MUT-SHADOW",
+      "change": "introduce a local source-symbol definition or notation",
+      "rejected_by": "semantic shadow scan",
+      "passed": true
+    },
+    {
+      "mutation_id": "MUT-ITERLOG",
+      "change": "change the unfolded iterated-log body",
+      "rejected_by": "bidirectional root comparison",
+      "passed": true
+    },
+    {
+      "mutation_id": "MUT-MAXLEN",
+      "change": "change the maximal-length admissibility predicate",
+      "rejected_by": "bidirectional root comparison",
+      "passed": true
+    }
+  ],
+  "proof_deletion_mutations": [
+    {
+      "mutation_id": "DEL-COLLISION",
+      "deleted_node": "PU-COLLISION",
+      "rejected_by": "Lean proof and DAG closure",
+      "passed": true
+    },
+    {
+      "mutation_id": "DEL-PAIRWISE",
+      "deleted_node": "PU-OBSTRUCTION",
+      "rejected_by": "Lean proof and DAG closure",
+      "passed": true
+    },
+    {
+      "mutation_id": "DEL-BIGO",
+      "deleted_node": "PU-BIGO",
+      "rejected_by": "root conjunction and readability reverse ledger",
+      "passed": true
+    },
+    {
+      "mutation_id": "DEL-DENOM",
+      "deleted_node": "PU-DENOMINATOR",
+      "rejected_by": "pointwise inequality and readability reverse ledger",
+      "passed": true
+    }
+  ],
+  "cold_from_source": true,
+  "trust": 0,
+  "current_trace_sha256": "ddca001e5a20d445eda250b9d97647a8a24ee72acdfaa41af6005f9802ddb3e6",
+  "authority_sha256": "86cda93e9b1fe18b91bd78a26c473574d0a1ca046fd4ad0eb7570ae1a2722606"
+}

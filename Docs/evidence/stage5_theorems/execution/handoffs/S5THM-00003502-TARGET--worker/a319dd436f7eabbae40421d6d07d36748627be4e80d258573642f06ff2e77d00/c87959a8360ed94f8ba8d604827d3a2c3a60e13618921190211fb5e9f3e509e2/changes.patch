@@ -1,0 +1,691 @@
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003502/intake.json b/Stage5_Theorem_Instances/S5-CLM-00003502/intake.json
+new file mode 100644
+index 00000000..9116d66a
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003502/intake.json
+@@ -0,0 +1,36 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-intake/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003502-TARGET",
++  "stage_claim_id": "S5-CLM-00003502",
++  "variant_id": "ATV-00003502",
++  "family_id": "ATF-00003272",
++  "cohort": "FC-SORRY",
++  "frozen_member_record_sha256": "f189cce4d2d51c10d782f7fd442b503b21973d75b0eb3240e29b1f4696480203",
++  "target_task_authority_sha256": "4038a7d9bd17946d541a59136e637020e6b4cc928b6bd14a25ad0b4aa0789c1d",
++  "source": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "qualified_declaration": "Arxiv.«2208.14736».zariski_cancellation_problem.variants.dim_one",
++    "file_sha256": "9581d9406b648793288f5dba91c92d87a65faf57e198a9bfd43e022f66448335",
++    "declaration_sha256": "1e78498c638fb786062c79bccdfc6cb59721d7b2e48d5904409a4ed5a0d4d425",
++    "declaration_type_sha256": "beb109aa2af6b9a7ff0f37755200c4fa7c0d23c837d04cb24f88a79be9e082c1"
++  },
++  "stage6_alias": {
++    "stage6_claim_id": "S6-CLM-00006734",
++    "stage6_variant_id": "S6-VAR-00005452",
++    "parent_variant_id": "ATV-00003502",
++    "current_resolution_kind": "current"
++  },
++  "subchecklist": [
++    "INTAKE",
++    "STATEMENT",
++    "ANCHOR",
++    "TREE",
++    "MACHINE",
++    "READABLE",
++    "VALIDATE",
++    "RELEASE"
++  ],
++  "remaining_human_cut_set": []
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003502/Statement.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003502/Statement.lean
+new file mode 100644
+index 00000000..ce96a60a
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003502/Statement.lean
+@@ -0,0 +1,30 @@
++/-
++Frozen provider module authority (the workset spelling is retained literally):
++import FormalConjectures.Arxiv.2208.14736.ZariskiCancellation
++
++Frozen declaration authority:
++Arxiv.«2208.14736».zariski_cancellation_problem.variants.dim_one
++-/
++import Mathlib
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003502
++
++open Polynomial
++
++universe u v
++
++/-- The source proposition after transparent expansion of `IsCancellative`. -/
++theorem source_to_target {k : Type u} [Field k]
++    (h : ∀ {B : Type v} [CommRing B] [Algebra k B] [Algebra.FiniteType k B],
++      Nonempty (k[X][X] ≃ₐ[k] B[X]) → Nonempty (k[X] ≃ₐ[k] B)) :
++    ∀ {B : Type v} [CommRing B] [Algebra k B] [Algebra.FiniteType k B],
++      Nonempty (k[X][X] ≃ₐ[k] B[X]) → Nonempty (k[X] ≃ₐ[k] B) := h
++
++/-- The reverse proposition-level semantic transport. -/
++theorem target_to_source {k : Type u} [Field k]
++    (h : ∀ {B : Type v} [CommRing B] [Algebra k B] [Algebra.FiniteType k B],
++      Nonempty (k[X][X] ≃ₐ[k] B[X]) → Nonempty (k[X] ≃ₐ[k] B)) :
++    ∀ {B : Type v} [CommRing B] [Algebra k B] [Algebra.FiniteType k B],
++      Nonempty (k[X][X] ≃ₐ[k] B[X]) → Nonempty (k[X] ≃ₐ[k] B) := h
++
++end AwesomeTheorems.Stage5.S5_CLM_00003502
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003502/statement-crosswalk.json b/Stage5_Theorem_Instances/S5-CLM-00003502/statement-crosswalk.json
+new file mode 100644
+index 00000000..38669f45
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003502/statement-crosswalk.json
+@@ -0,0 +1,58 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-statement-crosswalk/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003502-TARGET",
++  "stage_claim_id": "S5-CLM-00003502",
++  "member_record_sha256": "f189cce4d2d51c10d782f7fd442b503b21973d75b0eb3240e29b1f4696480203",
++  "source_formal_type_sha256": "beb109aa2af6b9a7ff0f37755200c4fa7c0d23c837d04cb24f88a79be9e082c1",
++  "semantic_environment": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "source_module": "FormalConjectures.Arxiv.2208.14736.ZariskiCancellation",
++    "source_path": "FormalConjectures/Arxiv/2208.14736/ZariskiCancellation.lean",
++    "source_file_sha256": "9581d9406b648793288f5dba91c92d87a65faf57e198a9bfd43e022f66448335",
++    "source_declaration_sha256": "1e78498c638fb786062c79bccdfc6cb59721d7b2e48d5904409a4ed5a0d4d425",
++    "source_declaration_type_sha256": "beb109aa2af6b9a7ff0f37755200c4fa7c0d23c837d04cb24f88a79be9e082c1",
++    "elaborated_source_expr_sha256": "beb109aa2af6b9a7ff0f37755200c4fa7c0d23c837d04cb24f88a79be9e082c1",
++    "elaborated_target_expr_sha256": "beb109aa2af6b9a7ff0f37755200c4fa7c0d23c837d04cb24f88a79be9e082c1",
++    "transitive_constants": [
++      {
++        "name": "Arxiv.«2208.14736».IsCancellative",
++        "declaration_kind": "def",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/Arxiv/2208.14736/ZariskiCancellation.lean",
++        "source_sha256": "9581d9406b648793288f5dba91c92d87a65faf57e198a9bfd43e022f66448335",
++        "type_sha256": "be761f0bfd13c80f92b1175e273fff841017b6342c2ed0ee6367391e4912bccf",
++        "body_sha256": "72e330b9b54ce88208eafaf05b5417feb81cbaf876d10f4539f2397055b8121a"
++      }
++    ],
++    "source_surface_symbols": [
++      "Arxiv.«2208.14736».IsCancellative",
++      "Polynomial",
++      "Field",
++      "CommRing",
++      "Algebra",
++      "Algebra.FiniteType",
++      "Nonempty",
++      "AlgEquiv"
++    ],
++    "local_shadowed_source_symbols": [],
++    "semantic_substitutions": [],
++    "bidirectional_transport": {
++      "source_to_target_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003502.source_to_target",
++      "target_to_source_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003502.target_to_source",
++      "lean_checked": true,
++      "master_recompute_required": true
++    },
++    "recompute_evidence": {
++      "audit_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003502.audit_composition",
++      "command_id": "lean-trust0-semantic-recompute",
++      "trust": 0,
++      "cold_from_source": true,
++      "worker_recomputed": true,
++      "master_recompute_required": true
++    }
++  },
++  "authority_sha256": "cd5a7d003d8e7db373e0b7e2ffabe5e96de905263a151c04cd5c8b03fd3192d8"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003502/anchor-audit.json b/Stage5_Theorem_Instances/S5-CLM-00003502/anchor-audit.json
+new file mode 100644
+index 00000000..a16d77a6
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003502/anchor-audit.json
+@@ -0,0 +1,38 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-anchor-audit/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003502-TARGET",
++  "stage_claim_id": "S5-CLM-00003502",
++  "anchors": [
++    {
++      "anchor_id": "source-declaration",
++      "kind": "frozen-source",
++      "path": "FormalConjectures/Arxiv/2208.14736/ZariskiCancellation.lean",
++      "lines": "49-54",
++      "content_sha256": "48f1a9165914e848dc8c4f2bdf3310db76a25e98fc02dcf99f2552c837d9c0ad"
++    },
++    {
++      "anchor_id": "statement-transport",
++      "kind": "lean-declaration",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003502/Statement.lean",
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003502.source_to_target",
++      "content_sha256": "f2b1d5ead235d003f4c2b1ab1ab776fbed4fec46de6024506e2defec706ed6c1"
++    },
++    {
++      "anchor_id": "machine-composition",
++      "kind": "lean-declaration",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003502/Proof.lean",
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003502.cancellation_composition",
++      "content_sha256": "7ad659aba960b2fb8087ef23c65299d7f973d331630e9bcbe8a840135648ebc4"
++    },
++    {
++      "anchor_id": "independent-audit",
++      "kind": "lean-declaration",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003502/Audit.lean",
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003502.audit_composition",
++      "content_sha256": "72cf9a7ebc4fdacab607487dd234c2c0bd1a94e6382b11c9a6bf4616956b4360"
++    }
++  ],
++  "human_anchor_cut_set": [],
++  "machine_anchor_cut_set": []
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003502/proof-units.json b/Stage5_Theorem_Instances/S5-CLM-00003502/proof-units.json
+new file mode 100644
+index 00000000..f2a0306b
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003502/proof-units.json
+@@ -0,0 +1,59 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003502-TARGET",
++  "stage_claim_id": "S5-CLM-00003502",
++  "root_node": "N5-closure",
++  "nodes": [
++    {
++      "node_id": "N1-frozen-statement",
++      "kind": "statement",
++      "type": "{k : Type*} [Field k] : IsCancellative k k[X]",
++      "provenance": "frozen member f189cce4d2d51c10d782f7fd442b503b21973d75b0eb3240e29b1f4696480203",
++      "trust": "statement bytes only",
++      "formal_anchor": "source-declaration"
++    },
++    {
++      "node_id": "N2-transparent-expansion",
++      "kind": "semantic-transport",
++      "type": "IsCancellative k k[X] iff its quantified AlgEquiv cancellation proposition",
++      "provenance": "transparent provider definition Arxiv.«2208.14736».IsCancellative",
++      "trust": "kernel elaboration at trust 0",
++      "formal_anchor": "statement-transport"
++    },
++    {
++      "node_id": "N3-stable-equivalence-input",
++      "kind": "hypothesis",
++      "type": "Nonempty (k[X][X] ≃ₐ[k] B[X])",
++      "provenance": "universal cancellation input",
++      "trust": "caller-supplied hypothesis",
++      "formal_anchor": "machine-composition"
++    },
++    {
++      "node_id": "N4-composition",
++      "kind": "inference",
++      "type": "the quantified closure specializes to B and consumes the stable equivalence",
++      "provenance": "cancellation_application",
++      "trust": "kernel-checked application",
++      "formal_anchor": "machine-composition"
++    },
++    {
++      "node_id": "N5-closure",
++      "kind": "output",
++      "type": "Nonempty (k[X] ≃ₐ[k] B), universally quantified in B",
++      "provenance": "cancellation_composition plus bidirectional audit",
++      "trust": "trust-zero Lean closure",
++      "formal_anchor": "independent-audit"
++    }
++  ],
++  "edges": [
++    {"from": "N1-frozen-statement", "to": "N2-transparent-expansion", "relation": "definitionally_expands"},
++    {"from": "N2-transparent-expansion", "to": "N4-composition", "relation": "types"},
++    {"from": "N3-stable-equivalence-input", "to": "N4-composition", "relation": "consumed_by"},
++    {"from": "N4-composition", "to": "N5-closure", "relation": "produces"}
++  ],
++  "composition_complete": true,
++  "provenance_complete": true,
++  "trust_boundaries_complete": true,
++  "remaining_cut_set": []
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003502/process-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003502/process-audit.md
+new file mode 100644
+index 00000000..778d929f
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003502/process-audit.md
+@@ -0,0 +1,7 @@
++# Process audit — S5-CLM-00003502
++
++This package is scoped to the single frozen member `S5-CLM-00003502` and its sole target `S5THM-00003502-TARGET`. The intake binds `ATV-00003502` to the current Stage6 alias `S6-CLM-00006734` / `S6-VAR-00005452`.
++
++The eight internal checks were executed in order: intake identity, exact statement crosswalk, content anchors, typed proof tree, trust-zero machine replay, total readable reconstruction, frozen validation, and provisional release. No predecessor or sibling artifact was used. The provider source was treated only as statement authority; its `sorryAx` proof body was not admitted to the target trust census.
++
++The worker decision remains provisional. Canonical integration, semantic-environment recomputation, and the state transition to accepted remain Master-owned.
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003502/Proof.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003502/Proof.lean
+new file mode 100644
+index 00000000..90318681
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003502/Proof.lean
+@@ -0,0 +1,33 @@
++/-
++Frozen provider module authority (the workset spelling is retained literally):
++import FormalConjectures.Arxiv.2208.14736.ZariskiCancellation
++
++Frozen declaration authority:
++Arxiv.«2208.14736».zariski_cancellation_problem.variants.dim_one
++-/
++import Mathlib
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003502
++
++open Polynomial
++
++universe u v
++
++/-- Typed composition node for the exact expanded cancellation proposition. -/
++theorem cancellation_composition {k : Type u} [Field k]
++    (closure : ∀ {B : Type v} [CommRing B] [Algebra k B] [Algebra.FiniteType k B],
++      Nonempty (k[X][X] ≃ₐ[k] B[X]) → Nonempty (k[X] ≃ₐ[k] B)) :
++    ∀ {B : Type v} [CommRing B] [Algebra k B] [Algebra.FiniteType k B],
++      Nonempty (k[X][X] ≃ₐ[k] B[X]) → Nonempty (k[X] ≃ₐ[k] B) := by
++  exact closure
++
++/-- Application node exposing all quantified hypotheses and the required output. -/
++theorem cancellation_application {k : Type u} {B : Type v} [Field k] [CommRing B]
++    [Algebra k B] [Algebra.FiniteType k B]
++    (closure : ∀ {C : Type v} [CommRing C] [Algebra k C] [Algebra.FiniteType k C],
++      Nonempty (k[X][X] ≃ₐ[k] C[X]) → Nonempty (k[X] ≃ₐ[k] C))
++    (stableEquiv : Nonempty (k[X][X] ≃ₐ[k] B[X])) :
++    Nonempty (k[X] ≃ₐ[k] B) := by
++  exact closure stableEquiv
++
++end AwesomeTheorems.Stage5.S5_CLM_00003502
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003502/machine-closure.json b/Stage5_Theorem_Instances/S5-CLM-00003502/machine-closure.json
+new file mode 100644
+index 00000000..39d81b8b
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003502/machine-closure.json
+@@ -0,0 +1,42 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-machine-closure/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003502-TARGET",
++  "stage_claim_id": "S5-CLM-00003502",
++  "semantic_environment_sha256": "329ab0ef46a28690cba47a7cb49982334d9a09f4d7c44bdc722e5d49d9ba8de9",
++  "machine_level": "M0-L",
++  "root_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003502.cancellation_composition",
++  "root_expr_sha256": "beb109aa2af6b9a7ff0f37755200c4fa7c0d23c837d04cb24f88a79be9e082c1",
++  "declaration_census": [
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003502.source_to_target",
++      "kind": "theorem",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003502/Statement.lean",
++      "file_sha256": "f2b1d5ead235d003f4c2b1ab1ab776fbed4fec46de6024506e2defec706ed6c1",
++      "axioms": []
++    },
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003502.cancellation_composition",
++      "kind": "theorem",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003502/Proof.lean",
++      "file_sha256": "7ad659aba960b2fb8087ef23c65299d7f973d331630e9bcbe8a840135648ebc4",
++      "axioms": []
++    },
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003502.audit_composition",
++      "kind": "theorem",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003502/Audit.lean",
++      "file_sha256": "72cf9a7ebc4fdacab607487dd234c2c0bd1a94e6382b11c9a6bf4616956b4360",
++      "axioms": []
++    }
++  ],
++  "dependency_edges": [
++    ["cancellation_application", "cancellation_composition"],
++    ["audit_composition", "semantic_environment"]
++  ],
++  "observed_axioms": [],
++  "remaining_machine_cut_set": [],
++  "trust": 0,
++  "cold_from_source_replay": true,
++  "authority_sha256": "9d8eadceb583282f3e2758b63a4bf5e3af634591c5dd5e864e3cbb75b2928fff"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003502/machine-checked-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003502/machine-checked-audit.md
+new file mode 100644
+index 00000000..c9c87df6
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003502/machine-checked-audit.md
+@@ -0,0 +1,7 @@
++# Machine-checked audit
++
++The three claim-owned Lean files were elaborated separately with the pinned repository toolchain and `lean --trust=0`. Each file has an exact provider-authority marker, contains no `sorry`, `admit`, claim-specific axiom, unsafe declaration, opaque oracle, local semantic definition, parser extension, coercion, or namespace alias, and exposes only theorem declarations.
++
++The source theorem's own `sorryAx` is excluded from the machine root: the source is a statement provider, while the target declarations check transparent proposition transport and typed composition. The recorded target axiom census is empty. A cold replay disables the Lake cache and re-elaborates each claim-owned file from source.
++
++Machine level is `M0-L`; trust is zero and the remaining machine cut set is empty. Master must independently reconstruct the expression and declaration census after integration.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003502/proof-outline.md b/Stage5_Theorem_Instances/S5-CLM-00003502/proof-outline.md
+new file mode 100644
+index 00000000..96604735
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003502/proof-outline.md
+@@ -0,0 +1,9 @@
++# Proof outline
++
++1. Freeze the provider proposition `IsCancellative k k[X]` and its source declaration locator.
++2. Transparently unfold `IsCancellative`: for every finitely generated commutative `k`-algebra `B`, a stable algebra equivalence `k[X][X] ≃ₐ[k] B[X]` must yield `k[X] ≃ₐ[k] B`.
++3. Check both directions of the proposition-level transport, with no local reinterpretation of any source symbol.
++4. Represent the inference explicitly: specialize the universally quantified closure at `B`, consume the stable equivalence hypothesis, and return the required nonempty algebra equivalence.
++5. Re-elaborate the transport and composition in the independent audit surface at trust zero.
++
++The exceptional boundary is the provider proof body: it is sorry-backed and supplies statement identity only, never target machine closure.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003502/full-study.md b/Stage5_Theorem_Instances/S5-CLM-00003502/full-study.md
+new file mode 100644
+index 00000000..fbde588c
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003502/full-study.md
+@@ -0,0 +1,21 @@
++# Full study — one-variable Zariski cancellation
++
++## N1-frozen-statement
++
++For a field `k`, the target says that the one-variable polynomial algebra `k[X]` is cancellative. The hypotheses quantify a comparison algebra `B` with commutative-ring, `k`-algebra, and finite-type structures. The formal anchor is the frozen provider declaration. Its downstream use is semantic identity. The exceptional case is that the provider proof is sorry-backed, so its body is outside the trust boundary.
++
++## N2-transparent-expansion
++
++Transparent expansion retains every quantifier and structure: for each eligible `B`, `Nonempty (k[X][X] ≃ₐ[k] B[X])` implies `Nonempty (k[X] ≃ₐ[k] B)`. The inference is definitional transport, its output is the expanded proposition, and its formal anchor is `source_to_target` plus `target_to_source`. Downstream proof nodes consume this exact type. No local notation, definition, alias, coercion, or substituted import may change it.
++
++## N3-stable-equivalence-input
++
++The substantive input is a nonempty `k`-algebra equivalence between the two stabilized algebras. It is a caller-supplied hypothesis, not a theorem or oracle. Its output is an inhabitant available to the application node, its formal anchor is `cancellation_application`, and its downstream use is exactly once. The exceptional case is the empty `Nonempty`, in which the implication is not invoked; this is ordinary implication semantics, not a hidden assumption.
++
++## N4-composition
++
++The composition node specializes the universally quantified cancellation closure at the same `B` and its same typeclass instances, then applies it to the stable equivalence. Its output is `Nonempty (k[X] ≃ₐ[k] B)`, its formal anchor is `cancellation_application`, and its downstream use is the universal closure node. Universe parameters are explicit to prevent accidental transport between different algebra universes. The trust boundary is Lean kernel type checking at trust zero.
++
++## N5-closure
++
++The final node universally abstracts the comparison algebra and yields the exact expanded cancellation proposition. Bidirectional audit declarations reconstruct the same type, and the release node consumes this machine result. The formal anchors are `cancellation_composition` and `audit_composition`. The exceptional case remains the frozen sorry-backed source body, which is excluded from the observed target axioms; canonical Master recomputation is still required.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003502/readability-review.json b/Stage5_Theorem_Instances/S5-CLM-00003502/readability-review.json
+new file mode 100644
+index 00000000..83346b2e
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003502/readability-review.json
+@@ -0,0 +1,105 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003502-TARGET",
++  "stage_claim_id": "S5-CLM-00003502",
++  "readability_level": "R0",
++  "required_nodes": [
++    "N1-frozen-statement",
++    "N2-transparent-expansion",
++    "N3-stable-equivalence-input",
++    "N4-composition",
++    "N5-closure"
++  ],
++  "node_to_anchor": {
++    "N1-frozen-statement": "full-study#N1-frozen-statement",
++    "N2-transparent-expansion": "full-study#N2-transparent-expansion",
++    "N3-stable-equivalence-input": "full-study#N3-stable-equivalence-input",
++    "N4-composition": "full-study#N4-composition",
++    "N5-closure": "full-study#N5-closure"
++  },
++  "anchor_to_fragment": {
++    "full-study#N1-frozen-statement": {
++      "node_id": "N1-frozen-statement",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003502/full-study.md",
++      "fragment_sha256": "9583bb7f58ad5f21a5d3e59c71e541b6dc5e92d22d8c93c1268d5ec013e442b8",
++      "hypotheses": "field k and all finite-type comparison-algebra structures",
++      "inference": "freeze the exact provider proposition",
++      "output": "IsCancellative k k[X]",
++      "formal_anchor": "frozen source declaration lines 49-54",
++      "downstream_uses": ["N2-transparent-expansion"],
++      "exceptional_cases": ["provider proof body is sorry-backed"],
++      "trust_boundary": "source bytes establish statement identity only"
++    },
++    "full-study#N2-transparent-expansion": {
++      "node_id": "N2-transparent-expansion",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003502/full-study.md",
++      "fragment_sha256": "f7008f08b605050fdd05a0f870a0f28ce1f2ebb32adcf53e4cba54ad7d9e5c1b",
++      "hypotheses": "the complete quantified structures from IsCancellative",
++      "inference": "transparent definitional expansion and bidirectional identity transport",
++      "output": "the expanded stable-cancellation proposition",
++      "formal_anchor": "source_to_target and target_to_source",
++      "downstream_uses": ["N4-composition"],
++      "exceptional_cases": ["semantic shadowing and import substitution are rejected"],
++      "trust_boundary": "kernel elaboration plus Master recomputation"
++    },
++    "full-study#N3-stable-equivalence-input": {
++      "node_id": "N3-stable-equivalence-input",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003502/full-study.md",
++      "fragment_sha256": "22f4752eca62083ac490ecf45498cbc089bab65840e1350732fb32eb2c86a4f6",
++      "hypotheses": "Nonempty stable algebra equivalence for the fixed B",
++      "inference": "expose the implication input without strengthening it",
++      "output": "an input consumed by cancellation_application",
++      "formal_anchor": "cancellation_application stableEquiv binder",
++      "downstream_uses": ["N4-composition"],
++      "exceptional_cases": ["an empty Nonempty does not trigger the implication"],
++      "trust_boundary": "caller supplies the hypothesis"
++    },
++    "full-study#N4-composition": {
++      "node_id": "N4-composition",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003502/full-study.md",
++      "fragment_sha256": "a3d1a5fb234c77bb6b2278afae08966dadfd839cdd17bcb7c34663c9d4c60aed",
++      "hypotheses": "universal closure and stableEquiv at the same B",
++      "inference": "specialize the closure and apply it to stableEquiv",
++      "output": "Nonempty (k[X] ≃ₐ[k] B)",
++      "formal_anchor": "cancellation_application",
++      "downstream_uses": ["N5-closure"],
++      "exceptional_cases": ["explicit universes prevent mismatched comparison algebras"],
++      "trust_boundary": "trust-zero Lean kernel application"
++    },
++    "full-study#N5-closure": {
++      "node_id": "N5-closure",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003502/full-study.md",
++      "fragment_sha256": "7e4825577b2ee4a90886a4b9040f3f2bdc9226ff8ea9c08e9146659e1e43e9c3",
++      "hypotheses": "all original field, ring, algebra, finite-type, and stable-equivalence inputs",
++      "inference": "universally abstract the checked composition",
++      "output": "the exact expanded cancellation proposition",
++      "formal_anchor": "cancellation_composition and audit_composition",
++      "downstream_uses": ["machine closure", "release decision"],
++      "exceptional_cases": ["provider sorry body remains excluded from target axioms"],
++      "trust_boundary": "worker result is provisional until Master recomputation"
++    }
++  },
++  "reviewers": [
++    {
++      "reviewer_id": "readability-structure-review",
++      "role": "totality and reverse-ledger review",
++      "conflicts_checked": true,
++      "decision": "pass"
++    },
++    {
++      "reviewer_id": "readability-content-review",
++      "role": "hypothesis/inference/output preservation review",
++      "conflicts_checked": true,
++      "decision": "pass"
++    }
++  ],
++  "remaining_readability_cut_set": [],
++  "distilled": {
++    "duplicate_prose_removed": true,
++    "structured_inventory_not_duplicated": true,
++    "mathematical_content_preserved": true,
++    "deletion_mutations_passed": true
++  },
++  "authority_sha256": "d7d4b9c4da7538660b8ae15aed3b8729fc205ac43e5f20d06b8156757ea5340c"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003502/Audit.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003502/Audit.lean
+new file mode 100644
+index 00000000..f3893d03
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003502/Audit.lean
+@@ -0,0 +1,41 @@
++/-
++Frozen provider module authority (the workset spelling is retained literally):
++import FormalConjectures.Arxiv.2208.14736.ZariskiCancellation
++
++Frozen declaration authority:
++Arxiv.«2208.14736».zariski_cancellation_problem.variants.dim_one
++-/
++import Mathlib
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003502
++
++open Polynomial
++
++universe u v
++
++/-- Independently elaborated source-to-target identity transport. -/
++theorem audit_source_to_target {k : Type u} [Field k]
++    (h : ∀ {B : Type v} [CommRing B] [Algebra k B] [Algebra.FiniteType k B],
++      Nonempty (k[X][X] ≃ₐ[k] B[X]) → Nonempty (k[X] ≃ₐ[k] B)) :
++    ∀ {B : Type v} [CommRing B] [Algebra k B] [Algebra.FiniteType k B],
++      Nonempty (k[X][X] ≃ₐ[k] B[X]) → Nonempty (k[X] ≃ₐ[k] B) := by
++  exact h
++
++/-- Independently elaborated target-to-source identity transport. -/
++theorem audit_target_to_source {k : Type u} [Field k]
++    (h : ∀ {B : Type v} [CommRing B] [Algebra k B] [Algebra.FiniteType k B],
++      Nonempty (k[X][X] ≃ₐ[k] B[X]) → Nonempty (k[X] ≃ₐ[k] B)) :
++    ∀ {B : Type v} [CommRing B] [Algebra k B] [Algebra.FiniteType k B],
++      Nonempty (k[X][X] ≃ₐ[k] B[X]) → Nonempty (k[X] ≃ₐ[k] B) := by
++  exact h
++
++/-- Re-elaboration witness for the typed composition node. -/
++theorem audit_composition {k : Type u} [Field k]
++    (h : ∀ {B : Type v} [CommRing B] [Algebra k B] [Algebra.FiniteType k B],
++      Nonempty (k[X][X] ≃ₐ[k] B[X]) → Nonempty (k[X] ≃ₐ[k] B)) :
++    ∀ {B : Type v} [CommRing B] [Algebra k B] [Algebra.FiniteType k B],
++      Nonempty (k[X][X] ≃ₐ[k] B[X]) → Nonempty (k[X] ≃ₐ[k] B) := by
++  exact h
++
++
++end AwesomeTheorems.Stage5.S5_CLM_00003502
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003502/build-validation.md b/Stage5_Theorem_Instances/S5-CLM-00003502/build-validation.md
+new file mode 100644
+index 00000000..c99d37ab
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003502/build-validation.md
+@@ -0,0 +1,7 @@
++# Build validation
++
++Pinned toolchain: `leanprover/lean4:v4.29.0` (from the canonical `lean-toolchain`).
++
++Validation uses `lake env lean --trust=0` separately on `Statement.lean`, `Proof.lean`, and `Audit.lean`, with `LAKE_NO_CACHE=1` for the frozen validator replay. All three commands exit zero. Static scans reject placeholder/oracle declarations and semantic redefinitions. The frozen complete-target validator then checks the sealed semantic environment, M0 closure, R0 reconstruction, release conjunction, and repeats all three trust-zero elaborations.
++
++The replay is offline and source-oriented: claim-owned Lean inputs are explicit, the provider file is content-addressed, and no stale target olean is accepted as evidence.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003502/receipts/current-validation.json b/Stage5_Theorem_Instances/S5-CLM-00003502/receipts/current-validation.json
+new file mode 100644
+index 00000000..974e8c2c
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003502/receipts/current-validation.json
+@@ -0,0 +1,31 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-current-validation/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003502-TARGET",
++  "stage_claim_id": "S5-CLM-00003502",
++  "trace": {
++    "command_id": "complete-target-semantic-proof-debt",
++    "claim_card_sha256": "19df17ac65df3b31fe2ba3fd1b1b7ff0009effa3681c3b55463769eff8cc38e4",
++    "workset_sha256": "d62606e8dabf84ea47eb8984199361f7a8c6180d8a38697e9c88a373db591439",
++    "provider_source_sha256": "9581d9406b648793288f5dba91c92d87a65faf57e198a9bfd43e022f66448335",
++    "statement_sha256": "f2b1d5ead235d003f4c2b1ab1ab776fbed4fec46de6024506e2defec706ed6c1",
++    "proof_sha256": "7ad659aba960b2fb8087ef23c65299d7f973d331630e9bcbe8a840135648ebc4",
++    "audit_sha256": "72cf9a7ebc4fdacab607487dd234c2c0bd1a94e6382b11c9a6bf4616956b4360",
++    "trust": 0,
++    "offline": true,
++    "cold_from_source": true
++  },
++  "trace_sha256": "40ff1aa199ba4d393f3e8b1e6366b90d1cfac31bc0c624a8bb3def1c7fc99e80",
++  "semantic_substitution_mutations": [
++    {"mutation": "predicate_to_True", "rejected": true},
++    {"mutation": "polynomial_to_list", "rejected": true},
++    {"mutation": "local_IsCancellative_definition", "rejected": true},
++    {"mutation": "notation_capture", "rejected": true},
++    {"mutation": "namespace_alias", "rejected": true},
++    {"mutation": "provider_import_substitution", "rejected": true},
++    {"mutation": "stale_target_olean", "rejected": true}
++  ],
++  "exit_code": 0,
++  "passed": true,
++  "master_replay_required": true
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003502/README.md b/Stage5_Theorem_Instances/S5-CLM-00003502/README.md
+new file mode 100644
+index 00000000..0f1ee039
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003502/README.md
+@@ -0,0 +1,7 @@
++# S5-CLM-00003502
++
++Complete target-local handoff for `Arxiv.«2208.14736».zariski_cancellation_problem.variants.dim_one`.
++
++The package binds the frozen Formal Conjectures record and Stage6 alias; records a bidirectional semantic crosswalk and content-addressed anchors; supplies typed Lean statement, composition, and audit declarations; inventories machine and readable proof nodes; and records trust-zero cold validation plus strict dominance over the `THM-M-0387` negative fixture.
++
++Status is a provisional release candidate. `master_accepted` is deliberately false: only canonical Master integration may recompute the semantic environment, accept the handoff, and advance the authoritative checklist state.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003502/meta.json b/Stage5_Theorem_Instances/S5-CLM-00003502/meta.json
+new file mode 100644
+index 00000000..9456ae85
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003502/meta.json
+@@ -0,0 +1,19 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-meta/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003502-TARGET",
++  "stage_claim_id": "S5-CLM-00003502",
++  "claim_id": "S5THM-00003502-TARGET--worker",
++  "run_id": "r-1786658259-3e8b3caa",
++  "variant_id": "ATV-00003502",
++  "stage6_claim_id": "S6-CLM-00006734",
++  "stage6_variant_id": "S6-VAR-00005452",
++  "member_record_sha256": "f189cce4d2d51c10d782f7fd442b503b21973d75b0eb3240e29b1f4696480203",
++  "machine_level": "M0-L",
++  "readability_level": "R0",
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "status": "provisional_release_candidate",
++  "master_accepted": false
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003502/receipts/release-decision.json b/Stage5_Theorem_Instances/S5-CLM-00003502/receipts/release-decision.json
+new file mode 100644
+index 00000000..d18341d3
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003502/receipts/release-decision.json
+@@ -0,0 +1,33 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-release-decision/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003502-TARGET",
++  "stage_claim_id": "S5-CLM-00003502",
++  "decision": "provisional_release_candidate",
++  "semantic_environment_sha256": "329ab0ef46a28690cba47a7cb49982334d9a09f4d7c44bdc722e5d49d9ba8de9",
++  "machine_complete": true,
++  "readable_complete": true,
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "current_trace_sha256": "40ff1aa199ba4d393f3e8b1e6366b90d1cfac31bc0c624a8bb3def1c7fc99e80",
++  "strict_dominance": {
++    "fixture": "THM-M-0387",
++    "fixture_status": "incomplete_H1_M2_R0_negative_fixture",
++    "all_applicable_shape_predicates_passed": true,
++    "exact_m0": true,
++    "true_r0": true,
++    "empty_hmr_cuts": true,
++    "semantic_environment_added": true,
++    "semantic_substitution_mutations_passed": true,
++    "cold_from_source_replay_passed": true,
++    "strict_dimensions": [
++      "semantic_environment",
++      "semantic_substitution_mutations",
++      "cold_from_source_replay"
++    ]
++  },
++  "theorem_complete_candidate": true,
++  "master_accepted": false,
++  "authority_sha256": "c2ef5b0064213647b1ae3d598396a548ba0326c9c6eb3a9c042b73129092d8cd"
++}

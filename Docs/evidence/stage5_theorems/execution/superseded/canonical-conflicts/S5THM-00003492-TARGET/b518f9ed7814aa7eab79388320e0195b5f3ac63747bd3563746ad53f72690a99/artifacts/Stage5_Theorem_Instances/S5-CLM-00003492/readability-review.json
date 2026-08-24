@@ -1,0 +1,125 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003492-TARGET",
+  "stage_claim_id": "S5-CLM-00003492",
+  "readability_level": "R0",
+  "required_nodes": ["N0", "N1", "N2", "N3", "N4", "N5", "N6"],
+  "node_to_anchor": {
+    "N0": "fragment-input-contract",
+    "N1": "fragment-pigeonhole-space",
+    "N2": "fragment-collision",
+    "N3": "fragment-local-contradiction",
+    "N4": "fragment-pairwise-contradiction",
+    "N5": "fragment-supremum",
+    "N6": "fragment-transport"
+  },
+  "anchor_to_fragment": {
+    "fragment-input-contract": {
+      "node_id": "N0",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003492/full-study.md#fragment-input-contract",
+      "fragment_sha256": "ce0684895f018eaf416e921c3cc9e262ca144b09134f189ae633136dc02d59b5",
+      "hypotheses": "n and the frozen bounded pairwise-increasing list contract",
+      "inference": "delta-unfold the exact provider definitions without replacement declarations",
+      "output": "the claim-owned expanded supremum proposition",
+      "formal_anchor": "Statement.lean#statement_bidirectional_crosswalk",
+      "downstream_uses": ["N1", "N6"],
+      "exceptional_cases": "n=0 and n=1 remain quantified and unchanged",
+      "trust_boundary": "Master must independently recompute elaborated identity"
+    },
+    "fragment-pigeonhole-space": {
+      "node_id": "N1",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003492/full-study.md#fragment-pigeonhole-space",
+      "fragment_sha256": "e4efcd7e69bca54a093f74ef4e27e8e0d9a1564628126ecdac749240fa51191b",
+      "hypotheses": "bounded list s with length greater than n squared",
+      "inference": "map positions into the n-squared product of first-coordinate intervals",
+      "output": "a larger finite domain mapped into a smaller target",
+      "formal_anchor": "Proof.lean#proof_exists_equal_first_two:htCard,hf",
+      "downstream_uses": ["N2"],
+      "exceptional_cases": "empty intervals make a nonempty bounded input impossible",
+      "trust_boundary": "Mathlib cardinal arithmetic is replayed by Master"
+    },
+    "fragment-collision": {
+      "node_id": "N2",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003492/full-study.md#fragment-collision",
+      "fragment_sha256": "8c2789ec03dcdbdf284c32824de29c5e289c18e73f7d14537729dfa16666f8ca",
+      "hypotheses": "the maps-to and strict cardinal hypotheses of N1",
+      "inference": "finite pigeonhole followed by product projections",
+      "output": "distinct positions equal in coordinates zero and one",
+      "formal_anchor": "Proof.lean#proof_exists_equal_first_two",
+      "downstream_uses": ["N4"],
+      "exceptional_cases": "the collision indices are initially unoriented",
+      "trust_boundary": "the pinned Mathlib theorem is part of the replayed dependency cone"
+    },
+    "fragment-local-contradiction": {
+      "node_id": "N3",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003492/full-study.md#fragment-local-contradiction",
+      "fragment_sha256": "da0342d563ab6f3d4c82548196c340a6a9b06f6b8fb1f295eb5cf1b1cee06187",
+      "hypotheses": "two triples agree at coordinates zero and one",
+      "inference": "exhaust all ordered pairs of Fin 3 coordinates",
+      "output": "two distinct strict coordinate increases are impossible",
+      "formal_anchor": "Proof.lean#proof_not_two_increases_of_equal_first_two",
+      "downstream_uses": ["N4"],
+      "exceptional_cases": "all nine coordinate pairs, including equal indices, are covered",
+      "trust_boundary": "finite cases and order contradictions are kernel checked"
+    },
+    "fragment-pairwise-contradiction": {
+      "node_id": "N4",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003492/full-study.md#fragment-pairwise-contradiction",
+      "fragment_sha256": "e63c278973bcf08c27e44b2e3e74dd1d170027e7a360592c817cdaae7f8bd007",
+      "hypotheses": "the N2 collision and the list Pairwise relation",
+      "inference": "orient unequal positions and contradict N3 in either direction",
+      "output": "every admissible list has length at most n squared",
+      "formal_anchor": "Proof.lean#proof_maximalLength_le:pairwise-contradiction",
+      "downstream_uses": ["N5"],
+      "exceptional_cases": "both possible index orientations are explicit",
+      "trust_boundary": "no transitivity assumption is introduced"
+    },
+    "fragment-supremum": {
+      "node_id": "N5",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003492/full-study.md#fragment-supremum",
+      "fragment_sha256": "2c977d8880b96a60af621d2a3bbbfebb955684cc5f7e2c9617f454b8b1f895fd",
+      "hypotheses": "the admissible-length set and the N4 uniform bound",
+      "inference": "use the empty-list witness and apply csSup_le",
+      "output": "the exact claim-owned maximalLength upper bound",
+      "formal_anchor": "Proof.lean#proof_maximalLength_le",
+      "downstream_uses": ["N6", "release"],
+      "exceptional_cases": "the uniform proof includes n=0 and n=1",
+      "trust_boundary": "Master compiles the root from source at trust zero"
+    },
+    "fragment-transport": {
+      "node_id": "N6",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003492/full-study.md#fragment-transport",
+      "fragment_sha256": "fb771931e342eae66cddcf81b25f350cc9ae06f186081017698fefbddaa7fedb",
+      "hypotheses": "frozen source statement and claim-owned expanded root",
+      "inference": "identity transport in both delta-expanded directions",
+      "output": "bidirectional semantic crosswalk",
+      "formal_anchor": "Audit.lean#audit_source_to_target,audit_target_to_source",
+      "downstream_uses": ["semantic environment audit", "Master acceptance"],
+      "exceptional_cases": "transport is uniform in every natural n",
+      "trust_boundary": "Master rejects any nonidentical elaborated expression or substitution"
+    }
+  },
+  "reviewers": [
+    {
+      "reviewer_id": "worker-structure-review",
+      "role": "totality_injectivity_reverse_coverage",
+      "independent_of_author": true,
+      "decision": "pass"
+    },
+    {
+      "reviewer_id": "worker-mathematical-review",
+      "role": "hypotheses_inferences_outputs_exceptions_trust",
+      "independent_of_author": true,
+      "decision": "pass"
+    }
+  ],
+  "remaining_readability_cut_set": [],
+  "distilled": {
+    "duplicate_prose_removed": true,
+    "structured_inventory_not_duplicated": true,
+    "mathematical_content_preserved": true,
+    "deletion_mutations_passed": true
+  },
+  "authority_sha256": "39a18ac65941e6d313b51be456253c46966d45e93a82ce86638fad4cd2eb1190"
+}

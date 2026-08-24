@@ -1,0 +1,84 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003485-TARGET",
+  "stage_claim_id": "S5-CLM-00003485",
+  "root_node": "PU-08",
+  "nodes": [
+    {
+      "node_id": "PU-01",
+      "kind": "semantic_binding",
+      "claim": "The target proposition is the frozen Conjecture 6.3 proposition with p in (0,1/2), positive k, and sigma squared parameterized by sqrt(p(1-p)).",
+      "formal_anchors": ["frozen_statement_surface", "arxiv_id0911_2077_conjecture6_3"],
+      "dependencies": [],
+      "provenance": ["formal-conjectures-2270d31e@2270d31e8dd611521f979de6d86da364930b7669"],
+      "trust_boundary": "Lean kernel plus Master semantic-root recomputation"
+    },
+    {
+      "node_id": "PU-02",
+      "kind": "binomial_identity",
+      "claim": "The upper binomial tail equals its beta-integral representation and has the required midpoint value.",
+      "formal_anchors": ["binomial_tail_eq_integral", "pmf_binomial_tail_toReal_eq_integral", "binomial_tail_integral_half_even"],
+      "dependencies": ["PU-01"],
+      "provenance": ["Mathlib PMF/binomial and interval integration"],
+      "trust_boundary": "Lean kernel"
+    },
+    {
+      "node_id": "PU-03",
+      "kind": "gaussian_calculus",
+      "claim": "The standard normal CDF derivative, endpoint limits, and two-region tail inequalities hold for the standardized displacement.",
+      "formal_anchors": ["gaussian_cdf_hasDerivAt_lemma", "gaussian_tail_bound_region2_analytic_ineq", "gaussian_tail_bound_deriv_ineq_large_p_simp"],
+      "dependencies": ["PU-01"],
+      "provenance": ["Mathlib Gaussian measure and real calculus"],
+      "trust_boundary": "Lean kernel"
+    },
+    {
+      "node_id": "PU-04",
+      "kind": "combinatorial_bound",
+      "claim": "Central-binomial and Wallis estimates control the correction term and its logarithmic comparison constant.",
+      "formal_anchors": ["central_binom_sq_eq_wallis", "wallis_inequality_for_binom", "central_binom_bound_sqrt", "psi_half_le_C"],
+      "dependencies": ["PU-02"],
+      "provenance": ["Mathlib central choose and Wallis product"],
+      "trust_boundary": "Lean kernel"
+    },
+    {
+      "node_id": "PU-05",
+      "kind": "derivative_shape",
+      "claim": "The gap derivative is nonnegative before one crossing and nonpositive after it.",
+      "formal_anchors": ["psi_crossing_exists_analytic", "deriv_gap_sign_iff_psi", "deriv_gap_shape"],
+      "dependencies": ["PU-03", "PU-04"],
+      "provenance": ["elementary differentiation, monotonicity, and intermediate-value arguments"],
+      "trust_boundary": "Lean kernel"
+    },
+    {
+      "node_id": "PU-06",
+      "kind": "endpoint_closure",
+      "claim": "The extended gap is continuous on the closed interval, differentiable inside it, and vanishes at both endpoints.",
+      "formal_anchors": ["gap_limit_at_zero", "gap_at_half_eq_zero", "gap_ext_regular"],
+      "dependencies": ["PU-02", "PU-03", "PU-05"],
+      "provenance": ["integral and Gaussian endpoint limits"],
+      "trust_boundary": "Lean kernel"
+    },
+    {
+      "node_id": "PU-07",
+      "kind": "order_composition",
+      "claim": "A continuous one-peak gap with zero endpoints is nonnegative throughout [0,1/2].",
+      "formal_anchors": ["unimodal_gap_lemma", "gap_ext_regular"],
+      "dependencies": ["PU-05", "PU-06"],
+      "provenance": ["mean-value theorem and derivative sign transfer"],
+      "trust_boundary": "Lean kernel"
+    },
+    {
+      "node_id": "PU-08",
+      "kind": "root_theorem",
+      "claim": "Rewriting the nonnegative integral gap as the binomial PMF tail yields the frozen inequality.",
+      "formal_anchors": ["conjecture6_3_proof", "arxiv_id0911_2077_conjecture6_3"],
+      "dependencies": ["PU-02", "PU-07"],
+      "provenance": ["logical-intelligence/proofs@0dbb9215f472c532ca8af1376ed58a7ebca6dec2/LI/Conj63.lean, rematerialized and compatibility-checked"],
+      "trust_boundary": "Lean kernel; no source sorryAx dependency"
+    }
+  ],
+  "human_cut_set": [],
+  "machine_cut_set": [],
+  "readability_cut_set": []
+}

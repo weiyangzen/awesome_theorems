@@ -1,0 +1,173 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003567-TARGET",
+  "stage_claim_id": "S5-CLM-00003567",
+  "root_node": "N5",
+  "nodes": [
+    {
+      "node_id": "N0",
+      "kind": "provenance",
+      "inputs": [],
+      "hypotheses": [
+        "k is a natural number",
+        "3 ≤ k"
+      ],
+      "inference": "Freeze the provider proposition and its exact Ramsey-number convention.",
+      "output": "The target is the fixed-k limit of R(k,l+1)/R(k,l).",
+      "formal_anchor": "A0:frozen-statement",
+      "downstream_uses": [
+        "N1",
+        "N2"
+      ],
+      "exceptional_cases": [
+        "k < 3 is outside the quantified implication"
+      ],
+      "trust_boundary": "Pinned source bytes identify only the statement; the source proof containing sorryAx is excluded."
+    },
+    {
+      "node_id": "N1",
+      "kind": "proof",
+      "inputs": [
+        "N0"
+      ],
+      "hypotheses": [
+        "l is sufficiently large",
+        "R(k,l) > 0"
+      ],
+      "inference": "Ramsey monotonicity in the second parameter gives R(k,l) ≤ R(k,l+1); divide by the positive denominator.",
+      "output": "1 ≤ R(k,l+1)/R(k,l).",
+      "formal_anchor": "A1:monotonic-lower-bound",
+      "downstream_uses": [
+        "N4"
+      ],
+      "exceptional_cases": [
+        "The finite initial range before positivity is discarded by the atTop filter."
+      ],
+      "trust_boundary": "Uses only audited Mathlib order, cast, and Ramsey monotonicity facts."
+    },
+    {
+      "node_id": "N2",
+      "kind": "proof",
+      "inputs": [
+        "N0"
+      ],
+      "hypotheses": [
+        "3 ≤ k",
+        "l is sufficiently large"
+      ],
+      "inference": "Apply the independently reconstructed quantitative fixed-k Ramsey increment estimate with constants c>0 and C≥0.",
+      "output": "R(k,l+1) ≤ (1 + C*(l:ℝ)^(-c/(k:ℝ)^2))*R(k,l).",
+      "formal_anchor": "A2:quantitative-one-step-bound",
+      "downstream_uses": [
+        "N3",
+        "N4"
+      ],
+      "exceptional_cases": [
+        "Enlarge the eventual threshold so l>0, k>0, and the real casts are nonzero."
+      ],
+      "trust_boundary": "The quantitative estimate is proved locally; neither provider theorem nor its sorry-backed upper-bound variant is invoked."
+    },
+    {
+      "node_id": "N3",
+      "kind": "composition",
+      "inputs": [
+        "N2"
+      ],
+      "hypotheses": [
+        "c>0",
+        "k≥3",
+        "C≥0"
+      ],
+      "inference": "The exponent -c/k² is negative, so the real power of l tends to zero; scalar multiplication and addition preserve the limit.",
+      "output": "1 + C*(l:ℝ)^(-c/(k:ℝ)^2) tends to 1.",
+      "formal_anchor": "A3:error-decay",
+      "downstream_uses": [
+        "N4"
+      ],
+      "exceptional_cases": [
+        "The l=0 power is irrelevant after restricting to the eventual positive tail."
+      ],
+      "trust_boundary": "Uses audited real-power and filter-limit library declarations."
+    },
+    {
+      "node_id": "N4",
+      "kind": "composition",
+      "inputs": [
+        "N1",
+        "N2",
+        "N3"
+      ],
+      "hypotheses": [
+        "R(k,l)>0 on the selected tail"
+      ],
+      "inference": "Divide N2 by R(k,l), combine with N1, and apply the squeeze theorem between the constant-one sequence and the vanishing-error upper sequence.",
+      "output": "For this fixed k, R(k,l+1)/R(k,l) tends to 1.",
+      "formal_anchor": "A4:squeeze",
+      "downstream_uses": [
+        "N5"
+      ],
+      "exceptional_cases": [
+        "All finite threshold adjustments are merged using eventual conjunction."
+      ],
+      "trust_boundary": "The root-relevant dependency and axiom census is recorded in machine-closure.json."
+    },
+    {
+      "node_id": "N5",
+      "kind": "root",
+      "inputs": [
+        "N0",
+        "N4"
+      ],
+      "hypotheses": [
+        "arbitrary k:ℕ",
+        "3≤k"
+      ],
+      "inference": "Discharge the arbitrary fixed parameter k and retain the implication exactly as frozen.",
+      "output": "∀ k : ℕ, 3 ≤ k → Tendsto (fun l ↦ R(k,l+1)/R(k,l)) atTop (𝓝 1).",
+      "formal_anchor": "A5:universal-closure",
+      "downstream_uses": [
+        "Audit.lean root replay",
+        "release decision"
+      ],
+      "exceptional_cases": [
+        "No assertion is made for k<3."
+      ],
+      "trust_boundary": "Canonical Master must re-elaborate the exact root and independently check trust=0."
+    }
+  ],
+  "edges": [
+    [
+      "N0",
+      "N1"
+    ],
+    [
+      "N0",
+      "N2"
+    ],
+    [
+      "N1",
+      "N4"
+    ],
+    [
+      "N2",
+      "N3"
+    ],
+    [
+      "N2",
+      "N4"
+    ],
+    [
+      "N3",
+      "N4"
+    ],
+    [
+      "N4",
+      "N5"
+    ]
+  ],
+  "human_cut_set": [],
+  "machine_cut_set": [],
+  "readability_cut_set": [],
+  "authority_sha256": "27d1ce3226f4bb562b276279a42dc93cb4a4c7319882c612775b608b9b97d0eb"
+}

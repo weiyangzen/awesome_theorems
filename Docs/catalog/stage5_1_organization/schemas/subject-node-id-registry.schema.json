@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://awesome-theorems.invalid/stage5-1-organization/schemas/subject-node-id-registry.schema.json",
+  "title": "Stage5.1 append-only subject node ID registry row",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "stable_key", "subject_id", "scheme", "edition",
+    "notation", "source_identity", "record_sha256"
+  ],
+  "properties": {
+    "schema_version": {"const": "awesome-theorems/stage5-1-organization/subject-node-id-registry/1.0"},
+    "stable_key": {"type": "string", "pattern": "^s51-subject:[a-f0-9]{64}$"},
+    "subject_id": {"$ref": "common.schema.json#/$defs/subject_id"},
+    "scheme": {"enum": ["internal", "MSC", "arXiv", "source_native"]},
+    "edition": {"type": ["string", "null"], "minLength": 1},
+    "notation": {"type": ["string", "null"], "minLength": 1},
+    "source_identity": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$"},
+    "record_sha256": {"$ref": "common.schema.json#/$defs/sha256"}
+  }
+}

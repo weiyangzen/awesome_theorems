@@ -1,0 +1,70 @@
+{
+  "schema_version": "awesome-theorems/erdos-supplemental-queue-receipt/5.5",
+  "artifact": "Docs/catalog/v5/curation/erdos_parent_join_v5_5/resolved-theorem-supplemental-receipt.json",
+  "review_date_utc": "2026-08-10",
+  "candidate_only": true,
+  "construction": {
+    "operation": "ordered_exact_set_difference",
+    "source_order": "preserve resolved-theorem-rows.jsonl byte-line order",
+    "exclusion_key": [
+      "parent.stage_claim_id",
+      "parent.variant_id"
+    ],
+    "exclusion_semantics": "exclude a source row iff its exact two-field key occurs in resolved-theorem-max2-selected.jsonl",
+    "row_bytes": "each retained queue line is byte-identical to its source line"
+  },
+  "source_bindings": {
+    "resolved_theorem_rows": {
+      "path": "Docs/catalog/v5/curation/erdos_parent_join_v5_5/resolved-theorem-rows.jsonl",
+      "sha256": "5bf64315db3eca7aba7111bf234ec913bb7b5d4b00b0f2693676cc7d9aa99e2b",
+      "bytes": 2270237,
+      "rows": 546
+    },
+    "max2_selected": {
+      "path": "Docs/catalog/v5/curation/erdos_parent_join_v5_5/resolved-theorem-max2-selected.jsonl",
+      "sha256": "a65f8e9841dd415894cbfc5f032283fa05e4bd1161c6bd4c8a4ae3e9e0e64cae",
+      "bytes": 2272618,
+      "rows": 379
+    }
+  },
+  "supplemental_queue": {
+    "path": "Docs/catalog/v5/curation/erdos_parent_join_v5_5/resolved-theorem-supplemental.jsonl",
+    "sha256": "6d31bf21d1182e3d1dd908fa27d552340fcb6169636541b04fbf26ea1a7e65a7",
+    "bytes": 680072,
+    "rows": 167,
+    "zero_based_first": 0,
+    "zero_based_last": 166
+  },
+  "counts": {
+    "resolved_rows": 546,
+    "max2_selected_rows": 379,
+    "supplemental_rows": 167,
+    "arithmetic_difference": 167,
+    "unique_resolved_keys": 546,
+    "unique_selected_keys": 379,
+    "unique_supplemental_keys": 167
+  },
+  "set_digests": {
+    "resolved_key_set_sha256": "3e683211c8d3ce923d986542926617e4c45c435abddc9b4f9982f57c452c49eb",
+    "selected_key_set_sha256": "3eef808230218f1fb7c50c9a2c2072d80d40db8903999e3b9d170cf7c3dbeb33",
+    "supplemental_key_set_sha256": "6ed8d4b78e4056212bcefa4d0cdb8fcbfae6fc2034d033b4aeb00d53c27235aa",
+    "supplemental_ordered_keys_sha256": "6ed8d4b78e4056212bcefa4d0cdb8fcbfae6fc2034d033b4aeb00d53c27235aa",
+    "supplemental_ordered_source_identity_payload_sha256_values_sha256": "a28c91ddab44d3ecd67636cf1f24f0929df3c60dc911fc87840bd39e9606c998"
+  },
+  "invariants": {
+    "selected_keys_are_subset_of_resolved_keys": true,
+    "selected_and_supplemental_are_disjoint": true,
+    "selected_union_supplemental_equals_resolved": true,
+    "supplemental_preserves_resolved_source_order": true,
+    "supplemental_rows_are_source_byte_identical": true,
+    "all_key_domains_are_unique": true
+  },
+  "credit_boundary": {
+    "frontier_theorem_credit_granted": 0,
+    "new_theorem_credit_granted": 0,
+    "release_modified": false,
+    "queue_membership_grants_credit": false
+  },
+  "authority_hash_policy": "sha256 over UTF-8 compact canonical JSON with sorted keys after removing only top-level authority_sha256",
+  "authority_sha256": "9d46834e999f20d013650ccea1e1731d705676243155ececf727aae0613b218a"
+}

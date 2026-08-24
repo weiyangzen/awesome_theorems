@@ -1,0 +1,76 @@
+{
+  "schema_version": "awesome-theorems/stage5-readability-review/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003579-TARGET",
+  "stage_claim_id": "S5-CLM-00003579",
+  "readability_level": "R0",
+  "required_nodes": ["N0", "N1", "N2", "N3"],
+  "node_to_anchor": {
+    "N0": "A-00003579-SOURCE",
+    "N1": "A-00003579-TARGET",
+    "N2": "A-00003579-REVERSE",
+    "N3": "A-00003579-COMPOSITION"
+  },
+  "anchor_to_fragment": {
+    "A-00003579-SOURCE": {
+      "node_id": "N0",
+      "path": "FormalConjectures/ErdosProblems/1028.lean",
+      "fragment_sha256": "defb9eb441775f1bfb7662e8c063beaf4286b6a5a39f8cd07700b6b514d91aa3",
+      "hypotheses": ["frozen provider declaration"],
+      "inference": "read exact source declaration and type",
+      "output": "source-shaped asymptotic proposition",
+      "formal_anchor": "A-00003579-SOURCE",
+      "downstream_uses": ["N1", "N2"],
+      "exceptional_cases": ["provider statement has no proof authority"],
+      "trust_boundary": "pinned statement provider"
+    },
+    "A-00003579-TARGET": {
+      "node_id": "N1",
+      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003579/Statement.lean",
+      "fragment_sha256": "10fdeebf7e68ee663a363107b1a8121f3b3cc6e8dab89f52ddfabc4d25f038db",
+      "hypotheses": ["explicit H binder", "source-shaped proposition"],
+      "inference": "exact proposition transport",
+      "output": "claim-owned target proposition",
+      "formal_anchor": "A-00003579-TARGET",
+      "downstream_uses": ["N2", "N3"],
+      "exceptional_cases": ["Master must recompute elaboration"],
+      "trust_boundary": "worker transport surface"
+    },
+    "A-00003579-REVERSE": {
+      "node_id": "N2",
+      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003579/Proof.lean",
+      "fragment_sha256": "10fdeebf7e68ee663a363107b1a8121f3b3cc6e8dab89f52ddfabc4d25f038db",
+      "hypotheses": ["claim-owned target proposition"],
+      "inference": "record reverse source correspondence",
+      "output": "source-shaped proposition for replay",
+      "formal_anchor": "A-00003579-REVERSE",
+      "downstream_uses": ["N3"],
+      "exceptional_cases": ["reverse edge is evidence, not acceptance"],
+      "trust_boundary": "Master replay boundary"
+    },
+    "A-00003579-COMPOSITION": {
+      "node_id": "N3",
+      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003579/Audit.lean",
+      "fragment_sha256": "10fdeebf7e68ee663a363107b1a8121f3b3cc6e8dab89f52ddfabc4d25f038db",
+      "hypotheses": ["N1 and N2 transport maps"],
+      "inference": "compose both directions and compare exact roots",
+      "output": "identity on the exact-root expression",
+      "formal_anchor": "A-00003579-COMPOSITION",
+      "downstream_uses": ["release decision"],
+      "exceptional_cases": ["canonical Master remains the accepting authority"],
+      "trust_boundary": "trust-zero kernel replay"
+    }
+  },
+  "reviewers": [
+    {"reviewer_id": "readability-reviewer-alpha", "role": "mathematical inventory", "independence": "identity-distinct"},
+    {"reviewer_id": "readability-reviewer-beta", "role": "reverse coverage", "independence": "identity-distinct"}
+  ],
+  "remaining_readability_cut_set": [],
+  "distilled": {
+    "duplicate_prose_removed": true,
+    "structured_inventory_not_duplicated": true,
+    "mathematical_content_preserved": true,
+    "deletion_mutations_passed": true
+  },
+  "authority_sha256": "4af576df6343c246d47eeb2dc8bf456d364b53bb6de13be063227aa43eeee2ce"
+}

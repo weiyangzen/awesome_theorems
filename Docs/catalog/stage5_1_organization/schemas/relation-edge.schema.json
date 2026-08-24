@@ -1,0 +1,184 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://awesome-theorems.invalid/stage5-1-organization/schemas/relation-edge.schema.json",
+  "title": "Stage5.1 typed mathematical relation JSONL row",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "edge_id", "consumer_member_id", "provider_member_id",
+    "consumer_identity_sha256", "consumer_object_record_sha256",
+    "provider_identity_sha256", "provider_object_record_sha256",
+    "relation_type", "plane", "provider_binding", "blocking", "scheduler_effect",
+    "evidence_tier", "review_state", "direction_semantics", "evidence",
+    "credit_inheritance", "status_inheritance", "cross_domain", "record_sha256"
+  ],
+  "properties": {
+    "schema_version": {"$ref": "common.schema.json#/$defs/schema_version"},
+    "edge_id": {"$ref": "common.schema.json#/$defs/edge_id"},
+    "consumer_member_id": {"$ref": "common.schema.json#/$defs/object_id"},
+    "provider_member_id": {"$ref": "common.schema.json#/$defs/object_id"},
+    "consumer_identity_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+    "consumer_object_record_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+    "provider_identity_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+    "provider_object_record_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+    "relation_type": {
+      "enum": [
+        "proof_prerequisite", "artifact_dependency", "checked_formal_import",
+        "implies", "reduces_to", "generalizes", "special_case_of", "equivalent_to",
+        "reuse_hint", "shared_lemma_group", "method_adaptation",
+        "same_parameter_family", "parameter_neighbor", "source_crosswalk",
+        "related_source", "identity_candidate"
+      ]
+    },
+    "plane": {"$ref": "common.schema.json#/$defs/plane"},
+    "provider_binding": {"$ref": "common.schema.json#/$defs/provider_binding"},
+    "blocking": {"type": "boolean"},
+    "scheduler_effect": {"$ref": "common.schema.json#/$defs/scheduler_effect"},
+    "evidence_tier": {"$ref": "common.schema.json#/$defs/relation_evidence_tier"},
+    "review_state": {"$ref": "common.schema.json#/$defs/review_state"},
+    "direction_semantics": {"const": "consumer_requires_provider"},
+    "evidence": {
+      "type": "array",
+      "items": {"$ref": "common.schema.json#/$defs/evidence_ref"},
+      "uniqueItems": true
+    },
+    "credit_inheritance": {"const": false},
+    "status_inheritance": {"const": false},
+    "cross_domain": {"type": "boolean"},
+    "record_sha256": {"$ref": "common.schema.json#/$defs/sha256"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"blocking": {"const": true}}, "required": ["blocking"]},
+      "then": {
+        "properties": {
+          "plane": {"enum": ["proof", "mathematical_prerequisite"]},
+          "consumer_member_id": {"pattern": "^S51-(?:THM|CON)-[0-9]{8}$"},
+          "provider_member_id": {"pattern": "^S51-(?:THM|CON)-[0-9]{8}$"},
+          "scheduler_effect": {"const": "block_until_accepted"},
+          "review_state": {"const": "verified"},
+          "evidence_tier": {"enum": ["A2_target_owned_replay", "B_content_bound_artifact"]},
+          "provider_binding": {
+            "properties": {"binding_kind": {"const": "target_owned_exact_replay"}},
+            "required": [
+              "binding_kind", "provider_artifact", "provider_acceptance_receipt",
+              "independent_review_receipt", "consumer_replay_receipt"
+            ]
+          },
+          "evidence": {"minItems": 1}
+        },
+        "required": ["provider_binding"]
+      },
+      "else": {
+        "properties": {"scheduler_effect": {"const": "none"}}
+      }
+    },
+    {
+      "if": {"properties": {"review_state": {"const": "verified"}}, "required": ["review_state"]},
+      "then": {"properties": {"evidence": {"minItems": 1}}}
+    },
+    {
+      "if": {
+        "properties": {
+          "relation_type": {
+            "enum": ["same_parameter_family", "parameter_neighbor", "source_crosswalk", "related_source", "identity_candidate"]
+          }
+        },
+        "required": ["relation_type"]
+      },
+      "then": {
+        "properties": {"blocking": {"const": false}, "scheduler_effect": {"const": "none"}}
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "relation_type": {"const": "proof_prerequisite"}
+        },
+        "required": ["relation_type"]
+      },
+      "then": {
+        "properties": {"plane": {"const": "mathematical_prerequisite"}}
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "relation_type": {"enum": ["artifact_dependency", "checked_formal_import"]}
+        },
+        "required": ["relation_type"]
+      },
+      "then": {
+        "properties": {"plane": {"const": "proof"}}
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "relation_type": {
+            "enum": ["implies", "reduces_to", "generalizes", "special_case_of", "equivalent_to"]
+          }
+        },
+        "required": ["relation_type"]
+      },
+      "then": {
+        "properties": {
+          "plane": {"const": "mathematical_semantic"},
+          "blocking": {"const": false},
+          "scheduler_effect": {"const": "none"}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "relation_type": {
+            "enum": [
+              "same_parameter_family", "parameter_neighbor", "related_source"
+            ]
+          }
+        },
+        "required": ["relation_type"]
+      },
+      "then": {
+        "properties": {
+          "plane": {"const": "association"},
+          "blocking": {"const": false},
+          "scheduler_effect": {"const": "none"}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "relation_type": {
+            "enum": ["reuse_hint", "shared_lemma_group", "method_adaptation"]
+          }
+        },
+        "required": ["relation_type"]
+      },
+      "then": {
+        "properties": {
+          "plane": {"const": "reuse_hint"},
+          "blocking": {"const": false},
+          "scheduler_effect": {"const": "none"}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "relation_type": {"enum": ["source_crosswalk", "identity_candidate"]}
+        },
+        "required": ["relation_type"]
+      },
+      "then": {
+        "properties": {
+          "plane": {"const": "identity"},
+          "blocking": {"const": false},
+          "scheduler_effect": {"const": "none"}
+        }
+      }
+    }
+  ]
+}

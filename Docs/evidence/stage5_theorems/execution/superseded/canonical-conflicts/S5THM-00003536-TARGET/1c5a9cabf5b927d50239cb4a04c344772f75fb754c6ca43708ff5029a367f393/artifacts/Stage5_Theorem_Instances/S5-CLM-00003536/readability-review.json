@@ -1,0 +1,107 @@
+{
+  "schema_version": "awesome-theorems/stage5-readability-review/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003536-TARGET",
+  "stage_claim_id": "S5-CLM-00003536",
+  "readability_level": "R0",
+  "required_nodes": [
+    "PU-ROOT",
+    "PU-TRANSPORT",
+    "PU-ROOT-CHECK"
+  ],
+  "node_to_anchor": {
+    "PU-ROOT": "HUMAN-PU-ROOT",
+    "PU-TRANSPORT": "HUMAN-PU-TRANSPORT",
+    "PU-ROOT-CHECK": "HUMAN-PU-ROOT-CHECK"
+  },
+  "anchor_to_fragment": {
+    "HUMAN-PU-ROOT": {
+      "node_id": "PU-ROOT",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003536/proof-outline.md#pu-root",
+      "fragment_sha256": "69344bdd92b77a9a76f19c6e5b8c17e1982eb86ec9a2184d4bc9d79eacb5e772",
+      "hypotheses": [
+        "ξ is real",
+        "ξ is irrational"
+      ],
+      "inference": "Furstenberg recurrence/density for multiplicatively independent ×2 and ×3 circle maps, followed by the positive-exponent shift",
+      "output": "the exact two-parameter orbit is dense in AddCircle 1",
+      "formal_anchor": "Proof.lean::furstenberg_two_three_root_application",
+      "downstream_uses": [
+        "PU-TRANSPORT",
+        "PU-ROOT-CHECK"
+      ],
+      "exceptional_cases": [
+        "rational ξ excluded",
+        "m=0 or n=0 excluded",
+        "casts fixed by the frozen expression"
+      ],
+      "trust_boundary": "provider sorryAx is statement metadata and is excluded from proof authority"
+    },
+    "HUMAN-PU-TRANSPORT": {
+      "node_id": "PU-TRANSPORT",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003536/proof-outline.md#pu-transport",
+      "fragment_sha256": "86c005d23b5a4f1ee808482362e1a33d9d01b743c5c7f60d61e7b731fcedfcc8",
+      "hypotheses": [
+        "PU-ROOT output",
+        "the frozen source declaration type"
+      ],
+      "inference": "bidirectional definitional-identity transport without local semantic declarations",
+      "output": "the exact frozen target expression",
+      "formal_anchor": "Statement.lean::source_to_target_statement/target_to_source_statement",
+      "downstream_uses": [
+        "PU-ROOT-CHECK",
+        "release decision"
+      ],
+      "exceptional_cases": [
+        "shadowing rejected",
+        "parser substitution rejected",
+        "import substitution rejected"
+      ],
+      "trust_boundary": "Master recomputes elaborated expression identity"
+    },
+    "HUMAN-PU-ROOT-CHECK": {
+      "node_id": "PU-ROOT-CHECK",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003536/proof-outline.md#pu-root-check",
+      "fragment_sha256": "3950e5e22bc0afc2ae45b18a6e90cc62176601dbec5371953fbd3bfff0ba72ba",
+      "hypotheses": [
+        "closed proof DAG",
+        "pinned provider source",
+        "pinned trust-zero toolchain"
+      ],
+      "inference": "exact-root elaboration, body/dependency/axiom audit, cold replay, and semantic mutations",
+      "output": "M0 closure evidence with an empty machine cut set",
+      "formal_anchor": "Audit.lean::audit_exact_root_type",
+      "downstream_uses": [
+        "machine closure",
+        "validation receipt",
+        "strict dominance",
+        "provisional release"
+      ],
+      "exceptional_cases": [
+        "interface elaboration alone is insufficient",
+        "sorryAx causes rejection"
+      ],
+      "trust_boundary": "worker evidence is provisional until independent canonical-Master replay"
+    }
+  },
+  "reviewers": [
+    {
+      "reviewer_id": "mathematical-content-review",
+      "role": "hypothesis/inference/output coverage",
+      "decision": "pass"
+    },
+    {
+      "reviewer_id": "formal-trust-review",
+      "role": "formal anchors and trust boundaries",
+      "decision": "pass"
+    }
+  ],
+  "remaining_readability_cut_set": [],
+  "distilled": {
+    "duplicate_prose_removed": true,
+    "structured_inventory_not_duplicated": true,
+    "mathematical_content_preserved": true,
+    "deletion_mutations_passed": true
+  },
+  "authority_sha256": "7e1b4da2ef24c12bb6da975867672140b900b94752f27acf56070e003a6dd333"
+}

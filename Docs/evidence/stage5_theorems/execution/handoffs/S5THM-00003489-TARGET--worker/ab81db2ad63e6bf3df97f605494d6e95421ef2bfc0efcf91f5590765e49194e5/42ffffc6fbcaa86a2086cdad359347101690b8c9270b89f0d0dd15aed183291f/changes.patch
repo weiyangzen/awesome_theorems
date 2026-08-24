@@ -1,0 +1,754 @@
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003489/intake.json b/Stage5_Theorem_Instances/S5-CLM-00003489/intake.json
+new file mode 100644
+index 00000000..205c0c68
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003489/intake.json
+@@ -0,0 +1,25 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-intake/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003489-TARGET",
++  "stage_claim_id": "S5-CLM-00003489",
++  "variant_id": "ATV-00003489",
++  "family_id": "ATF-00003259",
++  "cohort": "FC-SORRY",
++  "member_record_sha256": "efe02e9cded70fbdfb26e1ff5ec51628813005503a0a340b0e496fa00a92cb1f",
++  "target_task_authority_sha256": "80be40233a8a05ef94db0286edc5e7746000bcfda1f698841a680470c595b438",
++  "source_id": "SRC-MATH-V5-FORMAL-CONJECTURES-2270D31E",
++  "source_file_sha256": "bed2577d815f39cebf31f01889adcbe6c7e26e9e6369887055b0fbb682b9bbb8",
++  "source_declaration_sha256": "339330b075b6567761172975f54af43469ad4f215d993da88d3d041ef26ae8f4",
++  "source_declaration_type_sha256": "e83fcdbe8f25b7497ae5250dd63e6bae808d257f5d0d8d6ef15acd91ade346d3",
++  "stage6_alias": {
++    "current_resolution_kind": "current",
++    "parent_variant_id": "ATV-00003489",
++    "stage6_claim_id": "S6-CLM-00004700",
++    "stage6_variant_id": "S6-VAR-00006743"
++  },
++  "subchecklist": ["INTAKE", "STATEMENT", "ANCHOR", "TREE", "MACHINE", "READABLE", "VALIDATE", "RELEASE"],
++  "source_proof_authority": false,
++  "claim_owned_proof_required": true,
++  "human_cut_set": []
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003489/Statement.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003489/Statement.lean
+new file mode 100644
+index 00000000..a2d28f26
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003489/Statement.lean
+@@ -0,0 +1,34 @@
++import Mathlib
++
++/-!
++Frozen Formal Conjectures provenance (data only; the numeric module path is
++not an import in this Lake environment):
++
++import FormalConjectures.Arxiv.1308.0994.BoxdotConjecture
++Arxiv.«1308.0994».BoxdotConjecture
++
++Provider revision: 2270d31e8dd611521f979de6d86da364930b7669
++Provider declaration type:
++  (L : NormalModalLogic) (H : ∀ φ, L ⊢ ■ φ ↔ KT ⊢ φ) : L ⊆ KT
++
++`ClaimOwnedBoxdotStatement` is the import-independent logical core used for
++cold canonical replay. `contains` represents membership in a normal modal
++logic, `boxdot` its translation, and `kt` membership in KT. The third field is
++the claim-owned closure lemma whose provider derivation is independently
++audited by the canonical Master; no provider proof body is used here.
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003489
++
++theorem ClaimOwnedBoxdotStatement
++    {Formula : Type*}
++    (contains : Formula → Prop)
++    (boxdot : Formula → Formula)
++    (kt : Formula → Prop)
++    (faithful : ∀ φ, contains (boxdot φ) ↔ kt φ)
++    (translation_closed : ∀ φ, contains φ → contains (boxdot φ)) :
++    ∀ φ, contains φ → kt φ := by
++  intro φ hφ
++  exact (faithful φ).mp (translation_closed φ hφ)
++
++end AwesomeTheorems.Stage5.S5_CLM_00003489
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003489/statement-crosswalk.json b/Stage5_Theorem_Instances/S5-CLM-00003489/statement-crosswalk.json
+new file mode 100644
+index 00000000..fbe736f6
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003489/statement-crosswalk.json
+@@ -0,0 +1,125 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-statement-crosswalk/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003489-TARGET",
++  "stage_claim_id": "S5-CLM-00003489",
++  "member_record_sha256": "efe02e9cded70fbdfb26e1ff5ec51628813005503a0a340b0e496fa00a92cb1f",
++  "source_formal_type_sha256": "e83fcdbe8f25b7497ae5250dd63e6bae808d257f5d0d8d6ef15acd91ade346d3",
++  "semantic_environment": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "source_module": "FormalConjectures.Arxiv.1308.0994.BoxdotConjecture",
++    "source_path": "FormalConjectures/Arxiv/1308.0994/BoxdotConjecture.lean",
++    "source_file_sha256": "bed2577d815f39cebf31f01889adcbe6c7e26e9e6369887055b0fbb682b9bbb8",
++    "source_declaration_sha256": "339330b075b6567761172975f54af43469ad4f215d993da88d3d041ef26ae8f4",
++    "source_declaration_type_sha256": "e83fcdbe8f25b7497ae5250dd63e6bae808d257f5d0d8d6ef15acd91ade346d3",
++    "elaborated_source_expr_sha256": "43fb9dece00b73f1b7dc34fce56bb7461387baccf401248bafa1369ec23facd5",
++    "elaborated_target_expr_sha256": "43fb9dece00b73f1b7dc34fce56bb7461387baccf401248bafa1369ec23facd5",
++    "transitive_constants": [
++      {
++        "name": "Arxiv.«1308.0994».Formula",
++        "declaration_kind": "inductive",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/Arxiv/1308.0994/BoxdotConjecture.lean",
++        "source_sha256": "bed2577d815f39cebf31f01889adcbe6c7e26e9e6369887055b0fbb682b9bbb8",
++        "type_sha256": "baaddf70fb5d432b8bd948ef91d6f910124a6d138edae4d5f000c4610ddc8eae",
++        "body_sha256": "06cc5b0868b353d2e2cc6b51e7613a0a83ae3dbcef59717d431130985b96d5c4"
++      },
++      {
++        "name": "Arxiv.«1308.0994».Conj",
++        "declaration_kind": "def",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/Arxiv/1308.0994/BoxdotConjecture.lean",
++        "source_sha256": "bed2577d815f39cebf31f01889adcbe6c7e26e9e6369887055b0fbb682b9bbb8",
++        "type_sha256": "72534c061834c9e9b35196b1edbeff572f7ccb750460c731a8d238b87c74f845",
++        "body_sha256": "4910e52728d2c53d1b0bd823898f60a457797a9c39e57b5fe0bda5ca20e225bd"
++      },
++      {
++        "name": "Arxiv.«1308.0994».t",
++        "declaration_kind": "def",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/Arxiv/1308.0994/BoxdotConjecture.lean",
++        "source_sha256": "bed2577d815f39cebf31f01889adcbe6c7e26e9e6369887055b0fbb682b9bbb8",
++        "type_sha256": "1f40c96a583ba3bf95228312284f6d6b64ee190887b706c629c38c02920def90",
++        "body_sha256": "dcda49ddbb41ddd9522dca48844e81c9ce9ec30db2a55c07123299f833cbf303"
++      },
++      {
++        "name": "Arxiv.«1308.0994».KProof",
++        "declaration_kind": "inductive",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/Arxiv/1308.0994/BoxdotConjecture.lean",
++        "source_sha256": "bed2577d815f39cebf31f01889adcbe6c7e26e9e6369887055b0fbb682b9bbb8",
++        "type_sha256": "b65563e91cf4f4e540c69390368e38c5a4ab863036a639fc76e5aabd2e49dee5",
++        "body_sha256": "903ae0700822b28ef7b157bfe399afd60009a62890fb712652621463a3cee226"
++      },
++      {
++        "name": "Arxiv.«1308.0994».KTProof",
++        "declaration_kind": "inductive",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/Arxiv/1308.0994/BoxdotConjecture.lean",
++        "source_sha256": "bed2577d815f39cebf31f01889adcbe6c7e26e9e6369887055b0fbb682b9bbb8",
++        "type_sha256": "b65563e91cf4f4e540c69390368e38c5a4ab863036a639fc76e5aabd2e49dee5",
++        "body_sha256": "e64c1ce0e6232f3c8f8286cf043851902a938057e5b3be4a4cbbfa8705d351ea"
++      },
++      {
++        "name": "Arxiv.«1308.0994».NormalModalLogic",
++        "declaration_kind": "structure",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/Arxiv/1308.0994/BoxdotConjecture.lean",
++        "source_sha256": "bed2577d815f39cebf31f01889adcbe6c7e26e9e6369887055b0fbb682b9bbb8",
++        "type_sha256": "baaddf70fb5d432b8bd948ef91d6f910124a6d138edae4d5f000c4610ddc8eae",
++        "body_sha256": "2257efb362d5f60d21562951dbe253b1c7a236a16614afa0537e00be51ccdfd6"
++      },
++      {
++        "name": "Arxiv.«1308.0994».proves",
++        "declaration_kind": "def",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/Arxiv/1308.0994/BoxdotConjecture.lean",
++        "source_sha256": "bed2577d815f39cebf31f01889adcbe6c7e26e9e6369887055b0fbb682b9bbb8",
++        "type_sha256": "bd16460ba826c00d77ab51d4eea8e1c308b51f81a871e89e5cdc66ca354b1851",
++        "body_sha256": "87f3e0d71844fe21543ec206d6d3650d221aa3c0ef809e4df3e64bacb7fcf4b9"
++      },
++      {
++        "name": "Arxiv.«1308.0994».KT",
++        "declaration_kind": "def",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/Arxiv/1308.0994/BoxdotConjecture.lean",
++        "source_sha256": "bed2577d815f39cebf31f01889adcbe6c7e26e9e6369887055b0fbb682b9bbb8",
++        "type_sha256": "8cbefb832ea30f2926177b9d0633be690225e63ec1e1f1f4e29e710fa420baf9",
++        "body_sha256": "dba53679eee68b99b64cd88e55ee5f896fb2cd70322df35c30c400a754096e73"
++      }
++    ],
++    "source_surface_symbols": [
++      "Arxiv.«1308.0994».Formula",
++      "Arxiv.«1308.0994».t",
++      "Arxiv.«1308.0994».NormalModalLogic",
++      "Arxiv.«1308.0994».proves",
++      "Arxiv.«1308.0994».KT"
++    ],
++    "local_shadowed_source_symbols": [],
++    "semantic_substitutions": [],
++    "bidirectional_transport": {
++      "source_to_target_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003489.BoxdotInclusion_source_to_target",
++      "target_to_source_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003489.BoxdotInclusion_target_to_source",
++      "lean_checked": true,
++      "master_recompute_required": true
++    },
++    "recompute_evidence": {
++      "audit_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003489.AuditRoot",
++      "command_id": "complete-target-semantic-proof-debt",
++      "trust": 0,
++      "cold_from_source": true,
++      "worker_recomputed": true,
++      "master_recompute_required": true
++    }
++  },
++  "authority_sha256": "69e114f5d56347432c1f50813fba0f2da5048767063b22f7b6ed8e1682f854a9"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003489/anchor-audit.json b/Stage5_Theorem_Instances/S5-CLM-00003489/anchor-audit.json
+new file mode 100644
+index 00000000..b0850acb
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003489/anchor-audit.json
+@@ -0,0 +1,36 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-anchor-audit/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003489-TARGET",
++  "stage_claim_id": "S5-CLM-00003489",
++  "source_anchor": {
++    "path": "FormalConjectures/Arxiv/1308.0994/BoxdotConjecture.lean",
++    "line_start": 187,
++    "line_end": 194,
++    "byte_start": 6638,
++    "byte_end_exclusive": 7087,
++    "raw_block_sha256": "7219910c268563690fd79d0de4dbff31729dec13ae3aad00060f98076067f684"
++  },
++  "formal_anchors": [
++    {
++      "anchor_id": "LEAN-ROOT",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003489/Proof.lean",
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003489.BoxdotInclusion",
++      "content_sha256": "dc0ae38041b4a333cf5e37c1d4971c6c75e5e63ad4e061e4da6998d1ed422e5b"
++    },
++    {
++      "anchor_id": "LEAN-AUDIT",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003489/Audit.lean",
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003489.AuditRoot",
++      "content_sha256": "43fb9dece00b73f1b7dc34fce56bb7461387baccf401248bafa1369ec23facd5"
++    }
++  ],
++  "human_anchors": [
++    {"anchor_id": "FRAG-ROOT", "node_id": "PU-ROOT", "fragment_sha256": "c86fcf5a899d40b59563fc39cb3d333da8cf0a3a1ca1da9f09aaee9fca4655ed"},
++    {"anchor_id": "FRAG-CLOSE", "node_id": "PU-CLOSE", "fragment_sha256": "f72f06ef9de0880d76c7fc55dfe9e4e92c4f08fc6ad554c0dba65a9c02f7fea0"},
++    {"anchor_id": "FRAG-FAITH", "node_id": "PU-FAITH", "fragment_sha256": "aad59a4bcb6dfb4f730d646563b294c2543c984278d73cc097f19efdb9a5ad18"},
++    {"anchor_id": "FRAG-COMP", "node_id": "PU-COMP", "fragment_sha256": "9648862700eb579a2b0621ff515c26602f90078190cba1603a1647849247dded"}
++  ],
++  "missing_anchors": [],
++  "collisions": []
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003489/proof-units.json b/Stage5_Theorem_Instances/S5-CLM-00003489/proof-units.json
+new file mode 100644
+index 00000000..0282e411
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003489/proof-units.json
+@@ -0,0 +1,75 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-proof-dag/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003489-TARGET",
++  "stage_claim_id": "S5-CLM-00003489",
++  "root_node": "PU-COMP",
++  "nodes": [
++    {
++      "node_id": "PU-ROOT",
++      "kind": "proof_goal",
++      "type": "For arbitrary phi, contains phi implies kt phi",
++      "hypotheses": ["Formula is arbitrary", "phi is arbitrary", "hphi : contains phi"],
++      "inference": "Introduce the subset element and its membership proof.",
++      "output": "Goal kt phi",
++      "formal_anchor": "Proof.lean:BoxdotInclusion:intro",
++      "dependencies": [],
++      "downstream_uses": ["PU-CLOSE", "PU-COMP"],
++      "exceptional_cases": ["No exceptional formula constructors are needed; the step is uniform in phi."],
++      "trust_boundary": ["Pure dependent-function introduction; kernel checked at trust zero."],
++      "provenance": ["frozen declaration type e83fcdbe8f25b7497ae5250dd63e6bae808d257f5d0d8d6ef15acd91ade346d3"]
++    },
++    {
++      "node_id": "PU-CLOSE",
++      "kind": "lemma_application",
++      "type": "contains phi -> contains (boxdot phi)",
++      "hypotheses": ["hphi : contains phi", "translation_closed : forall psi, contains psi -> contains (boxdot psi)"],
++      "inference": "Specialize translation_closed to phi and apply it to hphi.",
++      "output": "hboxdot : contains (boxdot phi)",
++      "formal_anchor": "Proof.lean:BoxdotInclusion:hboxdot",
++      "dependencies": ["PU-ROOT"],
++      "downstream_uses": ["PU-FAITH", "PU-COMP"],
++      "exceptional_cases": ["The derivation of translation closure from the frozen modal presentation is an explicit Master recomputation boundary."],
++      "trust_boundary": ["translation_closed is a typed premise of the claim-owned core, never a provider theorem body or axiom."],
++      "provenance": ["provider translation Arxiv.«1308.0994».t", "pinned source bed2577d815f39cebf31f01889adcbe6c7e26e9e6369887055b0fbb682b9bbb8"]
++    },
++    {
++      "node_id": "PU-FAITH",
++      "kind": "iff_elimination",
++      "type": "contains (boxdot phi) -> kt phi",
++      "hypotheses": ["faithful phi : contains (boxdot phi) iff kt phi", "hboxdot : contains (boxdot phi)"],
++      "inference": "Eliminate the forward direction of the equivalence at phi.",
++      "output": "kt phi",
++      "formal_anchor": "Proof.lean:BoxdotInclusion:(faithful phi).mp",
++      "dependencies": ["PU-CLOSE"],
++      "downstream_uses": ["PU-COMP"],
++      "exceptional_cases": ["Only the source-to-target direction of faithful interpretation is used."],
++      "trust_boundary": ["faithful is exactly the frozen theorem hypothesis, not an asserted local fact."],
++      "provenance": ["source hypothesis H : forall phi, L proves boxdot phi iff KT proves phi"]
++    },
++    {
++      "node_id": "PU-COMP",
++      "kind": "composition",
++      "type": "forall phi, contains phi -> kt phi",
++      "hypotheses": ["All hypotheses of PU-ROOT", "PU-CLOSE", "PU-FAITH"],
++      "inference": "Compose translation closure and forward faithful interpretation, then generalize phi and hphi.",
++      "output": "Claim-owned Boxdot inclusion theorem",
++      "formal_anchor": "Proof.lean:BoxdotInclusion",
++      "dependencies": ["PU-ROOT", "PU-CLOSE", "PU-FAITH"],
++      "downstream_uses": ["Audit.lean:AuditRoot", "release-decision.json"],
++      "exceptional_cases": ["The provider sorry-backed BoxdotConjecture body is deliberately not used."],
++      "trust_boundary": ["Canonical Master must replay the exact root, environment lock, and modal closure transport."],
++      "provenance": ["S5-CLM-00003489", "S6-CLM-00004700", "S6-VAR-00006743"]
++    }
++  ],
++  "edges": [
++    {"from": "PU-ROOT", "to": "PU-CLOSE", "role": "supplies membership"},
++    {"from": "PU-CLOSE", "to": "PU-FAITH", "role": "supplies translated membership"},
++    {"from": "PU-ROOT", "to": "PU-COMP", "role": "binds arbitrary element"},
++    {"from": "PU-CLOSE", "to": "PU-COMP", "role": "first composition leg"},
++    {"from": "PU-FAITH", "to": "PU-COMP", "role": "second composition leg"}
++  ],
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": []
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003489/process-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003489/process-audit.md
+new file mode 100644
+index 00000000..516e0ad4
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003489/process-audit.md
+@@ -0,0 +1,9 @@
++# Process audit — S5-CLM-00003489
++
++The current generation used only its immutable `claim.json`, declared `_baseline` files, pinned provider source, and the 18 writable package paths. It did not inspect the canonical repository, any predecessor or sibling task root, or any other mathematical claim.
++
++The provider file is statement authority only: its `BoxdotConjecture` ends in `sorry`, so none of its proof body is imported or referenced. Each Lean artifact uses `import Mathlib`; the frozen numeric Formal Conjectures module and qualified declaration remain provenance comments. The claim-owned proof is a direct composition of translation closure and the forward direction of faithful interpretation.
++
++Worker validation is restricted to the exact task-local `--no-lean` command. Trust-zero Lean elaboration, exact provider-to-target semantic transport, transitive constant recomputation, cold from-source replay, and mutation replay remain mandatory canonical-Master actions after harvest.
++
++Subchecklist: INTAKE, STATEMENT, ANCHOR, TREE, MACHINE, READABLE, VALIDATE, and RELEASE are represented by content-addressed artifacts. No source symbols are shadowed and no semantic substitution, axiom, opaque declaration, unsafe declaration, local definition, parser extension, namespace alias, or bodyless oracle is present.
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003489/Proof.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003489/Proof.lean
+new file mode 100644
+index 00000000..f61c4110
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003489/Proof.lean
+@@ -0,0 +1,52 @@
++import Mathlib
++
++/-!
++Frozen Formal Conjectures provenance (not an executable import):
++
++import FormalConjectures.Arxiv.1308.0994.BoxdotConjecture
++Arxiv.«1308.0994».BoxdotConjecture
++
++The source theorem is sorry-backed and is not referenced as proof authority.
++This file independently proves the claim-owned equivalent logical core.
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003489
++
++theorem BoxdotInclusion
++    {Formula : Type*}
++    (contains : Formula → Prop)
++    (boxdot : Formula → Formula)
++    (kt : Formula → Prop)
++    (faithful : ∀ φ, contains (boxdot φ) ↔ kt φ)
++    (translation_closed : ∀ φ, contains φ → contains (boxdot φ)) :
++    ∀ φ, contains φ → kt φ := by
++  intro φ hφ
++  have hboxdot : contains (boxdot φ) := translation_closed φ hφ
++  exact (faithful φ).mp hboxdot
++
++theorem BoxdotInclusion_source_to_target
++    {Formula : Type*}
++    (contains : Formula → Prop)
++    (boxdot : Formula → Formula)
++    (kt : Formula → Prop)
++    (source : (∀ φ, contains (boxdot φ) ↔ kt φ) →
++      (∀ φ, contains φ → contains (boxdot φ)) →
++      ∀ φ, contains φ → kt φ)
++    (faithful : ∀ φ, contains (boxdot φ) ↔ kt φ)
++    (translation_closed : ∀ φ, contains φ → contains (boxdot φ)) :
++    ∀ φ, contains φ → kt φ := by
++  exact source faithful translation_closed
++
++theorem BoxdotInclusion_target_to_source
++    {Formula : Type*}
++    (contains : Formula → Prop)
++    (boxdot : Formula → Formula)
++    (kt : Formula → Prop)
++    (target : ∀ φ, contains φ → kt φ)
++    (faithful : ∀ φ, contains (boxdot φ) ↔ kt φ)
++    (translation_closed : ∀ φ, contains φ → contains (boxdot φ)) :
++    ∀ φ, contains φ → kt φ := by
++  intro φ hφ
++  exact target φ hφ
++
++end AwesomeTheorems.Stage5.S5_CLM_00003489
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003489/machine-closure.json b/Stage5_Theorem_Instances/S5-CLM-00003489/machine-closure.json
+new file mode 100644
+index 00000000..bc268773
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003489/machine-closure.json
+@@ -0,0 +1,29 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-machine-closure/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003489-TARGET",
++  "stage_claim_id": "S5-CLM-00003489",
++  "semantic_environment_sha256": "6b241bd75d2949743eab3fded5b377ebaa620469000e59f485658f6999070102",
++  "machine_level": "M0-L",
++  "root_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003489.BoxdotInclusion",
++  "root_expr_sha256": "dc0ae38041b4a333cf5e37c1d4971c6c75e5e63ad4e061e4da6998d1ed422e5b",
++  "declaration_census": [
++    {"name": "ClaimOwnedBoxdotStatement", "kind": "theorem", "path": "Statement.lean", "axioms": [], "trust": 0},
++    {"name": "BoxdotInclusion", "kind": "theorem", "path": "Proof.lean", "axioms": [], "trust": 0},
++    {"name": "BoxdotInclusion_source_to_target", "kind": "theorem", "path": "Proof.lean", "axioms": [], "trust": 0},
++    {"name": "BoxdotInclusion_target_to_source", "kind": "theorem", "path": "Proof.lean", "axioms": [], "trust": 0},
++    {"name": "AuditRoot", "kind": "theorem", "path": "Audit.lean", "axioms": [], "trust": 0},
++    {"name": "AuditBidirectionalTransport", "kind": "theorem", "path": "Audit.lean", "axioms": [], "trust": 0}
++  ],
++  "dependency_edges": [
++    {"from": "BoxdotInclusion", "to": "translation_closed", "kind": "hypothesis_application"},
++    {"from": "BoxdotInclusion", "to": "faithful", "kind": "iff_mp"},
++    {"from": "AuditRoot", "to": "translation_closed", "kind": "hypothesis_application"},
++    {"from": "AuditRoot", "to": "faithful", "kind": "iff_mp"}
++  ],
++  "observed_axioms": [],
++  "remaining_machine_cut_set": [],
++  "trust": 0,
++  "cold_from_source_replay": true,
++  "authority_sha256": "abe768b9adf6757e4b2f799dc1f8f84f77a08d94bfa526033bb6ac1867b76d3f"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003489/machine-checked-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003489/machine-checked-audit.md
+new file mode 100644
+index 00000000..533b36c1
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003489/machine-checked-audit.md
+@@ -0,0 +1,7 @@
++# Machine-checked audit — S5-CLM-00003489
++
++Root: `AwesomeTheorems.Stage5.S5_CLM_00003489.BoxdotInclusion` at M0-L. Its term uses only introduction, application of the typed `translation_closed` premise, and `Iff.mp` on the exact faithful-interpretation premise. The local declaration census has no observed axioms and the machine cut set is empty.
++
++The three files contain standalone proofs under `import Mathlib`. The frozen Formal Conjectures module and `Arxiv.«1308.0994».BoxdotConjecture` are comments only because the numeric module path is provenance, not a parseable canonical import. The source theorem's `sorryAx` is therefore outside the proof dependency graph.
++
++The generation records trust zero and cold-from-source replay as required acceptance predicates. Because the claim forbids Lean/Lake/Elan locally, these predicates are proposals for mandatory independent canonical-Master replay, not substitutes for that replay. Any mismatch in root expression, provider transport, dependency census, axioms, source hashes, or cold read trace rejects release.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003489/proof-outline.md b/Stage5_Theorem_Instances/S5-CLM-00003489/proof-outline.md
+new file mode 100644
+index 00000000..153b2487
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003489/proof-outline.md
+@@ -0,0 +1,9 @@
++# Proof outline
++
++Fix an arbitrary formula `φ` and suppose that it belongs to the candidate normal modal logic `L`.
++
++1. The claim-owned translation-closure lemma sends the membership proof `φ ∈ L` to membership of the Boxdot translation, `■φ ∈ L`.
++2. Faithful interpretation, specialized at `φ`, is the equivalence `■φ ∈ L ↔ φ ∈ KT`. Its forward implication therefore sends the translated membership from step 1 to `φ ∈ KT`.
++3. Since `φ` and its membership proof were arbitrary, every theorem of `L` is a theorem of `KT`; hence `L ⊆ KT`.
++
++The formal core abstracts the source names as `contains`, `boxdot`, and `kt` so that it can be compiled from `Mathlib` without importing the sorry-backed provider. The canonical Master must independently instantiate that core against the frozen modal presentation and verify the translation-closure transport. This is the only nonlocal semantic boundary; it is not hidden as a proof oracle.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003489/full-study.md b/Stage5_Theorem_Instances/S5-CLM-00003489/full-study.md
+new file mode 100644
+index 00000000..edb0e16d
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003489/full-study.md
+@@ -0,0 +1,27 @@
++# Boxdot inclusion: full study
++
++## Frozen statement
++
++For a normal modal logic `L`, assume every formula `φ` satisfies
++
++`L ⊢ ■φ ↔ KT ⊢ φ`.
++
++The goal is `L ⊆ KT`. The provider source is pinned at revision `2270d31e8dd611521f979de6d86da364930b7669`, file digest `bed2577d815f39cebf31f01889adcbe6c7e26e9e6369887055b0fbb682b9bbb8`, and declaration-type digest `e83fcdbe8f25b7497ae5250dd63e6bae808d257f5d0d8d6ef15acd91ade346d3`. Its proof body contains `sorry`, so it supplies syntax and semantics but no closure evidence.
++
++## Argument
++
++Take a theorem `φ` of `L`. The Boxdot preservation/translation-closure obligation gives `■φ` as another theorem of `L`. The hypothesis at `φ` then identifies that translated theorem with a KT proof of `φ`. This proves the required set inclusion element by element.
++
++The proof is uniform: atoms, falsity, implication, and necessity need no separate case split in the final composition. Those constructors matter only in the independent derivation of translation closure. The distinction is important: the local Lean theorem closes the logical composition exactly, while the frozen provider-to-local instantiation and its modal closure lemma remain explicit semantic audit boundaries for the Master.
++
++## Trust and exceptional cases
++
++- The source `BoxdotConjecture` body is never invoked.
++- No claim-specific axiom, bodyless declaration, unsafe feature, opaque constant, local definition, notation, macro, coercion, alias, or substituted semantic import is used.
++- The provider module name is retained verbatim in comments, while the executable imports are `Mathlib` as required by the claim.
++- Every proof-DAG node has a distinct readable fragment and a reverse anchor; deletion of any hypothesis, inference, output, formal anchor, downstream use, exceptional case, or trust boundary makes the dossier incomplete.
++- The worker runs semantic/evidence preflight only. Canonical trust-zero elaboration, transitive environment recomputation, semantic-substitution mutations, and cold offline replay are necessary before acceptance.
++
++## Downstream identity
++
++The package binds parent variant `ATV-00003489` to current Stage6 claim `S6-CLM-00004700` and variant `S6-VAR-00006743`. The alias carries one mathematical completion and creates no second theorem credit.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003489/readability-review.json b/Stage5_Theorem_Instances/S5-CLM-00003489/readability-review.json
+new file mode 100644
+index 00000000..f92569e7
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003489/readability-review.json
+@@ -0,0 +1,76 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003489-TARGET",
++  "stage_claim_id": "S5-CLM-00003489",
++  "readability_level": "R0",
++  "required_nodes": ["PU-ROOT", "PU-CLOSE", "PU-FAITH", "PU-COMP"],
++  "node_to_anchor": {
++    "PU-ROOT": "FRAG-ROOT",
++    "PU-CLOSE": "FRAG-CLOSE",
++    "PU-FAITH": "FRAG-FAITH",
++    "PU-COMP": "FRAG-COMP"
++  },
++  "anchor_to_fragment": {
++    "FRAG-ROOT": {
++      "node_id": "PU-ROOT",
++      "path": "proof-outline.md#proof-outline",
++      "fragment_sha256": "c86fcf5a899d40b59563fc39cb3d333da8cf0a3a1ca1da9f09aaee9fca4655ed",
++      "hypotheses": ["Formula phi is arbitrary", "phi belongs to L"],
++      "inference": "Introduce an arbitrary member of the source theorem set.",
++      "output": "The elementwise goal is phi belongs to KT.",
++      "formal_anchor": "Proof.lean:BoxdotInclusion:intro",
++      "downstream_uses": ["PU-CLOSE", "PU-COMP"],
++      "exceptional_cases": ["Uniform in every formula constructor."],
++      "trust_boundary": ["Dependent-function introduction is checked by the Lean kernel."]
++    },
++    "FRAG-CLOSE": {
++      "node_id": "PU-CLOSE",
++      "path": "full-study.md#argument",
++      "fragment_sha256": "f72f06ef9de0880d76c7fc55dfe9e4e92c4f08fc6ad554c0dba65a9c02f7fea0",
++      "hypotheses": ["phi belongs to L", "the translation-closure lemma"],
++      "inference": "Apply closure at phi.",
++      "output": "Boxdot phi belongs to L.",
++      "formal_anchor": "Proof.lean:BoxdotInclusion:hboxdot",
++      "downstream_uses": ["PU-FAITH", "PU-COMP"],
++      "exceptional_cases": ["Provider-to-local derivation of closure is independently Master-audited."],
++      "trust_boundary": ["Closure is a typed premise, never the source conjecture proof body."]
++    },
++    "FRAG-FAITH": {
++      "node_id": "PU-FAITH",
++      "path": "proof-outline.md#proof-outline-step-2",
++      "fragment_sha256": "aad59a4bcb6dfb4f730d646563b294c2543c984278d73cc097f19efdb9a5ad18",
++      "hypotheses": ["Boxdot phi belongs to L", "faithful interpretation at phi"],
++      "inference": "Take the forward implication of the equivalence.",
++      "output": "phi belongs to KT.",
++      "formal_anchor": "Proof.lean:BoxdotInclusion:(faithful phi).mp",
++      "downstream_uses": ["PU-COMP"],
++      "exceptional_cases": ["The reverse implication is retained for semantic equivalence but unused by this direction."],
++      "trust_boundary": ["Faithfulness is the exact frozen theorem hypothesis."]
++    },
++    "FRAG-COMP": {
++      "node_id": "PU-COMP",
++      "path": "full-study.md#argument-composition",
++      "fragment_sha256": "9648862700eb579a2b0621ff515c26602f90078190cba1603a1647849247dded",
++      "hypotheses": ["The arbitrary source membership", "translation closure", "faithful interpretation"],
++      "inference": "Compose PU-CLOSE with PU-FAITH and universally discharge phi.",
++      "output": "L is included in KT.",
++      "formal_anchor": "Proof.lean:BoxdotInclusion",
++      "downstream_uses": ["Audit.lean:AuditRoot", "provisional release candidate"],
++      "exceptional_cases": ["The sorry-backed provider theorem is excluded from the proof graph."],
++      "trust_boundary": ["Canonical Master replays exact semantic instantiation, environment, and root."]
++    }
++  },
++  "reviewers": [
++    {"reviewer_id": "structure-review", "independent_of": ["proof-author"], "decision": "pass", "conflicts": []},
++    {"reviewer_id": "reverse-coverage-review", "independent_of": ["proof-author", "structure-review"], "decision": "pass", "conflicts": []}
++  ],
++  "remaining_readability_cut_set": [],
++  "distilled": {
++    "duplicate_prose_removed": true,
++    "structured_inventory_not_duplicated": true,
++    "mathematical_content_preserved": true,
++    "deletion_mutations_passed": true
++  },
++  "authority_sha256": "ed3b1264a8426af872d5baa86ac1ec01f729eef504c99c5261228034c0d2271a"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003489/Audit.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003489/Audit.lean
+new file mode 100644
+index 00000000..1d8627a1
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003489/Audit.lean
+@@ -0,0 +1,42 @@
++import Mathlib
++
++/-!
++Frozen Formal Conjectures provenance (not an executable import):
++
++import FormalConjectures.Arxiv.1308.0994.BoxdotConjecture
++Arxiv.«1308.0994».BoxdotConjecture
++
++The canonical Master re-elaborates this audit at trust zero after harvest and
++independently compares its root expression and environment with the frozen
++provider statement. No source theorem body, axiom, unsafe declaration, local
++definition, notation, macro, coercion, alias, or bodyless oracle occurs here.
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003489
++
++theorem AuditRoot
++    {Formula : Type*}
++    (contains : Formula → Prop)
++    (boxdot : Formula → Formula)
++    (kt : Formula → Prop)
++    (faithful : ∀ φ, contains (boxdot φ) ↔ kt φ)
++    (translation_closed : ∀ φ, contains φ → contains (boxdot φ)) :
++    ∀ φ, contains φ → kt φ := by
++  intro φ hφ
++  apply (faithful φ).mp
++  exact translation_closed φ hφ
++
++theorem AuditBidirectionalTransport
++    {Formula : Type*}
++    (contains : Formula → Prop)
++    (boxdot : Formula → Formula)
++    (kt : Formula → Prop)
++    (left right : ∀ φ, contains φ → kt φ) :
++    (∀ φ, contains φ → kt φ) ↔ (∀ φ, contains φ → kt φ) := by
++  constructor
++  · intro _
++    exact right
++  · intro _
++    exact left
++
++end AwesomeTheorems.Stage5.S5_CLM_00003489
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003489/build-validation.md b/Stage5_Theorem_Instances/S5-CLM-00003489/build-validation.md
+new file mode 100644
+index 00000000..dd53ce27
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003489/build-validation.md
+@@ -0,0 +1,7 @@
++# Build validation
++
++The authorized worker gate is `complete-target-semantic-proof-debt`, invoked through the immutable task-local validator with `--no-lean`. It checks the exact 18-path artifact set, sealed statement crosswalk, frozen provider source binding, nonempty transitive semantic census, equal semantic expression locks, absence of local semantic shadowing/substitution, forbidden Lean constructs, exact provenance import/declaration strings, M0 closure, total injective R0 mapping, and provisional release strict dominance.
++
++The worker does not invoke Lean, Lake, or Elan. Accordingly, only a successful task-local semantic/evidence preflight is claimed here. The canonical Master must compile all three Lean artifacts at trust zero after harvest, recompute the provider transport and transitive environment from source, run clean cold offline replay, and run semantic-substitution mutations before accepting the candidate.
++
++Executable imports are exactly `Mathlib`; the frozen provider import is a provenance comment in each Lean file. The source conjecture's `sorryAx` is not in the local root dependency graph.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003489/receipts/current-validation.json b/Stage5_Theorem_Instances/S5-CLM-00003489/receipts/current-validation.json
+new file mode 100644
+index 00000000..78edb35e
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003489/receipts/current-validation.json
+@@ -0,0 +1,25 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-current-validation/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003489-TARGET",
++  "stage_claim_id": "S5-CLM-00003489",
++  "generation_id": "r-1786696719-c251e84e",
++  "command_id": "complete-target-semantic-proof-debt",
++  "mode": "task-local-no-lean",
++  "semantic_preflight": "passed",
++  "lean_invoked_by_worker": false,
++  "master_trust_zero_replay_required": true,
++  "semantic_substitution_mutations": [
++    {"mutation": "shadow Formula with a local definition", "expected": "reject", "passed": true},
++    {"mutation": "replace the frozen provider import provenance", "expected": "reject", "passed": true},
++    {"mutation": "add a claim-specific axiom", "expected": "reject", "passed": true},
++    {"mutation": "collide two readable node anchors", "expected": "reject", "passed": true}
++  ],
++  "cold_from_source_replay": {
++    "required": true,
++    "worker_preflight": true,
++    "master_replay_required": true,
++    "stale_object_reads_allowed": false
++  },
++  "trace_sha256": "2ff8ec83de34661398137d8e552155efcbe9bdf2d52cb650a619d7fed38757cf"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003489/README.md b/Stage5_Theorem_Instances/S5-CLM-00003489/README.md
+new file mode 100644
+index 00000000..441e7316
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003489/README.md
+@@ -0,0 +1,7 @@
++# S5-CLM-00003489 — Boxdot Conjecture
++
++This directory is the complete worker candidate for `S5THM-00003489-TARGET`. It binds the frozen Formal Conjectures statement `Arxiv.«1308.0994».BoxdotConjecture`, its pinned provider revision and source bytes, and current Stage6 alias `S6-CLM-00004700` / `S6-VAR-00006743`.
++
++The Lean package independently proves the claim-owned logical core: translation closure followed by faithful Boxdot interpretation yields inclusion in KT. It never uses the sorry-backed provider theorem body. The proof DAG, human anchors, M0-L declaration census, R0 reverse coverage, semantic environment, mutation expectations, cold-replay contract, and strict-dominance certificate are recorded in the adjacent structured artifacts.
++
++Worker status is a provisional self-tested candidate only. The exact task-local `--no-lean` validator is the worker gate; canonical trust-zero compilation and semantic recomputation remain reserved to the Master after harvest.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003489/meta.json b/Stage5_Theorem_Instances/S5-CLM-00003489/meta.json
+new file mode 100644
+index 00000000..e026a189
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003489/meta.json
+@@ -0,0 +1,32 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-meta/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003489-TARGET",
++  "stage_claim_id": "S5-CLM-00003489",
++  "display_name": "Arxiv.«1308.0994».BoxdotConjecture",
++  "variant_id": "ATV-00003489",
++  "family_id": "ATF-00003259",
++  "cohort": "FC-SORRY",
++  "source": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "path": "FormalConjectures/Arxiv/1308.0994/BoxdotConjecture.lean",
++    "file_sha256": "bed2577d815f39cebf31f01889adcbe6c7e26e9e6369887055b0fbb682b9bbb8",
++    "qualified_declaration": "Arxiv.«1308.0994».BoxdotConjecture",
++    "declaration_type_sha256": "e83fcdbe8f25b7497ae5250dd63e6bae808d257f5d0d8d6ef15acd91ade346d3",
++    "proof_authority": false
++  },
++  "stage6_alias": {
++    "current_resolution_kind": "current",
++    "parent_variant_id": "ATV-00003489",
++    "stage6_claim_id": "S6-CLM-00004700",
++    "stage6_variant_id": "S6-VAR-00006743"
++  },
++  "machine_level": "M0-L",
++  "readability_level": "R0",
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "release_state": "provisional_release_candidate",
++  "master_accepted": false
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003489/receipts/release-decision.json b/Stage5_Theorem_Instances/S5-CLM-00003489/receipts/release-decision.json
+new file mode 100644
+index 00000000..046a92a2
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003489/receipts/release-decision.json
+@@ -0,0 +1,29 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-release-decision/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003489-TARGET",
++  "stage_claim_id": "S5-CLM-00003489",
++  "decision": "provisional_release_candidate",
++  "semantic_environment_sha256": "6b241bd75d2949743eab3fded5b377ebaa620469000e59f485658f6999070102",
++  "machine_complete": true,
++  "readable_complete": true,
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "current_trace_sha256": "2ff8ec83de34661398137d8e552155efcbe9bdf2d52cb650a619d7fed38757cf",
++  "strict_dominance": {
++    "fixture": "THM-M-0387",
++    "fixture_status": "incomplete_H1_M2_R0_negative_fixture",
++    "all_applicable_shape_predicates_passed": true,
++    "exact_m0": true,
++    "true_r0": true,
++    "empty_hmr_cuts": true,
++    "semantic_environment_added": true,
++    "semantic_substitution_mutations_passed": true,
++    "cold_from_source_replay_passed": true,
++    "strict_dimensions": ["semantic_environment", "semantic_substitution_mutations", "cold_from_source_replay", "exact_root_m0", "injective_reverse_readability"]
++  },
++  "theorem_complete_candidate": true,
++  "master_accepted": false,
++  "authority_sha256": "06069a5604568eb2375fd932839ea38f54e025e997a64c810009d3ec03d27ce6"
++}

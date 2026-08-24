@@ -1,0 +1,120 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003495-TARGET",
+  "stage_claim_id": "S5-CLM-00003495",
+  "readability_level": "R0",
+  "required_nodes": [
+    "RN-01",
+    "RN-02",
+    "RN-03",
+    "RN-04"
+  ],
+  "node_to_anchor": {
+    "RN-01": "RF-01",
+    "RN-02": "RF-02",
+    "RN-03": "RF-03",
+    "RN-04": "RF-04"
+  },
+  "anchor_to_fragment": {
+    "RF-01": {
+      "node_id": "RN-01",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003495/full-study.md#statement-and-semantics",
+      "fragment_sha256": "caef05971ec3fb4211460d9e38f6ddcce8fe6639d7abb706fe8df8735965e654",
+      "hypotheses": [
+        "F : ℕ → ℝ",
+        "n : ℕ",
+        "e : ℝ",
+        "1 < n",
+        "F n = (n : ℝ) ^ e"
+      ],
+      "inference": "Bind the exact frozen source interface.",
+      "output": "A source-shaped eventual proposition context.",
+      "formal_anchor": "Statement.lean: statement",
+      "downstream_uses": [
+        "RN-02",
+        "RN-04"
+      ],
+      "exceptional_cases": [
+        "The docstring's cofinal wording is weaker than Filter.Eventually."
+      ],
+      "trust_boundary": "Pinned provider bytes establish statement provenance, not proof authority."
+    },
+    "RF-02": {
+      "node_id": "RN-02",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003495/full-study.md#claim-owned-proof",
+      "fragment_sha256": "f264637a307100db13c25ec48dfcb1a047dc9bba5a5ef2507fe27c442a05a5c5",
+      "hypotheses": [
+        "The exact eventual lower bound is supplied explicitly."
+      ],
+      "inference": "Expose rather than conceal the unproved mathematical bridge.",
+      "output": "eventual_bound : ∀ᶠ m in atTop, (m : ℝ) ^ e ≤ F m",
+      "formal_anchor": "Proof.lean: eventual_bound",
+      "downstream_uses": [
+        "RN-03"
+      ],
+      "exceptional_cases": [
+        "Removing this premise would consume the source sorryAx or require the missing mathematics."
+      ],
+      "trust_boundary": "Caller-owned hypothesis."
+    },
+    "RF-03": {
+      "node_id": "RN-03",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003495/proof-outline.md#proof-outline",
+      "fragment_sha256": "97f4b57fd84a5e7a336059055ba5524183fa5d1312e8e63840ef2d7d7bcb358b",
+      "hypotheses": [
+        "eventual_bound"
+      ],
+      "inference": "Exact identity elimination.",
+      "output": "The identical eventual bound.",
+      "formal_anchor": "Proof.lean: exact eventual_bound",
+      "downstream_uses": [
+        "RN-04"
+      ],
+      "exceptional_cases": [
+        "hn and h remain interface hypotheses although identity elimination does not inspect them."
+      ],
+      "trust_boundary": "Local Lean theorem body; Master trust-zero replay required."
+    },
+    "RF-04": {
+      "node_id": "RN-04",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003495/full-study.md#downstream-use",
+      "fragment_sha256": "2db5d045160f640cdf4b5e3378f595e7038f88805ee36a3b39658e43a7997ed4",
+      "hypotheses": [
+        "Frozen interface",
+        "Explicit bridge",
+        "Local root proof"
+      ],
+      "inference": "Compose the source-shaped and target-shaped statements in both directions.",
+      "output": "source_to_target and target_to_source",
+      "formal_anchor": "Audit.lean: source_to_target; target_to_source",
+      "downstream_uses": [
+        "Release crosswalk"
+      ],
+      "exceptional_cases": [
+        "Both directions preserve the explicit bridge premise."
+      ],
+      "trust_boundary": "Provider qualified name is provenance only; local bodies are Master-replayed."
+    }
+  },
+  "reviewers": [
+    {
+      "reviewer_id": "worker-structure-review",
+      "decision": "accepted",
+      "scope": "total/injective map and reverse coverage"
+    },
+    {
+      "reviewer_id": "worker-mathematics-review",
+      "decision": "accepted",
+      "scope": "hypotheses, inference, output, exceptions, and trust boundary"
+    }
+  ],
+  "remaining_readability_cut_set": [],
+  "distilled": {
+    "duplicate_prose_removed": true,
+    "structured_inventory_not_duplicated": true,
+    "mathematical_content_preserved": true,
+    "deletion_mutations_passed": true
+  },
+  "authority_sha256": "12210b7d57eb28d519582b70a8c958f09ff41c9012dbdc5f8dd8804c548d789f"
+}

@@ -1,0 +1,171 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003664-TARGET",
+  "stage_claim_id": "S5-CLM-00003664",
+  "readability_level": "R0",
+  "required_nodes": [
+    "PU-PARAM",
+    "PU-GEOM",
+    "PU-UNIT",
+    "PU-BALANCE",
+    "PU-SUP",
+    "PU-ROOT"
+  ],
+  "node_to_anchor": {
+    "PU-PARAM": "H-PARAM",
+    "PU-GEOM": "H-LENZ",
+    "PU-UNIT": "H-UNIT",
+    "PU-BALANCE": "H-COUNT",
+    "PU-SUP": "H-SUP",
+    "PU-ROOT": "H-ROOT"
+  },
+  "anchor_to_fragment": {
+    "H-PARAM": {
+      "node_id": "PU-PARAM",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003664/full-study.md#H-PARAM",
+      "fragment_sha256": "2cf5e8209e8a9ab8a43a4eb0ed8e930c1cebf9e6199ebc94c72b8013d02bcc3a",
+      "hypotheses": [
+        "d : ℕ",
+        "4 ≤ d"
+      ],
+      "inference": "Euclidean division yields 2 ≤ d/2 and 2(d/2) ≤ d.",
+      "output": "p=d/2 orthogonal coordinate planes are available.",
+      "formal_anchor": "half_dimension_ge_two",
+      "downstream_uses": [
+        "PU-GEOM"
+      ],
+      "exceptional_cases": [
+        "odd d leaves one unused coordinate"
+      ],
+      "trust_boundary": "natural arithmetic and coordinate bounds replay at trust zero"
+    },
+    "H-LENZ": {
+      "node_id": "PU-GEOM",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003664/full-study.md#H-LENZ",
+      "fragment_sha256": "85f7dd9a56f9c664653860de9f008d8ac82ea663c4e649583de8d41abe00a140",
+      "hypotheses": [
+        "p ≥ 2",
+        "2p ≤ d",
+        "finite requested class sizes"
+      ],
+      "inference": "Use rationally parameterized radius-1/√2 circles in mutually orthogonal coordinate planes.",
+      "output": "an n-point finset partitioned into p classes",
+      "formal_anchor": "claim-owned expanded Finset witness",
+      "downstream_uses": [
+        "PU-UNIT"
+      ],
+      "exceptional_cases": [
+        "empty classes",
+        "n < p",
+        "odd ambient dimension"
+      ],
+      "trust_boundary": "injectivity, cardinality, and circle equations require kernel replay"
+    },
+    "H-UNIT": {
+      "node_id": "PU-UNIT",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003664/full-study.md#H-UNIT",
+      "fragment_sha256": "5f98f5d7e4b5f18c769dab7425438485bc0e80da3ce64a3506edd98c621c15e4",
+      "hypotheses": [
+        "different coordinate planes",
+        "each squared norm is 1/2"
+      ],
+      "inference": "Orthogonality makes squared cross-distance 1/2+1/2=1.",
+      "output": "every cross-class pair is a unit-distance pair",
+      "formal_anchor": "unitDistNum distance predicate",
+      "downstream_uses": [
+        "PU-BALANCE"
+      ],
+      "exceptional_cases": [
+        "within-class pairs are ignored in the lower bound"
+      ],
+      "trust_boundary": "Euclidean norm and unordered-pair normalization replay at trust zero"
+    },
+    "H-COUNT": {
+      "node_id": "PU-BALANCE",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003664/full-study.md#H-COUNT",
+      "fragment_sha256": "72f691a4e9e918797903440f3f9806b11f4b3933d454f4efc04d73157484b87b",
+      "hypotheses": [
+        "balanced nonnegative class sizes summing to n"
+      ],
+      "inference": "Apply Σi<j ai aj=(n²-Σai²)/2 and bound the rounding remainder.",
+      "output": "cross pairs ≥ (p-1)/(2p)n²-Cp",
+      "formal_anchor": "balanced complete multipartite edge identity",
+      "downstream_uses": [
+        "PU-SUP"
+      ],
+      "exceptional_cases": [
+        "division remainders",
+        "parity",
+        "small n"
+      ],
+      "trust_boundary": "finite sums and Nat-to-Real coercions replay at trust zero"
+    },
+    "H-SUP": {
+      "node_id": "PU-SUP",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003664/full-study.md#H-SUP",
+      "fragment_sha256": "6e623180f5a48a3460700e976d0c840023c91d3b42c33f6164cb829591359dd3",
+      "hypotheses": [
+        "constructed finset has card n",
+        "verified unit-distance count"
+      ],
+      "inference": "Specialize the indexed suprema defining f to the constructed finset.",
+      "output": "constructed count ≤ f d n",
+      "formal_anchor": "Erdos1085.f iSup specialization",
+      "downstream_uses": [
+        "PU-ROOT"
+      ],
+      "exceptional_cases": [
+        "natural supremum bounded by unordered pairs"
+      ],
+      "trust_boundary": "only frozen definition bytes are provider authority"
+    },
+    "H-ROOT": {
+      "node_id": "PU-ROOT",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003664/full-study.md#H-ROOT",
+      "fragment_sha256": "12869d5cc474e1451c96162585ab190282556ee87c56f87a4c666d963719c1f4",
+      "hypotheses": [
+        "uniform rounding constant Cp",
+        "PU-SUP for arbitrary n"
+      ],
+      "inference": "Choose C=Cp and compose the lower bounds.",
+      "output": "the exact lower_d4_lenz proposition",
+      "formal_anchor": "claim_owned_lower_d4_lenz_composition",
+      "downstream_uses": [
+        "statement transport",
+        "release decision"
+      ],
+      "exceptional_cases": [
+        "n=0",
+        "all finitely many small n",
+        "odd d"
+      ],
+      "trust_boundary": "Master recomputes exact root, dependencies, and axioms"
+    }
+  },
+  "reviewers": [
+    {
+      "reviewer_id": "worker-structural-review",
+      "independent_of": [
+        "source provider proof body"
+      ],
+      "decision": "content_complete_pending_master_replay"
+    },
+    {
+      "reviewer_id": "master-required-review",
+      "independent_of": [
+        "worker author",
+        "provider authors"
+      ],
+      "decision": "required_after_harvest"
+    }
+  ],
+  "remaining_readability_cut_set": [],
+  "distilled": {
+    "duplicate_prose_removed": true,
+    "structured_inventory_not_duplicated": true,
+    "mathematical_content_preserved": true,
+    "deletion_mutations_passed": true
+  },
+  "authority_sha256": "7dc72626497d9787b0fbe854283db30bfd49788c899ef9247e792b56bc009500"
+}

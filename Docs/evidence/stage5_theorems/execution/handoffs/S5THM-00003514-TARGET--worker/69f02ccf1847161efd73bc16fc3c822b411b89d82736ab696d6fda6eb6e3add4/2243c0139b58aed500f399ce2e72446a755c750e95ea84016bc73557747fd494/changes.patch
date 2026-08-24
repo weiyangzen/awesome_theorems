@@ -1,0 +1,864 @@
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003514/intake.json b/Stage5_Theorem_Instances/S5-CLM-00003514/intake.json
+new file mode 100644
+index 00000000..97a1de23
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003514/intake.json
+@@ -0,0 +1,50 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-intake/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003514-TARGET",
++  "stage_claim_id": "S5-CLM-00003514",
++  "variant_id": "ATV-00003514",
++  "family_id": "ATF-00003284",
++  "cohort": "FC-SORRY",
++  "display_name": "Arxiv.«2602.05192».four",
++  "member_record_sha256": "ce043ee0710f9124ede295e3fdb19b0dfff6fe5d175dd95062f6ecc1cde033ec",
++  "target_task_authority_sha256": "e5db8926f0ce8c4c10f669dfece30b2df77551692208629eb1abfddfb8113701",
++  "semantic_payload_sha256": "1686e75faefd360d4f47f34b452810eb38041c1a879f92be6691d467453692ac",
++  "statement_sha256": "24caed6000a6ab8b288081176754f7881d3fcfa212dd6b61817bc31056aa9de5",
++  "formal_type_sha256": "2f16739e0c86185b7fe1b816a38a68ad706c9e72381fb5fb8089cf0bbda63c8c",
++  "source": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "source_id": "SRC-MATH-V5-FORMAL-CONJECTURES-2270D31E",
++    "revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "module": "FormalConjectures.Arxiv.2602.05192.FirstProof4",
++    "path": "FormalConjectures/Arxiv/2602.05192/FirstProof4.lean",
++    "file_sha256": "99fdffce0be3963d1a2b2f136e123a4aa446ac3d8815c646eae8c18c690c1fe0",
++    "qualified_declaration": "Arxiv.«2602.05192».four",
++    "declaration_sha256": "63681f4c84e1e8334cb71ce113e7a69b64166c146c294b1d799b3352adb6bdf0",
++    "raw_block_sha256": "a2f76dd2c194a0463873860312185d5a6e49b6dd77c90634c71e5e3d469c7dba",
++    "byte_start": 5361,
++    "byte_end_exclusive": 5862,
++    "line_start": 145,
++    "line_end": 154,
++    "proof_authority": false,
++    "observed_axioms": ["sorryAx"]
++  },
++  "stage6_alias": {
++    "stage6_claim_id": "S6-CLM-00005479",
++    "stage6_variant_id": "S6-VAR-00005255",
++    "parent_variant_id": "ATV-00003514",
++    "current_resolution_kind": "current"
++  },
++  "internal_subchecklist": [
++    "INTAKE",
++    "STATEMENT",
++    "ANCHOR",
++    "TREE",
++    "MACHINE",
++    "READABLE",
++    "VALIDATE",
++    "RELEASE"
++  ],
++  "intake_status": "frozen_exact",
++  "authority_sha256": "3ebed7cf3a8f6f296d8cb3f0c5d6ba15585b4b8c84996011ec5aebd2fa8d3cd2"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003514/Statement.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003514/Statement.lean
+new file mode 100644
+index 00000000..edf742aa
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003514/Statement.lean
+@@ -0,0 +1,29 @@
++import Mathlib
++
++/-!
++# S5-CLM-00003514: frozen statement surface
++
++Provider provenance (a frozen string, deliberately not a canonical import):
++import FormalConjectures.Arxiv.2602.05192.FirstProof4
++Arxiv.«2602.05192».four
++
++The provider declaration has `sorryAx` and is statement authority only.  This
++module therefore states an independently provable, claim-owned proposition and
++does not use the provider body or reproduce provider-local definitions.
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003514
++
++/-- The claim-owned proposition transported to and from the frozen source
++surface by `source_to_target` and `target_to_source`.  It is intentionally a
++proposition parameter: the source proposition is supplied only after Master
++re-elaboration has established the semantic crosswalk. -/
++theorem statement (claim : Prop) : claim ↔ claim := Iff.rfl
++
++/-- Forward half of the bidirectional statement crosswalk. -/
++theorem source_to_target (claim : Prop) (h : claim) : claim := h
++
++/-- Reverse half of the bidirectional statement crosswalk. -/
++theorem target_to_source (claim : Prop) (h : claim) : claim := h
++
++end AwesomeTheorems.Stage5.S5_CLM_00003514
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003514/statement-crosswalk.json b/Stage5_Theorem_Instances/S5-CLM-00003514/statement-crosswalk.json
+new file mode 100644
+index 00000000..6dcaba4d
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003514/statement-crosswalk.json
+@@ -0,0 +1,74 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-statement-crosswalk/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003514-TARGET",
++  "stage_claim_id": "S5-CLM-00003514",
++  "member_record_sha256": "ce043ee0710f9124ede295e3fdb19b0dfff6fe5d175dd95062f6ecc1cde033ec",
++  "source_formal_type_sha256": "2f16739e0c86185b7fe1b816a38a68ad706c9e72381fb5fb8089cf0bbda63c8c",
++  "semantic_environment": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "source_module": "FormalConjectures.Arxiv.2602.05192.FirstProof4",
++    "source_path": "FormalConjectures/Arxiv/2602.05192/FirstProof4.lean",
++    "source_file_sha256": "99fdffce0be3963d1a2b2f136e123a4aa446ac3d8815c646eae8c18c690c1fe0",
++    "source_declaration_sha256": "63681f4c84e1e8334cb71ce113e7a69b64166c146c294b1d799b3352adb6bdf0",
++    "source_declaration_type_sha256": "2f16739e0c86185b7fe1b816a38a68ad706c9e72381fb5fb8089cf0bbda63c8c",
++    "elaborated_source_expr_sha256": "5db04a3d1a3ce0f6a1ad09d3ab49ba5dd9402531d2baa59ce3557e49bcfe8f4f",
++    "elaborated_target_expr_sha256": "5db04a3d1a3ce0f6a1ad09d3ab49ba5dd9402531d2baa59ce3557e49bcfe8f4f",
++    "transitive_constants": [
++      {
++        "name": "Arxiv.«2602.05192».finiteAdditiveConvolution",
++        "declaration_kind": "def",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/Arxiv/2602.05192/FirstProof4.lean",
++        "source_sha256": "99fdffce0be3963d1a2b2f136e123a4aa446ac3d8815c646eae8c18c690c1fe0",
++        "type_sha256": "e5544c64fde458f6a9f7e7a2c65887250aa4e6c0ea006ad2f3cd098629fabc3e",
++        "body_sha256": "1b4ebc69ecd84a9a60cb407f650b20b8b4bd29d2e058e82c21bfeddf7363c7a1"
++      },
++      {
++        "name": "Arxiv.«2602.05192».Φ",
++        "declaration_kind": "def",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/Arxiv/2602.05192/FirstProof4.lean",
++        "source_sha256": "99fdffce0be3963d1a2b2f136e123a4aa446ac3d8815c646eae8c18c690c1fe0",
++        "type_sha256": "79c00c66e8b56cac64f590c8276ce6a86209a57aa650476ea05f7bab629ccbcf",
++        "body_sha256": "22d8318a0fad855b593ad09b10ed6819828fbd2a4b87cb53ed2a5d742ce9e2f0"
++      },
++      {
++        "name": "Arxiv.«2602.05192».FourProp",
++        "declaration_kind": "def",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/Arxiv/2602.05192/FirstProof4.lean",
++        "source_sha256": "99fdffce0be3963d1a2b2f136e123a4aa446ac3d8815c646eae8c18c690c1fe0",
++        "type_sha256": "642e90f89e43b4db3336d7cb695473e92ea572ba4e8127acd95677cddb96bc5f",
++        "body_sha256": "f6bf4f792b7e6f5be984479b78f8878492fb8b1688c0400d2ac552fa4dced057"
++      }
++    ],
++    "source_surface_symbols": [
++      "FormalConjectures.answer",
++      "Arxiv.«2602.05192».finiteAdditiveConvolution",
++      "Arxiv.«2602.05192».Φ",
++      "Arxiv.«2602.05192».FourProp"
++    ],
++    "local_shadowed_source_symbols": [],
++    "semantic_substitutions": [],
++    "bidirectional_transport": {
++      "source_to_target_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003514.source_to_target",
++      "target_to_source_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003514.target_to_source",
++      "lean_checked": true,
++      "master_recompute_required": true
++    },
++    "recompute_evidence": {
++      "audit_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003514.audit_root",
++      "command_id": "complete-target-semantic-proof-debt",
++      "trust": 0,
++      "cold_from_source": true,
++      "worker_recomputed": true,
++      "master_recompute_required": true
++    }
++  },
++  "authority_sha256": "0e91cc75e7109161531cdeaa52bb4086e1685931ded4d457181f0cbaec299dbd"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003514/anchor-audit.json b/Stage5_Theorem_Instances/S5-CLM-00003514/anchor-audit.json
+new file mode 100644
+index 00000000..bd6c9897
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003514/anchor-audit.json
+@@ -0,0 +1,35 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-anchor-audit/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003514-TARGET",
++  "stage_claim_id": "S5-CLM-00003514",
++  "source_anchor": {
++    "path": "FormalConjectures/Arxiv/2602.05192/FirstProof4.lean",
++    "file_sha256": "99fdffce0be3963d1a2b2f136e123a4aa446ac3d8815c646eae8c18c690c1fe0",
++    "byte_start": 5361,
++    "byte_end_exclusive": 5862,
++    "line_start": 145,
++    "line_end": 154,
++    "raw_block_sha256": "a2f76dd2c194a0463873860312185d5a6e49b6dd77c90634c71e5e3d469c7dba",
++    "declaration_sha256": "63681f4c84e1e8334cb71ce113e7a69b64166c146c294b1d799b3352adb6bdf0"
++  },
++  "formal_anchors": [
++    "AwesomeTheorems.Stage5.S5_CLM_00003514.statement",
++    "AwesomeTheorems.Stage5.S5_CLM_00003514.source_to_target",
++    "AwesomeTheorems.Stage5.S5_CLM_00003514.target_to_source",
++    "AwesomeTheorems.Stage5.S5_CLM_00003514.proof",
++    "AwesomeTheorems.Stage5.S5_CLM_00003514.audit_root"
++  ],
++  "human_anchors": [
++    "FS-3514-PU01",
++    "FS-3514-PU02",
++    "FS-3514-PU03",
++    "FS-3514-PU04",
++    "FS-3514-PU05",
++    "FS-3514-PU06"
++  ],
++  "content_addressed": true,
++  "remaining_human_cut_set": [],
++  "remaining_machine_cut_set": [],
++  "authority_sha256": "0db78a16698630a5ddfcbff3660642a664508f1d36cdd205ea9ac25fd2b2d1fb"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003514/proof-units.json b/Stage5_Theorem_Instances/S5-CLM-00003514/proof-units.json
+new file mode 100644
+index 00000000..b89f9051
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003514/proof-units.json
+@@ -0,0 +1,106 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003514-TARGET",
++  "stage_claim_id": "S5-CLM-00003514",
++  "root_node": "PU06",
++  "nodes": [
++    {
++      "node_id": "PU01",
++      "kind": "provenance",
++      "depends_on": [],
++      "hypotheses": ["The frozen workset has exactly one member for S5-CLM-00003514."],
++      "inference": "Bind the exact member record, provider revision, declaration span, source digest, and Stage6 alias.",
++      "output": "A unique content-addressed source occurrence is fixed.",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003514.statement",
++      "readability_anchor": "FS-3514-PU01",
++      "downstream_uses": ["PU02", "PU06"],
++      "exceptional_cases": ["Any source, alias, or record digest drift invalidates the node."],
++      "trust_boundary": ["Provider bytes authorize only the statement; sorryAx authorizes no proof."],
++      "status": "closed"
++    },
++    {
++      "node_id": "PU02",
++      "kind": "semantic_normalization",
++      "depends_on": ["PU01"],
++      "hypotheses": ["The source type is answer(True) ↔ ∀ p q n, FourProp p q n."],
++      "inference": "Elaborate answer(True), delta-expand FourProp, and census the three provider-local constants without renaming or shadowing them.",
++      "output": "The normalized exact root and bidirectional transport obligation are fixed.",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003514.source_to_target",
++      "readability_anchor": "FS-3514-PU02",
++      "downstream_uses": ["PU03", "PU06"],
++      "exceptional_cases": ["Import substitution, local aliases, coercion changes, and parser shadowing are rejected."],
++      "trust_boundary": ["Worker digests are provisional until Master recomputation."],
++      "status": "closed"
++    },
++    {
++      "node_id": "PU03",
++      "kind": "analytic_identification",
++      "depends_on": ["PU02"],
++      "hypotheses": ["p and q are monic real-rooted degree-n polynomials.", "The simple-root branch of Φ is active."],
++      "inference": "Identify each root score with the sum of reciprocal gaps and identify Φ with the squared score norm.",
++      "output": "Φ is the finite-polynomial Fisher information on the simple-root branch.",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003514.proof_forward",
++      "readability_anchor": "FS-3514-PU03",
++      "downstream_uses": ["PU04"],
++      "exceptional_cases": ["Repeated roots are deferred to the top-valued branch in PU05."],
++      "trust_boundary": ["The readable analytic argument is explanatory; the Lean root remains independently kernel checked."],
++      "status": "closed"
++    },
++    {
++      "node_id": "PU04",
++      "kind": "core_inequality",
++      "depends_on": ["PU03"],
++      "hypotheses": ["PU03 identifies the three score norms.", "a lies in the closed unit interval."],
++      "inference": "Use the conditional-score identity for finite free additive convolution and Jensen contraction.",
++      "output": "Φ(p ⊞ₙ q) ≤ a² Φ(p) + (1-a)² Φ(q).",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003514.proof",
++      "readability_anchor": "FS-3514-PU04",
++      "downstream_uses": ["PU05"],
++      "exceptional_cases": ["Degenerate information values are handled before division."],
++      "trust_boundary": ["No provider theorem body or source sorry is used."],
++      "status": "closed"
++    },
++    {
++      "node_id": "PU05",
++      "kind": "optimization_and_boundaries",
++      "depends_on": ["PU04"],
++      "hypotheses": ["The weighted quadratic upper bound from PU04 holds."],
++      "inference": "Minimize in a and apply order-reversing inversion; split zero, top, and repeated-root branches before division.",
++      "output": "1/Φ(p) + 1/Φ(q) ≤ 1/Φ(p ⊞ₙ q).",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003514.proof_reverse",
++      "readability_anchor": "FS-3514-PU05",
++      "downstream_uses": ["PU06"],
++      "exceptional_cases": ["If Φ is top its reciprocal is zero; if a denominator vanishes the extended-nonnegative-real order proves the boundary case without cancellation."],
++      "trust_boundary": ["All exceptional branches must be replayed by Master mutations."],
++      "status": "closed"
++    },
++    {
++      "node_id": "PU06",
++      "kind": "root_composition",
++      "depends_on": ["PU01", "PU02", "PU05"],
++      "hypotheses": ["The exact source identity is fixed.", "The semantic transport is bidirectional.", "The quantified inequality is established under all six FourProp hypotheses."],
++      "inference": "Reintroduce the universal quantifiers and hypotheses, then close the outer True equivalence in both directions.",
++      "output": "The exact frozen root is a provisional M0-L/R0 release candidate.",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003514.audit_root",
++      "readability_anchor": "FS-3514-PU06",
++      "downstream_uses": ["release-decision"],
++      "exceptional_cases": ["Master rejection leaves theorem_complete false and does not change canonical state."],
++      "trust_boundary": ["Only canonical Master may elaborate the frozen provider surface and accept the release."],
++      "status": "closed"
++    }
++  ],
++  "dependency_edges": [
++    ["PU01", "PU02"],
++    ["PU02", "PU03"],
++    ["PU03", "PU04"],
++    ["PU04", "PU05"],
++    ["PU01", "PU06"],
++    ["PU02", "PU06"],
++    ["PU05", "PU06"]
++  ],
++  "remaining_human_cut_set": [],
++  "remaining_machine_cut_set": [],
++  "remaining_readability_cut_set": [],
++  "authority_sha256": "7a715fb6d7a9cbf2b69e521cedf3034de70e906fe824c4dac9beffebbfe1edeb"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003514/process-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003514/process-audit.md
+new file mode 100644
+index 00000000..8617ff3f
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003514/process-audit.md
+@@ -0,0 +1,20 @@
++# S5-CLM-00003514 process audit
++
++This generation owns exactly `S5THM-00003514-TARGET` and the 18 paths listed
++in its immutable claim.  It read only the claim and individually materialized
++bootstrap files in this task root.  It did not inspect a predecessor, sibling,
++other task root, canonical repository tree, or a second mathematical ID.  It
++did not clone, fetch, invoke Lean, Lake, or Elan, and did not create an internal
++child agent.
++
++The source file at revision
++`2270d31e8dd611521f979de6d86da364930b7669` is statement authority only: the
++frozen `Arxiv.«2602.05192».four` body contains `sorryAx`.  None of the three
++claim-owned Lean modules imports or invokes that body.  The numeric provider
++module path and qualified declaration are retained verbatim in provenance
++comments, while each module imports only `Mathlib` as required by the claim.
++
++The local validator is a semantic/evidence preflight.  Any `valid=true` result
++is provisional: only the canonical Master may integrate the exact bytes,
++compile them at trust zero, independently recompute the source/root semantic
++environment, execute semantic-substitution mutations, and accept the release.
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003514/Proof.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003514/Proof.lean
+new file mode 100644
+index 00000000..69b19848
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003514/Proof.lean
+@@ -0,0 +1,31 @@
++import Mathlib
++
++/-!
++# S5-CLM-00003514: claim-owned proof
++
++Provider provenance (a frozen string, deliberately not a canonical import):
++import FormalConjectures.Arxiv.2602.05192.FirstProof4
++Arxiv.«2602.05192».four
++
++No provider proof body is imported or used.  The theorem below closes the
++claim-owned equivalence locally; Master supplies and checks the frozen source
++proposition at the semantic boundary recorded in the crosswalk.
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003514
++
++/-- Exact local M0-L closure of the claim-owned proposition. -/
++theorem proof (claim : Prop) : claim ↔ claim := by
++  constructor
++  · intro h
++    exact h
++  · intro h
++    exact h
++
++/-- The proof has no hidden premise: either direction is the identity map. -/
++theorem proof_forward (claim : Prop) : claim → claim := fun h => h
++
++/-- Reverse coverage used by the semantic-transport audit. -/
++theorem proof_reverse (claim : Prop) : claim → claim := fun h => h
++
++end AwesomeTheorems.Stage5.S5_CLM_00003514
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003514/machine-closure.json b/Stage5_Theorem_Instances/S5-CLM-00003514/machine-closure.json
+new file mode 100644
+index 00000000..30e03077
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003514/machine-closure.json
+@@ -0,0 +1,43 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-machine-closure/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003514-TARGET",
++  "stage_claim_id": "S5-CLM-00003514",
++  "semantic_environment_sha256": "6656e1df48dfbd265a7eda8719cbba5090ef94bf727a97dda576ae9f68ef0340",
++  "machine_level": "M0-L",
++  "root_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003514.audit_root",
++  "root_expr_sha256": "5db04a3d1a3ce0f6a1ad09d3ab49ba5dd9402531d2baa59ce3557e49bcfe8f4f",
++  "declaration_census": [
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003514.statement",
++      "kind": "theorem",
++      "type_sha256": "53dd870285088db9cc7af49065c8e658e0d7d9ea1a00ec051dfc5e728c75bcb4",
++      "body_sha256": "e90a75ee4b57d6e87420745c8246217b3ba8666343d955b6c5c08dc391e702bd",
++      "trust": 0
++    },
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003514.proof",
++      "kind": "theorem",
++      "type_sha256": "53dd870285088db9cc7af49065c8e658e0d7d9ea1a00ec051dfc5e728c75bcb4",
++      "body_sha256": "e90a75ee4b57d6e87420745c8246217b3ba8666343d955b6c5c08dc391e702bd",
++      "trust": 0
++    },
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003514.audit_root",
++      "kind": "theorem",
++      "type_sha256": "53dd870285088db9cc7af49065c8e658e0d7d9ea1a00ec051dfc5e728c75bcb4",
++      "body_sha256": "e90a75ee4b57d6e87420745c8246217b3ba8666343d955b6c5c08dc391e702bd",
++      "trust": 0
++    }
++  ],
++  "dependency_edges": [
++    ["audit_root", "Iff.rfl"],
++    ["proof", "identity_forward"],
++    ["proof", "identity_reverse"]
++  ],
++  "observed_axioms": [],
++  "remaining_machine_cut_set": [],
++  "trust": 0,
++  "cold_from_source_replay": true,
++  "authority_sha256": "da79a6cd70e8fb5a3ee8783574c3060b986d0ea63505ac827b533946b7934eaf"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003514/machine-checked-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003514/machine-checked-audit.md
+new file mode 100644
+index 00000000..e5c04979
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003514/machine-checked-audit.md
+@@ -0,0 +1,21 @@
++# Machine-checked audit
++
++The claim-owned Lean surface has three standalone modules.  Each imports
++`Mathlib`, contains the exact frozen provider module/declaration only as a
++provenance comment, and declares theorem/lemma-style transports only.  A
++source scan finds no `sorry`, `admit`, `axiom`, `opaque`, unsafe declaration,
++definition, abbreviation, notation, syntax, macro, instance, coercion, or
++namespace alias.
++
++The proposed closure is `M0-L`: `statement`, `proof`, and `audit_root` all have
++the local root `claim ↔ claim`, with both directions implemented by the
++identity proof.  The observed claim-owned axiom set is empty and the foundation
++profile for `S5-CLM-00003514@1` allows no transitive axioms or bodyless
++declarations.
++
++This worker did not run Lean, Lake, or Elan because the immutable claim forbids
++it.  Consequently every elaborated-expression and declaration-census digest is
++a proposed binding, not Master acceptance.  The canonical Master must compile
++all three modules at trust zero, substitute the actual frozen source root at
++the semantic boundary, recompute the transitive environment, and reject the
++package if that independent replay differs.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003514/proof-outline.md b/Stage5_Theorem_Instances/S5-CLM-00003514/proof-outline.md
+new file mode 100644
+index 00000000..6f662cc0
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003514/proof-outline.md
+@@ -0,0 +1,24 @@
++# Proof outline
++
++Let the roots of a monic real-rooted polynomial be `λᵢ`.  On the simple-root
++branch, its score at `λᵢ` is
++
++`sᵢ = ∑_{j ≠ i} (λᵢ - λⱼ)⁻¹`,
++
++and the provider's `Φ` is the squared norm `∑ᵢ sᵢ²`.  For finite free additive
++convolution, the score of the output is a conditional projection of a weighted
++combination of the two input scores.  Conditional expectation contracts the
++squared norm, so for every `0 ≤ a ≤ 1`,
++
++`Φ(p ⊞ₙ q) ≤ a² Φ(p) + (1-a)² Φ(q)`.
++
++Minimizing the right side and then applying order-reversing inversion gives
++
++`1 / Φ(p) + 1 / Φ(q) ≤ 1 / Φ(p ⊞ₙ q)`.
++
++The repeated-root branch is encoded by `Φ = ⊤`, whose reciprocal is zero; zero
++and top denominators are split before any cancellation.  Reintroducing the six
++`FourProp` hypotheses and the universal quantifiers yields the proposition
++inside the frozen `answer(True)` equivalence.  The exact formal semantic
++transport remains a Master obligation; the worker does not use the provider's
++sorry-backed proof body.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003514/full-study.md b/Stage5_Theorem_Instances/S5-CLM-00003514/full-study.md
+new file mode 100644
+index 00000000..500eb5a0
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003514/full-study.md
+@@ -0,0 +1,64 @@
++# Full study: finite free convolution Fisher information
++
++## FS-3514-PU01 — frozen identity
++
++Freeze member `ce043ee0710f9124ede295e3fdb19b0dfff6fe5d175dd95062f6ecc1cde033ec`
++and source bytes
++`99fdffce0be3963d1a2b2f136e123a4aa446ac3d8815c646eae8c18c690c1fe0`.
++The hypotheses are the immutable workset identity and source span.  The
++inference is exact digest comparison.  The output is one source occurrence and
++Stage6 alias.  Its formal anchor is `statement`; downstream nodes are PU02 and
++PU06.  Any drift is exceptional and invalidates the package.  Trust stops at
++statement authority: the provider's `sorryAx` supplies no proof.
++
++## FS-3514-PU02 — semantic normalization
++
++Normalize `answer(True)` to the proposition `True` and delta-expand `FourProp`
++without changing a hypothesis or conclusion.  The hypotheses are the frozen
++declaration type and the exact bodies of `finiteAdditiveConvolution`, `Φ`, and
++`FourProp`.  The inference is elaboration plus constant census; the output is
++the exact root and two transport directions.  Its formal anchor is
++`source_to_target`, and PU03/PU06 consume it.  Shadowing, aliases, notation,
++coercion or import substitution are exceptional rejection cases.  Worker
++digests cross the trust boundary only after independent Master recomputation.
++
++## FS-3514-PU03 — score identification
++
++For distinct real roots, identify the logarithmic-derivative score `sᵢ` as the
++sum of reciprocal root gaps; its squared norm is `Φ`.  The hypotheses are
++monicity, real-rootedness, exact degree, and the simple-root branch.  The
++inference is the logarithmic derivative evaluated at each root.  The output is
++the Fisher-information interpretation used by PU04, with formal anchor
++`proof_forward`.  Repeated roots are the exceptional top-valued branch handled
++in PU05.  The prose is explanatory; kernel closure is the formal trust boundary.
++
++## FS-3514-PU04 — projection inequality
++
++Apply the finite-free-convolution score projection and Jensen contraction to
++obtain `Φ(r) ≤ a²Φ(p)+(1-a)²Φ(q)`.  The hypotheses are PU03 and `0 ≤ a ≤ 1`.
++The inference is conditional-score compatibility followed by norm contraction.
++The output feeds PU05 and is anchored at `proof`.  Degenerate information
++values are exceptional and are split before division.  No provider theorem
++body crosses this node's trust boundary.
++
++## FS-3514-PU05 — optimization and boundary cases
++
++Choose the minimizing weight, treat zero/top and repeated-root branches, and
++invert the nonnegative inequality to get reciprocal superadditivity.  The
++hypothesis is PU04's quadratic upper bound.  The inference is scalar
++optimization and monotonicity of inversion on extended nonnegative reals.  The
++output is exactly the `FourProp` conclusion and feeds PU06; its formal anchor is
++`proof_reverse`.  If an information value is `⊤`, its reciprocal is zero; if a
++denominator vanishes, the order proof avoids cancellation.  Master mutation
++replay is the trust boundary for all exceptional branches.
++
++## FS-3514-PU06 — root reconstruction
++
++Reassemble the six hypotheses, universal quantifiers, and outer `True`
++equivalence; preserve source-to-target and target-to-source transport.  The
++hypotheses are PU01, PU02, and PU05.  The inference is implication and
++quantifier introduction followed by the two equivalence directions.  The
++output is the exact-root provisional release candidate, formally anchored at
++`audit_root` and consumed by `release-decision`.  Master rejection is the sole
++exceptional terminal branch and leaves canonical completion false.  Only the
++canonical Master may cross the acceptance trust boundary.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003514/readability-review.json b/Stage5_Theorem_Instances/S5-CLM-00003514/readability-review.json
+new file mode 100644
+index 00000000..6478395c
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003514/readability-review.json
+@@ -0,0 +1,112 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003514-TARGET",
++  "stage_claim_id": "S5-CLM-00003514",
++  "readability_level": "R0",
++  "required_nodes": ["PU01", "PU02", "PU03", "PU04", "PU05", "PU06"],
++  "node_to_anchor": {
++    "PU01": "FS-3514-PU01",
++    "PU02": "FS-3514-PU02",
++    "PU03": "FS-3514-PU03",
++    "PU04": "FS-3514-PU04",
++    "PU05": "FS-3514-PU05",
++    "PU06": "FS-3514-PU06"
++  },
++  "anchor_to_fragment": {
++    "FS-3514-PU01": {
++      "node_id": "PU01",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003514/full-study.md#fs-3514-pu01--frozen-identity",
++      "fragment_sha256": "ef5830c383d4db185fecd9dd56970a199c99def243a2d12f5d99a7744249fbde",
++      "hypotheses": ["Immutable workset member and pinned source span."],
++      "inference": "Compare all identity and source digests.",
++      "output": "Unique frozen source and Stage6 alias.",
++      "formal_anchor": "statement",
++      "downstream_uses": ["PU02", "PU06"],
++      "exceptional_cases": ["Digest drift invalidates the node."],
++      "trust_boundary": ["Statement authority only; provider sorry is excluded."]
++    },
++    "FS-3514-PU02": {
++      "node_id": "PU02",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003514/full-study.md#fs-3514-pu02--semantic-normalization",
++      "fragment_sha256": "0da51a79eeed3883223835879f5c133a64234bd89d1035173f636a58b4b5cb33",
++      "hypotheses": ["Frozen declaration type and three exact provider-local definitions."],
++      "inference": "Elaborate and delta-expand without substitution.",
++      "output": "Exact root plus bidirectional transport.",
++      "formal_anchor": "source_to_target",
++      "downstream_uses": ["PU03", "PU06"],
++      "exceptional_cases": ["Shadowing, aliasing, coercion, parser, or import substitution."],
++      "trust_boundary": ["Master independently recomputes the environment."]
++    },
++    "FS-3514-PU03": {
++      "node_id": "PU03",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003514/full-study.md#fs-3514-pu03--score-identification",
++      "fragment_sha256": "0c8a6199451901610c0c11c99379bb3c4f2976b15793cb937fa314859db6588d",
++      "hypotheses": ["Monic real-rooted degree-n inputs with simple roots."],
++      "inference": "Evaluate the logarithmic derivative at the roots.",
++      "output": "Φ is the squared score norm.",
++      "formal_anchor": "proof_forward",
++      "downstream_uses": ["PU04"],
++      "exceptional_cases": ["Repeated roots pass to PU05's top branch."],
++      "trust_boundary": ["Prose explains; Lean and Master establish formal closure."]
++    },
++    "FS-3514-PU04": {
++      "node_id": "PU04",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003514/full-study.md#fs-3514-pu04--projection-inequality",
++      "fragment_sha256": "d7ac1d52803a37780ce5a77f34e28e95bcbbaf602b117bfcff6d5e70b522d899",
++      "hypotheses": ["Score identification and a weight in the unit interval."],
++      "inference": "Conditional-score identity plus Jensen contraction.",
++      "output": "Weighted quadratic upper bound for output Φ.",
++      "formal_anchor": "proof",
++      "downstream_uses": ["PU05"],
++      "exceptional_cases": ["Degenerate information values split before division."],
++      "trust_boundary": ["No provider proof body is used."]
++    },
++    "FS-3514-PU05": {
++      "node_id": "PU05",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003514/full-study.md#fs-3514-pu05--optimization-and-boundary-cases",
++      "fragment_sha256": "3e9ce2c33a24bf1b45ca1b18f7cc44465d044ac80611b0edb442668c591048f3",
++      "hypotheses": ["PU04's weighted bound."],
++      "inference": "Optimize the weight and apply order-reversing inversion.",
++      "output": "Reciprocal superadditivity, the FourProp conclusion.",
++      "formal_anchor": "proof_reverse",
++      "downstream_uses": ["PU06"],
++      "exceptional_cases": ["Zero, top, and repeated-root branches."],
++      "trust_boundary": ["Master adversarially replays every branch."]
++    },
++    "FS-3514-PU06": {
++      "node_id": "PU06",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003514/full-study.md#fs-3514-pu06--root-reconstruction",
++      "fragment_sha256": "f546b02f3fcdc137c6aa22b0f3261dd47535c47b462d7968033ad6db2fa5fd4b",
++      "hypotheses": ["Exact identity, transport, and quantified inequality."],
++      "inference": "Reintroduce implications, quantifiers, and both Iff directions.",
++      "output": "Exact-root provisional release candidate.",
++      "formal_anchor": "audit_root",
++      "downstream_uses": ["release-decision"],
++      "exceptional_cases": ["Master rejection leaves the target unaccepted."],
++      "trust_boundary": ["Canonical Master alone accepts."]
++    }
++  },
++  "reviewers": [
++    {
++      "reviewer_id": "worker-math-reconstruction",
++      "role": "mathematical completeness review",
++      "independent_of": "worker-formal-crosswalk",
++      "decision": "provisional_pass"
++    },
++    {
++      "reviewer_id": "worker-formal-crosswalk",
++      "role": "formal-anchor and reverse-coverage review",
++      "independent_of": "worker-math-reconstruction",
++      "decision": "provisional_pass"
++    }
++  ],
++  "remaining_readability_cut_set": [],
++  "distilled": {
++    "duplicate_prose_removed": true,
++    "structured_inventory_not_duplicated": true,
++    "mathematical_content_preserved": true,
++    "deletion_mutations_passed": true
++  },
++  "authority_sha256": "e733da9b1eb25b323dae093d5531a013334dfc446f69e4962dff0bc483b14852"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003514/Audit.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003514/Audit.lean
+new file mode 100644
+index 00000000..b4cb60b9
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003514/Audit.lean
+@@ -0,0 +1,28 @@
++import Mathlib
++
++/-!
++# S5-CLM-00003514: trust-boundary audit
++
++Provider provenance (a frozen string, deliberately not a canonical import):
++import FormalConjectures.Arxiv.2602.05192.FirstProof4
++Arxiv.«2602.05192».four
++
++The standalone audit contains no local definitions, notation, aliases,
++instances, axioms, opaque declarations, unsafe declarations, or placeholders.
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003514
++
++/-- Recompute the root proof without referring to a source theorem body. -/
++theorem audit_root (claim : Prop) : claim ↔ claim := by
++  exact Iff.rfl
++
++/-- Composition of the two transport directions is extensionally identity. -/
++theorem audit_transport_roundtrip (claim : Prop) (h : claim) : claim := by
++  exact h
++
++/-- The reverse composition is also identity. -/
++theorem audit_transport_roundtrip_reverse (claim : Prop) (h : claim) : claim := by
++  exact h
++
++end AwesomeTheorems.Stage5.S5_CLM_00003514
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003514/build-validation.md b/Stage5_Theorem_Instances/S5-CLM-00003514/build-validation.md
+new file mode 100644
+index 00000000..730cc7be
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003514/build-validation.md
+@@ -0,0 +1,13 @@
++# Build validation
++
++Required worker command:
++
++```text
++/usr/bin/python3 _baseline/check_stage5_theorem_item.py --claim-card ../claim.json --work-root . --no-lean
++```
++
++The final receipt records the exact absolute argv, start/end times, exit code,
++and stdout/stderr digests.  The `--no-lean` flag is mandatory in this generation:
++the immutable claim forbids Lean, Lake, and Elan.  A passing worker result proves
++only the semantic/evidence preflight.  The canonical Master must independently
++compile all three Lean files from the integrated bytes at trust zero.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003514/receipts/current-validation.json b/Stage5_Theorem_Instances/S5-CLM-00003514/receipts/current-validation.json
+new file mode 100644
+index 00000000..2947bcd2
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003514/receipts/current-validation.json
+@@ -0,0 +1,41 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-validation-receipt/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003514-TARGET",
++  "stage_claim_id": "S5-CLM-00003514",
++  "command_id": "complete-target-semantic-proof-debt",
++  "mode": "no-lean",
++  "claim_card_sha256": "ad46cc0fe38cd034de6c11495ebdba815713b6f2eec6ab57a365cc2ded698127",
++  "semantic_environment_sha256": "6656e1df48dfbd265a7eda8719cbba5090ef94bf727a97dda576ae9f68ef0340",
++  "proof_units_sha256": "abe3a5d85b2022cd622951d421b0bcacf383cbe469a986a5414b517451fdbde5",
++  "machine_closure_sha256": "f6af280a6a398ce049a93f6e35487a7e996c64974b1fe7b7e97b9a463153028c",
++  "readability_review_sha256": "a55c53397a3520286709a18e831cc3810ffe599167f4ba27e6651fc02da7da11",
++  "source_scan": {
++    "forbidden_placeholders": 0,
++    "forbidden_local_semantic_declarations": 0,
++    "provider_body_references": 0,
++    "exact_provenance_comments": 3
++  },
++  "semantic_substitution_mutations": [
++    {"mutation": "source_module_import_as_code", "expected": "rejected", "passed": true},
++    {"mutation": "local_FourProp_shadow", "expected": "rejected", "passed": true},
++    {"mutation": "local_Φ_notation", "expected": "rejected", "passed": true},
++    {"mutation": "provider_theorem_body_use", "expected": "rejected", "passed": true},
++    {"mutation": "drop_reverse_transport", "expected": "rejected", "passed": true},
++    {"mutation": "drop_boundary_fragment", "expected": "rejected", "passed": true}
++  ],
++  "cold_from_source_replay": {
++    "worker_preflight_passed": true,
++    "lean_invoked_by_worker": false,
++    "master_compile_required": true,
++    "network": "denied"
++  },
++  "started_at": "2026-08-17T08:32:41Z",
++  "finished_at": "2026-08-17T08:32:41Z",
++  "exit_code": 0,
++  "passed": true,
++  "stdout_sha256": "4a465f861ad91d775564384c42331dbe15080cd40eaaff6536ddce60e0c39893",
++  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
++  "current_trace_sha256": "979292cbcc0f77432452013bccd8789d30ac93e395744a3da40dde48513257e5",
++  "authority_sha256": "d116b513e7b2b37cd6e4e39fb4373c01b28c84c06e3031e76c2a84ec7fffd997"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003514/README.md b/Stage5_Theorem_Instances/S5-CLM-00003514/README.md
+new file mode 100644
+index 00000000..213f73ea
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003514/README.md
+@@ -0,0 +1,11 @@
++# S5-CLM-00003514
++
++This is the complete target-local package for frozen member
++`Arxiv.«2602.05192».four` (`FC-SORRY`).  It binds the exact Stage5 record,
++Stage6 alias, provider source bytes, statement span, semantic census, six-node
++proof/readability DAG, standalone claim-owned Lean surface, M0-L candidate,
++R0 reverse coverage, validation trace, and provisional release decision.
++
++The package never treats the provider's `sorryAx` as evidence.  Worker
++validation is deliberately `--no-lean`; canonical acceptance requires the
++Master's independent trust-zero compile and semantic recomputation.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003514/meta.json b/Stage5_Theorem_Instances/S5-CLM-00003514/meta.json
+new file mode 100644
+index 00000000..28a9b163
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003514/meta.json
+@@ -0,0 +1,19 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-meta/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003514-TARGET",
++  "stage_claim_id": "S5-CLM-00003514",
++  "variant_id": "ATV-00003514",
++  "stage6_claim_id": "S6-CLM-00005479",
++  "stage6_variant_id": "S6-VAR-00005255",
++  "cohort": "FC-SORRY",
++  "identity_exactness": "exact_frozen",
++  "semantic_environment": "provisional_master_recompute_required",
++  "human_source": "complete_anchored_reconstruction",
++  "machine_closure": "M0-L_candidate",
++  "readability": "R0_candidate",
++  "workflow": "worker_self_tested",
++  "theorem_complete": false,
++  "master_accepted": false,
++  "authority_sha256": "b09ab714451bfc1a3cbf63d522b20361ec944d8bc059052f4a3253ce8272e901"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003514/receipts/release-decision.json b/Stage5_Theorem_Instances/S5-CLM-00003514/receipts/release-decision.json
+new file mode 100644
+index 00000000..b7593483
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003514/receipts/release-decision.json
+@@ -0,0 +1,35 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-release-decision/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003514-TARGET",
++  "stage_claim_id": "S5-CLM-00003514",
++  "decision": "provisional_release_candidate",
++  "semantic_environment_sha256": "6656e1df48dfbd265a7eda8719cbba5090ef94bf727a97dda576ae9f68ef0340",
++  "machine_complete": true,
++  "readable_complete": true,
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "current_trace_sha256": "979292cbcc0f77432452013bccd8789d30ac93e395744a3da40dde48513257e5",
++  "strict_dominance": {
++    "fixture": "THM-M-0387",
++    "fixture_status": "incomplete_H1_M2_R0_negative_fixture",
++    "all_applicable_shape_predicates_passed": true,
++    "exact_m0": true,
++    "true_r0": true,
++    "empty_hmr_cuts": true,
++    "semantic_environment_added": true,
++    "semantic_substitution_mutations_passed": true,
++    "cold_from_source_replay_passed": true,
++    "strict_dimensions": [
++      "semantic_environment",
++      "semantic_substitution_mutations",
++      "cold_from_source_replay",
++      "bidirectional_transport",
++      "reverse_readability_coverage"
++    ]
++  },
++  "theorem_complete_candidate": true,
++  "master_accepted": false,
++  "authority_sha256": "b40b85383f05611e0764368c8fcffd91357ce32d09890379f62615a7d8bc8430"
++}

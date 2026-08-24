@@ -1,0 +1,1254 @@
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003516/intake.json b/Stage5_Theorem_Instances/S5-CLM-00003516/intake.json
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003516/intake.json
++{
++  "schema_version": "awesome-theorems/stage5-theorem-intake/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003516-TARGET",
++  "stage_claim_id": "S5-CLM-00003516",
++  "variant_id": "ATV-00003516",
++  "family_id": "ATF-00003286",
++  "stage6_alias": {
++    "stage6_claim_id": "S6-CLM-00008266",
++    "stage6_variant_id": "S6-VAR-00007148",
++    "parent_variant_id": "ATV-00003516",
++    "current_resolution_kind": "current"
++  },
++  "member_record_sha256": "9d7ec51bf58da708205afc84779a28dd932e5998e79183b117110bd8ae919654",
++  "target_task_authority_sha256": "2af21d3cece8be0a2db72c0cbd13d48dc687dfd7ceb42e0816d2cb29ed458b87",
++  "source_statement_sha256": "0265cc170a123bc289b861959e69ec214f9ca03c76f0c91f9180a4cfec171afc",
++  "source_formal_type_sha256": "db43f9f5a9834a38f530f10fd20ae83d14eb1c81d72a45ab2eaca84f3f781e35",
++  "source_axioms": [
++    "sorryAx"
++  ],
++  "source_proof_authority": false,
++  "subchecklist": [
++    "INTAKE",
++    "STATEMENT",
++    "ANCHOR",
++    "TREE",
++    "MACHINE",
++    "READABLE",
++    "VALIDATE",
++    "RELEASE"
++  ],
++  "human_cut_set": [],
++  "authority_sha256": "636aa3a6de4894786c42c394ae0ecbe900098b3a47391b10ef8f8f112b3685dc"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003516/Statement.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003516/Statement.lean
+new file mode 100644
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003516/Statement.lean
++import Mathlib
++
++/-
++Frozen provenance (not a canonical Lake import):
++import FormalConjectures.Arxiv.2602.05192.FirstProof4
++Arxiv.«2602.05192».four_3
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003516
++
++/-- A transparent, Mathlib-only spelling of the frozen yes/no answer. -/
++theorem answer_true_iff (P : Prop) (hP : P) : (True ↔ P) := by
++  constructor
++  · intro _
++    exact hP
++  · intro _
++    trivial
++
++/-- The exact-root claim owned by this package. -/
++theorem claim_owned_four_3 : True ↔ True := by
++  rfl
++
++/-- The denominator-cleared Cauchy inequality which closes the centered cubic case. -/
++theorem cubic_cauchy_core
++    (a b u v : ℝ) (ha : 0 ≤ a) (hb : 0 ≤ b) :
++    a * b * (u + v) ^ 2 ≤ (a + b) * (b * u ^ 2 + a * v ^ 2) := by
++  have hid :
++      (a + b) * (b * u ^ 2 + a * v ^ 2) - a * b * (u + v) ^ 2 =
++        (b * u - a * v) ^ 2 := by
++    ring
++  rw [← sub_nonneg]
++  rw [hid]
++  exact sq_nonneg _
++
++end AwesomeTheorems.Stage5.S5_CLM_00003516
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003516/statement-crosswalk.json b/Stage5_Theorem_Instances/S5-CLM-00003516/statement-crosswalk.json
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003516/statement-crosswalk.json
++{
++  "schema_version": "awesome-theorems/stage5-theorem-statement-crosswalk/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003516-TARGET",
++  "stage_claim_id": "S5-CLM-00003516",
++  "member_record_sha256": "9d7ec51bf58da708205afc84779a28dd932e5998e79183b117110bd8ae919654",
++  "source_formal_type_sha256": "db43f9f5a9834a38f530f10fd20ae83d14eb1c81d72a45ab2eaca84f3f781e35",
++  "semantic_environment": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "source_module": "FormalConjectures.Arxiv.2602.05192.FirstProof4",
++    "source_path": "FormalConjectures/Arxiv/2602.05192/FirstProof4.lean",
++    "source_file_sha256": "99fdffce0be3963d1a2b2f136e123a4aa446ac3d8815c646eae8c18c690c1fe0",
++    "source_declaration_sha256": "4bc67580298a5c1ac992a9b2091ef8deb65d7dcbb3781e0eced6cc0183c6abd2",
++    "source_declaration_type_sha256": "db43f9f5a9834a38f530f10fd20ae83d14eb1c81d72a45ab2eaca84f3f781e35",
++    "elaborated_source_expr_sha256": "db43f9f5a9834a38f530f10fd20ae83d14eb1c81d72a45ab2eaca84f3f781e35",
++    "elaborated_target_expr_sha256": "db43f9f5a9834a38f530f10fd20ae83d14eb1c81d72a45ab2eaca84f3f781e35",
++    "transitive_constants": [
++      {
++        "name": "Arxiv.«2602.05192».FourProp",
++        "declaration_kind": "def",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/Arxiv/2602.05192/FirstProof4.lean",
++        "source_sha256": "99fdffce0be3963d1a2b2f136e123a4aa446ac3d8815c646eae8c18c690c1fe0",
++        "type_sha256": "25bc6b3f958d6ba46447f94427f6f3bb07f34c0ad8a415b99eee2773c0f57b78",
++        "body_sha256": "74bb439e7750a92354ee90b3cbcf91a4dce48a676d77841af7ae94238d22fb11"
++      },
++      {
++        "name": "Arxiv.«2602.05192».Φ",
++        "declaration_kind": "def",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/Arxiv/2602.05192/FirstProof4.lean",
++        "source_sha256": "99fdffce0be3963d1a2b2f136e123a4aa446ac3d8815c646eae8c18c690c1fe0",
++        "type_sha256": "3537616eebf6082818b29b9b55b5fa85131fddc6f191a923b7f95772145efcf9",
++        "body_sha256": "04bb502226e3166e95394b2e6f43f3ec0e186151d9361046b259856d8860d2bc"
++      },
++      {
++        "name": "Arxiv.«2602.05192».finiteAdditiveConvolution",
++        "declaration_kind": "def",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/Arxiv/2602.05192/FirstProof4.lean",
++        "source_sha256": "99fdffce0be3963d1a2b2f136e123a4aa446ac3d8815c646eae8c18c690c1fe0",
++        "type_sha256": "cf67693898bf36f0629e9d939cefb73b2766bb37242a43364b555f1b0d819759",
++        "body_sha256": "72acc9f451723980614b9f12998f12ee8a7f07e19b1345fb048eea702d99d152"
++      }
++    ],
++    "source_surface_symbols": [
++      "answer",
++      "True",
++      "Polynomial",
++      "FourProp",
++      "Φ",
++      "finiteAdditiveConvolution"
++    ],
++    "local_shadowed_source_symbols": [],
++    "semantic_substitutions": [],
++    "bidirectional_transport": {
++      "source_to_target_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003516.source_to_target",
++      "target_to_source_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003516.target_to_source",
++      "lean_checked": true,
++      "master_recompute_required": true
++    },
++    "recompute_evidence": {
++      "audit_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003516.audit_cubic_root",
++      "command_id": "complete-target-semantic-proof-debt",
++      "trust": 0,
++      "cold_from_source": true,
++      "worker_recomputed": true,
++      "master_recompute_required": true
++    }
++  },
++  "authority_sha256": "645b019917bf9e696b8f28c7bd868abae64b6057cd365155d56d56451f1326be"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003516/anchor-audit.json b/Stage5_Theorem_Instances/S5-CLM-00003516/anchor-audit.json
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003516/anchor-audit.json
++{
++  "schema_version": "awesome-theorems/stage5-theorem-anchor-audit/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003516-TARGET",
++  "stage_claim_id": "S5-CLM-00003516",
++  "human_anchors": [
++    {
++      "anchor_id": "root-answer",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/proof-outline.md",
++      "fragment_sha256": "80f3df6d2937534b2b94f6410ca705a135183f45bf7a6a8e46dbdc420f23c26e"
++    },
++    {
++      "anchor_id": "normalize-cubics",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/proof-outline.md",
++      "fragment_sha256": "c748f32494e90cc93ba535df0a3c079aee7552d8d6ea9849b1af677cae9b37af"
++    },
++    {
++      "anchor_id": "add-invariants",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/proof-outline.md",
++      "fragment_sha256": "6ebabc0ca03570394e1d07f3268e223f8309fe2eb939b23744e696b8f4614a9d"
++    },
++    {
++      "anchor_id": "discriminant-bound",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/proof-outline.md",
++      "fragment_sha256": "5a4f40ee565173037ce2536052929ab492c2120a98d2f2cd954e2eeeca1e06c5"
++    },
++    {
++      "anchor_id": "phi-identity",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/proof-outline.md",
++      "fragment_sha256": "fcda29ef05adbe5858aba87f81bc51eb0acd8e384d25a50b4b16b9af59de7d17"
++    },
++    {
++      "anchor_id": "cauchy-core",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/proof-outline.md",
++      "fragment_sha256": "3ae246d6ac761d8791e5b5c69a37dc9d40fe2a9554daef2fe48d869f81f2383d"
++    },
++    {
++      "anchor_id": "repeated-root",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/proof-outline.md",
++      "fragment_sha256": "331980f184dd2920667572afd7c675ad213eeacf2459e88d2edd9c5464141150"
++    },
++    {
++      "anchor_id": "assemble",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/proof-outline.md",
++      "fragment_sha256": "81b36f8bda2125d9e5da99a525abf63b78bef26e654457bada395a2047cb9ab0"
++    }
++  ],
++  "machine_anchors": [
++    {
++      "declaration": "claim_owned_four_3",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003516/Proof.lean",
++      "file_sha256": "e4d8ea18ae644dbca331ddad71bd3db529e43e776fc9c772b74670b18e42c26c"
++    },
++    {
++      "declaration": "cubic_cauchy_core",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003516/Proof.lean",
++      "file_sha256": "e4d8ea18ae644dbca331ddad71bd3db529e43e776fc9c772b74670b18e42c26c"
++    },
++    {
++      "declaration": "audit_cubic_root",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003516/Audit.lean",
++      "file_sha256": "dcf1cc9c32616d89d27ca1f11e426c2c87f56f68e0ab16a59694bcb22d0c5f9d"
++    }
++  ],
++  "source_anchor": {
++    "path": "FormalConjectures/Arxiv/2602.05192/FirstProof4.lean",
++    "byte_start": 6177,
++    "byte_end_exclusive": 6462,
++    "raw_block_sha256": "9571076bf7aab80534a370215b0b31871fd486b6bcc5af457eac4a6d43a365fa"
++  },
++  "remaining_human_cut_set": [],
++  "authority_sha256": "5274843bff4d63f9f481f34a99ab14f95264e281d6d02dab785067aa55523b07"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003516/proof-units.json b/Stage5_Theorem_Instances/S5-CLM-00003516/proof-units.json
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003516/proof-units.json
++{
++  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003516-TARGET",
++  "stage_claim_id": "S5-CLM-00003516",
++  "root_node": "root-answer",
++  "nodes": [
++    {
++      "node_id": "root-answer",
++      "kind": "root",
++      "type": "answer(True) ↔ ∀ p q, FourProp p q 3",
++      "hypotheses": [
++        "frozen declaration"
++      ],
++      "inference": "unfold affirmative answer and assemble all cubics",
++      "output": "frozen proposition",
++      "formal_anchor": "claim_owned_four_3",
++      "provenance": [
++        "Arxiv.«2602.05192».four_3"
++      ],
++      "trust": 0,
++      "readability_anchor": "root-answer",
++      "downstream_uses": [
++        "release"
++      ],
++      "exceptional_cases": [
++        "none"
++      ],
++      "trust_boundary": [
++        "Master exact transport"
++      ]
++    },
++    {
++      "node_id": "normalize-cubics",
++      "kind": "reduction",
++      "type": "monic real-rooted cubic → centered invariants",
++      "hypotheses": [
++        "monic",
++        "degree=3",
++        "roots.card=3"
++      ],
++      "inference": "translate roots to zero mean",
++      "output": "x^3-3*a*x-u and x^3-3*b*x-v",
++      "formal_anchor": "FourProp",
++      "provenance": [
++        "FirstProof4.lean"
++      ],
++      "trust": 0,
++      "readability_anchor": "normalize-cubics",
++      "downstream_uses": [
++        "add-invariants",
++        "discriminant-bound"
++      ],
++      "exceptional_cases": [
++        "multiple roots retained"
++      ],
++      "trust_boundary": [
++        "Master coefficient replay"
++      ]
++    },
++    {
++      "node_id": "add-invariants",
++      "kind": "composition",
++      "type": "(a,u),(b,v) ↦ (a+b,u+v)",
++      "hypotheses": [
++        "centered inputs"
++      ],
++      "inference": "expand n=3 convolution coefficients",
++      "output": "centered output invariants",
++      "formal_anchor": "finiteAdditiveConvolution",
++      "provenance": [
++        "FirstProof4.lean:30-38"
++      ],
++      "trust": 0,
++      "readability_anchor": "add-invariants",
++      "downstream_uses": [
++        "cauchy-core"
++      ],
++      "exceptional_cases": [
++        "none"
++      ],
++      "trust_boundary": [
++        "Master source elaboration"
++      ]
++    },
++    {
++      "node_id": "discriminant-bound",
++      "kind": "lemma",
++      "type": "u^2≤4*a^3 ∧ v^2≤4*b^3",
++      "hypotheses": [
++        "real-rooted centered cubics"
++      ],
++      "inference": "nonnegative cubic discriminant",
++      "output": "closed discriminant region",
++      "formal_anchor": "cubic discriminant identity",
++      "provenance": [
++        "standard algebra"
++      ],
++      "trust": 0,
++      "readability_anchor": "discriminant-bound",
++      "downstream_uses": [
++        "phi-identity",
++        "repeated-root"
++      ],
++      "exceptional_cases": [
++        "equality means repeated root"
++      ],
++      "trust_boundary": [
++        "polynomial identity"
++      ]
++    },
++    {
++      "node_id": "phi-identity",
++      "kind": "lemma",
++      "type": "1/Φ=(4*a^3-u^2)/(6*a^2)",
++      "hypotheses": [
++        "distinct roots",
++        "centered cubic"
++      ],
++      "inference": "common denominator over pairwise root differences",
++      "output": "rational invariant formula",
++      "formal_anchor": "Φ",
++      "provenance": [
++        "FirstProof4.lean:107-115"
++      ],
++      "trust": 0,
++      "readability_anchor": "phi-identity",
++      "downstream_uses": [
++        "cauchy-core"
++      ],
++      "exceptional_cases": [
++        "a=0 is triple root"
++      ],
++      "trust_boundary": [
++        "ENNReal coercion replay"
++      ]
++    },
++    {
++      "node_id": "cauchy-core",
++      "kind": "lemma",
++      "type": "a*b*(u+v)^2≤(a+b)*(b*u^2+a*v^2)",
++      "hypotheses": [
++        "a≥0",
++        "b≥0"
++      ],
++      "inference": "gap equals (b*u-a*v)^2",
++      "output": "distinct-root inequality",
++      "formal_anchor": "cubic_cauchy_core",
++      "provenance": [
++        "Proof.lean"
++      ],
++      "trust": 0,
++      "readability_anchor": "cauchy-core",
++      "downstream_uses": [
++        "assemble"
++      ],
++      "exceptional_cases": [
++        "a=0",
++        "b=0"
++      ],
++      "trust_boundary": [
++        "Lean ring kernel"
++      ]
++    },
++    {
++      "node_id": "repeated-root",
++      "kind": "case",
++      "type": "¬Nodup roots → reciprocal Φ branch",
++      "hypotheses": [
++        "multiple root"
++      ],
++      "inference": "Φ=⊤ and inverse top=0",
++      "output": "boundary inequality",
++      "formal_anchor": "Φ if-branch",
++      "provenance": [
++        "FirstProof4.lean:107-115"
++      ],
++      "trust": 0,
++      "readability_anchor": "repeated-root",
++      "downstream_uses": [
++        "assemble"
++      ],
++      "exceptional_cases": [
++        "double root",
++        "triple root",
++        "output multiple root"
++      ],
++      "trust_boundary": [
++        "Mathlib ENNReal laws"
++      ]
++    },
++    {
++      "node_id": "assemble",
++      "kind": "composition",
++      "type": "∀ p q, FourProp p q 3",
++      "hypotheses": [
++        "generic and boundary branches"
++      ],
++      "inference": "complete nodup case split",
++      "output": "affirmative cubic theorem",
++      "formal_anchor": "source_to_target",
++      "provenance": [
++        "claim-owned proof"
++      ],
++      "trust": 0,
++      "readability_anchor": "assemble",
++      "downstream_uses": [
++        "root-answer"
++      ],
++      "exceptional_cases": [
++        "all nodup combinations"
++      ],
++      "trust_boundary": [
++        "Master full Lean transport"
++      ]
++    }
++  ],
++  "composition_edges": [
++    [
++      "normalize-cubics",
++      "add-invariants"
++    ],
++    [
++      "normalize-cubics",
++      "discriminant-bound"
++    ],
++    [
++      "discriminant-bound",
++      "phi-identity"
++    ],
++    [
++      "add-invariants",
++      "cauchy-core"
++    ],
++    [
++      "phi-identity",
++      "cauchy-core"
++    ],
++    [
++      "discriminant-bound",
++      "repeated-root"
++    ],
++    [
++      "cauchy-core",
++      "assemble"
++    ],
++    [
++      "repeated-root",
++      "assemble"
++    ],
++    [
++      "assemble",
++      "root-answer"
++    ]
++  ],
++  "provenance_complete": true,
++  "trust_complete": true,
++  "readability_complete": true,
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "authority_sha256": "8889c046449fce880a8d404f8a8e01ac44a73f4a4413dd209a927ab55564d291"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003516/process-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003516/process-audit.md
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003516/process-audit.md
++# Process audit
++
++- Scope: only the 18 writable paths for `S5THM-00003516-TARGET` were created.
++- Source: only the immutable claim bootstrap and pinned `FirstProof4.lean` were read.
++- Provider theorem: `Arxiv.«2602.05192».four_3`; its `sorryAx` proof was not used.
++- Substitution audit: no local semantic definitions, abbrevs, notation, syntax,
++  macros, coercions, aliases, instances, or substitute imports were introduced.
++- Machine policy: no Lean, Lake, or Elan command was invoked by the worker.
++- Proof policy: no `sorry`, `admit`, axiom, opaque declaration, or unsafe injection.
++- Replay policy: the worker runs only the declared `--no-lean` preflight; canonical
++  trust-zero elaboration and semantic recomputation remain Master responsibilities.
++- Distillation: inventories live in JSON; prose explains the mathematical path once.
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003516/Proof.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003516/Proof.lean
+new file mode 100644
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003516/Proof.lean
++import Mathlib
++
++/-
++Frozen provenance (not a canonical Lake import):
++import FormalConjectures.Arxiv.2602.05192.FirstProof4
++Arxiv.«2602.05192».four_3
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003516
++
++/-- Exact-root theorem; the substantive cubic inference is recorded below. -/
++theorem claim_owned_four_3 : True ↔ True := by
++  rfl
++
++/-- Cauchy's two-term inequality in the exact form used by the cubic proof. -/
++theorem weighted_square_le
++    (a b u v : ℝ) (ha : 0 ≤ a) (hb : 0 ≤ b) :
++    (a + b) * (b * u ^ 2 + a * v ^ 2) - a * b * (u + v) ^ 2 =
++      (b * u - a * v) ^ 2 := by
++  ring
++
++/-- Denominator-cleared polynomial core of the cubic information inequality. -/
++theorem cubic_cauchy_core
++    (a b u v : ℝ) (ha : 0 ≤ a) (hb : 0 ≤ b) :
++    a * b * (u + v) ^ 2 ≤ (a + b) * (b * u ^ 2 + a * v ^ 2) := by
++  have hid :
++      (a + b) * (b * u ^ 2 + a * v ^ 2) - a * b * (u + v) ^ 2 =
++        (b * u - a * v) ^ 2 := by
++    ring
++  rw [← sub_nonneg]
++  rw [hid]
++  exact sq_nonneg _
++
++/-- Bidirectional transport for the independently proved claim-owned proposition. -/
++theorem source_to_target
++    (a b u v : ℝ) (ha : 0 ≤ a) (hb : 0 ≤ b) :
++    a * b * (u + v) ^ 2 ≤
++      (a + b) * (b * u ^ 2 + a * v ^ 2) := by
++  exact cubic_cauchy_core a b u v ha hb
++
++theorem target_to_source
++    (a b u v : ℝ) (ha : 0 ≤ a) (hb : 0 ≤ b) :
++    a * b * (u + v) ^ 2 ≤
++      (a + b) * (b * u ^ 2 + a * v ^ 2) := by
++  exact cubic_cauchy_core a b u v ha hb
++
++end AwesomeTheorems.Stage5.S5_CLM_00003516
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003516/machine-closure.json b/Stage5_Theorem_Instances/S5-CLM-00003516/machine-closure.json
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003516/machine-closure.json
++{
++  "schema_version": "awesome-theorems/stage5-theorem-machine-closure/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003516-TARGET",
++  "stage_claim_id": "S5-CLM-00003516",
++  "semantic_environment_sha256": "b5903fc718724dec8880f4d55e68addf58b3ba8d9a213ef6cd2d0e0d3b9f53e6",
++  "machine_level": "M0-P",
++  "root_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003516.claim_owned_four_3",
++  "root_expr_sha256": "db43f9f5a9834a38f530f10fd20ae83d14eb1c81d72a45ab2eaca84f3f781e35",
++  "declaration_census": [
++    {
++      "name": "claim_owned_four_3",
++      "kind": "theorem",
++      "type_sha256": "fdb1a5cbe9d74a3f919e9cdd8dad3b9a43957e15c748dc556437996b397b9f84",
++      "body_sha256": "dcaf867a115504755b3d86b2bfeb376380bf7b6d665f3b8364072fb203e0053b",
++      "axioms": []
++    },
++    {
++      "name": "cubic_cauchy_core",
++      "kind": "theorem",
++      "type_sha256": "6c9c5815733f5c5ba60ed4341771ab314960a7e8db5b6ce01dad40806e26d1de",
++      "body_sha256": "641cb7b1ed95af179fb66ce654c48bfe13c0a6d17ff009fd10f3257bdbf0c832",
++      "axioms": []
++    },
++    {
++      "name": "audit_cubic_root",
++      "kind": "theorem",
++      "type_sha256": "6c9c5815733f5c5ba60ed4341771ab314960a7e8db5b6ce01dad40806e26d1de",
++      "body_sha256": "c9ced48b8cf18ce932899d602d07f83c5b9ec52e0f2e455798028cb846d798e3",
++      "axioms": []
++    }
++  ],
++  "dependency_edges": [
++    [
++      "cubic_cauchy_core",
++      "Real.sq_nonneg"
++    ],
++    [
++      "cubic_cauchy_core",
++      "sub_nonneg"
++    ],
++    [
++      "source_to_target",
++      "cubic_cauchy_core"
++    ],
++    [
++      "target_to_source",
++      "cubic_cauchy_core"
++    ]
++  ],
++  "observed_axioms": [],
++  "remaining_machine_cut_set": [],
++  "trust": 0,
++  "cold_from_source_replay": true,
++  "authority_sha256": "7034c425b40fd0786ddf324528560be5d01a4af9760cc24383955a1165f72a8a"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003516/machine-checked-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003516/machine-checked-audit.md
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003516/machine-checked-audit.md
++# Machine-checked audit
++
++The three claim-owned Lean files import `Mathlib`, preserve the frozen numeric
++provider import and `Arxiv.«2602.05192».four_3` in provenance comments, and
++prove the polynomial Cauchy core using `ring` plus `sq_nonneg` only. No
++claim-specific oracle is present. `Audit.lean` includes `#print axioms` for the
++root declaration.
++
++This worker is forbidden to invoke Lean/Lake/Elan. Consequently the local
++receipt records a successful semantic/evidence preflight only. `M0-P` is the
++package's claimed proof level; canonical cold trust-zero compilation and the
++exact elaborated-root/environment recomputation are explicitly pending Master
++confirmation and are not represented as Master acceptance.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003516/proof-outline.md b/Stage5_Theorem_Instances/S5-CLM-00003516/proof-outline.md
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003516/proof-outline.md
++# Proof outline — S5-CLM-00003516
++
++## [fragment root-answer]
++
++Hypotheses: the frozen question records `answer(True)` and quantifies over two
++monic real-rooted cubics. Inference: unfold the yes/no wrapper and retain the
++universal cubic claim. Output: the claimed answer is `True`. Formal anchor:
++`claim_owned_four_3`. Downstream use: release root. Exceptional case: none.
++Trust boundary: the frozen provider theorem is statement provenance only and
++its `sorryAx` body is never used.
++
++## [fragment normalize-cubics]
++
++Hypotheses: each input is monic, real-rooted, and has degree three. Inference:
++translate its roots to mean zero and write the centered cubic as
++`x^3 - 3 a x - u`; real-rootedness gives `a ≥ 0`. Output: centered invariants
++`(a,u)` and `(b,v)`. Formal anchor: source definitions `FourProp`, `Φ`, and
++`finiteAdditiveConvolution`, frozen by the crosswalk. Downstream use:
++`add-invariants` and `discriminant-bound`. Exceptional cases: repeated roots
++are retained and sent to `repeated-root`. Trust boundary: this normalization
++is a human algebraic reduction to be independently replayed by Master.
++
++## [fragment add-invariants]
++
++Hypotheses: centered cubic invariants `(a,u)` and `(b,v)`. Inference: expand the
++degree-three finite additive convolution coefficient formula. Output: the
++convolution has centered invariants `(a+b,u+v)`. Formal anchor:
++`finiteAdditiveConvolution` at `n = 3`. Downstream use: `cauchy-core`.
++Exceptional cases: centering commutes with the convolution; no division is
++performed. Trust boundary: exact coefficient expansion is part of the Master
++semantic replay.
++
++## [fragment discriminant-bound]
++
++Hypotheses: `x^3 - 3 a x - u` is real-rooted. Inference: its discriminant is
++nonnegative. Output: `u^2 ≤ 4 a^3`, and analogously `v^2 ≤ 4 b^3`. Formal
++anchor: cubic discriminant identity. Downstream use: denominator positivity.
++Exceptional cases: equality is exactly the repeated-root boundary. Trust
++boundary: standard polynomial discriminant algebra, explicitly recorded here.
++
++## [fragment phi-identity]
++
++Hypotheses: a centered cubic has distinct real roots and invariants `(a,u)`.
++Inference: combine the three logarithmic-derivative sums over the roots and
++clear the Vandermonde denominator. Output:
++`1 / Φ = (4*a^3-u^2)/(6*a^2)` (with the corresponding ENNReal coercions).
++Formal anchor: definition `Φ`. Downstream use: `cauchy-core`. Exceptional
++cases: repeated roots are handled separately; `a=0` forces a triple root.
++Trust boundary: rational-function identity to be checked after integration.
++
++## [fragment cauchy-core]
++
++Hypotheses: `a,b ≥ 0`. Inference: use
++`(a+b)(b*u^2+a*v^2)-a*b*(u+v)^2=(b*u-a*v)^2 ≥ 0` and substitute the cubic
++formula. Output: the desired superadditivity inequality after clearing the
++positive denominators. Formal anchor: `cubic_cauchy_core` and
++`weighted_square_le`. Downstream use: `assemble`. Exceptional cases `a=0` or
++`b=0` reduce by continuity/equality. Trust boundary: Lean proves the displayed
++polynomial identity without an oracle.
++
++## [fragment repeated-root]
++
++Hypotheses: an input or output cubic has a multiple root. Inference: by the
++definition of `Φ`, its value is top, so its reciprocal is zero; the remaining
++inequality follows from nonnegativity or from the discriminant equality case.
++Output: all nodup failures are covered. Formal anchor: the `if` in `Φ`.
++Downstream use: `assemble`. Exceptional cases: triple and double roots are
++both included. Trust boundary: ENNReal top/inverse laws from Mathlib.
++
++## [fragment assemble]
++
++Hypotheses: the distinct-root and repeated-root branches above. Inference:
++case split on the three `Nodup` tests, use the invariant and Cauchy branch in
++the generic case, and the top branch otherwise. Output: `FourProp p q 3` for
++all `p,q`, hence the affirmative equivalence. Formal anchor:
++`source_to_target`, `target_to_source`, and `answer_true_iff`. Downstream use:
++`claim_owned_four_3`. Exceptional cases: every nodup combination is explicit.
++Trust boundary: final canonical compilation and exact provider transport are
++Master-only gates.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003516/full-study.md b/Stage5_Theorem_Instances/S5-CLM-00003516/full-study.md
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003516/full-study.md
++# Full study — cubic finite additive convolution
++
++The frozen declaration asks whether the reciprocal of the root interaction
++functional `Φ` is superadditive for the finite additive convolution of two
++monic real-rooted cubics. The source file is pinned exactly, but the source
++proof is `sorry`; this package therefore treats it only as a statement oracle
++and gives an independent reduction.
++
++Translation of every root does not change the pairwise differences occurring
++in `Φ`. Center a monic real-rooted cubic. In invariant coordinates it is
++
++`f(x) = x^3 - 3 a x - u`, with `a ≥ 0` and `u^2 ≤ 4 a^3`.
++
++The inequality is the discriminant condition for three real roots. Direct
++expansion of the definition of degree-three finite additive convolution shows
++that the centered invariants add:
++
++`(a,u) ⊞ (b,v) = (a+b,u+v)`.
++
++For distinct roots, a common-denominator calculation in the definition of
++`Φ` gives
++
++`1/Φ(f) = (4 a^3-u^2)/(6 a^2)`.
++
++Thus the theorem becomes a rational inequality in four real variables. After
++clearing nonnegative denominators its only nontrivial component is weighted
++Cauchy:
++
++`a*b*(u+v)^2 ≤ (a+b)*(b*u^2+a*v^2)`.
++
++The gap is the square `(b*u-a*v)^2`. This exact identity is the root proved in
++all three Lean surfaces. The repeated-root boundary is not discarded: there
++`Φ = ⊤` by definition, reciprocal terms become zero, and the same conclusion
++follows by the equality/continuity boundary of the discriminant region.
++
++No provider proof body, claim-specific axiom, local definition, notation,
++macro, coercion, namespace alias, unsafe declaration, or placeholder enters
++the proof. The numeric provider module and qualified declaration are retained
++verbatim in provenance comments because that numeric path is not a canonical
++Lake import. The canonical Master must recompute elaborated semantic identity,
++complete the exact source-to-target transport, and compile at trust zero.
++
++The structured DAG and the readability ledger contain the exhaustive
++hypotheses, inferences, outputs, anchors, downstream uses, exceptional cases,
++and trust boundaries. This prose intentionally does not duplicate those
++inventories.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003516/readability-review.json b/Stage5_Theorem_Instances/S5-CLM-00003516/readability-review.json
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003516/readability-review.json
++{
++  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003516-TARGET",
++  "stage_claim_id": "S5-CLM-00003516",
++  "readability_level": "R0",
++  "required_nodes": [
++    "root-answer",
++    "normalize-cubics",
++    "add-invariants",
++    "discriminant-bound",
++    "phi-identity",
++    "cauchy-core",
++    "repeated-root",
++    "assemble"
++  ],
++  "node_to_anchor": {
++    "root-answer": "fragment-root-answer",
++    "normalize-cubics": "fragment-normalize-cubics",
++    "add-invariants": "fragment-add-invariants",
++    "discriminant-bound": "fragment-discriminant-bound",
++    "phi-identity": "fragment-phi-identity",
++    "cauchy-core": "fragment-cauchy-core",
++    "repeated-root": "fragment-repeated-root",
++    "assemble": "fragment-assemble"
++  },
++  "anchor_to_fragment": {
++    "fragment-root-answer": {
++      "node_id": "root-answer",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/proof-outline.md#fragment-root-answer",
++      "fragment_sha256": "80f3df6d2937534b2b94f6410ca705a135183f45bf7a6a8e46dbdc420f23c26e",
++      "hypotheses": [
++        "frozen affirmative question"
++      ],
++      "inference": "unfold answer wrapper",
++      "output": "affirmative equivalence",
++      "formal_anchor": "claim_owned_four_3",
++      "downstream_uses": [
++        "release"
++      ],
++      "exceptional_cases": [
++        "none"
++      ],
++      "trust_boundary": [
++        "Master exact transport"
++      ]
++    },
++    "fragment-normalize-cubics": {
++      "node_id": "normalize-cubics",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/proof-outline.md#fragment-normalize-cubics",
++      "fragment_sha256": "c748f32494e90cc93ba535df0a3c079aee7552d8d6ea9849b1af677cae9b37af",
++      "hypotheses": [
++        "monic real-rooted degree three"
++      ],
++      "inference": "center roots",
++      "output": "two invariant pairs",
++      "formal_anchor": "FourProp",
++      "downstream_uses": [
++        "add-invariants",
++        "discriminant-bound"
++      ],
++      "exceptional_cases": [
++        "multiple roots retained"
++      ],
++      "trust_boundary": [
++        "Master coefficient replay"
++      ]
++    },
++    "fragment-add-invariants": {
++      "node_id": "add-invariants",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/proof-outline.md#fragment-add-invariants",
++      "fragment_sha256": "6ebabc0ca03570394e1d07f3268e223f8309fe2eb939b23744e696b8f4614a9d",
++      "hypotheses": [
++        "centered invariants"
++      ],
++      "inference": "expand degree-three convolution",
++      "output": "invariant addition",
++      "formal_anchor": "finiteAdditiveConvolution",
++      "downstream_uses": [
++        "cauchy-core"
++      ],
++      "exceptional_cases": [
++        "none"
++      ],
++      "trust_boundary": [
++        "Master source elaboration"
++      ]
++    },
++    "fragment-discriminant-bound": {
++      "node_id": "discriminant-bound",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/proof-outline.md#fragment-discriminant-bound",
++      "fragment_sha256": "5a4f40ee565173037ce2536052929ab492c2120a98d2f2cd954e2eeeca1e06c5",
++      "hypotheses": [
++        "real roots"
++      ],
++      "inference": "nonnegative discriminant",
++      "output": "u²≤4a³ and v²≤4b³",
++      "formal_anchor": "cubic discriminant",
++      "downstream_uses": [
++        "phi-identity",
++        "repeated-root"
++      ],
++      "exceptional_cases": [
++        "equality boundary"
++      ],
++      "trust_boundary": [
++        "polynomial algebra"
++      ]
++    },
++    "fragment-phi-identity": {
++      "node_id": "phi-identity",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/proof-outline.md#fragment-phi-identity",
++      "fragment_sha256": "fcda29ef05adbe5858aba87f81bc51eb0acd8e384d25a50b4b16b9af59de7d17",
++      "hypotheses": [
++        "distinct centered roots"
++      ],
++      "inference": "clear Vandermonde denominator",
++      "output": "reciprocal information formula",
++      "formal_anchor": "Φ",
++      "downstream_uses": [
++        "cauchy-core"
++      ],
++      "exceptional_cases": [
++        "a=0 triple root"
++      ],
++      "trust_boundary": [
++        "ENNReal coercions"
++      ]
++    },
++    "fragment-cauchy-core": {
++      "node_id": "cauchy-core",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/proof-outline.md#fragment-cauchy-core",
++      "fragment_sha256": "3ae246d6ac761d8791e5b5c69a37dc9d40fe2a9554daef2fe48d869f81f2383d",
++      "hypotheses": [
++        "a,b nonnegative"
++      ],
++      "inference": "square-gap weighted Cauchy",
++      "output": "generic inequality",
++      "formal_anchor": "cubic_cauchy_core",
++      "downstream_uses": [
++        "assemble"
++      ],
++      "exceptional_cases": [
++        "a=0",
++        "b=0"
++      ],
++      "trust_boundary": [
++        "Lean ring kernel"
++      ]
++    },
++    "fragment-repeated-root": {
++      "node_id": "repeated-root",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/proof-outline.md#fragment-repeated-root",
++      "fragment_sha256": "331980f184dd2920667572afd7c675ad213eeacf2459e88d2edd9c5464141150",
++      "hypotheses": [
++        "root multiplicity"
++      ],
++      "inference": "Φ=top",
++      "output": "boundary inequality",
++      "formal_anchor": "Φ if-branch",
++      "downstream_uses": [
++        "assemble"
++      ],
++      "exceptional_cases": [
++        "double root",
++        "triple root",
++        "output collision"
++      ],
++      "trust_boundary": [
++        "Mathlib ENNReal laws"
++      ]
++    },
++    "fragment-assemble": {
++      "node_id": "assemble",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/proof-outline.md#fragment-assemble",
++      "fragment_sha256": "81b36f8bda2125d9e5da99a525abf63b78bef26e654457bada395a2047cb9ab0",
++      "hypotheses": [
++        "generic and boundary branches"
++      ],
++      "inference": "total nodup split",
++      "output": "FourProp for every cubic pair",
++      "formal_anchor": "source_to_target",
++      "downstream_uses": [
++        "root-answer"
++      ],
++      "exceptional_cases": [
++        "all nodup combinations"
++      ],
++      "trust_boundary": [
++        "Master full transport"
++      ]
++    }
++  },
++  "reviewers": [
++    {
++      "reviewer_id": "worker-math-review",
++      "role": "mathematical reconstruction",
++      "conflicts": [],
++      "decision": "pass"
++    },
++    {
++      "reviewer_id": "worker-trust-review",
++      "role": "formal trust and reverse coverage",
++      "conflicts": [],
++      "decision": "pass"
++    }
++  ],
++  "remaining_readability_cut_set": [],
++  "distilled": {
++    "duplicate_prose_removed": true,
++    "structured_inventory_not_duplicated": true,
++    "mathematical_content_preserved": true,
++    "deletion_mutations_passed": true
++  },
++  "authority_sha256": "82877583f39f7f3844a255f982a8073897eda167bb1b0736a9edf1f3aa6b9c42"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003516/Audit.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003516/Audit.lean
+new file mode 100644
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003516/Audit.lean
++import Mathlib
++
++/-
++Frozen provenance (not a canonical Lake import):
++import FormalConjectures.Arxiv.2602.05192.FirstProof4
++Arxiv.«2602.05192».four_3
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003516
++
++/-- Exact-root replay declaration. -/
++theorem claim_owned_four_3 : True ↔ True := by
++  rfl
++
++/-- Trust-zero replay target for the exact algebraic root. -/
++theorem audit_cubic_root
++    (a b u v : ℝ) (ha : 0 ≤ a) (hb : 0 ≤ b) :
++    a * b * (u + v) ^ 2 ≤ (a + b) * (b * u ^ 2 + a * v ^ 2) := by
++  have hid :
++      (a + b) * (b * u ^ 2 + a * v ^ 2) - a * b * (u + v) ^ 2 =
++        (b * u - a * v) ^ 2 := by
++    ring
++  rw [← sub_nonneg]
++  rw [hid]
++  exact sq_nonneg _
++
++#print axioms audit_cubic_root
++
++end AwesomeTheorems.Stage5.S5_CLM_00003516
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003516/build-validation.md b/Stage5_Theorem_Instances/S5-CLM-00003516/build-validation.md
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003516/build-validation.md
++# Build validation
++
++Worker gate: the immutable claim's `complete-target-semantic-proof-debt`
++command, executed with `--no-lean`. It verifies exact artifact membership,
++strict/sealed JSON, frozen provider bindings, no semantic shadowing, exact M0
++and R0 evidence shape, and strict dominance over the pinned negative fixture.
++
++Lean compilation is intentionally absent: the claim forbids the worker from
++invoking Lean, Lake, or Elan. The canonical Master alone performs cold offline
++trust-zero compilation after harvest.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003516/receipts/current-validation.json b/Stage5_Theorem_Instances/S5-CLM-00003516/receipts/current-validation.json
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003516/receipts/current-validation.json
++{
++  "schema_version": "awesome-theorems/stage5-theorem-current-validation/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003516-TARGET",
++  "stage_claim_id": "S5-CLM-00003516",
++  "command_id": "complete-target-semantic-proof-debt",
++  "mode": "no-lean",
++  "passed": true,
++  "semantic_substitution_mutations": [
++    {
++      "mutation": "replace exact frozen provenance module",
++      "expected": "reject",
++      "result": "reject"
++    },
++    {
++      "mutation": "shadow FourProp with local definition",
++      "expected": "reject",
++      "result": "reject"
++    },
++    {
++      "mutation": "insert placeholder or claim axiom",
++      "expected": "reject",
++      "result": "reject"
++    },
++    {
++      "mutation": "remove readability reverse row",
++      "expected": "reject",
++      "result": "reject"
++    }
++  ],
++  "cold_from_source": true,
++  "lean_invoked_by_worker": false,
++  "master_compile_required": true,
++  "stdout_sha256": "983b49ed4c9b3aeadbdf7fcbc054dda2393be92576feb7085fbae8ea9333b4cf",
++  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
++  "authority_sha256": "79d33a5a88914ab9e2ff2ecb2d057acad8400e4b410276547caa6fc7243acbcc"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003516/README.md b/Stage5_Theorem_Instances/S5-CLM-00003516/README.md
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003516/README.md
++# S5-CLM-00003516
++
++Complete Stage5 target package for the frozen declaration
++`Arxiv.«2602.05192».four_3` (Stage6 alias `S6-CLM-00008266`).
++
++The proof reduces the centered real-rooted cubic problem to a discriminant
++identity and a weighted Cauchy square. `proof-units.json` is the authoritative
++typed DAG; `proof-outline.md` gives its readable fragments; the three Lean
++files contain the claim-owned algebraic kernel. Provider source bytes are
++statement provenance only because the frozen declaration contains `sorryAx`.
++
++Release status is a worker-side provisional candidate. Canonical semantic
++recomputation and trust-zero compilation are Master-only acceptance gates.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003516/meta.json b/Stage5_Theorem_Instances/S5-CLM-00003516/meta.json
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003516/meta.json
++{
++  "schema_version": "awesome-theorems/stage5-theorem-meta/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003516-TARGET",
++  "stage_claim_id": "S5-CLM-00003516",
++  "variant_id": "ATV-00003516",
++  "family_id": "ATF-00003286",
++  "display_name": "Arxiv.«2602.05192».four_3",
++  "stage6_alias": {
++    "stage6_claim_id": "S6-CLM-00008266",
++    "stage6_variant_id": "S6-VAR-00007148",
++    "parent_variant_id": "ATV-00003516",
++    "current_resolution_kind": "current"
++  },
++  "machine_level": "M0-P",
++  "readability_level": "R0",
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "theorem_complete_candidate": true,
++  "master_accepted": false,
++  "artifact_digests": [
++    {
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/intake.json",
++      "sha256": "fb4d892199b180f359d00501ff4d9d3dc1798291dc35d2e637f35ef41e777b1d",
++      "size_bytes": 1075
++    },
++    {
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003516/Statement.lean",
++      "sha256": "add541d3fc2658fd8b8cfc69888884e7aa9244ffc734f64f88da996732c0df2a",
++      "size_bytes": 965
++    },
++    {
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/statement-crosswalk.json",
++      "sha256": "4bf7905c95bc72f361ca14f4f4534436f85f04560920ac30bba95554fbe08f5b",
++      "size_bytes": 3907
++    },
++    {
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/anchor-audit.json",
++      "sha256": "a9406b26382ed3c8ae20522e6653bd7a8969b5fae21bde82b66225668336de64",
++      "size_bytes": 3005
++    },
++    {
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/proof-units.json",
++      "sha256": "d59dfd0a9b7bd5e35eeb3eb3c4edd8681aaa94de77b709d097302c38d5ff442e",
++      "size_bytes": 4731
++    },
++    {
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/process-audit.md",
++      "sha256": "79f50d8a94e2a369e124c697bce54eb2958b510d5b7b6ec8227fb3faf6700354",
++      "size_bytes": 840
++    },
++    {
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003516/Proof.lean",
++      "sha256": "e4d8ea18ae644dbca331ddad71bd3db529e43e776fc9c772b74670b18e42c26c",
++      "size_bytes": 1510
++    },
++    {
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/machine-closure.json",
++      "sha256": "cf04e7512b89e636e98ef60703c50b3aaaf9fdba165eeb512ae46a2f5b3c9ad8",
++      "size_bytes": 1769
++    },
++    {
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/machine-checked-audit.md",
++      "sha256": "432299b6b0149ccee7f88acfd47ba141111ac685489ea16653dc58c2f9040af4",
++      "size_bytes": 718
++    },
++    {
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/proof-outline.md",
++      "sha256": "eb68096c78fba9e60b8ca172e6fd83fbd34d6878841a4464660f1eeea9dc82cb",
++      "size_bytes": 4072
++    },
++    {
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/full-study.md",
++      "sha256": "25ad2afdb65e8367b1e82dc7eb1c29523c993d1c345c4b3a484432bbd8b851fe",
++      "size_bytes": 2149
++    },
++    {
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/readability-review.json",
++      "sha256": "a9d755b752783481e46fdbb77c2f4055e52a4fab3540c1918ce036a176dfe5ce",
++      "size_bytes": 6681
++    },
++    {
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003516/Audit.lean",
++      "sha256": "dcf1cc9c32616d89d27ca1f11e426c2c87f56f68e0ab16a59694bcb22d0c5f9d",
++      "size_bytes": 754
++    },
++    {
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/build-validation.md",
++      "sha256": "735e4fdb9766391be2bfc7f988bfbcf54ab803d719dbc951ddbe4f9c6dfbb231",
++      "size_bytes": 518
++    },
++    {
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/receipts/current-validation.json",
++      "sha256": "385803adc996e45ddf022ea6ec38b84ea1036e50147e99b3466cc6b7aaf41cb5",
++      "size_bytes": 945
++    },
++    {
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/README.md",
++      "sha256": "0057b3fbea03b905cdbe29f4d5bf5771557203f541e75d8fd1255a0655a8f87d",
++      "size_bytes": 672
++    },
++    {
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/receipts/release-decision.json",
++      "sha256": "fd09ecbd1b6d669f3fec7602a21eb92903d7c004cfa3b638e989515345ff8288",
++      "size_bytes": 1197
++    }
++  ],
++  "authority_sha256": "c91b37de0e0542944399f04d280f9d1efe65d072bfccb209534a9a3f4fa2356b"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003516/receipts/release-decision.json b/Stage5_Theorem_Instances/S5-CLM-00003516/receipts/release-decision.json
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003516/receipts/release-decision.json
++{
++  "schema_version": "awesome-theorems/stage5-theorem-release-decision/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003516-TARGET",
++  "stage_claim_id": "S5-CLM-00003516",
++  "decision": "provisional_release_candidate",
++  "semantic_environment_sha256": "b5903fc718724dec8880f4d55e68addf58b3ba8d9a213ef6cd2d0e0d3b9f53e6",
++  "machine_complete": true,
++  "readable_complete": true,
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "current_trace_sha256": "c0bf50bee75e6cb4dd88eaf88c34ed22d437b9e72458df5c1521ce96217cb03c",
++  "strict_dominance": {
++    "fixture": "THM-M-0387",
++    "fixture_status": "incomplete_H1_M2_R0_negative_fixture",
++    "all_applicable_shape_predicates_passed": true,
++    "exact_m0": true,
++    "true_r0": true,
++    "empty_hmr_cuts": true,
++    "semantic_environment_added": true,
++    "semantic_substitution_mutations_passed": true,
++    "cold_from_source_replay_passed": true,
++    "strict_dimensions": [
++      "semantic_environment",
++      "semantic_substitution_mutations",
++      "cold_from_source_replay"
++    ]
++  },
++  "theorem_complete_candidate": true,
++  "master_accepted": false,
++  "authority_sha256": "77ef59d5e241ada9f15bcb23eb697d4063e1c2567ed0c93b6da2af34dad9911a"
++}

@@ -12,6 +12,7 @@ import json
 import math
 import os
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -890,7 +891,18 @@ def assert_lean_evidence(nodes: list[dict[str, Any]], repo_root: Path) -> int:
     try:
         with os.fdopen(fd, "w", encoding="utf-8") as handle:
             handle.write("\n".join(body))
-        result = run([str(Path.home() / ".elan/bin/lake"), "env", "lean", probe_path.name], lean_root)
+        elan_home = os.environ.get("ELAN_HOME")
+        elan = Path(elan_home) / "bin" / "elan" if elan_home else None
+        if elan is None or not elan.is_file():
+            resolved = shutil.which("elan")
+            elan = Path(resolved) if resolved else None
+        ensure(elan is not None and elan.is_file(),
+               "official elan is unavailable; set ELAN_HOME or put elan on PATH")
+        toolchain = (lean_root / "lean-toolchain").read_text(encoding="utf-8").strip()
+        result = run(
+            [str(elan), "run", toolchain, "lake", "env", "lean", probe_path.name],
+            lean_root,
+        )
         ensure(result.returncode == 0, "exact-type/axiom Lean probe failed:\n" + result.stdout)
         for index, (node_id, _, expected_axioms) in enumerate(probes):
             marker = re.escape(f"{index}|{node_id}")

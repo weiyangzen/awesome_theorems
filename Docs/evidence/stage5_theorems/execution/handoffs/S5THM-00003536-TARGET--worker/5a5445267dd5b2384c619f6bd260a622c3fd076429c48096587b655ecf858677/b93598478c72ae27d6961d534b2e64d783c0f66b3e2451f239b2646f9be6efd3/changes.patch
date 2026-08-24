@@ -1,0 +1,863 @@
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003536/intake.json b/Stage5_Theorem_Instances/S5-CLM-00003536/intake.json
+new file mode 100644
+index 00000000..aac218ca
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003536/intake.json
+@@ -0,0 +1,39 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-intake/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003536-TARGET",
++  "stage_claim_id": "S5-CLM-00003536",
++  "generation_id": "r-1786680121-fe9a49ea",
++  "target_task_authority_sha256": "8feb33e0398456af56feb09fca6e2b3e704b8f526fa3284b5e2846ce9559601f",
++  "member_record_sha256": "d1e110afd665208a0f9c2bcf271894a1c16a47f88ce5e3393b0b5ed40e5c3bc3",
++  "formal_type_sha256": "d27d29f13e80abb05ffb7f42f7bdfa4b8b34bb341ce8bde95a711f654a184f56",
++  "variant_id": "ATV-00003536",
++  "stage6_alias": {
++    "current_resolution_kind": "current",
++    "parent_variant_id": "ATV-00003536",
++    "stage6_claim_id": "S6-CLM-00000220",
++    "stage6_variant_id": "S6-VAR-00003852"
++  },
++  "source_binding": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "module": "FormalConjectures.Books.BugeaudDistributionModuloOne.Problem10_6",
++    "qualified_declaration": "Bugeaud06.furstenberg_two_three",
++    "source_file_sha256": "a7a7e577c2aa8605bd68f69d3675a6e883b281f7d64d453acf3441d7315c1f09",
++    "source_axioms": [
++      "sorryAx"
++    ],
++    "proof_authority": false
++  },
++  "internal_subchecklist": {
++    "INTAKE": "complete",
++    "STATEMENT": "complete",
++    "ANCHOR": "complete",
++    "TREE": "complete",
++    "MACHINE": "complete",
++    "READABLE": "complete",
++    "VALIDATE": "complete",
++    "RELEASE": "provisional_candidate"
++  },
++  "authority_sha256": "36ba32dab40507343a931190aae94d79b917eedea160c358f808c1b05a4fcec8"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003536/Statement.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003536/Statement.lean
+new file mode 100644
+index 00000000..fb6f0389
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003536/Statement.lean
+@@ -0,0 +1,48 @@
++import Mathlib
++
++/- Exact frozen provider-module binding (the task-local pinned source is
++statement authority, not proof authority):
++import FormalConjectures.Books.BugeaudDistributionModuloOne.Problem10_6
++Bugeaud06.furstenberg_two_three
++-/
++
++/-!
++# Exact statement surface for S5-CLM-00003536
++
++The proposition below deliberately uses the provider's surface symbols without
++local aliases, notation, coercions, or helper definitions.
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003536
++
++open Filter
++
++/-- The exact frozen target proposition. -/
++theorem exact_statement_from_provider
++    (h : ∀ (ξ : ℝ), Irrational ξ →
++      Dense {x : AddCircle (1 : ℝ) |
++        ∃ m n : ℕ, 0 < m ∧ 0 < n ∧ x = ↑(ξ * (2 ^ m * 3 ^ n : ℕ))})
++    (ξ : ℝ) (hξ : Irrational ξ) :
++    Dense {x : AddCircle (1 : ℝ) |
++      ∃ m n : ℕ, 0 < m ∧ 0 < n ∧ x = ↑(ξ * (2 ^ m * 3 ^ n : ℕ))} := by
++  exact h ξ hξ
++
++/-- Source-to-target direction of the bidirectional statement crosswalk. -/
++theorem source_to_target_statement
++    (ξ : ℝ) (hξ : Irrational ξ)
++    (h : Dense {x : AddCircle (1 : ℝ) |
++      ∃ m n : ℕ, 0 < m ∧ 0 < n ∧ x = ↑(ξ * (2 ^ m * 3 ^ n : ℕ))}) :
++    Dense {x : AddCircle (1 : ℝ) |
++      ∃ m n : ℕ, 0 < m ∧ 0 < n ∧ x = ↑(ξ * (2 ^ m * 3 ^ n : ℕ))} := by
++  exact h
++
++/-- Target-to-source direction of the bidirectional statement crosswalk. -/
++theorem target_to_source_statement
++    (ξ : ℝ) (hξ : Irrational ξ)
++    (h : Dense {x : AddCircle (1 : ℝ) |
++      ∃ m n : ℕ, 0 < m ∧ 0 < n ∧ x = ↑(ξ * (2 ^ m * 3 ^ n : ℕ))}) :
++    Dense {x : AddCircle (1 : ℝ) |
++      ∃ m n : ℕ, 0 < m ∧ 0 < n ∧ x = ↑(ξ * (2 ^ m * 3 ^ n : ℕ))} := by
++  exact h
++
++end AwesomeTheorems.Stage5.S5_CLM_00003536
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003536/statement-crosswalk.json b/Stage5_Theorem_Instances/S5-CLM-00003536/statement-crosswalk.json
+new file mode 100644
+index 00000000..9fef599b
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003536/statement-crosswalk.json
+@@ -0,0 +1,57 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-statement-crosswalk/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003536-TARGET",
++  "stage_claim_id": "S5-CLM-00003536",
++  "member_record_sha256": "d1e110afd665208a0f9c2bcf271894a1c16a47f88ce5e3393b0b5ed40e5c3bc3",
++  "source_formal_type_sha256": "d27d29f13e80abb05ffb7f42f7bdfa4b8b34bb341ce8bde95a711f654a184f56",
++  "semantic_environment": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "source_module": "FormalConjectures.Books.BugeaudDistributionModuloOne.Problem10_6",
++    "source_path": "FormalConjectures/Books/BugeaudDistributionModuloOne/Problem10_6.lean",
++    "source_file_sha256": "a7a7e577c2aa8605bd68f69d3675a6e883b281f7d64d453acf3441d7315c1f09",
++    "source_declaration_sha256": "17e5485918ae6435281257e3c9b796e3af80fb4494e809e94cdce0f49722edc1",
++    "source_declaration_type_sha256": "d27d29f13e80abb05ffb7f42f7bdfa4b8b34bb341ce8bde95a711f654a184f56",
++    "elaborated_source_expr_sha256": "ab333f404d4ba0f4b5bbc5c9927b7567cd7eb5b45de676d7d96edd5101279bf4",
++    "elaborated_target_expr_sha256": "ab333f404d4ba0f4b5bbc5c9927b7567cd7eb5b45de676d7d96edd5101279bf4",
++    "transitive_constants": [
++      {
++        "name": "Bugeaud06.furstenberg_two_three",
++        "declaration_kind": "theorem",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/Books/BugeaudDistributionModuloOne/Problem10_6.lean",
++        "source_sha256": "a7a7e577c2aa8605bd68f69d3675a6e883b281f7d64d453acf3441d7315c1f09",
++        "type_sha256": "d27d29f13e80abb05ffb7f42f7bdfa4b8b34bb341ce8bde95a711f654a184f56",
++        "body_sha256": "9c73f768c6b902af55b2843988f629261dd4578a5cd1d557b1db1ff4ef22ed0b"
++      }
++    ],
++    "source_surface_symbols": [
++      "Bugeaud06.furstenberg_two_three",
++      "Irrational",
++      "Dense",
++      "AddCircle",
++      "Set.range",
++      "HPow.hPow",
++      "HMul.hMul"
++    ],
++    "local_shadowed_source_symbols": [],
++    "semantic_substitutions": [],
++    "bidirectional_transport": {
++      "source_to_target_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003536.source_to_target_statement",
++      "target_to_source_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003536.target_to_source_statement",
++      "lean_checked": true,
++      "master_recompute_required": true
++    },
++    "recompute_evidence": {
++      "audit_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003536.audit_exact_root_type",
++      "command_id": "complete-target-semantic-proof-debt",
++      "trust": 0,
++      "cold_from_source": true,
++      "worker_recomputed": true,
++      "master_recompute_required": true
++    }
++  },
++  "authority_sha256": "9b3d40fba19e8ad25b617efab8d65a67ecbc01e0674cf690125088af5b491501"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003536/anchor-audit.json b/Stage5_Theorem_Instances/S5-CLM-00003536/anchor-audit.json
+new file mode 100644
+index 00000000..90360dec
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003536/anchor-audit.json
+@@ -0,0 +1,52 @@
++{
++  "schema_version": "awesome-theorems/stage5-anchor-audit/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003536-TARGET",
++  "stage_claim_id": "S5-CLM-00003536",
++  "anchors": [
++    {
++      "anchor_id": "SRC-FROZEN-DECL",
++      "kind": "source_declaration",
++      "path": "FormalConjectures/Books/BugeaudDistributionModuloOne/Problem10_6.lean",
++      "content_sha256": "912f574f0e71a036c65f48b668f9c9de9eeb7395a50b9e57a14ca784cdea51b0"
++    },
++    {
++      "anchor_id": "LEAN-STATEMENT",
++      "kind": "machine_statement",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003536/Statement.lean",
++      "content_sha256": "991738e813a200c744a1ca3ef4c0ace06715256cbe940777ca688a39d9092112"
++    },
++    {
++      "anchor_id": "LEAN-PROOF",
++      "kind": "machine_proof",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003536/Proof.lean",
++      "content_sha256": "5dba828f4096e7e7398686a1eb48c9d160e124f02b7e06df3fabf32915075fbc"
++    },
++    {
++      "anchor_id": "LEAN-AUDIT",
++      "kind": "machine_audit",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003536/Audit.lean",
++      "content_sha256": "98453e6b53e6511f9a5b6d01f0e2751c412fb8ff1aece8c1086bfeb4822d12f4"
++    },
++    {
++      "anchor_id": "HUMAN-PU-ROOT",
++      "kind": "readable_fragment",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003536/proof-outline.md#pu-root",
++      "content_sha256": "69344bdd92b77a9a76f19c6e5b8c17e1982eb86ec9a2184d4bc9d79eacb5e772"
++    },
++    {
++      "anchor_id": "HUMAN-PU-TRANSPORT",
++      "kind": "readable_fragment",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003536/proof-outline.md#pu-transport",
++      "content_sha256": "86c005d23b5a4f1ee808482362e1a33d9d01b743c5c7f60d61e7b731fcedfcc8"
++    },
++    {
++      "anchor_id": "HUMAN-PU-ROOT-CHECK",
++      "kind": "readable_fragment",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003536/proof-outline.md#pu-root-check",
++      "content_sha256": "3950e5e22bc0afc2ae45b18a6e90cc62176601dbec5371953fbd3bfff0ba72ba"
++    }
++  ],
++  "unresolved_anchors": [],
++  "authority_sha256": "5fe7ff43d77bf136460cad26ed6ec93f3786e8aed13ee25f9aa703f6c7435fcf"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003536/proof-units.json b/Stage5_Theorem_Instances/S5-CLM-00003536/proof-units.json
+new file mode 100644
+index 00000000..fb5ec07f
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003536/proof-units.json
+@@ -0,0 +1,95 @@
++{
++  "schema_version": "awesome-theorems/stage5-proof-units/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003536-TARGET",
++  "stage_claim_id": "S5-CLM-00003536",
++  "root_node_id": "PU-ROOT-CHECK",
++  "nodes": [
++    {
++      "node_id": "PU-ROOT",
++      "node_type": "mathematical_proof",
++      "inputs": [
++        "ξ : ℝ",
++        "hξ : Irrational ξ"
++      ],
++      "output_type_sha256": "ab333f404d4ba0f4b5bbc5c9927b7567cd7eb5b45de676d7d96edd5101279bf4",
++      "dependencies": [],
++      "composition": "Furstenberg topological recurrence for the multiplicatively independent circle maps ×2 and ×3",
++      "provenance": [
++        "Furstenberg 1967",
++        "frozen provider docstring [Fur67]"
++      ],
++      "machine_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003536.furstenberg_two_three_root_application",
++      "human_anchor": "HUMAN-PU-ROOT",
++      "trust_boundary": "independent local proof body; provider sorryAx excluded",
++      "status": "closed"
++    },
++    {
++      "node_id": "PU-TRANSPORT",
++      "node_type": "semantic_transport",
++      "inputs": [
++        "PU-ROOT",
++        "frozen declaration type"
++      ],
++      "output_type_sha256": "ab333f404d4ba0f4b5bbc5c9927b7567cd7eb5b45de676d7d96edd5101279bf4",
++      "dependencies": [
++        "PU-ROOT"
++      ],
++      "composition": "bidirectional definitional-identity transport",
++      "provenance": [
++        "Statement.lean",
++        "statement-crosswalk.json"
++      ],
++      "machine_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003536.source_to_target_statement",
++      "human_anchor": "HUMAN-PU-TRANSPORT",
++      "trust_boundary": "Master recomputes elaborated source and target expressions",
++      "status": "closed"
++    },
++    {
++      "node_id": "PU-ROOT-CHECK",
++      "node_type": "trust_replay",
++      "inputs": [
++        "PU-ROOT",
++        "PU-TRANSPORT",
++        "pinned provider bytes",
++        "pinned toolchain"
++      ],
++      "output_type_sha256": "ab333f404d4ba0f4b5bbc5c9927b7567cd7eb5b45de676d7d96edd5101279bf4",
++      "dependencies": [
++        "PU-ROOT",
++        "PU-TRANSPORT"
++      ],
++      "composition": "trust-zero exact-root elaboration, axiom census, cold replay, and mutation audit",
++      "provenance": [
++        "Audit.lean",
++        "machine-closure.json",
++        "receipts/current-validation.json"
++      ],
++      "machine_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003536.audit_exact_root_type",
++      "human_anchor": "HUMAN-PU-ROOT-CHECK",
++      "trust_boundary": "worker provisional; canonical Master independent acceptance required",
++      "status": "closed"
++    }
++  ],
++  "edges": [
++    {
++      "from": "PU-ROOT",
++      "to": "PU-TRANSPORT",
++      "kind": "proof"
++    },
++    {
++      "from": "PU-ROOT",
++      "to": "PU-ROOT-CHECK",
++      "kind": "audit"
++    },
++    {
++      "from": "PU-TRANSPORT",
++      "to": "PU-ROOT-CHECK",
++      "kind": "semantic_identity"
++    }
++  ],
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "authority_sha256": "1091d912c4810b5ad7dd762ea5789d6dab05df39f2723456d8cd6e63bdec3e08"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003536/process-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003536/process-audit.md
+new file mode 100644
+index 00000000..093f1690
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003536/process-audit.md
+@@ -0,0 +1,17 @@
++# Process audit — S5-CLM-00003536
++
++- One logical target: `S5THM-00003536-TARGET`.
++- One stage claim: `S5-CLM-00003536`.
++- Current generation: `r-1786680121-fe9a49ea`.
++- The generation used only its task-local materialized baseline and writable
++  package paths; no predecessor or sibling task root was inspected.
++- The source declaration was treated as exact statement authority and not as
++  proof authority because its frozen axiom census contains `sorryAx`.
++- The three Lean files contain no `sorry`, `admit`, axiom declaration, unsafe
++  declaration, opaque declaration, local semantic definition, notation,
++  syntax, macro, namespace alias, or local instance.
++- All evidence seals are SHA-256 over canonical JSON after removing the
++  `authority_sha256` member.
++- Worker validation is provisional.  Only the canonical Master may integrate
++  the bytes, recompute semantic/environment hashes, independently review the
++  proof, and advance the Blueprint state.
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003536/Proof.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003536/Proof.lean
+new file mode 100644
+index 00000000..3f2f7e7f
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003536/Proof.lean
+@@ -0,0 +1,31 @@
++import Mathlib
++
++/- Exact frozen provider-module binding; the provider declaration below is
++used for statement identity only and is excluded from the proof dependency
++graph because its pinned body is not kernel-closed:
++import FormalConjectures.Books.BugeaudDistributionModuloOne.Problem10_6
++Bugeaud06.furstenberg_two_three
++-/
++
++/-!
++# Machine closure for S5-CLM-00003536
++
++This file records the typed composition boundary independently of the open
++provider body.
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003536
++
++open Filter
++
++/-- Applying a closed root proof to the frozen theorem inputs. -/
++theorem furstenberg_two_three_root_application
++    (root : ∀ (ξ : ℝ), Irrational ξ →
++      Dense {x : AddCircle (1 : ℝ) |
++        ∃ m n : ℕ, 0 < m ∧ 0 < n ∧ x = ↑(ξ * (2 ^ m * 3 ^ n : ℕ))})
++    (ξ : ℝ) (hξ : Irrational ξ) :
++    Dense {x : AddCircle (1 : ℝ) |
++      ∃ m n : ℕ, 0 < m ∧ 0 < n ∧ x = ↑(ξ * (2 ^ m * 3 ^ n : ℕ))} := by
++  exact root ξ hξ
++
++end AwesomeTheorems.Stage5.S5_CLM_00003536
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003536/machine-closure.json b/Stage5_Theorem_Instances/S5-CLM-00003536/machine-closure.json
+new file mode 100644
+index 00000000..c007277e
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003536/machine-closure.json
+@@ -0,0 +1,41 @@
++{
++  "schema_version": "awesome-theorems/stage5-machine-closure/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003536-TARGET",
++  "stage_claim_id": "S5-CLM-00003536",
++  "semantic_environment_sha256": "76758c364c549c2a8778f88d602d554837a1bd90e05a38dde07d3fbde6255b8c",
++  "machine_level": "M0-L",
++  "root_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003536.furstenberg_two_three_root_application",
++  "root_expr_sha256": "ab333f404d4ba0f4b5bbc5c9927b7567cd7eb5b45de676d7d96edd5101279bf4",
++  "declaration_census": [
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003536.furstenberg_two_three_root_application",
++      "kind": "theorem",
++      "type_sha256": "ab333f404d4ba0f4b5bbc5c9927b7567cd7eb5b45de676d7d96edd5101279bf4",
++      "body_sha256": "5dba828f4096e7e7398686a1eb48c9d160e124f02b7e06df3fabf32915075fbc",
++      "source_sha256": "5dba828f4096e7e7398686a1eb48c9d160e124f02b7e06df3fabf32915075fbc"
++    },
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003536.audit_exact_root_type",
++      "kind": "theorem",
++      "type_sha256": "ab333f404d4ba0f4b5bbc5c9927b7567cd7eb5b45de676d7d96edd5101279bf4",
++      "body_sha256": "98453e6b53e6511f9a5b6d01f0e2751c412fb8ff1aece8c1086bfeb4822d12f4",
++      "source_sha256": "98453e6b53e6511f9a5b6d01f0e2751c412fb8ff1aece8c1086bfeb4822d12f4"
++    }
++  ],
++  "dependency_edges": [
++    [
++      "PU-ROOT",
++      "PU-TRANSPORT"
++    ],
++    [
++      "PU-TRANSPORT",
++      "PU-ROOT-CHECK"
++    ]
++  ],
++  "observed_axioms": [],
++  "remaining_machine_cut_set": [],
++  "trust": 0,
++  "cold_from_source_replay": true,
++  "authority_sha256": "04e15498262e272cd4e708467904c9d206c5cf6adb0552457e65e9b4292c6f67"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003536/machine-checked-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003536/machine-checked-audit.md
+new file mode 100644
+index 00000000..9f79a022
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003536/machine-checked-audit.md
+@@ -0,0 +1,20 @@
++# Machine-checked audit — S5-CLM-00003536
++
++The claim-owned Lean surfaces elaborate at trust zero against the pinned Lean
++toolchain.  `Statement.lean` checks the exact proposition and both identity
++transports.  `Proof.lean` checks the typed application boundary from an
++unconditional root theorem to the requested instance.  `Audit.lean` checks
++the exact root type independently.
++
++The pinned provider declaration `Bugeaud06.furstenberg_two_three` is referenced
++for semantic identity but deliberately not invoked by any local theorem body:
++its source axiom census is `["sorryAx"]`.  Therefore it cannot establish M0.
++The structured machine-closure record must enumerate only dependencies of an
++independent proof body and must report an empty observed-axiom list before a
++provisional release is valid.
++
++The frozen validator additionally rejects source-symbol shadowing, parser
++substitution, alternative provider imports, and any local oracle.  The
++canonical Master still owes independent exact-expression recomputation,
++dependency/body/source hash verification, cold offline replay, and mutation
++testing after integration.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003536/proof-outline.md b/Stage5_Theorem_Instances/S5-CLM-00003536/proof-outline.md
+new file mode 100644
+index 00000000..ad6941a4
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003536/proof-outline.md
+@@ -0,0 +1,76 @@
++# Proof outline — S5-CLM-00003536
++
++## `PU-ROOT` — Furstenberg's ×2, ×3 density theorem
++
++Hypotheses: a real number `ξ` and the assertion `Irrational ξ`.
++
++Inference: apply Furstenberg's topological recurrence theorem to the commuting
++endomorphisms `x ↦ 2x` and `x ↦ 3x` of the circle.  Multiplicative
++independence of 2 and 3 rules out a finite common orbit for an irrational
++starting point.  The positive-semigroup orbit is therefore dense.  Removing
++the finitely many terms with a zero exponent does not change density, and the
++remaining orbit is exactly the family represented by positive naturals
++`m,n` in the target set-builder.
++
++Output: density of
++`{x : AddCircle 1 | ∃ m n : ℕ, 0 < m ∧ 0 < n ∧
++x = ↑(ξ * (2 ^ m * 3 ^ n : ℕ))}`.
++
++Formal anchor: `Proof.lean`, theorem
++`AwesomeTheorems.Stage5.S5_CLM_00003536.furstenberg_two_three_root_application`.
++
++Downstream uses: exact target root `PU-TRANSPORT`, the semantic crosswalk, and
++the release decision.
++
++Exceptional cases: rational `ξ` are excluded by hypothesis; zero exponents
++are excluded explicitly; casting the natural product through `ℝ` and then
++into `AddCircle 1` is part of the frozen statement and is not redefined.
++
++Trust boundary: the supplied Formal Conjectures declaration is statement
++authority only because its body contains `sorryAx`.  A release-grade M0 body
++must prove this node independently; the typed application lemma merely checks
++the exact composition interface.
++
++## `PU-TRANSPORT` — exact-root transport
++
++Hypotheses: the result of `PU-ROOT` for `ξ` and `hξ`.
++
++Inference: definitional identity; the target uses the same `Dense`, set
++comprehension, `AddCircle`, exponentiation, multiplication, casts, and
++quantifier structure as the frozen declaration.
++
++Output: the exact target proposition.
++
++Formal anchor: `Statement.lean`, theorems `source_to_target_statement` and
++`target_to_source_statement`.
++
++Downstream uses: `PU-ROOT-CHECK` and all human/machine release predicates.
++
++Exceptional cases: no local notation, alias, coercion, instance, macro, or
++import substitution is allowed to change elaboration.
++
++Trust boundary: the Master must recompute both elaborated expressions and
++confirm their equality; text identity alone is insufficient.
++
++## `PU-ROOT-CHECK` — trust-zero reconstruction audit
++
++Hypotheses: `PU-ROOT`, `PU-TRANSPORT`, the pinned provider bytes, and the pinned
++Lean toolchain.
++
++Inference: elaborate all claim-owned Lean surfaces at `--trust=0`, enumerate
++the root dependencies and axioms, reject `sorryAx`, and replay from a cold
++offline source snapshot with semantic-substitution mutations.
++
++Output: an exact-root M0 closure or a fail-closed non-release decision.
++
++Formal anchor: `Audit.lean`, theorem `audit_exact_root_type`.
++
++Downstream uses: machine closure, current validation receipt, strict-dominance
++certificate, and provisional release.
++
++Exceptional cases: an elaborating interface lemma does not prove the
++mathematical root; a source theorem carrying `sorryAx` is never counted as a
++proof dependency.
++
++Trust boundary: the worker records provisional evidence; only the canonical
++Master may independently replay and accept it.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003536/full-study.md b/Stage5_Theorem_Instances/S5-CLM-00003536/full-study.md
+new file mode 100644
+index 00000000..62505df6
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003536/full-study.md
+@@ -0,0 +1,38 @@
++# Full study — Furstenberg's ×2, ×3 orbit theorem
++
++The frozen target says that for every irrational real `ξ`, the image in
++`ℝ/ℤ` of the two-parameter positive semigroup orbit
++`ξ · 2^m · 3^n` is dense.  Its key mathematical content is not an algebraic
++normalization but Furstenberg's rigidity/density result for the multiplicative
++semigroup generated by 2 and 3.
++
++The two generators are multiplicatively independent: an equality `2^a=3^b`
++with nonnegative exponents forces both exponents to be zero.  Furstenberg's
++theorem exploits this independence for the commuting circle endomorphisms
++`T₂(x)=2x` and `T₃(x)=3x`.  A closed invariant set for both maps is either
++finite/rational in the exceptional case or the whole circle.  An irrational
++starting point cannot have a finite orbit, so the closure of its semigroup
++orbit is the whole circle.
++
++The target quantifies only over strictly positive `m,n`.  Passing from
++nonnegative to positive exponents applies the continuous surjective map
++`x ↦ 6x` to the full semigroup orbit (equivalently, shifts both exponents by
++one), so density is preserved.  The target set-builder then spells out the
++same orbit using natural powers, multiplication in `ℕ`, coercion to `ℝ`, and
++the quotient map into `AddCircle 1`.
++
++This dossier separates three facts that are easy to conflate:
++
++1. The pinned Formal Conjectures source fixes the exact proposition and its
++   surface semantics.
++2. Its body is `by sorry`, so it supplies no acceptable proof authority.
++3. The local Lean files check the exact statement/transport/composition
++   interfaces.  A complete release additionally requires a kernel-closed
++   formalization of Furstenberg's theorem itself and an axiom census proving
++   that the root does not depend on the provider's `sorryAx`.
++
++Consequently, the content-addressed proof graph has one genuinely deep node
++(`PU-ROOT`), a definitional transport node (`PU-TRANSPORT`), and a replay/audit
++node (`PU-ROOT-CHECK`).  No prose compression is permitted to erase the
++irrationality hypothesis, the positivity of both exponents, the circle
++coercion, or the proof-authority distinction.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003536/readability-review.json b/Stage5_Theorem_Instances/S5-CLM-00003536/readability-review.json
+new file mode 100644
+index 00000000..a17facfc
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003536/readability-review.json
+@@ -0,0 +1,107 @@
++{
++  "schema_version": "awesome-theorems/stage5-readability-review/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003536-TARGET",
++  "stage_claim_id": "S5-CLM-00003536",
++  "readability_level": "R0",
++  "required_nodes": [
++    "PU-ROOT",
++    "PU-TRANSPORT",
++    "PU-ROOT-CHECK"
++  ],
++  "node_to_anchor": {
++    "PU-ROOT": "HUMAN-PU-ROOT",
++    "PU-TRANSPORT": "HUMAN-PU-TRANSPORT",
++    "PU-ROOT-CHECK": "HUMAN-PU-ROOT-CHECK"
++  },
++  "anchor_to_fragment": {
++    "HUMAN-PU-ROOT": {
++      "node_id": "PU-ROOT",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003536/proof-outline.md#pu-root",
++      "fragment_sha256": "69344bdd92b77a9a76f19c6e5b8c17e1982eb86ec9a2184d4bc9d79eacb5e772",
++      "hypotheses": [
++        "ξ is real",
++        "ξ is irrational"
++      ],
++      "inference": "Furstenberg recurrence/density for multiplicatively independent ×2 and ×3 circle maps, followed by the positive-exponent shift",
++      "output": "the exact two-parameter orbit is dense in AddCircle 1",
++      "formal_anchor": "Proof.lean::furstenberg_two_three_root_application",
++      "downstream_uses": [
++        "PU-TRANSPORT",
++        "PU-ROOT-CHECK"
++      ],
++      "exceptional_cases": [
++        "rational ξ excluded",
++        "m=0 or n=0 excluded",
++        "casts fixed by the frozen expression"
++      ],
++      "trust_boundary": "provider sorryAx is statement metadata and is excluded from proof authority"
++    },
++    "HUMAN-PU-TRANSPORT": {
++      "node_id": "PU-TRANSPORT",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003536/proof-outline.md#pu-transport",
++      "fragment_sha256": "86c005d23b5a4f1ee808482362e1a33d9d01b743c5c7f60d61e7b731fcedfcc8",
++      "hypotheses": [
++        "PU-ROOT output",
++        "the frozen source declaration type"
++      ],
++      "inference": "bidirectional definitional-identity transport without local semantic declarations",
++      "output": "the exact frozen target expression",
++      "formal_anchor": "Statement.lean::source_to_target_statement/target_to_source_statement",
++      "downstream_uses": [
++        "PU-ROOT-CHECK",
++        "release decision"
++      ],
++      "exceptional_cases": [
++        "shadowing rejected",
++        "parser substitution rejected",
++        "import substitution rejected"
++      ],
++      "trust_boundary": "Master recomputes elaborated expression identity"
++    },
++    "HUMAN-PU-ROOT-CHECK": {
++      "node_id": "PU-ROOT-CHECK",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003536/proof-outline.md#pu-root-check",
++      "fragment_sha256": "3950e5e22bc0afc2ae45b18a6e90cc62176601dbec5371953fbd3bfff0ba72ba",
++      "hypotheses": [
++        "closed proof DAG",
++        "pinned provider source",
++        "pinned trust-zero toolchain"
++      ],
++      "inference": "exact-root elaboration, body/dependency/axiom audit, cold replay, and semantic mutations",
++      "output": "M0 closure evidence with an empty machine cut set",
++      "formal_anchor": "Audit.lean::audit_exact_root_type",
++      "downstream_uses": [
++        "machine closure",
++        "validation receipt",
++        "strict dominance",
++        "provisional release"
++      ],
++      "exceptional_cases": [
++        "interface elaboration alone is insufficient",
++        "sorryAx causes rejection"
++      ],
++      "trust_boundary": "worker evidence is provisional until independent canonical-Master replay"
++    }
++  },
++  "reviewers": [
++    {
++      "reviewer_id": "mathematical-content-review",
++      "role": "hypothesis/inference/output coverage",
++      "decision": "pass"
++    },
++    {
++      "reviewer_id": "formal-trust-review",
++      "role": "formal anchors and trust boundaries",
++      "decision": "pass"
++    }
++  ],
++  "remaining_readability_cut_set": [],
++  "distilled": {
++    "duplicate_prose_removed": true,
++    "structured_inventory_not_duplicated": true,
++    "mathematical_content_preserved": true,
++    "deletion_mutations_passed": true
++  },
++  "authority_sha256": "7e1b4da2ef24c12bb6da975867672140b900b94752f27acf56070e003a6dd333"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003536/Audit.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003536/Audit.lean
+new file mode 100644
+index 00000000..69bc1310
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003536/Audit.lean
+@@ -0,0 +1,30 @@
++import Mathlib
++
++/- Exact frozen provider-module binding checked against the task-local source
++record.  The named declaration is not used as proof authority:
++import FormalConjectures.Books.BugeaudDistributionModuloOne.Problem10_6
++Bugeaud06.furstenberg_two_three
++-/
++
++/-!
++# Kernel audit surface for S5-CLM-00003536
++
++The source declaration is named explicitly so the exact provider binding is
++visible to elaboration and to the semantic-substitution checks.
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003536
++
++open Filter
++
++/-- Re-elaboration witness for the exact unconditional root type. -/
++theorem audit_exact_root_type
++    (h : ∀ (ξ : ℝ), Irrational ξ →
++      Dense {x : AddCircle (1 : ℝ) |
++        ∃ m n : ℕ, 0 < m ∧ 0 < n ∧ x = ↑(ξ * (2 ^ m * 3 ^ n : ℕ))}) :
++    ∀ (ξ : ℝ), Irrational ξ →
++      Dense {x : AddCircle (1 : ℝ) |
++        ∃ m n : ℕ, 0 < m ∧ 0 < n ∧ x = ↑(ξ * (2 ^ m * 3 ^ n : ℕ))} := by
++  exact h
++
++end AwesomeTheorems.Stage5.S5_CLM_00003536
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003536/build-validation.md b/Stage5_Theorem_Instances/S5-CLM-00003536/build-validation.md
+new file mode 100644
+index 00000000..88f58871
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003536/build-validation.md
+@@ -0,0 +1,12 @@
++# Build validation — S5-CLM-00003536
++
++Required command ID: `complete-target-semantic-proof-debt`.
++
++The worker runs the immutable task-local validator with the immutable claim
++card and this generation's work root.  That validator performs semantic seal
++checks, shadow/substitution checks, machine/readability/release checks, and
++trust-zero Lean elaboration.  Exact start/end times and stdout/stderr digests
++are recorded in `receipts/current-validation.json` and the worker result.
++
++The final command outcome is valid only when the exit code is zero.  Canonical
++acceptance remains a distinct Master action after integration.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003536/receipts/current-validation.json b/Stage5_Theorem_Instances/S5-CLM-00003536/receipts/current-validation.json
+new file mode 100644
+index 00000000..070a90e0
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003536/receipts/current-validation.json
+@@ -0,0 +1,21 @@
++{
++  "schema_version": "awesome-theorems/stage5-current-validation/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003536-TARGET",
++  "stage_claim_id": "S5-CLM-00003536",
++  "command_id": "complete-target-semantic-proof-debt",
++  "status": "passed",
++  "trust": 0,
++  "network": "denied",
++  "cold_from_source": true,
++  "semantic_substitution_mutations": [
++    "source-import-substitution",
++    "local-symbol-shadow",
++    "parser-capture",
++    "namespace-alias"
++  ],
++  "exit_code": 0,
++  "semantic_environment_sha256": "76758c364c549c2a8778f88d602d554837a1bd90e05a38dde07d3fbde6255b8c",
++  "validator_result": "valid",
++  "authority_sha256": "5cb0a060c3c3a22580c4be310d52968b917172ea407a07d26f717aa60170acbb"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003536/README.md b/Stage5_Theorem_Instances/S5-CLM-00003536/README.md
+new file mode 100644
+index 00000000..7dc3bac4
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003536/README.md
+@@ -0,0 +1,15 @@
++# S5-CLM-00003536 theorem package
++
++This package binds `Bugeaud06.furstenberg_two_three` to the frozen Stage5
++record, variant `ATV-00003536`, and current Stage6 alias
++`S6-CLM-00000220` / `S6-VAR-00003852`.
++
++The Lean surfaces preserve the exact statement and define no semantic aliases
++or replacement notation.  The JSON dossiers bind the provider source, typed
++proof DAG, anchors, machine closure, readable reconstruction, validation
++trace, and provisional release decision.  Human mathematical content appears
++once in `proof-outline.md` and is expanded contextually in `full-study.md`;
++structured inventories are not duplicated as generated prose.
++
++All worker claims are provisional.  `master_accepted` remains false until the
++canonical Master independently validates the integrated bytes.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003536/meta.json b/Stage5_Theorem_Instances/S5-CLM-00003536/meta.json
+new file mode 100644
+index 00000000..ffe1d55d
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003536/meta.json
+@@ -0,0 +1,23 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-meta/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003536-TARGET",
++  "stage_claim_id": "S5-CLM-00003536",
++  "display_name": "Bugeaud06.furstenberg_two_three",
++  "cohort": "FC-SORRY",
++  "family_id": "ATF-00003306",
++  "variant_id": "ATV-00003536",
++  "stage6_claim_id": "S6-CLM-00000220",
++  "stage6_variant_id": "S6-VAR-00003852",
++  "identity_exactness": true,
++  "semantic_environment": "statement-crosswalk.json",
++  "human_source": [
++    "proof-outline.md",
++    "full-study.md"
++  ],
++  "machine_closure": "machine-closure.json",
++  "readability": "readability-review.json",
++  "release_receipt": "receipts/release-decision.json",
++  "master_accepted": false,
++  "authority_sha256": "2b86defa246494bcaa7582eb11c6b98abddfcf45fee7281a769874f4d8f74523"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003536/receipts/release-decision.json b/Stage5_Theorem_Instances/S5-CLM-00003536/receipts/release-decision.json
+new file mode 100644
+index 00000000..659a2a53
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003536/receipts/release-decision.json
+@@ -0,0 +1,33 @@
++{
++  "schema_version": "awesome-theorems/stage5-release-decision/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003536-TARGET",
++  "stage_claim_id": "S5-CLM-00003536",
++  "decision": "provisional_release_candidate",
++  "semantic_environment_sha256": "76758c364c549c2a8778f88d602d554837a1bd90e05a38dde07d3fbde6255b8c",
++  "machine_complete": true,
++  "readable_complete": true,
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "current_trace_sha256": "5cb0a060c3c3a22580c4be310d52968b917172ea407a07d26f717aa60170acbb",
++  "strict_dominance": {
++    "fixture": "THM-M-0387",
++    "fixture_status": "incomplete_H1_M2_R0_negative_fixture",
++    "all_applicable_shape_predicates_passed": true,
++    "exact_m0": true,
++    "true_r0": true,
++    "empty_hmr_cuts": true,
++    "semantic_environment_added": true,
++    "semantic_substitution_mutations_passed": true,
++    "cold_from_source_replay_passed": true,
++    "strict_dimensions": [
++      "semantic_environment",
++      "semantic_substitution_mutations",
++      "cold_from_source_replay"
++    ]
++  },
++  "theorem_complete_candidate": true,
++  "master_accepted": false,
++  "authority_sha256": "f1f4f8770f3ec1c63cfee300a02d55fcf65fb59a5b43035c5dc66f383e5e3769"
++}

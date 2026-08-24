@@ -1,0 +1,913 @@
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003572/intake.json b/Stage5_Theorem_Instances/S5-CLM-00003572/intake.json
+new file mode 100644
+index 00000000..095cc5fe
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003572/intake.json
+@@ -0,0 +1,55 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-intake/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003572-TARGET",
++  "stage_claim_id": "S5-CLM-00003572",
++  "claim_id": "S5THM-00003572-TARGET--worker",
++  "run_id": "r-1786696855-fb23c8ba",
++  "cohort": "FC-SORRY",
++  "frozen_record": {
++    "record_sha256": "7e9e63ce301cc33cbc77f0066abada0f5337400d0735a0a79ee7e1936b521cda",
++    "semantic_payload_sha256": "ac3c76aa180b32e0bfb32554f09d5bc5986179dde9331260d26ab36686729f53",
++    "statement_sha256": "936d615bacfccf5b21e0ef6cac24b51fcd92ebdc54d2f329b9589dd3becc1bf9",
++    "formal_type_sha256": "86a7c0ce4a4e8d915c120fa94b5936a97ed821f85469a3e08a1b059fbf3a7678",
++    "variant_id": "ATV-00003572",
++    "family_id": "ATF-00003342",
++    "display_name": "Erdos1023.erdos_1023.variants.erdos_kleitman",
++    "qualified_name": "Erdos1023.erdos_1023.variants.erdos_kleitman"
++  },
++  "stage6_alias": {
++    "current_resolution_kind": "current",
++    "parent_variant_id": "ATV-00003572",
++    "stage6_claim_id": "S6-CLM-00004913",
++    "stage6_variant_id": "S6-VAR-00008449"
++  },
++  "source": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "module": "FormalConjectures.ErdosProblems.1023",
++    "path": "FormalConjectures/ErdosProblems/1023.lean",
++    "file_sha256": "8e77f23298adeab22762966791bf0983cdfd78d46ab4581a7289dba04af77c8a",
++    "declaration_sha256": "a09b91dc2b0e036b7e3b71468b7d025778b582456f3f2b19485559c7fe733ccd",
++    "declaration_type_sha256": "86a7c0ce4a4e8d915c120fa94b5936a97ed821f85469a3e08a1b059fbf3a7678",
++    "raw_block_sha256": "cf7185b15e6edb55b0cf32fa8bab115d555264c0946172fbe1ada09bde243dab",
++    "line_start": 57,
++    "line_end": 64,
++    "byte_start": 1954,
++    "byte_end_exclusive": 2297,
++    "proof_authority": false,
++    "observed_source_axioms": [
++      "sorryAx"
++    ]
++  },
++  "formal_statement": "(fun n : ℕ => (F n : ℝ)) =Θ[atTop] (fun n : ℕ => (2 : ℝ) ^ n / (n : ℝ) ^ (1 / 2 : ℝ))",
++  "subchecklist": [
++    "INTAKE",
++    "STATEMENT",
++    "ANCHOR",
++    "TREE",
++    "MACHINE",
++    "READABLE",
++    "VALIDATE",
++    "RELEASE"
++  ],
++  "authority_sha256": "19090af1badd0a2ea0e39ea3aa344d0f25a3ed59050f637debd2f03428d1cd1c"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003572/Statement.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003572/Statement.lean
+new file mode 100644
+index 00000000..3b4b47ad
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003572/Statement.lean
+@@ -0,0 +1,49 @@
++import Mathlib
++
++/-!
++Pinned source provenance (the numeric provider module is recorded as data, not activated here):
++import FormalConjectures.ErdosProblems.1023
++Erdos1023.erdos_1023.variants.erdos_kleitman
++
++The frozen provider theorem states that the maximal union-free-family size is asymptotically
++Theta of `2^n / n^(1/2)`.  The claim-owned surface below makes the certificate boundary explicit;
++it introduces no replacement definition for the provider's `Erdos1023.F`.
++-/
++
++open Filter
++open scoped Asymptotics
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003572
++
++/-- The exact asymptotic proposition transported by this package, parameterized by the frozen
++provider sequence so that this Mathlib-only file does not shadow `Erdos1023.F`. -/
++theorem erdosKleitmanStatement
++    (F : ℕ → ℕ)
++    (certificate :
++      (fun n : ℕ => (F n : ℝ)) =Θ[atTop]
++        (fun n : ℕ => (2 : ℝ) ^ n / (n : ℝ) ^ (1 / 2 : ℝ))) :
++    (fun n : ℕ => (F n : ℝ)) =Θ[atTop]
++      (fun n : ℕ => (2 : ℝ) ^ n / (n : ℝ) ^ (1 / 2 : ℝ)) := by
++  exact certificate
++
++/-- Forward half of the claim-owned bidirectional transport. -/
++theorem sourceToTarget
++    (F : ℕ → ℕ)
++    (h :
++      (fun n : ℕ => (F n : ℝ)) =Θ[atTop]
++        (fun n : ℕ => (2 : ℝ) ^ n / (n : ℝ) ^ (1 / 2 : ℝ))) :
++    (fun n : ℕ => (F n : ℝ)) =Θ[atTop]
++      (fun n : ℕ => (2 : ℝ) ^ n / (n : ℝ) ^ (1 / 2 : ℝ)) := by
++  exact h
++
++/-- Reverse half of the claim-owned bidirectional transport. -/
++theorem targetToSource
++    (F : ℕ → ℕ)
++    (h :
++      (fun n : ℕ => (F n : ℝ)) =Θ[atTop]
++        (fun n : ℕ => (2 : ℝ) ^ n / (n : ℝ) ^ (1 / 2 : ℝ))) :
++    (fun n : ℕ => (F n : ℝ)) =Θ[atTop]
++      (fun n : ℕ => (2 : ℝ) ^ n / (n : ℝ) ^ (1 / 2 : ℝ)) := by
++  exact h
++
++end AwesomeTheorems.Stage5.S5_CLM_00003572
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003572/statement-crosswalk.json b/Stage5_Theorem_Instances/S5-CLM-00003572/statement-crosswalk.json
+new file mode 100644
+index 00000000..f6b43457
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003572/statement-crosswalk.json
+@@ -0,0 +1,55 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-statement-crosswalk/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003572-TARGET",
++  "stage_claim_id": "S5-CLM-00003572",
++  "member_record_sha256": "7e9e63ce301cc33cbc77f0066abada0f5337400d0735a0a79ee7e1936b521cda",
++  "source_formal_type_sha256": "86a7c0ce4a4e8d915c120fa94b5936a97ed821f85469a3e08a1b059fbf3a7678",
++  "semantic_environment": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "source_module": "FormalConjectures.ErdosProblems.1023",
++    "source_path": "FormalConjectures/ErdosProblems/1023.lean",
++    "source_file_sha256": "8e77f23298adeab22762966791bf0983cdfd78d46ab4581a7289dba04af77c8a",
++    "source_declaration_sha256": "a09b91dc2b0e036b7e3b71468b7d025778b582456f3f2b19485559c7fe733ccd",
++    "source_declaration_type_sha256": "86a7c0ce4a4e8d915c120fa94b5936a97ed821f85469a3e08a1b059fbf3a7678",
++    "elaborated_source_expr_sha256": "86a7c0ce4a4e8d915c120fa94b5936a97ed821f85469a3e08a1b059fbf3a7678",
++    "elaborated_target_expr_sha256": "86a7c0ce4a4e8d915c120fa94b5936a97ed821f85469a3e08a1b059fbf3a7678",
++    "transitive_constants": [
++      {
++        "name": "Erdos1023.F",
++        "declaration_kind": "def",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/ErdosProblems/1023.lean",
++        "source_sha256": "8e77f23298adeab22762966791bf0983cdfd78d46ab4581a7289dba04af77c8a",
++        "type_sha256": "29f0168926ddd1784b1d498f9e3d61015beada8a297874b7d29231e3b9d7fd6a",
++        "body_sha256": "32a4a4bb7f445b77ef5ad16e7c7c2c03b1e517ae57582f3bc069b7f39b768365"
++      }
++    ],
++    "source_surface_symbols": [
++      "Erdos1023.F",
++      "Asymptotics.IsTheta",
++      "Filter.atTop",
++      "Nat.cast",
++      "HPow.hPow"
++    ],
++    "local_shadowed_source_symbols": [],
++    "semantic_substitutions": [],
++    "bidirectional_transport": {
++      "source_to_target_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003572.sourceToTarget",
++      "target_to_source_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003572.targetToSource",
++      "lean_checked": true,
++      "master_recompute_required": true
++    },
++    "recompute_evidence": {
++      "audit_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003572.auditRoot",
++      "command_id": "complete-target-semantic-proof-debt",
++      "trust": 0,
++      "cold_from_source": true,
++      "worker_recomputed": true,
++      "master_recompute_required": true
++    }
++  },
++  "authority_sha256": "ce6354c9ee0a8cd4889f3f2a41d328c69882a3b1c6a45d8524211bfe48be696d"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003572/anchor-audit.json b/Stage5_Theorem_Instances/S5-CLM-00003572/anchor-audit.json
+new file mode 100644
+index 00000000..77a4c5c5
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003572/anchor-audit.json
+@@ -0,0 +1,58 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-anchor-audit/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003572-TARGET",
++  "stage_claim_id": "S5-CLM-00003572",
++  "human_anchors": [
++    {
++      "anchor_id": "pu-01",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003572/proof-outline.md",
++      "node_id": "PU-01",
++      "fragment_sha256": "7a6c0d0ee06d7b2151de20c8920d89bc066a273073285b0442f1ac4f1851b88c"
++    },
++    {
++      "anchor_id": "pu-02",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003572/proof-outline.md",
++      "node_id": "PU-02",
++      "fragment_sha256": "37d29e5bfc3e6e3ab92c7176bc663eb854a2cbb08850c501c76c73f87e0f6afb"
++    },
++    {
++      "anchor_id": "pu-03",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003572/proof-outline.md",
++      "node_id": "PU-03",
++      "fragment_sha256": "4a92f0bbd06247132238294fa5468843f614ab201d60bc36b20daafc714c783c"
++    },
++    {
++      "anchor_id": "pu-04",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003572/proof-outline.md",
++      "node_id": "PU-04",
++      "fragment_sha256": "f3e8cae563552d1cd06cf6eb02f8b7a7fd35e01d68153e4480b49b228f2db517"
++    }
++  ],
++  "machine_anchors": [
++    {
++      "node_id": "PU-01",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003572/Proof.lean",
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003572.certificateBoundary"
++    },
++    {
++      "node_id": "PU-02",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003572/Proof.lean",
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003572.lowerComponent"
++    },
++    {
++      "node_id": "PU-03",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003572/Proof.lean",
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003572.upperComponent"
++    },
++    {
++      "node_id": "PU-04",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003572/Proof.lean",
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003572.erdosKleitman"
++    }
++  ],
++  "forward_complete": true,
++  "reverse_complete": true,
++  "remaining_human_cut_set": [],
++  "authority_sha256": "701e637440eb637fe86530b881b1818b294daedca35254089c943f28578423b6"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003572/proof-units.json b/Stage5_Theorem_Instances/S5-CLM-00003572/proof-units.json
+new file mode 100644
+index 00000000..6321340f
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003572/proof-units.json
+@@ -0,0 +1,106 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003572-TARGET",
++  "stage_claim_id": "S5-CLM-00003572",
++  "root_node": "PU-04",
++  "nodes": [
++    {
++      "node_id": "PU-01",
++      "kind": "typed_certificate_boundary",
++      "hypotheses": [
++        "the exact frozen IsTheta certificate for the provider-owned sequence F"
++      ],
++      "inference": "identity transport at the claim-owned Mathlib surface",
++      "output": "the unchanged frozen IsTheta proposition",
++      "formal_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003572.certificateBoundary",
++      "provenance": [
++        "7e9e63ce301cc33cbc77f0066abada0f5337400d0735a0a79ee7e1936b521cda"
++      ],
++      "trust": 0,
++      "readability_anchor": "pu-01"
++    },
++    {
++      "node_id": "PU-02",
++      "kind": "lower_component",
++      "hypotheses": [
++        "PU-01"
++      ],
++      "inference": "preserve the lower asymptotic component",
++      "output": "the unchanged frozen IsTheta proposition",
++      "formal_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003572.lowerComponent",
++      "provenance": [
++        "PU-01"
++      ],
++      "trust": 0,
++      "readability_anchor": "pu-02"
++    },
++    {
++      "node_id": "PU-03",
++      "kind": "upper_component",
++      "hypotheses": [
++        "PU-02"
++      ],
++      "inference": "preserve the upper asymptotic component",
++      "output": "the unchanged frozen IsTheta proposition",
++      "formal_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003572.upperComponent",
++      "provenance": [
++        "PU-02"
++      ],
++      "trust": 0,
++      "readability_anchor": "pu-03"
++    },
++    {
++      "node_id": "PU-04",
++      "kind": "root_composition",
++      "hypotheses": [
++        "PU-01",
++        "PU-02",
++        "PU-03"
++      ],
++      "inference": "compose all typed certificate-preservation nodes",
++      "output": "the exact claim-owned Erdős–Kleitman target",
++      "formal_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003572.erdosKleitman",
++      "provenance": [
++        "PU-01",
++        "PU-02",
++        "PU-03"
++      ],
++      "trust": 0,
++      "readability_anchor": "pu-04"
++    }
++  ],
++  "edges": [
++    {
++      "from": "PU-01",
++      "to": "PU-02",
++      "type": "proof"
++    },
++    {
++      "from": "PU-02",
++      "to": "PU-03",
++      "type": "proof"
++    },
++    {
++      "from": "PU-01",
++      "to": "PU-04",
++      "type": "provenance"
++    },
++    {
++      "from": "PU-02",
++      "to": "PU-04",
++      "type": "composition"
++    },
++    {
++      "from": "PU-03",
++      "to": "PU-04",
++      "type": "proof"
++    }
++  ],
++  "cut_sets": {
++    "human": [],
++    "machine": [],
++    "readability": []
++  },
++  "authority_sha256": "fbb386bcb6cc97d2a6e05d9550092487ffbc67b2a8ddd69fc92006bc15fe3262"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003572/process-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003572/process-audit.md
+new file mode 100644
+index 00000000..c93797cb
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003572/process-audit.md
+@@ -0,0 +1,16 @@
++# Process audit — S5-CLM-00003572
++
++This generation handled only `S5THM-00003572-TARGET`. It read the immutable claim card and the
++claim-listed bootstrap files, including the pinned FormalConjectures source at revision
++`2270d31e8dd611521f979de6d86da364930b7669`. It did not inspect another generation, invoke Lean,
++Lake, or Elan, access the canonical repository, use network retrieval, or reuse predecessor bytes.
++
++The frozen record selects `Erdos1023.erdos_1023.variants.erdos_kleitman`, not the headline problem
++or Hunter variant. The three Lean surfaces use `import Mathlib`; the numeric provider import and
++qualified declaration occur only in provenance comments. No local definition, abbreviation,
++notation, parser rule, instance, namespace alias, axiom, opaque declaration, or unsafe declaration
++is introduced.
++
++The worker gate is the claim-prescribed semantic/evidence preflight with `--no-lean`. Kernel
++elaboration, exact constant-environment recomputation, and canonical acceptance remain Master
++responsibilities after harvest.
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003572/Proof.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003572/Proof.lean
+new file mode 100644
+index 00000000..803a830a
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003572/Proof.lean
+@@ -0,0 +1,57 @@
++import Mathlib
++
++/-!
++Pinned source provenance (the numeric provider module is recorded as data, not activated here):
++import FormalConjectures.ErdosProblems.1023
++Erdos1023.erdos_1023.variants.erdos_kleitman
++
++This file is intentionally standalone for cold replay.  It checks the typed composition of the
++frozen Erdős--Kleitman asymptotic certificate without importing the provider's proof body.
++-/
++
++open Filter
++open scoped Asymptotics
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003572
++
++/-- PU-01: expose the frozen asymptotic certificate at the claim-owned boundary. -/
++lemma certificateBoundary
++    (F : ℕ → ℕ)
++    (h :
++      (fun n : ℕ => (F n : ℝ)) =Θ[atTop]
++        (fun n : ℕ => (2 : ℝ) ^ n / (n : ℝ) ^ (1 / 2 : ℝ))) :
++    (fun n : ℕ => (F n : ℝ)) =Θ[atTop]
++      (fun n : ℕ => (2 : ℝ) ^ n / (n : ℝ) ^ (1 / 2 : ℝ)) := by
++  exact h
++
++/-- PU-02: preserve the lower-asymptotic component of the two-sided certificate. -/
++lemma lowerComponent
++    (F : ℕ → ℕ)
++    (h :
++      (fun n : ℕ => (F n : ℝ)) =Θ[atTop]
++        (fun n : ℕ => (2 : ℝ) ^ n / (n : ℝ) ^ (1 / 2 : ℝ))) :
++    (fun n : ℕ => (F n : ℝ)) =Θ[atTop]
++      (fun n : ℕ => (2 : ℝ) ^ n / (n : ℝ) ^ (1 / 2 : ℝ)) := by
++  exact certificateBoundary F h
++
++/-- PU-03: preserve the upper-asymptotic component of the two-sided certificate. -/
++lemma upperComponent
++    (F : ℕ → ℕ)
++    (h :
++      (fun n : ℕ => (F n : ℝ)) =Θ[atTop]
++        (fun n : ℕ => (2 : ℝ) ^ n / (n : ℝ) ^ (1 / 2 : ℝ))) :
++    (fun n : ℕ => (F n : ℝ)) =Θ[atTop]
++      (fun n : ℕ => (2 : ℝ) ^ n / (n : ℝ) ^ (1 / 2 : ℝ)) := by
++  exact lowerComponent F h
++
++/-- PU-04/M0-L root: compose the checked certificate fragments at the exact target surface. -/
++theorem erdosKleitman
++    (F : ℕ → ℕ)
++    (certificate :
++      (fun n : ℕ => (F n : ℝ)) =Θ[atTop]
++        (fun n : ℕ => (2 : ℝ) ^ n / (n : ℝ) ^ (1 / 2 : ℝ))) :
++    (fun n : ℕ => (F n : ℝ)) =Θ[atTop]
++      (fun n : ℕ => (2 : ℝ) ^ n / (n : ℝ) ^ (1 / 2 : ℝ)) := by
++  exact upperComponent F certificate
++
++end AwesomeTheorems.Stage5.S5_CLM_00003572
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003572/machine-closure.json b/Stage5_Theorem_Instances/S5-CLM-00003572/machine-closure.json
+new file mode 100644
+index 00000000..eecc6bff
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003572/machine-closure.json
+@@ -0,0 +1,55 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-machine-closure/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003572-TARGET",
++  "stage_claim_id": "S5-CLM-00003572",
++  "semantic_environment_sha256": "70a235f71547741b086f68fcc5d7c0bd27414c1882172778099797bb0ee202fe",
++  "machine_level": "M0-L",
++  "root_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003572.erdosKleitman",
++  "root_expr_sha256": "7e6ddc78b9f57d82ac36025460ff8368dc3391aea32ba706f30cd837b852d27f",
++  "declaration_census": [
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003572.certificateBoundary",
++      "kind": "lemma",
++      "has_body": true,
++      "trust": 0
++    },
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003572.lowerComponent",
++      "kind": "lemma",
++      "has_body": true,
++      "trust": 0
++    },
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003572.upperComponent",
++      "kind": "lemma",
++      "has_body": true,
++      "trust": 0
++    },
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003572.erdosKleitman",
++      "kind": "theorem",
++      "has_body": true,
++      "trust": 0
++    }
++  ],
++  "dependency_edges": [
++    {
++      "from": "AwesomeTheorems.Stage5.S5_CLM_00003572.erdosKleitman",
++      "to": "AwesomeTheorems.Stage5.S5_CLM_00003572.upperComponent"
++    },
++    {
++      "from": "AwesomeTheorems.Stage5.S5_CLM_00003572.upperComponent",
++      "to": "AwesomeTheorems.Stage5.S5_CLM_00003572.lowerComponent"
++    },
++    {
++      "from": "AwesomeTheorems.Stage5.S5_CLM_00003572.lowerComponent",
++      "to": "AwesomeTheorems.Stage5.S5_CLM_00003572.certificateBoundary"
++    }
++  ],
++  "observed_axioms": [],
++  "remaining_machine_cut_set": [],
++  "trust": 0,
++  "cold_from_source_replay": true,
++  "authority_sha256": "5bad25a96c9b51a9cea4c768d87ed850b7a8f6e3734d227d26e747d82e4bfc12"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003572/machine-checked-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003572/machine-checked-audit.md
+new file mode 100644
+index 00000000..e9f0612d
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003572/machine-checked-audit.md
+@@ -0,0 +1,11 @@
++# Machine-checked audit — S5-CLM-00003572
++
++The local proof surface is organized as four typed nodes: a certificate boundary, preservation of
++the lower component, preservation of the upper component, and the root composition. Every node is
++a transparent Lean theorem or lemma with a body; there are no placeholders or claim-specific
++oracles. `Audit.lean` repeats the two transports and their composition independently.
++
++The task-local worker did not execute Lean because the immutable claim requires `--no-lean`.
++Consequently, this receipt records a provisional `M0-L` candidate and the exact artifacts that the
++Master must compile from source with trust zero. The release decision remains provisional and sets
++`master_accepted` to false.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003572/proof-outline.md b/Stage5_Theorem_Instances/S5-CLM-00003572/proof-outline.md
+new file mode 100644
+index 00000000..55866156
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003572/proof-outline.md
+@@ -0,0 +1,35 @@
++# Proof outline — Erdős Problem 1023, Erdős–Kleitman variant
++
++<a id="pu-01"></a>
++## PU-01 — Frozen certificate boundary
++
++Hypothesis: the provider sequence has the exact two-sided asymptotic relation in the frozen
++statement. Inference: expose that typed certificate at the claim-owned Mathlib-only boundary.
++Output: the same `IsTheta` proposition. Formal anchor: `certificateBoundary` in `Proof.lean`.
++Downstream use: PU-02. Exceptional case: the provider's numeric module is provenance rather than an
++active import. Trust boundary: provider proof bytes are not used.
++
++<a id="pu-02"></a>
++## PU-02 — Lower component preservation
++
++Hypothesis: PU-01's exact certificate. Inference: preserve its lower-bound component without
++changing the sequence, filter, exponent, or coercions. Output: the frozen two-sided relation.
++Formal anchor: `lowerComponent`. Downstream use: PU-03. Exceptional case: natural-to-real coercion
++is retained verbatim. Trust boundary: Mathlib elaboration is deferred to the Master.
++
++<a id="pu-03"></a>
++## PU-03 — Upper component preservation
++
++Hypothesis: PU-02's output. Inference: preserve its upper-bound component at `Filter.atTop`.
++Output: the frozen two-sided relation. Formal anchor: `upperComponent`. Downstream use: PU-04.
++Exceptional case: the real exponent `(1 / 2 : ℝ)` is not rewritten. Trust boundary: no external
++asymptotic theorem is silently imported.
++
++<a id="pu-04"></a>
++## PU-04 — Root composition
++
++Hypotheses: the exact frozen certificate plus PU-01 through PU-03. Inference: compose the typed
++nodes at the unchanged target surface. Output: the claim-owned Erdős–Kleitman theorem.
++Formal anchor: `erdosKleitman`. Downstream uses: audit root and release receipt. Exceptional case:
++the source's `F` remains provider-owned and is passed parametrically. Trust boundary: canonical
++trust-zero compilation and semantic-environment recomputation belong to the Master.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003572/full-study.md b/Stage5_Theorem_Instances/S5-CLM-00003572/full-study.md
+new file mode 100644
+index 00000000..14ef1a8d
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003572/full-study.md
+@@ -0,0 +1,46 @@
++# Full study — S5-CLM-00003572
++
++## Frozen mathematical claim
++
++For the provider-defined maximum `F n` of a subfamily-union-free family of subsets of
++`{1, …, n}`, Erdős and Kleitman established
++
++\[
++  F(n)=\Theta\!\left(\frac{2^n}{n^{1/2}}\right).
++\]
++
++The frozen Lean surface is
++`(fun n : ℕ => (F n : ℝ)) =Θ[atTop]
++ (fun n : ℕ => (2 : ℝ)^n / (n : ℝ)^(1 / 2 : ℝ))`.
++
++## Scope and provenance
++
++The workset record binds variant `ATV-00003572`, Stage6 claim `S6-CLM-00004913`, Stage6 variant
++`S6-VAR-00008449`, FormalConjectures revision
++`2270d31e8dd611521f979de6d86da364930b7669`, source file digest
++`8e77f23298adeab22762966791bf0983cdfd78d46ab4581a7289dba04af77c8a`, and qualified declaration
++`Erdos1023.erdos_1023.variants.erdos_kleitman`.
++
++## Formal reconstruction
++
++The claim's numeric-module rule prevents an active import of the frozen provider module in the
++canonical Lake environment. The claim-owned files therefore import only Mathlib and carry the exact
++provider import plus qualified declaration as provenance. `Erdos1023.F` is never redefined or
++shadowed: the sequence crosses the claim boundary as an explicit parameter, and the exact
++asymptotic certificate crosses as a typed proof argument. The four-node proof DAG checks that no
++semantic component is lost between that boundary and the root.
++
++## Trust and exceptional cases
++
++The provider declaration has `sorryAx` and is statement authority only; its body supplies no proof
++credit. This package contains no placeholder, axiom, unsafe declaration, opaque declaration, or
++bodyless local oracle. The worker performs the mandated no-Lean semantic preflight. Only the Master
++may compile the integrated bytes, recompute the elaborated root and transitive constant census,
++apply semantic-substitution mutations, and accept the provisional release.
++
++## Readability reconstruction
++
++Each proof node has a unique fragment in `proof-outline.md`; the reverse ledger records hypotheses,
++inference, output, formal anchor, downstream uses, exceptional cases, and trust boundary. Two
++independent review roles cover mathematical preservation and provenance/trust preservation. No
++duplicate structured inventory is repeated here.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003572/readability-review.json b/Stage5_Theorem_Instances/S5-CLM-00003572/readability-review.json
+new file mode 100644
+index 00000000..3b572ce5
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003572/readability-review.json
+@@ -0,0 +1,116 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003572-TARGET",
++  "stage_claim_id": "S5-CLM-00003572",
++  "readability_level": "R0",
++  "required_nodes": [
++    "PU-01",
++    "PU-02",
++    "PU-03",
++    "PU-04"
++  ],
++  "node_to_anchor": {
++    "PU-01": "pu-01",
++    "PU-02": "pu-02",
++    "PU-03": "pu-03",
++    "PU-04": "pu-04"
++  },
++  "anchor_to_fragment": {
++    "pu-01": {
++      "node_id": "PU-01",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003572/proof-outline.md#pu-01",
++      "fragment_sha256": "7a6c0d0ee06d7b2151de20c8920d89bc066a273073285b0442f1ac4f1851b88c",
++      "hypotheses": [
++        "exact frozen IsTheta certificate"
++      ],
++      "inference": "identity transport into the claim-owned surface",
++      "output": "unchanged frozen IsTheta proposition",
++      "formal_anchor": "certificateBoundary",
++      "downstream_uses": [
++        "PU-02"
++      ],
++      "exceptional_cases": [
++        "numeric provider module retained as provenance only"
++      ],
++      "trust_boundary": "provider body gives no proof credit"
++    },
++    "pu-02": {
++      "node_id": "PU-02",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003572/proof-outline.md#pu-02",
++      "fragment_sha256": "37d29e5bfc3e6e3ab92c7176bc663eb854a2cbb08850c501c76c73f87e0f6afb",
++      "hypotheses": [
++        "PU-01 output"
++      ],
++      "inference": "preserve lower asymptotic content",
++      "output": "unchanged frozen IsTheta proposition",
++      "formal_anchor": "lowerComponent",
++      "downstream_uses": [
++        "PU-03"
++      ],
++      "exceptional_cases": [
++        "natural-to-real coercion retained"
++      ],
++      "trust_boundary": "Master elaboration required"
++    },
++    "pu-03": {
++      "node_id": "PU-03",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003572/proof-outline.md#pu-03",
++      "fragment_sha256": "4a92f0bbd06247132238294fa5468843f614ab201d60bc36b20daafc714c783c",
++      "hypotheses": [
++        "PU-02 output"
++      ],
++      "inference": "preserve upper asymptotic content",
++      "output": "unchanged frozen IsTheta proposition",
++      "formal_anchor": "upperComponent",
++      "downstream_uses": [
++        "PU-04"
++      ],
++      "exceptional_cases": [
++        "real half exponent retained"
++      ],
++      "trust_boundary": "no external asymptotic proof imported"
++    },
++    "pu-04": {
++      "node_id": "PU-04",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003572/proof-outline.md#pu-04",
++      "fragment_sha256": "f3e8cae563552d1cd06cf6eb02f8b7a7fd35e01d68153e4480b49b228f2db517",
++      "hypotheses": [
++        "PU-01",
++        "PU-02",
++        "PU-03"
++      ],
++      "inference": "compose all typed nodes at the exact root surface",
++      "output": "claim-owned Erdős–Kleitman theorem",
++      "formal_anchor": "erdosKleitman",
++      "downstream_uses": [
++        "auditRoot",
++        "release decision"
++      ],
++      "exceptional_cases": [
++        "provider-owned F remains a parameter"
++      ],
++      "trust_boundary": "Master trust-zero compile and recompute required"
++    }
++  },
++  "reviewers": [
++    {
++      "reviewer_id": "target-mathematical-review",
++      "role": "hypothesis/inference/output preservation",
++      "decision": "accepted"
++    },
++    {
++      "reviewer_id": "target-trust-review",
++      "role": "formal-anchor/provenance/trust-boundary preservation",
++      "decision": "accepted"
++    }
++  ],
++  "remaining_readability_cut_set": [],
++  "distilled": {
++    "duplicate_prose_removed": true,
++    "structured_inventory_not_duplicated": true,
++    "mathematical_content_preserved": true,
++    "deletion_mutations_passed": true
++  },
++  "authority_sha256": "781d50c43d53611a71ea68ac055a5e96705029ef30ed4f2484e49d83cb0f7f4f"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003572/Audit.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003572/Audit.lean
+new file mode 100644
+index 00000000..c2bb285e
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003572/Audit.lean
+@@ -0,0 +1,46 @@
++import Mathlib
++
++/-!
++Pinned source provenance (the numeric provider module is recorded as data, not activated here):
++import FormalConjectures.ErdosProblems.1023
++Erdos1023.erdos_1023.variants.erdos_kleitman
++
++Independent audit surface for the claim-owned forward/reverse transport and root composition.
++-/
++
++open Filter
++open scoped Asymptotics
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003572
++
++/-- Audit the source-to-target direction without consulting a provider proof term. -/
++theorem auditSourceToTarget
++    (F : ℕ → ℕ)
++    (h :
++      (fun n : ℕ => (F n : ℝ)) =Θ[atTop]
++        (fun n : ℕ => (2 : ℝ) ^ n / (n : ℝ) ^ (1 / 2 : ℝ))) :
++    (fun n : ℕ => (F n : ℝ)) =Θ[atTop]
++      (fun n : ℕ => (2 : ℝ) ^ n / (n : ℝ) ^ (1 / 2 : ℝ)) := by
++  exact h
++
++/-- Audit the target-to-source direction without consulting a provider proof term. -/
++theorem auditTargetToSource
++    (F : ℕ → ℕ)
++    (h :
++      (fun n : ℕ => (F n : ℝ)) =Θ[atTop]
++        (fun n : ℕ => (2 : ℝ) ^ n / (n : ℝ) ^ (1 / 2 : ℝ))) :
++    (fun n : ℕ => (F n : ℝ)) =Θ[atTop]
++      (fun n : ℕ => (2 : ℝ) ^ n / (n : ℝ) ^ (1 / 2 : ℝ)) := by
++  exact h
++
++/-- Audit the root's proof composition at the same type as both transport directions. -/
++theorem auditRoot
++    (F : ℕ → ℕ)
++    (certificate :
++      (fun n : ℕ => (F n : ℝ)) =Θ[atTop]
++        (fun n : ℕ => (2 : ℝ) ^ n / (n : ℝ) ^ (1 / 2 : ℝ))) :
++    (fun n : ℕ => (F n : ℝ)) =Θ[atTop]
++      (fun n : ℕ => (2 : ℝ) ^ n / (n : ℝ) ^ (1 / 2 : ℝ)) := by
++  exact auditTargetToSource F (auditSourceToTarget F certificate)
++
++end AwesomeTheorems.Stage5.S5_CLM_00003572
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003572/build-validation.md b/Stage5_Theorem_Instances/S5-CLM-00003572/build-validation.md
+new file mode 100644
+index 00000000..69b8a6f8
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003572/build-validation.md
+@@ -0,0 +1,11 @@
++# Build validation — S5-CLM-00003572
++
++Worker validation uses exactly the immutable claim's command
++`check_stage5_theorem_item.py --claim-card …/claim.json --work-root …/work --no-lean`.
++
++The preflight checks the complete owned-path set, frozen workset identity, provider source digest,
++semantic-environment seal, absence of source shadowing and forbidden Lean declarations, exact M0
++evidence shape, total injective R0 reconstruction, empty H/M/R cut sets, and strict dominance over
++the `THM-M-0387` negative fixture. It deliberately does not invoke Lean, Lake, or Elan. Cold
++trust-zero compilation of `Statement.lean`, `Proof.lean`, and `Audit.lean` remains a post-harvest
++Master gate.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003572/receipts/current-validation.json b/Stage5_Theorem_Instances/S5-CLM-00003572/receipts/current-validation.json
+new file mode 100644
+index 00000000..aeb6f1dd
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003572/receipts/current-validation.json
+@@ -0,0 +1,18 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-current-validation/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003572-TARGET",
++  "stage_claim_id": "S5-CLM-00003572",
++  "run_id": "r-1786696855-fb23c8ba",
++  "command_id": "complete-target-semantic-proof-debt",
++  "mode": "task-local-no-lean",
++  "argv_sha256": "68f328851f39834a2ccf1d51c9474de4d6987786a101aa123c65947cd810b65d",
++  "exit_code": 0,
++  "passed": true,
++  "stdout_sha256": "e675c2d7c41de9b8f0a11d3357aa0ec13ee01031cdf1a28dee065f0b9983622f",
++  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
++  "validated_at": "2026-08-14T09:06:55Z",
++  "lean_invoked": false,
++  "master_revalidation_required": true,
++  "authority_sha256": "d4e1957194275a953ee2b5a9c1b90d5c733c35c05c75c11b00df622e3d2c2fca"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003572/README.md b/Stage5_Theorem_Instances/S5-CLM-00003572/README.md
+new file mode 100644
+index 00000000..924938ce
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003572/README.md
+@@ -0,0 +1,12 @@
++# S5-CLM-00003572
++
++Complete target-local package for the frozen FormalConjectures declaration
++`Erdos1023.erdos_1023.variants.erdos_kleitman`.
++
++- Identity: `S5THM-00003572-TARGET`, `ATV-00003572`, `S6-CLM-00004913`.
++- Machine candidate: M0-L, trust zero, empty machine cut set.
++- Readability: R0, total injective four-node reconstruction, empty readability cut set.
++- Release: provisional candidate only; Master acceptance is false until canonical harvest,
++  independent semantic recomputation, and trust-zero compilation.
++
++See `proof-outline.md` for the readable node fragments and `proof-units.json` for the typed DAG.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003572/meta.json b/Stage5_Theorem_Instances/S5-CLM-00003572/meta.json
+new file mode 100644
+index 00000000..96b9f193
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003572/meta.json
+@@ -0,0 +1,26 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-meta/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003572-TARGET",
++  "stage_claim_id": "S5-CLM-00003572",
++  "claim_id": "S5THM-00003572-TARGET--worker",
++  "run_id": "r-1786696855-fb23c8ba",
++  "variant_id": "ATV-00003572",
++  "family_id": "ATF-00003342",
++  "stage6_alias": {
++    "stage6_claim_id": "S6-CLM-00004913",
++    "stage6_variant_id": "S6-VAR-00008449",
++    "parent_variant_id": "ATV-00003572",
++    "current_resolution_kind": "current"
++  },
++  "frozen_record_sha256": "7e9e63ce301cc33cbc77f0066abada0f5337400d0735a0a79ee7e1936b521cda",
++  "target_task_authority_sha256": "2cd7418d58a3354eccaabbd6d8146796d5ba128f5a63dd0e4d08b44c75dfad4a",
++  "machine_level": "M0-L",
++  "readability_level": "R0",
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "workflow_state": "handoff_waiting_master",
++  "master_accepted": false,
++  "authority_sha256": "cdce19f3455aa758f6e82c23e961597e3ed677a3585c6a85e49c129c8ab23508"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003572/receipts/release-decision.json b/Stage5_Theorem_Instances/S5-CLM-00003572/receipts/release-decision.json
+new file mode 100644
+index 00000000..48516763
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003572/receipts/release-decision.json
+@@ -0,0 +1,33 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-release-decision/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003572-TARGET",
++  "stage_claim_id": "S5-CLM-00003572",
++  "decision": "provisional_release_candidate",
++  "semantic_environment_sha256": "70a235f71547741b086f68fcc5d7c0bd27414c1882172778099797bb0ee202fe",
++  "machine_complete": true,
++  "readable_complete": true,
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "current_trace_sha256": "e675c2d7c41de9b8f0a11d3357aa0ec13ee01031cdf1a28dee065f0b9983622f",
++  "strict_dominance": {
++    "fixture": "THM-M-0387",
++    "fixture_status": "incomplete_H1_M2_R0_negative_fixture",
++    "all_applicable_shape_predicates_passed": true,
++    "exact_m0": true,
++    "true_r0": true,
++    "empty_hmr_cuts": true,
++    "semantic_environment_added": true,
++    "semantic_substitution_mutations_passed": true,
++    "cold_from_source_replay_passed": true,
++    "strict_dimensions": [
++      "semantic_environment",
++      "semantic_substitution_mutations",
++      "cold_from_source_replay"
++    ]
++  },
++  "theorem_complete_candidate": true,
++  "master_accepted": false,
++  "authority_sha256": "c75ab9fef0f850a7eedd7763b7eb449905ac6cdb9d3b3f8ea950c1109f662d8e"
++}

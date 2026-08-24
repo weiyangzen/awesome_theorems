@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://awesome-theorems.invalid/stage5-1-organization/schemas/checklist-crosswalk.schema.json",
+  "title": "Stage5 legacy checklist row crosswalk JSONL row",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "legacy_program", "legacy_item_id", "legacy_row_sha256",
+    "legacy_state", "relationship", "new_item_ids", "member_intersection_count",
+    "member_intersection_sha256", "stage51_initial_state", "record_sha256"
+  ],
+  "properties": {
+    "schema_version": {"$ref": "common.schema.json#/$defs/schema_version"},
+    "legacy_program": {"$ref": "common.schema.json#/$defs/program"},
+    "legacy_item_id": {"$ref": "common.schema.json#/$defs/legacy_item_id"},
+    "legacy_row_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+    "legacy_state": {"$ref": "common.schema.json#/$defs/legacy_state"},
+    "relationship": {
+      "enum": ["exact_member_successor", "control_successor", "control_repartitioned"]
+    },
+    "new_item_ids": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "common.schema.json#/$defs/stage51_item_id"},
+      "uniqueItems": true
+    },
+    "member_intersection_count": {"type": "integer", "minimum": 0},
+    "member_intersection_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+    "stage51_initial_state": {"$ref": "common.schema.json#/$defs/stage51_initial_state"},
+    "record_sha256": {"$ref": "common.schema.json#/$defs/sha256"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"legacy_program": {"const": "theorems"}}, "required": ["legacy_program"]},
+      "then": {"properties": {"legacy_item_id": {"pattern": "^S5THM-"}}}
+    },
+    {
+      "if": {"properties": {"legacy_program": {"const": "conjectures"}}, "required": ["legacy_program"]},
+      "then": {"properties": {"legacy_item_id": {"pattern": "^S5CON-"}}}
+    },
+    {
+      "if": {"properties": {"relationship": {"const": "exact_member_successor"}}, "required": ["relationship"]},
+      "then": {
+        "properties": {
+          "new_item_ids": {
+            "minItems": 1,
+            "maxItems": 1,
+            "items": {"$ref": "common.schema.json#/$defs/member_item_id"}
+          },
+          "member_intersection_count": {"const": 1}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"relationship": {"const": "control_successor"}}, "required": ["relationship"]},
+      "then": {
+        "properties": {
+          "new_item_ids": {"minItems": 1, "maxItems": 1},
+          "member_intersection_count": {"const": 0}
+        }
+      }
+    }
+  ]
+}

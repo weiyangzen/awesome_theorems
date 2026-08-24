@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://awesome-theorems.invalid/stage5-1-organization/schemas/dependency-closure.schema.json",
+  "title": "Stage5.1 hard dependency closure JSONL row",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "item_id", "assessment_id", "direct_prerequisite_item_ids",
+    "transitive_prerequisite_item_ids", "direct_edge_ids", "topological_rank",
+    "hard_dag_sha256", "record_sha256"
+  ],
+  "properties": {
+    "schema_version": {"$ref": "common.schema.json#/$defs/schema_version"},
+    "item_id": {"$ref": "common.schema.json#/$defs/member_item_id"},
+    "assessment_id": {"$ref": "common.schema.json#/$defs/assessment_id"},
+    "direct_prerequisite_item_ids": {
+      "type": "array", "items": {"$ref": "common.schema.json#/$defs/member_item_id"}, "uniqueItems": true
+    },
+    "transitive_prerequisite_item_ids": {
+      "type": "array", "items": {"$ref": "common.schema.json#/$defs/member_item_id"}, "uniqueItems": true
+    },
+    "direct_edge_ids": {
+      "type": "array", "items": {"$ref": "common.schema.json#/$defs/edge_id"}, "uniqueItems": true
+    },
+    "topological_rank": {"type": "integer", "minimum": 0},
+    "hard_dag_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+    "record_sha256": {"$ref": "common.schema.json#/$defs/sha256"}
+  }
+}

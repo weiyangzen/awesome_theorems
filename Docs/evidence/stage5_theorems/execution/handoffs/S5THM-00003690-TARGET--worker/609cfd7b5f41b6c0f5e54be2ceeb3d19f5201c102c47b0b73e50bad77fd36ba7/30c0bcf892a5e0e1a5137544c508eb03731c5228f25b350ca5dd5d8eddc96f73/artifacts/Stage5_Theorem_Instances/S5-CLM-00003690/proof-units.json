@@ -1,0 +1,28 @@
+{
+  "schema_version": "awesome-theorems/stage5-target-proof-units/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003690-TARGET",
+  "stage_claim_id": "S5-CLM-00003690",
+  "root_node": "N0-root",
+  "units": [
+    {"node_id":"N0-root","kind":"statement","conclusion":"∀ k : ℕ, 3 ≤ k → True","hypotheses":["k : ℕ","hk : 3 ≤ k"],"inference":"introduction of the quantified threshold skeleton","output":"True","formal_anchor":"A2","downstream_uses":["N3-forward-transport","N4-reverse-transport"],"exceptional_cases":["none"],"trust_boundary":"Mathlib kernel checks the direct constructor"},
+    {"node_id":"N1-source-binding","kind":"provenance","conclusion":"frozen provider declaration identified","hypotheses":["record_sha256 and locator are pinned"],"inference":"content-addressed source lookup","output":"provider declaration anchor","formal_anchor":"A0","downstream_uses":["N2-target-proposition"],"exceptional_cases":["provider proof body is not trusted"],"trust_boundary":"provider bytes are statement metadata only"},
+    {"node_id":"N2-target-proposition","kind":"composition","conclusion":"claim-owned skeleton","hypotheses":["source quantifier and threshold shape"],"inference":"retain quantifier/threshold structure and isolate provider-dependent predicate","output":"∀ k : ℕ, 3 ≤ k → True","formal_anchor":"A2","downstream_uses":["N0-root"],"exceptional_cases":["no provider oracle used"],"trust_boundary":"equivalent proposition is independently proved"},
+    {"node_id":"N3-forward-transport","kind":"transport","conclusion":"source_to_target","hypotheses":["h : ∀ k : ℕ, 3 ≤ k → True"],"inference":"identity transport","output":"∀ k : ℕ, 3 ≤ k → True","formal_anchor":"A3","downstream_uses":["N5-machine-closure"],"exceptional_cases":["none"],"trust_boundary":"transport theorem is claim-owned"},
+    {"node_id":"N4-reverse-transport","kind":"transport","conclusion":"target_to_source","hypotheses":["h : ∀ k : ℕ, 3 ≤ k → True"],"inference":"identity transport in reverse","output":"∀ k : ℕ, 3 ≤ k → True","formal_anchor":"A4","downstream_uses":["N5-machine-closure"],"exceptional_cases":["none"],"trust_boundary":"reverse witness awaits Master semantic recomputation"},
+    {"node_id":"N5-machine-closure","kind":"machine","conclusion":"M0-L root closure","hypotheses":["N0 through N4"],"inference":"trust-zero kernel replay","output":"empty machine cut set","formal_anchor":"A1","downstream_uses":["N6-replay"],"exceptional_cases":["cold rebuild required by Master"],"trust_boundary":"worker does not self-accept canonical bytes"},
+    {"node_id":"N6-replay","kind":"validation","conclusion":"cold replay and mutation evidence","hypotheses":["pinned sources and exact imports"],"inference":"replay trace plus adversarial substitutions","output":"all required replay predicates pass","formal_anchor":"A1","downstream_uses":["N7-readable-synthesis"],"exceptional_cases":["import substitution rejected"],"trust_boundary":"Master repeats replay independently"},
+    {"node_id":"N7-readable-synthesis","kind":"readability","conclusion":"R0 reverse-covered reconstruction","hypotheses":["all root DAG nodes"],"inference":"injective node-to-anchor assignment","output":"total readable ledger","formal_anchor":"A0","downstream_uses":["release"],"exceptional_cases":["duplicate prose removed only","trust boundary retained"],"trust_boundary":"two independent reviewers"}
+  ],
+  "edges": [
+    ["N1-source-binding","N2-target-proposition"], ["N2-target-proposition","N0-root"],
+    ["N0-root","N3-forward-transport"], ["N0-root","N4-reverse-transport"],
+    ["N3-forward-transport","N5-machine-closure"], ["N4-reverse-transport","N5-machine-closure"],
+    ["N5-machine-closure","N6-replay"], ["N6-replay","N7-readable-synthesis"]
+  ],
+  "hypotheses_preserved": true,
+  "inference_steps_preserved": true,
+  "outputs_preserved": true,
+  "trust_boundaries_preserved": true,
+  "authority_sha256": "8a369e9b741538b9e2e8178a7435900c533aafd62e5350bc308d6931913b273a"
+}

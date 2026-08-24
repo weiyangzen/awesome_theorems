@@ -1,0 +1,131 @@
+{
+  "anchor_to_fragment": {
+    "N0-membership": {
+      "downstream_uses": [
+        "N1-translation",
+        "N2-reflection"
+      ],
+      "exceptional_cases": [
+        "none; arbitrary formula and membership"
+      ],
+      "formal_anchor": "Proof.lean#boxdotConjecture:intro",
+      "fragment_sha256": "3731efce5c33d6ee9e8603571ab89780a8275c9e8765c4d3427e00d2f2998f2b",
+      "hypotheses": [
+        "L",
+        "KT",
+        "boxdot",
+        "translation_closed",
+        "faithful",
+        "φ",
+        "hφ"
+      ],
+      "inference": "Introduce an arbitrary theorem of L.",
+      "node_id": "N0-membership",
+      "output": "the pointwise goal φ ∈ KT",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003489/proof-outline.md#N0-membership",
+      "trust_boundary": "Lean kernel introduction at trust zero"
+    },
+    "N1-translation": {
+      "downstream_uses": [
+        "N2-reflection"
+      ],
+      "exceptional_cases": [
+        "constructor cases are owned by explicit translation_closed input"
+      ],
+      "formal_anchor": "Proof.lean#boxdotConjecture_translation_step",
+      "fragment_sha256": "42110f24d9f4f1e46d8c5a6657feb54c3663d69f6f991de925d33f2c6739ebf8",
+      "hypotheses": [
+        "translation_closed",
+        "hφ"
+      ],
+      "inference": "Specialize Set.MapsTo at hφ.",
+      "node_id": "N1-translation",
+      "output": "boxdot φ ∈ L",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003489/proof-outline.md#N1-translation",
+      "trust_boundary": "explicit claim hypothesis, not a provider oracle"
+    },
+    "N2-reflection": {
+      "downstream_uses": [
+        "N3-inclusion"
+      ],
+      "exceptional_cases": [
+        "none; faithfulness is universal in φ"
+      ],
+      "formal_anchor": "Proof.lean#boxdotConjecture_reflection_step",
+      "fragment_sha256": "edf5c65f0d67d84c8cb359c16099f745e84d58cb7e5805c325c83a7a659f135c",
+      "hypotheses": [
+        "faithful φ",
+        "boxdot φ ∈ L"
+      ],
+      "inference": "Use the forward direction of the faithful equivalence.",
+      "node_id": "N2-reflection",
+      "output": "φ ∈ KT",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003489/proof-outline.md#N2-reflection",
+      "trust_boundary": "provider body unused; explicit equivalence elimination only"
+    },
+    "N3-inclusion": {
+      "downstream_uses": [
+        "claim-owned theorem root",
+        "bidirectional transport audit"
+      ],
+      "exceptional_cases": [
+        "none; all members of L are covered"
+      ],
+      "formal_anchor": "Audit.lean#boxdotConjecture_audit_root",
+      "fragment_sha256": "6ff01e81c62b5b9b8f2941fa548b783a668f66ee6f951e43955b90c298ff11bc",
+      "hypotheses": [
+        "all unchanged root hypotheses",
+        "outputs N1 and N2"
+      ],
+      "inference": "Compose translation closure and reflection pointwise.",
+      "node_id": "N3-inclusion",
+      "output": "L ⊆ KT",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003489/proof-outline.md#N3-inclusion",
+      "trust_boundary": "local theorem body; Master recompilation required"
+    }
+  },
+  "authority_sha256": "6b440387e56bb48e8632306f4c51af5f4fbf0216559d88c2f9908e52611ee9e3",
+  "distilled": {
+    "deletion_mutations_passed": true,
+    "duplicate_prose_removed": true,
+    "mathematical_content_preserved": true,
+    "structured_inventory_not_duplicated": true
+  },
+  "item_id": "S5THM-00003489-TARGET",
+  "node_to_anchor": {
+    "N0-membership": "N0-membership",
+    "N1-translation": "N1-translation",
+    "N2-reflection": "N2-reflection",
+    "N3-inclusion": "N3-inclusion"
+  },
+  "program": "stage5-theorem-proof-debt/2.0",
+  "readability_level": "R0",
+  "remaining_readability_cut_set": [],
+  "required_nodes": [
+    "N0-membership",
+    "N1-translation",
+    "N2-reflection",
+    "N3-inclusion"
+  ],
+  "reviewers": [
+    {
+      "conflicts_checked": [
+        "provider contributors",
+        "proof author"
+      ],
+      "decision": "complete_and_injective",
+      "reviewer_id": "readability-structure-review"
+    },
+    {
+      "conflicts_checked": [
+        "provider contributors",
+        "proof author",
+        "structure reviewer"
+      ],
+      "decision": "content_preserved",
+      "reviewer_id": "readability-content-review"
+    }
+  ],
+  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
+  "stage_claim_id": "S5-CLM-00003489"
+}

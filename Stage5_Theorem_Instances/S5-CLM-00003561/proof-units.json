@@ -1,0 +1,251 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003561-TARGET",
+  "stage_claim_id": "S5-CLM-00003561",
+  "root_node": "PU-ROOT",
+  "nodes": [
+    {
+      "node_id": "PU-SOURCE",
+      "kind": "provenance",
+      "proposition": "The frozen output is the ordered conjunction of dimension-five and fifteen-edge claims for K6 and K133.",
+      "hypotheses": [
+        "Pinned revision 2270d31e8dd611521f979de6d86da364930b7669",
+        "Exact provider declaration and type hashes"
+      ],
+      "inference": "Read only the pinned declaration block; exclude its sorry-backed proof body.",
+      "output": "Exact source proposition and Stage6 alias are fixed.",
+      "formal_anchor": "Erdos1007.erdos_1007.variants.dimension_five_extremal",
+      "human_anchor": "F1",
+      "dependencies": [],
+      "downstream_uses": [
+        "PU-ROOT"
+      ],
+      "exceptional_cases": [
+        "Numeric source module is provenance-only in the target Lake environment."
+      ],
+      "trust_boundary": "Provider source bytes establish statement identity but provide no proof authority."
+    },
+    {
+      "node_id": "PU-EDGES",
+      "kind": "proof",
+      "proposition": "K6 and K133 each have exactly fifteen edges.",
+      "hypotheses": [
+        "K6 has six vertices and all unordered distinct pairs are edges.",
+        "K133 has part sizes one, three, and three and only cross-part edges."
+      ],
+      "inference": "Compute 6·5/2 and 1·3 + 1·3 + 3·3.",
+      "output": "Both edge-cardinality conjuncts equal 15.",
+      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003561.dimensionFiveExtremalProof",
+      "human_anchor": "F2",
+      "dependencies": [],
+      "downstream_uses": [
+        "PU-ROOT"
+      ],
+      "exceptional_cases": [
+        "Loops are excluded and unordered pairs are counted once."
+      ],
+      "trust_boundary": "Closed natural-number arithmetic is independently replayed by the Master."
+    },
+    {
+      "node_id": "PU-K6-UPPER",
+      "kind": "construction",
+      "proposition": "K6 admits a faithful unit-distance realization in dimension five.",
+      "hypotheses": [
+        "Six regular-simplex vertices lie in the coordinate-sum-zero hyperplane of R6."
+      ],
+      "inference": "Subtract the barycentre and rescale standard basis vectors by 1/sqrt(2).",
+      "output": "An injective five-dimensional unit-distance realization of K6.",
+      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003561.dimensionFiveExtremalStatement",
+      "human_anchor": "F3",
+      "dependencies": [],
+      "downstream_uses": [
+        "PU-K6-EXACT"
+      ],
+      "exceptional_cases": [
+        "All fifteen pairs must have unit distance; a merely partial simplex is insufficient."
+      ],
+      "trust_boundary": "The geometric construction-to-HasDimension transport is Master-recomputed."
+    },
+    {
+      "node_id": "PU-K6-LOWER",
+      "kind": "proof",
+      "proposition": "Every unit-distance realization of K6 has ambient dimension at least five.",
+      "hypotheses": [
+        "Six vertices are pairwise at distance one.",
+        "Translation sends one vertex to zero without changing distances."
+      ],
+      "inference": "Polarization makes the five displacement vectors' Gram entries 1 on the diagonal and 1/2 off it; the quadratic form 1/2∑x_i² + 1/2(∑x_i)² is positive definite.",
+      "output": "Five independent displacement vectors, hence dimension at least five.",
+      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003561.k6GramFormIdentity",
+      "human_anchor": "F4",
+      "dependencies": [],
+      "downstream_uses": [
+        "PU-K6-EXACT"
+      ],
+      "exceptional_cases": [
+        "Using fewer than all five displacements yields only a weaker bound."
+      ],
+      "trust_boundary": "Ring normalization proves the identity; inner-product interpretation is audited in prose and by Master transport."
+    },
+    {
+      "node_id": "PU-K6-EXACT",
+      "kind": "composition",
+      "proposition": "K6 has dimension exactly five.",
+      "hypotheses": [
+        "PU-K6-UPPER",
+        "PU-K6-LOWER"
+      ],
+      "inference": "Combine matching upper and lower bounds.",
+      "output": "The first HasDimension conjunct.",
+      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003561.dimensionFiveExtremalProof",
+      "human_anchor": "F4",
+      "dependencies": [
+        "PU-K6-UPPER",
+        "PU-K6-LOWER"
+      ],
+      "downstream_uses": [
+        "PU-ROOT"
+      ],
+      "exceptional_cases": [
+        "Both directions refer to the same faithful unit-distance notion."
+      ],
+      "trust_boundary": "Exact semantic meaning of HasDimension is checked against the pinned provider environment."
+    },
+    {
+      "node_id": "PU-K133-UPPER",
+      "kind": "construction",
+      "proposition": "K133 admits a faithful unit-distance realization in dimension five.",
+      "hypotheses": [
+        "An orthogonal 1+2+2 decomposition exists.",
+        "Each two-plane contains a centred equilateral triple of squared radius 1/2."
+      ],
+      "inference": "Use points 0, c+u_i, and c+w_j with squared norm of c equal to 1/2.",
+      "output": "All cross-part distances equal one and same-part squared distances equal 3/2.",
+      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003561.dimensionFiveExtremalStatement",
+      "human_anchor": "F5",
+      "dependencies": [],
+      "downstream_uses": [
+        "PU-K133-EXACT"
+      ],
+      "exceptional_cases": [
+        "Same-part distances must not equal one; all seven images must be distinct."
+      ],
+      "trust_boundary": "Coordinate-free construction is connected to the graph predicate only by independently reviewed transport."
+    },
+    {
+      "node_id": "PU-K133-LOWER",
+      "kind": "proof",
+      "proposition": "Every faithful unit-distance realization of K133 has ambient dimension at least five.",
+      "hypotheses": [
+        "The singleton is translated to zero.",
+        "Each other vertex has norm one and all A-B inner products equal 1/2.",
+        "The vertex map is injective."
+      ],
+      "inference": "The two difference spaces are two-dimensional and orthogonal; the nonzero common cross component forces an additional direction beyond their four-dimensional sum.",
+      "output": "Ambient dimension at least five.",
+      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003561.dimensionFiveExtremalProof",
+      "human_anchor": "F6",
+      "dependencies": [],
+      "downstream_uses": [
+        "PU-K133-EXACT"
+      ],
+      "exceptional_cases": [
+        "A collapsed or collinear triple is ruled out using injectivity and the sphere-line intersection bound.",
+        "The cross inner product 1/2 cannot be replaced by zero."
+      ],
+      "trust_boundary": "Faithfulness and injectivity are mandatory source-semantics obligations."
+    },
+    {
+      "node_id": "PU-K133-EXACT",
+      "kind": "composition",
+      "proposition": "K133 has dimension exactly five.",
+      "hypotheses": [
+        "PU-K133-UPPER",
+        "PU-K133-LOWER"
+      ],
+      "inference": "Combine matching upper and lower bounds.",
+      "output": "The second HasDimension conjunct.",
+      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003561.dimensionFiveExtremalProof",
+      "human_anchor": "F6",
+      "dependencies": [
+        "PU-K133-UPPER",
+        "PU-K133-LOWER"
+      ],
+      "downstream_uses": [
+        "PU-ROOT"
+      ],
+      "exceptional_cases": [
+        "The construction and lower bound use the same part ordering only up to graph isomorphism."
+      ],
+      "trust_boundary": "Exact semantic meaning of HasDimension is checked against the pinned provider environment."
+    },
+    {
+      "node_id": "PU-ROOT",
+      "kind": "root-composition",
+      "proposition": "The exact frozen conjunction holds for K6 and K133.",
+      "hypotheses": [
+        "PU-SOURCE",
+        "PU-EDGES",
+        "PU-K6-EXACT",
+        "PU-K133-EXACT"
+      ],
+      "inference": "Pair each exact-dimension result with its edge equality and preserve provider conjunct order.",
+      "output": "S5-CLM-00003561 theorem completion candidate.",
+      "formal_anchor": "Erdos1007.erdos_1007.variants.dimension_five_extremal",
+      "human_anchor": "F7",
+      "dependencies": [
+        "PU-SOURCE",
+        "PU-EDGES",
+        "PU-K6-EXACT",
+        "PU-K133-EXACT"
+      ],
+      "downstream_uses": [
+        "S6-CLM-00005346",
+        "S6-VAR-00000050"
+      ],
+      "exceptional_cases": [
+        "No source proof, alias theorem, or second mathematical claim supplies closure."
+      ],
+      "trust_boundary": "Only canonical Master compilation and semantic recomputation can accept this provisional root."
+    }
+  ],
+  "dependency_edges": [
+    [
+      "PU-K6-UPPER",
+      "PU-K6-EXACT"
+    ],
+    [
+      "PU-K6-LOWER",
+      "PU-K6-EXACT"
+    ],
+    [
+      "PU-K133-UPPER",
+      "PU-K133-EXACT"
+    ],
+    [
+      "PU-K133-LOWER",
+      "PU-K133-EXACT"
+    ],
+    [
+      "PU-SOURCE",
+      "PU-ROOT"
+    ],
+    [
+      "PU-EDGES",
+      "PU-ROOT"
+    ],
+    [
+      "PU-K6-EXACT",
+      "PU-ROOT"
+    ],
+    [
+      "PU-K133-EXACT",
+      "PU-ROOT"
+    ]
+  ],
+  "remaining_human_cut_set": [],
+  "remaining_machine_cut_set": [],
+  "remaining_readability_cut_set": [],
+  "authority_sha256": "e92d0e2e602134a5a7d9d09a7a83afa2aa8595bdc189d5f26bd37a5b838ec319"
+}

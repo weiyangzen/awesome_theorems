@@ -1,0 +1,3 @@
+# Machine-checked audit
+
+The claim-owned root is `AwesomeTheorems.Stage5.S5_CLM_00003520.rank_3_3`. The proof uses finite permutation classification, explicit parity/stabilizer/conjugate-graph obstructions, and an active reverse type transport. Every Lean surface actively imports the exact provider module and is standalone in the provider-native environment. `Audit.lean` supplies the exact `type_of%` witness and terminal `#print axioms` query. The machine record requests trust-zero cold replay and an empty cut set; Master independently recomputes elaboration, transitive constants, dependencies, and axioms.

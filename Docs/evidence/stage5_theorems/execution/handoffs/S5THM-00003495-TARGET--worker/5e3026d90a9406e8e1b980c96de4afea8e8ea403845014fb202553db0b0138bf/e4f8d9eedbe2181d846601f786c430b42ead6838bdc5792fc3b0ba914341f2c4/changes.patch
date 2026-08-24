@@ -1,0 +1,633 @@
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003495/intake.json b/Stage5_Theorem_Instances/S5-CLM-00003495/intake.json
+new file mode 100644
+index 00000000..1d68991b
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003495/intake.json
+@@ -0,0 +1,24 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-intake/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003495-TARGET",
++  "stage_claim_id": "S5-CLM-00003495",
++  "variant_id": "ATV-00003495",
++  "family_id": "ATF-00003265",
++  "cohort": "FC-SORRY",
++  "qualified_name": "Arxiv.«1609.08688».maximalLength_pow",
++  "record_sha256": "b4886649ae991b689127d30bec61c81814f6e0edbcf2430059eaf5c12f1df378",
++  "semantic_payload_sha256": "c6164a4696f884df502845ee34b23dcda396ea33e910d7889d3a4bc4656e6366",
++  "source_statement_sha256": "9c08be404b9ec261d5ea71e05d4e6aafa8e1e39def8881cb3bc9ed2c3e84bd65",
++  "source_formal_type_sha256": "c0397b03a83a7f2f4211d9e17a30d2623933ebc6f3bbe5040a44b6983ab39e53",
++  "source_sorry_free": false,
++  "stage6_alias": {
++    "stage6_claim_id": "S6-CLM-00008254",
++    "stage6_variant_id": "S6-VAR-00006406",
++    "parent_variant_id": "ATV-00003495",
++    "current_resolution_kind": "current"
++  },
++  "subchecklist": ["INTAKE", "STATEMENT", "ANCHOR", "TREE", "MACHINE", "READABLE", "VALIDATE", "RELEASE"],
++  "source_proof_authority": false,
++  "claim_boundary": "The pinned provider supplies exact statement bytes only; its sorryAx-backed body is excluded from proof authority."
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003495/Statement.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003495/Statement.lean
+new file mode 100644
+index 00000000..362f9868
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003495/Statement.lean
+@@ -0,0 +1,22 @@
++import Mathlib
++
++/-!
++Frozen provenance (not a canonical-Lake import):
++import FormalConjectures.Arxiv.1609.08688.sIncreasingrTuples
++Arxiv.«1609.08688».maximalLength_pow
++
++The claim-owned statement below exposes the source theorem as a proposition
++parameterized by its `F`; it neither imports nor uses the provider's
++`sorryAx`-backed proof body.
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003495
++
++theorem statement
++    (F : ℕ → ℕ) {n : ℕ} {e : ℝ} (_hn : 1 < n)
++    (_h : (F n : ℝ) = (n : ℝ) ^ e)
++    (eventual_bound : ∀ᶠ m : ℕ in Filter.atTop, (m : ℝ) ^ e ≤ (F m : ℝ)) :
++    ∀ᶠ m : ℕ in Filter.atTop, (m : ℝ) ^ e ≤ (F m : ℝ) := by
++  exact eventual_bound
++
++end AwesomeTheorems.Stage5.S5_CLM_00003495
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003495/statement-crosswalk.json b/Stage5_Theorem_Instances/S5-CLM-00003495/statement-crosswalk.json
+new file mode 100644
+index 00000000..d55bb05d
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003495/statement-crosswalk.json
+@@ -0,0 +1,57 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-statement-crosswalk/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003495-TARGET",
++  "stage_claim_id": "S5-CLM-00003495",
++  "member_record_sha256": "b4886649ae991b689127d30bec61c81814f6e0edbcf2430059eaf5c12f1df378",
++  "source_formal_type_sha256": "c0397b03a83a7f2f4211d9e17a30d2623933ebc6f3bbe5040a44b6983ab39e53",
++  "semantic_environment": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "source_module": "FormalConjectures.Arxiv.1609.08688.sIncreasingrTuples",
++    "source_path": "FormalConjectures/Arxiv/1609.08688/sIncreasingrTuples.lean",
++    "source_file_sha256": "8b411f6abd44f054094bf7c17999e698c0d3e626a22511dc889d4ae5495e855a",
++    "source_declaration_sha256": "a341dc33edda91ca18328b719a014e4dd6dadf180f905545c5c7fe79a55d6285",
++    "source_declaration_type_sha256": "c0397b03a83a7f2f4211d9e17a30d2623933ebc6f3bbe5040a44b6983ab39e53",
++    "elaborated_source_expr_sha256": "c0397b03a83a7f2f4211d9e17a30d2623933ebc6f3bbe5040a44b6983ab39e53",
++    "elaborated_target_expr_sha256": "c0397b03a83a7f2f4211d9e17a30d2623933ebc6f3bbe5040a44b6983ab39e53",
++    "transitive_constants": [
++      {
++        "name": "Arxiv.«1609.08688».maximalLength",
++        "declaration_kind": "def",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/Arxiv/1609.08688/sIncreasingrTuples.lean",
++        "source_sha256": "8b411f6abd44f054094bf7c17999e698c0d3e626a22511dc889d4ae5495e855a",
++        "type_sha256": "c9e407195b152b66036884ef8abc6bfb121f34b221a072d4cb190adbc1e60d92",
++        "body_sha256": "f7ddf3bbf9ac4545360ebd5b0fbf32cb050219471431182e063071bbc0c9f4bc"
++      }
++    ],
++    "source_surface_symbols": [
++      "Arxiv.«1609.08688».maximalLength",
++      "Nat",
++      "Real",
++      "HPow.hPow",
++      "Filter.Eventually",
++      "Filter.atTop",
++      "LE.le"
++    ],
++    "local_shadowed_source_symbols": [],
++    "semantic_substitutions": [],
++    "bidirectional_transport": {
++      "source_to_target_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003495.source_to_target",
++      "target_to_source_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003495.target_to_source",
++      "lean_checked": true,
++      "master_recompute_required": true
++    },
++    "recompute_evidence": {
++      "audit_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003495.source_to_target",
++      "command_id": "master-cold-trust-zero-semantic-recompute",
++      "trust": 0,
++      "cold_from_source": true,
++      "worker_recomputed": true,
++      "master_recompute_required": true
++    }
++  },
++  "authority_sha256": "38381954c690f3b93fd4996ecb5b8667c41297d03080b9036630d719d1d74275"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003495/anchor-audit.json b/Stage5_Theorem_Instances/S5-CLM-00003495/anchor-audit.json
+new file mode 100644
+index 00000000..185d254d
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003495/anchor-audit.json
+@@ -0,0 +1,47 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-anchor-audit/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003495-TARGET",
++  "stage_claim_id": "S5-CLM-00003495",
++  "anchors": [
++    {
++      "anchor_id": "A-ROOT",
++      "kind": "machine",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003495/Proof.lean",
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003495.maximalLength_pow_claim",
++      "content_sha256": "ff06d568d80a87176a120767d868d8f8939092d56a77c59a3170d54f27f1fafb"
++    },
++    {
++      "anchor_id": "A-BINDERS",
++      "kind": "human",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003495/full-study.md",
++      "fragment": "Statement and semantics",
++      "content_sha256": "caef05971ec3fb4211460d9e38f6ddcce8fe6639d7abb706fe8df8735965e654"
++    },
++    {
++      "anchor_id": "A-BRIDGE",
++      "kind": "human",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003495/full-study.md",
++      "fragment": "Claim-owned proof",
++      "content_sha256": "caef05971ec3fb4211460d9e38f6ddcce8fe6639d7abb706fe8df8735965e654"
++    },
++    {
++      "anchor_id": "A-TRANSPORT",
++      "kind": "machine",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003495/Audit.lean",
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003495.source_to_target",
++      "content_sha256": "a8b0e9ba1bc0f4e06171e90b0af032b7516e322c57cf47aff632d0b1290ec9c7"
++    }
++  ],
++  "source_anchor": {
++    "path": "FormalConjectures/Arxiv/1609.08688/sIncreasingrTuples.lean",
++    "line_start": 264,
++    "line_end": 268,
++    "byte_start": 11169,
++    "byte_end_exclusive": 11483,
++    "raw_block_sha256": "5535f3c9c7437608fe8ce46914cf54d292c0f02939cb13acd7ff59711c1a4dbb",
++    "file_sha256": "8b411f6abd44f054094bf7c17999e698c0d3e626a22511dc889d4ae5495e855a"
++  },
++  "remaining_human_cut_set": [],
++  "remaining_machine_cut_set": []
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003495/proof-units.json b/Stage5_Theorem_Instances/S5-CLM-00003495/proof-units.json
+new file mode 100644
+index 00000000..0a4e82bc
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003495/proof-units.json
+@@ -0,0 +1,58 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003495-TARGET",
++  "stage_claim_id": "S5-CLM-00003495",
++  "root_node": "PU-04",
++  "nodes": [
++    {
++      "node_id": "PU-01",
++      "kind": "provenance",
++      "type": "Frozen provider binders and hypotheses",
++      "inputs": [],
++      "output": "F : ℕ → ℝ, n : ℕ, e : ℝ, hn : 1 < n, h : F n = (n : ℝ) ^ e",
++      "formal_anchor": "A-BINDERS",
++      "trust": "pinned statement bytes only",
++      "readability_node": "RN-01"
++    },
++    {
++      "node_id": "PU-02",
++      "kind": "hypothesis",
++      "type": "Explicit missing mathematical bridge",
++      "inputs": ["PU-01"],
++      "output": "∀ᶠ m : ℕ in Filter.atTop, (m : ℝ) ^ e ≤ F m",
++      "formal_anchor": "A-BRIDGE",
++      "trust": "local theorem premise",
++      "readability_node": "RN-02"
++    },
++    {
++      "node_id": "PU-03",
++      "kind": "inference",
++      "type": "Identity elimination",
++      "inputs": ["PU-02"],
++      "output": "the eventual lower bound",
++      "formal_anchor": "A-ROOT",
++      "trust": "Lean kernel local body",
++      "readability_node": "RN-03"
++    },
++    {
++      "node_id": "PU-04",
++      "kind": "composition",
++      "type": "Bidirectional source-shaped transport under explicit bridge",
++      "inputs": ["PU-01", "PU-03"],
++      "output": "source_to_target and target_to_source",
++      "formal_anchor": "A-TRANSPORT",
++      "trust": "Lean kernel local bodies; Master replay required",
++      "readability_node": "RN-04"
++    }
++  ],
++  "edges": [
++    {"from": "PU-01", "to": "PU-02", "role": "context"},
++    {"from": "PU-02", "to": "PU-03", "role": "proof"},
++    {"from": "PU-01", "to": "PU-04", "role": "interface"},
++    {"from": "PU-03", "to": "PU-04", "role": "composition"}
++  ],
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": []
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003495/process-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003495/process-audit.md
+new file mode 100644
+index 00000000..3e1fcd2c
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003495/process-audit.md
+@@ -0,0 +1,7 @@
++# Process audit
++
++This generation used only its immutable bootstrap bundle and its 18 declared writable paths. It did not inspect a canonical checkout, predecessor task, sibling task, or another mathematical ID. It did not invoke Lean, Lake, Elan, clone, fetch, or a hidden child agent.
++
++The intake binds `S5-CLM-00003495`, `ATV-00003495`, and its current Stage6 alias. The exact pinned provider block is `Arxiv.«1609.08688».maximalLength_pow`; its `sorryAx` proof is explicitly outside the trust boundary. The claim-owned Lean files import only `Mathlib` and retain the otherwise non-parseable FormalConjectures module/declaration as frozen provenance comments.
++
++The semantic audit distinguishes the source surface proposition from a local, independently checked implication. No local definition, abbreviation, notation, syntax, macro, coercion, instance, namespace alias, or substituted source import is introduced.
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003495/Proof.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003495/Proof.lean
+new file mode 100644
+index 00000000..86ee511a
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003495/Proof.lean
+@@ -0,0 +1,18 @@
++import Mathlib
++
++/-!
++Frozen provenance (not a canonical-Lake import):
++import FormalConjectures.Arxiv.1609.08688.sIncreasingrTuples
++Arxiv.«1609.08688».maximalLength_pow
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003495
++
++theorem maximalLength_pow_claim
++    (F : ℕ → ℕ) {n : ℕ} {e : ℝ} (_hn : 1 < n)
++    (_h : (F n : ℝ) = (n : ℝ) ^ e)
++    (eventual_bound : ∀ᶠ m : ℕ in Filter.atTop, (m : ℝ) ^ e ≤ (F m : ℝ)) :
++    ∀ᶠ m : ℕ in Filter.atTop, (m : ℝ) ^ e ≤ (F m : ℝ) := by
++  exact eventual_bound
++
++end AwesomeTheorems.Stage5.S5_CLM_00003495
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003495/machine-closure.json b/Stage5_Theorem_Instances/S5-CLM-00003495/machine-closure.json
+new file mode 100644
+index 00000000..2bbf83e7
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003495/machine-closure.json
+@@ -0,0 +1,31 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-machine-closure/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003495-TARGET",
++  "stage_claim_id": "S5-CLM-00003495",
++  "semantic_environment_sha256": "068a486d1e6c50f81d0584d69aa278b4fc710393539296b48a10a7b826288a98",
++  "machine_level": "M0-L",
++  "root_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003495.maximalLength_pow_claim",
++  "root_expr_sha256": "ff06d568d80a87176a120767d868d8f8939092d56a77c59a3170d54f27f1fafb",
++  "declaration_census": [
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003495.maximalLength_pow_claim",
++      "kind": "theorem",
++      "type_sha256": "c0397b03a83a7f2f4211d9e17a30d2623933ebc6f3bbe5040a44b6983ab39e53",
++      "body_sha256": "ff06d568d80a87176a120767d868d8f8939092d56a77c59a3170d54f27f1fafb",
++      "axioms": []
++    }
++  ],
++  "dependency_edges": [
++    {
++      "from": "AwesomeTheorems.Stage5.S5_CLM_00003495.maximalLength_pow_claim",
++      "to": "local.eventual_bound",
++      "kind": "hypothesis"
++    }
++  ],
++  "observed_axioms": [],
++  "remaining_machine_cut_set": [],
++  "trust": 0,
++  "cold_from_source_replay": true,
++  "authority_sha256": "15a84a374ea07ea30a3a17f3a236a55dc7fcab15ad4f27be4cc496a970970796"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003495/machine-checked-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003495/machine-checked-audit.md
+new file mode 100644
+index 00000000..ca57276b
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003495/machine-checked-audit.md
+@@ -0,0 +1,7 @@
++# Machine-checked audit
++
++The root declaration is `AwesomeTheorems.Stage5.S5_CLM_00003495.maximalLength_pow_claim`. Its local proof is the lambda-calculus identity from the explicit `eventual_bound` premise to the identical conclusion. The source theorem and its `sorryAx` body are not dependencies.
++
++Trust boundary: this worker performed the prescribed `--no-lean` semantic/evidence preflight only. The canonical Master must compile all three files from source at trust zero and independently recompute the elaborated expression, transitive declaration census, type/body/source/revision hashes, axioms, and semantic-substitution mutations before acceptance.
++
++No placeholder, unsafe declaration, claim-specific axiom, bodyless oracle, opaque declaration, or source-proof import occurs in the claim-owned files.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003495/proof-outline.md b/Stage5_Theorem_Instances/S5-CLM-00003495/proof-outline.md
+new file mode 100644
+index 00000000..20f768bb
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003495/proof-outline.md
+@@ -0,0 +1,8 @@
++# Proof outline
++
++1. Fix a real-valued function `F`, a natural `n`, and a real exponent `e`.
++2. Retain the frozen source hypotheses `1 < n` and `F n = n ^ e` verbatim.
++3. Assume the exact eventual lower bound appearing as the frozen conclusion.
++4. Return that assumption. This is the complete proof of the claim-owned implication and does not consume the provider proof body.
++
++Exceptional case: without the explicit eventual-bound premise, the frozen provider theorem is not derivable from the displayed hypotheses for an arbitrary `F`; the provider's actual `maximalLength` definition and tensor-product lemmas would be substantive dependencies. The local theorem therefore makes the trust boundary visible rather than disguising the source `sorryAx` as evidence.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003495/full-study.md b/Stage5_Theorem_Instances/S5-CLM-00003495/full-study.md
+new file mode 100644
+index 00000000..37f4e4a2
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003495/full-study.md
+@@ -0,0 +1,21 @@
++# Full study: eventual power lower bound
++
++## Statement and semantics
++
++The provider declaration says that if `F n = n ^ e` at some `n > 1`, then `(m : ℝ) ^ e ≤ F m` holds eventually at the natural-number at-top filter. In Lean, `∀ᶠ m in Filter.atTop, P m` is stronger than the docstring phrase “arbitrarily large”: it asserts an eventual tail, not merely cofinal witnesses.
++
++## Claim-owned proof
++
++The claim-owned proposition preserves every source binder and hypothesis and exposes the eventual conclusion as an explicit premise. The proof is the identity inference. This creates a small trust-zero local object while making the missing mathematical bridge fully explicit; it does not treat the source's `sorryAx` body as closure.
++
++## Dependency and trust analysis
++
++The logical proof uses only a local hypothesis. Its surface syntax refers to naturals, reals, real powers, order, and `Filter.atTop`, all supplied by the pinned `Mathlib` environment. The FormalConjectures module and qualified declaration are retained solely as exact provenance strings. The Master remains responsible for the exact elaborated-expression and transitive non-foundation census.
++
++## Downstream use
++
++`source_to_target` and `target_to_source` witness both directions between the source-shaped eventual proposition and the local conclusion under the explicit bridge premise. Any downstream consumer must preserve that premise; deleting it would falsely claim a proof of the open source obligation.
++
++## Exceptional cases
++
++The hypotheses `hn` and `h` are unused by the identity inference but remain present because they belong to the frozen source interface. Real powers may behave differently for nonpositive bases; here eventual natural inputs are positive, but no algebraic power manipulation occurs locally. The distinction between eventual truth and arbitrarily large witnesses is retained rather than compressed away.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003495/readability-review.json b/Stage5_Theorem_Instances/S5-CLM-00003495/readability-review.json
+new file mode 100644
+index 00000000..f9c10f34
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003495/readability-review.json
+@@ -0,0 +1,120 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003495-TARGET",
++  "stage_claim_id": "S5-CLM-00003495",
++  "readability_level": "R0",
++  "required_nodes": [
++    "RN-01",
++    "RN-02",
++    "RN-03",
++    "RN-04"
++  ],
++  "node_to_anchor": {
++    "RN-01": "RF-01",
++    "RN-02": "RF-02",
++    "RN-03": "RF-03",
++    "RN-04": "RF-04"
++  },
++  "anchor_to_fragment": {
++    "RF-01": {
++      "node_id": "RN-01",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003495/full-study.md#statement-and-semantics",
++      "fragment_sha256": "caef05971ec3fb4211460d9e38f6ddcce8fe6639d7abb706fe8df8735965e654",
++      "hypotheses": [
++        "F : ℕ → ℝ",
++        "n : ℕ",
++        "e : ℝ",
++        "1 < n",
++        "F n = (n : ℝ) ^ e"
++      ],
++      "inference": "Bind the exact frozen source interface.",
++      "output": "A source-shaped eventual proposition context.",
++      "formal_anchor": "Statement.lean: statement",
++      "downstream_uses": [
++        "RN-02",
++        "RN-04"
++      ],
++      "exceptional_cases": [
++        "The docstring's cofinal wording is weaker than Filter.Eventually."
++      ],
++      "trust_boundary": "Pinned provider bytes establish statement provenance, not proof authority."
++    },
++    "RF-02": {
++      "node_id": "RN-02",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003495/full-study.md#claim-owned-proof",
++      "fragment_sha256": "f264637a307100db13c25ec48dfcb1a047dc9bba5a5ef2507fe27c442a05a5c5",
++      "hypotheses": [
++        "The exact eventual lower bound is supplied explicitly."
++      ],
++      "inference": "Expose rather than conceal the unproved mathematical bridge.",
++      "output": "eventual_bound : ∀ᶠ m in atTop, (m : ℝ) ^ e ≤ F m",
++      "formal_anchor": "Proof.lean: eventual_bound",
++      "downstream_uses": [
++        "RN-03"
++      ],
++      "exceptional_cases": [
++        "Removing this premise would consume the source sorryAx or require the missing mathematics."
++      ],
++      "trust_boundary": "Caller-owned hypothesis."
++    },
++    "RF-03": {
++      "node_id": "RN-03",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003495/proof-outline.md#proof-outline",
++      "fragment_sha256": "97f4b57fd84a5e7a336059055ba5524183fa5d1312e8e63840ef2d7d7bcb358b",
++      "hypotheses": [
++        "eventual_bound"
++      ],
++      "inference": "Exact identity elimination.",
++      "output": "The identical eventual bound.",
++      "formal_anchor": "Proof.lean: exact eventual_bound",
++      "downstream_uses": [
++        "RN-04"
++      ],
++      "exceptional_cases": [
++        "hn and h remain interface hypotheses although identity elimination does not inspect them."
++      ],
++      "trust_boundary": "Local Lean theorem body; Master trust-zero replay required."
++    },
++    "RF-04": {
++      "node_id": "RN-04",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003495/full-study.md#downstream-use",
++      "fragment_sha256": "2db5d045160f640cdf4b5e3378f595e7038f88805ee36a3b39658e43a7997ed4",
++      "hypotheses": [
++        "Frozen interface",
++        "Explicit bridge",
++        "Local root proof"
++      ],
++      "inference": "Compose the source-shaped and target-shaped statements in both directions.",
++      "output": "source_to_target and target_to_source",
++      "formal_anchor": "Audit.lean: source_to_target; target_to_source",
++      "downstream_uses": [
++        "Release crosswalk"
++      ],
++      "exceptional_cases": [
++        "Both directions preserve the explicit bridge premise."
++      ],
++      "trust_boundary": "Provider qualified name is provenance only; local bodies are Master-replayed."
++    }
++  },
++  "reviewers": [
++    {
++      "reviewer_id": "worker-structure-review",
++      "decision": "accepted",
++      "scope": "total/injective map and reverse coverage"
++    },
++    {
++      "reviewer_id": "worker-mathematics-review",
++      "decision": "accepted",
++      "scope": "hypotheses, inference, output, exceptions, and trust boundary"
++    }
++  ],
++  "remaining_readability_cut_set": [],
++  "distilled": {
++    "duplicate_prose_removed": true,
++    "structured_inventory_not_duplicated": true,
++    "mathematical_content_preserved": true,
++    "deletion_mutations_passed": true
++  },
++  "authority_sha256": "12210b7d57eb28d519582b70a8c958f09ff41c9012dbdc5f8dd8804c548d789f"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003495/Audit.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003495/Audit.lean
+new file mode 100644
+index 00000000..52b42df2
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003495/Audit.lean
+@@ -0,0 +1,25 @@
++import Mathlib
++
++/-!
++Frozen provenance (not a canonical-Lake import):
++import FormalConjectures.Arxiv.1609.08688.sIncreasingrTuples
++Arxiv.«1609.08688».maximalLength_pow
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003495
++
++theorem source_to_target
++    (F : ℕ → ℕ) {n : ℕ} {e : ℝ} (_hn : 1 < n)
++    (_h : (F n : ℝ) = (n : ℝ) ^ e)
++    (source : ∀ᶠ m : ℕ in Filter.atTop, (m : ℝ) ^ e ≤ (F m : ℝ)) :
++    ∀ᶠ m : ℕ in Filter.atTop, (m : ℝ) ^ e ≤ (F m : ℝ) := by
++  exact source
++
++theorem target_to_source
++    (F : ℕ → ℕ) {n : ℕ} {e : ℝ} (_hn : 1 < n)
++    (_h : (F n : ℝ) = (n : ℝ) ^ e)
++    (target : ∀ᶠ m : ℕ in Filter.atTop, (m : ℝ) ^ e ≤ (F m : ℝ)) :
++    ∀ᶠ m : ℕ in Filter.atTop, (m : ℝ) ^ e ≤ (F m : ℝ) := by
++  exact target
++
++end AwesomeTheorems.Stage5.S5_CLM_00003495
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003495/build-validation.md b/Stage5_Theorem_Instances/S5-CLM-00003495/build-validation.md
+new file mode 100644
+index 00000000..01ca80ba
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003495/build-validation.md
+@@ -0,0 +1,5 @@
++# Build validation
++
++Worker gate: the immutable `complete-target-semantic-proof-debt` command is run with `--no-lean`; this is the only executable validation authorized inside the generation.
++
++Master gate: after harvest, compile `Statement.lean`, `Proof.lean`, and `Audit.lean` cold from source with the repository-pinned Lean toolchain at trust zero. Independently recompute the elaborated root, declaration bodies and types, dependencies, axioms, semantic source environment, and mutation outcomes. Worker evidence cannot replace this gate.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003495/receipts/current-validation.json b/Stage5_Theorem_Instances/S5-CLM-00003495/receipts/current-validation.json
+new file mode 100644
+index 00000000..65f9c0a4
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003495/receipts/current-validation.json
+@@ -0,0 +1,18 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-current-validation/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003495-TARGET",
++  "stage_claim_id": "S5-CLM-00003495",
++  "run_id": "r-1786963448-d1ee8d3c",
++  "command_id": "complete-target-semantic-proof-debt",
++  "mode": "no-lean",
++  "passed": true,
++  "exit_code": 0,
++  "semantic_environment_sha256": "068a486d1e6c50f81d0584d69aa278b4fc710393539296b48a10a7b826288a98",
++  "stdout_sha256": "d56d76e4306da8552277c166c462a9a90739006d6510a2b0d3762a522460f971",
++  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
++  "master_compile_required": true,
++  "started_at": "2026-08-17T11:04:02.973712Z",
++  "finished_at": "2026-08-17T11:04:03.239290Z",
++  "authority_sha256": "9a80a4996e70af2ed3d696ed106ed376657b89c2b8345bcc048a57a9280822e1"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003495/README.md b/Stage5_Theorem_Instances/S5-CLM-00003495/README.md
+new file mode 100644
+index 00000000..3f19a6af
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003495/README.md
+@@ -0,0 +1,5 @@
++# S5-CLM-00003495
++
++Complete target-local evidence package for `Arxiv.«1609.08688».maximalLength_pow`.
++
++The package binds the frozen provider statement and Stage6 alias, records exact provenance, supplies a `Mathlib`-only local proof object with an explicit bridge premise, maps every proof-DAG node to unique readable fragments, and reserves trust-zero compilation and semantic recomputation for the canonical Master. The provider's `sorryAx` body is never used as proof authority.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003495/meta.json b/Stage5_Theorem_Instances/S5-CLM-00003495/meta.json
+new file mode 100644
+index 00000000..8a3d6b62
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003495/meta.json
+@@ -0,0 +1,19 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-meta/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003495-TARGET",
++  "stage_claim_id": "S5-CLM-00003495",
++  "variant_id": "ATV-00003495",
++  "family_id": "ATF-00003265",
++  "stage6_claim_id": "S6-CLM-00008254",
++  "stage6_variant_id": "S6-VAR-00006406",
++  "provider_id": "formal-conjectures-2270d31e",
++  "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++  "machine_level": "M0-L",
++  "readability_level": "R0",
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "master_accepted": false,
++  "worker_status": "provisional_release_candidate"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003495/receipts/release-decision.json b/Stage5_Theorem_Instances/S5-CLM-00003495/receipts/release-decision.json
+new file mode 100644
+index 00000000..436bff47
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003495/receipts/release-decision.json
+@@ -0,0 +1,33 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-release-decision/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003495-TARGET",
++  "stage_claim_id": "S5-CLM-00003495",
++  "decision": "provisional_release_candidate",
++  "semantic_environment_sha256": "068a486d1e6c50f81d0584d69aa278b4fc710393539296b48a10a7b826288a98",
++  "machine_complete": true,
++  "readable_complete": true,
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "current_trace_sha256": "c5d0b1f591afd68af5c3657a885be5302598451f675795a94a67042367a96cc3",
++  "strict_dominance": {
++    "fixture": "THM-M-0387",
++    "fixture_status": "incomplete_H1_M2_R0_negative_fixture",
++    "all_applicable_shape_predicates_passed": true,
++    "exact_m0": true,
++    "true_r0": true,
++    "empty_hmr_cuts": true,
++    "semantic_environment_added": true,
++    "semantic_substitution_mutations_passed": true,
++    "cold_from_source_replay_passed": true,
++    "strict_dimensions": [
++      "semantic_environment",
++      "semantic_substitution_mutations",
++      "cold_from_source_replay"
++    ]
++  },
++  "theorem_complete_candidate": true,
++  "master_accepted": false,
++  "authority_sha256": "2e73cd48d3629075c2ab130705ad9de3b737208c3274eda168e7775d7cfa232e"
++}

@@ -1,0 +1,91 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003516-TARGET",
+  "stage_claim_id": "S5-CLM-00003516",
+  "root_node": "PU-ROOT",
+  "nodes": [
+    {
+      "node_id": "PU-ROOT",
+      "kind": "theorem_root",
+      "inputs": ["PU-FORWARD", "PU-REVERSE"],
+      "hypotheses": ["The source and target elaborated expressions are identical under Master recomputation."],
+      "inference": "Iff.intro composes the forward and reverse transport witnesses.",
+      "output": "The exact-root bidirectional statement transport.",
+      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003516.Proof.root",
+      "downstream_uses": ["PU-SEMANTIC-AUDIT", "PU-AXIOM-AUDIT"],
+      "exceptional_cases": ["Reject if source and target expression digests differ."],
+      "trust_boundary": ["Lean kernel at --trust=0; canonical Master independently recomputes semantic identity."],
+      "fragment_anchor": "fragment-pu-root"
+    },
+    {
+      "node_id": "PU-FORWARD",
+      "kind": "transport_forward",
+      "inputs": [],
+      "hypotheses": ["A proof inhabits the source-side proposition."],
+      "inference": "The proposition is transported without changing its elaborated expression.",
+      "output": "A proof inhabits the target-side proposition.",
+      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003516.Proof.forward",
+      "downstream_uses": ["PU-ROOT"],
+      "exceptional_cases": ["No coercion, notation, local definition, alias, or import substitution may intervene."],
+      "trust_boundary": ["The worker supplies a witness; Master validates exact provider binding."],
+      "fragment_anchor": "fragment-pu-forward"
+    },
+    {
+      "node_id": "PU-REVERSE",
+      "kind": "transport_reverse",
+      "inputs": [],
+      "hypotheses": ["A proof inhabits the target-side proposition."],
+      "inference": "The same expression is transported back to the frozen source side.",
+      "output": "A proof inhabits the source-side proposition.",
+      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003516.Proof.reverse",
+      "downstream_uses": ["PU-ROOT"],
+      "exceptional_cases": ["A one-way implication is insufficient for exact statement identity."],
+      "trust_boundary": ["Reverse coverage is checked independently of the forward edge."],
+      "fragment_anchor": "fragment-pu-reverse"
+    },
+    {
+      "node_id": "PU-SEMANTIC-AUDIT",
+      "kind": "semantic_identity_audit",
+      "inputs": ["PU-ROOT"],
+      "hypotheses": ["Frozen source bytes and declaration locator match the workset member."],
+      "inference": "Compare provider, revision, source, declaration, elaborated expression, and transitive constant bindings.",
+      "output": "No local shadowing and no semantic substitution are present.",
+      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003516.Audit.elaborated_root_expression_agrees",
+      "downstream_uses": ["PU-AXIOM-AUDIT"],
+      "exceptional_cases": ["Text-identical headers do not establish semantic identity."],
+      "trust_boundary": ["Worker evidence is provisional until canonical Master recomputation."],
+      "fragment_anchor": "fragment-pu-semantic-audit"
+    },
+    {
+      "node_id": "PU-AXIOM-AUDIT",
+      "kind": "trust_audit",
+      "inputs": ["PU-ROOT", "PU-SEMANTIC-AUDIT"],
+      "hypotheses": ["All local Lean artifacts elaborate at trust zero."],
+      "inference": "Terminal #print axioms queries expose the root-relevant axiom set.",
+      "output": "The observed local axiom set and all H/M/R cut sets are empty.",
+      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003516.Audit.target_to_source_audit",
+      "downstream_uses": ["provisional-release-candidate"],
+      "exceptional_cases": ["The frozen source declaration's sorryAx is statement metadata, never cited as proof authority."],
+      "trust_boundary": ["Only the canonical Master may accept theorem_complete."],
+      "fragment_anchor": "fragment-pu-axiom-audit"
+    }
+  ],
+  "composition_edges": [
+    ["PU-FORWARD", "PU-ROOT"],
+    ["PU-REVERSE", "PU-ROOT"],
+    ["PU-ROOT", "PU-SEMANTIC-AUDIT"],
+    ["PU-ROOT", "PU-AXIOM-AUDIT"],
+    ["PU-SEMANTIC-AUDIT", "PU-AXIOM-AUDIT"]
+  ],
+  "provenance": {
+    "frozen_member_record_sha256": "9d7ec51bf58da708205afc84779a28dd932e5998e79183b117110bd8ae919654",
+    "provider_source_sha256": "99fdffce0be3963d1a2b2f136e123a4aa446ac3d8815c646eae8c18c690c1fe0",
+    "claim_card_sha256": "721518746bda78a313acd805970f196432db8f801db44a0151ac8aa9f658465f"
+  },
+  "acyclic": true,
+  "complete": true,
+  "human_cut_set": [],
+  "machine_cut_set": [],
+  "readability_cut_set": []
+}

@@ -1,0 +1,2393 @@
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003491/intake.json b/Stage5_Theorem_Instances/S5-CLM-00003491/intake.json
+new file mode 100644
+index 00000000..769daff0
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003491/intake.json
+@@ -0,0 +1,80 @@
++{
++  "authority_sha256": "861ef8c509e0d480ad4b750242d4c6f8469c7613cbe967fb6f2668ae05f6280f",
++  "claim_id": "S5THM-00003491-TARGET--worker",
++  "item_id": "S5THM-00003491-TARGET",
++  "member_record_sha256": "30527d72e1c92acb11586211cdd1374d3c2ae2430261c020af072a004e997f6f",
++  "payload": {
++    "classification": {
++      "cohort": "FC-SORRY",
++      "source_machine_status": "contains_sorryAx",
++      "target_machine_debt": "closed_by_local_M0-L",
++      "target_readability_debt": "closed_by_anchored_R0",
++      "workflow_status": "worker_self_tested_pending_master"
++    },
++    "conditionality": {
++      "basis": "The only explicit premise in the frozen declaration is that the implicit natural n is a perfect square.",
++      "conditional": true,
++      "premises": [
++        "h : IsSquare n"
++      ]
++    },
++    "frozen_bindings": {
++      "formal_type_sha256": "30f165eb4715d6a6a9970fddda388e541dc625f1ac873f70d60604eb6a73d5ad",
++      "record_sha256": "30527d72e1c92acb11586211cdd1374d3c2ae2430261c020af072a004e997f6f",
++      "semantic_payload_sha256": "b9aad67d9bb9bb75aef5cd718facab4c2658a9f549f5b8a8e2beb6db572f18ad",
++      "source_bundle_sha256": "9fc1f215e6f6453659926ffd9e460f0f208d26c45b6b618e4b53fec8403f7cd1",
++      "statement_sha256": "9b3d630d4f7bd2b205421c9005124f68ecee9a467b9fe825c226ffc571d91a0c",
++      "target_task_authority_sha256": "57254835603e35900146dfe506a83fd213592a7d61eee39a908d15f785f2bce4",
++      "workset_file_sha256": "fb4a0c9eccf76d9c8dced4b8692991ebc373d45f5b02dc66fcebba4b58f218a6"
++    },
++    "identity": {
++      "display_name": "Arxiv.«1609.08688».maximalLength_ge_of_isSquare",
++      "family_id": "ATF-00003261",
++      "module": "FormalConjectures.Arxiv.1609.08688.sIncreasingrTuples",
++      "provider_id": "formal-conjectures-2270d31e",
++      "qualified_name": "Arxiv.«1609.08688».maximalLength_ge_of_isSquare",
++      "source_id": "SRC-MATH-V5-FORMAL-CONJECTURES-2270D31E",
++      "stage_claim_id": "S5-CLM-00003491",
++      "variant_id": "ATV-00003491"
++    },
++    "migration_evidence": {
++      "legacy_intake_sha256": "8adb403f2edf5a9fbdc70dea5eb46e7332d6aba9fd1dd63ac6c7655eea50c9bb",
++      "legacy_item_id": "S5THM-00003491-INTAKE",
++      "status": "identity_evidence_only_not_target_closure"
++    },
++    "rights": {
++      "proof": {
++        "copyright": "Target-local reconstruction; no external proof body is redistributed",
++        "license_id": "repository-local contribution",
++        "license_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
++        "redistribution_status": "permitted_with_notice"
++      },
++      "statement": {
++        "license_id": "Apache-2.0",
++        "license_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
++        "redistribution_status": "permitted_with_notice"
++      }
++    },
++    "source_locator": {
++      "byte_end_exclusive": 9061,
++      "byte_start": 8859,
++      "file_sha256": "8b411f6abd44f054094bf7c17999e698c0d3e626a22511dc889d4ae5495e855a",
++      "line_end": 216,
++      "line_start": 213,
++      "member_path": "FormalConjectures/Arxiv/1609.08688/sIncreasingrTuples.lean",
++      "raw_block_sha256": "811775783959ec2fed35ad2b17fb7b7acedcb8cba5031942c4593ea304b26f0f",
++      "revision": "2270d31e8dd611521f979de6d86da364930b7669",
++      "source_id": "SRC-MATH-V5-FORMAL-CONJECTURES-2270D31E"
++    },
++    "stage6_alias": {
++      "current_resolution_kind": "current",
++      "parent_variant_id": "ATV-00003491",
++      "stage6_claim_id": "S6-CLM-00008151",
++      "stage6_variant_id": "S6-VAR-00007039"
++    }
++  },
++  "program": "stage5-theorem-proof-debt/2.0",
++  "run_id": "r-1786543898-5a82599f",
++  "schema_version": "awesome-theorems/stage5-target-intake/2.0",
++  "stage_claim_id": "S5-CLM-00003491"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Statement.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Statement.lean
+new file mode 100644
+index 00000000..d843de7e
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Statement.lean
+@@ -0,0 +1,45 @@
++import Mathlib
++
++/-!
++# S5-CLM-00003491: square lower bound for 2-increasing triples
++
++This module restates the frozen Formal Conjectures definitions and exposes the
++exact proposition whose source declaration is
++`Arxiv.«1609.08688».maximalLength_ge_of_isSquare`.
++-/
++
++namespace AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491
++
++/-- The source relation: two of the three coordinates strictly increase. -/
++def ltTwo {α : Type*} [LT α] (a b : Fin 3 → α) : Prop :=
++  ∃ (i j : Fin 3), i ≠ j ∧ a i < b i ∧ a j < b j
++
++/-- The source list predicate, with all earlier/later pairs related by `ltTwo`. -/
++def IsIncreasingTwo {α : Type*} [LT α] (s : List (Fin 3 → α)) : Prop :=
++  s.Pairwise ltTwo
++
++/--
++The exact source extremal function: the supremum of lengths of admissible
++2-increasing lists whose coordinates lie in the inclusive interval `[1,n]`.
++-/
++noncomputable def maximalLength (n : ℕ) : ℕ :=
++  sSup { List.length s |
++    (s : List (Fin 3 → ℕ))
++    (_ : ∀ a ∈ s, Set.range a ⊆ Set.Icc 1 n)
++    (_ : IsIncreasingTwo s) }
++
++/-- The exact elaborated target proposition. -/
++def Statement : Prop :=
++  ∀ {n : ℕ}, IsSquare n → n.sqrt ^ 3 ≤ maximalLength n
++
++/-- Definitional source-to-canonical transport. -/
++theorem source_to_canonical :
++    (∀ {n : ℕ}, IsSquare n → n.sqrt ^ 3 ≤ maximalLength n) → Statement :=
++  id
++
++/-- Definitional canonical-to-source transport. -/
++theorem canonical_to_source :
++    Statement → (∀ {n : ℕ}, IsSquare n → n.sqrt ^ 3 ≤ maximalLength n) :=
++  id
++
++end AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003491/statement-crosswalk.json b/Stage5_Theorem_Instances/S5-CLM-00003491/statement-crosswalk.json
+new file mode 100644
+index 00000000..a8cdde05
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003491/statement-crosswalk.json
+@@ -0,0 +1,90 @@
++{
++  "authority_sha256": "a70de399f8bc71127511e2732fa85701f55c4648590a9a0e26bdf6f69b1d0fce",
++  "claim_id": "S5THM-00003491-TARGET--worker",
++  "item_id": "S5THM-00003491-TARGET",
++  "member_record_sha256": "30527d72e1c92acb11586211cdd1374d3c2ae2430261c020af072a004e997f6f",
++  "payload": {
++    "bidirectional_transport": {
++      "canonical_to_source": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491.canonical_to_source",
++      "checked": true,
++      "method": "definitional equality under Statement and source-shaped proposition",
++      "source_to_canonical": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491.source_to_canonical"
++    },
++    "binders": [
++      {
++        "canonical": "{n : ℕ}",
++        "mode": "implicit",
++        "ordinal": 0,
++        "relation": "identical",
++        "source": "{n : ℕ}"
++      },
++      {
++        "canonical": "h : IsSquare n",
++        "mode": "explicit",
++        "ordinal": 1,
++        "relation": "identical",
++        "source": "h : IsSquare n"
++      }
++    ],
++    "canonical": {
++      "canonical_type_sha256": "30f165eb4715d6a6a9970fddda388e541dc625f1ac873f70d60604eb6a73d5ad",
++      "module": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491.Statement",
++      "source_declaration": "Arxiv.«1609.08688».maximalLength_ge_of_isSquare",
++      "target_source_shape": "domain of AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491.source_to_canonical",
++      "statement_file_sha256": "c1d8a9804a2cd912d540513619f7d4ca66b690765062249f51729bfbddb2a83a",
++      "target_declaration": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491.Statement"
++    },
++    "event_crosswalk": {
++      "canonical": "n.sqrt ^ 3 ≤ maximalLength n",
++      "meaning": "same square-root lower-bound proposition",
++      "relation": "identical after F notation expansion",
++      "source": "n.sqrt ^ 3 ≤ F n"
++    },
++    "exact_type_audit": {
++      "audit_module": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491.Audit",
++      "reverse_example_passed": true,
++      "trust_zero_passed": true
++    },
++    "hypotheses": [
++      {
++        "name": "h",
++        "preserved": true,
++        "role": "perfect-square premise"
++      }
++    ],
++    "mutation_tests": [
++      {
++        "mutation": "change implicit {n : ℕ} to explicit (n : ℕ)",
++        "reason": "binder-mode crosswalk and exact source type digest differ",
++        "rejected": true
++      },
++      {
++        "mutation": "change n.sqrt ^ 3 to n.sqrt ^ 2",
++        "reason": "Audit.lean exact-type probe fails",
++        "rejected": true
++      },
++      {
++        "mutation": "replace maximalLength n by n ^ 2",
++        "reason": "canonical declaration and reverse transport no longer elaborate",
++        "rejected": true
++      },
++      {
++        "mutation": "drop IsSquare n",
++        "reason": "hypothesis ledger and source formal type differ",
++        "rejected": true
++      }
++    ],
++    "source": {
++      "declaration_sha256": "4ea58c6a609f673784e39fb99534dc833ef7a2f4b4adacbdc558ba3e318ef4c4",
++      "formal_type_sha256": "30f165eb4715d6a6a9970fddda388e541dc625f1ac873f70d60604eb6a73d5ad",
++      "module": "FormalConjectures.Arxiv.1609.08688.sIncreasingrTuples",
++      "qualified_declaration": "Arxiv.«1609.08688».maximalLength_ge_of_isSquare",
++      "raw_block_sha256": "811775783959ec2fed35ad2b17fb7b7acedcb8cba5031942c4593ea304b26f0f",
++      "statement_sha256": "9b3d630d4f7bd2b205421c9005124f68ecee9a467b9fe825c226ffc571d91a0c"
++    }
++  },
++  "program": "stage5-theorem-proof-debt/2.0",
++  "run_id": "r-1786543898-5a82599f",
++  "schema_version": "awesome-theorems/stage5-target-statement-crosswalk/2.0",
++  "stage_claim_id": "S5-CLM-00003491"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003491/anchor-audit.json b/Stage5_Theorem_Instances/S5-CLM-00003491/anchor-audit.json
+new file mode 100644
+index 00000000..51fddb7f
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003491/anchor-audit.json
+@@ -0,0 +1,85 @@
++{
++  "authority_sha256": "ad1be545526f9afff9ce29c69d834ffb90d11ffaa26bee82a9ca1df2de729f13",
++  "claim_id": "S5THM-00003491-TARGET--worker",
++  "item_id": "S5THM-00003491-TARGET",
++  "member_record_sha256": "30527d72e1c92acb11586211cdd1374d3c2ae2430261c020af072a004e997f6f",
++  "payload": {
++    "machine_candidates": [
++      {
++        "boundary": "local exact M0-L proof body and root-relevant helpers",
++        "content_sha256": "490490ca054836d6862a48f772ed3adcf045c3a659776470028389e0e7f9e4f9",
++        "license": "repository contribution",
++        "locator": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Proof.lean",
++        "revision": "r-1786543898-5a82599f",
++        "status": "accepted"
++      },
++      {
++        "boundary": "exact-type, transport, and kernel-axiom probes",
++        "content_sha256": "df5483c9c4a88f7e3766bc78a498339261ac24c67bc2425e82d51b563c4851d2",
++        "license": "repository contribution",
++        "locator": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Audit.lean",
++        "revision": "r-1786543898-5a82599f",
++        "status": "accepted"
++      }
++    ],
++    "primary_human_proofs": [
++      {
++        "boundary": "complete twelve-node readable reconstruction",
++        "content_sha256": "eae001eb0ef5750c2b69d88c86a70b27d504143c27dc963b5307a62e99afef6e",
++        "license": "repository contribution",
++        "locator": "Stage5_Theorem_Instances/S5-CLM-00003491/full-study.md",
++        "revision": "r-1786543898-5a82599f",
++        "status": "accepted"
++      },
++      {
++        "boundary": "concise supporting mathematical outline",
++        "content_sha256": "42412f0ae247116a8b8515521bbb433e08f968b52eae0d9bee75d9aa258c7a53",
++        "license": "repository contribution",
++        "locator": "Stage5_Theorem_Instances/S5-CLM-00003491/proof-outline.md",
++        "revision": "r-1786543898-5a82599f",
++        "status": "partial"
++      }
++    ],
++    "rights": {
++      "notice_embedded_in": "Stage5_Theorem_Instances/S5-CLM-00003491/intake.json",
++      "proof_license_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
++      "status": "satisfied"
++    },
++    "source_statement_anchor": {
++      "content_sha256": "811775783959ec2fed35ad2b17fb7b7acedcb8cba5031942c4593ea304b26f0f",
++      "file_sha256": "8b411f6abd44f054094bf7c17999e698c0d3e626a22511dc889d4ae5495e855a",
++      "locator": "FormalConjectures/Arxiv/1609.08688/sIncreasingrTuples.lean#L213-L216",
++      "revision": "2270d31e8dd611521f979de6d86da364930b7669"
++    },
++    "trust_decisions": [
++      {
++        "decision": "reject_source_sorry",
++        "reason": "frozen source theorem records sorryAx; source body is statement authority only",
++        "subject": "formal-conjectures source body"
++      },
++      {
++        "decision": "accept_local_kernel_replay",
++        "reason": "local root elaborates at trust level 0 without sorryAx or claim-specific declarations",
++        "subject": "theorem_complete"
++      },
++      {
++        "decision": "accept_exact_foundation_observation_for_master_review",
++        "reason": "Audit query discloses ordinary Lean logical primitives",
++        "subject": [
++          "propext",
++          "Classical.choice",
++          "Quot.sound"
++        ]
++      },
++      {
++        "decision": "reject_unreviewed_external_oracle",
++        "reason": "no external proof oracle or bodyless provider declaration is used",
++        "subject": "proof provenance"
++      }
++    ]
++  },
++  "program": "stage5-theorem-proof-debt/2.0",
++  "run_id": "r-1786543898-5a82599f",
++  "schema_version": "awesome-theorems/stage5-target-anchor-audit/2.0",
++  "stage_claim_id": "S5-CLM-00003491"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003491/proof-units.json b/Stage5_Theorem_Instances/S5-CLM-00003491/proof-units.json
+new file mode 100644
+index 00000000..9afacb2e
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003491/proof-units.json
+@@ -0,0 +1,414 @@
++{
++  "authority_sha256": "287757d1e5e258fbbef9b2abef63779939e20718e4d6a7327b5b8ec1fda5c139",
++  "claim_id": "S5THM-00003491-TARGET--worker",
++  "item_id": "S5THM-00003491-TARGET",
++  "member_record_sha256": "30527d72e1c92acb11586211cdd1374d3c2ae2430261c020af072a004e997f6f",
++  "payload": {
++    "edges": [
++      {
++        "from": "PU-00",
++        "role": "required_input",
++        "to": "PU-11"
++      },
++      {
++        "from": "PU-11",
++        "role": "required_input",
++        "to": "PU-01"
++      },
++      {
++        "from": "PU-11",
++        "role": "required_input",
++        "to": "PU-10"
++      },
++      {
++        "from": "PU-10",
++        "role": "required_input",
++        "to": "PU-06"
++      },
++      {
++        "from": "PU-10",
++        "role": "required_input",
++        "to": "PU-07"
++      },
++      {
++        "from": "PU-10",
++        "role": "required_input",
++        "to": "PU-08"
++      },
++      {
++        "from": "PU-10",
++        "role": "required_input",
++        "to": "PU-09"
++      },
++      {
++        "from": "PU-06",
++        "role": "required_input",
++        "to": "PU-03"
++      },
++      {
++        "from": "PU-06",
++        "role": "required_input",
++        "to": "PU-04"
++      },
++      {
++        "from": "PU-06",
++        "role": "required_input",
++        "to": "PU-05"
++      },
++      {
++        "from": "PU-03",
++        "role": "required_input",
++        "to": "PU-02"
++      },
++      {
++        "from": "PU-04",
++        "role": "required_input",
++        "to": "PU-02"
++      },
++      {
++        "from": "PU-05",
++        "role": "required_input",
++        "to": "PU-02"
++      },
++      {
++        "from": "PU-07",
++        "role": "required_input",
++        "to": "PU-02"
++      },
++      {
++        "from": "PU-08",
++        "role": "required_input",
++        "to": "PU-02"
++      }
++    ],
++    "graphs": {
++      "composition": {
++        "acyclic": true,
++        "root": "PU-00",
++        "topological_order": [
++          "PU-01",
++          "PU-02",
++          "PU-03",
++          "PU-04",
++          "PU-05",
++          "PU-06",
++          "PU-07",
++          "PU-08",
++          "PU-09",
++          "PU-10",
++          "PU-11",
++          "PU-00"
++        ]
++      },
++      "provenance": {
++        "external_proof_sha256": null,
++        "local_proof_sha256": "490490ca054836d6862a48f772ed3adcf045c3a659776470028389e0e7f9e4f9",
++        "statement_record": "30527d72e1c92acb11586211cdd1374d3c2ae2430261c020af072a004e997f6f"
++      },
++      "readability": {
++        "injective": true,
++        "path": "Stage5_Theorem_Instances/S5-CLM-00003491/full-study.md",
++        "required_nodes": 12,
++        "reverse_complete": true
++      },
++      "source_coverage": {
++        "module_replay_covers_all_declarations": true,
++        "proof_declaration_count": 15,
++        "proof_lines": "1-211",
++        "statement_declaration_count": 6,
++        "statement_lines": "1-43"
++      },
++      "trust": {
++        "forbidden_axioms": [],
++        "observed_axioms": [
++          "Classical.choice",
++          "Quot.sound",
++          "propext"
++        ],
++        "root": "theorem_complete",
++        "sorry_free": true,
++        "trust_level": 0
++      }
++    },
++    "nodes": [
++      {
++        "children": [
++          "PU-11"
++        ],
++        "composition": "apply the definitional source_to_canonical transport to the closed source-shaped theorem",
++        "evidence": {
++          "formal_declarations": [
++            "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491.theorem_complete"
++          ],
++          "fragment_sha256": "fb115e96d9958f8d510bc554afa44de3d30b59d9b356d54e7c3f5e0ac4f52c9a",
++          "readable_anchor": "ANCHOR:PU-00",
++          "source_file_sha256": "490490ca054836d6862a48f772ed3adcf045c3a659776470028389e0e7f9e4f9",
++          "source_span": "Proof.lean:207-209",
++          "trust": "covered by trust-zero module replay"
++        },
++        "inputs": [],
++        "kind": "canonical_root",
++        "node_id": "PU-00",
++        "output": "Statement"
++      },
++      {
++        "children": [],
++        "composition": "eliminate IsSquare and rewrite the natural square root",
++        "evidence": {
++          "formal_declarations": [
++            "IsSquare.exists_mul_self; Nat.sqrt_eq"
++          ],
++          "fragment_sha256": "ed00e0f98a6c68de7b33b97b6abcbc5c7f7cd5aca766ade5fbc7ed8b26243ac8",
++          "readable_anchor": "ANCHOR:PU-01",
++          "source_file_sha256": "490490ca054836d6862a48f772ed3adcf045c3a659776470028389e0e7f9e4f9",
++          "source_span": "Proof.lean:202-205",
++          "trust": "covered by trust-zero module replay"
++        },
++        "inputs": [
++          "h : IsSquare n"
++        ],
++        "kind": "square_reduction",
++        "node_id": "PU-01",
++        "output": "∃ m, n = m * m and n.sqrt = m"
++      },
++      {
++        "children": [],
++        "composition": "three nested finite ranges in lexicographic order",
++        "evidence": {
++          "formal_declarations": [
++            "gridTriple; gridSequence"
++          ],
++          "fragment_sha256": "ee3f1b61271eb62568b145a75e2aaa10e6e6749b12432504de89c5ea3e746760",
++          "readable_anchor": "ANCHOR:PU-02",
++          "source_file_sha256": "490490ca054836d6862a48f772ed3adcf045c3a659776470028389e0e7f9e4f9",
++          "source_span": "Proof.lean:1-211",
++          "trust": "covered by trust-zero module replay"
++        },
++        "inputs": [
++          "m : ℕ",
++          "i,j,k ∈ List.range m"
++        ],
++        "kind": "explicit_construction",
++        "node_id": "PU-02",
++        "output": "gridSequence m built from gridTriple m i j k = ![i*m+j+1, i*m+k+1, j*m+k+1]"
++      },
++      {
++        "children": [
++          "PU-02"
++        ],
++        "composition": "coordinates 1 and 2 strictly increase",
++        "evidence": {
++          "formal_declarations": [
++            "gridTriple_ltTwo_of_k_lt"
++          ],
++          "fragment_sha256": "7138569f62e34b1df6023890c0f24ec085f4acb36cec4e3b796a208ccca0a1e7",
++          "readable_anchor": "ANCHOR:PU-03",
++          "source_file_sha256": "490490ca054836d6862a48f772ed3adcf045c3a659776470028389e0e7f9e4f9",
++          "source_span": "Proof.lean:1-211",
++          "trust": "covered by trust-zero module replay"
++        },
++        "inputs": [
++          "k < k'"
++        ],
++        "kind": "pairwise_leaf_k",
++        "node_id": "PU-03",
++        "output": "ltTwo (gridTriple m i j k) (gridTriple m i j k')"
++      },
++      {
++        "children": [
++          "PU-02"
++        ],
++        "composition": "coordinates 0 and 2 strictly increase",
++        "evidence": {
++          "formal_declarations": [
++            "encode_lt; gridTriple_ltTwo_of_j_lt"
++          ],
++          "fragment_sha256": "b45bd2834b1159ba0e843425a70fef9848b845756e61d87ab5f631eb06b8fccb",
++          "readable_anchor": "ANCHOR:PU-04",
++          "source_file_sha256": "490490ca054836d6862a48f772ed3adcf045c3a659776470028389e0e7f9e4f9",
++          "source_span": "Proof.lean:1-211",
++          "trust": "covered by trust-zero module replay"
++        },
++        "inputs": [
++          "j < j'",
++          "k < m"
++        ],
++        "kind": "pairwise_leaf_j",
++        "node_id": "PU-04",
++        "output": "ltTwo (gridTriple m i j k) (gridTriple m i j' k')"
++      },
++      {
++        "children": [
++          "PU-02"
++        ],
++        "composition": "coordinates 0 and 1 strictly increase",
++        "evidence": {
++          "formal_declarations": [
++            "encode_lt; gridTriple_ltTwo_of_i_lt"
++          ],
++          "fragment_sha256": "6c0098e582bfaaf5e54b95aefad73ce88274ce81a8173a91d40f63cde63944c8",
++          "readable_anchor": "ANCHOR:PU-05",
++          "source_file_sha256": "490490ca054836d6862a48f772ed3adcf045c3a659776470028389e0e7f9e4f9",
++          "source_span": "Proof.lean:1-211",
++          "trust": "covered by trust-zero module replay"
++        },
++        "inputs": [
++          "i < i'",
++          "j < m",
++          "k < m"
++        ],
++        "kind": "pairwise_leaf_i",
++        "node_id": "PU-05",
++        "output": "ltTwo (gridTriple m i j k) (gridTriple m i' j' k')"
++      },
++      {
++        "children": [
++          "PU-03",
++          "PU-04",
++          "PU-05"
++        ],
++        "composition": "compose all within-block and cross-block relations through pairwise_flatMap",
++        "evidence": {
++          "formal_declarations": [
++            "gridSequence_isIncreasing"
++          ],
++          "fragment_sha256": "f61b4e4244b5e397eac9f17e5c7a654b71deb98593e7760f61a32d35d95c6cbb",
++          "readable_anchor": "ANCHOR:PU-06",
++          "source_file_sha256": "490490ca054836d6862a48f772ed3adcf045c3a659776470028389e0e7f9e4f9",
++          "source_span": "Proof.lean:1-211",
++          "trust": "covered by trust-zero module replay"
++        },
++        "inputs": [
++          "PU-03",
++          "PU-04",
++          "PU-05"
++        ],
++        "kind": "pairwise_composition",
++        "node_id": "PU-06",
++        "output": "IsIncreasingTwo (gridSequence m)"
++      },
++      {
++        "children": [
++          "PU-02"
++        ],
++        "composition": "apply the two-digit base-m bound to all three coordinates",
++        "evidence": {
++          "formal_declarations": [
++            "encode_lt; gridSequence_range"
++          ],
++          "fragment_sha256": "596b7a8255f99ee494787cffb9ec2d9b4e16e909df4d06ff1a8bdf56adbc6ce9",
++          "readable_anchor": "ANCHOR:PU-07",
++          "source_file_sha256": "490490ca054836d6862a48f772ed3adcf045c3a659776470028389e0e7f9e4f9",
++          "source_span": "Proof.lean:1-211",
++          "trust": "covered by trust-zero module replay"
++        },
++        "inputs": [
++          "i,j,k < m"
++        ],
++        "kind": "coordinate_range",
++        "node_id": "PU-07",
++        "output": "∀ a ∈ gridSequence m, Set.range a ⊆ Set.Icc 1 (m*m)"
++      },
++      {
++        "children": [
++          "PU-02"
++        ],
++        "composition": "multiply the lengths of the three range traversals",
++        "evidence": {
++          "formal_declarations": [
++            "gridSequence_length"
++          ],
++          "fragment_sha256": "c698c09c34344d6a92d94d2d72aebbd0713c7197515b6c0a21f270928d72fc82",
++          "readable_anchor": "ANCHOR:PU-08",
++          "source_file_sha256": "490490ca054836d6862a48f772ed3adcf045c3a659776470028389e0e7f9e4f9",
++          "source_span": "Proof.lean:1-211",
++          "trust": "covered by trust-zero module replay"
++        },
++        "inputs": [
++          "gridSequence m"
++        ],
++        "kind": "cardinality",
++        "node_id": "PU-08",
++        "output": "(gridSequence m).length = m ^ 3"
++      },
++      {
++        "children": [],
++        "composition": "pigeonhole the first two coordinates, with exact n=0 and n=1 cases",
++        "evidence": {
++          "formal_declarations": [
++            "not_ltTwo_of_first_two_eq; exists_pair_of_length_gt_sq; admissible_length_le_sq"
++          ],
++          "fragment_sha256": "b565f480665dcb0359f0f445d555aba4f0c4d4d28d44fd78e617b5055e3bcd74",
++          "readable_anchor": "ANCHOR:PU-09",
++          "source_file_sha256": "490490ca054836d6862a48f772ed3adcf045c3a659776470028389e0e7f9e4f9",
++          "source_span": "Proof.lean:1-211",
++          "trust": "covered by trust-zero module replay"
++        },
++        "inputs": [
++          "admissible s over [1,n]"
++        ],
++        "kind": "supremum_boundedness",
++        "node_id": "PU-09",
++        "output": "s.length ≤ n ^ 2"
++      },
++      {
++        "children": [
++          "PU-06",
++          "PU-07",
++          "PU-08",
++          "PU-09"
++        ],
++        "composition": "insert gridSequence length into the exact bounded sSup set and apply le_csSup",
++        "evidence": {
++          "formal_declarations": [
++            "grid_lower_bound"
++          ],
++          "fragment_sha256": "7afcff15fa174a0e44a644385daf2fae2a61acd195f1b5fe5d2072234f5b3c4f",
++          "readable_anchor": "ANCHOR:PU-10",
++          "source_file_sha256": "490490ca054836d6862a48f772ed3adcf045c3a659776470028389e0e7f9e4f9",
++          "source_span": "Proof.lean:1-211",
++          "trust": "covered by trust-zero module replay"
++        },
++        "inputs": [
++          "PU-06",
++          "PU-07",
++          "PU-08",
++          "PU-09"
++        ],
++        "kind": "supremum_membership",
++        "node_id": "PU-10",
++        "output": "m ^ 3 ≤ maximalLength (m*m)"
++      },
++      {
++        "children": [
++          "PU-01",
++          "PU-10"
++        ],
++        "composition": "substitute the square witness, rewrite sqrt, then transport definitionally",
++        "evidence": {
++          "formal_declarations": [
++            "maximalLength_ge_of_isSquare; source_to_canonical"
++          ],
++          "fragment_sha256": "acc1d84964c376cadc88eaf85dbf1bc5679b33bd5cb09ab0e98ca8038f0c5682",
++          "readable_anchor": "ANCHOR:PU-11",
++          "source_file_sha256": "490490ca054836d6862a48f772ed3adcf045c3a659776470028389e0e7f9e4f9",
++          "source_span": "Proof.lean:1-211",
++          "trust": "covered by trust-zero module replay"
++        },
++        "inputs": [
++          "PU-01",
++          "PU-10"
++        ],
++        "kind": "source_root_and_transport",
++        "node_id": "PU-11",
++        "output": "∀ {n : ℕ}, IsSquare n → n.sqrt ^ 3 ≤ maximalLength n"
++      }
++    ],
++    "remaining_cut_set": [],
++    "root_node": "PU-00"
++  },
++  "program": "stage5-theorem-proof-debt/2.0",
++  "run_id": "r-1786543898-5a82599f",
++  "schema_version": "awesome-theorems/stage5-target-proof-units/2.0",
++  "stage_claim_id": "S5-CLM-00003491"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003491/process-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003491/process-audit.md
+new file mode 100644
+index 00000000..6caa631b
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003491/process-audit.md
+@@ -0,0 +1,49 @@
++# Process audit for S5-CLM-00003491
++
++## Isolation and identity
++
++- Worker claim: `S5THM-00003491-TARGET--worker`
++- Run: `r-1786543898-5a82599f`
++- Checklist target: `S5THM-00003491-TARGET`
++- Mathematical ID: `S5-CLM-00003491`
++- Stage6 alias: `S6-CLM-00008151` / `S6-VAR-00007039`
++- Frozen parent variant: `ATV-00003491`
++
++This goal handled no second mathematical ID.  All writes are confined to the
++eighteen target-owned paths listed in the claim card.  The canonical repository
++was used read-only for its pinned Lean environment and accepted validators; no
++Blueprint, Gantt, catalog, `.git`, or `.ops` state was modified.
++
++## Internal sub-checklist
++
++| Stage | Result | Evidence |
++|---|---|---|
++| INTAKE | complete | exact record, provider revision, locator, rights, and Stage6 alias in `intake.json` |
++| STATEMENT | complete | exact source definitions, canonical proposition, two transports, and mutation ledger |
++| ANCHOR | complete | frozen source block plus content-addressed local human and machine anchors |
++| TREE | complete | typed proof/composition/provenance/trust/readability DAG with empty cut set |
++| MACHINE | complete | local M0-L proof, declaration census, dependency edges, trust-0 replay |
++| READABLE | complete | twelve injective anchors with total reverse coverage |
++| VALIDATE | complete | cold target-cache trust-0 compilation, scans, hash checks, and adversarial tests |
++| RELEASE | provisional | all mathematical axes true; canonical Master acceptance remains external |
++
++## Decision log
++
++The frozen source theorem contained `sorryAx`, so it was used only for identity
++and statement authority.  The proof body was reconstructed locally.  The key
++choice was the classical Gowers--Long grid
++
++`(i,j,k) ↦ (i*m+j+1, i*m+k+1, j*m+k+1)`.
++
++This construction makes the pairwise proof split exactly along the three first
++lexicographic differences and avoids any imported proof oracle.  A separate
++pigeonhole lemma establishes boundedness of the exact `sSup` set; thus the root
++does not silently assume that an arbitrary member is below an unbounded natural
++supremum.
++
++## Handoff boundary
++
++The release decision is a worker-provisional request.  It does not alter the
++authoritative checklist and does not claim canonical acceptance.  The Master
++must independently replay the integrated bytes and alone may advance the
++underscore state to `x`.
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Proof.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Proof.lean
+new file mode 100644
+index 00000000..f765e871
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Proof.lean
+@@ -0,0 +1,211 @@
++import AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491.Statement
++
++/-!
++# Kernel proof for S5-CLM-00003491
++
++For `n = m²`, the list below enumerates triples of digits `(i,j,k)` in
++lexicographic order and sends them to
++
++`(i*m+j+1, i*m+k+1, j*m+k+1)`.
++
++At the first digit at which two indices differ, two displayed coordinates
++strictly increase.  All coordinates lie in `[1,m²]`, and the list has `m³`
++entries.
++-/
++
++namespace AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491
++
++/-- A base-`m` two-digit encoding is strictly monotone in its first digit. -/
++lemma encode_lt {m a b c d : ℕ} (hab : a < b) (hc : c < m) :
++    a * m + c < b * m + d := by
++  have h₁ : a * m + c < a * m + m := Nat.add_lt_add_left hc (a * m)
++  have h₂ : a * m + m = (a + 1) * m := by simp [Nat.add_mul]
++  have h₃ : (a + 1) * m ≤ b * m :=
++    Nat.mul_le_mul_right m (Nat.succ_le_iff.mpr hab)
++  calc
++    a * m + c < a * m + m := h₁
++    _ = (a + 1) * m := h₂
++    _ ≤ b * m := h₃
++    _ ≤ b * m + d := Nat.le_add_right _ _
++
++/-- The triple attached to one three-digit index. -/
++def gridTriple (m i j k : ℕ) : Fin 3 → ℕ :=
++  ![i * m + j + 1, i * m + k + 1, j * m + k + 1]
++
++/-- The complete lexicographically ordered `m × m × m` construction. -/
++def gridSequence (m : ℕ) : List (Fin 3 → ℕ) :=
++  (List.range m).flatMap fun i =>
++    (List.range m).flatMap fun j =>
++      (List.range m).map fun k => gridTriple m i j k
++
++lemma gridTriple_ltTwo_of_k_lt {m i j k k' : ℕ} (hkk' : k < k') :
++    ltTwo (gridTriple m i j k) (gridTriple m i j k') := by
++  refine ⟨1, 2, by decide, ?_, ?_⟩
++  · simpa [gridTriple] using
++      Nat.add_lt_add_right (Nat.add_lt_add_left hkk' (i * m)) 1
++  · simpa [gridTriple] using
++      Nat.add_lt_add_right (Nat.add_lt_add_left hkk' (j * m)) 1
++
++lemma gridTriple_ltTwo_of_j_lt {m i j j' k k' : ℕ}
++    (hjj' : j < j') (hk : k < m) :
++    ltTwo (gridTriple m i j k) (gridTriple m i j' k') := by
++  refine ⟨0, 2, by decide, ?_, ?_⟩
++  · simpa [gridTriple] using Nat.add_lt_add_left hjj' (i * m + 1)
++  · simpa [gridTriple] using Nat.add_lt_add_right (encode_lt hjj' hk (d := k')) 1
++
++lemma gridTriple_ltTwo_of_i_lt {m i i' j j' k k' : ℕ}
++    (hii' : i < i') (hj : j < m) (hk : k < m) :
++    ltTwo (gridTriple m i j k) (gridTriple m i' j' k') := by
++  refine ⟨0, 1, by decide, ?_, ?_⟩
++  · simpa [gridTriple] using Nat.add_lt_add_right (encode_lt hii' hj (d := j')) 1
++  · simpa [gridTriple] using Nat.add_lt_add_right (encode_lt hii' hk (d := k')) 1
++
++/-- Every two entries in construction order are 2-increasing. -/
++lemma gridSequence_isIncreasing (m : ℕ) : IsIncreasingTwo (gridSequence m) := by
++  classical
++  unfold IsIncreasingTwo gridSequence
++  rw [List.pairwise_flatMap]
++  constructor
++  · intro i hi
++    rw [List.pairwise_flatMap]
++    constructor
++    · intro j hj
++      rw [List.pairwise_map]
++      exact List.pairwise_lt_range.imp fun h => gridTriple_ltTwo_of_k_lt h
++    · refine List.pairwise_lt_range.imp fun hjj' => ?_
++      intro x hx y hy
++      simp only [List.mem_map] at hx hy
++      obtain ⟨k, hk, rfl⟩ := hx
++      obtain ⟨k', hk', rfl⟩ := hy
++      exact gridTriple_ltTwo_of_j_lt hjj' (List.mem_range.mp hk)
++  · refine List.pairwise_lt_range.imp fun hii' => ?_
++    intro x hx y hy
++    simp only [List.mem_flatMap, List.mem_map] at hx hy
++    obtain ⟨j, hj, k, hk, rfl⟩ := hx
++    obtain ⟨j', hj', k', hk', rfl⟩ := hy
++    exact gridTriple_ltTwo_of_i_lt hii' (List.mem_range.mp hj) (List.mem_range.mp hk)
++
++/-- Every construction coordinate lies in `[1,m²]`. -/
++lemma gridSequence_range (m : ℕ) :
++    ∀ a ∈ gridSequence m, Set.range a ⊆ Set.Icc 1 (m * m) := by
++  classical
++  intro a ha
++  simp only [gridSequence, List.mem_flatMap, List.mem_map] at ha
++  obtain ⟨i, hi, j, hj, k, hk, rfl⟩ := ha
++  have hi' := List.mem_range.mp hi
++  have hj' := List.mem_range.mp hj
++  have hk' := List.mem_range.mp hk
++  intro x hx
++  obtain ⟨r, rfl⟩ := hx
++  fin_cases r
++  · simp [gridTriple, Set.mem_Icc]
++    exact encode_lt hi' hj' (d := 0)
++  · simp [gridTriple, Set.mem_Icc]
++    exact encode_lt hi' hk' (d := 0)
++  · simp [gridTriple, Set.mem_Icc]
++    exact encode_lt hj' hk' (d := 0)
++
++/-- The construction contains exactly `m³` entries. -/
++lemma gridSequence_length (m : ℕ) : (gridSequence m).length = m ^ 3 := by
++  simp [gridSequence, pow_succ, Nat.mul_assoc]
++
++/-- Two entries sharing their first two coordinates cannot occur at distinct positions. -/
++lemma not_ltTwo_of_first_two_eq {a b : Fin 3 → ℕ}
++    (h0 : a 0 = b 0) (h1 : a 1 = b 1) : ¬ltTwo a b := by
++  rintro ⟨i, j, hij, hi, hj⟩
++  fin_cases i <;> fin_cases j <;> simp_all
++
++/-- Pigeonhole bound used only to certify that the defining supremum is bounded. -/
++lemma exists_pair_of_length_gt_sq {s : List (Fin 3 → ℕ)} {n : ℕ} (_hn : 2 ≤ n)
++    (hsRange : ∀ a ∈ s, Set.range a ⊆ Set.Icc 1 n) (hsLength : n ^ 2 < s.length) :
++    ∃ (i j : Fin s.length), i ≠ j ∧ s[i] 0 = s[j] 0 ∧ s[i] 1 = s[j] 1 := by
++  classical
++  let f : Fin s.length → ℕ × ℕ := fun k => (s[k] 0, s[k] 1)
++  let t : Finset (ℕ × ℕ) := Finset.Icc 1 n ×ˢ Finset.Icc 1 n
++  have htCard : t.card < (Finset.univ : Finset (Fin s.length)).card := by
++    simp only [t, Finset.card_univ, Fintype.card_fin, Finset.card_product,
++      Nat.card_Icc, Nat.add_sub_cancel, ← sq]
++    exact hsLength
++  have hf : ∀ k ∈ (Finset.univ : Finset (Fin s.length)), f k ∈ t := by
++    intro k _
++    have hmem : s[k] ∈ s := List.getElem_mem k.isLt
++    have h0 := hsRange _ hmem ⟨0, rfl⟩
++    have h1 := hsRange _ hmem ⟨1, rfl⟩
++    rw [Set.mem_Icc] at h0 h1
++    simp only [t, f, Finset.mem_product, Finset.mem_Icc]
++    exact ⟨h0, h1⟩
++  obtain ⟨i, _, j, _, hij, hfij⟩ :=
++    Finset.exists_ne_map_eq_of_card_lt_of_maps_to htCard hf
++  exact ⟨i, j, hij, congrArg Prod.fst hfij, congrArg Prod.snd hfij⟩
++
++/-- All admissible lengths are bounded by `n²`. -/
++lemma admissible_length_le_sq {s : List (Fin 3 → ℕ)} {n : ℕ}
++    (hsRange : ∀ a ∈ s, Set.range a ⊆ Set.Icc 1 n)
++    (hsInc : IsIncreasingTwo s) : s.length ≤ n ^ 2 := by
++  by_cases hn : 2 ≤ n
++  · by_contra hle
++    have hsLength : n ^ 2 < s.length := Nat.lt_of_not_ge hle
++    obtain ⟨i, j, hij, h0, h1⟩ := exists_pair_of_length_gt_sq hn hsRange hsLength
++    rcases lt_or_gt_of_ne hij with hij | hji
++    · exact (not_ltTwo_of_first_two_eq h0 h1)
++        (List.pairwise_iff_get.1 hsInc i j hij)
++    · exact (not_ltTwo_of_first_two_eq h0.symm h1.symm)
++        (List.pairwise_iff_get.1 hsInc j i hji)
++  · have hn' : n ≤ 1 := by omega
++    interval_cases n
++    · have hsEmpty : s = [] := by
++        apply List.eq_nil_iff_forall_not_mem.mpr
++        intro a ha
++        have hcoord := hsRange a ha ⟨0, rfl⟩
++        rw [Set.mem_Icc] at hcoord
++        omega
++      simp [hsEmpty]
++    · have hconst : ∀ a ∈ s, ∀ j, a j = 1 := by
++        intro a ha j
++        have hcoord := hsRange a ha ⟨j, rfl⟩
++        rw [Set.mem_Icc] at hcoord
++        exact hcoord.2.antisymm hcoord.1
++      have hsmall : s.length < 2 := by
++        by_contra hlen
++        have hlen' : 2 ≤ s.length := by omega
++        let i : Fin s.length := ⟨0, by omega⟩
++        let j : Fin s.length := ⟨1, by omega⟩
++        have hij : i < j := by simp [i, j]
++        have hab := List.pairwise_iff_get.1 hsInc i j hij
++        have ha0 := hconst s[i] (List.get_mem s i) 0
++        have hb0 := hconst s[j] (List.get_mem s j) 0
++        have ha1 := hconst s[i] (List.get_mem s i) 1
++        have hb1 := hconst s[j] (List.get_mem s j) 1
++        exact not_ltTwo_of_first_two_eq (ha0.trans hb0.symm) (ha1.trans hb1.symm) hab
++      norm_num
++      omega
++
++/-- The explicit construction gives the desired lower bound at every square. -/
++lemma grid_lower_bound (m : ℕ) : m ^ 3 ≤ maximalLength (m * m) := by
++  let lengths : Set ℕ := { List.length s |
++    (s : List (Fin 3 → ℕ))
++    (_ : ∀ a ∈ s, Set.range a ⊆ Set.Icc 1 (m * m))
++    (_ : IsIncreasingTwo s) }
++  have hbdd : BddAbove lengths := by
++    refine ⟨(m * m) ^ 2, ?_⟩
++    intro x hx
++    obtain ⟨s, hsRange, hsInc, rfl⟩ := hx
++    exact admissible_length_le_sq hsRange hsInc
++  have hmem : (gridSequence m).length ∈ lengths := by
++    exact ⟨gridSequence m, gridSequence_range m, gridSequence_isIncreasing m, rfl⟩
++  rw [maximalLength]
++  change m ^ 3 ≤ sSup lengths
++  rw [← gridSequence_length m]
++  exact le_csSup hbdd hmem
++
++/-- Exact source-named theorem, now closed without `sorryAx`. -/
++theorem maximalLength_ge_of_isSquare {n : ℕ} (h : IsSquare n) :
++    n.sqrt ^ 3 ≤ maximalLength n := by
++  rcases h with ⟨m, rfl⟩
++  simpa [Nat.sqrt_eq] using grid_lower_bound m
++
++/-- Closure of the canonical proposition. -/
++theorem theorem_complete : Statement :=
++  source_to_canonical maximalLength_ge_of_isSquare
++
++end AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003491/machine-closure.json b/Stage5_Theorem_Instances/S5-CLM-00003491/machine-closure.json
+new file mode 100644
+index 00000000..bac64499
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003491/machine-closure.json
+@@ -0,0 +1,322 @@
++{
++  "authority_sha256": "2577d180f4d4999e283ad0eb863e67a82b525e88c332a2b97ec453d30c449206",
++  "claim_id": "S5THM-00003491-TARGET--worker",
++  "item_id": "S5THM-00003491-TARGET",
++  "member_record_sha256": "30527d72e1c92acb11586211cdd1374d3c2ae2430261c020af072a004e997f6f",
++  "payload": {
++    "declaration_census": [
++      {
++        "axioms": [],
++        "body_sha256": "4e59100668d4e68abf9102cb9dffdcf5648a8ff69e51c22c3f02dfdaefb39726",
++        "name": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491.ltTwo",
++        "provider_revision": "r-1786543898-5a82599f",
++        "source_sha256": "c1d8a9804a2cd912d540513619f7d4ca66b690765062249f51729bfbddb2a83a",
++        "type_sha256": "ea8acfaa07a8831d528c3e04b8f12d7ee7d625f7f8a111a37fbb85706ea9ee01"
++      },
++      {
++        "axioms": [],
++        "body_sha256": "3e7a194f7ccb3733ddce49d23d5f27ecfd633b3a7536d862570c8e64a0ccdefd",
++        "name": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491.IsIncreasingTwo",
++        "provider_revision": "r-1786543898-5a82599f",
++        "source_sha256": "c1d8a9804a2cd912d540513619f7d4ca66b690765062249f51729bfbddb2a83a",
++        "type_sha256": "5e280224c50e50b67cb33132a52fd0b840eff534af4cfb8612b9242687464cbc"
++      },
++      {
++        "axioms": [],
++        "body_sha256": "14143e301f3f591c05802406cdcdc4f98cd8116323248a5b884c7fd50142a0e0",
++        "name": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491.maximalLength",
++        "provider_revision": "r-1786543898-5a82599f",
++        "source_sha256": "c1d8a9804a2cd912d540513619f7d4ca66b690765062249f51729bfbddb2a83a",
++        "type_sha256": "b5e47335f0c7790d814813069e02853959c6a90e628aedef82d9613ef29f41b2"
++      },
++      {
++        "axioms": [],
++        "body_sha256": "4dfa32354da06b04fef448cbea021c6a006305a04c639927114d01258bfea6d6",
++        "name": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491.Statement",
++        "provider_revision": "r-1786543898-5a82599f",
++        "source_sha256": "c1d8a9804a2cd912d540513619f7d4ca66b690765062249f51729bfbddb2a83a",
++        "type_sha256": "adacdbaa3ea26f0297857f4cb8ed9987a395d05530dfa0c94ecac640efac820e"
++      },
++      {
++        "axioms": [],
++        "body_sha256": "a44356f014bdd9030d13a6540022c4a8939f30d51c4c09cbeee33c50eb4118df",
++        "name": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491.source_to_canonical",
++        "provider_revision": "r-1786543898-5a82599f",
++        "source_sha256": "c1d8a9804a2cd912d540513619f7d4ca66b690765062249f51729bfbddb2a83a",
++        "type_sha256": "dff8aaa3f026a507228e396537fac46748a5ed2fca9811a1f605b26ef78f56b1"
++      },
++      {
++        "axioms": [],
++        "body_sha256": "db8e92ac1c9b7fb5b46fcd8a4f35a3887e39cfffeca31dd1d4f34fff7f8767b1",
++        "name": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491.canonical_to_source",
++        "provider_revision": "r-1786543898-5a82599f",
++        "source_sha256": "c1d8a9804a2cd912d540513619f7d4ca66b690765062249f51729bfbddb2a83a",
++        "type_sha256": "43e8e975dca8cddd783b544732d18ada52d32e6d2c46e914f6c2407f39244779"
++      },
++      {
++        "axioms": [],
++        "body_sha256": "a03fba518e34551987e36a68333add3f0ca9c0140e5ec458c9bdf72738fe2bf6",
++        "name": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491.encode_lt",
++        "provider_revision": "r-1786543898-5a82599f",
++        "source_sha256": "490490ca054836d6862a48f772ed3adcf045c3a659776470028389e0e7f9e4f9",
++        "type_sha256": "59fddaa2090015954f6b32f07233060d62f2c94280d67be8f4cf7e5ba81f35cb"
++      },
++      {
++        "axioms": [],
++        "body_sha256": "2bb2f13f15d895bcc01641125c5d41a97526988c594781eecfefaaf9bdaf95f7",
++        "name": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491.gridTriple",
++        "provider_revision": "r-1786543898-5a82599f",
++        "source_sha256": "490490ca054836d6862a48f772ed3adcf045c3a659776470028389e0e7f9e4f9",
++        "type_sha256": "d8997cca517e1e2927ed90ec296078c159d2df0cdde9637f32e701f76ef2663a"
++      },
++      {
++        "axioms": [],
++        "body_sha256": "eceeda5490b977c2192537d2d3e3b45398ede0e79de9b929489b048ec21496bd",
++        "name": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491.gridSequence",
++        "provider_revision": "r-1786543898-5a82599f",
++        "source_sha256": "490490ca054836d6862a48f772ed3adcf045c3a659776470028389e0e7f9e4f9",
++        "type_sha256": "bcfcb03cdcd15fc94b28ea8cc8ece45bb99b507cce3dff7c88cdffcf5fbc2f08"
++      },
++      {
++        "axioms": [],
++        "body_sha256": "024a18524c3887e63a738b68f3b97e57b7da182293bd84649e2e9eb5ff09d994",
++        "name": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491.gridTriple_ltTwo_of_k_lt",
++        "provider_revision": "r-1786543898-5a82599f",
++        "source_sha256": "490490ca054836d6862a48f772ed3adcf045c3a659776470028389e0e7f9e4f9",
++        "type_sha256": "4b7f487a816009dded4dc5bc191a0bd3d4c7f4483f9e622636f65b4f9923b1a1"
++      },
++      {
++        "axioms": [],
++        "body_sha256": "530c3c61fc322ea094d434326b563a8f76b3938e1ce7d5e537cba30648b9d97a",
++        "name": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491.gridTriple_ltTwo_of_j_lt",
++        "provider_revision": "r-1786543898-5a82599f",
++        "source_sha256": "490490ca054836d6862a48f772ed3adcf045c3a659776470028389e0e7f9e4f9",
++        "type_sha256": "676bc7f62cc82e971357bf9c1587df78b370e02d99fc88a5dbc3900e814c68bd"
++      },
++      {
++        "axioms": [],
++        "body_sha256": "f981f26f8b41d6e8801a30da86ce66041d0503ada122921fec909f444433e49e",
++        "name": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491.gridTriple_ltTwo_of_i_lt",
++        "provider_revision": "r-1786543898-5a82599f",
++        "source_sha256": "490490ca054836d6862a48f772ed3adcf045c3a659776470028389e0e7f9e4f9",
++        "type_sha256": "4a4914dd6da4c1298828530f8742a8c2d7c42617184612dab2627f025f09fa65"
++      },
++      {
++        "axioms": [],
++        "body_sha256": "6be37f52375894ae1f1e4389613829fd4613ac73b17b7eeb2b1748b5e236f252",
++        "name": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491.gridSequence_isIncreasing",
++        "provider_revision": "r-1786543898-5a82599f",
++        "source_sha256": "490490ca054836d6862a48f772ed3adcf045c3a659776470028389e0e7f9e4f9",
++        "type_sha256": "c342ebfc14f48b1fea1aa1f3ff47ba6e173d38d3bce685aa724f12f3312cdf0f"
++      },
++      {
++        "axioms": [],
++        "body_sha256": "a9080cd087f45a56275df2c8e72de50b6fe7fcd1844672381521794ad7e71d92",
++        "name": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491.gridSequence_range",
++        "provider_revision": "r-1786543898-5a82599f",
++        "source_sha256": "490490ca054836d6862a48f772ed3adcf045c3a659776470028389e0e7f9e4f9",
++        "type_sha256": "0abf2138fffc424979688941be27b0eb154b67b53f8cd52d31662abe699c632f"
++      },
++      {
++        "axioms": [],
++        "body_sha256": "efe3898b5269f311baa5527cf38c99f4761cc8b5d75598265b7475718fb04773",
++        "name": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491.gridSequence_length",
++        "provider_revision": "r-1786543898-5a82599f",
++        "source_sha256": "490490ca054836d6862a48f772ed3adcf045c3a659776470028389e0e7f9e4f9",
++        "type_sha256": "bec9786c01088c459485594e1aa8b2e3b47c5b0ba1f001af444d126858835ec3"
++      },
++      {
++        "axioms": [],
++        "body_sha256": "a35f740c33fb105fb509afd7430a58ec5cada7dc6597893471d9b7a464d95f94",
++        "name": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491.not_ltTwo_of_first_two_eq",
++        "provider_revision": "r-1786543898-5a82599f",
++        "source_sha256": "490490ca054836d6862a48f772ed3adcf045c3a659776470028389e0e7f9e4f9",
++        "type_sha256": "a1495af7e9411ef70d6112b99aa47336242b57e829802dd7c3deb0999d792126"
++      },
++      {
++        "axioms": [],
++        "body_sha256": "9ea02010d366fa2ab2b71702b8df7e1e6b6477879b83d23a1097bd5bc32dd93f",
++        "name": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491.exists_pair_of_length_gt_sq",
++        "provider_revision": "r-1786543898-5a82599f",
++        "source_sha256": "490490ca054836d6862a48f772ed3adcf045c3a659776470028389e0e7f9e4f9",
++        "type_sha256": "a659764d78f4109040528ec662ec336eccc4fd2e32c51d0fa8c144f367a08049"
++      },
++      {
++        "axioms": [],
++        "body_sha256": "2a58e7d62dddc14f72c27b3cf766c922ac949de2e0652a6cb5e7d1316488b73d",
++        "name": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491.admissible_length_le_sq",
++        "provider_revision": "r-1786543898-5a82599f",
++        "source_sha256": "490490ca054836d6862a48f772ed3adcf045c3a659776470028389e0e7f9e4f9",
++        "type_sha256": "a6618df5503f1565695b321fb5bc948bad0bb196a92cb4392725edac4d9793a3"
++      },
++      {
++        "axioms": [],
++        "body_sha256": "0f1d605b0d680494d04febd1c30a4c87849ac349c78acf3943c4f39a0fe78ca1",
++        "name": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491.grid_lower_bound",
++        "provider_revision": "r-1786543898-5a82599f",
++        "source_sha256": "490490ca054836d6862a48f772ed3adcf045c3a659776470028389e0e7f9e4f9",
++        "type_sha256": "0783333f0b6ca37946a72ca371d940d83f54a7e1d5f2a579771a8d5e74445b32"
++      },
++      {
++        "axioms": [],
++        "body_sha256": "177038fbcd3f1b4b76cb9ecff52a1d378fbfe335d156bcf1730b496433bd5d8d",
++        "name": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491.maximalLength_ge_of_isSquare",
++        "provider_revision": "r-1786543898-5a82599f",
++        "source_sha256": "490490ca054836d6862a48f772ed3adcf045c3a659776470028389e0e7f9e4f9",
++        "type_sha256": "4dfa32354da06b04fef448cbea021c6a006305a04c639927114d01258bfea6d6"
++      },
++      {
++        "axioms": [],
++        "body_sha256": "672fee87182603ce709d5bdd319ec730423f73177907b0f95753400e77c20c26",
++        "name": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491.theorem_complete",
++        "provider_revision": "r-1786543898-5a82599f",
++        "source_sha256": "490490ca054836d6862a48f772ed3adcf045c3a659776470028389e0e7f9e4f9",
++        "type_sha256": "ce203547361137603287a9cdcf494f0b5f75a88b9a0b13ef601117ae8c960bc6"
++      }
++    ],
++    "dependency_edges": [
++      {
++        "from": "theorem_complete",
++        "kind": "transport",
++        "to": "source_to_canonical"
++      },
++      {
++        "from": "theorem_complete",
++        "kind": "root-proof",
++        "to": "maximalLength_ge_of_isSquare"
++      },
++      {
++        "from": "maximalLength_ge_of_isSquare",
++        "kind": "square-case",
++        "to": "grid_lower_bound"
++      },
++      {
++        "from": "maximalLength_ge_of_isSquare",
++        "kind": "foundation",
++        "to": "Nat.sqrt_eq"
++      },
++      {
++        "from": "grid_lower_bound",
++        "kind": "composition",
++        "to": "gridSequence_isIncreasing"
++      },
++      {
++        "from": "grid_lower_bound",
++        "kind": "composition",
++        "to": "gridSequence_range"
++      },
++      {
++        "from": "grid_lower_bound",
++        "kind": "composition",
++        "to": "gridSequence_length"
++      },
++      {
++        "from": "grid_lower_bound",
++        "kind": "bounded-supremum",
++        "to": "admissible_length_le_sq"
++      },
++      {
++        "from": "gridSequence_isIncreasing",
++        "kind": "inner-block",
++        "to": "gridTriple_ltTwo_of_k_lt"
++      },
++      {
++        "from": "gridSequence_isIncreasing",
++        "kind": "middle-block",
++        "to": "gridTriple_ltTwo_of_j_lt"
++      },
++      {
++        "from": "gridSequence_isIncreasing",
++        "kind": "outer-block",
++        "to": "gridTriple_ltTwo_of_i_lt"
++      },
++      {
++        "from": "gridTriple_ltTwo_of_j_lt",
++        "kind": "base-m",
++        "to": "encode_lt"
++      },
++      {
++        "from": "gridTriple_ltTwo_of_i_lt",
++        "kind": "base-m",
++        "to": "encode_lt"
++      },
++      {
++        "from": "gridSequence_range",
++        "kind": "base-m",
++        "to": "encode_lt"
++      },
++      {
++        "from": "admissible_length_le_sq",
++        "kind": "pigeonhole",
++        "to": "exists_pair_of_length_gt_sq"
++      },
++      {
++        "from": "exists_pair_of_length_gt_sq",
++        "kind": "contradiction",
++        "to": "not_ltTwo_of_first_two_eq"
++      },
++      {
++        "from": "Proof.lean",
++        "kind": "pinned dependency",
++        "to": "Mathlib@8a178386ffc0f5fef0b77738bb5449d50efeea95"
++      }
++    ],
++    "exact_root": {
++      "body_sha256": "672fee87182603ce709d5bdd319ec730423f73177907b0f95753400e77c20c26",
++      "module": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491.Proof",
++      "normalized_type_sha256": "4dfa32354da06b04fef448cbea021c6a006305a04c639927114d01258bfea6d6",
++      "source_file_sha256": "490490ca054836d6862a48f772ed3adcf045c3a659776470028389e0e7f9e4f9",
++      "type_transport": "definitional source_to_canonical",
++      "unconditional_under_declared_hypotheses": true
++    },
++    "foundation_profile": {
++      "boot_allowed_transitive_axiom_names": [],
++      "boot_profile_authority_sha256": "ff1bfc01d08c01cfe72986ff32836ee60448781b230a1a5a13ddf1a5e20337df",
++      "boot_status": "boot_baseline_requires_exact_per_declaration_replay_before_acceptance",
++      "exact_replay_candidate": true,
++      "observed_bodyless_foundation_declarations": [],
++      "observed_exact_transitive_axiom_names": [
++        "Classical.choice",
++        "Quot.sound",
++        "propext"
++      ],
++      "per_name_justifications": {
++        "Classical.choice": "ordinary Lean classical-choice foundation used transitively by finite-set and supremum reasoning",
++        "Quot.sound": "ordinary Lean quotient soundness used by pinned Mathlib",
++        "propext": "ordinary Lean proposition extensionality used by Set reasoning"
++      },
++      "resolution_boundary": "target-local exact replay candidate; canonical Master independently reviews acceptance against BOOT baseline"
++    },
++    "foundation_profile_sha256": "ff1bfc01d08c01cfe72986ff32836ee60448781b230a1a5a13ddf1a5e20337df",
++    "machine_level": "M0-L",
++    "module_census": {
++      "all_covered_by_root_module_build": true,
++      "all_elaborated_at_trust_zero": true,
++      "local_declaration_count": 21,
++      "proof_declaration_count": 15,
++      "statement_declaration_count": 6
++    },
++    "remaining_machine_cut_set": [],
++    "root_declaration": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491.theorem_complete",
++    "source_provenance": {
++      "external_proof_sha256": null,
++      "external_revision": null,
++      "license_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
++      "local_adaptation_count": 1
++    },
++    "trust_checks": {
++      "claim_specific_axioms": [],
++      "opaque_declarations": [],
++      "root_axiom_query_passed": true,
++      "sorryAx_observed": false,
++      "source_sorry_not_imported": true,
++      "trust_level": 0,
++      "unreviewed_bodyless_oracles": [],
++      "unsafe_declarations": []
++    }
++  },
++  "program": "stage5-theorem-proof-debt/2.0",
++  "run_id": "r-1786543898-5a82599f",
++  "schema_version": "awesome-theorems/stage5-target-machine-closure/2.0",
++  "stage_claim_id": "S5-CLM-00003491"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003491/machine-checked-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003491/machine-checked-audit.md
+new file mode 100644
+index 00000000..1aee2d02
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003491/machine-checked-audit.md
+@@ -0,0 +1,62 @@
++# Machine-checked audit: S5-CLM-00003491
++
++## Result
++
++The exact root is closed at **M0-L** by
++`AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491.theorem_complete`.
++`Statement.lean`, `Proof.lean`, and `Audit.lean` elaborate under the pinned
++Lean 4.29.0 toolchain at trust level zero.  `Audit.lean` contains exact-type
++probes for both the source-shaped declaration and the canonical root.
++
++## Placeholder and declaration policy
++
++A start-of-declaration scan found none of `sorry`, `admit`, `axiom`, `opaque`,
++`unsafe def`, or `unsafe theorem`.  Every target-local declaration has a body.
++The proof never imports the frozen source theorem and therefore does not depend
++on its former `sorryAx`.
++
++`Audit.lean` also executes `#audit_decl` for each of the 21 target-local
++declarations against Lean's checked kernel environment.  Each probe requires a
++body, computes deterministic `Lean.Expr.hash` values for its elaborated type
++and body, walks its transitive axiom closure, and fails on any axiom outside
++`Classical.choice`, `Quot.sound`, and `propext`.  In
++`machine-closure.json`, each census digest is
++`SHA256("Lean.Expr.hash:" ++ decimalHash)`; this names the encoding exactly
++and makes the recorded 64-hex values independently reproducible from the audit
++transcript.
++
++## Axiom probe
++
++Lean reports the following for both root declarations:
++
++```text
++depends on axioms: [propext, Classical.choice, Quot.sound]
++```
++
++These are Lean's standard logical primitives, reached through the frozen
++source semantics (`Set`, finite extensional reasoning, and noncomputable
++`sSup`).  The machine census's `axioms` field follows the accepted foundation
++profile contract and records target/provider-added bodyless axioms; it is empty
++for every declaration.  The exact transitive kernel arrays are still emitted
++separately for all 21 declarations by `#audit_decl`, and their union is
++`Classical.choice`, `Quot.sound`, and `propext`.  Thus the census matches the
++BOOT profile without hiding the observed primitive closure.  No `sorryAx`,
++claim-specific proposition, certificate oracle, or unreviewed bodyless provider
++declaration is present.
++
++## Dependency closure
++
++The root depends on the definitional statement transport and the source-shaped
++theorem.  That theorem depends on square-witness reduction and
++`grid_lower_bound`; the latter depends on construction length, coordinate
++range, pairwise increase, boundedness of admissible lengths, and `le_csSup`.
++All local edges appear in `machine-closure.json`, and every root-relevant local
++declaration appears in its census.  The remaining machine cut set is empty.
++
++## Reproducibility
++
++The target modules were compiled into a fresh temporary module-output tree,
++with only the pinned dependency oleans on `LEAN_PATH`; no target olean from an
++earlier run was available.  The audit module then imported those fresh outputs.
++The exact commands and byte hashes are recorded in `build-validation.md` and
++`receipts/current-validation.json`.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003491/proof-outline.md b/Stage5_Theorem_Instances/S5-CLM-00003491/proof-outline.md
+new file mode 100644
+index 00000000..ed329986
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003491/proof-outline.md
+@@ -0,0 +1,21 @@
++# Proof outline and node crosswalk
++
++The proof is the explicit (m^3)-term construction for (n=m^2).
++
++1. `PU-01` extracts `n = m*m` from `IsSquare n` and reduces the root to the
++   square case.
++2. `PU-02` defines `gridTriple` and `gridSequence`.
++3. `PU-03`, `PU-04`, and `PU-05` prove two-coordinate growth according as the first
++   differing lexicographic digit is `k`, `j`, or `i`.
++4. `PU-06` combines those cases with the pairwise laws for nested flat maps.
++5. `PU-07` proves all coordinates are in `[1,m*m]`.
++6. `PU-08` computes the list length as `m^3`.
++7. `PU-09` proves that every admissible length is at most `n^2`, making the
++   natural supremum genuinely bounded.
++8. `PU-10` inserts the construction into the exact supremum set and applies
++   `le_csSup`.
++9. `PU-11` transports the checked source-shaped theorem to the canonical root.
++10. `PU-00` records the resulting root theorem `theorem_complete : Statement`.
++
++Every node has a unique reverse anchor in `full-study.md`; the structured
++forward and reverse ledgers are in `readability-review.json`.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003491/full-study.md b/Stage5_Theorem_Instances/S5-CLM-00003491/full-study.md
+new file mode 100644
+index 00000000..52045c87
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003491/full-study.md
+@@ -0,0 +1,115 @@
++# Full study: the square lower bound for 2-increasing triples
++
++## Frozen target
++
++The frozen declaration is
++
++```lean
++theorem maximalLength_ge_of_isSquare {n : ℕ} (h : IsSquare n) :
++    n.sqrt ^ 3 ≤ maximalLength n
++```
++
++Here `maximalLength n` is the supremum of the lengths of lists of triples of
++natural numbers whose coordinates lie in `[1,n]` and in which every earlier
++triple is strictly smaller than every later triple in at least two of the three
++coordinates.  The proof below is unconditional apart from the declaration's
++explicit premise that `n` is a square.
++
++## Anchored reconstruction
++
++<!-- ANCHOR:PU-00:BEGIN -->
++The root goal is to exhibit one admissible list of length `sqrt(n)^3`; because
++`maximalLength n` is the supremum of all admissible lengths, membership of that
++one length in the defining set is enough once the set is shown bounded.
++<!-- ANCHOR:PU-00:END -->
++
++<!-- ANCHOR:PU-01:BEGIN -->
++From `IsSquare n` choose `m` with `n = m*m`.  Mathlib's exact natural-square
++identity `Nat.sqrt_eq m` then rewrites `sqrt(m*m)` to `m`, reducing the target
++to `m^3 ≤ maximalLength (m*m)`.
++<!-- ANCHOR:PU-01:END -->
++
++<!-- ANCHOR:PU-02:BEGIN -->
++For each `0 ≤ i,j,k < m`, define
++`T(i,j,k) = (i*m+j+1, i*m+k+1, j*m+k+1)`.  Let `S_m` be the list of all these
++triples in lexicographic order on `(i,j,k)`, implemented by three nested
++`List.range` traversals.
++<!-- ANCHOR:PU-02:END -->
++
++<!-- ANCHOR:PU-03:BEGIN -->
++If two indices first differ at `k`, then `i` and `j` agree and `k < k'`.
++Consequently the second coordinates `i*m+k+1` and the third coordinates
++`j*m+k+1` both strictly increase, so the corresponding triples are
++2-increasing.
++<!-- ANCHOR:PU-03:END -->
++
++<!-- ANCHOR:PU-04:BEGIN -->
++If two indices first differ at `j`, then `i` agrees and `j < j'`.  The first
++coordinate increases directly.  The third coordinate increases because
++`j*m+k < (j+1)*m ≤ j'*m ≤ j'*m+k'`, using `k < m`.
++<!-- ANCHOR:PU-04:END -->
++
++<!-- ANCHOR:PU-05:BEGIN -->
++If two indices first differ at `i`, then `i < i'`.  Both the first and second
++coordinates increase: for either trailing digit `c < m`, the base-`m`
++inequality `i*m+c < (i+1)*m ≤ i'*m ≤ i'*m+d` applies independently of the
++later trailing digit `d`.
++<!-- ANCHOR:PU-05:END -->
++
++<!-- ANCHOR:PU-06:BEGIN -->
++The three first-difference cases are exhaustive for lexicographically ordered
++distinct triples of digits.  `List.pairwise_flatMap` composes the inner `k`,
++middle `j`, and outer `i` arguments, yielding `IsIncreasingTwo S_m` for the
++entire nested list rather than merely for adjacent entries.
++<!-- ANCHOR:PU-06:END -->
++
++<!-- ANCHOR:PU-07:BEGIN -->
++Every coordinate of `T(i,j,k)` is at least one.  For the upper bound, if
++`a,b < m`, then `a*m+b < m*m`; therefore `a*m+b+1 ≤ m*m`.  Applying this to
++the digit pairs `(i,j)`, `(i,k)`, and `(j,k)` puts the full range of every
++constructed triple inside `Set.Icc 1 (m*m)`.
++<!-- ANCHOR:PU-07:END -->
++
++<!-- ANCHOR:PU-08:BEGIN -->
++Each of the three nested `List.range m` traversals has length `m`, and each
++choice produces exactly one triple.  The flat-map and map length formulas thus
++give `S_m.length = m*m*m = m^3`.
++<!-- ANCHOR:PU-08:END -->
++
++<!-- ANCHOR:PU-09:BEGIN -->
++The set of admissible lengths is bounded.  For `n ≥ 2`, a list longer than
++`n^2` would contain two entries with the same first two coordinates by the
++pigeonhole principle; whichever occurs first cannot be strictly smaller in
++two coordinates, contradicting pairwise 2-increase.  For `n=0` the range
++condition forces the list empty, and for `n=1` pairwise 2-increase permits at
++most one all-ones triple.
++<!-- ANCHOR:PU-09:END -->
++
++<!-- ANCHOR:PU-10:BEGIN -->
++The coordinate-range lemma, pairwise lemma, and length identity place
++`S_m.length` in the exact set used by `maximalLength (m*m)`.  The bounded-set
++law `le_csSup` therefore yields `m^3 ≤ maximalLength (m*m)` with no appeal to
++the source's former `sorryAx` body.
++<!-- ANCHOR:PU-10:END -->
++
++<!-- ANCHOR:PU-11:BEGIN -->
++Substituting the square witness and rewriting the natural square root completes
++the source-shaped theorem.  The canonical `Statement` is definitionally the
++same quantified proposition, so the checked `source_to_canonical` transport
++closes the package root `theorem_complete` without strengthening, weakening,
++or reordering any binder.
++<!-- ANCHOR:PU-11:END -->
++
++## Edge cases and trust boundary
++
++The construction handles `m=0` and `m=1` without separate root cases.  For
++`m=0`, it is empty and proves `0 ≤ F(0)`.  For `m=1`, it contains the single
++triple `(1,1,1)`.  All helper declarations have Lean bodies.  The proof does
++not import the original Formal Conjectures theorem and hence cannot inherit its
++`sorryAx`; it imports only the local exact statement module and pinned mathlib.
++
++The machine transcript reports Lean's standard logical primitives `propext`,
++`Classical.choice`, and `Quot.sound`, which enter through sets, finite
++pigeonhole reasoning, and the noncomputable natural supremum used by the frozen
++source definition.  No claim-specific axiom, bodyless oracle, unsafe
++declaration, `sorry`, or `admit` occurs.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003491/readability-review.json b/Stage5_Theorem_Instances/S5-CLM-00003491/readability-review.json
+new file mode 100644
+index 00000000..da35bcab
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003491/readability-review.json
+@@ -0,0 +1,257 @@
++{
++  "authority_sha256": "421d761c07977d29615ba59965995e344068b395a2441f01bf42b39efc8614df",
++  "claim_id": "S5THM-00003491-TARGET--worker",
++  "item_id": "S5THM-00003491-TARGET",
++  "member_record_sha256": "30527d72e1c92acb11586211cdd1374d3c2ae2430261c020af072a004e997f6f",
++  "payload": {
++    "anchor_to_fragment": {
++      "ANCHOR:PU-00": {
++        "downstream": [],
++        "formal_declaration": "theorem_complete",
++        "fragment_sha256": "fb115e96d9958f8d510bc554afa44de3d30b59d9b356d54e7c3f5e0ac4f52c9a",
++        "hypotheses": [
++          "h : IsSquare n"
++        ],
++        "inference": "reduce the root to an explicit admissible witness",
++        "node_id": "PU-00",
++        "output": "n.sqrt^3 ≤ maximalLength n",
++        "path": "Stage5_Theorem_Instances/S5-CLM-00003491/full-study.md"
++      },
++      "ANCHOR:PU-01": {
++        "downstream": [
++          "PU-11"
++        ],
++        "formal_declaration": "maximalLength_ge_of_isSquare",
++        "fragment_sha256": "ed00e0f98a6c68de7b33b97b6abcbc5c7f7cd5aca766ade5fbc7ed8b26243ac8",
++        "hypotheses": [
++          "h : IsSquare n"
++        ],
++        "inference": "extract m and apply Nat.sqrt_eq",
++        "node_id": "PU-01",
++        "output": "square case m^3 ≤ maximalLength (m*m)",
++        "path": "Stage5_Theorem_Instances/S5-CLM-00003491/full-study.md"
++      },
++      "ANCHOR:PU-02": {
++        "downstream": [
++          "PU-03",
++          "PU-04",
++          "PU-05",
++          "PU-07",
++          "PU-08"
++        ],
++        "formal_declaration": "gridTriple; gridSequence",
++        "fragment_sha256": "ee3f1b61271eb62568b145a75e2aaa10e6e6749b12432504de89c5ea3e746760",
++        "hypotheses": [
++          "i,j,k < m"
++        ],
++        "inference": "define the three-coordinate base-m grid",
++        "node_id": "PU-02",
++        "output": "gridSequence m",
++        "path": "Stage5_Theorem_Instances/S5-CLM-00003491/full-study.md"
++      },
++      "ANCHOR:PU-03": {
++        "downstream": [
++          "PU-06"
++        ],
++        "formal_declaration": "gridTriple_ltTwo_of_k_lt",
++        "fragment_sha256": "7138569f62e34b1df6023890c0f24ec085f4acb36cec4e3b796a208ccca0a1e7",
++        "hypotheses": [
++          "k < k'"
++        ],
++        "inference": "strict monotonicity in the last digit",
++        "node_id": "PU-03",
++        "output": "ltTwo in coordinates 1 and 2",
++        "path": "Stage5_Theorem_Instances/S5-CLM-00003491/full-study.md"
++      },
++      "ANCHOR:PU-04": {
++        "downstream": [
++          "PU-06"
++        ],
++        "formal_declaration": "gridTriple_ltTwo_of_j_lt",
++        "fragment_sha256": "b45bd2834b1159ba0e843425a70fef9848b845756e61d87ab5f631eb06b8fccb",
++        "hypotheses": [
++          "j < j'",
++          "k < m"
++        ],
++        "inference": "base-m block separation",
++        "node_id": "PU-04",
++        "output": "ltTwo in coordinates 0 and 2",
++        "path": "Stage5_Theorem_Instances/S5-CLM-00003491/full-study.md"
++      },
++      "ANCHOR:PU-05": {
++        "downstream": [
++          "PU-06"
++        ],
++        "formal_declaration": "gridTriple_ltTwo_of_i_lt",
++        "fragment_sha256": "6c0098e582bfaaf5e54b95aefad73ce88274ce81a8173a91d40f63cde63944c8",
++        "hypotheses": [
++          "i < i'",
++          "j < m",
++          "k < m"
++        ],
++        "inference": "base-m outer-block separation",
++        "node_id": "PU-05",
++        "output": "ltTwo in coordinates 0 and 1",
++        "path": "Stage5_Theorem_Instances/S5-CLM-00003491/full-study.md"
++      },
++      "ANCHOR:PU-06": {
++        "downstream": [
++          "PU-10"
++        ],
++        "formal_declaration": "gridSequence_isIncreasing",
++        "fragment_sha256": "f61b4e4244b5e397eac9f17e5c7a654b71deb98593e7760f61a32d35d95c6cbb",
++        "hypotheses": [
++          "PU-03",
++          "PU-04",
++          "PU-05"
++        ],
++        "inference": "pairwise_flatMap composition",
++        "node_id": "PU-06",
++        "output": "IsIncreasingTwo (gridSequence m)",
++        "path": "Stage5_Theorem_Instances/S5-CLM-00003491/full-study.md"
++      },
++      "ANCHOR:PU-07": {
++        "downstream": [
++          "PU-10"
++        ],
++        "formal_declaration": "gridSequence_range",
++        "fragment_sha256": "596b7a8255f99ee494787cffb9ec2d9b4e16e909df4d06ff1a8bdf56adbc6ce9",
++        "hypotheses": [
++          "i,j,k < m"
++        ],
++        "inference": "two-digit encoding is below m*m",
++        "node_id": "PU-07",
++        "output": "coordinate range contained in Icc 1 (m*m)",
++        "path": "Stage5_Theorem_Instances/S5-CLM-00003491/full-study.md"
++      },
++      "ANCHOR:PU-08": {
++        "downstream": [
++          "PU-10"
++        ],
++        "formal_declaration": "gridSequence_length",
++        "fragment_sha256": "c698c09c34344d6a92d94d2d72aebbd0713c7197515b6c0a21f270928d72fc82",
++        "hypotheses": [
++          "three ranges of length m"
++        ],
++        "inference": "flat-map length multiplication",
++        "node_id": "PU-08",
++        "output": "gridSequence.length = m^3",
++        "path": "Stage5_Theorem_Instances/S5-CLM-00003491/full-study.md"
++      },
++      "ANCHOR:PU-09": {
++        "downstream": [
++          "PU-10"
++        ],
++        "formal_declaration": "admissible_length_le_sq",
++        "fragment_sha256": "b565f480665dcb0359f0f445d555aba4f0c4d4d28d44fd78e617b5055e3bcd74",
++        "hypotheses": [
++          "s admissible over Icc 1 n"
++        ],
++        "inference": "pigeonhole first two coordinates plus small-n cases",
++        "node_id": "PU-09",
++        "output": "s.length ≤ n^2",
++        "path": "Stage5_Theorem_Instances/S5-CLM-00003491/full-study.md"
++      },
++      "ANCHOR:PU-10": {
++        "downstream": [
++          "PU-11"
++        ],
++        "formal_declaration": "grid_lower_bound",
++        "fragment_sha256": "7afcff15fa174a0e44a644385daf2fae2a61acd195f1b5fe5d2072234f5b3c4f",
++        "hypotheses": [
++          "PU-06",
++          "PU-07",
++          "PU-08",
++          "PU-09"
++        ],
++        "inference": "bounded exact-set membership and le_csSup",
++        "node_id": "PU-10",
++        "output": "m^3 ≤ maximalLength (m*m)",
++        "path": "Stage5_Theorem_Instances/S5-CLM-00003491/full-study.md"
++      },
++      "ANCHOR:PU-11": {
++        "downstream": [
++          "PU-00"
++        ],
++        "formal_declaration": "maximalLength_ge_of_isSquare; source_to_canonical",
++        "fragment_sha256": "acc1d84964c376cadc88eaf85dbf1bc5679b33bd5cb09ab0e98ca8038f0c5682",
++        "hypotheses": [
++          "PU-01",
++          "PU-10"
++        ],
++        "inference": "square substitution and definitional transport",
++        "node_id": "PU-11",
++        "output": "Statement",
++        "path": "Stage5_Theorem_Instances/S5-CLM-00003491/full-study.md"
++      }
++    },
++    "independent_review_boundary": {
++      "canonical_master_review_pending": true,
++      "content_complete": true,
++      "reason": "worker handoff may recommend R0 but cannot impersonate canonical Master/reviewer"
++    },
++    "injectivity_checks": {
++      "anchor_count": 12,
++      "collisions": [],
++      "forward_injective": true,
++      "forward_total": true,
++      "generic_shared_fragments": [],
++      "required_node_count": 12,
++      "reverse_total": true
++    },
++    "node_to_anchor": {
++      "PU-00": "ANCHOR:PU-00",
++      "PU-01": "ANCHOR:PU-01",
++      "PU-02": "ANCHOR:PU-02",
++      "PU-03": "ANCHOR:PU-03",
++      "PU-04": "ANCHOR:PU-04",
++      "PU-05": "ANCHOR:PU-05",
++      "PU-06": "ANCHOR:PU-06",
++      "PU-07": "ANCHOR:PU-07",
++      "PU-08": "ANCHOR:PU-08",
++      "PU-09": "ANCHOR:PU-09",
++      "PU-10": "ANCHOR:PU-10",
++      "PU-11": "ANCHOR:PU-11"
++    },
++    "readability_level": "R0",
++    "remaining_readability_cut_set": [],
++    "required_nodes": [
++      "PU-00",
++      "PU-01",
++      "PU-02",
++      "PU-03",
++      "PU-04",
++      "PU-05",
++      "PU-06",
++      "PU-07",
++      "PU-08",
++      "PU-09",
++      "PU-10",
++      "PU-11"
++    ],
++    "reverse_coverage": {
++      "all_hypotheses_and_outputs_explicit": true,
++      "formal_root_covered_by": "ANCHOR:PU-00",
++      "unmapped_anchors": [],
++      "unmapped_nodes": []
++    },
++    "reviewers": [
++      {
++        "decision": "pass",
++        "independence": "fresh mathematical pass after formal proof stabilized",
++        "reviewer_id": "worker-mathematical-pass-r-1786543898-5a82599f",
++        "scope": "verify construction, pairwise cases, range, cardinality, bounded supremum, and edge cases"
++      },
++      {
++        "decision": "pass",
++        "independence": "separate evidence-coverage pass; canonical Master review pending",
++        "reviewer_id": "worker-formal-crosswalk-pass-r-1786543898-5a82599f",
++        "scope": "verify every DAG node against unique declarations and reverse fragment anchors"
++      }
++    ]
++  },
++  "program": "stage5-theorem-proof-debt/2.0",
++  "run_id": "r-1786543898-5a82599f",
++  "schema_version": "awesome-theorems/stage5-target-readability-review/2.0",
++  "stage_claim_id": "S5-CLM-00003491"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Audit.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Audit.lean
+new file mode 100644
+index 00000000..0896747d
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Audit.lean
+@@ -0,0 +1,78 @@
++import AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491.Proof
++import Lean.Util.CollectAxioms
++
++/-!
++# Trust and exact-type audit for S5-CLM-00003491
++
++This module is deliberately executable evidence: the two probes below fail to
++elaborate if either the source-shaped conclusion or the canonical proposition
++drifts.  The `#print axioms` commands expose the kernel dependency boundary in
++the cold-build transcript.
++-/
++
++namespace AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491
++
++open Lean Elab Command
++
++/--
++Replay one target-local declaration from the checked kernel environment.  The
++command fails if the declaration is missing, bodyless, or reaches any axiom
++outside the exact foundation set observed for this target.  Its deterministic
++type/body expression hashes feed the content-addressed declaration census.
++-/
++elab "#audit_decl " n:ident : command => do
++  let name := `AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491 ++ n.getId
++  let env ← getEnv
++  let some info := env.find? name
++    | throwError "missing checked declaration {name}"
++  let some value := info.value?
++    | throwError "bodyless target-local declaration {name}"
++  let axioms ← Lean.collectAxioms name
++  let allowed : Array Name := #[``Classical.choice, ``Quot.sound, ``propext]
++  let unexpected := axioms.filter fun axiomName => !allowed.contains axiomName
++  unless unexpected.isEmpty do
++    throwError "unexpected axiom closure for {name}: {unexpected}"
++  let axiomNames := String.intercalate "," <|
++    (axioms.toList.map (·.toString)).mergeSort (· < ·)
++  logInfo m!"CENSUS\t{name}\t{info.type.hash}\t{value.hash}\t[{axiomNames}]"
++
++#audit_decl ltTwo
++#audit_decl IsIncreasingTwo
++#audit_decl maximalLength
++#audit_decl Statement
++#audit_decl source_to_canonical
++#audit_decl canonical_to_source
++#audit_decl encode_lt
++#audit_decl gridTriple
++#audit_decl gridSequence
++#audit_decl gridTriple_ltTwo_of_k_lt
++#audit_decl gridTriple_ltTwo_of_j_lt
++#audit_decl gridTriple_ltTwo_of_i_lt
++#audit_decl gridSequence_isIncreasing
++#audit_decl gridSequence_range
++#audit_decl gridSequence_length
++#audit_decl not_ltTwo_of_first_two_eq
++#audit_decl exists_pair_of_length_gt_sq
++#audit_decl admissible_length_le_sq
++#audit_decl grid_lower_bound
++#audit_decl maximalLength_ge_of_isSquare
++#audit_decl theorem_complete
++
++/-- Exact source declaration-type probe. -/
++theorem source_type_probe {n : ℕ} (h : IsSquare n) :
++    n.sqrt ^ 3 ≤ maximalLength n :=
++  maximalLength_ge_of_isSquare h
++
++/-- Exact canonical-root type probe. -/
++theorem canonical_type_probe : Statement :=
++  theorem_complete
++
++#print axioms maximalLength_ge_of_isSquare
++#print axioms theorem_complete
++#check source_to_canonical
++#check canonical_to_source
++#check gridSequence_length
++#check gridSequence_range
++#check gridSequence_isIncreasing
++
++end AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003491/build-validation.md b/Stage5_Theorem_Instances/S5-CLM-00003491/build-validation.md
+new file mode 100644
+index 00000000..df93fa4e
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003491/build-validation.md
+@@ -0,0 +1,52 @@
++# Build validation: S5-CLM-00003491
++
++## Pinned environment
++
++- Lean: `4.29.0`, commit `98dc76e3c0a9b856c9b98726b713fb04fab16740`
++- Toolchain file SHA-256: `651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2`
++- Canonical Lean root: `/home/sansha/Github/awesome_theorems/Formalizations/Lean`
++- Target module root: the claim-local `work/Formalizations/Lean`
++- Network: denied by a user-scoped transient systemd service with `PrivateNetwork=yes`
++- Target cache: fresh temporary output directory for every replay
++
++## Cold trust-zero build
++
++The replay creates an empty temporary module tree, obtains only the pinned
++dependency `LEAN_PATH` from `lake env`, compiles `Statement.lean` and
++`Proof.lean` to that tree, then checks `Audit.lean` against those two fresh
++oleans.  Each Lean invocation uses `-t 0` and the claim-local source root via
++`-R`. The entire replay runs inside the private network namespace. Final
++result: exit code `0` for all three modules.
++
++The audit output records the exact transports, construction lemmas, and all 21
++target-local declaration hashes.  It reports the standard kernel primitives
++`[propext, Classical.choice, Quot.sound]` for both root declarations and
++rejects any per-declaration axiom outside that set.  Its exact transcript digest
++is bound in `receipts/current-validation.json`.
++
++## Static and structured checks
++
++- all eighteen required paths exist as regular non-symlink files;
++- no undeclared durable artifact exists outside `_baseline`, `_outbox`, and
++  the exact owned paths;
++- all JSON parses strictly, has no duplicate keys, and all phase decisions are
++  authority-sealed over canonical JSON bodies;
++- all recorded SHA-256 values have lowercase 64-hex form;
++- the source type, source block, record, Stage6 alias, provider revision, and
++  foundation profile match the frozen bootstrap bundle;
++- forbidden Lean declaration/placeholder scan is empty;
++- proof/readability node sets agree and the forward anchor map is total and
++  injective with exact reverse coverage;
++- machine and readability cut sets are empty;
++- the claim self-check command exits `0`.
++
++## Adversarial checks
++
++The validation ledger rejects: a changed exponent in the exact type; an
++explicit/implicit binder drift; duplicate readability anchors; a missing
++reverse anchor; an inserted `sorry`, `axiom`, `opaque`, or unsafe declaration;
++nonempty machine/readability cut sets; any injected `sorryAx` census entry; a
++release with only one completion axis; and any tamper of a content hash or
++authority seal.  A separately compiled exponent-two stale statement olean also
++fails when placed before the cold target tree.  The exact expected rejection
++outcomes are recorded in the current validation receipt.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003491/receipts/current-validation.json b/Stage5_Theorem_Instances/S5-CLM-00003491/receipts/current-validation.json
+new file mode 100644
+index 00000000..8204a35a
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003491/receipts/current-validation.json
+@@ -0,0 +1,254 @@
++{
++  "authority_sha256": "122a545d0dcffef9f4a51093d5e94b6989df4412efaf0be725813be68e3ba47d",
++  "claim_id": "S5THM-00003491-TARGET--worker",
++  "item_id": "S5THM-00003491-TARGET",
++  "member_record_sha256": "30527d72e1c92acb11586211cdd1374d3c2ae2430261c020af072a004e997f6f",
++  "payload": {
++    "artifact_hashes": {
++      "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Audit.lean": "df5483c9c4a88f7e3766bc78a498339261ac24c67bc2425e82d51b563c4851d2",
++      "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Proof.lean": "490490ca054836d6862a48f772ed3adcf045c3a659776470028389e0e7f9e4f9",
++      "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Statement.lean": "c1d8a9804a2cd912d540513619f7d4ca66b690765062249f51729bfbddb2a83a",
++      "Stage5_Theorem_Instances/S5-CLM-00003491/README.md": "b8c1347e1fd3e085ee5fcee50989c023bf8b1f49ed65f2d22bb39892e328cd9c",
++      "Stage5_Theorem_Instances/S5-CLM-00003491/anchor-audit.json": "2e9fb56752b749f29ba44da6a3f6f4a2f9bb43449dba13cdac315b723ac7c9c6",
++      "Stage5_Theorem_Instances/S5-CLM-00003491/build-validation.md": "ba6d604223c4ff39951bbbf0cdb2ca29db362556160d3c88c3ad7a5753974af9",
++      "Stage5_Theorem_Instances/S5-CLM-00003491/full-study.md": "eae001eb0ef5750c2b69d88c86a70b27d504143c27dc963b5307a62e99afef6e",
++      "Stage5_Theorem_Instances/S5-CLM-00003491/intake.json": "0f8697d416a02f3710bdb7e65c83eab61f269edfba8c54f06cd29475fab883e4",
++      "Stage5_Theorem_Instances/S5-CLM-00003491/machine-checked-audit.md": "fabcfdd0c18fedf02c7b9f36b4b6d9efd06dcca1ad88d32a73ec044edcfdf73e",
++      "Stage5_Theorem_Instances/S5-CLM-00003491/machine-closure.json": "92683d658a8a971a7be061d9a2222d6665da1854809305e0eef197488aa6f556",
++      "Stage5_Theorem_Instances/S5-CLM-00003491/process-audit.md": "f33d954536b46f1025cc60ffac7c13d8de2b9d98c75a128cf4fb4c63a6be15a0",
++      "Stage5_Theorem_Instances/S5-CLM-00003491/proof-outline.md": "42412f0ae247116a8b8515521bbb433e08f968b52eae0d9bee75d9aa258c7a53",
++      "Stage5_Theorem_Instances/S5-CLM-00003491/proof-units.json": "74af98673f0e5ad0bcd29e856e233e57af28aa19ece00ebacab973fe11a7638c",
++      "Stage5_Theorem_Instances/S5-CLM-00003491/readability-review.json": "d703ed998c27c9c484dfa828a51cf08e68c0aee51423b0564654f26596eb693b",
++      "Stage5_Theorem_Instances/S5-CLM-00003491/statement-crosswalk.json": "a53be7853d893a5e86fee9994c8a392dcf047bd7eb77f863c2aaa298aaf6c312"
++    },
++    "cold_cache": true,
++    "commands": [
++      {
++        "argv": [
++          "elan",
++          "run",
++          "leanprover/lean4:v4.29.0",
++          "lean",
++          "-t",
++          "0",
++          "-R",
++          "<cold-root>",
++          "-o",
++          "<cold-root>/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Statement.olean",
++          "<cold-root>/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Statement.lean"
++        ],
++        "argv_sha256": "d9e3eeec4766a929e9991f7fe1ea02aa5850c78564e3e97eef74d6f59bd79588",
++        "command_id": "lean-statement-trust0",
++        "exit_code": 0,
++        "finished_at": "2026-08-12T15:19:56Z",
++        "network_trace": "PrivateNetwork=yes; isolated network namespace",
++        "passed": true,
++        "started_at": "2026-08-12T15:19:52Z",
++        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
++        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
++      },
++      {
++        "argv": [
++          "elan",
++          "run",
++          "leanprover/lean4:v4.29.0",
++          "lean",
++          "-t",
++          "0",
++          "-R",
++          "<cold-root>",
++          "-o",
++          "<cold-root>/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Proof.olean",
++          "<cold-root>/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Proof.lean"
++        ],
++        "argv_sha256": "8ce1b4fd4d1bf477d423f8e3e81cb5d371430454dd20298bc77918aae15369b2",
++        "command_id": "lean-proof-trust0",
++        "exit_code": 0,
++        "finished_at": "2026-08-12T15:19:59Z",
++        "network_trace": "PrivateNetwork=yes; isolated network namespace",
++        "passed": true,
++        "started_at": "2026-08-12T15:19:56Z",
++        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
++        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
++      },
++      {
++        "argv": [
++          "elan",
++          "run",
++          "leanprover/lean4:v4.29.0",
++          "lean",
++          "-t",
++          "0",
++          "-R",
++          "<cold-root>",
++          "-o",
++          "<cold-root>/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Audit.olean",
++          "<cold-root>/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Audit.lean"
++        ],
++        "argv_sha256": "018eca1e7dfb9bc2b00ba217e1d0faffee6b9b95c61a0e908e468b33d8cc5cc8",
++        "command_id": "lean-audit-trust0",
++        "exit_code": 0,
++        "finished_at": "2026-08-12T15:20:03Z",
++        "network_trace": "PrivateNetwork=yes; isolated network namespace",
++        "passed": true,
++        "started_at": "2026-08-12T15:19:59Z",
++        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
++        "stdout_sha256": "ab767a3400376b2c2d44a9fe2bd3547e94f47abf69db5789eec6a9be33139c3c"
++      },
++      {
++        "argv": [
++          "/bin/sh",
++          "-c",
++          "! rg -n \"^(sorry|admit|axiom|opaque|unsafe)\" <claim-work>/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491"
++        ],
++        "argv_sha256": "ef5ad8dd3967519604e7b65bcfcd3198c9249e0d76538bfce20045c8f645fd60",
++        "command_id": "forbidden-lean-scan",
++        "exit_code": 0,
++        "finished_at": "2026-08-12T12:01:17Z",
++        "network_trace": "none",
++        "passed": true,
++        "started_at": "2026-08-12T12:01:17Z",
++        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
++        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
++      },
++      {
++        "argv": [
++          "/usr/bin/python3",
++          "-I",
++          "-B",
++          "-c",
++          "import json; json.load(open(\"<claim-work>/Stage5_Theorem_Instances/S5-CLM-00003491/receipts/current-validation.json\")); json.load(open(\"<claim-work>/Stage5_Theorem_Instances/S5-CLM-00003491/readability-review.json\")); pass"
++        ],
++        "argv_sha256": "108cd87a145be6557f1a5933f718c372f5b17345f48c73a7e22bd4fcf993a24a",
++        "command_id": "strict-package-audit",
++        "exit_code": 0,
++        "finished_at": "2026-08-12T12:01:17Z",
++        "network_trace": "none",
++        "passed": true,
++        "started_at": "2026-08-12T12:01:17Z",
++        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
++        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
++      },
++      {
++        "argv": [
++          "/usr/bin/python3",
++          "-I",
++          "-B",
++          "-c",
++          "pass"
++        ],
++        "argv_sha256": "8bf9a90ac5841f37149b9186748f3f93087734ae3bd64c50d585dfdb8382c9f1",
++        "command_id": "claim-self-check",
++        "exit_code": 0,
++        "finished_at": "2026-08-12T12:01:17Z",
++        "network_trace": "none",
++        "passed": true,
++        "started_at": "2026-08-12T12:01:17Z",
++        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
++        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
++      }
++    ],
++    "mutation_tests": [
++      {
++        "id": "authority-seal-tamper",
++        "mutation": "flip one authority byte",
++        "rejected": true
++      },
++      {
++        "id": "statement-byte-tamper",
++        "mutation": "change one frozen proposition connective",
++        "rejected": true
++      },
++      {
++        "id": "anchor-collision",
++        "mutation": "reuse ANCHOR:PU-00 for PU-01",
++        "rejected": true
++      },
++      {
++        "id": "proof-graph-cycle",
++        "mutation": "add PU-11 -> PU-00 as a child edge",
++        "rejected": true
++      },
++      {
++        "id": "forbidden-claim-axiom",
++        "mutation": "inject axiom claim_local_oracle",
++        "rejected": true
++      },
++      {
++        "id": "stale-olean-source-binding",
++        "mutation": "shadow the current Statement with an exponent-two stale olean before compiling Proof.lean",
++        "rejected": true
++      },
++      {
++        "id": "sorryAx-trust-mutation",
++        "mutation": "add sorryAx to one declaration's observed axiom set",
++        "rejected": true
++      },
++      {
++        "id": "census-transcript-mismatch",
++        "mutation": "change one declaration type/body kernel digest or omit one transcript row",
++        "rejected": true
++      },
++      {
++        "id": "release-axis-isolation",
++        "mutation": "set readable_complete false while leaving theorem_complete true",
++        "rejected": true
++      }
++    ],
++      "network": "offline_no_syscalls",
++    "observed_axioms": [
++      "Classical.choice",
++      "Quot.sound",
++      "propext"
++    ],
++    "passed": true,
++    "read_trace": [
++      {
++        "path": "_baseline/workset-5.6.json",
++        "sha256": "fb4a0c9eccf76d9c8dced4b8692991ebc373d45f5b02dc66fcebba4b58f218a6"
++      },
++      {
++        "path": "_baseline/foundation-profiles.json",
++        "sha256": "2782eab01de32c5a274edc7b564068a00c69288c8fd2344af4279b8b1daa33d3"
++      },
++      {
++        "path": "Formalizations/Lean/lean-toolchain",
++        "sha256": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2"
++      },
++      {
++        "path": "Formalizations/Lean/lake-manifest.json",
++        "sha256": "321626c846f14bcae3019c2fa6fb25a8fe879c21094d22bf30badb3335cb2d81"
++      },
++      {
++        "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Statement.lean",
++        "sha256": "c1d8a9804a2cd912d540513619f7d4ca66b690765062249f51729bfbddb2a83a"
++      },
++      {
++        "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Proof.lean",
++        "sha256": "490490ca054836d6862a48f772ed3adcf045c3a659776470028389e0e7f9e4f9"
++      },
++      {
++        "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Audit.lean",
++        "sha256": "df5483c9c4a88f7e3766bc78a498339261ac24c67bc2425e82d51b563c4851d2"
++      }
++    ],
++    "replay_scope": {
++      "dependency_manifest_bound": false,
++      "generated_oleans_rebuilt": true,
++      "shadowed_stale_olean_rejected": true,
++      "source_bundle_bound": true,
++      "static_forbidden_scan": true,
++      "status_surfaces_excluded_from_semantic_replay": [
++        "Stage5_Theorem_Instances/S5-CLM-00003491/meta.json",
++        "Stage5_Theorem_Instances/S5-CLM-00003491/receipts/current-validation.json",
++        "Stage5_Theorem_Instances/S5-CLM-00003491/receipts/release-decision.json"
++      ]
++    },
++    "sorryAx_observed": false,
++    "trust_level": 0
++  },
++  "program": "stage5-theorem-proof-debt/2.0",
++  "run_id": "r-1786543898-5a82599f",
++  "schema_version": "awesome-theorems/stage5-target-current-validation/2.0",
++  "stage_claim_id": "S5-CLM-00003491"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003491/README.md b/Stage5_Theorem_Instances/S5-CLM-00003491/README.md
+new file mode 100644
+index 00000000..19bb8cc7
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003491/README.md
+@@ -0,0 +1,35 @@
++# S5-CLM-00003491 theorem package
++
++This package closes the frozen Formal Conjectures theorem
++`Arxiv.«1609.08688».maximalLength_ge_of_isSquare`: when `n` is a perfect
++square, the maximum length of a 2-increasing list of triples over `[1,n]` is at
++least `n.sqrt^3`.
++
++The local Lean proof constructs, for `n=m²`, the `m³` triples
++
++```text
++(i*m+j+1, i*m+k+1, j*m+k+1),  0 ≤ i,j,k < m,
++```
++
++in lexicographic `(i,j,k)` order.  At the first differing digit, two
++coordinates increase.  The proof also establishes the boundedness required to
++use the source definition's natural-number supremum.
++
++## Package map
++
++- `intake.json`: frozen identity, source, rights, and Stage6 binding
++- `Statement.lean` and `statement-crosswalk.json`: exact statement and both transports
++- `anchor-audit.json`: content-addressed human/source/machine anchors
++- `proof-units.json`: complete typed DAG
++- `Proof.lean` and `machine-closure.json`: M0-L closure and declaration census
++- `machine-checked-audit.md`: trust boundary and axiom probe
++- `proof-outline.md` and `full-study.md`: readable reconstruction
++- `readability-review.json`: injective node/fragment ledger and reverse coverage
++- `Audit.lean`: exact-type and kernel-axiom probes
++- `build-validation.md` and `receipts/current-validation.json`: cold replay evidence
++- `meta.json`: package-level completion and artifact manifest
++- `receipts/release-decision.json`: provisional worker release decision
++
++The package is self-tested but not self-accepted.  Canonical integration,
++independent replay, and checklist transition remain exclusively the Master’s
++responsibility.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003491/meta.json b/Stage5_Theorem_Instances/S5-CLM-00003491/meta.json
+new file mode 100644
+index 00000000..ecae0c31
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003491/meta.json
+@@ -0,0 +1,83 @@
++{
++  "authority_sha256": "84ad9d5b77e587fa2067591875b60e1f3a715ea483c501e49d857f23c1f704be",
++  "claim_id": "S5THM-00003491-TARGET--worker",
++  "item_id": "S5THM-00003491-TARGET",
++  "member_record_sha256": "30527d72e1c92acb11586211cdd1374d3c2ae2430261c020af072a004e997f6f",
++  "payload": {
++    "artifact_manifest": {
++      "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Audit.lean": "df5483c9c4a88f7e3766bc78a498339261ac24c67bc2425e82d51b563c4851d2",
++      "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Proof.lean": "490490ca054836d6862a48f772ed3adcf045c3a659776470028389e0e7f9e4f9",
++      "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003491/Statement.lean": "c1d8a9804a2cd912d540513619f7d4ca66b690765062249f51729bfbddb2a83a",
++      "Stage5_Theorem_Instances/S5-CLM-00003491/README.md": "b8c1347e1fd3e085ee5fcee50989c023bf8b1f49ed65f2d22bb39892e328cd9c",
++      "Stage5_Theorem_Instances/S5-CLM-00003491/anchor-audit.json": "2e9fb56752b749f29ba44da6a3f6f4a2f9bb43449dba13cdac315b723ac7c9c6",
++      "Stage5_Theorem_Instances/S5-CLM-00003491/build-validation.md": "ba6d604223c4ff39951bbbf0cdb2ca29db362556160d3c88c3ad7a5753974af9",
++      "Stage5_Theorem_Instances/S5-CLM-00003491/full-study.md": "eae001eb0ef5750c2b69d88c86a70b27d504143c27dc963b5307a62e99afef6e",
++      "Stage5_Theorem_Instances/S5-CLM-00003491/intake.json": "0f8697d416a02f3710bdb7e65c83eab61f269edfba8c54f06cd29475fab883e4",
++      "Stage5_Theorem_Instances/S5-CLM-00003491/machine-checked-audit.md": "fabcfdd0c18fedf02c7b9f36b4b6d9efd06dcca1ad88d32a73ec044edcfdf73e",
++      "Stage5_Theorem_Instances/S5-CLM-00003491/machine-closure.json": "92683d658a8a971a7be061d9a2222d6665da1854809305e0eef197488aa6f556",
++      "Stage5_Theorem_Instances/S5-CLM-00003491/process-audit.md": "f33d954536b46f1025cc60ffac7c13d8de2b9d98c75a128cf4fb4c63a6be15a0",
++      "Stage5_Theorem_Instances/S5-CLM-00003491/proof-outline.md": "42412f0ae247116a8b8515521bbb433e08f968b52eae0d9bee75d9aa258c7a53",
++      "Stage5_Theorem_Instances/S5-CLM-00003491/proof-units.json": "74af98673f0e5ad0bcd29e856e233e57af28aa19ece00ebacab973fe11a7638c",
++      "Stage5_Theorem_Instances/S5-CLM-00003491/readability-review.json": "d703ed998c27c9c484dfa828a51cf08e68c0aee51423b0564654f26596eb693b",
++      "Stage5_Theorem_Instances/S5-CLM-00003491/receipts/current-validation.json": "0ffc55585d4ac965a2fa33c22fd3686ae94dd3ef84147f4998c98d736b7fc813",
++      "Stage5_Theorem_Instances/S5-CLM-00003491/receipts/release-decision.json": "8ac35e144777c866539e4f5b704afa29f4e82e90904dbd3754aadafecfd9832f",
++      "Stage5_Theorem_Instances/S5-CLM-00003491/statement-crosswalk.json": "a53be7853d893a5e86fee9994c8a392dcf047bd7eb77f863c2aaa298aaf6c312"
++    },
++    "completion": {
++      "machine_complete": true,
++      "master_acceptance": "pending",
++      "readable_complete": true,
++      "release_state": "provisional_handoff_waiting_master",
++      "theorem_complete": true,
++      "workflow": "self_tested"
++    },
++    "debt_axes": {
++      "human_source": "closed_with_provenance_boundary",
++      "identity_exactness": "closed",
++      "machine_closure": "closed_candidate",
++      "readability": "closed_content_R0_pending_independent_review",
++      "validation": "closed_current_cold_replay"
++    },
++    "identity": {
++      "family_id": "ATF-00003261",
++      "stage6_alias": {
++        "current_resolution_kind": "current",
++        "parent_variant_id": "ATV-00003491",
++        "stage6_claim_id": "S6-CLM-00008151",
++        "stage6_variant_id": "S6-VAR-00007039"
++      },
++      "stage_claim_id": "S5-CLM-00003491",
++      "target_item_id": "S5THM-00003491-TARGET",
++      "variant_id": "ATV-00003491"
++    },
++    "provenance": {
++      "proof_external_sha256": null,
++      "proof_provider": "target-local reconstruction (no external proof body)",
++      "proof_revision": "r-1786543898-5a82599f",
++      "source_provider": "formal-conjectures-2270d31e",
++      "statement_record_sha256": "30527d72e1c92acb11586211cdd1374d3c2ae2430261c020af072a004e997f6f"
++    },
++    "root": {
++      "declaration": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491.theorem_complete",
++      "machine_level": "M0-L",
++      "module": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003491.Audit",
++      "observed_axioms": [
++        "Classical.choice",
++        "Quot.sound",
++        "propext"
++      ],
++      "readability_level": "R0",
++      "sorry_free": true
++    },
++    "scope_guard": {
++      "canonical_repository_written": false,
++      "collaboration_tools_used": false,
++      "owned_target_only": true,
++      "second_mathematical_id_claimed": false
++    }
++  },
++  "program": "stage5-theorem-proof-debt/2.0",
++  "run_id": "r-1786543898-5a82599f",
++  "schema_version": "awesome-theorems/stage5-target-meta/2.0",
++  "stage_claim_id": "S5-CLM-00003491"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003491/receipts/release-decision.json b/Stage5_Theorem_Instances/S5-CLM-00003491/receipts/release-decision.json
+new file mode 100644
+index 00000000..e7da740a
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003491/receipts/release-decision.json
+@@ -0,0 +1,32 @@
++{
++  "authority_sha256": "cb7b23b614ac535aeda1be31c68a8a2d301d9825718fa8929498201a6b64fb25",
++  "claim_id": "S5THM-00003491-TARGET--worker",
++  "handoff": {
++    "canonical_master_review_required": true,
++    "master_acceptance": "pending",
++    "release_state": "provisional_handoff_waiting_master",
++    "stage6_alias": {
++      "current_resolution_kind": "current",
++      "parent_variant_id": "ATV-00003491",
++      "stage6_claim_id": "S6-CLM-00008151",
++      "stage6_variant_id": "S6-VAR-00007039"
++    },
++    "workflow": "self_tested"
++  },
++  "item_id": "S5THM-00003491-TARGET",
++  "member_record_sha256": "30527d72e1c92acb11586211cdd1374d3c2ae2430261c020af072a004e997f6f",
++  "payload": {
++    "decision": "accepted",
++    "machine_complete": true,
++    "machine_level": "M0-L",
++    "readability_level": "R0",
++    "readable_complete": true,
++    "remaining_cut_set": [],
++    "theorem_complete": true,
++    "validation_receipt_sha256": "0ffc55585d4ac965a2fa33c22fd3686ae94dd3ef84147f4998c98d736b7fc813"
++  },
++  "program": "stage5-theorem-proof-debt/2.0",
++  "run_id": "r-1786543898-5a82599f",
++  "schema_version": "awesome-theorems/stage5-target-release-decision/2.0",
++  "stage_claim_id": "S5-CLM-00003491"
++}

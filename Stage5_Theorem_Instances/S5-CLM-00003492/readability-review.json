@@ -1,0 +1,133 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003492-TARGET",
+  "stage_claim_id": "S5-CLM-00003492",
+  "readability_level": "R0",
+  "required_nodes": [
+    "PU-SEMANTIC",
+    "PU-PIGEONHOLE",
+    "PU-COLLISION",
+    "PU-BOUND",
+    "PU-SUPREMUM",
+    "PU-ROOT",
+    "PU-TRUST"
+  ],
+  "node_to_anchor": {
+    "PU-SEMANTIC": "R-SEMANTIC",
+    "PU-PIGEONHOLE": "R-PIGEONHOLE",
+    "PU-COLLISION": "R-COLLISION",
+    "PU-BOUND": "R-BOUND",
+    "PU-SUPREMUM": "R-SUPREMUM",
+    "PU-ROOT": "R-ROOT",
+    "PU-TRUST": "R-TRUST"
+  },
+  "anchor_to_fragment": {
+    "R-SEMANTIC": {
+      "node_id": "PU-SEMANTIC",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003492/full-study.md#semantic-identity",
+      "fragment_sha256": "2e08d71ce3fda79ee993d8fc26c976469e61090eb45f49ad8aa3db18e6516f76",
+      "hypotheses": ["The frozen local notation and definitions are expanded without substitution."],
+      "inference": "Set extensionality proves equality of the two presentations.",
+      "output": "Bidirectional source/target transport.",
+      "formal_anchor": "audit_statement_transport",
+      "downstream_uses": ["PU-ROOT"],
+      "exceptional_cases": ["The provider module is imported for exact semantic authority, while its proof body remains unused."],
+      "trust_boundary": "Master recomputes elaborated expression identity."
+    },
+    "R-PIGEONHOLE": {
+      "node_id": "PU-PIGEONHOLE",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003492/full-study.md#pigeonhole-map",
+      "fragment_sha256": "b24439147f7496175375af56b198d2c9ca7e2591f0b70b1535ecbc686a6d96c3",
+      "hypotheses": ["All coordinates lie in [1,n].", "The list has more than n² positions."],
+      "inference": "Map positions to the n² first-coordinate pairs and apply finite pigeonhole.",
+      "output": "Two distinct positions agree in coordinates 0 and 1.",
+      "formal_anchor": "audit_exists_pair_of_mem_Icc",
+      "downstream_uses": ["PU-BOUND"],
+      "exceptional_cases": ["The argument remains valid when n is 0 or 1."],
+      "trust_boundary": "Uses reviewed Mathlib finite-set cardinality and pigeonhole lemmas."
+    },
+    "R-COLLISION": {
+      "node_id": "PU-COLLISION",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003492/full-study.md#order-sensitive-contradiction",
+      "fragment_sha256": "9a7b73bb934af1899b2c804d6ebb60a911e1f110a34a48aca590a18ee40b555e",
+      "hypotheses": ["Coordinates 0 and 1 do not increase."],
+      "inference": "Only coordinate 2 can increase, so two distinct increasing coordinates cannot exist.",
+      "output": "Negation of the explicit lt₂ witness.",
+      "formal_anchor": "audit_not_pairwise_step_of_first_two_ge",
+      "downstream_uses": ["PU-BOUND"],
+      "exceptional_cases": ["Both index orderings are handled."],
+      "trust_boundary": "Finite case split is discharged by kernel-checked arithmetic."
+    },
+    "R-BOUND": {
+      "node_id": "PU-BOUND",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003492/proof-outline.md#uniform-bound",
+      "fragment_sha256": "36dcb76a1a154d4cfdf7525fbeafe751e586d5c73b918382c6527c458a63b629",
+      "hypotheses": ["The list is admissible and pairwise 2-increasing."],
+      "inference": "A supposed excessive length yields a collision contradicting pairwise growth.",
+      "output": "Each admissible length is at most n².",
+      "formal_anchor": "maximalLength_le_audit lines 133-143",
+      "downstream_uses": ["PU-SUPREMUM"],
+      "exceptional_cases": ["Distinct collision indices are ordered before Pairwise is applied."],
+      "trust_boundary": "No provider lemma or proof body is used."
+    },
+    "R-SUPREMUM": {
+      "node_id": "PU-SUPREMUM",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003492/full-study.md#supremum-closure",
+      "fragment_sha256": "e22ab3786182c6046064c4c7a26465fe1ddec9867302bf675723518d5755bed8",
+      "hypotheses": ["The empty list witnesses 0.", "Every member is bounded by n²."],
+      "inference": "Apply csSup_le to the nonempty set of natural lengths.",
+      "output": "The supremum is at most n².",
+      "formal_anchor": "maximalLength_le_audit lines 131-143",
+      "downstream_uses": ["PU-ROOT"],
+      "exceptional_cases": ["Nonemptiness is explicit."],
+      "trust_boundary": "Natural supremum behavior is delegated to Mathlib."
+    },
+    "R-ROOT": {
+      "node_id": "PU-ROOT",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003492/proof-outline.md#supremum-and-exact-root",
+      "fragment_sha256": "2fc126316845a116827f4f9939f515e312f354ab3a691955529fe28bbd9d3499",
+      "hypotheses": ["n is any natural number."],
+      "inference": "Compose semantic normalization with the supremum proof.",
+      "output": "The exact frozen upper-bound proposition.",
+      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003492.maximalLength_le_audit",
+      "downstream_uses": ["Same-family asymptotic and construction bounds."],
+      "exceptional_cases": ["No positivity hypothesis is required."],
+      "trust_boundary": "Canonical acceptance is not asserted by the worker."
+    },
+    "R-TRUST": {
+      "node_id": "PU-TRUST",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003492/full-study.md#trust-boundary",
+      "fragment_sha256": "51ce26e370695ffb6af325dd727d1047ce6fedeb2d773f1a0d2356cb5d798692",
+      "hypotheses": ["The integrated canonical bytes equal this candidate."],
+      "inference": "Compile cold at trust 0, inspect axioms, and run semantic mutations.",
+      "output": "Canonical M0-L and semantic-identity evidence.",
+      "formal_anchor": "Audit.lean terminal #print axioms maximalLength_le_audit",
+      "downstream_uses": ["Master release decision"],
+      "exceptional_cases": ["Worker --no-lean success alone grants no canonical credit."],
+      "trust_boundary": "Master alone performs and signs these checks."
+    }
+  },
+  "reviewers": [
+    {
+      "reviewer_id": "worker-proof-author",
+      "role": "reconstruction_author",
+      "conflicts_checked": true,
+      "decision": "complete_candidate"
+    },
+    {
+      "reviewer_id": "claim-local-structural-review",
+      "role": "independent_structural_review",
+      "conflicts_checked": true,
+      "decision": "R0_candidate"
+    }
+  ],
+  "remaining_readability_cut_set": [],
+  "distilled": {
+    "duplicate_prose_removed": true,
+    "structured_inventory_not_duplicated": true,
+    "mathematical_content_preserved": true,
+    "deletion_mutations_passed": true
+  },
+  "authority_sha256": "72b8d5737e0c1f518f7c776a6c60c7fa56debf95fd8d98d563a0db4251923cb2"
+}

@@ -1,0 +1,23 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003517-TARGET",
+  "stage_claim_id": "S5-CLM-00003517",
+  "root": "PU-ROOT",
+  "units": [
+    {"node_id":"PU-ROOT","kind":"equivalence","statement":"answer(True) iff the universal epsilon-light subset property","hypotheses":["frozen source proposition"],"inference":"source theorem transport and independent reconstruction crosswalk","output":"target proposition","formal_anchor":"M-S5-CLM-00003517-ROOT","downstream_uses":["release"],"trust_boundary":"Lean kernel"},
+    {"node_id":"PU-CONST","kind":"constant","statement":"choose c = 1/256","hypotheses":["0 < epsilon","epsilon < 1"],"inference":"positive real arithmetic","output":"c > 0","formal_anchor":"H-S5-CLM-00003517-ROOT","downstream_uses":["PU-SMALL","PU-BSS"],"trust_boundary":"ordered-field arithmetic"},
+    {"node_id":"PU-ZERO","kind":"boundary","statement":"n = 0","hypotheses":["Fin n is empty"],"inference":"empty finset and zero matrix","output":"epsilon-light set with required size","formal_anchor":"H-S5-CLM-00003517-ROOT","downstream_uses":["PU-ROOT"],"trust_boundary":"finite-type elimination"},
+    {"node_id":"PU-SMALL","kind":"boundary","statement":"1 <= n < 4","hypotheses":["epsilon <= 1"],"inference":"singleton induced Laplacian is zero; cardinal arithmetic","output":"singleton epsilon-light set and 1 >= epsilon*n/256","formal_anchor":"H-S5-CLM-00003517-ROOT","downstream_uses":["PU-ROOT"],"trust_boundary":"PSD cone and arithmetic"},
+    {"node_id":"PU-SPECTRAL","kind":"construction","statement":"L has a Hermitian square root and Moore-Penrose inverse","hypotheses":["finite graph Laplacian is PSD Hermitian"],"inference":"spectral theorem","output":"Lhalf, Lhalf_pinv","formal_anchor":"H-S5-CLM-00003517-ROOT","downstream_uses":["PU-BARRIER"],"trust_boundary":"finite-dimensional spectral theorem"},
+    {"node_id":"PU-BARRIER","kind":"induction","statement":"color floor(n/4) vertices with ceil(16/epsilon) colors","hypotheses":["normalized edge Laplacians","one-sided barrier potential"],"inference":"dynamic BSS averaging and barrier shift","output":"every color class is epsilon-light","formal_anchor":"H-S5-CLM-00003517-ROOT","downstream_uses":["PU-PIGEON"],"trust_boundary":"PSD Loewner order and trace inequalities"},
+    {"node_id":"PU-PIGEON","kind":"counting","statement":"some color class has size at least epsilon*n/256","hypotheses":["k=floor(n/4)","r=ceil(16/epsilon)","epsilon<1"],"inference":"pigeonhole, n <= 8k, epsilon*r <= 32","output":"large epsilon-light S","formal_anchor":"H-S5-CLM-00003517-ROOT","downstream_uses":["PU-ROOT"],"trust_boundary":"Nat/Real cast arithmetic"}
+  ],
+  "composition_edges": [
+    ["PU-CONST","PU-ZERO"],["PU-CONST","PU-SMALL"],["PU-SPECTRAL","PU-BARRIER"],["PU-BARRIER","PU-PIGEON"],["PU-SMALL","PU-ROOT"],["PU-PIGEON","PU-ROOT"]
+  ],
+  "provenance": {"source": "formal-conjectures-2270d31e@2270d31e8dd611521f979de6d86da364930b7669","proof_reference":"Archon-FirstProof-Results/FirstProof/FirstProof6/Problem6.lean","target_constant":"1/256"},
+  "trust": {"kernel":0,"unreviewed_oracle":false,"claim_specific_axioms":[],"bodyless_constants":[]},
+  "remaining_machine_cut_set": [],
+  "authority_sha256": "a067e2707a71dbfd43a6bd8589942b390ffa961c90db2aba95e5b3b8dc0dea60"
+}

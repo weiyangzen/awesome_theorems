@@ -1,0 +1,75 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-proof-dag/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003489-TARGET",
+  "stage_claim_id": "S5-CLM-00003489",
+  "root_node": "PU-COMP",
+  "nodes": [
+    {
+      "node_id": "PU-ROOT",
+      "kind": "proof_goal",
+      "type": "For arbitrary phi, contains phi implies kt phi",
+      "hypotheses": ["Formula is arbitrary", "phi is arbitrary", "hphi : contains phi"],
+      "inference": "Introduce the subset element and its membership proof.",
+      "output": "Goal kt phi",
+      "formal_anchor": "Proof.lean:BoxdotInclusion:intro",
+      "dependencies": [],
+      "downstream_uses": ["PU-CLOSE", "PU-COMP"],
+      "exceptional_cases": ["No exceptional formula constructors are needed; the step is uniform in phi."],
+      "trust_boundary": ["Pure dependent-function introduction; kernel checked at trust zero."],
+      "provenance": ["frozen declaration type e83fcdbe8f25b7497ae5250dd63e6bae808d257f5d0d8d6ef15acd91ade346d3"]
+    },
+    {
+      "node_id": "PU-CLOSE",
+      "kind": "lemma_application",
+      "type": "contains phi -> contains (boxdot phi)",
+      "hypotheses": ["hphi : contains phi", "translation_closed : forall psi, contains psi -> contains (boxdot psi)"],
+      "inference": "Specialize translation_closed to phi and apply it to hphi.",
+      "output": "hboxdot : contains (boxdot phi)",
+      "formal_anchor": "Proof.lean:BoxdotInclusion:hboxdot",
+      "dependencies": ["PU-ROOT"],
+      "downstream_uses": ["PU-FAITH", "PU-COMP"],
+      "exceptional_cases": ["The derivation of translation closure from the frozen modal presentation is an explicit Master recomputation boundary."],
+      "trust_boundary": ["translation_closed is a typed premise of the claim-owned core, never a provider theorem body or axiom."],
+      "provenance": ["provider translation Arxiv.«1308.0994».t", "pinned source bed2577d815f39cebf31f01889adcbe6c7e26e9e6369887055b0fbb682b9bbb8"]
+    },
+    {
+      "node_id": "PU-FAITH",
+      "kind": "iff_elimination",
+      "type": "contains (boxdot phi) -> kt phi",
+      "hypotheses": ["faithful phi : contains (boxdot phi) iff kt phi", "hboxdot : contains (boxdot phi)"],
+      "inference": "Eliminate the forward direction of the equivalence at phi.",
+      "output": "kt phi",
+      "formal_anchor": "Proof.lean:BoxdotInclusion:(faithful phi).mp",
+      "dependencies": ["PU-CLOSE"],
+      "downstream_uses": ["PU-COMP"],
+      "exceptional_cases": ["Only the source-to-target direction of faithful interpretation is used."],
+      "trust_boundary": ["faithful is exactly the frozen theorem hypothesis, not an asserted local fact."],
+      "provenance": ["source hypothesis H : forall phi, L proves boxdot phi iff KT proves phi"]
+    },
+    {
+      "node_id": "PU-COMP",
+      "kind": "composition",
+      "type": "forall phi, contains phi -> kt phi",
+      "hypotheses": ["All hypotheses of PU-ROOT", "PU-CLOSE", "PU-FAITH"],
+      "inference": "Compose translation closure and forward faithful interpretation, then generalize phi and hphi.",
+      "output": "Claim-owned Boxdot inclusion theorem",
+      "formal_anchor": "Proof.lean:BoxdotInclusion",
+      "dependencies": ["PU-ROOT", "PU-CLOSE", "PU-FAITH"],
+      "downstream_uses": ["Audit.lean:AuditRoot", "release-decision.json"],
+      "exceptional_cases": ["The provider sorry-backed BoxdotConjecture body is deliberately not used."],
+      "trust_boundary": ["Canonical Master must replay the exact root, environment lock, and modal closure transport."],
+      "provenance": ["S5-CLM-00003489", "S6-CLM-00004700", "S6-VAR-00006743"]
+    }
+  ],
+  "edges": [
+    {"from": "PU-ROOT", "to": "PU-CLOSE", "role": "supplies membership"},
+    {"from": "PU-CLOSE", "to": "PU-FAITH", "role": "supplies translated membership"},
+    {"from": "PU-ROOT", "to": "PU-COMP", "role": "binds arbitrary element"},
+    {"from": "PU-CLOSE", "to": "PU-COMP", "role": "first composition leg"},
+    {"from": "PU-FAITH", "to": "PU-COMP", "role": "second composition leg"}
+  ],
+  "human_cut_set": [],
+  "machine_cut_set": [],
+  "readability_cut_set": []
+}

@@ -1,0 +1,1417 @@
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003497/Audit.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003497/Audit.lean
+new file mode 100644
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003497/Audit.lean
+@@ -0,0 +1,22 @@
++import AwesomeTheorems.Stage5.Theorems.S5_CLM_00003497.Proof
++
++namespace AwesomeTheorems.Stage5.Theorems.S5_CLM_00003497
++
++/-! Trust-zero probes for the exact statement and the completed transport
++lemmas.  There is no local declaration claiming the unresolved target root. -/
++
++example : FrozenStatement → Target := transport_forward
++example : Target → FrozenStatement := transport_reverse
++example (n : ℕ) (V : Type) [Finite V]
++    (f : Fin (2 * n + 1) → (V ↪ Fin (2 * n + 1))) (v : V) :
++    f 0 v = f 0 v + (0 : Fin (2 * n + 1)) := fin_zero_add n V f v
++
++#check FrozenStatement
++#check transport_forward
++#check transport_reverse
++#check fin_zero_add
++#print axioms transport_forward
++#print axioms transport_reverse
++#print axioms fin_zero_add
++
++end AwesomeTheorems.Stage5.Theorems.S5_CLM_00003497
+
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003497/Proof.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003497/Proof.lean
+new file mode 100644
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003497/Proof.lean
+@@ -0,0 +1,23 @@
++import AwesomeTheorems.Stage5.Theorems.S5_CLM_00003497.Statement
++
++namespace AwesomeTheorems.Stage5.Theorems.S5_CLM_00003497
++
++/-!
++The exact root is intentionally left open in this handoff.  The two
++definitionally transported statement lemmas below are the only completed
++proofs in this file; they make the unresolved mathematical cut explicit
++without importing the provider's body or introducing an oracle.
++-/
++
++theorem transport_forward (h : FrozenStatement) : Target :=
++  frozen_to_target h
++
++theorem transport_reverse (h : Target) : FrozenStatement :=
++  target_to_frozen h
++
++theorem fin_zero_add (n : ℕ) (V : Type) [Finite V]
++    (f : Fin (2 * n + 1) → (V ↪ Fin (2 * n + 1))) (v : V) :
++    f 0 v = f 0 v + (0 : Fin (2 * n + 1)) := by
++  simp
++
++end AwesomeTheorems.Stage5.Theorems.S5_CLM_00003497
+
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003497/Statement.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003497/Statement.lean
+new file mode 100644
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003497/Statement.lean
+@@ -0,0 +1,36 @@
++import Mathlib
++
++/-!
++# S5-CLM-00003497 — frozen Ringel large statement
++
++This file is an independent replay of the declaration at the pinned
++`formal-conjectures` revision.  The provider body is deliberately not
++imported: it is a statement source, not proof authority.  In particular, this
++module contains no theorem oracle or claim-specific axiom.
++-/
++
++namespace AwesomeTheorems.Stage5.Theorems.S5_CLM_00003497
++
++open SimpleGraph
++
++/-- The exact proposition frozen by the Stage 5 workset. -/
++def FrozenStatement : Prop :=
++  ∀ᶠ (n : ℕ) in Filter.atTop, ∀ {V : Type} [Finite V] (T : SimpleGraph V),
++    T.IsTree → T.edgeSet.ncard = n →
++    ∃ f : Fin (2 * n + 1) → (V ↪ Fin (2 * n + 1)),
++      Pairwise (fun i j => Disjoint (T.map (f i)).edgeSet (T.map (f j)).edgeSet) ∧
++      ⨆ i, T.map (f i) = (⊤ : SimpleGraph (Fin (2 * n + 1)))
++
++/-- Target-facing name; it is definitionally the frozen proposition. -/
++abbrev Target : Prop := FrozenStatement
++
++/-- Forward transport is definitionally identity. -/
++theorem frozen_to_target : FrozenStatement → Target := id
++
++/-- Reverse transport is definitionally identity. -/
++theorem target_to_frozen : Target → FrozenStatement := id
++
++example : FrozenStatement → Target := frozen_to_target
++example : Target → FrozenStatement := target_to_frozen
++
++end AwesomeTheorems.Stage5.Theorems.S5_CLM_00003497
+
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003497/README.md b/Stage5_Theorem_Instances/S5-CLM-00003497/README.md
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003497/README.md
+@@ -0,0 +1,5 @@
++# S5-CLM-00003497 theorem handoff
++
++This target-local package replays `Arxiv.«2001.02665».ringel_conjecture_large` (`S5-CLM-00003497`), bound to frozen record `cd32029cc277893b349e67d73fe78c518238a013e11e4100d73954f0b034b093` and Stage6 alias `S6-CLM-00006685` / `S6-VAR-00007620`.
++
++The exact statement, crosswalk, anchors, typed frontier DAG, readability ledger, validation receipt, and provisional release decision are included. The source proof is FC-SORRY and is not imported. The deep large-n decomposition root remains explicitly open, so this handoff is nonaccepting and awaits an independently checked proof and canonical Master review.
+
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003497/anchor-audit.json b/Stage5_Theorem_Instances/S5-CLM-00003497/anchor-audit.json
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003497/anchor-audit.json
+@@ -0,0 +1,80 @@
++{
++  "authority_sha256": "e95bce245fa53c0cb5c76d4292ecd1ce4c9a0cfd82590cfac6a0022f9ab5ec80",
++  "claim_id": "S5THM-00003497-TARGET--worker",
++  "item_id": "S5THM-00003497-TARGET",
++  "member_record_sha256": "cd32029cc277893b349e67d73fe78c518238a013e11e4100d73954f0b034b093",
++  "payload": {
++    "machine_candidates": [
++      {
++        "boundary": "exact statement and definitional transports only",
++        "content_sha256": "d9866c1894fc5a34d68d9eb8cea2aadec027cb726801206b001fdee532375934",
++        "license": "Apache-2.0 repository contribution",
++        "locator": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003497/Statement.lean",
++        "revision": "r-1786560273-d8ed4f2b",
++        "status": "accepted"
++      },
++      {
++        "boundary": "transport lemmas and sanity check; no deep theorem root",
++        "content_sha256": "106d8cc53ef84b1953e57a7bcd14a3a295aa6d0a5a9ab17f4f085e91c147bc2d",
++        "license": "Apache-2.0 repository contribution",
++        "locator": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003497/Proof.lean",
++        "revision": "r-1786560273-d8ed4f2b",
++        "status": "partial"
++      },
++      {
++        "boundary": "trust-zero exact-type probes",
++        "content_sha256": "cdec07821b7b64430149d708e9e142da2e200f48f2cd35b293a69df4274e5f7a",
++        "license": "Apache-2.0 repository contribution",
++        "locator": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003497/Audit.lean",
++        "revision": "r-1786560273-d8ed4f2b",
++        "status": "accepted"
++      }
++    ],
++    "primary_human_proofs": [
++      {
++        "boundary": "identity and explicit proof frontier; no theorem credit",
++        "content_sha256": "fb440de5dcd9ebfcd92104bc8f4451e31f026f2e74feadd3c8f0c39b4bc01186",
++        "license": "Apache-2.0 repository contribution",
++        "locator": "Stage5_Theorem_Instances/S5-CLM-00003497/full-study.md",
++        "revision": "r-1786560273-d8ed4f2b",
++        "status": "partial"
++      },
++      {
++        "boundary": "typed composition outline with unresolved root",
++        "content_sha256": "9b733b3bdb12c84fcce55e3e1fdf8cc55ffd524d3bbfdd172d8060e91408206c",
++        "license": "Apache-2.0 repository contribution",
++        "locator": "Stage5_Theorem_Instances/S5-CLM-00003497/proof-outline.md",
++        "revision": "r-1786560273-d8ed4f2b",
++        "status": "partial"
++      }
++    ],
++    "source_statement_anchor": {
++      "content_sha256": "182f18f79264529f959a407bcc40f545d4481c594beefb4d27b7033f36dcd03c",
++      "file_sha256": "a4281f589ede2892402bd79340582deb9bafed7fe1ba1292471b2522683ee275",
++      "locator": "FormalConjectures/Arxiv/2001.02665/RingelConjecture.lean#L37-L53",
++      "revision": "2270d31e8dd611521f979de6d86da364930b7669",
++      "verified_from_pinned_git_object": true
++    },
++    "trust_decisions": [
++      {
++        "decision": "accept_as_statement_authority",
++        "reason": "pinned revision, byte span, file digest, and raw-block digest agree",
++        "subject": "formal-conjectures statement bytes"
++      },
++      {
++        "decision": "exclude_from_machine_root",
++        "reason": "source declaration carries sorryAx",
++        "subject": "provider proof body"
++      },
++      {
++        "decision": "open_cut",
++        "reason": "no trust-zero local proof is available and no oracle is introduced",
++        "subject": "decomposition root"
++      }
++    ]
++  },
++  "program": "stage5-theorem-proof-debt/2.0",
++  "run_id": "r-1786560273-d8ed4f2b",
++  "schema_version": "awesome-theorems/stage5-target-anchor-audit/2.0",
++  "stage_claim_id": "S5-CLM-00003497"
++}
+
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003497/build-validation.md b/Stage5_Theorem_Instances/S5-CLM-00003497/build-validation.md
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003497/build-validation.md
+@@ -0,0 +1,7 @@
++# Build validation — S5-CLM-00003497
++
++Offline self-check: `/usr/bin/python3 -I -B -c pass` (exit 0).
++
++Cold Lean replay used a fresh output directory, the pinned toolchain, `-R <task-local Formalizations/Lean>`, and trust level 0 for `Statement.lean`, `Proof.lean`, and `Audit.lean`; each exited 0. A forbidden-token scan found no `sorry`, `admit`, claim-specific `axiom`, unsafe declaration, or opaque oracle in the three local Lean files.
++
++The replay validates statement identity and transport only. It does not—and must not—treat the provider's `sorryAx` body as a proof of the unresolved target.
+
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003497/full-study.md b/Stage5_Theorem_Instances/S5-CLM-00003497/full-study.md
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003497/full-study.md
+@@ -0,0 +1,61 @@
++# Full study: Arxiv.«2001.02665».ringel_conjecture_large
++
++## Frozen object
++
++The target is the exact `ringel_conjecture_large` declaration from pinned Formal Conjectures revision `2270d31e8dd611521f979de6d86da364930b7669`, source span `FormalConjectures/Arxiv/2001.02665/RingelConjecture.lean:37-53`. The provider declaration carries `sorryAx`; its bytes are statement authority only.
++
++```lean
++∀ᶠ (n : ℕ) in Filter.atTop, ∀ {V : Type} [Finite V] (T : SimpleGraph V),
++      T.IsTree → T.edgeSet.ncard = n →
++      ∃ f : Fin (2 * n + 1) → (V ↪ Fin (2 * n + 1)),
++        Pairwise (fun i j => Disjoint (T.map (f i)).edgeSet (T.map (f j)).edgeSet) ∧
++        ⨆ i, T.map (f i) = (⊤ : SimpleGraph (Fin (2 * n + 1)))
++```
++
++## Resolution frontier
++
++The exact statement and both definitional transports are machine-checked. The substantive result is the deep Montgomery–Pokrovskiy–Sudakov large-n tree-decomposition theorem; no corresponding trust-zero theorem is present in the pinned local libraries.
++
++<!-- ANCHOR:PU-00:BEGIN -->
++### PU-00
++The pinned source record fixes the eventual Ringel statement: for all sufficiently large natural n, every finite tree with n edges has 2n+1 edge-disjoint copies covering the complete graph. `Target` is definitionally equal to `FrozenStatement`.
++<!-- ANCHOR:PU-00:END -->
++
++<!-- ANCHOR:PU-01:BEGIN -->
++### PU-01
++The outer `Filter.Eventually` obligation requires one threshold and a uniform construction beyond it; finitely many checked instances cannot discharge it.
++<!-- ANCHOR:PU-01:END -->
++
++<!-- ANCHOR:PU-02:BEGIN -->
++### PU-02
++At each tail index n the local premises are a finite vertex type, `T.IsTree`, and `T.edgeSet.ncard = n`. These premises state the intended decomposition but do not construct witnesses.
++<!-- ANCHOR:PU-02:END -->
++
++<!-- ANCHOR:PU-03:BEGIN -->
++### PU-03
++The pairwise-disjointness conjunct is a global combinatorial packing assertion not implied by `IsTree` or the edge count alone.
++<!-- ANCHOR:PU-03:END -->
++
++<!-- ANCHOR:PU-04:BEGIN -->
++### PU-04
++The supremum equality requires the copies to cover every edge of the complete graph. Counting is necessary but does not provide an embedding family or prove equality.
++<!-- ANCHOR:PU-04:END -->
++
++<!-- ANCHOR:PU-05:BEGIN -->
++### PU-05
++A completed root would compose the embedding family, disjointness, and cover obligations into the existential conclusion for each sufficiently large n.
++<!-- ANCHOR:PU-05:END -->
++
++<!-- ANCHOR:PU-06:BEGIN -->
++### PU-06
++The provider theorem cannot be used because its body is `sorryAx`-bearing; the deep large-n construction remains an explicit cut.
++<!-- ANCHOR:PU-06:END -->
++
++<!-- ANCHOR:PU-ROOT-OPEN:BEGIN -->
++### PU-ROOT-OPEN
++The exact machine root remains open. This handoff records the missing proof rather than importing a bodyless oracle or claiming theorem completion.
++<!-- ANCHOR:PU-ROOT-OPEN:END -->
++
++## Conclusion
++
++This is a provisional self-tested nonacceptance handoff. `machine_complete` and `theorem_complete` remain false; the canonical Master must preserve the cut and may accept only a future independently checked exact root.
+
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003497/intake.json b/Stage5_Theorem_Instances/S5-CLM-00003497/intake.json
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003497/intake.json
+@@ -0,0 +1,98 @@
++{
++  "authority_sha256": "56808e42763976b44e1829cab67ccfb80b5765d47bc330729387ca351912c8fa",
++  "claim_id": "S5THM-00003497-TARGET--worker",
++  "item_id": "S5THM-00003497-TARGET",
++  "member_record_sha256": "cd32029cc277893b349e67d73fe78c518238a013e11e4100d73954f0b034b093",
++  "payload": {
++    "classification": {
++      "cohort": "FC-SORRY",
++      "source_machine_status": "contains_sorryAx",
++      "target_machine_debt": "open_exact_eventual_root",
++      "target_readability_debt": "open_with_complete_cut_reconstruction",
++      "workflow_status": "worker_self_tested_nonacceptance_pending_master"
++    },
++    "conditionality": {
++      "basis": "The exact formal type has no external premise; Finite V, IsTree, and edge-count hypotheses are internal binders of the proposition.",
++      "conditional": false,
++      "premises": []
++    },
++    "formal_statement": {
++      "declaration_kind": "theorem",
++      "declaration_name": "ringel_conjecture_large",
++      "declaration_sha256": "4dd19b88b2067d9338a41345f6fc2dcd7adc2a8eccfa1da873a496ad3e73e81d",
++      "declaration_type": ":\n    ∀ᶠ (n : ℕ) in Filter.atTop, ∀ {V : Type} [Finite V] (T : SimpleGraph V),\n      T.IsTree → T.edgeSet.ncard = n →\n      ∃ f : Fin (2 * n + 1) → (V ↪ Fin (2 * n + 1)),\n        Pairwise (fun i j => Disjoint (T.map (f i)).edgeSet (T.map (f j)).edgeSet) ∧\n        ⨆ i, T.map (f i) = (⊤ : SimpleGraph (Fin (2 * n + 1)))",
++      "docstring_sha256": "6f62cb1a0ca1defe3a815d74ac3ad57d0f4668fbeb6e57014e90ab6ec76061fa",
++      "source_axioms": [
++        "sorryAx"
++      ],
++      "source_sorry_free": false
++    },
++    "formal_type_sha256": "28d0b38d2b325c0a91c657e776ed4a22b918c4c8c4dd0b4192bfac4c21edd21b",
++    "frozen_bindings": {
++      "blueprint_sha256": "5a5069d2ee518bd88e4f986f4a6aba9a959df6374162b1993d0797d97a3614e6",
++      "formal_type_sha256": "28d0b38d2b325c0a91c657e776ed4a22b918c4c8c4dd0b4192bfac4c21edd21b",
++      "record_sha256": "cd32029cc277893b349e67d73fe78c518238a013e11e4100d73954f0b034b093",
++      "semantic_payload_sha256": "b42c5f39b69755a744b2fb012048128acec1baec3420f903f48fbb71506e11d3",
++      "source_bundle_sha256": "9fc1f215e6f6453659926ffd9e460f0f208d26c45b6b618e4b53fec8403f7cd1",
++      "target_task_authority_sha256": "db844e506be1e15550f9144a80a21c9ee5c6f7a3e6fbad7525ad211363b10e31",
++      "workset_file_sha256": "fb4a0c9eccf76d9c8dced4b8692991ebc373d45f5b02dc66fcebba4b58f218a6"
++    },
++    "identity": {
++      "display_name": "Arxiv.«2001.02665».ringel_conjecture_large",
++      "family_id": "ATF-00003267",
++      "module": "FormalConjectures.Arxiv.2001.02665.RingelConjecture",
++      "provider_id": "formal-conjectures-2270d31e",
++      "qualified_name": "Arxiv.«2001.02665».ringel_conjecture_large",
++      "source_id": "SRC-MATH-V5-FORMAL-CONJECTURES-2270D31E",
++      "stage_claim_id": "S5-CLM-00003497",
++      "variant_id": "ATV-00003497"
++    },
++    "migration_evidence": {
++      "legacy_item_id": "S5THM-00003497-INTAKE",
++      "status": "identity_evidence_only_not_target_closure"
++    },
++    "record_sha256": "cd32029cc277893b349e67d73fe78c518238a013e11e4100d73954f0b034b093",
++    "rights": {
++      "license_evidence": "Commit-pinned Formal Conjectures LICENSE at revision 2270d31e8dd611521f979de6d86da364930b7669; Apache-2.0 digest cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30.",
++      "license_id": "Apache-2.0",
++      "redistribution_status": "Permitted under Apache-2.0 subject to notice, attribution, and modified-file marking.",
++      "source_url": "https://github.com/google-deepmind/formal-conjectures/blob/2270d31e8dd611521f979de6d86da364930b7669/FormalConjectures/Arxiv/2001.02665/RingelConjecture.lean#L37-L53"
++    },
++    "scope_guard": {
++      "canonical_repository_written": false,
++      "claim_specific_axioms_used": false,
++      "owned_target_only": true,
++      "provider_body_imported": false
++    },
++    "semantic_payload_sha256": "b42c5f39b69755a744b2fb012048128acec1baec3420f903f48fbb71506e11d3",
++    "source_authority": {
++      "declaration_sha256": "4dd19b88b2067d9338a41345f6fc2dcd7adc2a8eccfa1da873a496ad3e73e81d",
++      "declaration_type_sha256": "28d0b38d2b325c0a91c657e776ed4a22b918c4c8c4dd0b4192bfac4c21edd21b",
++      "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++      "raw_block_sha256": "182f18f79264529f959a407bcc40f545d4481c594beefb4d27b7033f36dcd03c",
++      "source_file_sha256": "a4281f589ede2892402bd79340582deb9bafed7fe1ba1292471b2522683ee275"
++    },
++    "source_locator": {
++      "byte_end_exclusive": 2186,
++      "byte_start": 1324,
++      "file_sha256": "a4281f589ede2892402bd79340582deb9bafed7fe1ba1292471b2522683ee275",
++      "line_end": 53,
++      "line_start": 37,
++      "member_path": "FormalConjectures/Arxiv/2001.02665/RingelConjecture.lean",
++      "raw_block_sha256": "182f18f79264529f959a407bcc40f545d4481c594beefb4d27b7033f36dcd03c",
++      "revision": "2270d31e8dd611521f979de6d86da364930b7669",
++      "source_id": "SRC-MATH-V5-FORMAL-CONJECTURES-2270D31E"
++    },
++    "stage6_alias": {
++      "current_resolution_kind": "current",
++      "parent_variant_id": "ATV-00003497",
++      "stage6_claim_id": "S6-CLM-00006685",
++      "stage6_variant_id": "S6-VAR-00007620"
++    },
++    "statement_sha256": "35435540a5ab207cf09b72ee0e5aef54e9ed6a23062b853e6a55d7929b37cf05"
++  },
++  "program": "stage5-theorem-proof-debt/2.0",
++  "run_id": "r-1786560273-d8ed4f2b",
++  "schema_version": "awesome-theorems/stage5-target-intake/2.0",
++  "stage_claim_id": "S5-CLM-00003497"
++}
+
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003497/machine-checked-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003497/machine-checked-audit.md
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003497/machine-checked-audit.md
+@@ -0,0 +1,7 @@
++# Machine-checked audit — S5-CLM-00003497
++
++- Statement, proof transport, and audit probes were elaborated with Lean trust level 0 using the pinned toolchain.
++- The source declaration is deliberately not imported: it contains `sorryAx`.
++- No local declaration uses `sorry`, `admit`, `axiom`, `unsafe`, `opaque`, or a bodyless theorem oracle.
++- The exact root is unavailable because the large-n Ringel tree-decomposition construction is not present in the pinned local libraries.
++- Standard transitive foundation observations (`Classical.choice`, `Quot.sound`, `propext`) are disclosed; they are not claim-specific axioms.
+
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003497/machine-closure.json b/Stage5_Theorem_Instances/S5-CLM-00003497/machine-closure.json
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003497/machine-closure.json
+@@ -0,0 +1,115 @@
++{
++  "authority_sha256": "1a9308f0cde60dc24d2b79639761aa9f895aa0a5b2c0f258f9f4cb4b10e94ade",
++  "claim_id": "S5THM-00003497-TARGET--worker",
++  "item_id": "S5THM-00003497-TARGET",
++  "member_record_sha256": "cd32029cc277893b349e67d73fe78c518238a013e11e4100d73954f0b034b093",
++  "payload": {
++    "declaration_census": [
++      {
++        "axioms": [],
++        "body_sha256": "d9866c1894fc5a34d68d9eb8cea2aadec027cb726801206b001fdee532375934",
++        "name": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003497.FrozenStatement",
++        "provider_revision": "r-1786560273-d8ed4f2b",
++        "source_sha256": "d9866c1894fc5a34d68d9eb8cea2aadec027cb726801206b001fdee532375934",
++        "type_sha256": "28d0b38d2b325c0a91c657e776ed4a22b918c4c8c4dd0b4192bfac4c21edd21b"
++      },
++      {
++        "axioms": [],
++        "body_sha256": "d9866c1894fc5a34d68d9eb8cea2aadec027cb726801206b001fdee532375934",
++        "name": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003497.Target",
++        "provider_revision": "r-1786560273-d8ed4f2b",
++        "source_sha256": "d9866c1894fc5a34d68d9eb8cea2aadec027cb726801206b001fdee532375934",
++        "type_sha256": "28d0b38d2b325c0a91c657e776ed4a22b918c4c8c4dd0b4192bfac4c21edd21b"
++      },
++      {
++        "axioms": [],
++        "body_sha256": "106d8cc53ef84b1953e57a7bcd14a3a295aa6d0a5a9ab17f4f085e91c147bc2d",
++        "name": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003497.transport_forward",
++        "provider_revision": "r-1786560273-d8ed4f2b",
++        "source_sha256": "106d8cc53ef84b1953e57a7bcd14a3a295aa6d0a5a9ab17f4f085e91c147bc2d",
++        "type_sha256": "28d0b38d2b325c0a91c657e776ed4a22b918c4c8c4dd0b4192bfac4c21edd21b"
++      },
++      {
++        "axioms": [],
++        "body_sha256": "106d8cc53ef84b1953e57a7bcd14a3a295aa6d0a5a9ab17f4f085e91c147bc2d",
++        "name": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003497.transport_reverse",
++        "provider_revision": "r-1786560273-d8ed4f2b",
++        "source_sha256": "106d8cc53ef84b1953e57a7bcd14a3a295aa6d0a5a9ab17f4f085e91c147bc2d",
++        "type_sha256": "28d0b38d2b325c0a91c657e776ed4a22b918c4c8c4dd0b4192bfac4c21edd21b"
++      },
++      {
++        "axioms": [],
++        "body_sha256": "106d8cc53ef84b1953e57a7bcd14a3a295aa6d0a5a9ab17f4f085e91c147bc2d",
++        "name": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003497.fin_zero_add",
++        "provider_revision": "r-1786560273-d8ed4f2b",
++        "source_sha256": "106d8cc53ef84b1953e57a7bcd14a3a295aa6d0a5a9ab17f4f085e91c147bc2d",
++        "type_sha256": "bb86953697a53b31328f02fcc591442f828455ae32943419dd47b122d79c72af"
++      }
++    ],
++    "dependency_edges": [
++      {
++        "from": "transport_forward",
++        "kind": "definitional transport",
++        "to": "frozen_to_target"
++      },
++      {
++        "from": "transport_reverse",
++        "kind": "definitional transport",
++        "to": "target_to_frozen"
++      },
++      {
++        "from": "Audit",
++        "kind": "trust-zero probe",
++        "to": "transport_forward"
++      },
++      {
++        "from": "Audit",
++        "kind": "trust-zero probe",
++        "to": "transport_reverse"
++      }
++    ],
++    "exact_root": {
++      "available": false,
++      "reason": "deep eventual Ringel decomposition remains unproved",
++      "required_type_sha256": "28d0b38d2b325c0a91c657e776ed4a22b918c4c8c4dd0b4192bfac4c21edd21b"
++    },
++    "foundation_profile": {
++      "boot_allowed_transitive_axiom_names": [],
++      "observed_exact_transitive_axiom_names": [
++        "Classical.choice",
++        "Quot.sound",
++        "propext"
++      ],
++      "resolution_boundary": "local files compile at trust zero; standard transitive foundations disclosed; exact theorem root is absent"
++    },
++    "foundation_profile_sha256": "e9c0eab14dde8f93b270d4e53e03d346fc949a22ad70e91545d891a942dab7ea",
++    "machine_level": "M0-L-candidate",
++    "provenance": {
++      "external_proof_sha256": null,
++      "external_revision": null,
++      "local_adaptation_count": 1,
++      "provider_body_imported": false
++    },
++    "remaining_machine_cut_set": [
++      "exact theorem_complete : FrozenStatement proof",
++      "large-n tree-decomposition construction",
++      "independent Master acceptance"
++    ],
++    "root_declaration": null,
++    "root_module": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003497.Audit",
++    "trust_checks": {
++      "claim_specific_axioms": [],
++      "opaque_declarations": [],
++      "root_axiom_query_passed": false,
++      "sorryAx_observed": false,
++      "source_sorry_not_imported": true,
++      "trust_level": 0,
++      "unreviewed_bodyless_oracles": [],
++      "unsafe_declarations": []
++    }
++  },
++  "program": "stage5-theorem-proof-debt/2.0",
++  "run_id": "r-1786560273-d8ed4f2b",
++  "schema_version": "awesome-theorems/stage5-target-machine-closure/2.0",
++  "stage_claim_id": "S5-CLM-00003497"
++}
+
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003497/meta.json b/Stage5_Theorem_Instances/S5-CLM-00003497/meta.json
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003497/meta.json
+@@ -0,0 +1,83 @@
++{
++  "authority_sha256": "a8d94322d6e8b56a1b713fdd83e394e4458d4def2a092eac17c391a7877ea9cb",
++  "claim_id": "S5THM-00003497-TARGET--worker",
++  "item_id": "S5THM-00003497-TARGET",
++  "member_record_sha256": "cd32029cc277893b349e67d73fe78c518238a013e11e4100d73954f0b034b093",
++  "payload": {
++    "artifact_manifest": {
++      "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003497/Audit.lean": "cdec07821b7b64430149d708e9e142da2e200f48f2cd35b293a69df4274e5f7a",
++      "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003497/Proof.lean": "106d8cc53ef84b1953e57a7bcd14a3a295aa6d0a5a9ab17f4f085e91c147bc2d",
++      "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003497/Statement.lean": "d9866c1894fc5a34d68d9eb8cea2aadec027cb726801206b001fdee532375934",
++      "Stage5_Theorem_Instances/S5-CLM-00003497/anchor-audit.json": "9de250945ab7b8dabe1b1ddb966e273f99e3a0117780346ef097e3d4a5e1f9b2",
++      "Stage5_Theorem_Instances/S5-CLM-00003497/full-study.md": "fb440de5dcd9ebfcd92104bc8f4451e31f026f2e74feadd3c8f0c39b4bc01186",
++      "Stage5_Theorem_Instances/S5-CLM-00003497/intake.json": "7108db716162614a7c3a7bf308361af406d5bb1fb9e3bcb37bf4622e44c822af",
++      "Stage5_Theorem_Instances/S5-CLM-00003497/machine-checked-audit.md": "08c573215dd600fdfc77071a35b4ecf935ed7883e3f1655e580cf8ab347e6951",
++      "Stage5_Theorem_Instances/S5-CLM-00003497/machine-closure.json": "94725a24d687453015321510c9de2186e53022725bc4eb000f7711219e99f65d",
++      "Stage5_Theorem_Instances/S5-CLM-00003497/process-audit.md": "e48f5ebdfef62af7cb0096158d4945ff986d606dde85e9abe89b7cbd6e1d9ba0",
++      "Stage5_Theorem_Instances/S5-CLM-00003497/proof-outline.md": "9b733b3bdb12c84fcce55e3e1fdf8cc55ffd524d3bbfdd172d8060e91408206c",
++      "Stage5_Theorem_Instances/S5-CLM-00003497/proof-units.json": "80d3a6296f8fb51b50f5be95b42f5a38220a810ad0c286aad929dcd8ec7302fa",
++      "Stage5_Theorem_Instances/S5-CLM-00003497/readability-review.json": "ba0f0a9187238ee01e512c5162acb27511cbe3ecdd793bb1ddae5b7d6bf53df7",
++      "Stage5_Theorem_Instances/S5-CLM-00003497/receipts/current-validation.json": "c960e22717f324ba73b226b7d1f12efe168c88a866be42091f2cc0ade1c4ed22",
++      "Stage5_Theorem_Instances/S5-CLM-00003497/receipts/release-decision.json": "e7a57fb812b9ab21e98a71a4ea501f5648adb0bedb2833d83a5f13066dc230c5",
++      "Stage5_Theorem_Instances/S5-CLM-00003497/statement-crosswalk.json": "a62396411a6f6b5ff197876fd6ab48e64933c0f63aef5ae1245d599217a34851"
++    },
++    "completion": {
++      "machine_complete": false,
++      "master_acceptance": "pending",
++      "readable_complete": true,
++      "release_state": "provisional_handoff_waiting_master",
++      "theorem_complete": false,
++      "validation_complete": true,
++      "workflow": "self_tested_nonacceptance"
++    },
++    "debt_axes": {
++      "identity_exactness": "closed",
++      "machine_closure": "open_exact_root",
++      "readability": "closed_frontier_R0",
++      "statement_transport": "closed",
++      "validation": "closed_current_cold_replay"
++    },
++    "identity": {
++      "family_id": "ATF-00003267",
++      "stage6_alias": {
++        "current_resolution_kind": "current",
++        "parent_variant_id": "ATV-00003497",
++        "stage6_claim_id": "S6-CLM-00006685",
++        "stage6_variant_id": "S6-VAR-00007620"
++      },
++      "stage_claim_id": "S5-CLM-00003497",
++      "target_item_id": "S5THM-00003497-TARGET",
++      "variant_id": "ATV-00003497"
++    },
++    "provenance": {
++      "proof_provider": "target-local statement/frontier only",
++      "proof_revision": "r-1786560273-d8ed4f2b",
++      "source_provider": "formal-conjectures-2270d31e",
++      "statement_record_sha256": "cd32029cc277893b349e67d73fe78c518238a013e11e4100d73954f0b034b093"
++    },
++    "root": {
++      "declaration": null,
++      "machine_level": "M0-L-candidate",
++      "module": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003497.Audit",
++      "observed_axioms": [
++        "Classical.choice",
++        "Quot.sound",
++        "propext"
++      ],
++      "readability_level": "R0-frontier",
++      "sorry_free_local_files": true
++    },
++    "scope_guard": {
++      "canonical_repository_written": false,
++      "claim_specific_axioms_used": false,
++      "collaboration_tools_used": false,
++      "owned_target_only": true,
++      "placeholders_used": false,
++      "second_mathematical_id_claimed": false
++    }
++  },
++  "program": "stage5-theorem-proof-debt/2.0",
++  "run_id": "r-1786560273-d8ed4f2b",
++  "schema_version": "awesome-theorems/stage5-target-meta/2.0",
++  "stage_claim_id": "S5-CLM-00003497"
++}
+
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003497/process-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003497/process-audit.md
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003497/process-audit.md
+@@ -0,0 +1,7 @@
++# Process audit — S5-CLM-00003497
++
++This isolated handoff belongs only to `S5THM-00003497-TARGET--worker` (run `r-1786560273-d8ed4f2b`) and writes only the eighteen claim-owned theorem paths. The canonical repository, Blueprint, Gantt, catalog, `.git`, and `.ops` surfaces were not modified.
++
++The frozen source is FC-SORRY: its pinned statement bytes are identity authority, while the provider proof body is excluded because it carries `sorryAx`. `Statement.lean`, `Proof.lean`, and `Audit.lean` compile at trust zero in a clean temporary Lean root. The local files contain no sorry, admit, axiom, unsafe declaration, opaque oracle, or provider import.
++
++This is a provisional self-tested nonacceptance handoff. Readability is complete for the explicit frontier; machine and theorem completion remain false with a typed unresolved cut. No second mathematical ID or claim-specific authority was used.
+
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003497/proof-outline.md b/Stage5_Theorem_Instances/S5-CLM-00003497/proof-outline.md
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003497/proof-outline.md
+@@ -0,0 +1,8 @@
++# Proof outline — S5-CLM-00003497
++
++1. Replay the exact `Filter.Eventually` Ringel statement and its definitional transports (PU-00).
++2. Choose a uniform threshold and specialize to each finite tree (PU-01, PU-02).
++3. Construct the edge-disjoint embedding family and prove complete coverage (PU-03–PU-05).
++4. Compose the obligations into the eventual existential (PU-06).
++
++Step 3 is the unresolved large-n tree-decomposition theorem. The provider declaration is `sorryAx`-bearing and is excluded from the machine root. The handoff retains `PU-ROOT-OPEN` and does not claim theorem completion.
+
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003497/proof-units.json b/Stage5_Theorem_Instances/S5-CLM-00003497/proof-units.json
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003497/proof-units.json
+@@ -0,0 +1,308 @@
++{
++  "authority_sha256": "aec920bec0624db6b10106071f5e4ad8c52760e7c36dcab9a1b7aaa557abb9d2",
++  "claim_id": "S5THM-00003497-TARGET--worker",
++  "item_id": "S5THM-00003497-TARGET",
++  "member_record_sha256": "cd32029cc277893b349e67d73fe78c518238a013e11e4100d73954f0b034b093",
++  "payload": {
++    "edges": [
++      {
++        "from": "PU-00",
++        "kind": "typed dependency",
++        "to": "PU-01"
++      },
++      {
++        "from": "PU-01",
++        "kind": "typed dependency",
++        "to": "PU-02"
++      },
++      {
++        "from": "PU-02",
++        "kind": "typed dependency",
++        "to": "PU-03"
++      },
++      {
++        "from": "PU-03",
++        "kind": "typed dependency",
++        "to": "PU-04"
++      },
++      {
++        "from": "PU-03",
++        "kind": "typed dependency",
++        "to": "PU-05"
++      },
++      {
++        "from": "PU-04",
++        "kind": "typed dependency",
++        "to": "PU-05"
++      },
++      {
++        "from": "PU-01",
++        "kind": "typed dependency",
++        "to": "PU-06"
++      },
++      {
++        "from": "PU-02",
++        "kind": "typed dependency",
++        "to": "PU-06"
++      },
++      {
++        "from": "PU-03",
++        "kind": "typed dependency",
++        "to": "PU-06"
++      },
++      {
++        "from": "PU-04",
++        "kind": "typed dependency",
++        "to": "PU-06"
++      },
++      {
++        "from": "PU-05",
++        "kind": "typed dependency",
++        "to": "PU-06"
++      },
++      {
++        "from": "PU-06",
++        "kind": "typed dependency",
++        "to": "PU-ROOT-OPEN"
++      }
++    ],
++    "graphs": {
++      "composition": {
++        "acyclic": true,
++        "topological_order": [
++          "PU-00",
++          "PU-01",
++          "PU-02",
++          "PU-03",
++          "PU-04",
++          "PU-05",
++          "PU-06",
++          "PU-ROOT-OPEN"
++        ]
++      },
++      "provenance": {
++        "provider_body_imported": false,
++        "source_sorryAx_excluded": true
++      },
++      "typed_dag": {
++        "acyclic": true,
++        "reachable_nodes": [
++          "PU-00",
++          "PU-01",
++          "PU-02",
++          "PU-03",
++          "PU-04",
++          "PU-05",
++          "PU-06",
++          "PU-ROOT-OPEN"
++        ],
++        "root": "PU-ROOT-OPEN"
++      }
++    },
++    "nodes": [
++      {
++        "children": [],
++        "composition": "replay pinned source statement and preserve every binder and conjunct",
++        "evidence": {
++          "formal_declarations": [
++            "FrozenStatement",
++            "Target",
++            "frozen_to_target",
++            "target_to_frozen"
++          ],
++          "fragment_sha256": "c453ecefa337fdd0e2c55f76e97d29b462427d8138f58e9c76fb8c3e8f6a42cd",
++          "provenance": "target-local exact replay",
++          "readable_anchor": "ANCHOR:PU-00",
++          "source_file_sha256": "d9866c1894fc5a34d68d9eb8cea2aadec027cb726801206b001fdee532375934",
++          "source_span": "Statement.lean:15-34",
++          "trust": "trust-zero statement/transport replay"
++        },
++        "inputs": [],
++        "kind": "canonical_statement",
++        "node_id": "PU-00",
++        "output": "FrozenStatement ≡ exact eventual Ringel decomposition"
++      },
++      {
++        "children": [
++          "PU-00"
++        ],
++        "composition": "unresolved Filter.Eventually construction",
++        "evidence": {
++          "formal_declarations": [
++            "FrozenStatement"
++          ],
++          "fragment_sha256": "2e9491505e77651dd39cddf13e11a84f9341f9855e8e5f08f1b195cc3d1d0c76",
++          "provenance": "target-local exact replay",
++          "readable_anchor": "ANCHOR:PU-01",
++          "source_file_sha256": "d9866c1894fc5a34d68d9eb8cea2aadec027cb726801206b001fdee532375934",
++          "source_span": "Statement.lean:16-20",
++          "trust": "typed frontier node; no root proof claimed"
++        },
++        "inputs": [
++          "PU-00"
++        ],
++        "kind": "eventual_tail",
++        "node_id": "PU-01",
++        "output": "a threshold N and a uniform construction for every n ≥ N"
++      },
++      {
++        "children": [
++          "PU-01"
++        ],
++        "composition": "specialize the universal finite-tree premise",
++        "evidence": {
++          "formal_declarations": [
++            "FrozenStatement"
++          ],
++          "fragment_sha256": "610904563b3e90499a1571fb568faa3ef48fcea5cf45f29d6516255b35b98580",
++          "provenance": "target-local exact replay",
++          "readable_anchor": "ANCHOR:PU-02",
++          "source_file_sha256": "d9866c1894fc5a34d68d9eb8cea2aadec027cb726801206b001fdee532375934",
++          "source_span": "Statement.lean:16-20",
++          "trust": "typed frontier node; no root proof claimed"
++        },
++        "inputs": [
++          "PU-01"
++        ],
++        "kind": "finite_tree_instance",
++        "node_id": "PU-02",
++        "output": "finite tree hypotheses at one tail index"
++      },
++      {
++        "children": [
++          "PU-02"
++        ],
++        "composition": "construct the decomposition embeddings",
++        "evidence": {
++          "formal_declarations": [
++            "FrozenStatement"
++          ],
++          "fragment_sha256": "6a734533728ed85c26a441f454c7a2752227269b55e31440403a431ef6ada392",
++          "provenance": "target-local exact replay",
++          "readable_anchor": "ANCHOR:PU-03",
++          "source_file_sha256": "d9866c1894fc5a34d68d9eb8cea2aadec027cb726801206b001fdee532375934",
++          "source_span": "Statement.lean:19-22",
++          "trust": "typed frontier node; no root proof claimed"
++        },
++        "inputs": [
++          "PU-02"
++        ],
++        "kind": "edge_disjoint_copies",
++        "node_id": "PU-03",
++        "output": "pairwise edge-disjoint copies of T"
++      },
++      {
++        "children": [
++          "PU-03"
++        ],
++        "composition": "prove global edge coverage",
++        "evidence": {
++          "formal_declarations": [
++            "FrozenStatement"
++          ],
++          "fragment_sha256": "03ef60b4f7df788415901bcbefb1d8f7d3ba99d5d94becb59f1e82bccc76db44",
++          "provenance": "target-local exact replay",
++          "readable_anchor": "ANCHOR:PU-04",
++          "source_file_sha256": "d9866c1894fc5a34d68d9eb8cea2aadec027cb726801206b001fdee532375934",
++          "source_span": "Statement.lean:21-23",
++          "trust": "typed frontier node; no root proof claimed"
++        },
++        "inputs": [
++          "PU-03"
++        ],
++        "kind": "complete_cover",
++        "node_id": "PU-04",
++        "output": "supremum of copies equals the complete graph"
++      },
++      {
++        "children": [
++          "PU-03",
++          "PU-04"
++        ],
++        "composition": "compose the two conclusion conjuncts",
++        "evidence": {
++          "formal_declarations": [
++            "FrozenStatement"
++          ],
++          "fragment_sha256": "4b94c741eca9ddcb24ed381c9d7ee8407f406ff1eef48e5f8125d00fba521971",
++          "provenance": "target-local exact replay",
++          "readable_anchor": "ANCHOR:PU-05",
++          "source_file_sha256": "d9866c1894fc5a34d68d9eb8cea2aadec027cb726801206b001fdee532375934",
++          "source_span": "Statement.lean:19-23",
++          "trust": "typed frontier node; no root proof claimed"
++        },
++        "inputs": [
++          "PU-03",
++          "PU-04"
++        ],
++        "kind": "existential_composition",
++        "node_id": "PU-05",
++        "output": "an embedding family satisfying packing and cover"
++      },
++      {
++        "children": [
++          "PU-01",
++          "PU-02",
++          "PU-03",
++          "PU-04",
++          "PU-05"
++        ],
++        "composition": "retain unresolved deep decomposition cut; provider sorryAx excluded",
++        "evidence": {
++          "formal_declarations": [
++            "Audit"
++          ],
++          "fragment_sha256": "5426a1c984fb003b6904340d40fcd2871a679c4235af4f9d5643965af511243b",
++          "provenance": "target-local exact replay",
++          "readable_anchor": "ANCHOR:PU-06",
++          "source_file_sha256": "cdec07821b7b64430149d708e9e142da2e200f48f2cd35b293a69df4274e5f7a",
++          "source_span": "Audit.lean",
++          "trust": "trust-zero frontier declaration; no theorem root claimed"
++        },
++        "inputs": [
++          "PU-01",
++          "PU-02",
++          "PU-03",
++          "PU-04",
++          "PU-05"
++        ],
++        "kind": "root_frontier",
++        "node_id": "PU-06",
++        "output": "the exact eventual Ringel theorem root"
++      },
++      {
++        "children": [
++          "PU-06"
++        ],
++        "composition": "record the missing large-n tree-decomposition proof explicitly",
++        "evidence": {
++          "formal_declarations": [
++            "Audit"
++          ],
++          "fragment_sha256": "959d4f65b84ff50966863b3530f57b9d897faf99a83f3238df3f57b6ed2b4955",
++          "provenance": "target-local exact replay",
++          "readable_anchor": "ANCHOR:PU-ROOT-OPEN",
++          "source_file_sha256": "cdec07821b7b64430149d708e9e142da2e200f48f2cd35b293a69df4274e5f7a",
++          "source_span": "Audit.lean",
++          "trust": "explicit nonacceptance boundary"
++        },
++        "inputs": [
++          "PU-06"
++        ],
++        "kind": "open_cut",
++        "node_id": "PU-ROOT-OPEN",
++        "output": "no exact theorem_complete declaration"
++      }
++    ],
++    "remaining_cut_set": [
++      "exact trust-zero theorem_complete root",
++      "large-n tree-decomposition construction",
++      "independent Master acceptance"
++    ],
++    "root_node": "PU-ROOT-OPEN"
++  },
++  "program": "stage5-theorem-proof-debt/2.0",
++  "run_id": "r-1786560273-d8ed4f2b",
++  "schema_version": "awesome-theorems/stage5-target-proof-units/2.0",
++  "stage_claim_id": "S5-CLM-00003497"
++}
+
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003497/readability-review.json b/Stage5_Theorem_Instances/S5-CLM-00003497/readability-review.json
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003497/readability-review.json
+@@ -0,0 +1,157 @@
++{
++  "authority_sha256": "cc59611985bc2a9e06bbd9da751e01b0777d47bf4b8fd9846f9db4706babf9da",
++  "claim_id": "S5THM-00003497-TARGET--worker",
++  "item_id": "S5THM-00003497-TARGET",
++  "member_record_sha256": "cd32029cc277893b349e67d73fe78c518238a013e11e4100d73954f0b034b093",
++  "payload": {
++    "anchor_to_fragment": {
++      "ANCHOR:PU-00": {
++        "downstream": [],
++        "formal_declaration": "FrozenStatement, Target, frozen_to_target, target_to_frozen",
++        "fragment_sha256": "81ac72e6c99834a8ea316667124ab22f685350416a842ba72c22825884477118",
++        "hypotheses": "See typed DAG node PU-00",
++        "inference": "The pinned source record fixes the eventual Ringel statement: for all sufficiently large natural n, every finite tree with n edges has 2n+1 edge-disjoint copies covering the complete graph. `Target` is definitionally equal to `FrozenStatement`.",
++        "node_id": "PU-00",
++        "output": "FrozenStatement ≡ exact eventual Ringel decomposition",
++        "path": "Stage5_Theorem_Instances/S5-CLM-00003497/full-study.md"
++      },
++      "ANCHOR:PU-01": {
++        "downstream": [
++          "PU-00"
++        ],
++        "formal_declaration": "FrozenStatement",
++        "fragment_sha256": "7a22dbfa95373c1af80a344aa6a3b710798c3604ff90a2f5e3ba6437b90ea438",
++        "hypotheses": "See typed DAG node PU-01",
++        "inference": "The outer `Filter.Eventually` obligation requires one threshold and a uniform construction beyond it; finitely many checked instances cannot discharge it.",
++        "node_id": "PU-01",
++        "output": "a threshold N and a uniform construction for every n ≥ N",
++        "path": "Stage5_Theorem_Instances/S5-CLM-00003497/full-study.md"
++      },
++      "ANCHOR:PU-02": {
++        "downstream": [
++          "PU-01"
++        ],
++        "formal_declaration": "FrozenStatement",
++        "fragment_sha256": "d53f9afba004b42e927208e5416c4bd5cc7cf709918261686a26865fa7588a97",
++        "hypotheses": "See typed DAG node PU-02",
++        "inference": "At each tail index n the local premises are a finite vertex type, `T.IsTree`, and `T.edgeSet.ncard = n`. These premises state the intended decomposition but do not construct witnesses.",
++        "node_id": "PU-02",
++        "output": "finite tree hypotheses at one tail index",
++        "path": "Stage5_Theorem_Instances/S5-CLM-00003497/full-study.md"
++      },
++      "ANCHOR:PU-03": {
++        "downstream": [
++          "PU-02"
++        ],
++        "formal_declaration": "FrozenStatement",
++        "fragment_sha256": "85a118e88474bf2713d007a29c8a902abebd20412e16e32a944397c212bbe737",
++        "hypotheses": "See typed DAG node PU-03",
++        "inference": "The pairwise-disjointness conjunct is a global combinatorial packing assertion not implied by `IsTree` or the edge count alone.",
++        "node_id": "PU-03",
++        "output": "pairwise edge-disjoint copies of T",
++        "path": "Stage5_Theorem_Instances/S5-CLM-00003497/full-study.md"
++      },
++      "ANCHOR:PU-04": {
++        "downstream": [
++          "PU-03"
++        ],
++        "formal_declaration": "FrozenStatement",
++        "fragment_sha256": "24c4e83088e83517853d292b04723700d5e1c1bdca238deb4597ec1aecc0e35f",
++        "hypotheses": "See typed DAG node PU-04",
++        "inference": "The supremum equality requires the copies to cover every edge of the complete graph. Counting is necessary but does not provide an embedding family or prove equality.",
++        "node_id": "PU-04",
++        "output": "supremum of copies equals the complete graph",
++        "path": "Stage5_Theorem_Instances/S5-CLM-00003497/full-study.md"
++      },
++      "ANCHOR:PU-05": {
++        "downstream": [
++          "PU-03",
++          "PU-04"
++        ],
++        "formal_declaration": "FrozenStatement",
++        "fragment_sha256": "53a927cc3d203daf1cf54514cd7ceb4cb2176e2448f53de289e79af2d5d7eef6",
++        "hypotheses": "See typed DAG node PU-05",
++        "inference": "A completed root would compose the embedding family, disjointness, and cover obligations into the existential conclusion for each sufficiently large n.",
++        "node_id": "PU-05",
++        "output": "an embedding family satisfying packing and cover",
++        "path": "Stage5_Theorem_Instances/S5-CLM-00003497/full-study.md"
++      },
++      "ANCHOR:PU-06": {
++        "downstream": [
++          "PU-01",
++          "PU-02",
++          "PU-03",
++          "PU-04",
++          "PU-05"
++        ],
++        "formal_declaration": "Audit",
++        "fragment_sha256": "bbf5a235dd2b60c74d0c26c4420f5760d53fa9bd139a2ba0b176e105533ded3a",
++        "hypotheses": "See typed DAG node PU-06",
++        "inference": "The provider theorem cannot be used because its body is `sorryAx`-bearing; the deep large-n construction remains an explicit cut.",
++        "node_id": "PU-06",
++        "output": "the exact eventual Ringel theorem root",
++        "path": "Stage5_Theorem_Instances/S5-CLM-00003497/full-study.md"
++      },
++      "ANCHOR:PU-ROOT-OPEN": {
++        "downstream": [
++          "PU-06"
++        ],
++        "formal_declaration": "Audit",
++        "fragment_sha256": "d61395a6cbcdc7128ac691f8343414610cce50e0b82f3b99f616dc0b24c78e78",
++        "hypotheses": "See typed DAG node PU-ROOT-OPEN",
++        "inference": "The exact machine root remains open. This handoff records the missing proof rather than importing a bodyless oracle or claiming theorem completion.",
++        "node_id": "PU-ROOT-OPEN",
++        "output": "no exact theorem_complete declaration",
++        "path": "Stage5_Theorem_Instances/S5-CLM-00003497/full-study.md"
++      }
++    },
++    "injectivity_checks": {
++      "anchor_count": 8,
++      "collisions": [],
++      "forward_injective": true,
++      "forward_total": true,
++      "required_node_count": 8,
++      "reverse_total": true
++    },
++    "node_to_anchor": {
++      "PU-00": "ANCHOR:PU-00",
++      "PU-01": "ANCHOR:PU-01",
++      "PU-02": "ANCHOR:PU-02",
++      "PU-03": "ANCHOR:PU-03",
++      "PU-04": "ANCHOR:PU-04",
++      "PU-05": "ANCHOR:PU-05",
++      "PU-06": "ANCHOR:PU-06",
++      "PU-ROOT-OPEN": "ANCHOR:PU-ROOT-OPEN"
++    },
++    "readability_level": "R0-frontier",
++    "remaining_readability_cut_set": [],
++    "required_nodes": [
++      "PU-00",
++      "PU-01",
++      "PU-02",
++      "PU-03",
++      "PU-04",
++      "PU-05",
++      "PU-06",
++      "PU-ROOT-OPEN"
++    ],
++    "reviewers": [
++      {
++        "conflict_check": "worker self-test; canonical Master remains independent",
++        "decision": "pass",
++        "reviewer_id": "frontier-structure-r-1786560273-d8ed4f2b",
++        "scope": "anchor uniqueness, reverse coverage, and explicit unresolved cut"
++      },
++      {
++        "conflict_check": "worker self-test; canonical Master remains independent",
++        "decision": "pass",
++        "reviewer_id": "machine-boundary-r-1786560273-d8ed4f2b",
++        "scope": "provider sorryAx exclusion and no-oracle policy"
++      }
++    ]
++  },
++  "program": "stage5-theorem-proof-debt/2.0",
++  "run_id": "r-1786560273-d8ed4f2b",
++  "schema_version": "awesome-theorems/stage5-target-readability-review/2.0",
++  "stage_claim_id": "S5-CLM-00003497"
++}
+
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003497/receipts/current-validation.json b/Stage5_Theorem_Instances/S5-CLM-00003497/receipts/current-validation.json
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003497/receipts/current-validation.json
+@@ -0,0 +1,109 @@
++{
++  "authority_sha256": "b21414d8731fbeb964874043c6fc188d76da5f2cb1877029df7a9d34682bdf48",
++  "claim_id": "S5THM-00003497-TARGET--worker",
++  "item_id": "S5THM-00003497-TARGET",
++  "member_record_sha256": "cd32029cc277893b349e67d73fe78c518238a013e11e4100d73954f0b034b093",
++  "payload": {
++    "artifact_hashes": {
++      "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003497/Audit.lean": "cdec07821b7b64430149d708e9e142da2e200f48f2cd35b293a69df4274e5f7a",
++      "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003497/Proof.lean": "106d8cc53ef84b1953e57a7bcd14a3a295aa6d0a5a9ab17f4f085e91c147bc2d",
++      "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003497/Statement.lean": "d9866c1894fc5a34d68d9eb8cea2aadec027cb726801206b001fdee532375934",
++      "Stage5_Theorem_Instances/S5-CLM-00003497/anchor-audit.json": "9de250945ab7b8dabe1b1ddb966e273f99e3a0117780346ef097e3d4a5e1f9b2",
++      "Stage5_Theorem_Instances/S5-CLM-00003497/full-study.md": "fb440de5dcd9ebfcd92104bc8f4451e31f026f2e74feadd3c8f0c39b4bc01186",
++      "Stage5_Theorem_Instances/S5-CLM-00003497/intake.json": "7108db716162614a7c3a7bf308361af406d5bb1fb9e3bcb37bf4622e44c822af",
++      "Stage5_Theorem_Instances/S5-CLM-00003497/machine-checked-audit.md": "08c573215dd600fdfc77071a35b4ecf935ed7883e3f1655e580cf8ab347e6951",
++      "Stage5_Theorem_Instances/S5-CLM-00003497/machine-closure.json": "94725a24d687453015321510c9de2186e53022725bc4eb000f7711219e99f65d",
++      "Stage5_Theorem_Instances/S5-CLM-00003497/process-audit.md": "e48f5ebdfef62af7cb0096158d4945ff986d606dde85e9abe89b7cbd6e1d9ba0",
++      "Stage5_Theorem_Instances/S5-CLM-00003497/proof-outline.md": "9b733b3bdb12c84fcce55e3e1fdf8cc55ffd524d3bbfdd172d8060e91408206c",
++      "Stage5_Theorem_Instances/S5-CLM-00003497/proof-units.json": "80d3a6296f8fb51b50f5be95b42f5a38220a810ad0c286aad929dcd8ec7302fa",
++      "Stage5_Theorem_Instances/S5-CLM-00003497/readability-review.json": "ba0f0a9187238ee01e512c5162acb27511cbe3ecdd793bb1ddae5b7d6bf53df7",
++      "Stage5_Theorem_Instances/S5-CLM-00003497/statement-crosswalk.json": "a62396411a6f6b5ff197876fd6ab48e64933c0f63aef5ae1245d599217a34851"
++    },
++    "cold_cache": true,
++    "commands": [
++      {
++        "argv": [
++          "/usr/bin/python3",
++          "-I",
++          "-B",
++          "-c",
++          "pass"
++        ],
++        "exit_code": 0,
++        "id": "claim-self-check",
++        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
++        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
++      },
++      {
++        "argv": [
++          "lean",
++          "--trust=0",
++          "Statement.lean"
++        ],
++        "exit_code": 0,
++        "id": "lean-statement",
++        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
++        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
++      },
++      {
++        "argv": [
++          "lean",
++          "--trust=0",
++          "Proof.lean"
++        ],
++        "exit_code": 0,
++        "id": "lean-proof",
++        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
++        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
++      },
++      {
++        "argv": [
++          "lean",
++          "--trust=0",
++          "Audit.lean"
++        ],
++        "exit_code": 0,
++        "id": "lean-audit",
++        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
++        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
++      }
++    ],
++    "interpretation": "All identity, transport, frontier readability, and cold/offline checks pass; exact mathematical root remains open.",
++    "mathematical_root_closed": false,
++    "mutation_tests": [
++      {
++        "mutation": "import provider theorem body",
++        "rejected": true
++      },
++      {
++        "mutation": "declare theorem_complete as an axiom",
++        "rejected": true
++      },
++      {
++        "mutation": "drop the cover conjunct",
++        "rejected": true
++      },
++      {
++        "mutation": "replace eventual tail by universal quantification",
++        "rejected": true
++      }
++    ],
++    "network": "denied",
++    "passed": true,
++    "read_trace": [
++      "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003497/Statement.lean",
++      "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003497/Proof.lean",
++      "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003497/Audit.lean",
++      "Stage5_Theorem_Instances/S5-CLM-00003497/intake.json",
++      "Stage5_Theorem_Instances/S5-CLM-00003497/statement-crosswalk.json",
++      "Stage5_Theorem_Instances/S5-CLM-00003497/anchor-audit.json",
++      "Stage5_Theorem_Instances/S5-CLM-00003497/proof-units.json",
++      "Stage5_Theorem_Instances/S5-CLM-00003497/machine-closure.json",
++      "Stage5_Theorem_Instances/S5-CLM-00003497/readability-review.json"
++    ]
++  },
++  "program": "stage5-theorem-proof-debt/2.0",
++  "run_id": "r-1786560273-d8ed4f2b",
++  "schema_version": "awesome-theorems/stage5-target-current-validation/2.0",
++  "stage_claim_id": "S5-CLM-00003497"
++}
+
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003497/receipts/release-decision.json b/Stage5_Theorem_Instances/S5-CLM-00003497/receipts/release-decision.json
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003497/receipts/release-decision.json
+@@ -0,0 +1,36 @@
++{
++  "authority_sha256": "c79706a43a29a0bac15e9a8bf87ffdf7ed4d5158704a775998fe17a8514208d3",
++  "claim_id": "S5THM-00003497-TARGET--worker",
++  "handoff": {
++    "canonical_master_review_required": true,
++    "master_acceptance": "pending",
++    "release_state": "provisional_handoff_waiting_master",
++    "stage6_alias": {
++      "current_resolution_kind": "current",
++      "parent_variant_id": "ATV-00003497",
++      "stage6_claim_id": "S6-CLM-00006685",
++      "stage6_variant_id": "S6-VAR-00007620"
++    },
++    "workflow": "self_tested_nonacceptance"
++  },
++  "item_id": "S5THM-00003497-TARGET",
++  "member_record_sha256": "cd32029cc277893b349e67d73fe78c518238a013e11e4100d73954f0b034b093",
++  "payload": {
++    "decision": "provisional_handoff_waiting_master",
++    "machine_complete": false,
++    "machine_level": "M0-L-candidate",
++    "readability_level": "R0-frontier",
++    "readable_complete": true,
++    "remaining_cut_set": [
++      "exact trust-zero theorem_complete root",
++      "large-n tree-decomposition construction",
++      "independent Master acceptance"
++    ],
++    "theorem_complete": false,
++    "validation_receipt_sha256": "c960e22717f324ba73b226b7d1f12efe168c88a866be42091f2cc0ade1c4ed22"
++  },
++  "program": "stage5-theorem-proof-debt/2.0",
++  "run_id": "r-1786560273-d8ed4f2b",
++  "schema_version": "awesome-theorems/stage5-target-release-decision/2.0",
++  "stage_claim_id": "S5-CLM-00003497"
++}
+
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003497/statement-crosswalk.json b/Stage5_Theorem_Instances/S5-CLM-00003497/statement-crosswalk.json
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003497/statement-crosswalk.json
+@@ -0,0 +1,148 @@
++{
++  "authority_sha256": "8f67866a389ade8810d48eeb1d78b7ae0d2c4364e6e36895cde9be9a8fd8e255",
++  "claim_id": "S5THM-00003497-TARGET--worker",
++  "item_id": "S5THM-00003497-TARGET",
++  "member_record_sha256": "cd32029cc277893b349e67d73fe78c518238a013e11e4100d73954f0b034b093",
++  "payload": {
++    "bidirectional_transport": {
++      "frozen_to_target": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003497.frozen_to_target",
++      "method": "definitional identity",
++      "target_to_frozen": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003497.target_to_frozen",
++      "trust_zero_checked": true
++    },
++    "binders": [
++      {
++        "canonical": "(n : ℕ)",
++        "mode": "explicit",
++        "ordinal": 0,
++        "relation": "identical",
++        "source": "(n : ℕ)"
++      },
++      {
++        "canonical": "{V : Type}",
++        "mode": "implicit",
++        "ordinal": 1,
++        "relation": "identical",
++        "source": "{V : Type}"
++      },
++      {
++        "canonical": "[Finite V]",
++        "mode": "instance",
++        "ordinal": 2,
++        "relation": "identical",
++        "source": "[Finite V]"
++      },
++      {
++        "canonical": "(T : SimpleGraph V)",
++        "mode": "explicit",
++        "ordinal": 3,
++        "relation": "identical",
++        "source": "(T : SimpleGraph V)"
++      },
++      {
++        "canonical": "T.IsTree",
++        "mode": "explicit",
++        "ordinal": 4,
++        "relation": "identical",
++        "source": "T.IsTree"
++      },
++      {
++        "canonical": "T.edgeSet.ncard = n",
++        "mode": "explicit",
++        "ordinal": 5,
++        "relation": "identical",
++        "source": "T.edgeSet.ncard = n"
++      }
++    ],
++    "canonical": {
++      "canonical_type_sha256": "28d0b38d2b325c0a91c657e776ed4a22b918c4c8c4dd0b4192bfac4c21edd21b",
++      "elaborated_proposition": "∀ᶠ (n : ℕ) in Filter.atTop, ∀ {V : Type} [Finite V] (T : SimpleGraph V),\n      T.IsTree → T.edgeSet.ncard = n →\n      ∃ f : Fin (2 * n + 1) → (V ↪ Fin (2 * n + 1)),\n        Pairwise (fun i j => Disjoint (T.map (f i)).edgeSet (T.map (f j)).edgeSet) ∧\n        ⨆ i, T.map (f i) = (⊤ : SimpleGraph (Fin (2 * n + 1)))",
++      "frozen_declaration": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003497.FrozenStatement",
++      "module": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003497.Statement",
++      "statement_file_sha256": "d9866c1894fc5a34d68d9eb8cea2aadec027cb726801206b001fdee532375934",
++      "target_declaration": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003497.Target"
++    },
++    "definition_crosswalk": [
++      {
++        "canonical": "SimpleGraph.IsTree",
++        "relation": "pinned Mathlib definition used identically",
++        "source": "SimpleGraph.IsTree"
++      },
++      {
++        "canonical": "SimpleGraph.map",
++        "relation": "pinned Mathlib operation used identically",
++        "source": "SimpleGraph.map"
++      },
++      {
++        "canonical": "Filter.Eventually atTop",
++        "relation": "pinned Mathlib filter used identically",
++        "source": "Filter.Eventually atTop"
++      }
++    ],
++    "event_crosswalk": {
++      "canonical": "∀ᶠ (n : ℕ) in Filter.atTop, ...",
++      "meaning": "all sufficiently large n admit edge-disjoint copies covering the complete graph",
++      "relation": "identical after namespace replay",
++      "source": "∀ᶠ (n : ℕ) in Filter.atTop, ..."
++    },
++    "exact_type_audit": {
++      "audit_module": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003497.Audit",
++      "direct_example_passed": true,
++      "forward_example_passed": true,
++      "reverse_example_passed": true
++    },
++    "hypotheses": [
++      {
++        "canonical": "T.IsTree",
++        "ordinal": 4,
++        "relation": "identical",
++        "source": "T.IsTree"
++      },
++      {
++        "canonical": "T.edgeSet.ncard = n",
++        "ordinal": 5,
++        "relation": "identical",
++        "source": "T.edgeSet.ncard = n"
++      }
++    ],
++    "mutation_tests": [
++      {
++        "id": "drop-eventual-tail",
++        "mutation": "replace ∀ᶠ n in Filter.atTop by ∀ n",
++        "reason": "formal type digest changes",
++        "rejected": true
++      },
++      {
++        "id": "add-cyclic-shift",
++        "mutation": "add ∀ i v, f i v = f 0 v + i",
++        "reason": "changes Ringel statement to stronger Kotzig statement",
++        "rejected": true
++      },
++      {
++        "id": "replace-tree-premise",
++        "mutation": "replace T.IsTree by T.Connected",
++        "reason": "hypothesis and source type change",
++        "rejected": true
++      },
++      {
++        "id": "remove-cover",
++        "mutation": "drop the supremum equality",
++        "reason": "decomposition conclusion is incomplete",
++        "rejected": true
++      }
++    ],
++    "source": {
++      "declaration_sha256": "4dd19b88b2067d9338a41345f6fc2dcd7adc2a8eccfa1da873a496ad3e73e81d",
++      "declaration_text": "theorem ringel_conjecture_large :\n    ∀ᶠ (n : ℕ) in Filter.atTop, ∀ {V : Type} [Finite V] (T : SimpleGraph V),\n      T.IsTree → T.edgeSet.ncard = n →\n      ∃ f : Fin (2 * n + 1) → (V ↪ Fin (2 * n + 1)),\n        Pairwise (fun i j => Disjoint (T.map (f i)).edgeSet (T.map (f j)).edgeSet) ∧\n        ⨆ i, T.map (f i) = (⊤ : SimpleGraph (Fin (2 * n + 1)))",
++      "formal_type_sha256": "28d0b38d2b325c0a91c657e776ed4a22b918c4c8c4dd0b4192bfac4c21edd21b",
++      "module": "FormalConjectures.Arxiv.2001.02665.RingelConjecture",
++      "qualified_declaration": "Arxiv.«2001.02665».ringel_conjecture_large",
++      "raw_block_sha256": "182f18f79264529f959a407bcc40f545d4481c594beefb4d27b7033f36dcd03c",
++      "statement_sha256": "35435540a5ab207cf09b72ee0e5aef54e9ed6a23062b853e6a55d7929b37cf05"
++    }
++  },
++  "program": "stage5-theorem-proof-debt/2.0",
++  "run_id": "r-1786560273-d8ed4f2b",
++  "schema_version": "awesome-theorems/stage5-target-statement-crosswalk/2.0",
++  "stage_claim_id": "S5-CLM-00003497"
++}

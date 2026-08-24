@@ -1,0 +1,203 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003524-TARGET",
+  "stage_claim_id": "S5-CLM-00003524",
+  "readability_level": "R0",
+  "required_nodes": [
+    "N0",
+    "N1",
+    "N2",
+    "N3",
+    "N4",
+    "N5",
+    "N6",
+    "N7"
+  ],
+  "node_to_anchor": {
+    "N0": "H-N0",
+    "N1": "H-N1",
+    "N2": "H-N2",
+    "N3": "H-N3",
+    "N4": "H-N4",
+    "N5": "H-N5",
+    "N6": "H-N6",
+    "N7": "H-N7"
+  },
+  "anchor_to_fragment": {
+    "H-N0": {
+      "node_id": "N0",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003524/full-study.md#h-n0",
+      "fragment_sha256": "01da0ffef32bfca1d27e537357663dcc6a3b5e69161fae48395d6cdc80383ca8",
+      "hypotheses": [
+        "finite nonempty metric space",
+        "t>0 small"
+      ],
+      "inference": "unfold weighting and matrix inverse",
+      "output": "Z(t)w(t)=1",
+      "formal_anchor": "weighting/similarityMatrix",
+      "downstream_uses": [
+        "N1"
+      ],
+      "exceptional_cases": [
+        "singular isolated scales excluded by eventual invertibility"
+      ],
+      "trust_boundary": "Lean kernel plus pinned Mathlib"
+    },
+    "H-N1": {
+      "node_id": "N1",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003524/full-study.md#h-n1",
+      "fragment_sha256": "314f35ae34970e46d969484c237342cafea21047bd009578fb092084a144a8be",
+      "hypotheses": [
+        "N0",
+        "finite X"
+      ],
+      "inference": "subtract a base row and divide by t",
+      "output": "limiting D-row differences",
+      "formal_anchor": "Matrix.tendsto_inverse_mulVec_of_row_difference_system",
+      "downstream_uses": [
+        "N3",
+        "N4"
+      ],
+      "exceptional_cases": [
+        "right-sided limit supplies t≠0"
+      ],
+      "trust_boundary": "real exponential derivative at zero"
+    },
+    "H-N2": {
+      "node_id": "N2",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003524/full-study.md#h-n2",
+      "fragment_sha256": "21fb09fa012765f60bf4aaea0cc8abc670cbfc3ba24d82f5ee4767481ca14fba",
+      "hypotheses": [
+        "IsUnit det D",
+        "Nonempty X"
+      ],
+      "inference": "invertible row operations and normalization row",
+      "output": "nonsingular limiting system",
+      "formal_anchor": "hdet",
+      "downstream_uses": [
+        "N3"
+      ],
+      "exceptional_cases": [
+        "empty X excluded explicitly"
+      ],
+      "trust_boundary": "finite-dimensional linear algebra"
+    },
+    "H-N3": {
+      "node_id": "N3",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003524/full-study.md#h-n3",
+      "fragment_sha256": "03cc40c33f6afef325f7f20277af748ca3dd7f33de174f85c4badaf91c551219",
+      "hypotheses": [
+        "N1",
+        "N2",
+        "gauging g,c"
+      ],
+      "inference": "continuous inversion at nonsingular limiting matrix",
+      "output": "w(t) tends to g",
+      "formal_anchor": "Matrix.tendsto_inverse_mulVec_of_row_difference_system",
+      "downstream_uses": [
+        "N5"
+      ],
+      "exceptional_cases": [
+        "nearby invertibility follows from determinant continuity"
+      ],
+      "trust_boundary": "topological matrix inversion"
+    },
+    "H-N4": {
+      "node_id": "N4",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003524/full-study.md#h-n4",
+      "fragment_sha256": "2987cfab8d3a09430c36284fc5efd1dcc1d6b3df7d42faa15677208fd6ed1650",
+      "hypotheses": [
+        "microscopic weighting"
+      ],
+      "inference": "pass row-difference equations to the limit",
+      "output": "finite concentration",
+      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003524.forward",
+      "downstream_uses": [
+        "N7"
+      ],
+      "exceptional_cases": [
+        "normalization follows from any original row equation"
+      ],
+      "trust_boundary": "claim-owned theorem only"
+    },
+    "H-N5": {
+      "node_id": "N5",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003524/full-study.md#h-n5",
+      "fragment_sha256": "567f23b002bd2aadd79fad403a946c0656b548f13843863ea885f45238d23693",
+      "hypotheses": [
+        "finite concentration",
+        "IsUnit det D"
+      ],
+      "inference": "apply N3 to the gauging witness",
+      "output": "microscopic weighting",
+      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003524.reverse",
+      "downstream_uses": [
+        "N7"
+      ],
+      "exceptional_cases": [
+        "gauging concentration may have either sign"
+      ],
+      "trust_boundary": "claim-owned theorem only"
+    },
+    "H-N6": {
+      "node_id": "N6",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003524/full-study.md#h-n6",
+      "fragment_sha256": "22103c86b015e528a39c27f969f88bfa8aab96609379fc8e102d8afb975ae3c7",
+      "hypotheses": [
+        "frozen provider record",
+        "qualified target type"
+      ],
+      "inference": "identity transport in both directions",
+      "output": "semantic equivalence",
+      "formal_anchor": "source_to_target/target_to_source",
+      "downstream_uses": [
+        "N7"
+      ],
+      "exceptional_cases": [
+        "provider proof body is not used"
+      ],
+      "trust_boundary": "Master recomputes elaborated expressions"
+    },
+    "H-N7": {
+      "node_id": "N7",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003524/full-study.md#h-n7",
+      "fragment_sha256": "be7a486ac3d57bdf709b18abd7394df469b2451fa2cdb8a20c0e99db8ad9d8db",
+      "hypotheses": [
+        "N4",
+        "N5",
+        "N6"
+      ],
+      "inference": "introduce iff and compose both directions",
+      "output": "target theorem",
+      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003524.audit_root",
+      "downstream_uses": [
+        "Stage6 alias S6-CLM-00004432"
+      ],
+      "exceptional_cases": [
+        "Master acceptance still required"
+      ],
+      "trust_boundary": "trust=0 cold replay"
+    }
+  },
+  "reviewers": [
+    {
+      "reviewer_id": "readability-structure-review",
+      "decision": "pass",
+      "scope": "total injective node/fragment mapping"
+    },
+    {
+      "reviewer_id": "readability-math-review",
+      "decision": "pass",
+      "scope": "hypotheses, inference, output, exceptions and trust"
+    }
+  ],
+  "remaining_readability_cut_set": [],
+  "distilled": {
+    "duplicate_prose_removed": true,
+    "structured_inventory_not_duplicated": true,
+    "mathematical_content_preserved": true,
+    "deletion_mutations_passed": true
+  },
+  "authority_sha256": "084efb45681adde308bb375328cec5783eaef686dbefbe72d6b6ce8cecc7a300"
+}

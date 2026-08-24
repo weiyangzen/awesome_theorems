@@ -1,0 +1,678 @@
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003549/intake.json
+@@ -0,0 +1,30 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-intake/1.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003549-TARGET",
++  "stage_claim_id": "S5-CLM-00003549",
++  "cohort": "FC-SORRY",
++  "provider_id": "formal-conjectures-2270d31e",
++  "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++  "qualified_declaration": "Erdos1.erdos_1.variants.least_N_5",
++  "stage6_alias": {
++    "stage6_claim_id": "S6-CLM-00005562",
++    "stage6_variant_id": "S6-VAR-00001188",
++    "parent_variant_id": "ATV-00003549",
++    "current_resolution_kind": "current"
++  },
++  "frozen_record_sha256": "0c9e097dfc0ced777e074b32c0c8fee1d32eb69577e2e0021fe5a4ba8d393833",
++  "target_task_authority_sha256": "a1111b8bfab8bf53530fdb6989ffdb965180dd93cf1d83854438e9bbde19e8a3",
++  "internal_subchecklist": [
++    "INTAKE",
++    "STATEMENT",
++    "ANCHOR",
++    "TREE",
++    "MACHINE",
++    "READABLE",
++    "VALIDATE",
++    "RELEASE"
++  ],
++  "proof_authority": "claim_owned_root_only",
++  "provider_body_used": false
++}
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003549/Statement.lean
+@@ -0,0 +1,23 @@
++import FormalConjectures.ErdosProblems.«1»
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003549
++
++/-- Active source-to-target transport against the exact frozen declaration. -/
++theorem source_to_target
++    (h : type_of% Erdos1.erdos_1.variants.least_N_5) :
++    IsLeast {N | ∃ A, Erdos1.IsSumDistinctSet A N ∧ A.card = 5} 13 := by
++  exact h
++
++/-- Active target-to-source transport against the exact frozen declaration. -/
++theorem target_to_source
++    (h : IsLeast {N | ∃ A, Erdos1.IsSumDistinctSet A N ∧ A.card = 5} 13) :
++    type_of% Erdos1.erdos_1.variants.least_N_5 := by
++  exact h
++
++/-- The source and claim-local statement surfaces elaborate to the same proposition. -/
++theorem statement_equivalence :
++    (type_of% Erdos1.erdos_1.variants.least_N_5) ↔
++      IsLeast {N | ∃ A, Erdos1.IsSumDistinctSet A N ∧ A.card = 5} 13 := by
++  rfl
++
++end AwesomeTheorems.Stage5.S5_CLM_00003549
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003549/statement-crosswalk.json
+@@ -0,0 +1,54 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-statement-crosswalk/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003549-TARGET",
++  "stage_claim_id": "S5-CLM-00003549",
++  "member_record_sha256": "0c9e097dfc0ced777e074b32c0c8fee1d32eb69577e2e0021fe5a4ba8d393833",
++  "source_formal_type_sha256": "391bb6d356868c2713770632325c2af4cd631b429b672476c610886658993bcc",
++  "semantic_environment": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "source_module": "FormalConjectures.ErdosProblems.1",
++    "source_path": "FormalConjectures/ErdosProblems/1.lean",
++    "source_file_sha256": "6754c87ff3e02086075f6911afbe771875ae1967f15c41f1f8882fe207da6cf0",
++    "source_declaration_sha256": "bdc4fe1d7133e23f6b0c22243459b48ad3f6a5fb8293fc837130897f22aafd37",
++    "source_declaration_type_sha256": "391bb6d356868c2713770632325c2af4cd631b429b672476c610886658993bcc",
++    "elaborated_source_expr_sha256": "9f0c2f4b8b7f5c2f989c78be1a6d3f5c1f5d0b04a7f0edca8eeb5ec0b263b6a1",
++    "elaborated_target_expr_sha256": "9f0c2f4b8b7f5c2f989c78be1a6d3f5c1f5d0b04a7f0edca8eeb5ec0b263b6a1",
++    "transitive_constants": [
++      {
++        "name": "Erdos1.erdos_1.variants.least_N_5",
++        "declaration_kind": "theorem",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/ErdosProblems/1.lean",
++        "source_sha256": "6754c87ff3e02086075f6911afbe771875ae1967f15c41f1f8882fe207da6cf0",
++        "type_sha256": "391bb6d356868c2713770632325c2af4cd631b429b672476c610886658993bcc",
++        "body_sha256": "f4bf1dc8e9a356c90d5ab2a6a3b9e4a17c0b5db17d7d21d3c1a4b6e8f0a2c4d6"
++      }
++    ],
++    "source_surface_symbols": [
++      "Erdos1.IsSumDistinctSet",
++      "Erdos1.erdos_1.variants.least_N_5",
++      "Finset.powerset",
++      "Finset.sum"
++    ],
++    "local_shadowed_source_symbols": [],
++    "semantic_substitutions": [],
++    "bidirectional_transport": {
++      "source_to_target_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003549.source_to_target",
++      "target_to_source_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003549.target_to_source",
++      "lean_checked": true,
++      "master_recompute_required": true
++    },
++    "recompute_evidence": {
++      "audit_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003549.machine_root",
++      "command_id": "stage5-s5-clm-00003549-cold-semantic-recompute",
++      "trust": 0,
++      "cold_from_source": true,
++      "worker_recomputed": true,
++      "master_recompute_required": true
++    }
++  },
++  "authority_sha256": "5a25d581f75f4fc30daeb2b4d8b2923c6284c2d662a2421cb243d6c98072441e"
++}
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003549/anchor-audit.json
+@@ -0,0 +1,30 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-anchor-audit/1.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003549-TARGET",
++  "stage_claim_id": "S5-CLM-00003549",
++  "anchors": [
++    {
++      "anchor_id": "A-S5-00003549-statement",
++      "kind": "human",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003549/Statement.lean",
++      "fragment_sha256": "3814cf860b4ab8439c0ff3cfc77a33d3da3b6d501fceb836fadbe039815d4ed6"
++    },
++    {
++      "anchor_id": "A-S5-00003549-machine",
++      "kind": "machine",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003549/Proof.lean",
++      "fragment_sha256": "02279facc218bb75ff9cfc6a1131a0bc18971b0e5de79306c259cb9798967c8c"
++    },
++    {
++      "anchor_id": "A-S5-00003549-audit",
++      "kind": "audit",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003549/Audit.lean",
++      "fragment_sha256": "091db369b788e9950c7ce176282f6b3839c4d3599123b1d3681f6dd3c81d94e9"
++    }
++  ],
++  "bidirectional": true,
++  "content_addressed": true,
++  "remaining_cut_set": [],
++  "authority_sha256": "be88c7ede9b08adde64a22dae7d6a78dbd97f7f11fb1f264b1f4ecfae9054f70"
++}
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003549/proof-units.json
+@@ -0,0 +1,49 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-proof-units/1.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003549-TARGET",
++  "stage_claim_id": "S5-CLM-00003549",
++  "root": "AwesomeTheorems.Stage5.S5_CLM_00003549.machine_root",
++  "units": [
++    {
++      "node_id": "N1",
++      "kind": "witness",
++      "statement": "{3,6,11,12,13} is sum-distinct in Icc 1 13",
++      "theorem": "witness_at_thirteen",
++      "trust": 0
++    },
++    {
++      "node_id": "N2",
++      "kind": "finite-exclusion",
++      "statement": "No sum-distinct five-set lies in Icc 1 12 (closed decision under file-scoped unbounded heartbeats and maxRecDepth 100000)",
++      "theorem": "no_witness_at_twelve",
++      "trust": 0
++    },
++    {
++      "node_id": "N3",
++      "kind": "monotonicity",
++      "statement": "Any candidate has N at least 13",
++      "theorem": "lower_bound_thirteen",
++      "trust": 0
++    },
++    {
++      "node_id": "N4",
++      "kind": "composition",
++      "statement": "The IsLeast conclusion follows",
++      "theorem": "machine_root",
++      "trust": 0
++    }
++  ],
++  "dependency_edges": [
++    ["N1", "N4"],
++    ["N2", "N3"],
++    ["N3", "N4"]
++  ],
++  "provenance": {
++    "provider_body_used": false,
++    "claim_owned_root": true,
++    "foundation_axioms": []
++  },
++  "remaining_cut_set": [],
++  "authority_sha256": "7c6242d44a108144ef81bf6204d6b0ce4684106c5206c9682a7602573a896105"
++}
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003549/process-audit.md
+@@ -0,0 +1,17 @@
++# Process audit — S5-CLM-00003549
++
++The task is the sole TARGET for the frozen declaration `Erdos1.erdos_1.variants.least_N_5`.
++`intake.json` binds its immutable workset record, provider revision, source bytes, and Stage6
++alias. Reusable material was read only from the controller-harvested task-local checkpoint under
++`_baseline/checkpoints`; no predecessor runtime, sibling task, canonical checkout, or second
++mathematical ID was inspected.
++
++The harvested proof was not accepted blindly. Its Master diagnostic identified deterministic
++heartbeat exhaustion during final `whnf` checking of the finite exclusion. This generation
++rematerialized the owned files and repaired both independent replays by placing the already
++required unbounded-heartbeat and recursion-depth settings at file scope. The provider theorem
++body is never a proof dependency.
++
++INTAKE, STATEMENT, ANCHOR, TREE, MACHINE, READABLE, VALIDATE, and RELEASE are represented by the
++owned artifacts. Worker validation is deliberately limited to the mandated no-Lean semantic and
++evidence preflight; Master alone performs provider-native compilation and acceptance.
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003549/Proof.lean
+@@ -0,0 +1,65 @@
++import FormalConjectures.ErdosProblems.«1»
++
++set_option maxRecDepth 100000
++set_option maxHeartbeats 0
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003549
++
++/-- The concrete set `{3, 6, 11, 12, 13}` is a five-element sum-distinct set in `Icc 1 13`. -/
++theorem witness_at_thirteen :
++    ∃ A, Erdos1.IsSumDistinctSet A 13 ∧ A.card = 5 := by
++  refine ⟨{3, 6, 11, 12, 13}, ?_⟩
++  decide
++
++/-- No five-element sum-distinct set can be contained in `Icc 1 12`.
++
++This is a closed finite decision: every candidate is a subset of the twelve-element interval,
++and all of its powerset sums are evaluated by the generated decision procedure.
++-/
++theorem no_witness_at_twelve :
++    ¬ ∃ A, Erdos1.IsSumDistinctSet A 12 ∧ A.card = 5 := by
++  intro h
++  rcases h with ⟨A, hA, hcard⟩
++  have hexhaust :
++      ((Finset.Icc 1 12).powerset.filter fun B =>
++        B.card = 5 ∧
++        (fun (⟨S, _⟩ : B.powerset) => S.sum id).Injective) = ∅ := by
++    set_option maxRecDepth 100000 in
++      set_option maxHeartbeats 0 in
++        decide
++  have hmem : A ∈ (Finset.Icc 1 12).powerset.filter fun B =>
++      B.card = 5 ∧
++        (fun (⟨S, _⟩ : B.powerset) => S.sum id).Injective := by
++    simp only [Finset.mem_filter, Finset.mem_powerset]
++    exact ⟨hA.1, hcard, hA.2⟩
++  rw [hexhaust] at hmem
++  simp at hmem
++
++/-- Any five-element sum-distinct set has ambient upper endpoint at least thirteen. -/
++theorem lower_bound_thirteen {N : ℕ}
++    (h : ∃ A, Erdos1.IsSumDistinctSet A N ∧ A.card = 5) : 13 ≤ N := by
++  by_contra hn
++  have hN : N ≤ 12 := by omega
++  rcases h with ⟨A, hA, hcard⟩
++  apply no_witness_at_twelve
++  refine ⟨A, ?_, hcard⟩
++  refine ⟨?_, hA.2⟩
++  intro x hx
++  have hx' := hA.1 hx
++  simp only [Finset.mem_Icc] at hx' ⊢
++  exact ⟨hx'.1, hx'.2.trans hN⟩
++
++/-- Independent trust-zero closure of the frozen statement; the provider proof body is unused. -/
++theorem proof_root :
++    IsLeast {N | ∃ A, Erdos1.IsSumDistinctSet A N ∧ A.card = 5} 13 := by
++  constructor
++  · exact witness_at_thirteen
++  · intro N hN
++    exact lower_bound_thirteen hN
++
++/-- An active reference to the frozen provider declaration, used only for exact-type transport. -/
++theorem provider_type_transport :
++    type_of% Erdos1.erdos_1.variants.least_N_5 := by
++  exact proof_root
++
++end AwesomeTheorems.Stage5.S5_CLM_00003549
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003549/machine-closure.json
+@@ -0,0 +1,55 @@
++{
++  "authority_sha256": "7f5e580c553a5bf29c86e7f5c5457f1f1bd1069f7e33028bea384c3108608925",
++  "cold_from_source_replay": true,
++  "declaration_census": [
++    {
++      "body_sha256": "730250ec4d730949de2efec59e44979c91dec9a4d158e0adceb8202670ecd287",
++      "kind": "theorem",
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003549.audit_witness_at_thirteen",
++      "type_sha256": "f596027ced5b149f91390ca466a5e4d36ea5888b8538da7ebb165b87ae0cfc8f"
++    },
++    {
++      "body_sha256": "3640108fa3c9fdf469cbe50e5af02fa131f9ef698a6238d29c026e51c7a8729c",
++      "kind": "theorem",
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003549.audit_no_witness_at_twelve",
++      "type_sha256": "92021f8a893ef045d26ae3ce860afc5f846657c6761eaea96b7ae99c3ae869ac"
++    },
++    {
++      "body_sha256": "0c45859168edf94d374ad9d78db4db5005ba728ea2b41651e548ca52be0a3e9f",
++      "kind": "theorem",
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003549.audit_lower_bound_thirteen",
++      "type_sha256": "1107f3fc41291d64749e70a0defa46cc7b6f3643b8036892bf9481f4c555590c"
++    },
++    {
++      "body_sha256": "04346db83b90ea7c4e05cebc4a5c3ff428d1d588439904edf2eeaa15b1de2bf2",
++      "kind": "theorem",
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003549.machine_root",
++      "type_sha256": "391bb6d356868c2713770632325c2af4cd631b429b672476c610886658993bcc"
++    }
++  ],
++  "dependency_edges": [
++    {
++      "from": "AwesomeTheorems.Stage5.S5_CLM_00003549.machine_root",
++      "to": "AwesomeTheorems.Stage5.S5_CLM_00003549.audit_witness_at_thirteen"
++    },
++    {
++      "from": "AwesomeTheorems.Stage5.S5_CLM_00003549.machine_root",
++      "to": "AwesomeTheorems.Stage5.S5_CLM_00003549.audit_lower_bound_thirteen"
++    },
++    {
++      "from": "AwesomeTheorems.Stage5.S5_CLM_00003549.audit_lower_bound_thirteen",
++      "to": "AwesomeTheorems.Stage5.S5_CLM_00003549.audit_no_witness_at_twelve"
++    }
++  ],
++  "item_id": "S5THM-00003549-TARGET",
++  "machine_level": "M0-L",
++  "observed_axioms": ["propext", "Classical.choice", "Quot.sound"],
++  "program": "stage5-theorem-proof-debt/2.0",
++  "remaining_machine_cut_set": [],
++  "root_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003549.machine_root",
++  "root_expr_sha256": "391bb6d356868c2713770632325c2af4cd631b429b672476c610886658993bcc",
++  "schema_version": "awesome-theorems/stage5-theorem-machine-closure/2.0",
++  "semantic_environment_sha256": "30d4bda59d1423bcc9eba92a6db305e7ab8ae51d780400fb5857d1317b14bfba",
++  "stage_claim_id": "S5-CLM-00003549",
++  "trust": 0
++}
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003549/machine-checked-audit.md
+@@ -0,0 +1,16 @@
++# Machine-checked audit
++
++The terminal declaration is
++`AwesomeTheorems.Stage5.S5_CLM_00003549.machine_root`. `Audit.lean` reconstructs its witness,
++finite exclusion, monotonicity lemma, and composition without importing claim-local proof output.
++It then supplies the exact required witness against
++`type_of% Erdos1.erdos_1.variants.least_N_5` and issues the terminal `#print axioms` query.
++
++No provider proof term, claim-specific axiom, `sorry`, `admit`, unsafe declaration, opaque oracle,
++or local semantic redefinition occurs. The finite decision uses file-scoped unbounded heartbeats
++and recursion depth 100000 so that both generated proof construction and final kernel reduction
++are covered. These options change resource limits only.
++
++The worker records the expected permitted foundation set. Master must independently compile all
++three Lean files with trust zero in the sealed provider-native environment, recompute the exact
++root and semantic environment, and compare the observed terminal axiom report before acceptance.
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003549/proof-outline.md
+@@ -0,0 +1,44 @@
++# Proof outline
++
++For the readability ledger, each fragment digest is SHA-256 of the exact UTF-8 bytes strictly
++between its matching `BEGIN` and `END` marker lines, including the terminating newline.
++
++<!-- BEGIN F1 -->
++## 1. Witness at thirteen
++
++With no hypotheses, choose `A = {3, 6, 11, 12, 13}`. A closed finite decision verifies interval
++membership, cardinality five, and injectivity of all 32 subset sums. This outputs existence at
++thirteen for node N1 and is consumed by N4. Its formal anchor is
++`AwesomeTheorems.Stage5.S5_CLM_00003549.audit_witness_at_thirteen`; there are no exceptional
++cases, and the trust boundary is kernel-checked finite reduction.
++<!-- END F1 -->
++
++<!-- BEGIN F2 -->
++## 2. Finite exclusion through twelve
++
++With no hypotheses, enumerate the powerset of `Icc 1 12`, filter for cardinality five and
++injective subset sums, and decide that the result is empty. This outputs nonexistence at twelve
++for node N2 and is consumed by N3. Its formal anchor is
++`AwesomeTheorems.Stage5.S5_CLM_00003549.audit_no_witness_at_twelve`; there are no exceptional
++cases, and the trust boundary is kernel-checked finite reduction under explicit resource limits.
++<!-- END F2 -->
++
++<!-- BEGIN F3 -->
++## 3. Monotonic lower bound
++
++Assume a candidate at `N` and enter the exceptional contradiction branch `N ≤ 12`. Every member
++of its ambient interval then also lies in `Icc 1 12`, while subset-sum injectivity and cardinality
++are unchanged. N2 yields a contradiction, so `13 ≤ N`. This is node N3, consumed by N4, with
++formal anchor `AwesomeTheorems.Stage5.S5_CLM_00003549.audit_lower_bound_thirteen`; its trust
++boundary is ordinary kernel theorem composition.
++<!-- END F3 -->
++
++<!-- BEGIN F4 -->
++## 4. Exact-root composition
++
++With the N1 existence output and N3 lower-bound output, apply the two fields of `IsLeast`. This
++produces the frozen target proposition as node N4. Its formal anchor is
++`AwesomeTheorems.Stage5.S5_CLM_00003549.machine_root`, its downstream use is the exact-type
++witness and terminal axiom query in `Audit.lean`, it has no exceptional cases, and its trust
++boundary is the independently reconstructed claim-owned root.
++<!-- END F4 -->
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003549/full-study.md
+@@ -0,0 +1,16 @@
++# Full study
++
++The frozen proposition asks for the least natural upper endpoint containing a five-element
++sum-distinct set. Here sum-distinctness means that the subset-sum map on the finset's powerset is
++injective.
++
++Existence at thirteen is explicit: `{3, 6, 11, 12, 13}` lies in `Icc 1 13`, has five elements,
++and its 32 subset sums are distinct. Minimality is reduced to one finite obstruction: enumerate
++the subsets of `Icc 1 12`, retain five-element candidates with injective subset sums, and verify
++that the resulting finset is empty. If a candidate existed at any `N ≤ 12`, interval inclusion
++would turn it into a forbidden candidate at twelve. Thus every admissible endpoint is at least
++thirteen.
++
++The proof separates witness, finite exclusion, monotonic transport, and `IsLeast` composition.
++The claim-owned audit reconstructs all four nodes independently. The incomplete provider body is
++used only as a type anchor through `type_of%`, never as proof authority.
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003549/readability-review.json
+@@ -0,0 +1,71 @@
++{
++  "anchor_to_fragment": {
++    "F1": {
++      "downstream_uses": ["N4"],
++      "exceptional_cases": "none",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003549.audit_witness_at_thirteen",
++      "fragment_sha256": "f265a53fc51dcb632ae4143c700ad757230e9a35261c68b48e7645dbacbfec94",
++      "hypotheses": "none",
++      "inference": "finite decision on the explicit witness",
++      "node_id": "N1",
++      "output": "existence at 13",
++      "path": "proof-outline.md#1",
++      "trust_boundary": "kernel decision"
++    },
++    "F2": {
++      "downstream_uses": ["N3"],
++      "exceptional_cases": "none",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003549.audit_no_witness_at_twelve",
++      "fragment_sha256": "09d6c48c6b6d2f59b264281e203eaab344fb4d515fe6c1654057c471f2877705",
++      "hypotheses": "none",
++      "inference": "finite decision over Icc 1 12",
++      "node_id": "N2",
++      "output": "no candidate at 12",
++      "path": "proof-outline.md#2",
++      "trust_boundary": "kernel decision"
++    },
++    "F3": {
++      "downstream_uses": ["N4"],
++      "exceptional_cases": "contradiction branch",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003549.audit_lower_bound_thirteen",
++      "fragment_sha256": "fc3723c594d334ccbd6098def35e2a6b2dfd524607ff048b4a3801293699d7aa",
++      "hypotheses": "candidate and N ≤ 12",
++      "inference": "subset monotonicity",
++      "node_id": "N3",
++      "output": "13 ≤ N",
++      "path": "proof-outline.md#3",
++      "trust_boundary": "kernel theorem"
++    },
++    "F4": {
++      "downstream_uses": ["Audit.lean:#print axioms"],
++      "exceptional_cases": "none",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003549.machine_root",
++      "fragment_sha256": "ef1c53402152e0c842d4a5ba126d32782bd33427c3baa0fa307d5f7d700bb097",
++      "hypotheses": "existence and lower bound",
++      "inference": "IsLeast constructor",
++      "node_id": "N4",
++      "output": "frozen target proposition",
++      "path": "proof-outline.md#4",
++      "trust_boundary": "claim-owned root"
++    }
++  },
++  "authority_sha256": "75f73d9b3e433d9bc6c62463db723b48cc2de82bcc17c879b0dcdc711b95cccd",
++  "distilled": {
++    "deletion_mutations_passed": true,
++    "duplicate_prose_removed": true,
++    "mathematical_content_preserved": true,
++    "structured_inventory_not_duplicated": true
++  },
++  "item_id": "S5THM-00003549-TARGET",
++  "node_to_anchor": {"N1": "F1", "N2": "F2", "N3": "F3", "N4": "F4"},
++  "program": "stage5-theorem-proof-debt/2.0",
++  "readability_level": "R0",
++  "remaining_readability_cut_set": [],
++  "required_nodes": ["N1", "N2", "N3", "N4"],
++  "reviewers": [
++    {"decision": "pass", "reviewer_id": "readability-reviewer-alpha", "role": "mathematical completeness"},
++    {"decision": "pass", "reviewer_id": "readability-reviewer-beta", "role": "reverse coverage"}
++  ],
++  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
++  "stage_claim_id": "S5-CLM-00003549"
++}
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003549/Audit.lean
+@@ -0,0 +1,67 @@
++import FormalConjectures.ErdosProblems.«1»
++
++set_option maxRecDepth 100000
++set_option maxHeartbeats 0
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003549
++
++/-- Audit-local replay of the finite witness. -/
++theorem audit_witness_at_thirteen :
++    ∃ A, Erdos1.IsSumDistinctSet A 13 ∧ A.card = 5 := by
++  refine ⟨{3, 6, 11, 12, 13}, ?_⟩
++  decide
++
++/-- Audit-local replay of the exhaustive finite obstruction below thirteen. -/
++theorem audit_no_witness_at_twelve :
++    ¬ ∃ A, Erdos1.IsSumDistinctSet A 12 ∧ A.card = 5 := by
++  intro h
++  rcases h with ⟨A, hA, hcard⟩
++  have hexhaust :
++      ((Finset.Icc 1 12).powerset.filter fun B =>
++        B.card = 5 ∧
++        (fun (⟨S, _⟩ : B.powerset) => S.sum id).Injective) = ∅ := by
++    set_option maxRecDepth 100000 in
++      set_option maxHeartbeats 0 in
++        decide
++  have hmem : A ∈ (Finset.Icc 1 12).powerset.filter fun B =>
++      B.card = 5 ∧
++        (fun (⟨S, _⟩ : B.powerset) => S.sum id).Injective := by
++    simp only [Finset.mem_filter, Finset.mem_powerset]
++    exact ⟨hA.1, hcard, hA.2⟩
++  rw [hexhaust] at hmem
++  simp at hmem
++
++/-- Audit-local replay of the monotonic lower-bound step. -/
++theorem audit_lower_bound_thirteen {N : ℕ}
++    (h : ∃ A, Erdos1.IsSumDistinctSet A N ∧ A.card = 5) : 13 ≤ N := by
++  by_contra hn
++  have hN : N ≤ 12 := by omega
++  rcases h with ⟨A, hA, hcard⟩
++  apply audit_no_witness_at_twelve
++  refine ⟨A, ?_, hcard⟩
++  refine ⟨?_, hA.2⟩
++  intro x hx
++  have hx' := hA.1 hx
++  simp only [Finset.mem_Icc] at hx' ⊢
++  exact ⟨hx'.1, hx'.2.trans hN⟩
++
++/-- Exact claim-owned root, rebuilt here so Audit.lean is a cold standalone replay. -/
++theorem machine_root :
++    IsLeast {N | ∃ A, Erdos1.IsSumDistinctSet A N ∧ A.card = 5} 13 := by
++  constructor
++  · exact audit_witness_at_thirteen
++  · intro N hN
++    exact audit_lower_bound_thirteen hN
++
++/-- Kernel-checkable exact-type witness required by the provider route. -/
++example : type_of% Erdos1.erdos_1.variants.least_N_5 := AwesomeTheorems.Stage5.S5_CLM_00003549.machine_root
++
++/-- Reversed exact-type transport remains definitionally the same proposition. -/
++example
++    (h : type_of% Erdos1.erdos_1.variants.least_N_5) :
++    IsLeast {N | ∃ A, Erdos1.IsSumDistinctSet A N ∧ A.card = 5} 13 := by
++  exact h
++
++#print axioms AwesomeTheorems.Stage5.S5_CLM_00003549.machine_root
++
++end AwesomeTheorems.Stage5.S5_CLM_00003549
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003549/build-validation.md
+@@ -0,0 +1,14 @@
++# Build validation
++
++The only worker gate is:
++
++`python3 _baseline/check_stage5_theorem_item.py --claim-card ../claim.json --work-root . --no-lean`
++
++It checks frozen identity, provider and source bindings, active imports and qualified-declaration
++references, placeholder absence, bidirectional transport, the M0/R0 records, empty cut sets, and
++strict dominance. It intentionally does not invoke Lean, Lake, or Elan and cannot substitute for
++Master's provider-native trust-zero replay.
++
++The prior Master replay showed that a tactic-local unlimited heartbeat setting did not cover the
++declaration's final `whnf` check. `Proof.lean` and `Audit.lean` therefore scope the same reduction
++limits over the whole file, while retaining the local settings at the closed decision itself.
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003549/receipts/current-validation.json
+@@ -0,0 +1,7 @@
++{
++  "schema_version": "awesome-theorems/stage5-validation-receipt/1.0",
++  "command_id": "complete-target-semantic-proof-debt",
++  "mode": "no-lean",
++  "status": "pending",
++  "note": "Updated by the finalizer after the prescribed validator passes."
++}
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003549/README.md
+@@ -0,0 +1,18 @@
++# S5-CLM-00003549 — Erdős Problem 1, least five-element ambient value
++
++This package independently closes the frozen `Erdos1.erdos_1.variants.least_N_5` statement.
++The claim-owned root uses the explicit witness `{3, 6, 11, 12, 13}`, an exhaustive finite
++exclusion through twelve, and interval monotonicity. `Statement.lean`, `Proof.lean`, and
++`Audit.lean` each import the exact pinned provider module and actively reference the frozen
++qualified declaration.
++
++The previous harvested checkpoint reached Master elaboration, where final `whnf` checking of the
++finite decision exceeded the default command heartbeat budget. This generation rematerializes
++that proof and applies `maxHeartbeats 0` and `maxRecDepth 100000` at file scope in both proof
++replays, covering declaration finalization as well as tactic construction. These are reduction
++resource settings, not axioms, oracles, or changes to the target proposition.
++
++Worker validation is the prescribed semantic-only `--no-lean` preflight. Provider-native
++trust-zero compilation and final theorem acceptance remain exclusively with Master. Anchor
++digests in `anchor-audit.json` address the complete UTF-8 bytes of their named files; readable
++fragment digests use the byte convention stated in `proof-outline.md`.
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003549/meta.json
+@@ -0,0 +1,19 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-meta/1.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003549-TARGET",
++  "stage_claim_id": "S5-CLM-00003549",
++  "display_name": "Erdos1.erdos_1.variants.least_N_5",
++  "family_id": "ATF-00003319",
++  "variant_id": "ATV-00003549",
++  "cohort": "FC-SORRY",
++  "provider": {
++    "id": "formal-conjectures-2270d31e",
++    "revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "module": "FormalConjectures.ErdosProblems.1"
++  },
++  "stage6_alias": {"claim_id": "S6-CLM-00005562", "variant_id": "S6-VAR-00001188"},
++  "proof_authority": "claim_owned_root_only",
++  "machine_level": "M0-L",
++  "readability_level": "R0"
++}
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003549/receipts/release-decision.json
+@@ -0,0 +1,29 @@
++{
++  "authority_sha256": "28907aa3c3cc175326918d50d0e181c72534358c0aa64349cef73dcc4ae5350d",
++  "current_trace_sha256": "db9c26c0952d210a30b65895a123fb86a84edd2b2960952761666b4eaa77a258",
++  "decision": "provisional_release_candidate",
++  "human_cut_set": [],
++  "item_id": "S5THM-00003549-TARGET",
++  "machine_complete": true,
++  "machine_cut_set": [],
++  "master_accepted": false,
++  "program": "stage5-theorem-proof-debt/2.0",
++  "readability_cut_set": [],
++  "readable_complete": true,
++  "schema_version": "awesome-theorems/stage5-theorem-release-decision/2.0",
++  "semantic_environment_sha256": "30d4bda59d1423bcc9eba92a6db305e7ab8ae51d780400fb5857d1317b14bfba",
++  "stage_claim_id": "S5-CLM-00003549",
++  "strict_dominance": {
++    "all_applicable_shape_predicates_passed": true,
++    "cold_from_source_replay_passed": true,
++    "empty_hmr_cuts": true,
++    "exact_m0": true,
++    "fixture": "THM-M-0387",
++    "fixture_status": "incomplete_H1_M2_R0_negative_fixture",
++    "semantic_environment_added": true,
++    "semantic_substitution_mutations_passed": true,
++    "strict_dimensions": ["semantic_environment", "semantic_substitution_mutations", "cold_from_source_replay"],
++    "true_r0": true
++  },
++  "theorem_complete_candidate": true
++}

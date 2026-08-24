@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://awesome-theorems.invalid/stage5-1-organization/schemas/dependency-assessment.schema.json",
+  "title": "Stage5.1 dependency assessment JSONL row",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "assessment_id", "object_id", "item_id", "evidence_scope",
+    "audit_status", "outgoing_edge_ids", "incoming_edge_ids", "hard_prerequisite_item_ids",
+    "unknown_reasons", "evidence", "record_sha256"
+  ],
+  "properties": {
+    "schema_version": {"$ref": "common.schema.json#/$defs/schema_version"},
+    "assessment_id": {"$ref": "common.schema.json#/$defs/assessment_id"},
+    "object_id": {"$ref": "common.schema.json#/$defs/object_id"},
+    "item_id": {"$ref": "common.schema.json#/$defs/member_item_id"},
+    "evidence_scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scope_kind", "statement_bound", "proof_body_traversed", "artifact_consumption_checked"],
+      "properties": {
+        "scope_kind": {"enum": ["source_metadata_only", "statement_review", "proof_body_review", "exact_artifact_replay"]},
+        "statement_bound": {"type": "boolean"},
+        "proof_body_traversed": {"type": "boolean"},
+        "artifact_consumption_checked": {"type": "boolean"}
+      }
+    },
+    "audit_status": {"$ref": "common.schema.json#/$defs/audit_status"},
+    "outgoing_edge_ids": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/edge_id"}, "uniqueItems": true},
+    "incoming_edge_ids": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/edge_id"}, "uniqueItems": true},
+    "hard_prerequisite_item_ids": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/member_item_id"}, "uniqueItems": true},
+    "unknown_reasons": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "evidence": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/evidence_ref"}, "uniqueItems": true},
+    "record_sha256": {"$ref": "common.schema.json#/$defs/sha256"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"audit_status": {"const": "unknown_not_independent_proof_claim"}}, "required": ["audit_status"]},
+      "then": {"properties": {"unknown_reasons": {"minItems": 1}}}
+    },
+    {
+      "if": {"properties": {"audit_status": {"const": "audited_edges_present"}}, "required": ["audit_status"]},
+      "then": {
+        "anyOf": [
+          {"properties": {"outgoing_edge_ids": {"minItems": 1}}},
+          {"properties": {"incoming_edge_ids": {"minItems": 1}}}
+        ]
+      }
+    },
+    {
+      "if": {"properties": {"audit_status": {"const": "source_edges_present_pending_review"}}, "required": ["audit_status"]},
+      "then": {
+        "anyOf": [
+          {"properties": {"outgoing_edge_ids": {"minItems": 1}}},
+          {"properties": {"incoming_edge_ids": {"minItems": 1}}}
+        ]
+      }
+    },
+    {
+      "if": {"properties": {"audit_status": {"const": "audited_no_admitted_edge"}}, "required": ["audit_status"]},
+      "then": {
+        "properties": {
+          "evidence_scope": {
+            "properties": {
+              "scope_kind": {"enum": ["proof_body_review", "exact_artifact_replay"]},
+              "proof_body_traversed": {"const": true}
+            },
+            "required": ["scope_kind", "proof_body_traversed"]
+          },
+          "evidence": {"minItems": 1}
+        }
+      }
+    }
+  ]
+}

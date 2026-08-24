@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://awesome-theorems.invalid/stage5-1-organization/schemas/organization-workset.schema.json",
+  "title": "Stage5.1 program organization workset JSONL row",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "program", "object_id", "object_kind", "item_id", "legacy_item_id",
+    "object_index_record_sha256", "id_crosswalk_record_sha256", "subject_assignment_id",
+    "subject_assignment_record_sha256", "dependency_assessment_id",
+    "dependency_assessment_record_sha256", "dependency_closure_record_sha256",
+    "execution_dependency_item_ids", "initial_state", "record_sha256"
+  ],
+  "properties": {
+    "schema_version": {"$ref": "common.schema.json#/$defs/schema_version"},
+    "program": {"$ref": "common.schema.json#/$defs/program"},
+    "object_id": {"$ref": "common.schema.json#/$defs/object_id"},
+    "object_kind": {"$ref": "common.schema.json#/$defs/member_kind"},
+    "item_id": {"$ref": "common.schema.json#/$defs/member_item_id"},
+    "legacy_item_id": {"$ref": "common.schema.json#/$defs/legacy_item_id"},
+    "object_index_record_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+    "id_crosswalk_record_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+    "subject_assignment_id": {"$ref": "common.schema.json#/$defs/assignment_id"},
+    "subject_assignment_record_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+    "dependency_assessment_id": {"$ref": "common.schema.json#/$defs/assessment_id"},
+    "dependency_assessment_record_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+    "dependency_closure_record_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+    "execution_dependency_item_ids": {
+      "type": "array", "items": {"$ref": "common.schema.json#/$defs/member_item_id"}, "uniqueItems": true
+    },
+    "initial_state": {"$ref": "common.schema.json#/$defs/stage51_initial_state"},
+    "record_sha256": {"$ref": "common.schema.json#/$defs/sha256"}
+  }
+}

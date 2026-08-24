@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://awesome-theorems.invalid/stage5-1-organization/schemas/organization-manifest.schema.json",
+  "title": "Stage5.1 organization release manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "organization_release", "blueprint_revision",
+    "base_catalog_release", "not_catalog_release_5_1", "generated_at",
+    "input_manifest", "counts", "subject_id_registry", "artifacts", "schemas",
+    "candidate_output_root_sha256", "canonicalization", "generator",
+    "activation", "authority_sha256"
+  ],
+  "properties": {
+    "schema_version": {"$ref": "common.schema.json#/$defs/schema_version"},
+    "organization_release": {"$ref": "common.schema.json#/$defs/organization_release"},
+    "blueprint_revision": {"$ref": "common.schema.json#/$defs/blueprint_revision"},
+    "base_catalog_release": {"$ref": "common.schema.json#/$defs/base_catalog_release"},
+    "not_catalog_release_5_1": {"const": true},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "input_manifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "authority_sha256"],
+      "properties": {
+        "path": {"$ref": "common.schema.json#/$defs/repo_path"},
+        "sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+        "authority_sha256": {"$ref": "common.schema.json#/$defs/sha256"}
+      }
+    },
+    "counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][a-z0-9_]*$": {"type": "integer", "minimum": 0}
+      },
+      "minProperties": 1
+    },
+    "subject_id_registry": {
+      "type": "object", "additionalProperties": false,
+      "required": ["path", "sha256", "rows"],
+      "properties": {
+        "path": {"$ref": "common.schema.json#/$defs/repo_path"},
+        "sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+        "rows": {"type": "integer", "minimum": 1}
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "common.schema.json#/$defs/artifact_ref"},
+      "uniqueItems": true
+    },
+    "schemas": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "common.schema.json#/$defs/schema_ref"},
+      "uniqueItems": true
+    },
+    "candidate_output_root_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+    "canonicalization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "json", "jsonl", "msc_source", "object_seal", "record_seal",
+        "sorted_primary_ids"
+      ],
+      "properties": {
+        "json": {"const": "UTF-8 sorted keys no NaN final LF"},
+        "jsonl": {"const": "canonical compact rows sorted by stable ID final LF"},
+        "msc_source": {"const": "preserve exact ISO-8859-1 tab-delimited bytes"},
+        "object_seal": {"const": "sha256 canonical JSON excluding authority_sha256"},
+        "record_seal": {"const": "sha256 canonical JSON excluding record_sha256"},
+        "sorted_primary_ids": {"const": true}
+      }
+    },
+    "generator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "builder_path", "builder_sha256", "common_path", "common_sha256",
+        "checker_path", "checker_sha256"
+      ],
+      "properties": {
+        "builder_path": {"$ref": "common.schema.json#/$defs/repo_path"},
+        "builder_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+        "common_path": {"$ref": "common.schema.json#/$defs/repo_path"},
+        "common_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+        "checker_path": {"$ref": "common.schema.json#/$defs/repo_path"},
+        "checker_sha256": {"$ref": "common.schema.json#/$defs/sha256"}
+      }
+    },
+    "activation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status", "requires_explicit_operator_concurrency_prompt",
+        "concurrency_defaults_present", "fence_receipt_path", "preconditions"
+      ],
+      "properties": {
+        "status": {"const": "blocked"},
+        "requires_explicit_operator_concurrency_prompt": {"const": true},
+        "concurrency_defaults_present": {"const": false},
+        "fence_receipt_path": {"$ref": "common.schema.json#/$defs/repo_path"},
+        "preconditions": {
+          "type": "array",
+          "minItems": 6,
+          "maxItems": 6,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "predecessor_admission_stopped",
+              "predecessor_handoffs_dispositioned",
+              "predecessor_live_generations_zero",
+              "predecessor_cron_markers_absent",
+              "stage51_boot_accepted",
+              "complete_current_operator_concurrency_prompt_accepted"
+            ]
+          }
+        }
+      }
+    },
+    "authority_sha256": {"$ref": "common.schema.json#/$defs/sha256"}
+  }
+}

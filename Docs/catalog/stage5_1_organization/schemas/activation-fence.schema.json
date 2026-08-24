@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://awesome-theorems.invalid/stage5-1-organization/schemas/activation-fence.schema.json",
+  "title": "Stage5.1 post-BOOT member-admission activation fence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "organization_release", "status",
+    "predecessor_fence", "boot_acceptance", "authority_sha256"
+  ],
+  "properties": {
+    "schema_version": {"const": "awesome-theorems/stage5-1-activation-fence/1.0"},
+    "organization_release": {"const": "1.0"},
+    "status": {"const": "accepted"},
+    "predecessor_fence": {
+      "type": "object", "additionalProperties": false,
+      "required": ["path", "sha256", "authority_sha256"],
+      "properties": {
+        "path": {"const": "Docs/evidence/stage5_1_shared_execution/predecessor-fence.json"},
+        "sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+        "authority_sha256": {"$ref": "common.schema.json#/$defs/sha256"}
+      }
+    },
+    "boot_acceptance": {
+      "type": "object", "additionalProperties": false,
+      "required": ["theorems", "conjectures"],
+      "properties": {
+        "theorems": {"$ref": "#/$defs/boot"},
+        "conjectures": {"$ref": "#/$defs/boot"}
+      }
+    },
+    "authority_sha256": {"$ref": "common.schema.json#/$defs/sha256"}
+  },
+  "$defs": {
+    "boot": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "item_id", "pre_blueprint_sha256", "post_blueprint_sha256",
+        "post_gantt_sha256", "review_receipt_sha256"
+      ],
+      "properties": {
+        "item_id": {"type": "string", "pattern": "^S51(?:THM|CON)-BOOT-001$"},
+        "pre_blueprint_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+        "post_blueprint_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+        "post_gantt_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+        "review_receipt_sha256": {"$ref": "common.schema.json#/$defs/sha256"}
+      }
+    }
+  }
+}

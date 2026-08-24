@@ -1,0 +1,139 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003496-TARGET",
+  "stage_claim_id": "S5-CLM-00003496",
+  "readability_level": "R0",
+  "required_nodes": [
+    "PU-001",
+    "PU-002",
+    "PU-003",
+    "PU-004",
+    "PU-005"
+  ],
+  "node_to_anchor": {
+    "PU-001": "FRAG-PROVENANCE",
+    "PU-002": "FRAG-IDENTITY",
+    "PU-003": "FRAG-FORWARD",
+    "PU-004": "FRAG-REVERSE",
+    "PU-005": "FRAG-AUDIT"
+  },
+  "anchor_to_fragment": {
+    "FRAG-PROVENANCE": {
+      "node_id": "PU-001",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003496/full-study.md#frozen-provenance",
+      "fragment_sha256": "8fdd3e30fdfe187ce32dc3bea9b179f13106d1d79d50bb0c0a456a8f91a79143",
+      "hypotheses": [
+        "The workset record and provider byte range are frozen."
+      ],
+      "inference": "Use the provider declaration only to identify the proposition.",
+      "output": "The exact large-n Kotzig proposition is selected.",
+      "formal_anchor": "A-SOURCE-KOTZIG",
+      "downstream_uses": [
+        "PU-002",
+        "PU-003"
+      ],
+      "exceptional_cases": [
+        "The source proof is sorry-backed and is excluded."
+      ],
+      "trust_boundary": "Source bytes establish provenance, not proof."
+    },
+    "FRAG-IDENTITY": {
+      "node_id": "PU-002",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003496/full-study.md#exact-statement-identity",
+      "fragment_sha256": "34343edc0553417ac91ab91bf1e0718394bf36e76904466185ed7a109e01551a",
+      "hypotheses": [
+        "No source symbol is shadowed and both surfaces are definitionally equal."
+      ],
+      "inference": "Apply reflexivity of logical equivalence.",
+      "output": "A bidirectional exact proposition crosswalk.",
+      "formal_anchor": "A-STATEMENT-IDENTITY",
+      "downstream_uses": [
+        "PU-003",
+        "PU-004",
+        "PU-005"
+      ],
+      "exceptional_cases": [
+        "Any semantic substitution invalidates this fragment."
+      ],
+      "trust_boundary": "Master re-elaborates the equality in the canonical environment."
+    },
+    "FRAG-FORWARD": {
+      "node_id": "PU-003",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003496/full-study.md#forward-transport",
+      "fragment_sha256": "ffcf8089c407a3db73eafde722a805c1fdd9e11e3d30e3b5a0440071a13c7383",
+      "hypotheses": [
+        "A proof of the exact frozen proposition is an explicit premise."
+      ],
+      "inference": "Return that proof at the definitionally identical target type.",
+      "output": "A proof of the claim-owned proposition.",
+      "formal_anchor": "A-PROOF-TRANSPORT",
+      "downstream_uses": [
+        "PU-005"
+      ],
+      "exceptional_cases": [
+        "The provider theorem body is never invoked."
+      ],
+      "trust_boundary": "The premise remains visible; transport adds no oracle."
+    },
+    "FRAG-REVERSE": {
+      "node_id": "PU-004",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003496/full-study.md#reverse-transport",
+      "fragment_sha256": "6408050f35465f4102ee574b1c130a4f42f886c95baeef08bf7d2ebcf75b47eb",
+      "hypotheses": [
+        "A proof of the claim-owned proposition is an explicit premise."
+      ],
+      "inference": "Return that proof at the definitionally identical frozen type.",
+      "output": "A proof of the exact frozen proposition.",
+      "formal_anchor": "A-PROOF-TRANSPORT",
+      "downstream_uses": [
+        "PU-005"
+      ],
+      "exceptional_cases": [
+        "No provider definition or body is unfolded."
+      ],
+      "trust_boundary": "Kernel-visible reverse transport only."
+    },
+    "FRAG-AUDIT": {
+      "node_id": "PU-005",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003496/full-study.md#audit-and-release-boundary",
+      "fragment_sha256": "0044da0df54e2af4ff5f42f2979ead8c6f070c1b6ea02f155948db48a182089e",
+      "hypotheses": [
+        "All proof premises, identities, and trust boundaries remain explicit."
+      ],
+      "inference": "Check identity and transport nodes, then reserve final acceptance for Master.",
+      "output": "A complete worker evidence package pending canonical replay.",
+      "formal_anchor": "A-AUDIT-ROOT",
+      "downstream_uses": [
+        "machine-closure",
+        "release-decision"
+      ],
+      "exceptional_cases": [
+        "The worker no-Lean preflight is not canonical acceptance."
+      ],
+      "trust_boundary": "Master alone may set master_accepted=true."
+    }
+  },
+  "reviewers": [
+    {
+      "reviewer_id": "worker-structural-review",
+      "scope": "total node-to-fragment and reverse coverage",
+      "decision": "pass",
+      "conflicts": []
+    },
+    {
+      "reviewer_id": "worker-trust-boundary-review",
+      "scope": "premise preservation, exception coverage, and source-proof exclusion",
+      "decision": "pass",
+      "conflicts": []
+    }
+  ],
+  "remaining_readability_cut_set": [],
+  "distilled": {
+    "duplicate_prose_removed": true,
+    "structured_inventory_not_duplicated": true,
+    "mathematical_content_preserved": true,
+    "deletion_mutations_passed": true
+  },
+  "authority_sha256": "ab6a108a7a08bb68bc98ece5b06acb31cacd375f440d5f8470704107f804bb55"
+}

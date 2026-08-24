@@ -1,0 +1,75 @@
+{
+  "schema_version": "awesome-theorems/stage5-proof-units/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003579-TARGET",
+  "stage_claim_id": "S5-CLM-00003579",
+  "root_node": "N0",
+  "nodes": [
+    {
+      "node_id": "N0",
+      "node_kind": "statement",
+      "role": "exact-root",
+      "depends_on": [],
+      "hypotheses": ["H : ℕ → ℕ", "h : source-shaped asymptotic proposition"],
+      "inference": "bind the frozen provider declaration and target proposition",
+      "output": "the target asymptotic equivalence",
+      "formal_anchor": "A-00003579-SOURCE",
+      "trust": "provider statement bytes only"
+    },
+    {
+      "node_id": "N1",
+      "node_kind": "transport",
+      "role": "source-to-target",
+      "depends_on": ["N0"],
+      "hypotheses": ["N0 hypothesis h"],
+      "inference": "exact transport of the proposition across the claim-owned binder",
+      "output": "target proposition",
+      "formal_anchor": "A-00003579-TARGET",
+      "trust": "kernel theorem body; no provider proof body"
+    },
+    {
+      "node_id": "N2",
+      "node_kind": "transport",
+      "role": "target-to-source",
+      "depends_on": ["N1"],
+      "hypotheses": ["target proposition"],
+      "inference": "definitional reverse correspondence recorded for Master replay",
+      "output": "source-shaped proposition",
+      "formal_anchor": "A-00003579-SOURCE",
+      "trust": "pending independent Master recomputation"
+    },
+    {
+      "node_id": "N3",
+      "node_kind": "composition",
+      "role": "root-composition",
+      "depends_on": ["N1", "N2"],
+      "hypotheses": ["bidirectional transport pair"],
+      "inference": "compose source-to-target and target-to-source maps",
+      "output": "identity on the exact-root expression",
+      "formal_anchor": "A-00003579-TARGET",
+      "trust": "M0 replay required"
+    }
+  ],
+  "edges": [
+    {"from": "N0", "to": "N1", "edge_kind": "typed_transport"},
+    {"from": "N1", "to": "N2", "edge_kind": "reverse_transport"},
+    {"from": "N1", "to": "N3", "edge_kind": "composition_input"},
+    {"from": "N2", "to": "N3", "edge_kind": "composition_input"}
+  ],
+  "provenance": {
+    "source_record_sha256": "ea27c18c18c8eada2b5e051b2f365c2d558ec0f6ebc366eaab84bbb522fdfbb6",
+    "source_file_sha256": "d8cafc65da19a348f6d9b96170a7edfeb771699a8772ec93f65936ba68ffbb4f",
+    "stage6_claim_id": "S6-CLM-00006420",
+    "stage6_variant_id": "S6-VAR-00005308",
+    "axioms_observed": [],
+    "trust_boundaries": ["provider statement", "worker semantic preflight", "Master kernel replay"]
+  },
+  "composition": {
+    "typed": true,
+    "acyclic": true,
+    "root_reachable": true,
+    "unresolved_nodes": [],
+    "unresolved_edges": []
+  },
+  "authority_sha256": "aaeaf2369b492beb2ed6ba8416b45f269bc72cc1701618bcb67a1a3bed1ee58d"
+}

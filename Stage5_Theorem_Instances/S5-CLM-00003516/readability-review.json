@@ -1,0 +1,216 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003516-TARGET",
+  "stage_claim_id": "S5-CLM-00003516",
+  "readability_level": "R0",
+  "required_nodes": [
+    "root-answer",
+    "normalize-cubics",
+    "add-invariants",
+    "discriminant-bound",
+    "phi-identity",
+    "cauchy-core",
+    "repeated-root",
+    "assemble"
+  ],
+  "node_to_anchor": {
+    "root-answer": "fragment-root-answer",
+    "normalize-cubics": "fragment-normalize-cubics",
+    "add-invariants": "fragment-add-invariants",
+    "discriminant-bound": "fragment-discriminant-bound",
+    "phi-identity": "fragment-phi-identity",
+    "cauchy-core": "fragment-cauchy-core",
+    "repeated-root": "fragment-repeated-root",
+    "assemble": "fragment-assemble"
+  },
+  "anchor_to_fragment": {
+    "fragment-root-answer": {
+      "node_id": "root-answer",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/proof-outline.md#fragment-root-answer",
+      "fragment_sha256": "80f3df6d2937534b2b94f6410ca705a135183f45bf7a6a8e46dbdc420f23c26e",
+      "hypotheses": [
+        "frozen affirmative question"
+      ],
+      "inference": "unfold answer wrapper",
+      "output": "affirmative equivalence",
+      "formal_anchor": "claim_owned_four_3",
+      "downstream_uses": [
+        "release"
+      ],
+      "exceptional_cases": [
+        "none"
+      ],
+      "trust_boundary": [
+        "Master exact transport"
+      ]
+    },
+    "fragment-normalize-cubics": {
+      "node_id": "normalize-cubics",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/proof-outline.md#fragment-normalize-cubics",
+      "fragment_sha256": "c748f32494e90cc93ba535df0a3c079aee7552d8d6ea9849b1af677cae9b37af",
+      "hypotheses": [
+        "monic real-rooted degree three"
+      ],
+      "inference": "center roots",
+      "output": "two invariant pairs",
+      "formal_anchor": "FourProp",
+      "downstream_uses": [
+        "add-invariants",
+        "discriminant-bound"
+      ],
+      "exceptional_cases": [
+        "multiple roots retained"
+      ],
+      "trust_boundary": [
+        "Master coefficient replay"
+      ]
+    },
+    "fragment-add-invariants": {
+      "node_id": "add-invariants",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/proof-outline.md#fragment-add-invariants",
+      "fragment_sha256": "6ebabc0ca03570394e1d07f3268e223f8309fe2eb939b23744e696b8f4614a9d",
+      "hypotheses": [
+        "centered invariants"
+      ],
+      "inference": "expand degree-three convolution",
+      "output": "invariant addition",
+      "formal_anchor": "finiteAdditiveConvolution",
+      "downstream_uses": [
+        "cauchy-core"
+      ],
+      "exceptional_cases": [
+        "none"
+      ],
+      "trust_boundary": [
+        "Master source elaboration"
+      ]
+    },
+    "fragment-discriminant-bound": {
+      "node_id": "discriminant-bound",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/proof-outline.md#fragment-discriminant-bound",
+      "fragment_sha256": "5a4f40ee565173037ce2536052929ab492c2120a98d2f2cd954e2eeeca1e06c5",
+      "hypotheses": [
+        "real roots"
+      ],
+      "inference": "nonnegative discriminant",
+      "output": "u²≤4a³ and v²≤4b³",
+      "formal_anchor": "cubic discriminant",
+      "downstream_uses": [
+        "phi-identity",
+        "repeated-root"
+      ],
+      "exceptional_cases": [
+        "equality boundary"
+      ],
+      "trust_boundary": [
+        "polynomial algebra"
+      ]
+    },
+    "fragment-phi-identity": {
+      "node_id": "phi-identity",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/proof-outline.md#fragment-phi-identity",
+      "fragment_sha256": "fcda29ef05adbe5858aba87f81bc51eb0acd8e384d25a50b4b16b9af59de7d17",
+      "hypotheses": [
+        "distinct centered roots"
+      ],
+      "inference": "clear Vandermonde denominator",
+      "output": "reciprocal information formula",
+      "formal_anchor": "Φ",
+      "downstream_uses": [
+        "cauchy-core"
+      ],
+      "exceptional_cases": [
+        "a=0 triple root"
+      ],
+      "trust_boundary": [
+        "ENNReal coercions"
+      ]
+    },
+    "fragment-cauchy-core": {
+      "node_id": "cauchy-core",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/proof-outline.md#fragment-cauchy-core",
+      "fragment_sha256": "3ae246d6ac761d8791e5b5c69a37dc9d40fe2a9554daef2fe48d869f81f2383d",
+      "hypotheses": [
+        "a,b nonnegative"
+      ],
+      "inference": "square-gap weighted Cauchy",
+      "output": "generic inequality",
+      "formal_anchor": "cubic_cauchy_core",
+      "downstream_uses": [
+        "assemble"
+      ],
+      "exceptional_cases": [
+        "a=0",
+        "b=0"
+      ],
+      "trust_boundary": [
+        "Lean ring kernel"
+      ]
+    },
+    "fragment-repeated-root": {
+      "node_id": "repeated-root",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/proof-outline.md#fragment-repeated-root",
+      "fragment_sha256": "331980f184dd2920667572afd7c675ad213eeacf2459e88d2edd9c5464141150",
+      "hypotheses": [
+        "root multiplicity"
+      ],
+      "inference": "Φ=top",
+      "output": "boundary inequality",
+      "formal_anchor": "Φ if-branch",
+      "downstream_uses": [
+        "assemble"
+      ],
+      "exceptional_cases": [
+        "double root",
+        "triple root",
+        "output collision"
+      ],
+      "trust_boundary": [
+        "Mathlib ENNReal laws"
+      ]
+    },
+    "fragment-assemble": {
+      "node_id": "assemble",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/proof-outline.md#fragment-assemble",
+      "fragment_sha256": "81b36f8bda2125d9e5da99a525abf63b78bef26e654457bada395a2047cb9ab0",
+      "hypotheses": [
+        "generic and boundary branches"
+      ],
+      "inference": "total nodup split",
+      "output": "FourProp for every cubic pair",
+      "formal_anchor": "source_to_target",
+      "downstream_uses": [
+        "root-answer"
+      ],
+      "exceptional_cases": [
+        "all nodup combinations"
+      ],
+      "trust_boundary": [
+        "Master full transport"
+      ]
+    }
+  },
+  "reviewers": [
+    {
+      "reviewer_id": "worker-math-review",
+      "role": "mathematical reconstruction",
+      "conflicts": [],
+      "decision": "pass"
+    },
+    {
+      "reviewer_id": "worker-trust-review",
+      "role": "formal trust and reverse coverage",
+      "conflicts": [],
+      "decision": "pass"
+    }
+  ],
+  "remaining_readability_cut_set": [],
+  "distilled": {
+    "duplicate_prose_removed": true,
+    "structured_inventory_not_duplicated": true,
+    "mathematical_content_preserved": true,
+    "deletion_mutations_passed": true
+  },
+  "authority_sha256": "82877583f39f7f3844a255f982a8073897eda167bb1b0736a9edf1f3aa6b9c42"
+}

@@ -1,0 +1,9 @@
+# Process audit — S5-CLM-00003485
+
+This fresh target-local generation reconstructed the package solely from its immutable claim and individually materialized bootstrap inputs. No predecessor or sibling generation was read, no second mathematical ID was claimed, and no canonical repository path was inspected or written.
+
+The source is frozen at Formal Conjectures revision `2270d31e8dd611521f979de6d86da364930b7669`, file digest `5a9a1498f6a1466b45b4acf0cfb407418afa62fbd8a7e7f42da24701f6b4a92e`, and declaration type digest `448038ef677d07604378167ee319445cb3f102034f956f70c4b57ba1540aa47e`. The source body's `sorryAx` is explicitly excluded from proof authority. The numeric module path and qualified declaration are retained verbatim in provenance comments, while the canonical claim surface imports `Mathlib` and states the equivalent proposition with the normal CDF expanded.
+
+The proof package has one typed DAG. Every node records hypotheses, output, provenance, trust and a unique readable fragment. The M0-P root is a composition theorem over a checked analytic certificate boundary; it introduces no axiom, unsafe declaration, opaque body, local semantic definition, parser extension, alias or symbol shadowing. Canonical Master compilation and semantic-environment recomputation remain mandatory after harvest.
+
+Semantic-substitution mutations considered and rejected: replacing the provider revision, changing the source path or declaration digest, importing a substituted module as executable authority, locally redefining `cdf`, `gaussianReal`, `PMF.binomial`, `sqrt`, `Nat.choose`, `Set.Ici`, or the source theorem name, weakening the interval or positivity hypotheses, deleting the central-atom term, and reversing the inequality. Cold from-source replay is represented by the three claim-owned Lean files plus content-addressed evidence; only Master can turn the provisional candidate into accepted completion.

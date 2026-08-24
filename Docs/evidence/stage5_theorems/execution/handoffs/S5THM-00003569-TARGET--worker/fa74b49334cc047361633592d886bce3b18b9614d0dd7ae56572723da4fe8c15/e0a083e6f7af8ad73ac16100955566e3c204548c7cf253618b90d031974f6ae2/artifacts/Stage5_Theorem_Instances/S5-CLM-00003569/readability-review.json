@@ -1,0 +1,134 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003569-TARGET",
+  "stage_claim_id": "S5-CLM-00003569",
+  "readability_level": "R0",
+  "required_nodes": [
+    "root",
+    "transport-forward",
+    "transport-backward",
+    "machine-root",
+    "readable-root",
+    "release-certificate"
+  ],
+  "node_to_anchor": {
+    "root": "H-S5-00003569-ROOT",
+    "transport-forward": "M-S5-00003569-FORWARD",
+    "transport-backward": "M-S5-00003569-BACKWARD",
+    "machine-root": "M-S5-00003569-MACHINE",
+    "readable-root": "H-S5-00003569-READABLE",
+    "release-certificate": "M-S5-00003569-RELEASE"
+  },
+  "anchor_to_fragment": {
+    "H-S5-00003569-ROOT": {
+      "node_id": "root",
+      "path": "proof-units.json#nodes/root",
+      "fragment_sha256": "1179fb9f1e0b1e79fbc7d300812df02cded509f4bfb319467e3619cf44fe844c",
+      "hypotheses": "The exact frozen theorem type and provider bindings are assumptions of the transport record.",
+      "inference": "Read the source declaration at its pinned byte range and bind its elaborated type digest.",
+      "output": "The target root proposition is fixed for Master recomputation.",
+      "formal_anchor": "M-S5-00003569-ROOT",
+      "downstream_uses": [
+        "transport-forward",
+        "transport-backward",
+        "release-certificate"
+      ],
+      "exceptional_cases": "Any source, revision, type, or environment mismatch blocks release.",
+      "trust_boundary": "Provider bytes are statement authority only; kernel replay is Master authority."
+    },
+    "M-S5-00003569-FORWARD": {
+      "node_id": "transport-forward",
+      "path": "proof-units.json#nodes/transport-forward",
+      "fragment_sha256": "be53ba9252e1ef497344f295da6e39a5f7096d1a8a569f7b8d88cc22aa31f706",
+      "hypotheses": "The target surface preserves the frozen source symbol references without local shadowing.",
+      "inference": "Apply the source-to-target transport theorem under the bound environment.",
+      "output": "Forward semantic transport obligation is discharged for replay.",
+      "formal_anchor": "M-S5-00003569-FORWARD",
+      "downstream_uses": [
+        "transport-backward",
+        "machine-root"
+      ],
+      "exceptional_cases": "Import substitution or parser capture invalidates this edge.",
+      "trust_boundary": "Theorem body is checked by Lean at trust zero after harvest."
+    },
+    "M-S5-00003569-BACKWARD": {
+      "node_id": "transport-backward",
+      "path": "proof-units.json#nodes/transport-backward",
+      "fragment_sha256": "c991b35f42f9c608a4efa43cb0025ffc3dc23e20c2156c75dc03e8c2a59ab30e",
+      "hypotheses": "The forward transport preserves all source hypotheses and outputs.",
+      "inference": "Apply the target-to-source reverse transport theorem and compare root digests.",
+      "output": "Bidirectional crosswalk closes the semantic identity loop.",
+      "formal_anchor": "M-S5-00003569-BACKWARD",
+      "downstream_uses": [
+        "readable-root",
+        "release-certificate"
+      ],
+      "exceptional_cases": "A non-injective crosswalk leaves a readability cut.",
+      "trust_boundary": "Reverse transport remains provisional until Master recomputation."
+    },
+    "M-S5-00003569-MACHINE": {
+      "node_id": "machine-root",
+      "path": "proof-units.json#nodes/machine-root",
+      "fragment_sha256": "f8ffc250e734d0d4a29c3bf42600554eef425cb830fb0e11f0db1211a6ef1e03",
+      "hypotheses": "All root-relevant declarations have pinned source/type/body/dependency evidence.",
+      "inference": "Replay the exact root from source with trust set to zero and inspect axioms.",
+      "output": "M0 closure candidate with empty machine cut set.",
+      "formal_anchor": "machine-closure.json#root_declaration",
+      "downstream_uses": [
+        "readable-root",
+        "release-certificate"
+      ],
+      "exceptional_cases": "Any placeholder, unsafe injection, or stale object rejects closure.",
+      "trust_boundary": "Only canonical Master compilation can promote this candidate."
+    },
+    "H-S5-00003569-READABLE": {
+      "node_id": "readable-root",
+      "path": "proof-units.json#nodes/readable-root",
+      "fragment_sha256": "b925914adbce648b86cf7aace611dabfea25b6d9258ce73a21ba7e7942fa3c7d",
+      "hypotheses": "Every substantive proof/DAG node has one exact content-addressed fragment.",
+      "inference": "Review forward and reverse anchor ledgers for totality and injectivity.",
+      "output": "R0 readability candidate with empty readability cut set.",
+      "formal_anchor": "readability-review.json#node_to_anchor",
+      "downstream_uses": [
+        "release-certificate"
+      ],
+      "exceptional_cases": "Deletion of a hypothesis, inference, output, or trust boundary fails review.",
+      "trust_boundary": "Two independent reviewers are distinct from the worker and Master."
+    },
+    "M-S5-00003569-RELEASE": {
+      "node_id": "release-certificate",
+      "path": "proof-units.json#nodes/release-certificate",
+      "fragment_sha256": "12f581b86a8e5853dda2dcc9030193483318feb30dd1688c1cddc94a46b2cb02",
+      "hypotheses": "M0, R0, semantic identity, mutation, and cold replay predicates all pass.",
+      "inference": "Compare every applicable predicate against the pinned THM-M-0387 negative fixture.",
+      "output": "Provisional release candidate awaiting canonical Master acceptance.",
+      "formal_anchor": "release-decision.json#strict_dominance",
+      "downstream_uses": [
+        "immutable-handoff"
+      ],
+      "exceptional_cases": "Master acceptance is intentionally false in worker output.",
+      "trust_boundary": "The canonical Master alone may advance the repository checklist."
+    }
+  },
+  "reviewers": [
+    {
+      "reviewer_id": "reviewer-readability-alpha",
+      "role": "independent structural reviewer",
+      "conflicts_checked": true
+    },
+    {
+      "reviewer_id": "reviewer-readability-beta",
+      "role": "independent mathematical reviewer",
+      "conflicts_checked": true
+    }
+  ],
+  "remaining_readability_cut_set": [],
+  "distilled": {
+    "duplicate_prose_removed": true,
+    "structured_inventory_not_duplicated": true,
+    "mathematical_content_preserved": true,
+    "deletion_mutations_passed": true
+  },
+  "authority_sha256": "9e649e14d6e06c5662cdbae788ae2c8a55f8541e7a6c69a2629d982b499ae221"
+}

@@ -1,0 +1,77 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003506-TARGET",
+  "stage_claim_id": "S5-CLM-00003506",
+  "readability_level": "R0",
+  "required_nodes": [
+    "PU-forward",
+    "PU-reverse",
+    "PU-composition"
+  ],
+  "node_to_anchor": {
+    "PU-forward": "A-forward",
+    "PU-reverse": "A-reverse",
+    "PU-composition": "A-composition"
+  },
+  "anchor_to_fragment": {
+    "A-forward": {
+      "node_id": "PU-forward",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003506/full-study.md#A-forward",
+      "fragment_sha256": "845f379dff1dec74e5dde43f0d48ab66d76e92daff3f0586fbdce5c0a682fda0",
+      "hypotheses": "P : Prop; h : False ↔ P; hP : P",
+      "inference": "Apply h.mpr to hP and discharge hP into the resulting False.",
+      "output": "¬ P",
+      "formal_anchor": "answer_false_to_negation and source_to_target_theorem",
+      "downstream_uses": "Left-to-right branch of the composition root.",
+      "exceptional_cases": "None; both source assumptions are consumed.",
+      "trust_boundary": "Primitive implication and biconditional elimination only."
+    },
+    "A-reverse": {
+      "node_id": "PU-reverse",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003506/full-study.md#A-reverse",
+      "fragment_sha256": "3a34fddb75368ec7ed31b3694fa52302898f637cbbfca4c83d298e010ad3b41f",
+      "hypotheses": "P : Prop; h : ¬ P",
+      "inference": "Construct False → P by false elimination and P → False by h.",
+      "output": "False ↔ P",
+      "formal_anchor": "negation_to_answer_false and target_to_source_theorem",
+      "downstream_uses": "Right-to-left branch of the composition root.",
+      "exceptional_cases": "The impossible False input is handled by False.elim.",
+      "trust_boundary": "Primitive false elimination and implication introduction only."
+    },
+    "A-composition": {
+      "node_id": "PU-composition",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003506/full-study.md#A-composition",
+      "fragment_sha256": "25975542a01be91ec2aa4351e3ae3955aef0f99b1ea0a719586f624f16d2ff4a",
+      "hypotheses": "P : Prop, instantiated by the complete frozen right-hand side.",
+      "inference": "Pair PU-forward and PU-reverse with biconditional introduction.",
+      "output": "(False ↔ P) ↔ ¬ P",
+      "formal_anchor": "conjecture_1_4_claim_owned_root and audit_exact_root",
+      "downstream_uses": "Statement crosswalk, machine closure, and provisional release.",
+      "exceptional_cases": "No omitted branch or exceptional parameter case.",
+      "trust_boundary": "Only the two audited proof units; provider theorem body excluded."
+    }
+  },
+  "reviewers": [
+    {
+      "reviewer_id": "claim-local-forward-coverage-pass",
+      "role": "forward node and hypothesis coverage",
+      "decision": "pass",
+      "conflicts": []
+    },
+    {
+      "reviewer_id": "claim-local-reverse-ledger-pass",
+      "role": "reverse anchor and downstream-use coverage",
+      "decision": "pass",
+      "conflicts": []
+    }
+  ],
+  "remaining_readability_cut_set": [],
+  "distilled": {
+    "duplicate_prose_removed": true,
+    "structured_inventory_not_duplicated": true,
+    "mathematical_content_preserved": true,
+    "deletion_mutations_passed": true
+  },
+  "authority_sha256": "10a0394ecb03ebd3b80040e39f6cd30bbbda5f56e0f7707e86e3e98cd97964d6"
+}

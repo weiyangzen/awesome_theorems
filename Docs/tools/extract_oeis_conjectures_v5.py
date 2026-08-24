@@ -1,0 +1,917 @@
+#!/usr/bin/env python3
+"""Extract a review-only OEIS conjecture-marker pool from one pinned snapshot.
+
+This source layer is deliberately narrower than a conjecture release.  It
+replays exact ``%N``, ``%C``, and ``%F`` field lines from a rights-cleared,
+content-addressed subset of the official ``oeis/oeisdata`` export.  A lexical
+conjecture marker makes a line a *candidate only*.  It does not establish that
+the line is a complete proposition, that it is important, that it remains
+open, or that it is semantically distinct from another line.
+
+The canonical source archive contains 622 ``.seq`` entries plus the pinned
+``README.md`` license evidence and ``time.txt`` export timestamp.  This module
+checks the archive byte lock, safe tar paths and types, PAX provenance, every
+entry path and content hash, exact extraction counts, and canonical candidate
+JSONL bytes.  No emitted row grants catalog or strict-conjecture credit.
+"""
+
+from __future__ import annotations
+
+import argparse
+from collections import defaultdict
+from dataclasses import dataclass
+import gzip
+import hashlib
+import io
+import json
+import os
+from pathlib import Path
+import re
+import sys
+import tarfile
+from typing import Any, Iterable, Mapping, Sequence
+
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+DEFAULT_SOURCE_ARCHIVE = (
+    REPO_ROOT
+    / "Docs/catalog/v5/sources/oeis-conjectures-4c866362-source.tar.gz"
+)
+DEFAULT_CANDIDATE_ASSET = (
+    REPO_ROOT
+    / "Docs/catalog/v5/sources/oeis-conjectures-4c866362-candidates.jsonl"
+)
+
+SCHEMA_VERSION = "awesome-theorems/oeis-conjecture-candidate/5.5-source-layer"
+SUMMARY_SCHEMA_VERSION = (
+    "awesome-theorems/oeis-conjecture-extraction-summary/5.5-source-layer"
+)
+EXTRACTOR_VERSION = "1.0.0"
+
+SOURCE_ID = "SRC-MATH-V5-OEIS-4C866362"
+SOURCE_REPOSITORY = "https://github.com/oeis/oeisdata"
+PINNED_COMMIT = "4c8663620c66525a0c92654a4a9c4703b3d98921"
+PINNED_COMMIT_TIMESTAMP = "2026-08-10T03:05:07-04:00"
+PINNED_TREE_SHA1 = "7e0ed547bdc22e34ec578307fed26572bbd58b1e"
+PINNED_EXPORT_TIME = "2026-08-10T03:00:14-04:00"
+LICENSE_SPDX = "CC-BY-SA-4.0"
+LICENSE_NAME = "Creative Commons Attribution Share Alike 4.0 license"
+
+ARCHIVE_ROOT = "oeis-conjectures-4c866362-source"
+README_PATH = "README.md"
+TIME_PATH = "time.txt"
+README_BLOB_SHA1 = "5233c09f08366c5de3bf9cc59fc435c1bcdf5fdc"
+README_SHA256 = "68138ef6cb982ff6029579b4e1a1407ad80d08fcaece8d2fbf40092d04a1baaa"
+
+# These byte and derived-inventory locks are filled from the deterministic
+# builder below.  A zero digest is never accepted by the normal extractor.
+SOURCE_ARCHIVE_SHA256 = "85ac265ad3c7ab294a18a3874e33a139fa9afdba8b6dfba86ea03aefd7ab3a1e"
+SOURCE_ARCHIVE_SIZE_BYTES = 1_109_243
+SOURCE_UNCOMPRESSED_SIZE_BYTES = 3_075_190
+SOURCE_INVENTORY_SHA256 = "a1b1618c4ab26551cce1d17c863997617ea83a8e527403a2f082deb12202dd61"
+SOURCE_PATH_SET_SHA256 = "6f1f38dbb32c46f8a2bd16cc6797c0c9e4a2aa6cf6eaec9e2d3869c4ae594816"
+CANDIDATE_ASSET_SHA256 = "7b426d78bcbd05389e129553ba2030690fd5b5309666a9819db0c6f9ae1cf3b3"
+CANDIDATE_ASSET_SIZE_BYTES = 1_342_072
+CANDIDATE_KEY_SET_SHA256 = "69ce5efa8246c2faba7329484eacee0febe2d2433ae770002564e70be2b273d7"
+
+EXPECTED_REGULAR_FILES = 624
+EXPECTED_SEQUENCE_ENTRIES = 622
+EXPECTED_ENTRIES_WITH_CANDIDATES = 541
+EXPECTED_MARKER_LINES = 665
+EXPECTED_QUARANTINED_RESOLUTION_LINES = 39
+EXPECTED_CANDIDATE_OCCURRENCES = 626
+EXPECTED_UNIQUE_CANDIDATES = 602
+
+MAX_MEMBER_BYTES = 2 * 1024 * 1024
+MAX_TOTAL_UNCOMPRESSED_BYTES = 32 * 1024 * 1024
+MAX_SOURCE_ARCHIVE_COMPRESSED_BYTES = 16 * 1024 * 1024
+MAX_TAR_STREAM_BYTES = 64 * 1024 * 1024
+MAX_CANDIDATE_ASSET_BYTES = 16 * 1024 * 1024
+
+PAX_HEADERS = {
+    "awesome-theorems.source_id": SOURCE_ID,
+    "awesome-theorems.repository": SOURCE_REPOSITORY,
+    "awesome-theorems.commit": PINNED_COMMIT,
+    "awesome-theorems.commit_timestamp": PINNED_COMMIT_TIMESTAMP,
+    "awesome-theorems.tree_sha1": PINNED_TREE_SHA1,
+    "awesome-theorems.export_time": PINNED_EXPORT_TIME,
+    "awesome-theorems.license_spdx": LICENSE_SPDX,
+}
+
+FIELD_RE = re.compile(r"^%([A-Za-z])\s+(A[0-9]{6})\s?(.*)$")
+SEQUENCE_PATH_RE = re.compile(r"^seq/(A[0-9]{3})/(A[0-9]{6})\.seq$")
+SHA1_RE = re.compile(r"^[0-9a-f]{40}$")
+SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
+HTML_TAG_RE = re.compile(r"<[^>]*>")
+
+# These substring markers reproduce the sealed discovery audit.  In
+# particular, ``I conjectured`` is intentionally found by ``I conjecture``.
+# Human review, not this regex, determines whether a candidate is admissible.
+MARKER_RE = re.compile(
+    r"(?:we\s+conjecture|i\s+conjecture|conjectures?\s+that|"
+    r"it\s+is\s+conjectured|is\s+conjectured\s+to|"
+    r"are\s+conjectured\s+to|the\s+conjecture\s+is)",
+    re.IGNORECASE,
+)
+RESOLUTION_QUARANTINE_RE = re.compile(
+    r"(?:proved|disproved|refuted|counterexample|resolved|settled|"
+    r"is\s+false|was\s+false|no\s+longer\s+open)",
+    re.IGNORECASE,
+)
+
+
+class ExtractionError(RuntimeError):
+    """The pinned source, generated bytes, or extraction contract drifted."""
+
+
+@dataclass(frozen=True)
+class FieldLine:
+    field: str
+    line_number: int
+    text: str
+
+
+@dataclass(frozen=True)
+class SequenceEntry:
+    a_number: str
+    path: str
+    blob_sha1: str
+    file_sha256: str
+    size_bytes: int
+    fields: tuple[FieldLine, ...]
+
+
+@dataclass(frozen=True)
+class SourceBundle:
+    archive_sha256: str
+    archive_size_bytes: int
+    uncompressed_size_bytes: int
+    inventory_sha256: str
+    path_set_sha256: str
+    files: Mapping[str, bytes]
+    entries: tuple[SequenceEntry, ...]
+
+
+@dataclass(frozen=True)
+class ExtractionResult:
+    candidates: tuple[dict[str, Any], ...]
+    occurrences: tuple[dict[str, Any], ...]
+    quarantined: tuple[dict[str, Any], ...]
+    entries_with_candidates: tuple[str, ...]
+    summary: dict[str, Any]
+
+
+def sha256_bytes(payload: bytes) -> str:
+    return hashlib.sha256(payload).hexdigest()
+
+
+def git_blob_sha1(payload: bytes) -> str:
+    header = f"blob {len(payload)}\0".encode("ascii")
+    return hashlib.sha1(header + payload).hexdigest()  # noqa: S324 - Git object ID
+
+
+def canonical_json_bytes(value: Any) -> bytes:
+    return json.dumps(
+        value, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+    ).encode("utf-8")
+
+
+def canonical_json_line(value: dict[str, Any]) -> bytes:
+    return canonical_json_bytes(value) + b"\n"
+
+
+def encode_candidates(candidates: Iterable[dict[str, Any]]) -> bytes:
+    return b"".join(canonical_json_line(row) for row in candidates)
+
+
+def _require_lock(label: str, value: str | int) -> None:
+    if value == 0 or value == "0" * 64:
+        raise ExtractionError(f"{label} has not been sealed")
+
+
+def _require_equal(observed: Any, expected: Any, label: str) -> None:
+    if observed != expected:
+        raise ExtractionError(f"{label} is {observed!r}, expected {expected!r}")
+
+
+def _safe_relative_member(name: str) -> str:
+    if not isinstance(name, str) or not name or "\\" in name or "\x00" in name:
+        raise ExtractionError(f"unsafe tar member name: {name!r}")
+    # Inspect the raw spelling before any path normalization could collapse
+    # ``//`` or ``/./``.  A trailing slash is never valid because this archive
+    # has only regular-file members and no directory entries.
+    raw_parts = name.split("/")
+    if (
+        name.startswith("/")
+        or name.endswith("/")
+        or any(part in {"", ".", ".."} for part in raw_parts)
+    ):
+        raise ExtractionError(f"unsafe tar member path: {name!r}")
+    prefix = f"{ARCHIVE_ROOT}/"
+    if not name.startswith(prefix):
+        raise ExtractionError(f"tar member is outside the source root: {name!r}")
+    relative = name[len(prefix) :]
+    if not relative:
+        raise ExtractionError("archive root cannot be a regular-file member")
+    return relative
+
+
+class _BoundedReader:
+    """Expose a read-only stream while counting every decompressed tar byte."""
+
+    def __init__(self, stream: Any, limit: int) -> None:
+        self._stream = stream
+        self._limit = limit
+        self._count = 0
+
+    def read(self, size: int = -1) -> bytes:
+        remaining = self._limit - self._count
+        if size is None or size < 0:
+            requested = remaining + 1
+        else:
+            requested = min(size, remaining + 1)
+        payload = self._stream.read(requested)
+        self._count += len(payload)
+        if self._count > self._limit:
+            raise ExtractionError(
+                f"source tar stream exceeds {self._limit} decompressed bytes"
+            )
+        return payload
+
+
+def _read_bounded_file(
+    path: Path,
+    *,
+    label: str,
+    max_bytes: int,
+    expected_size: int | None = None,
+) -> bytes:
+    """Preflight and bounded-read a regular on-disk asset."""
+
+    try:
+        stat_size = path.stat().st_size
+    except OSError as error:
+        raise ExtractionError(f"cannot stat {label}: {error}") from error
+    if stat_size < 0 or stat_size > max_bytes:
+        raise ExtractionError(
+            f"{label} size {stat_size} exceeds the {max_bytes}-byte input limit"
+        )
+    if expected_size is not None:
+        _require_equal(stat_size, expected_size, f"{label} size")
+    try:
+        with path.open("rb") as stream:
+            payload = stream.read(max_bytes + 1)
+    except OSError as error:
+        raise ExtractionError(f"cannot read {label}: {error}") from error
+    if len(payload) > max_bytes:
+        raise ExtractionError(f"{label} exceeds the {max_bytes}-byte input limit")
+    if len(payload) != stat_size:
+        raise ExtractionError(f"{label} changed size while it was being read")
+    return payload
+
+
+def _validate_effective_member_pax(member: tarfile.TarInfo) -> None:
+    observed = {key: member.pax_headers.get(key) for key in PAX_HEADERS}
+    if observed != PAX_HEADERS:
+        raise ExtractionError(
+            f"source member PAX provenance override: {member.name!r}"
+        )
+
+
+def _validate_relative_source_path(relative: str) -> str | None:
+    if relative in {README_PATH, TIME_PATH}:
+        return None
+    match = SEQUENCE_PATH_RE.fullmatch(relative)
+    if match is None:
+        raise ExtractionError(f"unexpected source member path: {relative}")
+    directory, a_number = match.groups()
+    if directory != a_number[:4]:
+        raise ExtractionError(f"OEIS directory/identifier mismatch: {relative}")
+    return a_number
+
+
+def _source_inventory(files: Mapping[str, bytes]) -> tuple[list[dict[str, Any]], str, str]:
+    inventory: list[dict[str, Any]] = []
+    for relative in sorted(files):
+        payload = files[relative]
+        a_number = _validate_relative_source_path(relative)
+        inventory.append(
+            {
+                "a_number": a_number,
+                "blob_sha1": git_blob_sha1(payload),
+                "file_sha256": sha256_bytes(payload),
+                "path": relative,
+                "size_bytes": len(payload),
+            }
+        )
+    inventory_sha = sha256_bytes(canonical_json_bytes(inventory))
+    path_set_sha = sha256_bytes(canonical_json_bytes(sorted(files)))
+    return inventory, inventory_sha, path_set_sha
+
+
+def _parse_sequence(relative: str, payload: bytes) -> SequenceEntry:
+    a_number = _validate_relative_source_path(relative)
+    if a_number is None:
+        raise ExtractionError(f"not an OEIS sequence path: {relative}")
+    try:
+        text = payload.decode("utf-8")
+    except UnicodeDecodeError as error:
+        raise ExtractionError(f"{relative} is not UTF-8: {error}") from error
+    if "\r" in text:
+        raise ExtractionError(f"{relative} contains noncanonical CR characters")
+    fields: list[FieldLine] = []
+    for line_number, line in enumerate(text.splitlines(), start=1):
+        if not line:
+            continue
+        match = FIELD_RE.fullmatch(line)
+        if match is None:
+            raise ExtractionError(f"{relative}:{line_number}: invalid OEIS field line")
+        field, embedded_a_number, value = match.groups()
+        if embedded_a_number != a_number:
+            raise ExtractionError(
+                f"{relative}:{line_number}: embedded identifier {embedded_a_number}"
+            )
+        fields.append(FieldLine(f"%{field.upper()}", line_number, value))
+    if not fields or fields[0].field != "%I":
+        raise ExtractionError(f"{relative} lacks a leading %I identity field")
+    if not any(field.field == "%N" for field in fields):
+        raise ExtractionError(f"{relative} lacks a %N name field")
+    return SequenceEntry(
+        a_number=a_number,
+        path=relative,
+        blob_sha1=git_blob_sha1(payload),
+        file_sha256=sha256_bytes(payload),
+        size_bytes=len(payload),
+        fields=tuple(fields),
+    )
+
+
+def _validate_source_files(
+    files: Mapping[str, bytes],
+    *,
+    enforce_inventory_lock: bool,
+) -> tuple[tuple[SequenceEntry, ...], int, str, str]:
+    _require_equal(len(files), EXPECTED_REGULAR_FILES, "source regular-file count")
+    if set(files).difference({README_PATH, TIME_PATH}) and (
+        README_PATH not in files or TIME_PATH not in files
+    ):
+        raise ExtractionError("source archive lacks README.md or time.txt")
+    if README_PATH not in files or TIME_PATH not in files:
+        raise ExtractionError("source archive lacks README.md or time.txt")
+
+    readme = files[README_PATH]
+    _require_equal(sha256_bytes(readme), README_SHA256, "README.md SHA-256")
+    _require_equal(git_blob_sha1(readme), README_BLOB_SHA1, "README.md Git blob SHA-1")
+    try:
+        readme_text = readme.decode("utf-8")
+    except UnicodeDecodeError as error:
+        raise ExtractionError(f"README.md is not UTF-8: {error}") from error
+    if LICENSE_NAME not in readme_text:
+        raise ExtractionError("README.md lacks the pinned CC-BY-SA-4.0 license evidence")
+
+    try:
+        export_time = files[TIME_PATH].decode("utf-8").strip()
+    except UnicodeDecodeError as error:
+        raise ExtractionError(f"time.txt is not UTF-8: {error}") from error
+    _require_equal(export_time, PINNED_EXPORT_TIME, "OEIS export timestamp")
+
+    sequence_paths = sorted(
+        relative for relative in files if relative not in {README_PATH, TIME_PATH}
+    )
+    _require_equal(
+        len(sequence_paths), EXPECTED_SEQUENCE_ENTRIES, "OEIS sequence-entry count"
+    )
+    entries = tuple(_parse_sequence(path, files[path]) for path in sequence_paths)
+    _require_equal(
+        len({entry.a_number for entry in entries}),
+        EXPECTED_SEQUENCE_ENTRIES,
+        "unique OEIS A-number count",
+    )
+
+    _inventory, inventory_sha, path_set_sha = _source_inventory(files)
+    total_size = sum(len(payload) for payload in files.values())
+    if enforce_inventory_lock:
+        _require_lock("SOURCE_UNCOMPRESSED_SIZE_BYTES", SOURCE_UNCOMPRESSED_SIZE_BYTES)
+        _require_lock("SOURCE_INVENTORY_SHA256", SOURCE_INVENTORY_SHA256)
+        _require_lock("SOURCE_PATH_SET_SHA256", SOURCE_PATH_SET_SHA256)
+        _require_equal(
+            total_size,
+            SOURCE_UNCOMPRESSED_SIZE_BYTES,
+            "source uncompressed byte count",
+        )
+        _require_equal(inventory_sha, SOURCE_INVENTORY_SHA256, "source inventory SHA-256")
+        _require_equal(path_set_sha, SOURCE_PATH_SET_SHA256, "source path-set SHA-256")
+    return entries, total_size, inventory_sha, path_set_sha
+
+
+def encode_source_archive(files: Mapping[str, bytes]) -> bytes:
+    """Return one deterministic gzip/PAX archive for already validated files."""
+
+    output = io.BytesIO()
+    with gzip.GzipFile(
+        filename="", mode="wb", compresslevel=9, fileobj=output, mtime=0
+    ) as gzip_stream:
+        with tarfile.open(
+            fileobj=gzip_stream,
+            mode="w",
+            format=tarfile.PAX_FORMAT,
+            pax_headers=PAX_HEADERS,
+        ) as archive:
+            for relative in sorted(files):
+                payload = files[relative]
+                member = tarfile.TarInfo(f"{ARCHIVE_ROOT}/{relative}")
+                member.size = len(payload)
+                member.mode = 0o444
+                member.mtime = 0
+                member.uid = 0
+                member.gid = 0
+                member.uname = ""
+                member.gname = ""
+                archive.addfile(member, io.BytesIO(payload))
+    return output.getvalue()
+
+
+def read_source_directory(path: Path) -> dict[str, bytes]:
+    if not path.is_dir():
+        raise ExtractionError(f"source directory does not exist: {path}")
+    files: dict[str, bytes] = {}
+    total_size = 0
+    for child in sorted(path.rglob("*")):
+        if child.is_symlink():
+            raise ExtractionError(f"source directory contains symlink: {child}")
+        if child.is_dir():
+            continue
+        if not child.is_file():
+            raise ExtractionError(f"source directory contains special file: {child}")
+        if len(files) >= EXPECTED_REGULAR_FILES:
+            raise ExtractionError("source directory has more than the expected file count")
+        relative = child.relative_to(path).as_posix()
+        _validate_relative_source_path(relative)
+        payload = _read_bounded_file(
+            child,
+            label=f"source member {relative}",
+            max_bytes=MAX_MEMBER_BYTES,
+        )
+        total_size += len(payload)
+        if total_size > MAX_TOTAL_UNCOMPRESSED_BYTES:
+            raise ExtractionError("source directory exceeds the uncompressed-file limit")
+        files[relative] = payload
+    _validate_source_files(files, enforce_inventory_lock=False)
+    return files
+
+
+def load_source_archive(
+    path: Path,
+    *,
+    enforce_asset_lock: bool = True,
+    enforce_inventory_lock: bool = True,
+    enforce_canonical_bytes: bool = True,
+) -> SourceBundle:
+    expected_size: int | None = None
+    if enforce_asset_lock:
+        _require_lock("SOURCE_ARCHIVE_SIZE_BYTES", SOURCE_ARCHIVE_SIZE_BYTES)
+        expected_size = SOURCE_ARCHIVE_SIZE_BYTES
+    payload = _read_bounded_file(
+        path,
+        label="OEIS source archive",
+        max_bytes=MAX_SOURCE_ARCHIVE_COMPRESSED_BYTES,
+        expected_size=expected_size,
+    )
+    archive_sha = sha256_bytes(payload)
+    if enforce_asset_lock:
+        _require_lock("SOURCE_ARCHIVE_SHA256", SOURCE_ARCHIVE_SHA256)
+        _require_equal(archive_sha, SOURCE_ARCHIVE_SHA256, "source archive SHA-256")
+
+    files: dict[str, bytes] = {}
+    try:
+        with gzip.GzipFile(fileobj=io.BytesIO(payload), mode="rb") as decompressed:
+            bounded_tar = _BoundedReader(decompressed, MAX_TAR_STREAM_BYTES)
+            with tarfile.open(fileobj=bounded_tar, mode="r|") as archive:
+                _require_equal(
+                    dict(archive.pax_headers), PAX_HEADERS, "source PAX provenance"
+                )
+                total_size = 0
+                member_count = 0
+                for member in archive:
+                    member_count += 1
+                    if member_count > EXPECTED_REGULAR_FILES:
+                        raise ExtractionError(
+                            "source tar has more than the expected member count"
+                        )
+                    _require_equal(
+                        dict(archive.pax_headers),
+                        PAX_HEADERS,
+                        "source global PAX provenance",
+                    )
+                    _validate_effective_member_pax(member)
+                    relative = _safe_relative_member(member.name)
+                    _validate_relative_source_path(relative)
+                    if not member.isfile() or member.issym() or member.islnk():
+                        raise ExtractionError(
+                            f"source tar member is not a regular file: {member.name}"
+                        )
+                    if relative in files:
+                        raise ExtractionError(f"duplicate source tar member: {relative}")
+                    if member.size < 0 or member.size > MAX_MEMBER_BYTES:
+                        raise ExtractionError(f"unsafe source member size: {member.name}")
+                    total_size += member.size
+                    if total_size > MAX_TOTAL_UNCOMPRESSED_BYTES:
+                        raise ExtractionError(
+                            "source archive exceeds the uncompressed-file limit"
+                        )
+                    extracted = archive.extractfile(member)
+                    if extracted is None:
+                        raise ExtractionError(f"cannot read source member: {member.name}")
+                    content = extracted.read(MAX_MEMBER_BYTES + 1)
+                    if len(content) != member.size:
+                        raise ExtractionError(
+                            f"source member size mismatch: {member.name}"
+                        )
+                    files[relative] = content
+                _require_equal(
+                    member_count,
+                    EXPECTED_REGULAR_FILES,
+                    "source tar member count",
+                )
+                _require_equal(
+                    dict(archive.pax_headers),
+                    PAX_HEADERS,
+                    "final source global PAX provenance",
+                )
+    except (tarfile.TarError, EOFError, OSError) as error:
+        raise ExtractionError(f"invalid OEIS source archive: {error}") from error
+
+    entries, total_size, inventory_sha, path_set_sha = _validate_source_files(
+        files, enforce_inventory_lock=enforce_inventory_lock
+    )
+    if enforce_canonical_bytes:
+        canonical = encode_source_archive(files)
+        if canonical != payload:
+            raise ExtractionError("source archive bytes are not canonical")
+    return SourceBundle(
+        archive_sha256=archive_sha,
+        archive_size_bytes=len(payload),
+        uncompressed_size_bytes=total_size,
+        inventory_sha256=inventory_sha,
+        path_set_sha256=path_set_sha,
+        files=dict(files),
+        entries=entries,
+    )
+
+
+def normalize_candidate_text(text: str) -> str:
+    """Reproduce the frozen marker-audit normalization, not semantic dedupe."""
+
+    normalized = HTML_TAG_RE.sub("", text)
+    normalized = "".join(
+        chr(ord(character) + 32) if "A" <= character <= "Z" else character
+        for character in normalized
+    )
+    normalized = "".join(
+        character if character.isalnum() else " " for character in normalized
+    )
+    return " ".join(normalized.split())
+
+
+def _candidate_location(entry: SequenceEntry, field: FieldLine) -> dict[str, Any]:
+    return {
+        "a_number": entry.a_number,
+        "blob_sha1": entry.blob_sha1,
+        "entry_url": f"https://oeis.org/{entry.a_number}",
+        "field": field.field,
+        "file_sha256": entry.file_sha256,
+        "line_number": field.line_number,
+        "original_text": field.text,
+        "path": entry.path,
+        "raw_commit_url": (
+            "https://raw.githubusercontent.com/oeis/oeisdata/"
+            f"{PINNED_COMMIT}/{entry.path}"
+        ),
+    }
+
+
+def extract_candidates(bundle: SourceBundle) -> ExtractionResult:
+    occurrences: list[dict[str, Any]] = []
+    quarantined: list[dict[str, Any]] = []
+    entries_with_candidates: set[str] = set()
+    marker_lines = 0
+
+    for entry in bundle.entries:
+        for field in entry.fields:
+            if field.field not in {"%N", "%C", "%F"}:
+                continue
+            if MARKER_RE.search(field.text) is None:
+                continue
+            marker_lines += 1
+            location = _candidate_location(entry, field)
+            if RESOLUTION_QUARANTINE_RE.search(field.text) is not None:
+                quarantined.append(
+                    {
+                        "reason": "mechanical_resolution_term_quarantine",
+                        **location,
+                    }
+                )
+                continue
+            normalized = normalize_candidate_text(field.text)
+            if not normalized:
+                raise ExtractionError(
+                    f"{entry.path}:{field.line_number}: empty normalized candidate"
+                )
+            entries_with_candidates.add(entry.a_number)
+            occurrences.append(
+                {
+                    "a_number": entry.a_number,
+                    "field": field.field,
+                    "line_number": field.line_number,
+                    "normalized_text": normalized,
+                    "normalized_text_sha256": sha256_bytes(normalized.encode("utf-8")),
+                    "original_text": field.text,
+                    "source_path": entry.path,
+                    "source_blob_sha1": entry.blob_sha1,
+                    "source_file_sha256": entry.file_sha256,
+                }
+            )
+
+    groups: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for occurrence in occurrences:
+        groups[occurrence["normalized_text"]].append(occurrence)
+
+    candidates: list[dict[str, Any]] = []
+    for normalized, group in sorted(groups.items()):
+        locations = []
+        for occurrence in sorted(
+            group,
+            key=lambda row: (
+                row["a_number"],
+                row["field"],
+                row["line_number"],
+                row["original_text"],
+            ),
+        ):
+            entry = next(
+                item for item in bundle.entries if item.a_number == occurrence["a_number"]
+            )
+            field = next(
+                item
+                for item in entry.fields
+                if item.field == occurrence["field"]
+                and item.line_number == occurrence["line_number"]
+            )
+            locations.append(_candidate_location(entry, field))
+        normalized_sha = sha256_bytes(normalized.encode("utf-8"))
+        candidates.append(
+            {
+                "a_number_count": len({row["a_number"] for row in locations}),
+                "candidate_key": f"oeis-normalized/{normalized_sha}",
+                "candidate_only": True,
+                "candidate_type": "lexical_conjecture_marker_line",
+                "dedupe_boundary": {
+                    "exact_normalized_text_grouped": True,
+                    "semantic_deduplication_performed": False,
+                },
+                "grants_catalog_entry": False,
+                "grants_strict_conjecture_credit": False,
+                "license_spdx": LICENSE_SPDX,
+                "locations": locations,
+                "normalized_text": normalized,
+                "normalized_text_sha256": normalized_sha,
+                "occurrence_count": len(locations),
+                "schema_version": SCHEMA_VERSION,
+                "source": {
+                    "commit": PINNED_COMMIT,
+                    "commit_timestamp": PINNED_COMMIT_TIMESTAMP,
+                    "export_time": PINNED_EXPORT_TIME,
+                    "license_evidence_blob_sha1": README_BLOB_SHA1,
+                    "license_evidence_path": README_PATH,
+                    "license_evidence_sha256": README_SHA256,
+                    "repository_url": SOURCE_REPOSITORY,
+                    "source_id": SOURCE_ID,
+                    "tree_sha1": PINNED_TREE_SHA1,
+                },
+                "status_boundary": {
+                    "current_open_status": "not_independently_reviewed",
+                    "importance_or_frontier_status": "not_independently_reviewed",
+                    "marker_is_not_status_evidence": True,
+                    "requires_atomicity_and_context_review": True,
+                },
+            }
+        )
+
+    _require_equal(marker_lines, EXPECTED_MARKER_LINES, "marker-line count")
+    _require_equal(
+        len(quarantined),
+        EXPECTED_QUARANTINED_RESOLUTION_LINES,
+        "resolution-quarantine count",
+    )
+    _require_equal(
+        len(occurrences), EXPECTED_CANDIDATE_OCCURRENCES, "candidate occurrence count"
+    )
+    _require_equal(
+        len(entries_with_candidates),
+        EXPECTED_ENTRIES_WITH_CANDIDATES,
+        "entries-with-candidates count",
+    )
+    _require_equal(
+        len(candidates), EXPECTED_UNIQUE_CANDIDATES, "unique candidate count"
+    )
+    if any(
+        location["field"] not in {"%N", "%C", "%F"}
+        for candidate in candidates
+        for location in candidate["locations"]
+    ):
+        raise ExtractionError("a candidate escaped the %N/%C/%F field boundary")
+
+    candidate_keys = sorted(row["candidate_key"] for row in candidates)
+    key_set_sha = sha256_bytes(canonical_json_bytes(candidate_keys))
+    if CANDIDATE_KEY_SET_SHA256 != "0" * 64:
+        _require_equal(
+            key_set_sha, CANDIDATE_KEY_SET_SHA256, "candidate-key set SHA-256"
+        )
+    summary = {
+        "candidate_asset_sha256": sha256_bytes(encode_candidates(candidates)),
+        "candidate_key_set_sha256": key_set_sha,
+        "counts": {
+            "candidate_occurrences": len(occurrences),
+            "entries_with_candidates": len(entries_with_candidates),
+            "marker_lines": marker_lines,
+            "resolution_quarantined": len(quarantined),
+            "source_regular_files": EXPECTED_REGULAR_FILES,
+            "source_sequence_entries": len(bundle.entries),
+            "unique_candidates": len(candidates),
+        },
+        "extractor_version": EXTRACTOR_VERSION,
+        "schema_version": SUMMARY_SCHEMA_VERSION,
+        "source": {
+            "archive_sha256": bundle.archive_sha256,
+            "archive_size_bytes": bundle.archive_size_bytes,
+            "commit": PINNED_COMMIT,
+            "commit_timestamp": PINNED_COMMIT_TIMESTAMP,
+            "export_time": PINNED_EXPORT_TIME,
+            "inventory_sha256": bundle.inventory_sha256,
+            "license_spdx": LICENSE_SPDX,
+            "path_set_sha256": bundle.path_set_sha256,
+            "repository_url": SOURCE_REPOSITORY,
+            "source_id": SOURCE_ID,
+            "tree_sha1": PINNED_TREE_SHA1,
+            "uncompressed_size_bytes": bundle.uncompressed_size_bytes,
+        },
+        "status_boundary": {
+            "candidate_asset_grants_catalog_entry": False,
+            "candidate_asset_grants_strict_conjecture_credit": False,
+            "current_open_status_independently_reviewed": False,
+            "importance_independently_reviewed": False,
+            "semantic_deduplication_performed": False,
+        },
+    }
+    return ExtractionResult(
+        candidates=tuple(candidates),
+        occurrences=tuple(occurrences),
+        quarantined=tuple(quarantined),
+        entries_with_candidates=tuple(sorted(entries_with_candidates)),
+        summary=summary,
+    )
+
+
+def load_candidate_asset(path: Path, *, enforce_asset_lock: bool = True) -> list[dict[str, Any]]:
+    expected_size: int | None = None
+    if enforce_asset_lock:
+        _require_lock("CANDIDATE_ASSET_SIZE_BYTES", CANDIDATE_ASSET_SIZE_BYTES)
+        expected_size = CANDIDATE_ASSET_SIZE_BYTES
+    payload = _read_bounded_file(
+        path,
+        label="OEIS candidate asset",
+        max_bytes=MAX_CANDIDATE_ASSET_BYTES,
+        expected_size=expected_size,
+    )
+    if enforce_asset_lock:
+        _require_lock("CANDIDATE_ASSET_SHA256", CANDIDATE_ASSET_SHA256)
+        _require_equal(
+            sha256_bytes(payload), CANDIDATE_ASSET_SHA256, "candidate asset SHA-256"
+        )
+    if not payload.endswith(b"\n"):
+        raise ExtractionError("candidate JSONL lacks one final LF")
+    rows: list[dict[str, Any]] = []
+    for line_number, line in enumerate(payload.splitlines(), start=1):
+        try:
+            value = json.loads(line)
+        except (UnicodeError, json.JSONDecodeError) as error:
+            raise ExtractionError(
+                f"candidate line {line_number} is invalid JSON: {error}"
+            ) from error
+        if not isinstance(value, dict):
+            raise ExtractionError(f"candidate line {line_number} is not an object")
+        rows.append(value)
+    _require_equal(len(rows), EXPECTED_UNIQUE_CANDIDATES, "candidate JSONL row count")
+    if encode_candidates(rows) != payload:
+        raise ExtractionError("candidate JSONL bytes are not canonical")
+    return rows
+
+
+def _atomic_write(path: Path, payload: bytes) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_name(f".{path.name}.{os.getpid()}.tmp")
+    try:
+        temporary.write_bytes(payload)
+        os.replace(temporary, path)
+    finally:
+        try:
+            temporary.unlink()
+        except FileNotFoundError:
+            pass
+
+
+def build_source_archive(source_directory: Path, output: Path) -> dict[str, Any]:
+    files = read_source_directory(source_directory)
+    _entries, total_size, inventory_sha, path_set_sha = _validate_source_files(
+        files, enforce_inventory_lock=False
+    )
+    payload = encode_source_archive(files)
+    _atomic_write(output, payload)
+    return {
+        "archive_sha256": sha256_bytes(payload),
+        "archive_size_bytes": len(payload),
+        "inventory_sha256": inventory_sha,
+        "path_set_sha256": path_set_sha,
+        "regular_files": len(files),
+        "sequence_entries": len(files) - 2,
+        "uncompressed_size_bytes": total_size,
+    }
+
+
+def check_assets(source: Path, candidates: Path) -> ExtractionResult:
+    bundle = load_source_archive(source)
+    result = extract_candidates(bundle)
+    vendored = load_candidate_asset(candidates)
+    expected = encode_candidates(result.candidates)
+    observed = encode_candidates(vendored)
+    if observed != expected:
+        raise ExtractionError("vendored candidate asset does not replay from source")
+    return result
+
+
+def main(argv: Sequence[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--source", type=Path, default=DEFAULT_SOURCE_ARCHIVE)
+    parser.add_argument("--output", type=Path, default=DEFAULT_CANDIDATE_ASSET)
+    parser.add_argument(
+        "--check",
+        action="store_true",
+        help="verify the locked source and candidate asset without writing",
+    )
+    parser.add_argument(
+        "--summary-only",
+        action="store_true",
+        help="verify/extract and print the canonical summary without writing",
+    )
+    parser.add_argument(
+        "--build-source-from",
+        type=Path,
+        help="build the deterministic source archive from a 624-file directory",
+    )
+    parser.add_argument(
+        "--source-out",
+        type=Path,
+        help="output path used with --build-source-from (defaults to --source)",
+    )
+    args = parser.parse_args(argv)
+
+    if args.build_source_from is not None:
+        if args.check or args.summary_only:
+            raise ExtractionError("--build-source-from cannot be combined with check modes")
+        report = build_source_archive(
+            args.build_source_from, args.source_out or args.source
+        )
+        print(json.dumps(report, ensure_ascii=False, sort_keys=True))
+        return 0
+
+    if args.check:
+        result = check_assets(args.source, args.output)
+        print(
+            "PASS extract_oeis_conjectures_v5 "
+            f"source={EXPECTED_SEQUENCE_ENTRIES} "
+            f"occurrences={EXPECTED_CANDIDATE_OCCURRENCES} "
+            f"candidates={EXPECTED_UNIQUE_CANDIDATES}"
+        )
+        return 0
+
+    bundle = load_source_archive(args.source)
+    result = extract_candidates(bundle)
+    if args.summary_only:
+        print(canonical_json_bytes(result.summary).decode("utf-8"))
+        return 0
+    _atomic_write(args.output, encode_candidates(result.candidates))
+    print(
+        "PASS extract_oeis_conjectures_v5 write "
+        f"source={EXPECTED_SEQUENCE_ENTRIES} "
+        f"occurrences={EXPECTED_CANDIDATE_OCCURRENCES} "
+        f"candidates={EXPECTED_UNIQUE_CANDIDATES}"
+    )
+    return 0
+
+
+if __name__ == "__main__":
+    try:
+        raise SystemExit(main())
+    except (ExtractionError, OSError, ValueError, json.JSONDecodeError) as error:
+        print(f"FAIL extract_oeis_conjectures_v5: {error}", file=sys.stderr)
+        raise SystemExit(1)

@@ -1,0 +1,72 @@
+{
+  "schema_version": "awesome-theorems/stage5-proof-units/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003625-TARGET",
+  "stage_claim_id": "S5-CLM-00003625",
+  "root_node_id": "N-ROOT",
+  "nodes": [
+    {
+      "node_id": "N-SOURCE",
+      "node_type": "provenance",
+      "inputs": [],
+      "output": "the frozen provider declaration and type",
+      "formal_anchor": "Erdos1057.erdos_1057.variants.agp_lower_bound",
+      "trust_boundary": "pinned provider source bytes; Master recomputation required"
+    },
+    {
+      "node_id": "N-SEMANTIC",
+      "node_type": "semantic-binding",
+      "inputs": ["N-SOURCE"],
+      "output": "source and target elaborate to one expression",
+      "formal_anchor": "Statement.target_statement",
+      "trust_boundary": "Lean elaborator and kernel at trust zero"
+    },
+    {
+      "node_id": "N-FORWARD",
+      "node_type": "transport",
+      "inputs": ["N-SEMANTIC"],
+      "output": "source proposition implies target proposition",
+      "formal_anchor": "Statement.source_to_target",
+      "trust_boundary": "identity transport checked by Lean"
+    },
+    {
+      "node_id": "N-REVERSE",
+      "node_type": "transport",
+      "inputs": ["N-SEMANTIC"],
+      "output": "target proposition implies source proposition",
+      "formal_anchor": "Statement.target_to_source",
+      "trust_boundary": "identity transport checked by Lean"
+    },
+    {
+      "node_id": "N-ROOT",
+      "node_type": "proof",
+      "inputs": ["N-SOURCE", "N-FORWARD"],
+      "output": "the exact target lower bound",
+      "formal_anchor": "Proof.agp_lower_bound_machine_closure",
+      "trust_boundary": "Lean kernel replay and provider dependency audit"
+    },
+    {
+      "node_id": "N-AUDIT",
+      "node_type": "validation",
+      "inputs": ["N-REVERSE", "N-ROOT"],
+      "output": "semantic identity and cold replay certificate",
+      "formal_anchor": "Audit.semantic_identity_audit",
+      "trust_boundary": "worker replay followed by independent Master replay"
+    }
+  ],
+  "edges": [
+    ["N-SOURCE", "N-SEMANTIC"],
+    ["N-SEMANTIC", "N-FORWARD"],
+    ["N-SEMANTIC", "N-REVERSE"],
+    ["N-SOURCE", "N-ROOT"],
+    ["N-FORWARD", "N-ROOT"],
+    ["N-REVERSE", "N-AUDIT"],
+    ["N-ROOT", "N-AUDIT"]
+  ],
+  "composition_complete": true,
+  "provenance_complete": true,
+  "trust_boundaries_complete": true,
+  "human_cut_set": [],
+  "machine_cut_set": [],
+  "readability_cut_set": []
+}

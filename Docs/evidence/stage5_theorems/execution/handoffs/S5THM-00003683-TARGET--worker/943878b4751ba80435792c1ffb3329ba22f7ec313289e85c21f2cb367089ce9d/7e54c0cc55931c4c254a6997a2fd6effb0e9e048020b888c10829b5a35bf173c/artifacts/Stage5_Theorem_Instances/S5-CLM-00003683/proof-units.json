@@ -1,0 +1,26 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003683-TARGET",
+  "stage_claim_id": "S5-CLM-00003683",
+  "root_node": "PU-ROOT",
+  "nodes": [
+    {"node_id": "PU-ROOT", "kind": "root", "hypotheses": ["n : ℕ", "Odd n", "n < 2^50", "1 < n", "finite certificate"], "output": "∃ k l : ℕ, Squarefree k ∧ n = k + 2^l", "formal_anchor": "FA-PROOF", "trust": 0},
+    {"node_id": "PU-PACK", "kind": "subtype-introduction", "hypotheses": ["n : ℕ", "n < 2^50"], "output": "⟨n,h⟩ : Fin (2^50)", "formal_anchor": "FA-PROOF", "trust": 0},
+    {"node_id": "PU-CERT", "kind": "certificate-application", "hypotheses": ["⟨n,h⟩ : Fin (2^50)", "Odd n", "1 < n", "finite certificate"], "output": "bounded k,l and conjunction", "formal_anchor": "FA-PROOF", "trust": 0},
+    {"node_id": "PU-DESTRUCT", "kind": "existential-elimination", "hypotheses": ["bounded k,l and conjunction"], "output": "k.1, l.1, Squarefree k.1, equality", "formal_anchor": "FA-PROOF", "trust": 0},
+    {"node_id": "PU-RETURN", "kind": "existential-introduction", "hypotheses": ["k.1, l.1, Squarefree k.1, equality"], "output": "∃ k l : ℕ, Squarefree k ∧ n = k + 2^l", "formal_anchor": "FA-PROOF", "trust": 0}
+  ],
+  "edges": [
+    {"from": "PU-ROOT", "to": "PU-PACK", "role": "decomposes"},
+    {"from": "PU-PACK", "to": "PU-CERT", "role": "supplies bounded input"},
+    {"from": "PU-CERT", "to": "PU-DESTRUCT", "role": "supplies witnesses"},
+    {"from": "PU-DESTRUCT", "to": "PU-RETURN", "role": "supplies natural witnesses"},
+    {"from": "PU-RETURN", "to": "PU-ROOT", "role": "closes"}
+  ],
+  "provenance_edges": [{"from": "frozen-member-ac74ef3a", "to": "PU-ROOT", "role": "exact statement only"}],
+  "remaining_human_cut_set": [],
+  "remaining_machine_cut_set": [],
+  "remaining_readability_cut_set": [],
+  "authority_sha256": "145b8c81c2428de96cac09385bdb09af85f06650938009fe7ce1bc4eca9be088"
+}

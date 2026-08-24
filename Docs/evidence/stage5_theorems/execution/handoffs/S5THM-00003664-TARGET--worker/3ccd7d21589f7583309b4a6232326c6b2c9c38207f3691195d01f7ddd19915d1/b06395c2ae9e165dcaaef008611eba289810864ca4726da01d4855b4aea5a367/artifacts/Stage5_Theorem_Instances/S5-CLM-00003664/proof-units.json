@@ -1,0 +1,121 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003664-TARGET",
+  "stage_claim_id": "S5-CLM-00003664",
+  "root_node": "PU-ROOT",
+  "nodes": [
+    {
+      "node_id": "PU-PARAM",
+      "kind": "typed_parameter_reduction",
+      "inputs": [
+        "d",
+        "hd : 4 ≤ d"
+      ],
+      "output": "p = d / 2 and 2 ≤ p",
+      "dependencies": [],
+      "formal_anchor": "half_dimension_ge_two",
+      "trust": 0
+    },
+    {
+      "node_id": "PU-GEOM",
+      "kind": "geometric_construction",
+      "inputs": [
+        "p",
+        "2 ≤ p",
+        "n"
+      ],
+      "output": "n distinct points in p orthogonal coordinate circles",
+      "dependencies": [
+        "PU-PARAM"
+      ],
+      "formal_anchor": "claim-owned expanded extremal expression",
+      "trust": 0
+    },
+    {
+      "node_id": "PU-UNIT",
+      "kind": "distance_calculation",
+      "inputs": [
+        "orthogonal circles of radius 1 / sqrt 2"
+      ],
+      "output": "every cross-class pair has distance one",
+      "dependencies": [
+        "PU-GEOM"
+      ],
+      "formal_anchor": "unitDistNum filter predicate",
+      "trust": 0
+    },
+    {
+      "node_id": "PU-BALANCE",
+      "kind": "finite_counting",
+      "inputs": [
+        "balanced class sizes summing to n"
+      ],
+      "output": "cross pairs ≥ (p-1)/(2p)n² - C_p",
+      "dependencies": [
+        "PU-UNIT"
+      ],
+      "formal_anchor": "balanced complete multipartite edge identity",
+      "trust": 0
+    },
+    {
+      "node_id": "PU-SUP",
+      "kind": "order_transport",
+      "inputs": [
+        "one admissible n-point Finset",
+        "cross-pair count"
+      ],
+      "output": "the same count is at most f d n",
+      "dependencies": [
+        "PU-BALANCE"
+      ],
+      "formal_anchor": "Erdos1085.f iSup lower bound",
+      "trust": 0
+    },
+    {
+      "node_id": "PU-ROOT",
+      "kind": "root_composition",
+      "inputs": [
+        "PU-SUP",
+        "uniform rounding constant C_p"
+      ],
+      "output": "frozen lower_d4_lenz proposition",
+      "dependencies": [
+        "PU-SUP"
+      ],
+      "formal_anchor": "claim_owned_lower_d4_lenz_composition",
+      "trust": 0
+    }
+  ],
+  "dependency_edges": [
+    [
+      "PU-PARAM",
+      "PU-GEOM"
+    ],
+    [
+      "PU-GEOM",
+      "PU-UNIT"
+    ],
+    [
+      "PU-UNIT",
+      "PU-BALANCE"
+    ],
+    [
+      "PU-BALANCE",
+      "PU-SUP"
+    ],
+    [
+      "PU-SUP",
+      "PU-ROOT"
+    ]
+  ],
+  "provenance": {
+    "source_provider_body_used": false,
+    "source_statement_used": true,
+    "claim_owned_proof": true
+  },
+  "remaining_human_cut_set": [],
+  "remaining_machine_cut_set": [],
+  "remaining_readability_cut_set": [],
+  "authority_sha256": "1a640185335c66bad58987aecda28aa15d38267482ac15f854f09458d836c8d4"
+}

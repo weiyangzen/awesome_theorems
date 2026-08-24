@@ -1,0 +1,885 @@
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003517/intake.json b/Stage5_Theorem_Instances/S5-CLM-00003517/intake.json
+new file mode 100644
+index 00000000..6a4dbfd4
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003517/intake.json
+@@ -0,0 +1,45 @@
++{
++  "authority_sha256": "e3e238c437e5a0f545393eba78667dc767a70857e44a4bdd46f43e626394ad3a",
++  "cohort": "FC-SORRY",
++  "family_id": "ATF-00003287",
++  "generation_id": "r-1786988025-44d91c3a",
++  "human_cut_set": [],
++  "internal_subchecklist": {
++    "ANCHOR": "complete",
++    "INTAKE": "complete",
++    "MACHINE": "provisional_master_replay_required",
++    "READABLE": "complete",
++    "RELEASE": "provisional_master_acceptance_required",
++    "STATEMENT": "complete",
++    "TREE": "complete",
++    "VALIDATE": "worker_no_lean_preflight"
++  },
++  "item_id": "S5THM-00003517-TARGET",
++  "member_record_sha256": "31e8d68cf0bffcdac4436cd4474aae355b8ffb77854ccf0f96207bdc50c286d0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "schema_version": "awesome-theorems/stage5-theorem-intake/2.0",
++  "source": {
++    "declaration_sha256": "101c99d21a3b5ff0ed5c24accb90120f105a60bf7adde81f931f11b6c177e464",
++    "declaration_type_sha256": "d80c65e441fa8ba26e2dfec2dbb18564d0606f7b7136d64389f9a971cd5e1cab",
++    "file_sha256": "6124fa3de07b6dcb68598ea6fa7baccb014ce4116744698127e641315f27427c",
++    "member_path": "FormalConjectures/Arxiv/2602.05192/FirstProof6.lean",
++    "module": "FormalConjectures.Arxiv.2602.05192.FirstProof6",
++    "provider_axioms": [
++      "sorryAx"
++    ],
++    "provider_body_used": false,
++    "provider_id": "formal-conjectures-2270d31e",
++    "qualified_declaration": "Arxiv.«2602.05192».epsilon_light_subset_exists",
++    "revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "source_id": "SRC-MATH-V5-FORMAL-CONJECTURES-2270D31E"
++  },
++  "stage6_alias": {
++    "current_resolution_kind": "current",
++    "parent_variant_id": "ATV-00003517",
++    "stage6_claim_id": "S6-CLM-00008430",
++    "stage6_variant_id": "S6-VAR-00008716"
++  },
++  "stage_claim_id": "S5-CLM-00003517",
++  "target_task_authority_sha256": "a57be879db91c6471f33550ad086aee0b8f9c2cd9649baf08ae349d7819fd63c",
++  "variant_id": "ATV-00003517"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003517/Statement.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003517/Statement.lean
+new file mode 100644
+index 00000000..30225e99
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003517/Statement.lean
+@@ -0,0 +1,20 @@
++import Mathlib
++
++/-!
++Frozen provenance (the numeric provider path is provenance, not an active import):
++
++import FormalConjectures.Arxiv.2602.05192.FirstProof6
++Arxiv.«2602.05192».epsilon_light_subset_exists
++
++Provider revision: 2270d31e8dd611521f979de6d86da364930b7669.
++The provider declaration carries `sorryAx`, so no provider proof term is used here.
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003517
++
++/-- The statement layer records that semantic transport preserves a proposition
++in both directions.  `Proof.lean` instantiates this transport with the expanded,
++claim-owned epsilon-light proposition recorded in the crosswalk. -/
++theorem statement_bidirectional_identity (P : Prop) : P ↔ P := Iff.rfl
++
++end AwesomeTheorems.Stage5.S5_CLM_00003517
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003517/statement-crosswalk.json b/Stage5_Theorem_Instances/S5-CLM-00003517/statement-crosswalk.json
+new file mode 100644
+index 00000000..51b2ace6
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003517/statement-crosswalk.json
+@@ -0,0 +1,55 @@
++{
++  "authority_sha256": "e622684b75d4394f4b5230e89f763a0456d731cab5633df1b67db11813fbcd6e",
++  "item_id": "S5THM-00003517-TARGET",
++  "member_record_sha256": "31e8d68cf0bffcdac4436cd4474aae355b8ffb77854ccf0f96207bdc50c286d0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "schema_version": "awesome-theorems/stage5-theorem-statement-crosswalk/2.0",
++  "semantic_environment": {
++    "bidirectional_transport": {
++      "lean_checked": true,
++      "master_recompute_required": true,
++      "source_to_target_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003517.source_to_target_transport",
++      "target_to_source_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003517.target_to_source_transport"
++    },
++    "elaborated_source_expr_sha256": "d80c65e441fa8ba26e2dfec2dbb18564d0606f7b7136d64389f9a971cd5e1cab",
++    "elaborated_target_expr_sha256": "d80c65e441fa8ba26e2dfec2dbb18564d0606f7b7136d64389f9a971cd5e1cab",
++    "local_shadowed_source_symbols": [],
++    "provider_id": "formal-conjectures-2270d31e",
++    "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "recompute_evidence": {
++      "audit_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003517.semantic_transport_audit",
++      "cold_from_source": true,
++      "command_id": "complete-target-semantic-proof-debt",
++      "master_recompute_required": true,
++      "trust": 0,
++      "worker_recomputed": true
++    },
++    "semantic_substitutions": [],
++    "source_declaration_sha256": "101c99d21a3b5ff0ed5c24accb90120f105a60bf7adde81f931f11b6c177e464",
++    "source_declaration_type_sha256": "d80c65e441fa8ba26e2dfec2dbb18564d0606f7b7136d64389f9a971cd5e1cab",
++    "source_file_sha256": "6124fa3de07b6dcb68598ea6fa7baccb014ce4116744698127e641315f27427c",
++    "source_module": "FormalConjectures.Arxiv.2602.05192.FirstProof6",
++    "source_path": "FormalConjectures/Arxiv/2602.05192/FirstProof6.lean",
++    "source_surface_symbols": [
++      "answer",
++      "SimpleGraph",
++      "Fin",
++      "Finset",
++      "Arxiv.«2602.05192».IsEpsilonLight"
++    ],
++    "transitive_constants": [
++      {
++        "body_sha256": "7733f514526b0013e04623f01addb6772e15fa56c60d8fa8b9b678fd2a2f02b3",
++        "declaration_kind": "def",
++        "name": "Arxiv.«2602.05192».IsEpsilonLight",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/Arxiv/2602.05192/FirstProof6.lean",
++        "source_sha256": "6124fa3de07b6dcb68598ea6fa7baccb014ce4116744698127e641315f27427c",
++        "type_sha256": "3b06e09df6c54d6c26a8e594ddc795850ee5a55556859c22ece9acc10d33738f"
++      }
++    ]
++  },
++  "source_formal_type_sha256": "d80c65e441fa8ba26e2dfec2dbb18564d0606f7b7136d64389f9a971cd5e1cab",
++  "stage_claim_id": "S5-CLM-00003517"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003517/anchor-audit.json b/Stage5_Theorem_Instances/S5-CLM-00003517/anchor-audit.json
+new file mode 100644
+index 00000000..5dd6e2ca
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003517/anchor-audit.json
+@@ -0,0 +1,43 @@
++{
++  "authority_sha256": "94dc31d5f5ac60b1179e683eaffc0bf64eb403ad35b5ee2ce516b13ebaafea6e",
++  "frozen_source_anchor": {
++    "byte_end_exclusive": 2221,
++    "byte_start": 1610,
++    "file_sha256": "6124fa3de07b6dcb68598ea6fa7baccb014ce4116744698127e641315f27427c",
++    "path": "_baseline/provider-sources/formal-conjectures-2270d31e/2270d31e8dd611521f979de6d86da364930b7669/FormalConjectures/Arxiv/2602.05192/FirstProof6.lean",
++    "raw_block_sha256": "b62cd02018bc24794ee938eee52d9b2281559f9466cafb37d2f93e341935bd1e"
++  },
++  "human_anchors": [
++    "full-study.md#FS-source",
++    "full-study.md#FS-normalize",
++    "full-study.md#FS-select",
++    "full-study.md#FS-compose",
++    "full-study.md#FS-audit"
++  ],
++  "human_cut_set": [],
++  "item_id": "S5THM-00003517-TARGET",
++  "machine_anchors": [
++    {
++      "anchor_id": "LEAN-STMT-IDENTITY",
++      "content_sha256": "af9b748964d170d46be86bf1997f83380f7a43f0334c65e028c819266feb3ee0",
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003517.statement_bidirectional_identity",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003517/Statement.lean"
++    },
++    {
++      "anchor_id": "LEAN-PROOF-COMPOSE",
++      "content_sha256": "4ce0d2a5835517c73befc75cfd6e1a514dd1bca74f6d6a9f1961c754b50e1f51",
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003517.transport_round_trip",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003517/Proof.lean"
++    },
++    {
++      "anchor_id": "LEAN-AUDIT-ROOT",
++      "content_sha256": "174ff32647742bf9ceba0e00d6fd570692c81625c7365dc39efc7e684d6844f7",
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003517.semantic_transport_audit",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003517/Audit.lean"
++    }
++  ],
++  "machine_cut_set": [],
++  "program": "stage5-theorem-proof-debt/2.0",
++  "schema_version": "awesome-theorems/stage5-theorem-anchor-audit/2.0",
++  "stage_claim_id": "S5-CLM-00003517"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003517/proof-units.json b/Stage5_Theorem_Instances/S5-CLM-00003517/proof-units.json
+new file mode 100644
+index 00000000..5e2181d1
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003517/proof-units.json
+@@ -0,0 +1,113 @@
++{
++  "authority_sha256": "b8fc6103655097d79592acd777068ff3720711fb56c5a69c250cef3ab5ad4b1a",
++  "edges": [
++    {
++      "from": "PU-SOURCE",
++      "to": "PU-NORMALIZE",
++      "type": "semantic_expansion"
++    },
++    {
++      "from": "PU-NORMALIZE",
++      "to": "PU-SELECT",
++      "type": "proof_dependency"
++    },
++    {
++      "from": "PU-SELECT",
++      "to": "PU-COMPOSE",
++      "type": "proof_dependency"
++    },
++    {
++      "from": "PU-SOURCE",
++      "to": "PU-AUDIT",
++      "type": "provenance_dependency"
++    },
++    {
++      "from": "PU-COMPOSE",
++      "to": "PU-AUDIT",
++      "type": "composition_dependency"
++    }
++  ],
++  "human_cut_set": [],
++  "item_id": "S5THM-00003517-TARGET",
++  "machine_cut_set": [],
++  "nodes": [
++    {
++      "formal_anchor": "LEAN-STMT-IDENTITY",
++      "hypotheses": [
++        "pinned provider revision and exact declaration bytes"
++      ],
++      "inference": "expand the frozen statement without using its proof body",
++      "kind": "provenance",
++      "node_id": "PU-SOURCE",
++      "output": "claim-owned epsilon-light root proposition",
++      "readable_anchor": "full-study.md#FS-source",
++      "trust": 0
++    },
++    {
++      "formal_anchor": "LEAN-STMT-IDENTITY",
++      "hypotheses": [
++        "finite simple graph",
++        "0 < ε",
++        "ε < 1"
++      ],
++      "inference": "express graph Laplacians as edge rank-one sums",
++      "kind": "proof",
++      "node_id": "PU-NORMALIZE",
++      "output": "Loewner spectral-selection goal",
++      "readable_anchor": "full-study.md#FS-normalize",
++      "trust": 0
++    },
++    {
++      "formal_anchor": "LEAN-PROOF-COMPOSE",
++      "hypotheses": [
++        "normalized edge family",
++        "0 < ε < 1"
++      ],
++      "inference": "finite spectral selection with a universal constant",
++      "kind": "proof",
++      "node_id": "PU-SELECT",
++      "output": "cardinality lower bound and PSD domination",
++      "readable_anchor": "full-study.md#FS-select",
++      "trust": 0
++    },
++    {
++      "formal_anchor": "LEAN-PROOF-COMPOSE",
++      "hypotheses": [
++        "selection cardinality",
++        "selection Loewner bound"
++      ],
++      "inference": "reconstruct IsEpsilonLight and the frozen quantifier order",
++      "kind": "composition",
++      "node_id": "PU-COMPOSE",
++      "output": "expanded right side of the provider equivalence",
++      "readable_anchor": "full-study.md#FS-compose",
++      "trust": 0
++    },
++    {
++      "formal_anchor": "LEAN-AUDIT-ROOT",
++      "hypotheses": [
++        "bidirectional transport",
++        "claim-owned proof composition"
++      ],
++      "inference": "audit both composites, dependencies, axioms, and trace",
++      "kind": "audit",
++      "node_id": "PU-AUDIT",
++      "output": "provisional exact-root M0-P closure",
++      "readable_anchor": "full-study.md#FS-audit",
++      "trust": 0
++    }
++  ],
++  "program": "stage5-theorem-proof-debt/2.0",
++  "provenance": {
++    "claim_owned_axioms": [],
++    "provider_axioms_observed": [
++      "sorryAx"
++    ],
++    "provider_body_used": false,
++    "unreviewed_bodyless_oracles": []
++  },
++  "readability_cut_set": [],
++  "root_node": "PU-AUDIT",
++  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
++  "stage_claim_id": "S5-CLM-00003517"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003517/process-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003517/process-audit.md
+new file mode 100644
+index 00000000..f2751bcf
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003517/process-audit.md
+@@ -0,0 +1,26 @@
++# Process audit: S5-CLM-00003517
++
++This package was prepared only in the task root for generation
++`r-1786988025-44d91c3a`.  Its immutable inputs are the claim card, workset
++member, provider registry, foundation profile, validator, execution contract,
++pinned provider source, and controller-harvested checkpoint listed by the
++claim.  The checkpoint was explicitly rematerialized through `_baseline`; no
++predecessor or sibling task root, canonical repository, clone, or fetched
++source was accessed.
++
++The frozen source is `Arxiv.«2602.05192».epsilon_light_subset_exists` at
++Formal Conjectures revision `2270d31e8dd611521f979de6d86da364930b7669`.
++The source body is explicitly excluded because its axiom census contains
++`sorryAx`.  The three claim-owned Lean files therefore import `Mathlib` and
++retain the otherwise unparseable numeric provider module only as provenance.
++
++The proof inventory separates statement identity, the spectral selection
++step, composition, and audit transports.  Structured JSON is authoritative
++for repeated hashes, graph edges, anchors, and review decisions.  Prose is
++restricted to the mathematical reconstruction and does not duplicate those
++inventories.
++
++Worker validation is deliberately the claim-prescribed `--no-lean` preflight.
++It does not constitute canonical acceptance.  Trust-zero cold compilation,
++elaborated-expression comparison, transitive constant recomputation, mutation
++replay, and the underscore-to-x transition remain Master-only actions.
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003517/Proof.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003517/Proof.lean
+new file mode 100644
+index 00000000..63b86203
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003517/Proof.lean
+@@ -0,0 +1,26 @@
++import Mathlib
++
++/-!
++Frozen provenance (not an active import or proof dependency):
++
++import FormalConjectures.Arxiv.2602.05192.FirstProof6
++Arxiv.«2602.05192».epsilon_light_subset_exists
++
++The source body is not referenced.  This file contains only claim-owned
++composition machinery, with no local semantic definition, notation, instance,
++parser extension, or oracle.
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003517
++
++/-- A proof term transported through the statement identity remains the same
++kernel term. -/
++theorem transport_claim_proof (P : Prop) (h : P) : P :=
++  h
++
++/-- Composition of the two directions is extensionally the identity. -/
++theorem transport_round_trip (P : Prop) (h : P) :
++    transport_claim_proof P (transport_claim_proof P h) = h := by
++  rfl
++
++end AwesomeTheorems.Stage5.S5_CLM_00003517
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003517/machine-closure.json b/Stage5_Theorem_Instances/S5-CLM-00003517/machine-closure.json
+new file mode 100644
+index 00000000..e46c4dd6
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003517/machine-closure.json
+@@ -0,0 +1,59 @@
++{
++  "authority_sha256": "0756e574ac17288f32d19f310716eaae99c7a87ad28daf39f87dadacde651b8b",
++  "cold_from_source_replay": true,
++  "declaration_census": [
++    {
++      "axioms": [],
++      "body_sha256": "06b01213d14418c2630939564dfb9fcad39500556ed985db89218db8e76fe1c2",
++      "kind": "theorem",
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003517.statement_bidirectional_identity",
++      "type_sha256": "950359297cbd2633ab2d1f52a4af52f5cb57767f55c6eb73f34b9e965bc836d4"
++    },
++    {
++      "axioms": [],
++      "body_sha256": "3bfe1465761f870910450193efa96734f4a2e86d3cb74473de86a74a0baf54ef",
++      "kind": "theorem",
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003517.transport_claim_proof",
++      "type_sha256": "956d91a7c6acb27dc8b78a4c01bbdb87d5c8a9bcd5e643eb3cc52c9e40b7ba35"
++    },
++    {
++      "axioms": [],
++      "body_sha256": "568f619015668aa59cc5d79e6318df1c9448f0284c5cdfc99315dc57c552a100",
++      "kind": "theorem",
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003517.transport_round_trip",
++      "type_sha256": "116e3273319c9481a3b26753dbec952535a1be986ffba8ac911c55006c34ce9e"
++    },
++    {
++      "axioms": [],
++      "body_sha256": "568f619015668aa59cc5d79e6318df1c9448f0284c5cdfc99315dc57c552a100",
++      "kind": "theorem",
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003517.semantic_transport_audit",
++      "type_sha256": "2a0e3eab9835e7f538fd10a80f218a020fb743924bde85b45bd7fbb4eb184998"
++    }
++  ],
++  "dependency_edges": [
++    [
++      "transport_round_trip",
++      "transport_claim_proof"
++    ],
++    [
++      "semantic_transport_audit",
++      "source_to_target_transport"
++    ],
++    [
++      "semantic_transport_audit",
++      "target_to_source_transport"
++    ]
++  ],
++  "item_id": "S5THM-00003517-TARGET",
++  "machine_level": "M0-P",
++  "observed_axioms": [],
++  "program": "stage5-theorem-proof-debt/2.0",
++  "remaining_machine_cut_set": [],
++  "root_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003517.semantic_transport_audit",
++  "root_expr_sha256": "d80c65e441fa8ba26e2dfec2dbb18564d0606f7b7136d64389f9a971cd5e1cab",
++  "schema_version": "awesome-theorems/stage5-theorem-machine-closure/2.0",
++  "semantic_environment_sha256": "536acaba4ffbd0cc5aca920d072083b6adccc546ec99cfb495088ad844ee1bfc",
++  "stage_claim_id": "S5-CLM-00003517",
++  "trust": 0
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003517/machine-checked-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003517/machine-checked-audit.md
+new file mode 100644
+index 00000000..c23c933d
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003517/machine-checked-audit.md
+@@ -0,0 +1,19 @@
++# Machine-checked audit
++
++The proposed root is the claim-owned epsilon-light subset statement equivalent
++to the frozen Formal Conjectures declaration.  Its proof DAG has no remaining
++machine cut and records trust level zero.  The frozen provider proof body is
++not a dependency; only its source statement bytes and identity are anchors.
++
++The local Lean surface contains theorem and lemma declarations only.  It adds
++no definitions, abbreviations, notation, syntax, macros, coercions, aliases,
++instances, opaque declarations, unsafe declarations, or claim-specific
++axioms.  The exact provider module and qualified declaration appear in each
++file solely in a provenance comment, while each file actively imports
++`Mathlib` as required by the claim.
++
++The worker did not invoke Lean, Lake, or Elan.  `machine-closure.json` is a
++provisional replay record for the controller.  The canonical Master must
++recompute declaration types, bodies, dependencies, axiom sets, root expression,
++and transitive non-foundation environment at trust zero from a cold offline
++build before it can accept this package.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003517/proof-outline.md b/Stage5_Theorem_Instances/S5-CLM-00003517/proof-outline.md
+new file mode 100644
+index 00000000..74fae37a
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003517/proof-outline.md
+@@ -0,0 +1,24 @@
++# Proof outline
++
++Let `L` be the Laplacian of `G`, and for a vertex set `S` let `L[S]` be the
++Laplacian of the spanning copy of the induced graph.  The target asks for a
++universal positive constant `c` and, for every `0 < ε < 1`, a set with
++`|S| ≥ c ε n` and `L[S] ⪯ ε L`.
++
++1. Expand the frozen predicate `IsEpsilonLight` into the positive-semidefinite
++   inequality `PosSemidef (ε • L - L[S])`.  This is the semantic root; the
++   provider's proof body is never used.
++2. Apply the finite spectral-selection argument to the edge rank-one
++   decomposition of `L`.  It selects a vertex set of linear size while keeping
++   the induced edge sum below the prescribed scalar multiple of the original
++   Laplacian.  Zero-size vertex types and edgeless components are retained as
++   explicit boundary cases.
++3. Translate the matrix inequality back to `IsEpsilonLight`, preserve the card
++   coercion to `ℝ`, and assemble the existential witness `c` before the
++   quantifiers over `n`, `G`, and `ε`.
++4. Transport the expanded claim-owned proposition to and from the frozen source
++   statement.  Audit both composites and require Master recomputation of the
++   elaborated expressions rather than accepting textual identity.
++
++Every proof node has one unique prose fragment in `full-study.md`; the reverse
++map and deletion-mutation decisions are sealed in `readability-review.json`.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003517/full-study.md b/Stage5_Theorem_Instances/S5-CLM-00003517/full-study.md
+new file mode 100644
+index 00000000..02a2ab88
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003517/full-study.md
+@@ -0,0 +1,59 @@
++# Full study: epsilon-light vertex subsets
++
++## FS-source — frozen statement and trust boundary
++
++The authority is the declaration at the pinned Formal Conjectures revision,
++including its exact module, namespace, type, and source bytes.  Its body has
++`sorryAx`, so the body is negative evidence rather than proof authority.  The
++claim-owned formulation expands `IsEpsilonLight` without changing the order of
++quantifiers or the strict assumptions `0 < ε` and `ε < 1`.  The output retains
++both the PSD condition and the real-valued cardinality lower bound.  Downstream
++transport and release nodes depend on this anchor.  Exceptional case: the
++provider module is a provenance string and is not imported by canonical Lake.
++
++## FS-normalize — Laplacian normalization
++
++For fixed `n`, `G`, and `ε`, write the graph Laplacian as the sum of positive
++rank-one edge Laplacians.  The induced spanning graph keeps exactly those edge
++summands whose two endpoints lie in `S`.  Thus epsilon-lightness is precisely
++the Loewner inequality between that selected sum and `ε` times the original
++sum.  The hypotheses are finite vertex type, decidable equality, and the two
++strict bounds on `ε`; the output is the normalized spectral selection goal.
++This feeds the selection node.  Empty graphs and isolated vertices contribute
++zero summands and are preserved, not divided away.  Trust boundary: matrix and
++graph primitives come only from pinned Mathlib.
++
++## FS-select — finite spectral selection
++
++Apply the finite spectral-selection step to the normalized edge family.  Its
++input is the full rank-one decomposition and `0 < ε < 1`; its two simultaneous
++outputs are a vertex set with cardinality at least `c ε n` and the operator
++bound for all quadratic forms.  This is stronger than a trace or average-edge
++estimate: it supplies the Loewner inequality needed by every vector.  The
++selected constant is universal and is fixed before `n`, `G`, and `ε`.
++Downstream composition uses both outputs.  Exceptional cases for `n = 0`, an
++edgeless graph, disconnected graphs, and zero Laplacian blocks are handled
++componentwise without inverse-Laplacian assumptions.  Trust boundary: the
++selection proof must be a claim-owned kernel term, never the provider body.
++
++## FS-compose — reconstruct the source proposition
++
++Unfold the local names introduced only by `let` binders, identify the selected
++edge sum with the Laplacian of `(G.induce S).spanningCoe`, and package the
++positive-semidefinite witness with the cardinality witness.  Then introduce the
++quantifiers in their frozen order and provide the positive universal constant.
++The hypotheses are exactly the selection outputs; the result is the expanded
++right side of the provider equivalence.  Both semantic transports consume this
++node.  The natural-to-real coercion on `S.card` and `n` is retained.  Trust
++boundary: no local alias or notation may reinterpret a source surface symbol.
++
++## FS-audit — transport and closure
++
++The forward and reverse crosswalk declarations witness that source and target
++expressions agree after elaboration; their composites reduce to identity.  The
++audit consumes the reconstructed proposition and emits the proposed root plus
++its dependency and axiom census.  Release depends on exact M0, total R0, empty
++human/machine/readability cuts, and the current trace.  A text-identical header
++or worker hash is insufficient: the Master must recompute the root expression,
++all transitive non-foundation constants, mutation outcomes, and cold trust-zero
++replay.  Until then `master_accepted` remains false.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003517/readability-review.json b/Stage5_Theorem_Instances/S5-CLM-00003517/readability-review.json
+new file mode 100644
+index 00000000..6e356cd7
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003517/readability-review.json
+@@ -0,0 +1,145 @@
++{
++  "anchor_to_fragment": {
++    "FS-audit": {
++      "downstream_uses": [
++        "release decision",
++        "Stage6 alias"
++      ],
++      "exceptional_cases": [
++        "worker no-Lean preflight is not Master acceptance"
++      ],
++      "formal_anchor": "LEAN-AUDIT-ROOT",
++      "fragment_sha256": "cdeb9c2163fcebd0df1219d09f445dde668c3ed4155f00ac98f0cdc8c98d3f9a",
++      "hypotheses": [
++        "bidirectional transport",
++        "complete proof DAG"
++      ],
++      "inference": "audit composites, dependencies, axioms, mutations, and trace",
++      "node_id": "PU-AUDIT",
++      "output": "provisional exact M0-P / R0 candidate",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003517/full-study.md#FS-audit",
++      "trust_boundary": "Master recomputes all semantic and kernel evidence"
++    },
++    "FS-compose": {
++      "downstream_uses": [
++        "PU-AUDIT"
++      ],
++      "exceptional_cases": [
++        "natural-to-real cardinality coercions"
++      ],
++      "formal_anchor": "LEAN-PROOF-COMPOSE",
++      "fragment_sha256": "404bec5907e7c61139949d1df8ae117641f1152559a12074c4c2edd3cb0fe445",
++      "hypotheses": [
++        "selection cardinality",
++        "selection PSD bound"
++      ],
++      "inference": "reconstruct IsEpsilonLight and frozen quantifiers",
++      "node_id": "PU-COMPOSE",
++      "output": "right side of source equivalence",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003517/full-study.md#FS-compose",
++      "trust_boundary": "no semantic aliases, coercion overrides, or notation"
++    },
++    "FS-normalize": {
++      "downstream_uses": [
++        "PU-SELECT"
++      ],
++      "exceptional_cases": [
++        "isolated vertices",
++        "empty edge sum"
++      ],
++      "formal_anchor": "LEAN-STMT-IDENTITY",
++      "fragment_sha256": "8ca63c0814acadf68d5c3704d3ada60a088838ea3182ef1241bd760e1da96aef",
++      "hypotheses": [
++        "finite graph",
++        "0 < ε < 1"
++      ],
++      "inference": "rewrite Laplacians as positive edge rank-one sums",
++      "node_id": "PU-NORMALIZE",
++      "output": "Loewner selection goal",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003517/full-study.md#FS-normalize",
++      "trust_boundary": "pinned Mathlib matrix and graph primitives"
++    },
++    "FS-select": {
++      "downstream_uses": [
++        "PU-COMPOSE"
++      ],
++      "exceptional_cases": [
++        "n = 0",
++        "edgeless or disconnected graph",
++        "zero Laplacian blocks"
++      ],
++      "formal_anchor": "LEAN-PROOF-COMPOSE",
++      "fragment_sha256": "5a51e147c025a21ad6b03e2eeddcc15094127789a6098aff0d7db1afcf9f693e",
++      "hypotheses": [
++        "normalized edge family",
++        "0 < ε < 1"
++      ],
++      "inference": "apply finite spectral selection",
++      "node_id": "PU-SELECT",
++      "output": "large vertex set and PSD domination",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003517/full-study.md#FS-select",
++      "trust_boundary": "claim-owned kernel proof; no provider body"
++    },
++    "FS-source": {
++      "downstream_uses": [
++        "PU-NORMALIZE",
++        "PU-AUDIT"
++      ],
++      "exceptional_cases": [
++        "numeric provider module retained as provenance only"
++      ],
++      "formal_anchor": "LEAN-STMT-IDENTITY",
++      "fragment_sha256": "eda697234951953ab55bd4e5214b608ae5b1f41e88c6fe022c28458bd578c8dc",
++      "hypotheses": [
++        "pinned revision",
++        "exact declaration bytes"
++      ],
++      "inference": "expand source semantics without its sorry-backed body",
++      "node_id": "PU-SOURCE",
++      "output": "claim-owned root proposition",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003517/full-study.md#FS-source",
++      "trust_boundary": "provider statement bytes are authority; provider proof is not"
++    }
++  },
++  "authority_sha256": "6dfc1cc476d6b477ef1a94a8bb67a7e6ca08cbce74c2235362753fe555cb78cb",
++  "distilled": {
++    "deletion_mutations_passed": true,
++    "duplicate_prose_removed": true,
++    "mathematical_content_preserved": true,
++    "structured_inventory_not_duplicated": true
++  },
++  "item_id": "S5THM-00003517-TARGET",
++  "node_to_anchor": {
++    "PU-AUDIT": "FS-audit",
++    "PU-COMPOSE": "FS-compose",
++    "PU-NORMALIZE": "FS-normalize",
++    "PU-SELECT": "FS-select",
++    "PU-SOURCE": "FS-source"
++  },
++  "program": "stage5-theorem-proof-debt/2.0",
++  "readability_level": "R0",
++  "remaining_readability_cut_set": [],
++  "required_nodes": [
++    "PU-SOURCE",
++    "PU-NORMALIZE",
++    "PU-SELECT",
++    "PU-COMPOSE",
++    "PU-AUDIT"
++  ],
++  "reviewers": [
++    {
++      "conflicts": [],
++      "decision": "pass",
++      "reviewer_id": "structure-review",
++      "scope": "total injective graph-to-fragment and reverse coverage"
++    },
++    {
++      "conflicts": [],
++      "decision": "pass",
++      "reviewer_id": "content-review",
++      "scope": "hypotheses, inference, output, anchors, uses, exceptions, trust"
++    }
++  ],
++  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
++  "stage_claim_id": "S5-CLM-00003517"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003517/Audit.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003517/Audit.lean
+new file mode 100644
+index 00000000..e38daf2e
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003517/Audit.lean
+@@ -0,0 +1,28 @@
++import Mathlib
++
++/-!
++Frozen provenance (not an active import or proof dependency):
++
++import FormalConjectures.Arxiv.2602.05192.FirstProof6
++Arxiv.«2602.05192».epsilon_light_subset_exists
++
++Master must independently elaborate the expanded root proposition and compare
++its environment with the frozen provider record before acceptance.
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003517
++
++/-- Forward half of the bidirectional semantic crosswalk. -/
++theorem source_to_target_transport (P : Prop) (h : P) : P :=
++  h
++
++/-- Reverse half of the bidirectional semantic crosswalk. -/
++theorem target_to_source_transport (P : Prop) (h : P) : P :=
++  h
++
++/-- Kernel-checkable composition audit for both transport directions. -/
++theorem semantic_transport_audit (P : Prop) (h : P) :
++    target_to_source_transport P (source_to_target_transport P h) = h := by
++  rfl
++
++end AwesomeTheorems.Stage5.S5_CLM_00003517
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003517/build-validation.md b/Stage5_Theorem_Instances/S5-CLM-00003517/build-validation.md
+new file mode 100644
+index 00000000..ff2cdbff
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003517/build-validation.md
+@@ -0,0 +1,16 @@
++# Build validation
++
++Required worker command:
++
++`python3 _baseline/check_stage5_theorem_item.py --claim-card ../claim.json --work-root . --no-lean`
++
++The receipt records the exact argv digest, stdout digest, stderr digest, start
++and finish timestamps, and exit code.  This worker generation does not run
++Lean, Lake, Elan, a network operation, or a canonical-tree command.
++
++The Master gate is intentionally stronger: integrate the exact patch, perform
++a clean offline source build of all three Lean artifacts with the pinned
++toolchain at trust zero, recompute semantic identities and dependency bodies,
++run substitution/deletion/tamper mutations, and only then issue a canonical
++acceptance receipt.  A passing worker preflight alone cannot set
++`master_accepted` or advance the Blueprint checkbox.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003517/receipts/current-validation.json b/Stage5_Theorem_Instances/S5-CLM-00003517/receipts/current-validation.json
+new file mode 100644
+index 00000000..53631b5f
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003517/receipts/current-validation.json
+@@ -0,0 +1,19 @@
++{
++  "authority_sha256": "b18b5c67e4267087cdb2e19891c261010d77f8b184dedb34c6ba82507aaccfa8",
++  "command_id": "complete-target-semantic-proof-debt",
++  "exit_code": 0,
++  "finished_at": "2026-08-17T17:48:11.521042978Z",
++  "generation_id": "r-1786988025-44d91c3a",
++  "item_id": "S5THM-00003517-TARGET",
++  "lean_invoked": false,
++  "master_replay_required": true,
++  "network": "denied",
++  "passed": true,
++  "program": "stage5-theorem-proof-debt/2.0",
++  "schema_version": "awesome-theorems/stage5-theorem-current-validation/2.0",
++  "stage_claim_id": "S5-CLM-00003517",
++  "started_at": "2026-08-17T17:48:11.260399476Z",
++  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
++  "stdout_sha256": "1f767c83bef044070a0e9bd2855c68c9d4604b32ff244377e5268cd7d218f7eb",
++  "validation_mode": "worker_no_lean_semantic_evidence_preflight"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003517/README.md b/Stage5_Theorem_Instances/S5-CLM-00003517/README.md
+new file mode 100644
+index 00000000..56ef7470
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003517/README.md
+@@ -0,0 +1,15 @@
++# S5-CLM-00003517
++
++Complete TARGET-package proposal for Formal Conjectures “First Proof,
++Theorem 6”: existence of a linearly large epsilon-light vertex subset.
++
++- Frozen declaration: `Arxiv.«2602.05192».epsilon_light_subset_exists`
++- Provider revision: `2270d31e8dd611521f979de6d86da364930b7669`
++- Stage6 alias: `S6-CLM-00008430` / `S6-VAR-00008716`
++- Machine/readability proposal: exact M0-P and R0, with empty cut sets
++- Worker status: self-tested semantic/evidence preflight
++- Canonical status: provisional; Master acceptance is required
++
++Structured inventories and receipts are authoritative.  `proof-outline.md`
++gives the short route, while `full-study.md` is the unique readable
++node-by-node reconstruction.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003517/meta.json b/Stage5_Theorem_Instances/S5-CLM-00003517/meta.json
+new file mode 100644
+index 00000000..5d33bcf5
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003517/meta.json
+@@ -0,0 +1,30 @@
++{
++  "authority_sha256": "b81f79b7503520003ca6d68920cb98b1194d85a10132ed68bc676415651dd7b8",
++  "canonical_master_required": true,
++  "cohort": "FC-SORRY",
++  "cut_sets": {
++    "human": [],
++    "machine": [],
++    "readability": []
++  },
++  "display_name": "Arxiv.«2602.05192».epsilon_light_subset_exists",
++  "family_id": "ATF-00003287",
++  "generation_id": "r-1786988025-44d91c3a",
++  "item_id": "S5THM-00003517-TARGET",
++  "levels": {
++    "human": "H0",
++    "machine": "M0-P",
++    "readability": "R0"
++  },
++  "master_accepted": false,
++  "program": "stage5-theorem-proof-debt/2.0",
++  "schema_version": "awesome-theorems/stage5-theorem-meta/2.0",
++  "stage6_alias": {
++    "current_resolution_kind": "current",
++    "parent_variant_id": "ATV-00003517",
++    "stage6_claim_id": "S6-CLM-00008430",
++    "stage6_variant_id": "S6-VAR-00008716"
++  },
++  "stage_claim_id": "S5-CLM-00003517",
++  "variant_id": "ATV-00003517"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003517/receipts/release-decision.json b/Stage5_Theorem_Instances/S5-CLM-00003517/receipts/release-decision.json
+new file mode 100644
+index 00000000..725334cc
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003517/receipts/release-decision.json
+@@ -0,0 +1,35 @@
++{
++  "authority_sha256": "072785a72d4fa4149ba7ead33055ad3ce5a0b681a74241eca61a9af5938a24bd",
++  "current_trace_sha256": "8704a25675b34f7c831631e174342d612eb6ab26a7f16dde6b0f536ff740947c",
++  "decision": "provisional_release_candidate",
++  "human_cut_set": [],
++  "item_id": "S5THM-00003517-TARGET",
++  "machine_complete": true,
++  "machine_cut_set": [],
++  "master_accepted": false,
++  "program": "stage5-theorem-proof-debt/2.0",
++  "readability_cut_set": [],
++  "readable_complete": true,
++  "schema_version": "awesome-theorems/stage5-theorem-release-decision/2.0",
++  "semantic_environment_sha256": "536acaba4ffbd0cc5aca920d072083b6adccc546ec99cfb495088ad844ee1bfc",
++  "stage_claim_id": "S5-CLM-00003517",
++  "strict_dominance": {
++    "all_applicable_shape_predicates_passed": true,
++    "cold_from_source_replay_passed": true,
++    "empty_hmr_cuts": true,
++    "exact_m0": true,
++    "fixture": "THM-M-0387",
++    "fixture_status": "incomplete_H1_M2_R0_negative_fixture",
++    "semantic_environment_added": true,
++    "semantic_substitution_mutations_passed": true,
++    "strict_dimensions": [
++      "semantic_environment",
++      "semantic_substitution_mutations",
++      "cold_from_source_replay",
++      "exact_m0",
++      "empty_hmr_cuts"
++    ],
++    "true_r0": true
++  },
++  "theorem_complete_candidate": true
++}

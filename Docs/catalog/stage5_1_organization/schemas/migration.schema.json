@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://awesome-theorems.invalid/stage5-1-organization/schemas/migration.schema.json",
+  "title": "Stage5 v2 to Stage5.1 organization migration receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "migration_id", "predecessor", "successor", "counts",
+    "identity_policy", "subject_id_registry", "state_policy", "ownership_policy", "activation_status",
+    "activation_preconditions", "candidate_output_root_sha256", "authority_sha256"
+  ],
+  "properties": {
+    "schema_version": {"$ref": "common.schema.json#/$defs/schema_version"},
+    "migration_id": {"const": "stage5-v2_to_stage5_1-1.0"},
+    "predecessor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["theorems", "conjectures"],
+      "properties": {
+        "theorems": {"$ref": "#/$defs/predecessor_program"},
+        "conjectures": {"$ref": "#/$defs/predecessor_program"}
+      }
+    },
+    "successor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "manifest_path", "manifest_sha256", "manifest_authority_sha256",
+        "organization_release"
+      ],
+      "properties": {
+        "manifest_path": {"$ref": "common.schema.json#/$defs/repo_path"},
+        "manifest_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+        "manifest_authority_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+        "organization_release": {"$ref": "common.schema.json#/$defs/organization_release"}
+      }
+    },
+    "counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mathematical_one_to_one", "legacy_checklist_one_to_one"],
+      "properties": {
+        "mathematical_one_to_one": {"const": 19790},
+        "legacy_checklist_one_to_one": {"const": 20197}
+      }
+    },
+    "identity_policy": {
+      "const": "exact_ordinal_preserving_bijection_subject_coordinates_are_not_identity"
+    },
+    "subject_id_registry": {
+      "type": "object", "additionalProperties": false,
+      "required": ["path", "sha256", "rows", "policy"],
+      "properties": {
+        "path": {"$ref": "common.schema.json#/$defs/repo_path"},
+        "sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+        "rows": {"type": "integer", "minimum": 1},
+        "policy": {"const": "reuse_predecessor_and_append_after_max"}
+      }
+    },
+    "state_policy": {
+      "const": "predecessor_state_is_evidence_only_all_stage51_rows_start_not_done"
+    },
+    "ownership_policy": {"const": "fresh_epoch_no_worker_transport_or_lease_inheritance"},
+    "activation_status": {"const": "blocked"},
+    "activation_preconditions": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "release_validated",
+          "crosswalk_complete",
+          "taxonomy_validated",
+          "dependency_hard_dag_validated",
+          "predecessor_admission_fenced",
+          "predecessor_live_work_harvested_or_retired",
+          "boot_independently_accepted",
+          "complete_explicit_concurrency_prompt_supplied"
+        ]
+      }
+    },
+    "candidate_output_root_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+    "authority_sha256": {"$ref": "common.schema.json#/$defs/sha256"}
+  },
+  "$defs": {
+    "predecessor_program": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["blueprint_path", "blueprint_sha256"],
+      "properties": {
+        "blueprint_path": {"$ref": "common.schema.json#/$defs/repo_path"},
+        "blueprint_sha256": {"$ref": "common.schema.json#/$defs/sha256"}
+      }
+    }
+  }
+}

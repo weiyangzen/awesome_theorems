@@ -1,0 +1,162 @@
+{
+  "authority_sha256": "b1730ea34b6c2f5aa69b9e2526c84d67b00095434ce080b2692cb62b7baa1942",
+  "edges": [
+    {
+      "from": "N1-normalize",
+      "to": "N0-root"
+    },
+    {
+      "from": "N7-reassemble",
+      "to": "N0-root"
+    },
+    {
+      "from": "N1-normalize",
+      "to": "N2-expand"
+    },
+    {
+      "from": "N2-expand",
+      "to": "N3-simple-roots"
+    },
+    {
+      "from": "N2-expand",
+      "to": "N4-convolution"
+    },
+    {
+      "from": "N3-simple-roots",
+      "to": "N4-convolution"
+    },
+    {
+      "from": "N3-simple-roots",
+      "to": "N5-firstproof"
+    },
+    {
+      "from": "N4-convolution",
+      "to": "N5-firstproof"
+    },
+    {
+      "from": "N3-simple-roots",
+      "to": "N6-exception"
+    },
+    {
+      "from": "N5-firstproof",
+      "to": "N6-exception"
+    },
+    {
+      "from": "N5-firstproof",
+      "to": "N7-reassemble"
+    },
+    {
+      "from": "N6-exception",
+      "to": "N7-reassemble"
+    }
+  ],
+  "human_cut_set": [],
+  "item_id": "S5THM-00003514-TARGET",
+  "machine_cut_set": [],
+  "nodes": [
+    {
+      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003514.claim_owned_four",
+      "inputs": [
+        "N1-normalize",
+        "N7-reassemble"
+      ],
+      "kind": "root",
+      "node_id": "N0-root",
+      "output": "True ↔ ∀ p q n, FourProp p q n",
+      "provenance": "Arxiv.«2602.05192».four",
+      "statement": "The answer(True) wrapper is equivalent to the universal finite-additive Fisher-information inequality.",
+      "trust": 0
+    },
+    {
+      "formal_anchor": "source_to_target_statement",
+      "inputs": [],
+      "kind": "composition",
+      "node_id": "N1-normalize",
+      "output": "It suffices to prove the right-hand proposition.",
+      "provenance": "statement-crosswalk.json",
+      "statement": "Normalize answer(True) to True and expose the universal right-hand proposition.",
+      "trust": 0
+    },
+    {
+      "formal_anchor": "Arxiv.«2602.05192».FourProp",
+      "inputs": [
+        "N1-normalize"
+      ],
+      "kind": "definition",
+      "node_id": "N2-expand",
+      "output": "A reciprocal inequality in the finite-root statistic Φ.",
+      "provenance": "FormalConjectures/Arxiv/2602.05192/FirstProof4.lean:129-143",
+      "statement": "Expand FourProp, Φ, and finiteAdditiveConvolution without changing any hypothesis.",
+      "trust": 0
+    },
+    {
+      "formal_anchor": "Arxiv.«2602.05192».Φ",
+      "inputs": [
+        "N2-expand"
+      ],
+      "kind": "case",
+      "node_id": "N3-simple-roots",
+      "output": "The exceptional top branch and the nodup branch are both explicit.",
+      "provenance": "FormalConjectures/Arxiv/2602.05192/FirstProof4.lean:124-134",
+      "statement": "If either input has repeated roots then its Φ value is top; otherwise identify Φ with the squared root-interaction sum.",
+      "trust": 0
+    },
+    {
+      "formal_anchor": "Arxiv.«2602.05192».finiteAdditiveConvolution",
+      "inputs": [
+        "N2-expand",
+        "N3-simple-roots"
+      ],
+      "kind": "algebra",
+      "node_id": "N4-convolution",
+      "output": "A root interaction model for the convolution polynomial.",
+      "provenance": "FormalConjectures/Arxiv/2602.05192/FirstProof4.lean:35-50",
+      "statement": "Use the coefficient formula for finite additive convolution and the monic/full-root hypotheses.",
+      "trust": 0
+    },
+    {
+      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003514.claim_owned_four",
+      "inputs": [
+        "N3-simple-roots",
+        "N4-convolution"
+      ],
+      "kind": "analytic",
+      "node_id": "N5-firstproof",
+      "output": "1/Φ(p) + 1/Φ(q) ≤ 1/Φ(p ⊞ₙ q).",
+      "provenance": "arxiv:2602.05192v2, First Proof, Theorem 4",
+      "statement": "Apply the finite free Fisher-information/Stam inequality proved in First Proof, Theorem 4 to the root interaction model.",
+      "trust": 0
+    },
+    {
+      "formal_anchor": "Arxiv.«2602.05192».Φ",
+      "inputs": [
+        "N3-simple-roots",
+        "N5-firstproof"
+      ],
+      "kind": "case",
+      "node_id": "N6-exception",
+      "output": "The inequality holds in every exceptional branch.",
+      "provenance": "FormalConjectures/Arxiv/2602.05192/FirstProof4.lean:129-134",
+      "statement": "Propagate repeated-root/top cases through ENNReal reciprocal arithmetic; no case is discarded.",
+      "trust": 0
+    },
+    {
+      "formal_anchor": "target_to_source_statement",
+      "inputs": [
+        "N5-firstproof",
+        "N6-exception"
+      ],
+      "kind": "composition",
+      "node_id": "N7-reassemble",
+      "output": "The exact frozen root proposition.",
+      "provenance": "Proof.lean",
+      "statement": "Reassemble the universal quantifiers and the True question-answer wrapper.",
+      "trust": 0
+    }
+  ],
+  "program": "stage5-theorem-proof-debt/2.0",
+  "readability_cut_set": [],
+  "root_node": "N0-root",
+  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
+  "stage_claim_id": "S5-CLM-00003514"
+}

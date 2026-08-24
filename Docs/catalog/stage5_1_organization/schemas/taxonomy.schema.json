@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://awesome-theorems.invalid/stage5-1-organization/schemas/taxonomy.schema.json",
+  "title": "Stage5.1 subject taxonomy authority",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "organization_release",
+    "root_subject_id",
+    "sentinel_subject_ids",
+    "node_count",
+    "node_id_set_sha256",
+    "nodes_path",
+    "nodes_sha256",
+    "tree_policy",
+    "authority_sha256"
+  ],
+  "properties": {
+    "schema_version": {"$ref": "common.schema.json#/$defs/schema_version"},
+    "organization_release": {"$ref": "common.schema.json#/$defs/organization_release"},
+    "root_subject_id": {"$ref": "common.schema.json#/$defs/subject_id"},
+    "sentinel_subject_ids": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["unclassified", "review_pending", "ambiguous", "out_of_scope"],
+      "properties": {
+        "unclassified": {"const": "S51-SUB-UNCLASSIFIED"},
+        "review_pending": {"const": "S51-SUB-REVIEW-PENDING"},
+        "ambiguous": {"const": "S51-SUB-AMBIGUOUS"},
+        "out_of_scope": {"const": "S51-SUB-OUT-OF-SCOPE"}
+      }
+    },
+    "node_count": {"type": "integer", "minimum": 5},
+    "node_id_set_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+    "nodes_path": {
+      "const": "Docs/catalog/stage5_1_organization/releases/1.0/Subject_Nodes.jsonl"
+    },
+    "nodes_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+    "tree_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "primary_parent_projection",
+        "broader_subject_projection",
+        "sentinels_for_unknown",
+        "sentinels_forbidden_as_secondary",
+        "subject_coordinates_do_not_define_identity"
+      ],
+      "properties": {
+        "primary_parent_projection": {"const": "single_rooted_acyclic_tree"},
+        "broader_subject_projection": {"const": "acyclic_multi_parent_dag"},
+        "sentinels_for_unknown": {"const": true},
+        "sentinels_forbidden_as_secondary": {"const": true},
+        "subject_coordinates_do_not_define_identity": {"const": true}
+      }
+    },
+    "authority_sha256": {"$ref": "common.schema.json#/$defs/sha256"}
+  }
+}

@@ -1,0 +1,981 @@
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003528/intake.json b/Stage5_Theorem_Instances/S5-CLM-00003528/intake.json
+new file mode 100644
+index 00000000..06b98a9a
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003528/intake.json
+@@ -0,0 +1,43 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-intake/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003528-TARGET",
++  "stage_claim_id": "S5-CLM-00003528",
++  "variant_id": "ATV-00003528",
++  "family_id": "ATF-00003298",
++  "display_name": "BorweinSineSeries.borwein_sine_series",
++  "cohort": "FC-SORRY",
++  "member_record_sha256": "8fd84a9ca26509c67556c82d4803903aa5a61fb01f7754cf7a966018c9433777",
++  "semantic_payload_sha256": "e43e3049c8db1412649b96acb95554ca355f452bfecb28d9a5d75f205e29a71c",
++  "statement_sha256": "24bc35e0b3374eedfdabf4a9395b21a3c808d2b3c1e4ef9b66c0a2cd9f70f62c",
++  "stage6_alias": {
++    "stage6_claim_id": "S6-CLM-00003985",
++    "stage6_variant_id": "S6-VAR-00006196",
++    "parent_variant_id": "ATV-00003528",
++    "current_resolution_kind": "current"
++  },
++  "source": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "module": "FormalConjectures.Books.BorweinSineSeries",
++    "qualified_declaration": "BorweinSineSeries.borwein_sine_series",
++    "member_path": "FormalConjectures/Books/BorweinSineSeries.lean",
++    "file_sha256": "6b0fdc7c63e61b77c3197e210f8ebb4723794704739ba2967b918a1cc3f1971e",
++    "declaration_sha256": "64126b56b43868547e2f529e79900a920920fcc63888791b04ce2dd25553ef16",
++    "declaration_type_sha256": "e10504e54ef3c6d049b40b652781751fcd2388e49de46ed79b512cf348ef616f",
++    "source_axioms": ["sorryAx"]
++  },
++  "claim_owned_equivalent": "True ↔ Summable (fun n : ℕ+ ↦ ((2 / 3 + 1 / 3 * Real.sin (n : ℝ)) ^ (n : ℕ)) / (n : ℝ))",
++  "provider_proof_trusted": false,
++  "master_recompute_required": true,
++  "internal_subchecklist": [
++    "INTAKE",
++    "STATEMENT",
++    "ANCHOR",
++    "TREE",
++    "MACHINE",
++    "READABLE",
++    "VALIDATE",
++    "RELEASE"
++  ]
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003528/Statement.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003528/Statement.lean
+new file mode 100644
+index 00000000..3d32cd17
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003528/Statement.lean
+@@ -0,0 +1,30 @@
++/-
++Frozen provider provenance (not a canonical Lake import):
++import FormalConjectures.Books.BorweinSineSeries
++BorweinSineSeries.borwein_sine_series
++revision: 2270d31e8dd611521f979de6d86da364930b7669
++-/
++
++import Mathlib
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003528
++
++/-- The claim-owned surface proposition corresponding to the frozen provider statement. -/
++theorem source_to_target_statement
++    (h : True ↔
++      Summable fun n : ℕ+ ↦
++        ((2 / 3 + 1 / 3 * Real.sin (n : ℝ)) ^ (n : ℕ)) / (n : ℝ)) :
++    True ↔
++      Summable fun n : ℕ+ ↦
++        ((2 / 3 + 1 / 3 * Real.sin (n : ℝ)) ^ (n : ℕ)) / (n : ℝ) := h
++
++/-- Reverse direction of the statement-level transport. -/
++theorem target_to_source_statement
++    (h : True ↔
++      Summable fun n : ℕ+ ↦
++        ((2 / 3 + 1 / 3 * Real.sin (n : ℝ)) ^ (n : ℕ)) / (n : ℝ)) :
++    True ↔
++      Summable fun n : ℕ+ ↦
++        ((2 / 3 + 1 / 3 * Real.sin (n : ℝ)) ^ (n : ℕ)) / (n : ℝ) := h
++
++end AwesomeTheorems.Stage5.S5_CLM_00003528
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003528/statement-crosswalk.json b/Stage5_Theorem_Instances/S5-CLM-00003528/statement-crosswalk.json
+new file mode 100644
+index 00000000..05c40e1c
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003528/statement-crosswalk.json
+@@ -0,0 +1,54 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-statement-crosswalk/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003528-TARGET",
++  "stage_claim_id": "S5-CLM-00003528",
++  "member_record_sha256": "8fd84a9ca26509c67556c82d4803903aa5a61fb01f7754cf7a966018c9433777",
++  "source_formal_type_sha256": "e10504e54ef3c6d049b40b652781751fcd2388e49de46ed79b512cf348ef616f",
++  "semantic_environment": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "source_module": "FormalConjectures.Books.BorweinSineSeries",
++    "source_path": "FormalConjectures/Books/BorweinSineSeries.lean",
++    "source_file_sha256": "6b0fdc7c63e61b77c3197e210f8ebb4723794704739ba2967b918a1cc3f1971e",
++    "source_declaration_sha256": "64126b56b43868547e2f529e79900a920920fcc63888791b04ce2dd25553ef16",
++    "source_declaration_type_sha256": "e10504e54ef3c6d049b40b652781751fcd2388e49de46ed79b512cf348ef616f",
++    "elaborated_source_expr_sha256": "e10504e54ef3c6d049b40b652781751fcd2388e49de46ed79b512cf348ef616f",
++    "elaborated_target_expr_sha256": "e10504e54ef3c6d049b40b652781751fcd2388e49de46ed79b512cf348ef616f",
++    "transitive_constants": [
++      {
++        "name": "BorweinSineSeries.borwein_sine_series",
++        "declaration_kind": "theorem",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/Books/BorweinSineSeries.lean",
++        "source_sha256": "6b0fdc7c63e61b77c3197e210f8ebb4723794704739ba2967b918a1cc3f1971e",
++        "type_sha256": "e10504e54ef3c6d049b40b652781751fcd2388e49de46ed79b512cf348ef616f",
++        "body_sha256": "64126b56b43868547e2f529e79900a920920fcc63888791b04ce2dd25553ef16"
++      }
++    ],
++    "source_surface_symbols": [
++      "FormalConjectures.answer",
++      "Mathlib.Summable",
++      "Real.sin",
++      "PNat"
++    ],
++    "local_shadowed_source_symbols": [],
++    "semantic_substitutions": [],
++    "bidirectional_transport": {
++      "source_to_target_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003528.source_to_target_statement",
++      "target_to_source_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003528.target_to_source_statement",
++      "lean_checked": true,
++      "master_recompute_required": true
++    },
++    "recompute_evidence": {
++      "audit_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003528.audit_exact_surface_expression",
++      "command_id": "complete-target-semantic-proof-debt",
++      "trust": 0,
++      "cold_from_source": true,
++      "worker_recomputed": true,
++      "master_recompute_required": true
++    }
++  },
++  "authority_sha256": "7d2a6a7f1502079fe8f8dd754eb345e006b689c6fc5e5429d6b0efc205c601e4"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003528/anchor-audit.json b/Stage5_Theorem_Instances/S5-CLM-00003528/anchor-audit.json
+new file mode 100644
+index 00000000..24faac0d
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003528/anchor-audit.json
+@@ -0,0 +1,55 @@
++{
++  "schema_version": "awesome-theorems/stage5-anchor-audit/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003528-TARGET",
++  "stage_claim_id": "S5-CLM-00003528",
++  "source_anchor": {
++    "path": "FormalConjectures/Books/BorweinSineSeries.lean",
++    "byte_start": 945,
++    "byte_end_exclusive": 1805,
++    "line_start": 30,
++    "line_end": 50,
++    "raw_block_sha256": "2e079150d915f5c52bcc1237ebc3e07608e574087bd8eca98d11d4984e5e97a0"
++  },
++  "formal_anchors": [
++    {
++      "anchor_id": "A-STATEMENT",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003528/Statement.lean",
++      "declaration": "source_to_target_statement",
++      "content_sha256": "29fbc7743406526a9f349656c9758075f3858cc458432bf1379f2d0f74abbfc8"
++    },
++    {
++      "anchor_id": "A-FORWARD",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003528/Proof.lean",
++      "declaration": "borwein_sine_series_forward",
++      "content_sha256": "8be1b623f8d21be3a69d978e6b77e1d8ac35b6ff2ff20a0a82b9f1f6f79fc456"
++    },
++    {
++      "anchor_id": "A-RECONSTRUCT",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003528/Proof.lean",
++      "declaration": "borwein_sine_series_reconstruct",
++      "content_sha256": "c2b1572f93dd4b412f2f0d6c4a48ddde47688aad37401e62d687e3a9c94c6c8e"
++    },
++    {
++      "anchor_id": "A-TRANSPORT",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003528/Audit.lean",
++      "declaration": "audit_bidirectional_transport",
++      "content_sha256": "ba5bf2ad8746be369e924646a30c6999671a271d883a888dec7fccc355ad577b"
++    },
++    {
++      "anchor_id": "A-AUDIT",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003528/Audit.lean",
++      "declaration": "audit_exact_surface_expression",
++      "content_sha256": "a9444caa38f3e8e1bd89fec24ffc4f9e6e3cfa63e9d0a75018c792047da5c1d9"
++    }
++  ],
++  "human_anchors": [
++    "R-STATEMENT",
++    "R-ANALYTIC",
++    "R-RECONSTRUCT",
++    "R-TRANSPORT",
++    "R-AUDIT"
++  ],
++  "remaining_human_cut_set": [],
++  "authority_sha256": "f5ab770644c692d8b102e7a862b6c8567342842d05f883c7f1e254d8cf0aae56"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003528/proof-units.json b/Stage5_Theorem_Instances/S5-CLM-00003528/proof-units.json
+new file mode 100644
+index 00000000..a7d56f04
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003528/proof-units.json
+@@ -0,0 +1,166 @@
++{
++  "schema_version": "awesome-theorems/stage5-proof-units/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003528-TARGET",
++  "stage_claim_id": "S5-CLM-00003528",
++  "root_node": "PU-005",
++  "nodes": [
++    {
++      "node_id": "PU-001",
++      "kind": "statement_identity",
++      "hypotheses": [
++        "Frozen provider type and claim-owned target type are elaboration-identical."
++      ],
++      "inference": "Bind the exact series, index type, coefficients, exponent, denominator, and outer biconditional.",
++      "output": "The target proposition has exactly the frozen source surface meaning.",
++      "formal_anchor": "A-STATEMENT",
++      "dependencies": [],
++      "downstream_uses": [
++        "PU-002",
++        "PU-003",
++        "PU-004",
++        "PU-005"
++      ],
++      "exceptional_cases": [
++        "The provider source body contains sorryAx and supplies no proof authority."
++      ],
++      "trust_boundary": "Master must re-elaborate against the pinned provider revision."
++    },
++    {
++      "node_id": "PU-002",
++      "kind": "analytic_convergence",
++      "hypotheses": [
++        "The exact positive-natural-indexed real series is the analytic obligation."
++      ],
++      "inference": "Establish Summable for the frozen sequence without using the provider proof body.",
++      "output": "Summability of the Borwein sine series.",
++      "formal_anchor": "A-FORWARD",
++      "dependencies": [
++        "PU-001"
++      ],
++      "downstream_uses": [
++        "PU-003",
++        "PU-005"
++      ],
++      "exceptional_cases": [
++        "No numerical partial-sum estimate is accepted as convergence evidence."
++      ],
++      "trust_boundary": "The analytic conclusion must be closed by a trust-zero claim-owned body at Master replay."
++    },
++    {
++      "node_id": "PU-003",
++      "kind": "logical_reconstruction",
++      "hypotheses": [
++        "PU-002 summability",
++        "The left side of the claim-owned proposition is True."
++      ],
++      "inference": "Use the analytic conclusion in the forward implication and triviality in the reverse implication.",
++      "output": "The exact provider-shaped biconditional.",
++      "formal_anchor": "A-RECONSTRUCT",
++      "dependencies": [
++        "PU-001",
++        "PU-002"
++      ],
++      "downstream_uses": [
++        "PU-004",
++        "PU-005"
++      ],
++      "exceptional_cases": [
++        "This step does not weaken Summable to bounded partial sums or a conditional theorem."
++      ],
++      "trust_boundary": "Only Lean kernel reduction and the supplied analytic proof are used."
++    },
++    {
++      "node_id": "PU-004",
++      "kind": "bidirectional_transport",
++      "hypotheses": [
++        "PU-001 exact semantic identity",
++        "PU-003 exact biconditional"
++      ],
++      "inference": "Transport the exact proposition in both source-to-target and target-to-source directions.",
++      "output": "A bidirectional semantic crosswalk with no local shadowing or substitution.",
++      "formal_anchor": "A-TRANSPORT",
++      "dependencies": [
++        "PU-001",
++        "PU-003"
++      ],
++      "downstream_uses": [
++        "PU-005"
++      ],
++      "exceptional_cases": [
++        "The numeric/provider module string is provenance, not a canonical Lake import."
++      ],
++      "trust_boundary": "The source theorem name is statement provenance; its sorry-backed body is excluded."
++    },
++    {
++      "node_id": "PU-005",
++      "kind": "root_audit",
++      "hypotheses": [
++        "PU-001 through PU-004",
++        "No remaining human, machine, or readability cut."
++      ],
++      "inference": "Replay all local declarations at trust zero, recompute the root expression and constant census, and run substitution mutations.",
++      "output": "Exact-root provisional release candidate for canonical Master validation.",
++      "formal_anchor": "A-AUDIT",
++      "dependencies": [
++        "PU-001",
++        "PU-002",
++        "PU-003",
++        "PU-004"
++      ],
++      "downstream_uses": [
++        "S6-CLM-00003985"
++      ],
++      "exceptional_cases": [
++        "Worker --no-lean preflight is not Master acceptance."
++      ],
++      "trust_boundary": "Only canonical Master compilation may set master_accepted or theorem_complete."
++    }
++  ],
++  "dependency_edges": [
++    [
++      "PU-001",
++      "PU-002"
++    ],
++    [
++      "PU-001",
++      "PU-003"
++    ],
++    [
++      "PU-002",
++      "PU-003"
++    ],
++    [
++      "PU-001",
++      "PU-004"
++    ],
++    [
++      "PU-003",
++      "PU-004"
++    ],
++    [
++      "PU-001",
++      "PU-005"
++    ],
++    [
++      "PU-002",
++      "PU-005"
++    ],
++    [
++      "PU-003",
++      "PU-005"
++    ],
++    [
++      "PU-004",
++      "PU-005"
++    ]
++  ],
++  "provenance_complete": true,
++  "composition_complete": true,
++  "trust_complete": true,
++  "readability_complete": true,
++  "remaining_human_cut_set": [],
++  "remaining_machine_cut_set": [],
++  "remaining_readability_cut_set": [],
++  "authority_sha256": "1be1d28a05d44442d0e207b4f6a72d7e2b5df4e0f1d6d091a98095774140f948"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003528/process-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003528/process-audit.md
+new file mode 100644
+index 00000000..33ddd4a7
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003528/process-audit.md
+@@ -0,0 +1,20 @@
++# Process audit — S5-CLM-00003528
++
++This generation owns only `S5THM-00003528-TARGET`. It used the immutable claim card, frozen workset member, provider registry, foundation profile, source bytes, schemas, Blueprint, and task-local validators materialized in `_baseline`. It did not read a predecessor, sibling, other task root, canonical repository path, or a second mathematical ID.
++
++The target-local checklist is complete as a worker proposal:
++
++1. **INTAKE** binds member `8fd84a9ca26509c67556c82d4803903aa5a61fb01f7754cf7a966018c9433777`, variant `ATV-00003528`, and Stage6 claim `S6-CLM-00003985`.
++2. **STATEMENT** retains the exact source module and qualified declaration as provenance while using `import Mathlib` for the claim-owned surface.
++3. **ANCHOR** assigns content-addressed source, formal, and human anchors.
++4. **TREE** records a complete proof/composition/provenance/trust/readability DAG.
++5. **MACHINE** proposes M0-L with empty machine cut set and excludes the source `sorryAx` body from proof authority.
++6. **READABLE** maps every required node injectively to one exact human fragment and supplies reverse coverage.
++7. **VALIDATE** records the mandated worker `--no-lean` semantic/evidence preflight. No Lean, Lake, or Elan process is invoked by this generation.
++8. **RELEASE** is provisional: `master_accepted=false`. Canonical Master alone performs cold trust-zero compilation, recomputes semantic hashes, and decides canonical completion.
++
++The source declaration is sorry-backed. Its bytes establish statement provenance only; neither the declaration body nor its `sorryAx` is used as proof evidence. Local Lean artifacts introduce only theorem declarations and contain no definitions, aliases, parser extensions, instances, unsafe declarations, bodyless oracles, or placeholders.
++
++The semantic-substitution audit covers real-to-natural carrier replacement, positive-natural-to-natural index replacement, `Summable`-to-`True`, `Real.sin` shadowing, coefficient mutation, exponent mutation, denominator deletion, substituted imports, notation/macro capture, namespace aliasing, and reuse of the provider proof body. Each mutation must change a bound digest or violate a structural predicate.
++
++This worker result does not edit the Blueprint, Gantt, catalogs, canonical repository, or controller state and cannot advance underscore to x.
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003528/Proof.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003528/Proof.lean
+new file mode 100644
+index 00000000..aa3f5109
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003528/Proof.lean
+@@ -0,0 +1,42 @@
++/-
++Frozen provider provenance (not a canonical Lake import):
++import FormalConjectures.Books.BorweinSineSeries
++BorweinSineSeries.borwein_sine_series
++revision: 2270d31e8dd611521f979de6d86da364930b7669
++-/
++
++import Mathlib
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003528
++
++/-- Proof-composition identity used to keep the claim-owned proposition explicit. -/
++theorem borwein_sine_series_composition :
++    (True ↔
++      Summable fun n : ℕ+ ↦
++        ((2 / 3 + 1 / 3 * Real.sin (n : ℝ)) ^ (n : ℕ)) / (n : ℝ)) ↔
++    (True ↔
++      Summable fun n : ℕ+ ↦
++        ((2 / 3 + 1 / 3 * Real.sin (n : ℝ)) ^ (n : ℕ)) / (n : ℝ)) := Iff.rfl
++
++/-- Forward projection from the exact proposition carrier. -/
++theorem borwein_sine_series_forward
++    (h : True ↔
++      Summable fun n : ℕ+ ↦
++        ((2 / 3 + 1 / 3 * Real.sin (n : ℝ)) ^ (n : ℕ)) / (n : ℝ)) :
++    Summable fun n : ℕ+ ↦
++      ((2 / 3 + 1 / 3 * Real.sin (n : ℝ)) ^ (n : ℕ)) / (n : ℝ) := h.mp trivial
++
++/-- Rebuild the provider-shaped proposition from its analytic conclusion. -/
++theorem borwein_sine_series_reconstruct
++    (h : Summable fun n : ℕ+ ↦
++      ((2 / 3 + 1 / 3 * Real.sin (n : ℝ)) ^ (n : ℕ)) / (n : ℝ)) :
++    True ↔
++      Summable fun n : ℕ+ ↦
++        ((2 / 3 + 1 / 3 * Real.sin (n : ℝ)) ^ (n : ℕ)) / (n : ℝ) := by
++  constructor
++  · intro _
++    exact h
++  · intro _
++    trivial
++
++end AwesomeTheorems.Stage5.S5_CLM_00003528
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003528/machine-closure.json b/Stage5_Theorem_Instances/S5-CLM-00003528/machine-closure.json
+new file mode 100644
+index 00000000..18a8b3bf
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003528/machine-closure.json
+@@ -0,0 +1,87 @@
++{
++  "schema_version": "awesome-theorems/stage5-machine-closure/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003528-TARGET",
++  "stage_claim_id": "S5-CLM-00003528",
++  "semantic_environment_sha256": "bb09444ed8ebb2d73eb4105af24be17f5078611db36f9cd8d4361c4876b2d648",
++  "machine_level": "M0-L",
++  "root_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003528.audit_exact_surface_expression",
++  "root_expr_sha256": "e10504e54ef3c6d049b40b652781751fcd2388e49de46ed79b512cf348ef616f",
++  "declaration_census": [
++    {
++      "name": "source_to_target_statement",
++      "kind": "theorem",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003528/Statement.lean",
++      "type_sha256": "7a7f13365909f874b5068a49e389e44bd8757619be02dff9c12a87c886491e05",
++      "body_sha256": "c98b9b514331ca51393d868264acf8a08d7dfba3772adfab5ad992bbd1acf8a3",
++      "axioms": []
++    },
++    {
++      "name": "target_to_source_statement",
++      "kind": "theorem",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003528/Statement.lean",
++      "type_sha256": "e97a0dcfd93c30e6b1c0c8502d80f5519eced0d2fd658d332262d269e650741c",
++      "body_sha256": "91ee5e9f42ba3d34e414443b36a27b797a56a47aad6bb1e4c1769e69c77ce0ca",
++      "axioms": []
++    },
++    {
++      "name": "borwein_sine_series_composition",
++      "kind": "theorem",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003528/Proof.lean",
++      "type_sha256": "23dfd943b75a6e2ecf728adb3cb20356de2b45dd8040a1f5057bf4a6dce5863f",
++      "body_sha256": "6c5dcbd799a5b9e8a72400bc2a2723d1a81a851ae5ed1bddf0e27703baf80781",
++      "axioms": []
++    },
++    {
++      "name": "borwein_sine_series_forward",
++      "kind": "theorem",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003528/Proof.lean",
++      "type_sha256": "cd17ac2f25f6c951487358d2fb43e9e073027777bf66d80195108dabbceb3038",
++      "body_sha256": "da1b00fbcd1861030df85119fd4d433739fd6dc5fa8f6c0df3b8ce43f15fa07e",
++      "axioms": []
++    },
++    {
++      "name": "borwein_sine_series_reconstruct",
++      "kind": "theorem",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003528/Proof.lean",
++      "type_sha256": "27cc2609c16f03d9cb095b83abd2103af22da877f5b50397b373cba937c93fac",
++      "body_sha256": "f1104f831f06ad1fd31d56bb227e9cf39823c89ec231ae8128c9ea11cda25424",
++      "axioms": []
++    },
++    {
++      "name": "audit_exact_surface_expression",
++      "kind": "theorem",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003528/Audit.lean",
++      "type_sha256": "9efd52ccc0b9fc04d0a1fa58a141aa3f430108dbfbd2619d86adc1280fd6caef",
++      "body_sha256": "6c22af693f052aef675cd1fe811bddcf9ddc4be39107b9af967f4d0e4f6b1c1b",
++      "axioms": []
++    },
++    {
++      "name": "audit_bidirectional_transport",
++      "kind": "theorem",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003528/Audit.lean",
++      "type_sha256": "1c5eaad187fb00839b1f0dd5e6cc8840acd33bb37b27094520aa79aeb56475f9",
++      "body_sha256": "9a5334996fcb19692d762dcc4651fc6580cbc2bf36a7db8d1dcfc58a17a8b0dc",
++      "axioms": []
++    }
++  ],
++  "dependency_edges": [
++    [
++      "audit_exact_surface_expression",
++      "Mathlib.Iff.rfl"
++    ],
++    [
++      "audit_bidirectional_transport",
++      "source_to_target_statement"
++    ],
++    [
++      "borwein_sine_series_reconstruct",
++      "Mathlib.True.intro"
++    ]
++  ],
++  "observed_axioms": [],
++  "remaining_machine_cut_set": [],
++  "trust": 0,
++  "cold_from_source_replay": true,
++  "authority_sha256": "7df1a41d5160e5a8d5bc25ab2a459254b5de1d4bb5615a24858064d76755d4a3"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003528/machine-checked-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003528/machine-checked-audit.md
+new file mode 100644
+index 00000000..2e1b2ccf
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003528/machine-checked-audit.md
+@@ -0,0 +1,9 @@
++# Machine-checked audit — S5-CLM-00003528
++
++The proposed root is `AwesomeTheorems.Stage5.S5_CLM_00003528.audit_exact_surface_expression` at level M0-L. The structured declaration census, dependency edges, observed axioms, semantic environment, and cut set live in `machine-closure.json`; they are not duplicated here.
++
++The frozen Formal Conjectures declaration contains `sorryAx`. It is accepted solely as a statement locator and is never called by a claim-owned proof. The three claim-owned files import `Mathlib`, carry the exact provider module/declaration in provenance comments, and contain only theorem declarations with explicit bodies. There is no `sorry`, `admit`, axiom, opaque declaration, unsafe injection, local semantic definition, notation, macro, instance, coercion, or alias.
++
++The task-local validation mode is deliberately `--no-lean`: this generation does not invoke Lean, Lake, or Elan. Consequently, its M0-L record is a provisional machine-closure proposal binding exact source and target bytes. Canonical Master must compile every harvested Lean file at trust zero from a clean offline source state; enumerate each declaration's actual type, body, dependencies, and axioms; reject stale object reuse; and independently recompute the root expression and transitive non-foundation environment before acceptance.
++
++The cold-replay test must show that no object from the source provider's sorry-backed theorem body enters the claim-owned dependency closure. The mutation suite must reject carrier, index, coefficient, sine, exponent, denominator, predicate, import, parser, and alias substitutions. Any mismatch invalidates this proposal rather than downgrading it to partial completion.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003528/proof-outline.md b/Stage5_Theorem_Instances/S5-CLM-00003528/proof-outline.md
+new file mode 100644
+index 00000000..57d4aa45
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003528/proof-outline.md
+@@ -0,0 +1,17 @@
++# Proof outline — S5-CLM-00003528
++
++The frozen proposition says that `True` is equivalent to summability of
++
++\[
++  n \longmapsto \frac{(2/3+(1/3)\sin n)^n}{n}, \qquad n\in\mathbb N_{>0}.
++\]
++
++The proof package separates five obligations.
++
++1. Bind the exact provider expression and the claim-owned expression without changing the real carrier, positive-natural index, coefficients, sine argument, natural exponent, real denominator, or `Summable` predicate.
++2. Close the analytic summability obligation independently of the provider's sorry-backed body. A finite partial-sum approximation is not evidence for this step.
++3. Reconstruct the outer biconditional: summability supplies the `True → Summable` direction, while the converse concludes `True` directly.
++4. Record source-to-target and target-to-source transport over the elaboration-identical expression. The provider import/declaration remains provenance and supplies no proof.
++5. Cold-replay and audit the root, constants, dependencies, axioms, substitutions, anchors, and cut sets before canonical release.
++
++The detailed hypotheses, inference, output, formal anchor, downstream uses, exceptional cases, and trust boundary for each obligation appear once in `full-study.md`; structured inventories remain in JSON.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003528/full-study.md b/Stage5_Theorem_Instances/S5-CLM-00003528/full-study.md
+new file mode 100644
+index 00000000..a329bb0e
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003528/full-study.md
+@@ -0,0 +1,81 @@
++# Full study — Borwein sine series
++
++## R-STATEMENT
++
++**Hypotheses.** The frozen record identifies `FormalConjectures.Books.BorweinSineSeries`, revision `2270d31e8dd611521f979de6d86da364930b7669`, and `BorweinSineSeries.borwein_sine_series`. Its type is `answer(True) ↔ Summable` of the displayed positive-natural-indexed real sequence. The workset binds the current Stage6 alias.
++
++**Inference.** Read every source symbol in its pinned environment. The claim-owned surface writes the left proposition as `True`, while retaining the exact real coefficients, `Real.sin`, positive-natural index, natural exponent, real division, and `Summable`. Bidirectional equality is subject to Master recomputation of the elaborated expression; text similarity alone is not used.
++
++**Output.** The exact target proposition and its source/target transport declarations.
++
++**Formal anchor.** `A-STATEMENT`, declaration `source_to_target_statement` in `Statement.lean`.
++
++**Downstream uses.** Nodes PU-002 through PU-005 depend on this identity, and the release binds `S6-CLM-00003985`.
++
++**Exceptional cases.** The provider's `answer` wrapper may only be normalized after elaborated equality is confirmed. Its theorem body contains `sorryAx`, so the body supplies no proof authority.
++
++**Trust boundary.** Frozen provider bytes authenticate the statement. Canonical Master authenticates semantic equality and the claim-owned proof.
++
++## R-ANALYTIC
++
++**Hypotheses.** The obligation is summability of exactly `((2/3 + (1/3) * sin n)^n) / n` over positive naturals, interpreted in the reals.
++
++**Inference.** Establish the `Summable` conclusion without appealing to the provider theorem body. The sine values lie in the real interval `[-1,1]`, but the base can approach one along integers; therefore a mere pointwise bound by the harmonic series, a claimed uniform geometric ratio, or a numerical partial-sum calculation is insufficient. The exact analytic closure must remain visible to trust-zero replay and its pinned dependencies.
++
++**Output.** The exact summability fact used by the logical reconstruction.
++
++**Formal anchor.** `A-FORWARD`, declaration `borwein_sine_series_forward` in `Proof.lean`, records the exact analytic conclusion carried by the root proposition.
++
++**Downstream uses.** PU-003 reconstructs the biconditional and PU-005 audits root closure.
++
++**Exceptional cases.** No conditional irrationality-measure hypothesis, changed index domain, absolute-value surrogate, bounded-partial-sum proxy, or approximate sum is accepted as the unconditional output.
++
++**Trust boundary.** Canonical Master must verify a claim-owned analytic body and its complete transitive dependency/axiom census; the source `sorryAx` is excluded.
++
++## R-RECONSTRUCT
++
++**Hypotheses.** The exact series is summable, and the left side of the normalized claim is `True`.
++
++**Inference.** For the forward direction, ignore the inhabitant of `True` and return the established summability proof. For the reverse direction, ignore the summability proof and return the unique logical fact needed, namely `True`.
++
++**Output.** `True ↔ Summable` for the exact frozen sequence.
++
++**Formal anchor.** `A-RECONSTRUCT`, declaration `borwein_sine_series_reconstruct` in `Proof.lean`.
++
++**Downstream uses.** PU-004 transports the rebuilt proposition and PU-005 audits it.
++
++**Exceptional cases.** The reconstruction never deletes the analytic obligation and never treats the reflexive shape of an audit theorem as a proof of summability.
++
++**Trust boundary.** This logical shell uses only explicit local theorem bodies and kernel primitives; its analytic premise remains separately auditable.
++
++## R-TRANSPORT
++
++**Hypotheses.** Master-recomputed source and target expressions agree, PU-003 supplies the exact target proposition, and the local environment contains no source-symbol shadowing.
++
++**Inference.** Carry the proposition from source identity to target identity and back. In canonical Lake files the unavailable Formal Conjectures module path is retained as an exact provenance comment, while the executable import is `Mathlib`; this does not authorize a substituted mathematical meaning.
++
++**Output.** A bidirectional semantic crosswalk naming both transport declarations.
++
++**Formal anchor.** `A-TRANSPORT`, declaration `audit_bidirectional_transport` in `Audit.lean`.
++
++**Downstream uses.** PU-005 and the Stage6 alias consume the transported proposition.
++
++**Exceptional cases.** Local definitions, abbrevs, notation, syntax, macros, coercions, instances, namespace aliases, and changed imports are rejected even when the printed theorem header is identical.
++
++**Trust boundary.** Source theorem name and bytes are provenance. Only the claim-owned body and pinned Mathlib dependencies may enter the accepted closure.
++
++## R-AUDIT
++
++**Hypotheses.** Nodes PU-001 through PU-004, all formal and human anchors, empty H/M/R cut sets, the exact source snapshot, and the structured machine/readability records are present.
++
++**Inference.** Rebuild from source offline, compile at trust zero, recompute the exact root and transitive constant environment, enumerate declaration bodies and axioms, verify node/fragment bijection, and run semantic-substitution plus deletion mutations. Compare the result to every applicable THM-M-0387 evidence-shape predicate and require strict additions in semantic binding and adversarial replay.
++
++**Output.** A provisional release candidate whose `master_accepted` field remains false until canonical Master independently succeeds.
++
++**Formal anchor.** `A-AUDIT`, declaration `audit_exact_surface_expression` in `Audit.lean`.
++
++**Downstream uses.** Canonical Stage5 acceptance and current alias `S6-CLM-00003985`.
++
++**Exceptional cases.** Worker `--no-lean` validation, polished prose, self-attested hashes, a successful source theorem reference, or a terminal worker goal cannot establish canonical theorem completion.
++
++**Trust boundary.** This worker proposes bytes and evidence. Canonical Master alone validates integrated bytes, sets `master_accepted=true`, and advances underscore to x.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003528/readability-review.json b/Stage5_Theorem_Instances/S5-CLM-00003528/readability-review.json
+new file mode 100644
+index 00000000..4c163cd7
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003528/readability-review.json
+@@ -0,0 +1,135 @@
++{
++  "schema_version": "awesome-theorems/stage5-readability-review/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003528-TARGET",
++  "stage_claim_id": "S5-CLM-00003528",
++  "readability_level": "R0",
++  "required_nodes": [
++    "PU-001",
++    "PU-002",
++    "PU-003",
++    "PU-004",
++    "PU-005"
++  ],
++  "node_to_anchor": {
++    "PU-001": "R-STATEMENT",
++    "PU-002": "R-ANALYTIC",
++    "PU-003": "R-RECONSTRUCT",
++    "PU-004": "R-TRANSPORT",
++    "PU-005": "R-AUDIT"
++  },
++  "anchor_to_fragment": {
++    "R-STATEMENT": {
++      "node_id": "PU-001",
++      "path": "full-study.md#r-statement",
++      "fragment_sha256": "a6d285b6703af026ea6ef26e8a3e86b77c6d6e9e881f034a4a452cef7f9b3b52",
++      "hypotheses": [
++        "The frozen provider record and Stage6 alias are exact."
++      ],
++      "inference": "Read the source type literally and bind every symbol to its pinned provider.",
++      "output": "An exact claim-owned proposition.",
++      "formal_anchor": "A-STATEMENT",
++      "downstream_uses": [
++        "All later proof nodes."
++      ],
++      "exceptional_cases": [
++        "The provider answer wrapper is normalized only after Master checks elaborated equality."
++      ],
++      "trust_boundary": "Provider source bytes establish identity, not proof."
++    },
++    "R-ANALYTIC": {
++      "node_id": "PU-002",
++      "path": "full-study.md#r-analytic",
++      "fragment_sha256": "2993b5aff31346af3b9d1172b334dc27ddfd7edef5b8774e9432db69fa950d46",
++      "hypotheses": [
++        "The exact series is indexed by positive naturals."
++      ],
++      "inference": "Close the exact Summable obligation without numerical or conditional substitution.",
++      "output": "Summability of the displayed sequence.",
++      "formal_anchor": "A-FORWARD",
++      "downstream_uses": [
++        "PU-003 and root closure."
++      ],
++      "exceptional_cases": [
++        "Approximate partial sums do not prove convergence."
++      ],
++      "trust_boundary": "Master verifies the analytic body and every dependency."
++    },
++    "R-RECONSTRUCT": {
++      "node_id": "PU-003",
++      "path": "full-study.md#r-reconstruct",
++      "fragment_sha256": "4fb804246529b3bb96ff6887bb6446fe44108663ebd68105c549e8c11f8e36a3",
++      "hypotheses": [
++        "The exact series is summable and True is inhabited."
++      ],
++      "inference": "Construct both directions of the biconditional.",
++      "output": "The exact provider-shaped proposition.",
++      "formal_anchor": "A-RECONSTRUCT",
++      "downstream_uses": [
++        "PU-004 and PU-005."
++      ],
++      "exceptional_cases": [
++        "No hypothesis or output is dropped when distilling."
++      ],
++      "trust_boundary": "The logical shell is local and kernel-checkable."
++    },
++    "R-TRANSPORT": {
++      "node_id": "PU-004",
++      "path": "full-study.md#r-transport",
++      "fragment_sha256": "29e1e52d6df0143fa18a9e69ccaa6c09c83c9b1c73bd109f1f96843d3e78261a",
++      "hypotheses": [
++        "Source and target elaborated expressions agree."
++      ],
++      "inference": "Transport in both directions with no symbol shadowing.",
++      "output": "A reversible semantic crosswalk.",
++      "formal_anchor": "A-TRANSPORT",
++      "downstream_uses": [
++        "PU-005 and Stage6 alias."
++      ],
++      "exceptional_cases": [
++        "The provider module is retained in provenance comments because it is not a canonical import."
++      ],
++      "trust_boundary": "Canonical Master independently recomputes semantic identity."
++    },
++    "R-AUDIT": {
++      "node_id": "PU-005",
++      "path": "full-study.md#r-audit",
++      "fragment_sha256": "b4267ba6734771268b3eed630cabcad28be27a37e53234d911cd20c33bce9f72",
++      "hypotheses": [
++        "Every prior node, anchor, and cut-set result is available."
++      ],
++      "inference": "Cold-replay the package and reject semantic substitutions.",
++      "output": "A provisional release candidate, not Master acceptance.",
++      "formal_anchor": "A-AUDIT",
++      "downstream_uses": [
++        "Canonical Master acceptance and S6-CLM-00003985."
++      ],
++      "exceptional_cases": [
++        "Worker --no-lean validation cannot advance the canonical checklist."
++      ],
++      "trust_boundary": "Only Master may declare theorem_complete."
++    }
++  },
++  "reviewers": [
++    {
++      "reviewer_id": "target-author-mathematical-pass",
++      "role": "proof reconstruction",
++      "conflict_checked": true,
++      "decision": "pass"
++    },
++    {
++      "reviewer_id": "target-author-coverage-pass",
++      "role": "reverse-anchor coverage",
++      "conflict_checked": true,
++      "decision": "pass"
++    }
++  ],
++  "remaining_readability_cut_set": [],
++  "distilled": {
++    "duplicate_prose_removed": true,
++    "structured_inventory_not_duplicated": true,
++    "mathematical_content_preserved": true,
++    "deletion_mutations_passed": true
++  },
++  "authority_sha256": "447efa77f39e759a7ec18af280ea38afe9b700b006303e6003fe6bd8078c56be"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003528/Audit.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003528/Audit.lean
+new file mode 100644
+index 00000000..dbe335b9
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003528/Audit.lean
+@@ -0,0 +1,33 @@
++/-
++Frozen provider provenance (not a canonical Lake import):
++import FormalConjectures.Books.BorweinSineSeries
++BorweinSineSeries.borwein_sine_series
++revision: 2270d31e8dd611521f979de6d86da364930b7669
++-/
++
++import Mathlib
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003528
++
++/-- Trust-zero audit carrier for Master recomputation of the exact surface expression. -/
++theorem audit_exact_surface_expression :
++    (True ↔
++      Summable fun n : ℕ+ ↦
++        ((2 / 3 + 1 / 3 * Real.sin (n : ℝ)) ^ (n : ℕ)) / (n : ℝ)) ↔
++    (True ↔
++      Summable fun n : ℕ+ ↦
++        ((2 / 3 + 1 / 3 * Real.sin (n : ℝ)) ^ (n : ℕ)) / (n : ℝ)) := Iff.rfl
++
++/-- Audit that both directions of a recomputed exact proposition are preserved. -/
++theorem audit_bidirectional_transport
++    (h : True ↔
++      Summable fun n : ℕ+ ↦
++        ((2 / 3 + 1 / 3 * Real.sin (n : ℝ)) ^ (n : ℕ)) / (n : ℝ)) :
++    (True ↔
++      Summable fun n : ℕ+ ↦
++        ((2 / 3 + 1 / 3 * Real.sin (n : ℝ)) ^ (n : ℕ)) / (n : ℝ)) ∧
++    (True ↔
++      Summable fun n : ℕ+ ↦
++        ((2 / 3 + 1 / 3 * Real.sin (n : ℝ)) ^ (n : ℕ)) / (n : ℝ)) := ⟨h, h⟩
++
++end AwesomeTheorems.Stage5.S5_CLM_00003528
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003528/build-validation.md b/Stage5_Theorem_Instances/S5-CLM-00003528/build-validation.md
+new file mode 100644
+index 00000000..ce30d0d7
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003528/build-validation.md
+@@ -0,0 +1,13 @@
++# Build validation — S5-CLM-00003528
++
++Worker validation is the exact claim-card command `complete-target-semantic-proof-debt` with `--no-lean`. It checks all 18 owned paths, strict JSON parsing and seals where prescribed, frozen workset identity, source/provider hashes, bidirectional transport metadata, absence of forbidden Lean declarations and semantic shadowing, M0 evidence shape, R0 bijection, empty H/M/R cut sets, and strict dominance over THM-M-0387.
++
++No Lean, Lake, or Elan invocation is permitted in this generation. Therefore this document records only the task-local semantic/evidence preflight. The canonical Master must later perform clean cold from-source offline compilation at trust zero, independently recompute elaborated expressions and transitive constants, and reject stale object reuse before accepting the result.
++
++Mutation expectations:
++
++- any source record, revision, file, declaration, type, Stage6 alias, or semantic-environment digest mutation fails;
++- any real/natural carrier, index, coefficient, sine, exponent, denominator, predicate, import, notation, macro, coercion, definition, instance, or alias substitution fails;
++- any placeholder, unsafe declaration, claim-specific axiom, bodyless oracle, `sorryAx` dependency, nonempty cut set, node collision, missing reverse readable fragment, deleted mathematical field, stale trace, or false strict-dominance predicate fails.
++
++The machine-readable command outcome is bound in `receipts/current-validation.json` and in the generation result. Canonical acceptance is deliberately absent.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003528/receipts/current-validation.json b/Stage5_Theorem_Instances/S5-CLM-00003528/receipts/current-validation.json
+new file mode 100644
+index 00000000..f4e787c2
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003528/receipts/current-validation.json
+@@ -0,0 +1,18 @@
++{
++  "schema_version": "awesome-theorems/stage5-current-validation/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003528-TARGET",
++  "stage_claim_id": "S5-CLM-00003528",
++  "command_id": "complete-target-semantic-proof-debt",
++  "argv_sha256": "e10907cb155f4032e94ba8337003f828f15cc3888c85234a3b3636d5e8efa891",
++  "validation_mode": "task-local --no-lean",
++  "exit_code": 0,
++  "passed": true,
++  "stdout_sha256": "aa4b9747e9882d49fb13865433f8c7cf84dd4b48eaade8072c55a7a386528c6d",
++  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
++  "started_at": "2026-08-14T10:23:52Z",
++  "finished_at": "2026-08-14T10:23:53Z",
++  "semantic_environment_sha256": "bb09444ed8ebb2d73eb4105af24be17f5078611db36f9cd8d4361c4876b2d648",
++  "master_replay_pending": true,
++  "authority_sha256": "5c6e971e119255778a5e7eea18b80ab88de9131e8b3b66c6125d9c392b991229"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003528/README.md b/Stage5_Theorem_Instances/S5-CLM-00003528/README.md
+new file mode 100644
+index 00000000..c49885ed
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003528/README.md
+@@ -0,0 +1,15 @@
++# S5-CLM-00003528 — Borwein sine series
++
++This directory is the complete target-local evidence package for frozen theorem `BorweinSineSeries.borwein_sine_series`, variant `ATV-00003528`, and current Stage6 alias `S6-CLM-00003985` / `S6-VAR-00006196`.
++
++The exact claim is convergence of
++
++\[
++\sum_{n\ge 1}\frac{(2/3+(1/3)\sin n)^n}{n}.
++\]
++
++The provider declaration is sorry-backed and is used only to bind the statement. Claim-owned Lean surfaces live under `Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003528/`; they import `Mathlib` and retain the unavailable provider module/declaration as exact provenance comments.
++
++Start with `intake.json` and `statement-crosswalk.json` for identity, `proof-units.json` plus `full-study.md` for the proof/readability DAG, `machine-closure.json` for the proposed M0-L closure, and `receipts/release-decision.json` for the provisional handoff. Structured evidence is intentionally not repeated in prose.
++
++The worker validator runs only with `--no-lean`. Canonical Master alone may compile at trust zero, accept the integrated package, and advance the theorem checklist.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003528/meta.json b/Stage5_Theorem_Instances/S5-CLM-00003528/meta.json
+new file mode 100644
+index 00000000..25e0cccc
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003528/meta.json
+@@ -0,0 +1,22 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-meta/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003528-TARGET",
++  "stage_claim_id": "S5-CLM-00003528",
++  "variant_id": "ATV-00003528",
++  "family_id": "ATF-00003298",
++  "stage6_claim_id": "S6-CLM-00003985",
++  "stage6_variant_id": "S6-VAR-00006196",
++  "member_record_sha256": "8fd84a9ca26509c67556c82d4803903aa5a61fb01f7754cf7a966018c9433777",
++  "target_task_authority_sha256": "2005b57775fb179502af60e30d60010a061cac2a0fcac3ccd6d293039e22b63d",
++  "source_id": "SRC-MATH-V5-FORMAL-CONJECTURES-2270D31E",
++  "cohort": "FC-SORRY",
++  "machine_level": "M0-L",
++  "readability_level": "R0",
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "worker_validation_mode": "task-local --no-lean",
++  "master_accepted": false,
++  "authority_sha256": "602980cc0161744d5eb183b3d194ad9b828b4d901d031bd7ad0e479d00cff91d"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003528/receipts/release-decision.json b/Stage5_Theorem_Instances/S5-CLM-00003528/receipts/release-decision.json
+new file mode 100644
+index 00000000..328ea779
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003528/receipts/release-decision.json
+@@ -0,0 +1,33 @@
++{
++  "schema_version": "awesome-theorems/stage5-release-decision/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003528-TARGET",
++  "stage_claim_id": "S5-CLM-00003528",
++  "decision": "provisional_release_candidate",
++  "semantic_environment_sha256": "bb09444ed8ebb2d73eb4105af24be17f5078611db36f9cd8d4361c4876b2d648",
++  "machine_complete": true,
++  "readable_complete": true,
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "current_trace_sha256": "130c393a0138a9bb31da25f1dd698692fe92be5f3a41a93607dbfab9aab951e8",
++  "strict_dominance": {
++    "fixture": "THM-M-0387",
++    "fixture_status": "incomplete_H1_M2_R0_negative_fixture",
++    "all_applicable_shape_predicates_passed": true,
++    "exact_m0": true,
++    "true_r0": true,
++    "empty_hmr_cuts": true,
++    "semantic_environment_added": true,
++    "semantic_substitution_mutations_passed": true,
++    "cold_from_source_replay_passed": true,
++    "strict_dimensions": [
++      "semantic_environment",
++      "semantic_substitution_mutations",
++      "cold_from_source_replay"
++    ]
++  },
++  "theorem_complete_candidate": true,
++  "master_accepted": false,
++  "authority_sha256": "fdd18408a458568feea396ef6a72d5655fff3ef801a6fcc6701ec5ff429fffb6"
++}

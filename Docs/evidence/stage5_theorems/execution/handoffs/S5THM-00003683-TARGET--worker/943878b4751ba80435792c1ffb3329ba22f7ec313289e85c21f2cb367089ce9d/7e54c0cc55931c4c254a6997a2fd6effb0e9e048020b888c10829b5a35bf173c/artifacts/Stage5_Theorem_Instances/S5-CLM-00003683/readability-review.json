@@ -1,0 +1,89 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003683-TARGET",
+  "stage_claim_id": "S5-CLM-00003683",
+  "readability_level": "R0",
+  "required_nodes": ["PU-ROOT", "PU-PACK", "PU-CERT", "PU-DESTRUCT", "PU-RETURN"],
+  "node_to_anchor": {
+    "PU-ROOT": "RA-ROOT",
+    "PU-PACK": "RA-PACK",
+    "PU-CERT": "RA-CERT",
+    "PU-DESTRUCT": "RA-DESTRUCT",
+    "PU-RETURN": "RA-RETURN"
+  },
+  "anchor_to_fragment": {
+    "RA-ROOT": {
+      "node_id": "PU-ROOT",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003683/full-study.md#statement",
+      "fragment_sha256": "2fd57a6498f662377431532c3b7183a9ab02c367617eb0022961736746d6c6b5",
+      "hypotheses": ["n is natural", "n is odd", "n < 2^50", "1 < n", "finite certificate"],
+      "inference": "compose every typed proof unit without changing the frozen root",
+      "output": "natural squarefree k and natural l with n = k + 2^l",
+      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003683.proof",
+      "downstream_uses": ["Stage6 alias S6-CLM-00003101 / S6-VAR-00007359"],
+      "exceptional_cases": ["n outside the strict interval is not claimed"],
+      "trust_boundary": "certificate data and Mathlib kernel declarations; provider body excluded"
+    },
+    "RA-PACK": {
+      "node_id": "PU-PACK",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003683/proof-outline.md#1",
+      "fragment_sha256": "d201a99d761006086b575130c1732496d715e732eef886df1561876bc2f0ce03",
+      "hypotheses": ["n : ℕ", "h : n < 2^50"],
+      "inference": "introduce the bounded subtype value ⟨n,h⟩",
+      "output": "an element of Fin (2^50)",
+      "formal_anchor": "Proof.lean obtain line",
+      "downstream_uses": ["certificate application"],
+      "exceptional_cases": ["the bound proof is retained as subtype evidence"],
+      "trust_boundary": "Fin constructor in Mathlib"
+    },
+    "RA-CERT": {
+      "node_id": "PU-CERT",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003683/proof-outline.md#2",
+      "fragment_sha256": "a715c9056d12f5eae6ada4334be2949f6f04d27c018ab6c2647d54039555110f",
+      "hypotheses": ["bounded n", "Odd n", "1 < n", "explicit certificate"],
+      "inference": "apply the certificate at exactly n with both predicates",
+      "output": "bounded witnesses with squarefreeness and equality",
+      "formal_anchor": "certificate ⟨n,h⟩ hn hn'",
+      "downstream_uses": ["witness destruction"],
+      "exceptional_cases": ["certificate has no obligation for non-odd or n ≤ 1"],
+      "trust_boundary": "finite certificate is an explicit root parameter"
+    },
+    "RA-DESTRUCT": {
+      "node_id": "PU-DESTRUCT",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003683/proof-outline.md#3",
+      "fragment_sha256": "a0316dc7d388d63710212be4a9d355662364b60d0d3fc55cab4d65c2dac7f18d",
+      "hypotheses": ["existential certificate output"],
+      "inference": "eliminate both existential binders and the conjunction",
+      "output": "k.1, l.1, Squarefree k.1, n = k.1 + 2^l.1",
+      "formal_anchor": "obtain ⟨k,l,hk,hsum⟩",
+      "downstream_uses": ["natural witness introduction"],
+      "exceptional_cases": ["finite bounds remain available but are unnecessary at output"],
+      "trust_boundary": "Exists and And eliminators"
+    },
+    "RA-RETURN": {
+      "node_id": "PU-RETURN",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003683/proof-outline.md#4",
+      "fragment_sha256": "afdc2504ec6df782e92926e7cc743698420a02ae8a6c65cf2089e920c5f26927",
+      "hypotheses": ["natural witness values and exact conjunction"],
+      "inference": "introduce k.1 and l.1 as the requested natural witnesses",
+      "output": "∃ k l : ℕ, Squarefree k ∧ n = k + 2^l",
+      "formal_anchor": "exact ⟨k.1,l.1,hk,hsum⟩",
+      "downstream_uses": ["root closure"],
+      "exceptional_cases": ["no witness component is erased"],
+      "trust_boundary": "Exists introduction"
+    }
+  },
+  "reviewers": [
+    {"reviewer_id": "worker-structural-review", "role": "forward node coverage", "decision": "pass", "conflicts": []},
+    {"reviewer_id": "worker-reverse-ledger-review", "role": "reverse fragment and deletion-mutation coverage", "decision": "pass", "conflicts": []}
+  ],
+  "remaining_readability_cut_set": [],
+  "distilled": {
+    "duplicate_prose_removed": true,
+    "structured_inventory_not_duplicated": true,
+    "mathematical_content_preserved": true,
+    "deletion_mutations_passed": true
+  },
+  "authority_sha256": "cc98d44d1facbb99e69f513994c03188a0ee8e25914f9932bfa8c64e448bdf8d"
+}

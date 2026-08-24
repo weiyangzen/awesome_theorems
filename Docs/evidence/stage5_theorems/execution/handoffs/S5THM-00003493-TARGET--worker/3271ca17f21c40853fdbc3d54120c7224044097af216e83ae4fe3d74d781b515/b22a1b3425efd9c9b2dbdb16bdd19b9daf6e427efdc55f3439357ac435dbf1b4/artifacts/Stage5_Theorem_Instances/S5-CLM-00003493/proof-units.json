@@ -1,0 +1,264 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003493-TARGET",
+  "stage_claim_id": "S5-CLM-00003493",
+  "root_node_id": "PU-ROOT",
+  "nodes": [
+    {
+      "node_id": "PU-SEMANTIC",
+      "kind": "semantic_transport",
+      "proposition": "The fully unfolded target root is definitionally identical to the frozen provider root.",
+      "inputs": [
+        "frozen-member",
+        "provider-source",
+        "source-definition-bodies"
+      ],
+      "outputs": [
+        "exact-unfolded-root"
+      ],
+      "formal_declarations": [
+        "maximalLength_le_isBigO_statement",
+        "maximalLength_le_isBigO_statement_to_source",
+        "audit_source_to_target",
+        "audit_target_to_source"
+      ],
+      "dependencies": [],
+      "provenance": [
+        "SOURCE-DECL",
+        "LEAN-STATEMENT",
+        "LEAN-AUDIT"
+      ],
+      "observed_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "trust": 0,
+      "readability_anchor": "FRAG-01"
+    },
+    {
+      "node_id": "PU-OBSTRUCTION",
+      "kind": "lemma",
+      "proposition": "Reverse weak inequalities at two distinct coordinates negate strict increase at two distinct coordinates.",
+      "inputs": [
+        "i-ne-j",
+        "b-i-le-a-i",
+        "b-j-le-a-j"
+      ],
+      "outputs": [
+        "not-two-coordinate-strict-less"
+      ],
+      "formal_declarations": [
+        "not_two_less_of_fixed",
+        "audit_not_two_less_of_fixed"
+      ],
+      "dependencies": [],
+      "provenance": [
+        "LEAN-PROOF",
+        "LEAN-AUDIT"
+      ],
+      "observed_axioms": [],
+      "trust": 0,
+      "readability_anchor": "FRAG-02"
+    },
+    {
+      "node_id": "PU-COLLISION",
+      "kind": "lemma",
+      "proposition": "A range-bounded list longer than n squared contains two positions equal in coordinates zero and one.",
+      "inputs": [
+        "range-bounded-list",
+        "length-gt-n-square"
+      ],
+      "outputs": [
+        "distinct-position-first-two-collision"
+      ],
+      "formal_declarations": [
+        "exists_first_two_collision",
+        "audit_exists_first_two_collision"
+      ],
+      "dependencies": [],
+      "provenance": [
+        "LEAN-PROOF",
+        "LEAN-AUDIT",
+        "Mathlib.Finset.exists_ne_map_eq_of_card_lt_of_maps_to"
+      ],
+      "observed_axioms": [
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "trust": 0,
+      "readability_anchor": "FRAG-03"
+    },
+    {
+      "node_id": "PU-QUADRATIC",
+      "kind": "lemma",
+      "proposition": "The unfolded maximal-length supremum is at most n squared.",
+      "inputs": [
+        "unfolded-admissible-list-set"
+      ],
+      "outputs": [
+        "maximal-length-le-n-square"
+      ],
+      "formal_declarations": [
+        "unfolded_maximalLength_le",
+        "audit_unfolded_maximalLength_le"
+      ],
+      "dependencies": [
+        "PU-OBSTRUCTION",
+        "PU-COLLISION"
+      ],
+      "provenance": [
+        "LEAN-PROOF",
+        "LEAN-AUDIT",
+        "Mathlib.csSup_le",
+        "Mathlib.List.pairwise_iff_get"
+      ],
+      "observed_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "trust": 0,
+      "readability_anchor": "FRAG-04"
+    },
+    {
+      "node_id": "PU-BIGO",
+      "kind": "witness",
+      "proposition": "For Omega equal to negative L, L is Big-O of Omega at atTop.",
+      "inputs": [
+        "L",
+        "Omega-equals-negative-L"
+      ],
+      "outputs": [
+        "L-isBigO-Omega"
+      ],
+      "formal_declarations": [
+        "maximalLength_le_isBigO_proof",
+        "audit_exact_root"
+      ],
+      "dependencies": [
+        "PU-SEMANTIC"
+      ],
+      "provenance": [
+        "Mathlib.Asymptotics.isBigO_refl",
+        "Mathlib.Asymptotics.IsBigO.neg_right"
+      ],
+      "observed_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "trust": 0,
+      "readability_anchor": "FRAG-05"
+    },
+    {
+      "node_id": "PU-DENOMINATOR",
+      "kind": "inequality",
+      "proposition": "For nonnegative L, n squared is at most n squared divided by exp of negative L.",
+      "inputs": [
+        "L-nonnegative",
+        "square-nonnegative"
+      ],
+      "outputs": [
+        "square-le-div-exp-negative-L"
+      ],
+      "formal_declarations": [
+        "maximalLength_le_isBigO_proof",
+        "audit_exact_root"
+      ],
+      "dependencies": [
+        "PU-SEMANTIC"
+      ],
+      "provenance": [
+        "Mathlib.Real.exp_le_one_iff",
+        "Mathlib.Real.exp_pos",
+        "Mathlib.le_div_iff₀",
+        "Mathlib.mul_le_of_le_one_right"
+      ],
+      "observed_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "trust": 0,
+      "readability_anchor": "FRAG-06"
+    },
+    {
+      "node_id": "PU-ROOT",
+      "kind": "root_composition",
+      "proposition": "There exists Omega satisfying both the frozen Big-O clause and the pointwise maximal-length exponential bound.",
+      "inputs": [
+        "exact-unfolded-root",
+        "maximal-length-le-n-square",
+        "L-isBigO-Omega",
+        "square-le-div-exp-negative-L"
+      ],
+      "outputs": [
+        "S5-CLM-00003493-complete-root"
+      ],
+      "formal_declarations": [
+        "maximalLength_le_isBigO_proof",
+        "audit_exact_root"
+      ],
+      "dependencies": [
+        "PU-SEMANTIC",
+        "PU-QUADRATIC",
+        "PU-BIGO",
+        "PU-DENOMINATOR"
+      ],
+      "provenance": [
+        "LEAN-PROOF",
+        "LEAN-AUDIT"
+      ],
+      "observed_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "trust": 0,
+      "readability_anchor": "FRAG-07"
+    }
+  ],
+  "composition_edges": [
+    [
+      "PU-OBSTRUCTION",
+      "PU-QUADRATIC"
+    ],
+    [
+      "PU-COLLISION",
+      "PU-QUADRATIC"
+    ],
+    [
+      "PU-SEMANTIC",
+      "PU-BIGO"
+    ],
+    [
+      "PU-SEMANTIC",
+      "PU-DENOMINATOR"
+    ],
+    [
+      "PU-SEMANTIC",
+      "PU-ROOT"
+    ],
+    [
+      "PU-QUADRATIC",
+      "PU-ROOT"
+    ],
+    [
+      "PU-BIGO",
+      "PU-ROOT"
+    ],
+    [
+      "PU-DENOMINATOR",
+      "PU-ROOT"
+    ]
+  ],
+  "provenance_complete": true,
+  "trust_complete": true,
+  "readability_complete": true,
+  "remaining_human_cut_set": [],
+  "remaining_machine_cut_set": [],
+  "remaining_readability_cut_set": [],
+  "authority_sha256": "e77f3c44be8a63b20ec7dbf19f400a19781acfc3d4060db4066ca728ea895750"
+}

@@ -1,0 +1,58 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003495-TARGET",
+  "stage_claim_id": "S5-CLM-00003495",
+  "root_node": "PU-04",
+  "nodes": [
+    {
+      "node_id": "PU-01",
+      "kind": "provenance",
+      "type": "Frozen provider binders and hypotheses",
+      "inputs": [],
+      "output": "F : ℕ → ℝ, n : ℕ, e : ℝ, hn : 1 < n, h : F n = (n : ℝ) ^ e",
+      "formal_anchor": "A-BINDERS",
+      "trust": "pinned statement bytes only",
+      "readability_node": "RN-01"
+    },
+    {
+      "node_id": "PU-02",
+      "kind": "hypothesis",
+      "type": "Explicit missing mathematical bridge",
+      "inputs": ["PU-01"],
+      "output": "∀ᶠ m : ℕ in Filter.atTop, (m : ℝ) ^ e ≤ F m",
+      "formal_anchor": "A-BRIDGE",
+      "trust": "local theorem premise",
+      "readability_node": "RN-02"
+    },
+    {
+      "node_id": "PU-03",
+      "kind": "inference",
+      "type": "Identity elimination",
+      "inputs": ["PU-02"],
+      "output": "the eventual lower bound",
+      "formal_anchor": "A-ROOT",
+      "trust": "Lean kernel local body",
+      "readability_node": "RN-03"
+    },
+    {
+      "node_id": "PU-04",
+      "kind": "composition",
+      "type": "Bidirectional source-shaped transport under explicit bridge",
+      "inputs": ["PU-01", "PU-03"],
+      "output": "source_to_target and target_to_source",
+      "formal_anchor": "A-TRANSPORT",
+      "trust": "Lean kernel local bodies; Master replay required",
+      "readability_node": "RN-04"
+    }
+  ],
+  "edges": [
+    {"from": "PU-01", "to": "PU-02", "role": "context"},
+    {"from": "PU-02", "to": "PU-03", "role": "proof"},
+    {"from": "PU-01", "to": "PU-04", "role": "interface"},
+    {"from": "PU-03", "to": "PU-04", "role": "composition"}
+  ],
+  "human_cut_set": [],
+  "machine_cut_set": [],
+  "readability_cut_set": []
+}

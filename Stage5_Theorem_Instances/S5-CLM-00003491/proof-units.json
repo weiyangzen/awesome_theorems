@@ -1,0 +1,268 @@
+{
+  "authority_sha256": "58363d3af334d6df78b0fd1c97e68391cbf8d50392116e01bc8802d74dd0a19f",
+  "composition_order": [
+    "P00-frozen-statement",
+    "P10-square-root",
+    "P20-construction",
+    "P30-range",
+    "P40-pairwise",
+    "P50-boundedness",
+    "P60-supremum",
+    "P70-transport"
+  ],
+  "edges": [
+    {
+      "from": "P00-frozen-statement",
+      "kind": "proof_dependency",
+      "to": "P10-square-root"
+    },
+    {
+      "from": "P10-square-root",
+      "kind": "proof_dependency",
+      "to": "P20-construction"
+    },
+    {
+      "from": "P10-square-root",
+      "kind": "proof_dependency",
+      "to": "P30-range"
+    },
+    {
+      "from": "P20-construction",
+      "kind": "proof_dependency",
+      "to": "P30-range"
+    },
+    {
+      "from": "P20-construction",
+      "kind": "proof_dependency",
+      "to": "P40-pairwise"
+    },
+    {
+      "from": "P00-frozen-statement",
+      "kind": "proof_dependency",
+      "to": "P50-boundedness"
+    },
+    {
+      "from": "P20-construction",
+      "kind": "proof_dependency",
+      "to": "P60-supremum"
+    },
+    {
+      "from": "P30-range",
+      "kind": "proof_dependency",
+      "to": "P60-supremum"
+    },
+    {
+      "from": "P40-pairwise",
+      "kind": "proof_dependency",
+      "to": "P60-supremum"
+    },
+    {
+      "from": "P50-boundedness",
+      "kind": "proof_dependency",
+      "to": "P60-supremum"
+    },
+    {
+      "from": "P60-supremum",
+      "kind": "proof_dependency",
+      "to": "P70-transport"
+    }
+  ],
+  "human_cut_set": [],
+  "item_id": "S5THM-00003491-TARGET",
+  "machine_cut_set": [],
+  "nodes": [
+    {
+      "dependencies": [],
+      "downstream_uses": [
+        "P10-square-root"
+      ],
+      "exceptional_cases": [
+        "No provider proof body is imported or trusted."
+      ],
+      "formal_anchor": "Statement.lean:127",
+      "hypotheses": [
+        "n : ℕ",
+        "h : IsSquare n"
+      ],
+      "inference": "Delta-expand F, maximalLength, IsIncreasing₂ and lt₂ under the pinned declaration.",
+      "kind": "provenance",
+      "node_id": "P00-frozen-statement",
+      "output": "The claim-owned exact-root proposition.",
+      "trust_boundary": [
+        "Frozen provider statement bytes only; Master recomputes elaboration."
+      ]
+    },
+    {
+      "dependencies": [
+        "P00-frozen-statement"
+      ],
+      "downstream_uses": [
+        "P20-construction",
+        "P30-range"
+      ],
+      "exceptional_cases": [
+        "Covers q = 0 and q = 1 without division."
+      ],
+      "formal_anchor": "Statement.lean:147",
+      "hypotheses": [
+        "h : IsSquare n",
+        "q = n.sqrt"
+      ],
+      "inference": "Convert IsSquare n to an explicit power-two witness and apply Nat.exists_mul_self' to identify q^2 with n.",
+      "kind": "arithmetic",
+      "node_id": "P10-square-root",
+      "output": "q ^ 2 = n",
+      "trust_boundary": [
+        "The definition of IsSquare and Mathlib theorem Nat.exists_mul_self', replayed by Lean."
+      ]
+    },
+    {
+      "dependencies": [
+        "P10-square-root"
+      ],
+      "downstream_uses": [
+        "P30-range",
+        "P40-pairwise",
+        "P60-supremum"
+      ],
+      "exceptional_cases": [
+        "When q = 0 the construction is empty."
+      ],
+      "formal_anchor": "Statement.lean:142",
+      "hypotheses": [
+        "0 ≤ a,b,c < q"
+      ],
+      "inference": "List triples (a*q+b+1, a*q+c+1, b*q+c+1) in lexicographic a,b,c order.",
+      "kind": "construction",
+      "node_id": "P20-construction",
+      "output": "A list s of q^3 triples.",
+      "trust_boundary": [
+        "Explicit List.range/flatMap computation."
+      ]
+    },
+    {
+      "dependencies": [
+        "P10-square-root",
+        "P20-construction"
+      ],
+      "downstream_uses": [
+        "P60-supremum"
+      ],
+      "exceptional_cases": [
+        "The empty q=0 list makes the universal statement vacuous."
+      ],
+      "formal_anchor": "Statement.lean:154",
+      "hypotheses": [
+        "a,b,c < q",
+        "q^2=n"
+      ],
+      "inference": "Each block expression x*q+y+1 lies between 1 and q^2.",
+      "kind": "bound",
+      "node_id": "P30-range",
+      "output": "Every coordinate of every constructed triple belongs to [1,n].",
+      "trust_boundary": [
+        "Presburger arithmetic plus Nat multiplication monotonicity."
+      ]
+    },
+    {
+      "dependencies": [
+        "P20-construction"
+      ],
+      "downstream_uses": [
+        "P60-supremum"
+      ],
+      "exceptional_cases": [
+        "Same-index elements are never compared by Pairwise."
+      ],
+      "formal_anchor": "Statement.lean:165",
+      "hypotheses": [
+        "Two distinct lexicographically ordered indices (a,b,c)<(d,e,f)."
+      ],
+      "inference": "First differing a raises coordinates 0,1; b raises 0,2; c raises 1,2.",
+      "kind": "order",
+      "node_id": "P40-pairwise",
+      "output": "s.Pairwise lt₂ after delta expansion.",
+      "trust_boundary": [
+        "Structural List.Pairwise induction and checked inequalities."
+      ]
+    },
+    {
+      "dependencies": [
+        "P00-frozen-statement"
+      ],
+      "downstream_uses": [
+        "P60-supremum"
+      ],
+      "exceptional_cases": [
+        "n=0 forces the empty list; n=1 forces length below 2."
+      ],
+      "formal_anchor": "Statement.lean:198",
+      "hypotheses": [
+        "u is any admissible increasing list over [1,n]."
+      ],
+      "inference": "Pigeonhole the first two coordinates for n≥2; handle n=0,1 directly.",
+      "kind": "supremum-domain",
+      "node_id": "P50-boundedness",
+      "output": "u.length ≤ n^2, hence the length set is bounded above.",
+      "trust_boundary": [
+        "Finite pigeonhole theorem plus complete Fin 3 case split."
+      ]
+    },
+    {
+      "dependencies": [
+        "P20-construction",
+        "P30-range",
+        "P40-pairwise",
+        "P50-boundedness"
+      ],
+      "downstream_uses": [
+        "P70-transport"
+      ],
+      "exceptional_cases": [
+        "Natural-number sSup requires the explicitly proved upper bound."
+      ],
+      "formal_anchor": "Statement.lean:228",
+      "hypotheses": [
+        "s has length q^3",
+        "s is admissible",
+        "the length set is bounded."
+      ],
+      "inference": "Insert q^3 into the defining set and apply le_csSup.",
+      "kind": "composition",
+      "node_id": "P60-supremum",
+      "output": "n.sqrt^3 ≤ maximalLength n after delta expansion.",
+      "trust_boundary": [
+        "Mathlib complete-lattice lemma le_csSup."
+      ]
+    },
+    {
+      "dependencies": [
+        "P60-supremum"
+      ],
+      "downstream_uses": [
+        "S6-CLM-00008151",
+        "S6-VAR-00007039"
+      ],
+      "exceptional_cases": [
+        "Canonical Master must independently verify definitional equality to the frozen source expression."
+      ],
+      "formal_anchor": "Audit.lean:262",
+      "hypotheses": [
+        "P60 exact-root closure"
+      ],
+      "inference": "Independently reconstruct the exact root in the self-contained audit, check identity transports both directions, and compose them in Audit.lean.",
+      "kind": "semantic-transport",
+      "node_id": "P70-transport",
+      "output": "Audited target theorem with no source oracle.",
+      "trust_boundary": [
+        "Worker evidence is provisional; only canonical trust-zero compilation accepts it."
+      ]
+    }
+  ],
+  "program": "stage5-theorem-proof-debt/2.0",
+  "readability_cut_set": [],
+  "root_node": "P70-transport",
+  "schema_version": "awesome-theorems/stage5-theorem-proof-dag/2.0",
+  "stage_claim_id": "S5-CLM-00003491",
+  "trust": 0
+}

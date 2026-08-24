@@ -1,0 +1,23 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003600-TARGET",
+  "stage_claim_id": "S5-CLM-00003600",
+  "root_node": "PU-ROOT",
+  "nodes": [
+    {"node_id": "PU-SEMANTICS", "kind": "semantic_transport", "type": "source proposition iff target proposition", "inputs": [], "output": "identical elaborated root expression", "provenance": "frozen workset member and pinned provider source", "trust": 0, "readability_anchor": "H-PROBLEM"},
+    {"node_id": "PU-WITNESS", "kind": "construction", "type": "explicit polynomial and positive threshold", "inputs": [], "output": "f(z)=z^6-z, c=0.582, m=6", "provenance": "claim-owned Lean proof", "trust": 0, "readability_anchor": "H-COUNTEREXAMPLE"},
+    {"node_id": "PU-ROOTS", "kind": "algebra", "type": "six distinct roots", "inputs": ["PU-WITNESS"], "output": "rootSet.ncard=6", "provenance": "separability and root factorization", "trust": 0, "readability_anchor": "H-ROOTS"},
+    {"node_id": "PU-COMPONENTS", "kind": "topology", "type": "six connected components", "inputs": ["PU-WITNESS", "PU-ROOTS"], "output": "componentsIn.ncard=6", "provenance": "pairwise-disjoint open-sector separation", "trust": 0, "readability_anchor": "H-COMPONENTS"},
+    {"node_id": "PU-NONCONVEX", "kind": "geometry", "type": "one component is not convex", "inputs": ["PU-WITNESS", "PU-COMPONENTS"], "output": "not all components convex", "provenance": "two radial points and excluded midpoint", "trust": 0, "readability_anchor": "H-NONCONVEX"},
+    {"node_id": "PU-ROOT", "kind": "composition", "type": "answer(False) iff universal convexity assertion", "inputs": ["PU-SEMANTICS", "PU-ROOTS", "PU-COMPONENTS", "PU-NONCONVEX"], "output": "Erdos 1047 theorem", "provenance": "Lean kernel composition", "trust": 0, "readability_anchor": "H-ROOT"}
+  ],
+  "edges": [
+    ["PU-WITNESS", "PU-ROOTS"], ["PU-ROOTS", "PU-COMPONENTS"],
+    ["PU-WITNESS", "PU-COMPONENTS"], ["PU-COMPONENTS", "PU-NONCONVEX"],
+    ["PU-SEMANTICS", "PU-ROOT"], ["PU-ROOTS", "PU-ROOT"],
+    ["PU-COMPONENTS", "PU-ROOT"], ["PU-NONCONVEX", "PU-ROOT"]
+  ],
+  "complete_typed_dag": true,
+  "remaining_cut_set": []
+}

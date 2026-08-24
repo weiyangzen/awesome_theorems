@@ -1,0 +1,76 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003489-TARGET",
+  "stage_claim_id": "S5-CLM-00003489",
+  "readability_level": "R0",
+  "required_nodes": ["PU-ROOT", "PU-CLOSE", "PU-FAITH", "PU-COMP"],
+  "node_to_anchor": {
+    "PU-ROOT": "FRAG-ROOT",
+    "PU-CLOSE": "FRAG-CLOSE",
+    "PU-FAITH": "FRAG-FAITH",
+    "PU-COMP": "FRAG-COMP"
+  },
+  "anchor_to_fragment": {
+    "FRAG-ROOT": {
+      "node_id": "PU-ROOT",
+      "path": "proof-outline.md#proof-outline",
+      "fragment_sha256": "c86fcf5a899d40b59563fc39cb3d333da8cf0a3a1ca1da9f09aaee9fca4655ed",
+      "hypotheses": ["Formula phi is arbitrary", "phi belongs to L"],
+      "inference": "Introduce an arbitrary member of the source theorem set.",
+      "output": "The elementwise goal is phi belongs to KT.",
+      "formal_anchor": "Proof.lean:BoxdotInclusion:intro",
+      "downstream_uses": ["PU-CLOSE", "PU-COMP"],
+      "exceptional_cases": ["Uniform in every formula constructor."],
+      "trust_boundary": ["Dependent-function introduction is checked by the Lean kernel."]
+    },
+    "FRAG-CLOSE": {
+      "node_id": "PU-CLOSE",
+      "path": "full-study.md#argument",
+      "fragment_sha256": "f72f06ef9de0880d76c7fc55dfe9e4e92c4f08fc6ad554c0dba65a9c02f7fea0",
+      "hypotheses": ["phi belongs to L", "the translation-closure lemma"],
+      "inference": "Apply closure at phi.",
+      "output": "Boxdot phi belongs to L.",
+      "formal_anchor": "Proof.lean:BoxdotInclusion:hboxdot",
+      "downstream_uses": ["PU-FAITH", "PU-COMP"],
+      "exceptional_cases": ["Provider-to-local derivation of closure is independently Master-audited."],
+      "trust_boundary": ["Closure is a typed premise, never the source conjecture proof body."]
+    },
+    "FRAG-FAITH": {
+      "node_id": "PU-FAITH",
+      "path": "proof-outline.md#proof-outline-step-2",
+      "fragment_sha256": "aad59a4bcb6dfb4f730d646563b294c2543c984278d73cc097f19efdb9a5ad18",
+      "hypotheses": ["Boxdot phi belongs to L", "faithful interpretation at phi"],
+      "inference": "Take the forward implication of the equivalence.",
+      "output": "phi belongs to KT.",
+      "formal_anchor": "Proof.lean:BoxdotInclusion:(faithful phi).mp",
+      "downstream_uses": ["PU-COMP"],
+      "exceptional_cases": ["The reverse implication is retained for semantic equivalence but unused by this direction."],
+      "trust_boundary": ["Faithfulness is the exact frozen theorem hypothesis."]
+    },
+    "FRAG-COMP": {
+      "node_id": "PU-COMP",
+      "path": "full-study.md#argument-composition",
+      "fragment_sha256": "9648862700eb579a2b0621ff515c26602f90078190cba1603a1647849247dded",
+      "hypotheses": ["The arbitrary source membership", "translation closure", "faithful interpretation"],
+      "inference": "Compose PU-CLOSE with PU-FAITH and universally discharge phi.",
+      "output": "L is included in KT.",
+      "formal_anchor": "Proof.lean:BoxdotInclusion",
+      "downstream_uses": ["Audit.lean:AuditRoot", "provisional release candidate"],
+      "exceptional_cases": ["The sorry-backed provider theorem is excluded from the proof graph."],
+      "trust_boundary": ["Canonical Master replays exact semantic instantiation, environment, and root."]
+    }
+  },
+  "reviewers": [
+    {"reviewer_id": "structure-review", "independent_of": ["proof-author"], "decision": "pass", "conflicts": []},
+    {"reviewer_id": "reverse-coverage-review", "independent_of": ["proof-author", "structure-review"], "decision": "pass", "conflicts": []}
+  ],
+  "remaining_readability_cut_set": [],
+  "distilled": {
+    "duplicate_prose_removed": true,
+    "structured_inventory_not_duplicated": true,
+    "mathematical_content_preserved": true,
+    "deletion_mutations_passed": true
+  },
+  "authority_sha256": "ed3b1264a8426af872d5baa86ac1ec01f729eef504c99c5261228034c0d2271a"
+}

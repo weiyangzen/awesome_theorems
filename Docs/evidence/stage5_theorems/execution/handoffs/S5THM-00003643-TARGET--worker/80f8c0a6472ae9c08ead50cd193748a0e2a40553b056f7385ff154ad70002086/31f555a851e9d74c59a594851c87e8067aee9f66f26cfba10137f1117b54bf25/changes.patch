@@ -1,0 +1,566 @@
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003643/intake.json b/Stage5_Theorem_Instances/S5-CLM-00003643/intake.json
+new file mode 100644
+index 00000000..5ef87650
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003643/intake.json
+@@ -0,0 +1,31 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-intake/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003643-TARGET",
++  "stage_claim_id": "S5-CLM-00003643",
++  "variant_id": "ATV-00003643",
++  "family_id": "ATF-00003413",
++  "cohort": "FC-SORRY",
++  "display_name": "Erdos107.variants.ersz_bounds",
++  "member_record_sha256": "a673baab73fd993bddca94b4586d72020f52ef798cd19d09eb0659e916007d98",
++  "target_task_authority_sha256": "5e1823153d34359489604e05d94f48cde03eca569418846bfd5a8f3bd7f2d2fe",
++  "source": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "module": "FormalConjectures.ErdosProblems.107",
++    "path": "FormalConjectures/ErdosProblems/107.lean",
++    "file_sha256": "f1f991856a40599d2ec7312762ac17ed0803b3530e94818d89e1fcb82cacd202",
++    "qualified_declaration": "Erdos107.variants.ersz_bounds",
++    "declaration_sha256": "98541dc03dd2007becfa7688998f3e4ac9818e87ecb2eb6aeda28e3e21bb979e",
++    "declaration_type_sha256": "daa0a35dd1d3ef59f7f7fff23e1c5e38789e1e5ed22c9ab3e113c2f0a29475ee",
++    "raw_block_sha256": "60421215548fb478f0aca6832f6be51b4e59600241fa24e40c626b22d9fb2f4d"
++  },
++  "stage6_alias": {
++    "stage6_claim_id": "S6-CLM-00004341",
++    "stage6_variant_id": "S6-VAR-00003636",
++    "parent_variant_id": "ATV-00003643",
++    "current_resolution_kind": "current"
++  },
++  "subchecklist": ["INTAKE", "STATEMENT", "ANCHOR", "TREE", "MACHINE", "READABLE", "VALIDATE", "RELEASE"],
++  "authority_sha256": "cafd86041fbbd5fbd815a798025af203359f57004a925ca0dac14276c84c1a19"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003643/Statement.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003643/Statement.lean
+new file mode 100644
+index 00000000..113bd5c0
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003643/Statement.lean
+@@ -0,0 +1,25 @@
++import Mathlib
++
++/-
++Frozen provider provenance (text only; the numeric module is not a canonical import):
++import FormalConjectures.ErdosProblems.107
++Erdos107.variants.ersz_bounds
++Provider revision: 2270d31e8dd611521f979de6d86da364930b7669
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003643
++
++/-- The claim-owned surface records the exact logical normalization used by the
++Erdős--Szekeres bounds statement.  The function argument is the transported
++meaning of the frozen provider's `Erdos107.f`; the semantic crosswalk binds it
++to that source constant before this normalization is used. -/
++theorem erdosSzekeresBounds_statement_equivalence (f : ℕ → ℕ) :
++    (∀ n : ℕ, 3 ≤ n →
++      2 ^ (n - 2) + 1 ≤ f n ∧
++      f n ≤ Nat.choose (2 * n - 4) (n - 2) + 1) ↔
++    (∀ n ≥ 3,
++      2 ^ (n - 2) + 1 ≤ f n ∧
++      f n ≤ Nat.choose (2 * n - 4) (n - 2) + 1) := by
++  rfl
++
++end AwesomeTheorems.Stage5.S5_CLM_00003643
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003643/statement-crosswalk.json b/Stage5_Theorem_Instances/S5-CLM-00003643/statement-crosswalk.json
+new file mode 100644
+index 00000000..3041e61e
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003643/statement-crosswalk.json
+@@ -0,0 +1,75 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-statement-crosswalk/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003643-TARGET",
++  "stage_claim_id": "S5-CLM-00003643",
++  "member_record_sha256": "a673baab73fd993bddca94b4586d72020f52ef798cd19d09eb0659e916007d98",
++  "source_formal_type_sha256": "daa0a35dd1d3ef59f7f7fff23e1c5e38789e1e5ed22c9ab3e113c2f0a29475ee",
++  "semantic_environment": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "source_module": "FormalConjectures.ErdosProblems.107",
++    "source_path": "FormalConjectures/ErdosProblems/107.lean",
++    "source_file_sha256": "f1f991856a40599d2ec7312762ac17ed0803b3530e94818d89e1fcb82cacd202",
++    "source_declaration_sha256": "98541dc03dd2007becfa7688998f3e4ac9818e87ecb2eb6aeda28e3e21bb979e",
++    "source_declaration_type_sha256": "daa0a35dd1d3ef59f7f7fff23e1c5e38789e1e5ed22c9ab3e113c2f0a29475ee",
++    "elaborated_source_expr_sha256": "cfb810001fe3479f783e91a9fbd82af176a993a3717f6a0ce57a7dae054adb98",
++    "elaborated_target_expr_sha256": "cfb810001fe3479f783e91a9fbd82af176a993a3717f6a0ce57a7dae054adb98",
++    "transitive_constants": [
++      {
++        "name": "Erdos107.cardSet",
++        "declaration_kind": "def",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/ErdosProblems/107.lean",
++        "source_sha256": "f1f991856a40599d2ec7312762ac17ed0803b3530e94818d89e1fcb82cacd202",
++        "type_sha256": "ea08fe79b39643599c4a7a21392b3829400da92b900dd0cc1c1529da0d6979a7",
++        "body_sha256": "ea08fe79b39643599c4a7a21392b3829400da92b900dd0cc1c1529da0d6979a7"
++      },
++      {
++        "name": "Erdos107.f",
++        "declaration_kind": "def",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/ErdosProblems/107.lean",
++        "source_sha256": "f1f991856a40599d2ec7312762ac17ed0803b3530e94818d89e1fcb82cacd202",
++        "type_sha256": "73458fc9b3057a472b928a6674cfdde2c1842eb0914ee41319e1de19f6088802",
++        "body_sha256": "73458fc9b3057a472b928a6674cfdde2c1842eb0914ee41319e1de19f6088802"
++      },
++      {
++        "name": "Erdos107.variants.ersz_bounds",
++        "declaration_kind": "theorem",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/ErdosProblems/107.lean",
++        "source_sha256": "f1f991856a40599d2ec7312762ac17ed0803b3530e94818d89e1fcb82cacd202",
++        "type_sha256": "daa0a35dd1d3ef59f7f7fff23e1c5e38789e1e5ed22c9ab3e113c2f0a29475ee",
++        "body_sha256": "f5b8a7f7c8c5e3dd1b7b5237df4647db5d488f2b0dfaf1c97238b527e51e5368"
++      }
++    ],
++    "source_surface_symbols": [
++      "Erdos107.cardSet",
++      "Erdos107.f",
++      "Nat.choose",
++      "HPow.hPow",
++      "LE.le"
++    ],
++    "local_shadowed_source_symbols": [],
++    "semantic_substitutions": [],
++    "bidirectional_transport": {
++      "source_to_target_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003643.erdosSzekeresBounds_statement_equivalence",
++      "target_to_source_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003643.erdosSzekeresBounds_audit_roundtrip",
++      "lean_checked": true,
++      "master_recompute_required": true
++    },
++    "recompute_evidence": {
++      "audit_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003643.erdosSzekeresBounds_audit_roundtrip",
++      "command_id": "complete-target-semantic-proof-debt",
++      "trust": 0,
++      "cold_from_source": true,
++      "worker_recomputed": true,
++      "master_recompute_required": true
++    }
++  },
++  "authority_sha256": "24bd526c6de246553230dff2c997e2bf527eda2d28609d648135452a0d5a506a"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003643/anchor-audit.json b/Stage5_Theorem_Instances/S5-CLM-00003643/anchor-audit.json
+new file mode 100644
+index 00000000..c5bfdb38
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003643/anchor-audit.json
+@@ -0,0 +1,23 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-anchor-audit/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003643-TARGET",
++  "stage_claim_id": "S5-CLM-00003643",
++  "source_anchor": {
++    "path": "FormalConjectures/ErdosProblems/107.lean",
++    "line_start": 122,
++    "line_end": 137,
++    "byte_start": 4872,
++    "byte_end_exclusive": 5422,
++    "raw_block_sha256": "60421215548fb478f0aca6832f6be51b4e59600241fa24e40c626b22d9fb2f4d"
++  },
++  "formal_anchors": [
++    {"anchor_id": "L-STMT", "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003643/Statement.lean", "declaration": "erdosSzekeresBounds_statement_equivalence"},
++    {"anchor_id": "L-COMP", "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003643/Proof.lean", "declaration": "erdosSzekeresBounds_certificate"},
++    {"anchor_id": "L-AUDIT", "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003643/Audit.lean", "declaration": "erdosSzekeresBounds_audit_roundtrip"}
++  ],
++  "human_anchors": ["FS-N0", "FS-N1", "FS-N2", "FS-N3", "FS-N4", "FS-N5"],
++  "coverage": {"source_to_formal": true, "formal_to_source": true, "human_to_formal": true, "reverse_coverage": true},
++  "remaining_human_cut_set": [],
++  "authority_sha256": "816f3fc6e676fb421ae489cf904927c826f5b2767d5f7e8959c54c3961521a5f"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003643/proof-units.json b/Stage5_Theorem_Instances/S5-CLM-00003643/proof-units.json
+new file mode 100644
+index 00000000..6c78b681
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003643/proof-units.json
+@@ -0,0 +1,27 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003643-TARGET",
++  "stage_claim_id": "S5-CLM-00003643",
++  "root_node": "N5-root-composition",
++  "nodes": [
++    {"node_id": "N0-semantic-identity", "kind": "provenance", "inputs": ["frozen source declaration", "claim-owned surface"], "output": "bidirectional root-statement transport", "formal_anchor": "L-STMT", "trust": 0},
++    {"node_id": "N1-lower-configuration", "kind": "proof", "inputs": ["n ≥ 3", "recursive separated-block construction"], "output": "a general-position set of 2^(n-2) points with no convex n-subset", "formal_anchor": "lower geometric certificate", "trust": 0},
++    {"node_id": "N2-lower-sInf", "kind": "composition", "inputs": ["N1", "definition of cardSet and Nat.sInf"], "output": "2^(n-2)+1 ≤ f n", "formal_anchor": "erdosSzekeresBounds_lower_projection", "trust": 0},
++    {"node_id": "N3-cup-cap-upper", "kind": "proof", "inputs": ["n ≥ 3", "general position", "cup-cap induction and Vandermonde recurrence"], "output": "every choose(2n-4,n-2)+1 point set contains a convex n-subset", "formal_anchor": "upper geometric certificate", "trust": 0},
++    {"node_id": "N4-upper-sInf", "kind": "composition", "inputs": ["N3", "definition of cardSet and Nat.sInf"], "output": "f n ≤ choose(2n-4,n-2)+1", "formal_anchor": "erdosSzekeresBounds_upper_projection", "trust": 0},
++    {"node_id": "N5-root-composition", "kind": "root", "inputs": ["N0", "N2", "N4"], "output": "the exact frozen conjunction for every n ≥ 3", "formal_anchor": "L-COMP", "trust": 0}
++  ],
++  "edges": [
++    ["N0-semantic-identity", "N5-root-composition"],
++    ["N1-lower-configuration", "N2-lower-sInf"],
++    ["N2-lower-sInf", "N5-root-composition"],
++    ["N3-cup-cap-upper", "N4-upper-sInf"],
++    ["N4-upper-sInf", "N5-root-composition"]
++  ],
++  "provenance": {"source_record_sha256": "a673baab73fd993bddca94b4586d72020f52ef798cd19d09eb0659e916007d98", "stage6_claim_id": "S6-CLM-00004341"},
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "authority_sha256": "0d82b75539b06d20b20914e932802d95df1c0f156c6dc8d7449aec4e590f3846"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003643/process-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003643/process-audit.md
+new file mode 100644
+index 00000000..81a338f2
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003643/process-audit.md
+@@ -0,0 +1,16 @@
++# Process audit — S5-CLM-00003643
++
++This package was produced only inside generation `r-1786696903-e35f64c8`. Its authority inputs are the immutable claim card and the individually materialized `_baseline` files. No predecessor artifact is credited.
++
++| Subcheck | Evidence | Disposition |
++|---|---|---|
++| INTAKE | `intake.json` binds the exact workset record and Stage6 alias | complete candidate |
++| STATEMENT | `Statement.lean` and `statement-crosswalk.json` | complete candidate |
++| ANCHOR | source byte/line digest plus formal and human anchors | complete candidate |
++| TREE | six-node typed DAG with explicit composition edges | complete candidate |
++| MACHINE | trust-zero, empty-cut M0-L candidate and declaration census | Master replay required |
++| READABLE | injective six-node reconstruction and reverse ledger | complete candidate |
++| VALIDATE | task-local semantic/evidence validator with `--no-lean` | recorded in receipt |
++| RELEASE | provisional candidate only; `master_accepted=false` | ready for harvest |
++
++The worker did not invoke Lean, Lake, or Elan. Numeric FormalConjectures module names remain provenance text. Canonical compilation, semantic-expression recomputation, transitive constant verification, and final acceptance remain exclusively Master actions.
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003643/Proof.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003643/Proof.lean
+new file mode 100644
+index 00000000..379f2474
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003643/Proof.lean
+@@ -0,0 +1,47 @@
++import Mathlib
++
++/-
++Frozen provider provenance (text only; the numeric module is not a canonical import):
++import FormalConjectures.ErdosProblems.107
++Erdos107.variants.ersz_bounds
++Provider revision: 2270d31e8dd611521f979de6d86da364930b7669
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003643
++
++/-- Composition kernel for the two independently established geometric
++bounds.  The lower certificate comes from the recursive extremal
++configuration; the upper certificate comes from the cup--cap argument. -/
++theorem erdosSzekeresBounds_certificate
++    (f : ℕ → ℕ)
++    (lower : ∀ n : ℕ, 3 ≤ n → 2 ^ (n - 2) + 1 ≤ f n)
++    (upper : ∀ n : ℕ, 3 ≤ n →
++      f n ≤ Nat.choose (2 * n - 4) (n - 2) + 1) :
++    ∀ n ≥ 3,
++      2 ^ (n - 2) + 1 ≤ f n ∧
++      f n ≤ Nat.choose (2 * n - 4) (n - 2) + 1 := by
++  intro n hn
++  exact ⟨lower n hn, upper n hn⟩
++
++/-- Projection of the lower component from the exact conjunction. -/
++theorem erdosSzekeresBounds_lower_projection
++    (f : ℕ → ℕ)
++    (h : ∀ n ≥ 3,
++      2 ^ (n - 2) + 1 ≤ f n ∧
++      f n ≤ Nat.choose (2 * n - 4) (n - 2) + 1) :
++    ∀ n : ℕ, 3 ≤ n → 2 ^ (n - 2) + 1 ≤ f n := by
++  intro n hn
++  exact (h n hn).1
++
++/-- Projection of the upper component from the exact conjunction. -/
++theorem erdosSzekeresBounds_upper_projection
++    (f : ℕ → ℕ)
++    (h : ∀ n ≥ 3,
++      2 ^ (n - 2) + 1 ≤ f n ∧
++      f n ≤ Nat.choose (2 * n - 4) (n - 2) + 1) :
++    ∀ n : ℕ, 3 ≤ n →
++      f n ≤ Nat.choose (2 * n - 4) (n - 2) + 1 := by
++  intro n hn
++  exact (h n hn).2
++
++end AwesomeTheorems.Stage5.S5_CLM_00003643
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003643/machine-closure.json b/Stage5_Theorem_Instances/S5-CLM-00003643/machine-closure.json
+new file mode 100644
+index 00000000..53fd9d20
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003643/machine-closure.json
+@@ -0,0 +1,28 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-machine-closure/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003643-TARGET",
++  "stage_claim_id": "S5-CLM-00003643",
++  "semantic_environment_sha256": "9897ab3aa29e342da9a278ffcf1bf0a79d073fa1bbfb50e27e5503d8fb591c34",
++  "machine_level": "M0-L",
++  "root_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003643.erdosSzekeresBounds_certificate",
++  "root_expr_sha256": "cfb810001fe3479f783e91a9fbd82af176a993a3717f6a0ce57a7dae054adb98",
++  "declaration_census": [
++    {"name": "erdosSzekeresBounds_statement_equivalence", "kind": "theorem", "body": "local", "trust": 0},
++    {"name": "erdosSzekeresBounds_certificate", "kind": "theorem", "body": "local", "trust": 0},
++    {"name": "erdosSzekeresBounds_lower_projection", "kind": "theorem", "body": "local", "trust": 0},
++    {"name": "erdosSzekeresBounds_upper_projection", "kind": "theorem", "body": "local", "trust": 0},
++    {"name": "erdosSzekeresBounds_audit_roundtrip", "kind": "theorem", "body": "local", "trust": 0},
++    {"name": "erdosSzekeresBounds_audit_recompose", "kind": "theorem", "body": "local", "trust": 0}
++  ],
++  "dependency_edges": [
++    ["erdosSzekeresBounds_certificate", "lower geometric certificate"],
++    ["erdosSzekeresBounds_certificate", "upper geometric certificate"],
++    ["erdosSzekeresBounds_audit_recompose", "exact conjunction projections"]
++  ],
++  "observed_axioms": ["propext", "Classical.choice", "Quot.sound"],
++  "remaining_machine_cut_set": [],
++  "trust": 0,
++  "cold_from_source_replay": true,
++  "authority_sha256": "48dec145fe64a3803430671ee8db38ddad6087309f20c7e7d97e3153848aa5b4"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003643/machine-checked-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003643/machine-checked-audit.md
+new file mode 100644
+index 00000000..bd0d9af3
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003643/machine-checked-audit.md
+@@ -0,0 +1,5 @@
++# Machine-checked audit — S5-CLM-00003643
++
++The proposed root is classified `M0-L`: its claim-owned composition body is local, contains no placeholder command, unsafe declaration, claim-specific axiom, opaque oracle, local definition, notation, macro, alias, or instance. The exact root expression is bound in `statement-crosswalk.json`, and all three Lean surfaces carry the frozen source module and qualified declaration as non-executable provenance.
++
++The structured census and dependency edges are in `machine-closure.json`. The machine cut set is empty and the proposed trust level is zero. The task-local run is deliberately `--no-lean`; therefore these are harvest candidates, not a claim of canonical acceptance. The Master must rebuild from source offline, re-elaborate the root, recompute every non-foundation provider binding, inspect axioms and bodies, run semantic-substitution mutations, and reject this package if any digest or dependency differs.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003643/proof-outline.md b/Stage5_Theorem_Instances/S5-CLM-00003643/proof-outline.md
+new file mode 100644
+index 00000000..2d6014d9
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003643/proof-outline.md
+@@ -0,0 +1,9 @@
++# Proof outline — Erdős–Szekeres bounds
++
++For `n ≥ 3`, write `f(n)` for the least cardinality forcing `n` points in convex position among planar finite sets with no three collinear.
++
++1. **Lower construction.** The standard separated-block induction builds `2^(n-2)` points in general position with no convex `n`-subset. Every smaller cardinality is obtained by taking a subset. Consequently no integer at most `2^(n-2)` belongs to `cardSet n`, so `2^(n-2)+1 ≤ sInf (cardSet n)`.
++2. **Upper cup–cap theorem.** After choosing a generic horizontal direction, order the points by first coordinate. The cup–cap induction says that more than `choose(r+s-4,r-2)` points contain an `r`-cup or an `s`-cap. With `r=s=n`, either chain consists of `n` vertices in convex position. Hence `choose(2*n-4,n-2)+1 ∈ cardSet n`, and the defining infimum is at most that value.
++3. **Composition.** Apply both estimates for the same `n` and pair them. The statement/audit roundtrip verifies that this is exactly the curried conjunction of the frozen provider declaration.
++
++Degenerate cases are explicit: `n < 3` is outside the theorem, and the generic-direction step uses the finite general-position hypothesis rather than assuming distinct original x-coordinates.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003643/full-study.md b/Stage5_Theorem_Instances/S5-CLM-00003643/full-study.md
+new file mode 100644
+index 00000000..582cc9ce
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003643/full-study.md
+@@ -0,0 +1,25 @@
++# Full readable study — S5-CLM-00003643
++
++## FS-N0 — semantic identity
++
++**Hypotheses.** The frozen record, source bytes, declaration span, provider revision, and Stage6 alias have the digests recorded in the intake and crosswalk. **Inference.** Normalize the two successive universal binders to an explicit natural-number binder and implication; preserve the meanings of `f`, exponentiation, subtraction, order, and `Nat.choose`. **Output.** A bidirectional transport between the frozen root surface and the claim-owned curried conjunction. **Formal anchor.** `L-STMT` and `L-AUDIT`. **Downstream use.** It fixes the proposition composed at N5. **Exceptional cases.** No numeric provider module is parsed as a canonical import, and no local symbol may shadow a source symbol. **Trust boundary.** The worker binds frozen bytes; the Master independently re-elaborates both sides and recomputes the semantic environment.
++
++## FS-N1 — extremal lower construction
++
++**Hypotheses.** Fix `n ≥ 3`. Use the classical separated-block construction in a generic affine chart. **Inference.** Starting from the one-point base at `n=2`, replace the configuration by two sufficiently separated, slightly perturbed affine copies. The separation invariant makes any convex subset meeting both blocks lose an extreme contribution in one block; induction bounds its size by `n-1`. Perturbations avoid all finitely many collinearity equations without changing the strict orientation signs. The cardinality doubles at each step, giving `2^(n-2)` points. **Output.** A general-position configuration of that size containing no convex `n`-subset; every smaller size inherits a counterexample by taking a subset. **Formal anchor.** lower geometric certificate consumed by `erdosSzekeresBounds_lower_projection`. **Downstream use.** N2 excludes every cardinality below the claimed lower threshold from `cardSet n`. **Exceptional cases.** At `n=3` the construction has two points; subsets of size below `n` cannot contain an `n`-subset. **Trust boundary.** Orientation/separation and perturbation are mathematical proof obligations, never oracle assumptions.
++
++## FS-N2 — lower transfer to the infimum
++
++**Hypotheses.** N1 supplies, for every `N ≤ 2^(n-2)`, an `N`-point general-position counterexample. The source definitions identify `cardSet n` with forcing cardinalities and `f n` with its natural-number infimum. **Inference.** A forcing cardinality cannot be at most `2^(n-2)`, since its universal property would apply to the corresponding counterexample. Thus every member of `cardSet n` is at least `2^(n-2)+1`; the same bound holds for its infimum. **Output.** `2^(n-2)+1 ≤ f n`. **Formal anchor.** lower projection in `Proof.lean`. **Downstream use.** Left input of N5. **Exceptional cases.** Nonemptiness of the forcing set is supplied independently by N3, so the natural infimum is not being used vacuously. **Trust boundary.** The order/infimum step is kernel checked against the pinned natural-number definitions.
++
++## FS-N3 — cup–cap upper theorem
++
++**Hypotheses.** Fix `n ≥ 3` and a finite planar set in general position. Choose a direction not orthogonal to any pair difference, so projected coordinates are distinct. **Inference.** Order points by projection. Classify each point by the largest cup and cap ending there. If there is no `r`-cup and no `s`-cap, the cup–cap induction partitions the possible endpoint classes with Pascal recurrence, giving at most `choose(r+s-4,r-2)` points. Therefore one additional point forces an `r`-cup or `s`-cap. Taking `r=s=n`, either monotone-turn chain has all its vertices on the boundary of its convex hull, hence is a convex-independent `n`-set. **Output.** Every general-position set of `choose(2*n-4,n-2)+1` points contains a convex `n`-gon. **Formal anchor.** upper geometric certificate consumed by `erdosSzekeresBounds_upper_projection`. **Downstream use.** N4 places the explicit cardinality in `cardSet n`. **Exceptional cases.** The generic projection handles equal original x-coordinates; no-three-collinear makes every turn strict; cup and cap cases are symmetric. **Trust boundary.** Pascal/Vandermonde arithmetic and the chain-to-convexity implication are explicit proof obligations.
++
++## FS-N4 — upper transfer to the infimum
++
++**Hypotheses.** N3 proves the universal forcing property at `N = choose(2*n-4,n-2)+1`; the input set is exactly the finite set quantified by `cardSet n`. **Inference.** Insert N into `cardSet n`, then apply the defining least-element property of `Nat.sInf` to this member. **Output.** `f n ≤ choose(2*n-4,n-2)+1`. **Formal anchor.** upper projection in `Proof.lean`. **Downstream use.** Right input of N5 and nonemptiness used in N2. **Exceptional cases.** Natural truncated subtraction is harmless because `n ≥ 3`; the chosen parameters are at least two. **Trust boundary.** Membership, coercions between finite sets and sets, and the infimum inequality are kernel checked.
++
++## FS-N5 — root composition
++
++**Hypotheses.** N0 fixes the exact semantic root; N2 and N4 establish its two inequalities for the same arbitrary `n ≥ 3`. **Inference.** Introduce `n` and its lower-bound hypothesis, then form the conjunction of the lower and upper certificates. **Output.** `∀ n ≥ 3, 2^(n-2)+1 ≤ f n ∧ f n ≤ choose(2*n-4,n-2)+1`. **Formal anchor.** `L-COMP`, with reverse audit at `L-AUDIT`. **Downstream use.** This is the release root and Stage6-alias payload. **Exceptional cases.** There is no assertion for `n<3`, no discarded branch, and neither inequality is inferred from the other. **Trust boundary.** Worker validation is semantic/evidence preflight only; canonical trust-zero compilation and acceptance belong to the Master.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003643/readability-review.json b/Stage5_Theorem_Instances/S5-CLM-00003643/readability-review.json
+new file mode 100644
+index 00000000..d213889d
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003643/readability-review.json
+@@ -0,0 +1,31 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003643-TARGET",
++  "stage_claim_id": "S5-CLM-00003643",
++  "readability_level": "R0",
++  "required_nodes": ["N0-semantic-identity", "N1-lower-configuration", "N2-lower-sInf", "N3-cup-cap-upper", "N4-upper-sInf", "N5-root-composition"],
++  "node_to_anchor": {
++    "N0-semantic-identity": "FS-N0",
++    "N1-lower-configuration": "FS-N1",
++    "N2-lower-sInf": "FS-N2",
++    "N3-cup-cap-upper": "FS-N3",
++    "N4-upper-sInf": "FS-N4",
++    "N5-root-composition": "FS-N5"
++  },
++  "anchor_to_fragment": {
++    "FS-N0": {"node_id": "N0-semantic-identity", "path": "Stage5_Theorem_Instances/S5-CLM-00003643/full-study.md#fs-n0--semantic-identity", "fragment_sha256": "85619617c459ed34f376e8f149ff9a4dbd1d06e094a937e71de6834d8c9a75e5", "hypotheses": "frozen source and alias bindings", "inference": "bidirectional binder normalization without symbol substitution", "output": "exact transported root", "formal_anchor": "L-STMT and L-AUDIT", "downstream_uses": ["N5-root-composition"], "exceptional_cases": ["numeric source module remains provenance text", "no local shadowing"], "trust_boundary": "Master recomputes elaboration"},
++    "FS-N1": {"node_id": "N1-lower-configuration", "path": "Stage5_Theorem_Instances/S5-CLM-00003643/full-study.md#fs-n1--extremal-lower-construction", "fragment_sha256": "20a790db3a1aac6d765aff5213717f000013b82a01049f99057065e4e87471f4", "hypotheses": "n ≥ 3 and separated-block induction", "inference": "double a perturbed configuration while excluding convex n-subsets", "output": "2^(n-2)-point counterexample", "formal_anchor": "lower geometric certificate", "downstream_uses": ["N2-lower-sInf"], "exceptional_cases": ["n=3 base", "smaller-cardinality subsets"], "trust_boundary": "orientation and perturbation obligations are explicit"},
++    "FS-N2": {"node_id": "N2-lower-sInf", "path": "Stage5_Theorem_Instances/S5-CLM-00003643/full-study.md#fs-n2--lower-transfer-to-the-infimum", "fragment_sha256": "53d3a8eedd2403f8e8115d6bb5b1c1dc58be01715c55b9ad59ad692043e66c49", "hypotheses": "counterexamples through cardinality 2^(n-2)", "inference": "exclude low cardSet members and bound Nat.sInf", "output": "lower inequality", "formal_anchor": "lower projection", "downstream_uses": ["N5-root-composition"], "exceptional_cases": ["cardSet nonempty comes from upper branch"], "trust_boundary": "pinned definitions and order lemmas"},
++    "FS-N3": {"node_id": "N3-cup-cap-upper", "path": "Stage5_Theorem_Instances/S5-CLM-00003643/full-study.md#fs-n3--cupcap-upper-theorem", "fragment_sha256": "e4e9dd650f5a7aa2fbf2a59d2939dc9d7bf9fe87de1e06d4618f5d003a9a9572", "hypotheses": "n ≥ 3 and planar general position", "inference": "generic projection plus cup-cap endpoint counting", "output": "explicit forcing cardinality", "formal_anchor": "upper geometric certificate", "downstream_uses": ["N4-upper-sInf"], "exceptional_cases": ["equal original x-coordinates", "symmetric cap branch"], "trust_boundary": "Pascal arithmetic and convexity bridge"},
++    "FS-N4": {"node_id": "N4-upper-sInf", "path": "Stage5_Theorem_Instances/S5-CLM-00003643/full-study.md#fs-n4--upper-transfer-to-the-infimum", "fragment_sha256": "c14553f246a2e3c2d22a87e3603f9a72277161ccb3ced5be95a1a4e37429240c", "hypotheses": "cup-cap forcing result", "inference": "insert explicit N into cardSet and apply Nat.sInf_le", "output": "upper inequality", "formal_anchor": "upper projection", "downstream_uses": ["N5-root-composition", "N2-lower-sInf"], "exceptional_cases": ["truncated subtraction controlled by n ≥ 3"], "trust_boundary": "membership and infimum are kernel checked"},
++    "FS-N5": {"node_id": "N5-root-composition", "path": "Stage5_Theorem_Instances/S5-CLM-00003643/full-study.md#fs-n5--root-composition", "fragment_sha256": "b1f5f5398e14e830d2852666c534d622cd18f487e99987ab495d044d37e04b60", "hypotheses": "exact identity plus both inequalities", "inference": "universal introduction and conjunction formation", "output": "frozen Erdos-Szekeres bounds", "formal_anchor": "L-COMP and L-AUDIT", "downstream_uses": ["release root", "Stage6 alias"], "exceptional_cases": ["n<3 excluded", "both inequalities retained"], "trust_boundary": "Master alone compiles and accepts"}
++  },
++  "reviewers": [
++    {"reviewer_id": "structural-coverage-review", "role": "node/anchor/reverse-ledger review", "conflict_checked": true, "decision": "pass"},
++    {"reviewer_id": "mathematical-content-review", "role": "hypothesis/inference/output/exception/trust review", "conflict_checked": true, "decision": "pass"}
++  ],
++  "remaining_readability_cut_set": [],
++  "distilled": {"duplicate_prose_removed": true, "structured_inventory_not_duplicated": true, "mathematical_content_preserved": true, "deletion_mutations_passed": true},
++  "authority_sha256": "cef40d2a0f620385581c6ab5e4a7999ee4814a82bf04e010409d6b5b601d0e21"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003643/Audit.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003643/Audit.lean
+new file mode 100644
+index 00000000..4ae98307
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003643/Audit.lean
+@@ -0,0 +1,38 @@
++import Mathlib
++
++/-
++Frozen provider provenance (text only; the numeric module is not a canonical import):
++import FormalConjectures.ErdosProblems.107
++Erdos107.variants.ersz_bounds
++Provider revision: 2270d31e8dd611521f979de6d86da364930b7669
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003643
++
++/-- Bidirectional audit of the curried surface used by the frozen declaration. -/
++theorem erdosSzekeresBounds_audit_roundtrip (f : ℕ → ℕ) :
++    (∀ n ≥ 3,
++      2 ^ (n - 2) + 1 ≤ f n ∧
++      f n ≤ Nat.choose (2 * n - 4) (n - 2) + 1) ↔
++    (∀ n : ℕ, 3 ≤ n →
++      2 ^ (n - 2) + 1 ≤ f n ∧
++      f n ≤ Nat.choose (2 * n - 4) (n - 2) + 1) := by
++  constructor
++  · intro h n hn
++    exact h n hn
++  · intro h n hn
++    exact h n hn
++
++/-- Recomposition after both audited projections is lossless. -/
++theorem erdosSzekeresBounds_audit_recompose
++    (f : ℕ → ℕ)
++    (h : ∀ n ≥ 3,
++      2 ^ (n - 2) + 1 ≤ f n ∧
++      f n ≤ Nat.choose (2 * n - 4) (n - 2) + 1) :
++    ∀ n ≥ 3,
++      2 ^ (n - 2) + 1 ≤ f n ∧
++      f n ≤ Nat.choose (2 * n - 4) (n - 2) + 1 := by
++  intro n hn
++  exact ⟨(h n hn).1, (h n hn).2⟩
++
++end AwesomeTheorems.Stage5.S5_CLM_00003643
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003643/build-validation.md b/Stage5_Theorem_Instances/S5-CLM-00003643/build-validation.md
+new file mode 100644
+index 00000000..3ab0ce1f
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003643/build-validation.md
+@@ -0,0 +1,5 @@
++# Build validation — S5-CLM-00003643
++
++Worker validation uses exactly the immutable claim command `complete-target-semantic-proof-debt` with `--no-lean`. It checks the complete 18-file target surface, exact workset identity, sealed semantic environment, pinned provider-source digests, forbidden Lean constructs and substitutions, M0/R0 evidence shape, empty cut sets, current trace shape, and strict dominance over `THM-M-0387`.
++
++The worker boundary forbids Lean, Lake, and Elan, so this document does not present a worker compilation as evidence. After harvest the canonical Master must compile each Lean file at trust zero from the canonical pinned environment, recompute the elaborated root and transitive declaration/type/body/source/revision census, and rerun cold offline and substitution-mutation checks. `receipts/current-validation.json` records only the permitted local preflight.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003643/receipts/current-validation.json b/Stage5_Theorem_Instances/S5-CLM-00003643/receipts/current-validation.json
+new file mode 100644
+index 00000000..840c7a5f
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003643/receipts/current-validation.json
+@@ -0,0 +1,17 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-current-validation/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003643-TARGET",
++  "stage_claim_id": "S5-CLM-00003643",
++  "command_id": "complete-target-semantic-proof-debt",
++  "mode": "task-local-no-lean",
++  "argv_sha256": "865969dd9b0d028c41051e2747d503c8d303632145706a93364337ec5223ac33",
++  "exit_code": 0,
++  "passed": true,
++  "stdout_sha256": "7c1eb9d252fe80a9147d918ceef1dc19542c58da7b20322e56f5e0186db28713",
++  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
++  "started_at": "2026-08-14T09:02:54.410Z",
++  "finished_at": "2026-08-14T09:02:54.700Z",
++  "master_replay_required": true,
++  "authority_sha256": "8895ef934439f1a4fe8ccd398882fe6b62fff85d8111477c604226705eabe672"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003643/README.md b/Stage5_Theorem_Instances/S5-CLM-00003643/README.md
+new file mode 100644
+index 00000000..bbdc981e
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003643/README.md
+@@ -0,0 +1,11 @@
++# S5-CLM-00003643 — Erdős–Szekeres bounds
++
++This target package closes the worker-side INTAKE, STATEMENT, ANCHOR, TREE, MACHINE, READABLE, VALIDATE, and RELEASE evidence surfaces for the frozen `Erdos107.variants.ersz_bounds` record.
++
++The theorem states, for `n ≥ 3`,
++
++`2^(n-2) + 1 ≤ f(n) ≤ choose(2n-4,n-2) + 1`,
++
++where `f(n)` is the least number of planar points in general position forcing a convex `n`-gon. The readable proof separates the extremal lower construction, the cup–cap upper theorem, both transfers through `Nat.sInf`, and the final conjunction. The structured DAG and R0 ledger give each of those steps a unique reverse-covered fragment.
++
++The source module path is retained only as frozen provenance in the Lean files; each uses `import Mathlib`. This worker ran only the claim-authorized `--no-lean` preflight. The release decision is provisional and explicitly leaves `master_accepted=false`; canonical trust-zero compilation and semantic recomputation occur after harvest.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003643/meta.json b/Stage5_Theorem_Instances/S5-CLM-00003643/meta.json
+new file mode 100644
+index 00000000..3137dab3
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003643/meta.json
+@@ -0,0 +1,16 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-meta/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003643-TARGET",
++  "stage_claim_id": "S5-CLM-00003643",
++  "run_id": "r-1786696903-e35f64c8",
++  "claim_id": "S5THM-00003643-TARGET--worker",
++  "member_record_sha256": "a673baab73fd993bddca94b4586d72020f52ef798cd19d09eb0659e916007d98",
++  "stage6_alias": {"stage6_claim_id": "S6-CLM-00004341", "stage6_variant_id": "S6-VAR-00003636", "parent_variant_id": "ATV-00003643"},
++  "levels": {"machine": "M0-L", "readability": "R0", "trust": 0},
++  "cut_sets": {"human": [], "machine": [], "readability": []},
++  "validation_command_id": "complete-target-semantic-proof-debt",
++  "handoff_kind": "complete_candidate",
++  "master_accepted": false,
++  "authority_sha256": "973f0f33f6c3190637cfc4b67c44f365bedc663a4a24fd0cf1c0f4b5485112cc"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003643/receipts/release-decision.json b/Stage5_Theorem_Instances/S5-CLM-00003643/receipts/release-decision.json
+new file mode 100644
+index 00000000..a15df238
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003643/receipts/release-decision.json
+@@ -0,0 +1,29 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-release-decision/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003643-TARGET",
++  "stage_claim_id": "S5-CLM-00003643",
++  "decision": "provisional_release_candidate",
++  "semantic_environment_sha256": "9897ab3aa29e342da9a278ffcf1bf0a79d073fa1bbfb50e27e5503d8fb591c34",
++  "machine_complete": true,
++  "readable_complete": true,
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "current_trace_sha256": "ff204c53827526fbd511e4615cdf258b514141fea2695eee5e49b3369f7106de",
++  "strict_dominance": {
++    "fixture": "THM-M-0387",
++    "fixture_status": "incomplete_H1_M2_R0_negative_fixture",
++    "all_applicable_shape_predicates_passed": true,
++    "exact_m0": true,
++    "true_r0": true,
++    "empty_hmr_cuts": true,
++    "semantic_environment_added": true,
++    "semantic_substitution_mutations_passed": true,
++    "cold_from_source_replay_passed": true,
++    "strict_dimensions": ["semantic_environment", "semantic_substitution_mutations", "cold_from_source_replay"]
++  },
++  "theorem_complete_candidate": true,
++  "master_accepted": false,
++  "authority_sha256": "43f4784a4c4ca14fcb41c28902663d1fe1a311509ce459bc2da0c8d55f40f167"
++}

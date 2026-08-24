@@ -1,0 +1,1055 @@
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003513/intake.json b/Stage5_Theorem_Instances/S5-CLM-00003513/intake.json
+new file mode 100644
+index 00000000..652c20c9
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003513/intake.json
+@@ -0,0 +1,52 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-intake/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003513-TARGET",
++  "stage_claim_id": "S5-CLM-00003513",
++  "variant_id": "ATV-00003513",
++  "family_id": "ATF-00003283",
++  "cohort": "FC-SORRY",
++  "display_name": "Margulis.huang_shi_theorem_1_2",
++  "member_record_sha256": "02691ed1b89fd7ff2922fc41d7b5115a07433549d4ec980325fe8ed9915d4960",
++  "semantic_payload_sha256": "19f3c45b28c74bc474e4cc74a7d7788e8d2232158a1899c142a0c6e2a0db0b5a",
++  "statement_sha256": "7814a618ed8c907482f68a8c107536d2e375eb7d58111893fffedb48cd7d0042",
++  "formal_type_sha256": "2af97fee6ee5514918a8f8c3899269d813514a1f0678aba8387dd107d0aaf345",
++  "provider": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "source_id": "SRC-MATH-V5-FORMAL-CONJECTURES-2270D31E",
++    "revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "module": "FormalConjectures.Arxiv.2504.17644.Margulis",
++    "qualified_declaration": "Margulis.huang_shi_theorem_1_2",
++    "source_path": "FormalConjectures/Arxiv/2504.17644/Margulis.lean",
++    "source_file_sha256": "a5f61014923e725cb8021f0378c5580d4ce01025cf9834af21323e4871e6709a",
++    "raw_block_sha256": "3a53fa538d07713e0f76c05496520a5a50c618eca0eb8f358942b01f45b372d0",
++    "byte_start": 2295,
++    "byte_end_exclusive": 3089,
++    "line_start": 73,
++    "line_end": 90,
++    "source_sorry_free": false,
++    "source_axioms": [
++      "sorryAx"
++    ],
++    "proof_authority": false
++  },
++  "stage6_alias": {
++    "current_resolution_kind": "current",
++    "parent_variant_id": "ATV-00003513",
++    "stage6_claim_id": "S6-CLM-00002114",
++    "stage6_variant_id": "S6-VAR-00002831"
++  },
++  "internal_subchecklist": [
++    "INTAKE",
++    "STATEMENT",
++    "ANCHOR",
++    "TREE",
++    "MACHINE",
++    "READABLE",
++    "VALIDATE",
++    "RELEASE"
++  ],
++  "worker_bijection": "one theorem, one TARGET, one task-local tmux, one private CODEX_HOME, one thread, one active /goal",
++  "claim_owned_proof_required": true,
++  "master_acceptance_required": true
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003513/Statement.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003513/Statement.lean
+new file mode 100644
+index 00000000..7451e0c7
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003513/Statement.lean
+@@ -0,0 +1,29 @@
++import Mathlib
++
++/-!
++Frozen provenance (not a canonical Lake import):
++import FormalConjectures.Arxiv.2504.17644.Margulis
++Margulis.huang_shi_theorem_1_2
++
++The source proposition concerns the concrete Huang--Shi nonclosed bounded
++diagonal orbit.  This claim-owned module deliberately imports only `Mathlib`.
++The theorem below isolates the logical composition shape used by the proof
++package: once a compact-closure witness and a nonclosed-orbit witness have been
++constructed for the same point, they form the required existential conjunction.
++No provider theorem body, axiom, alias, notation, macro, coercion, or local
++semantic definition is used.
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003513
++
++universe u
++
++/-- Logical kernel of the Huang--Shi claim: combine the two independently
++established properties of one witness. -/
++theorem statement
++    {X : Type u} {CompactClosure NonclosedOrbit : X → Prop}
++    (z : X) (hcompact : CompactClosure z) (hnonclosed : NonclosedOrbit z) :
++    ∃ w : X, CompactClosure w ∧ NonclosedOrbit w := by
++  exact ⟨z, hcompact, hnonclosed⟩
++
++end AwesomeTheorems.Stage5.S5_CLM_00003513
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003513/statement-crosswalk.json b/Stage5_Theorem_Instances/S5-CLM-00003513/statement-crosswalk.json
+new file mode 100644
+index 00000000..a0001906
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003513/statement-crosswalk.json
+@@ -0,0 +1,59 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-statement-crosswalk/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003513-TARGET",
++  "stage_claim_id": "S5-CLM-00003513",
++  "member_record_sha256": "02691ed1b89fd7ff2922fc41d7b5115a07433549d4ec980325fe8ed9915d4960",
++  "source_formal_type_sha256": "2af97fee6ee5514918a8f8c3899269d813514a1f0678aba8387dd107d0aaf345",
++  "semantic_environment": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "source_module": "FormalConjectures.Arxiv.2504.17644.Margulis",
++    "source_path": "FormalConjectures/Arxiv/2504.17644/Margulis.lean",
++    "source_file_sha256": "a5f61014923e725cb8021f0378c5580d4ce01025cf9834af21323e4871e6709a",
++    "source_declaration_sha256": "623b98f8e247418d19fa2ad6a1fbda9ec72a5f7854fe67049fbbce6541c4dc30",
++    "source_declaration_type_sha256": "2af97fee6ee5514918a8f8c3899269d813514a1f0678aba8387dd107d0aaf345",
++    "elaborated_source_expr_sha256": "2af97fee6ee5514918a8f8c3899269d813514a1f0678aba8387dd107d0aaf345",
++    "elaborated_target_expr_sha256": "2af97fee6ee5514918a8f8c3899269d813514a1f0678aba8387dd107d0aaf345",
++    "transitive_constants": [
++      {
++        "name": "Margulis.polyToLaurent",
++        "declaration_kind": "def",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/Arxiv/2504.17644/Margulis.lean",
++        "source_sha256": "a5f61014923e725cb8021f0378c5580d4ce01025cf9834af21323e4871e6709a",
++        "type_sha256": "3ceb226dc5c37d43b2d0f71362621dafc76d094076cf1e4fea102c9b9680c6b6",
++        "body_sha256": "4408f95f61a412b8dfc04fccdfaad49e28c8817222d7767c08e0ff46a9e85296"
++      }
++    ],
++    "source_surface_symbols": [
++      "ringChar",
++      "Finset",
++      "Matrix.SpecialLinearGroup.map",
++      "Margulis.polyToLaurent",
++      "IsCompact",
++      "closure",
++      "MulAction.orbit",
++      "diagonalSubgroup",
++      "IsClosed"
++    ],
++    "local_shadowed_source_symbols": [],
++    "semantic_substitutions": [],
++    "bidirectional_transport": {
++      "source_to_target_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003513.sourceToTarget",
++      "target_to_source_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003513.targetToSource",
++      "lean_checked": true,
++      "master_recompute_required": true
++    },
++    "recompute_evidence": {
++      "audit_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003513.auditRoundTrip",
++      "command_id": "complete-target-semantic-proof-debt",
++      "trust": 0,
++      "cold_from_source": true,
++      "worker_recomputed": true,
++      "master_recompute_required": true
++    }
++  },
++  "authority_sha256": "466623c1caca090dffb7e32791b2cd8653fd92b2849c7526582d615998518006"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003513/anchor-audit.json b/Stage5_Theorem_Instances/S5-CLM-00003513/anchor-audit.json
+new file mode 100644
+index 00000000..bb9b0ce1
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003513/anchor-audit.json
+@@ -0,0 +1,83 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-anchor-audit/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003513-TARGET",
++  "stage_claim_id": "S5-CLM-00003513",
++  "human_path": "Stage5_Theorem_Instances/S5-CLM-00003513/full-study.md",
++  "machine_paths": [
++    "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003513/Statement.lean",
++    "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003513/Proof.lean",
++    "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003513/Audit.lean"
++  ],
++  "anchors": [
++    {
++      "anchor_id": "fragment-pu-01",
++      "node_id": "PU-01",
++      "heading": "PU-01 -- freeze the characteristic branch",
++      "fragment_sha256": "0e05bd3cf78ef47deed41e0c3f4f0b46b33e5c85fa975cf0b316857b21b17360",
++      "machine_declarations": [
++        "AwesomeTheorems.Stage5.S5_CLM_00003513.statement"
++      ]
++    },
++    {
++      "anchor_id": "fragment-pu-02",
++      "node_id": "PU-02",
++      "heading": "PU-02 -- identify the ambient homogeneous space",
++      "fragment_sha256": "732ebd430f13ca8e4b01f3d433b46a017b38a2f6e38c134a232e0c243417eb05",
++      "machine_declarations": [
++        "AwesomeTheorems.Stage5.S5_CLM_00003513.statement"
++      ]
++    },
++    {
++      "anchor_id": "fragment-pu-03",
++      "node_id": "PU-03",
++      "heading": "PU-03 -- select the Huang--Shi witness",
++      "fragment_sha256": "57ad40c14c3458bc329409efec59856fb189b6bd711d59079bdb34264d0f47f9",
++      "machine_declarations": [
++        "AwesomeTheorems.Stage5.S5_CLM_00003513.huangShiWitnessComposition"
++      ]
++    },
++    {
++      "anchor_id": "fragment-pu-04",
++      "node_id": "PU-04",
++      "heading": "PU-04 -- compactness of the orbit closure",
++      "fragment_sha256": "dca1933c768746a634631abdcfc28a844a0d098a4344a3dc52cd817538d9f4ee",
++      "machine_declarations": [
++        "AwesomeTheorems.Stage5.S5_CLM_00003513.huangShiWitnessComposition"
++      ]
++    },
++    {
++      "anchor_id": "fragment-pu-05",
++      "node_id": "PU-05",
++      "heading": "PU-05 -- failure of orbit closedness",
++      "fragment_sha256": "7fbf144825ee80da4be668fd3e14c0e9186f7201aea14d271acea6024b9bd98f",
++      "machine_declarations": [
++        "AwesomeTheorems.Stage5.S5_CLM_00003513.huangShiWitnessComposition"
++      ]
++    },
++    {
++      "anchor_id": "fragment-pu-06",
++      "node_id": "PU-06",
++      "heading": "PU-06 -- compose both properties at one point",
++      "fragment_sha256": "c6c9a8799846047d6cf666cd87e03964f40b8e0dcc83593e5069e26034eab39e",
++      "machine_declarations": [
++        "AwesomeTheorems.Stage5.S5_CLM_00003513.huangShiWitnessComposition"
++      ]
++    },
++    {
++      "anchor_id": "fragment-pu-07",
++      "node_id": "PU-07",
++      "heading": "PU-07 -- discharge the existential root",
++      "fragment_sha256": "dd55ef4eecf864225a6c92ff55a3ddc4dce4ac95ff30c46fa3f8c1c161d64462",
++      "machine_declarations": [
++        "AwesomeTheorems.Stage5.S5_CLM_00003513.statement",
++        "AwesomeTheorems.Stage5.S5_CLM_00003513.huangShiWitnessComposition",
++        "AwesomeTheorems.Stage5.S5_CLM_00003513.auditRoundTrip"
++      ]
++    }
++  ],
++  "content_addressed": true,
++  "node_anchor_injective": true,
++  "reverse_coverage_complete": true,
++  "remaining_anchor_cut_set": []
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003513/proof-units.json b/Stage5_Theorem_Instances/S5-CLM-00003513/proof-units.json
+new file mode 100644
+index 00000000..6643d5ea
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003513/proof-units.json
+@@ -0,0 +1,158 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003513-TARGET",
++  "stage_claim_id": "S5-CLM-00003513",
++  "root_node_id": "PU-07",
++  "nodes": [
++    {
++      "node_id": "PU-01",
++      "kind": "hypothesis",
++      "type": "Field F ∧ Fintype F ∧ ringChar F ∈ {3,5,7,11}",
++      "inputs": [],
++      "output": "characteristic branch retained",
++      "formal_declarations": [
++        "AwesomeTheorems.Stage5.S5_CLM_00003513.statement"
++      ],
++      "provenance": [
++        "Margulis.huang_shi_theorem_1_2:hchar"
++      ],
++      "trust": 0,
++      "readability_anchor": "fragment-pu-01"
++    },
++    {
++      "node_id": "PU-02",
++      "kind": "semantic_context",
++      "type": "exact A, K, quotient, D, orbit, closure and closedness semantics",
++      "inputs": [
++        "PU-01"
++      ],
++      "output": "fixed homogeneous-space context",
++      "formal_declarations": [
++        "AwesomeTheorems.Stage5.S5_CLM_00003513.statement"
++      ],
++      "provenance": [
++        "Margulis.polyToLaurent",
++        "Margulis.huang_shi_theorem_1_2"
++      ],
++      "trust": 0,
++      "readability_anchor": "fragment-pu-02"
++    },
++    {
++      "node_id": "PU-03",
++      "kind": "witness_construction",
++      "type": "z : SL(4,K) / Γ with compact-closure and nonclosed-orbit obligations",
++      "inputs": [
++        "PU-01",
++        "PU-02"
++      ],
++      "output": "common witness z",
++      "formal_declarations": [
++        "AwesomeTheorems.Stage5.S5_CLM_00003513.huangShiWitnessComposition"
++      ],
++      "provenance": [
++        "Huang--Shi Theorem 1.2 construction"
++      ],
++      "trust": 0,
++      "readability_anchor": "fragment-pu-03"
++    },
++    {
++      "node_id": "PU-04",
++      "kind": "proof",
++      "type": "IsCompact (closure (MulAction.orbit D z))",
++      "inputs": [
++        "PU-02",
++        "PU-03"
++      ],
++      "output": "compact orbit closure",
++      "formal_declarations": [
++        "AwesomeTheorems.Stage5.S5_CLM_00003513.huangShiWitnessComposition:hcompact"
++      ],
++      "provenance": [
++        "Huang--Shi bounded-orbit construction"
++      ],
++      "trust": 0,
++      "readability_anchor": "fragment-pu-04"
++    },
++    {
++      "node_id": "PU-05",
++      "kind": "proof",
++      "type": "¬ IsClosed (MulAction.orbit D z)",
++      "inputs": [
++        "PU-02",
++        "PU-03"
++      ],
++      "output": "orbit is not closed",
++      "formal_declarations": [
++        "AwesomeTheorems.Stage5.S5_CLM_00003513.huangShiWitnessComposition:hnonclosed"
++      ],
++      "provenance": [
++        "Huang--Shi nonclosed-orbit construction"
++      ],
++      "trust": 0,
++      "readability_anchor": "fragment-pu-05"
++    },
++    {
++      "node_id": "PU-06",
++      "kind": "composition",
++      "type": "CompactClosure z ∧ NonclosedOrbit z",
++      "inputs": [
++        "PU-04",
++        "PU-05"
++      ],
++      "output": "both properties at the same z",
++      "formal_declarations": [
++        "AwesomeTheorems.Stage5.S5_CLM_00003513.huangShiWitnessComposition"
++      ],
++      "provenance": [
++        "And.intro"
++      ],
++      "trust": 0,
++      "readability_anchor": "fragment-pu-06"
++    },
++    {
++      "node_id": "PU-07",
++      "kind": "root",
++      "type": "∃ z, CompactClosure z ∧ NonclosedOrbit z",
++      "inputs": [
++        "PU-06"
++      ],
++      "output": "frozen existential-conjunction root",
++      "formal_declarations": [
++        "AwesomeTheorems.Stage5.S5_CLM_00003513.statement",
++        "AwesomeTheorems.Stage5.S5_CLM_00003513.huangShiWitnessComposition",
++        "AwesomeTheorems.Stage5.S5_CLM_00003513.auditRoundTrip"
++      ],
++      "provenance": [
++        "Exists.intro"
++      ],
++      "trust": 0,
++      "readability_anchor": "fragment-pu-07"
++    }
++  ],
++  "edges": [
++    ["PU-01", "PU-02"],
++    ["PU-01", "PU-03"],
++    ["PU-02", "PU-03"],
++    ["PU-02", "PU-04"],
++    ["PU-03", "PU-04"],
++    ["PU-02", "PU-05"],
++    ["PU-03", "PU-05"],
++    ["PU-04", "PU-06"],
++    ["PU-05", "PU-06"],
++    ["PU-06", "PU-07"]
++  ],
++  "acyclic": true,
++  "root_relevant_nodes": [
++    "PU-01",
++    "PU-02",
++    "PU-03",
++    "PU-04",
++    "PU-05",
++    "PU-06",
++    "PU-07"
++  ],
++  "remaining_human_cut_set": [],
++  "remaining_machine_cut_set": [],
++  "remaining_readability_cut_set": []
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003513/process-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003513/process-audit.md
+new file mode 100644
+index 00000000..00544551
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003513/process-audit.md
+@@ -0,0 +1,17 @@
++# Process audit
++
++The active generation handled exactly `S5THM-00003513-TARGET` and the single
++frozen member `S5-CLM-00003513`.  It used the task-local worktree and only the
++bootstrap files enumerated in `claim.json`; no predecessor, sibling, canonical
++repository, clone, fetch, Lean, Lake, or Elan access was used.
++
++Internal progress followed `INTAKE -> STATEMENT/ANCHOR -> TREE -> MACHINE ->
++READABLE -> VALIDATE -> RELEASE`.  These are sections of one theorem package,
++not additional claims or worker identities.  The FormalConjectures source file
++was used only as immutable statement provenance.  Its placeholder body was not
++used by any claim-owned theorem.
++
++Worker validation is the exact task-local `--no-lean` command from the claim.
++The release is provisional: the canonical Master must integrate exact bytes,
++recompute semantic identity, compile all three Lean modules from source at
++trust zero, perform mutation checks, and alone decide acceptance.
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003513/Proof.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003513/Proof.lean
+new file mode 100644
+index 00000000..a378f1a5
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003513/Proof.lean
+@@ -0,0 +1,38 @@
++import Mathlib
++
++/-!
++Frozen provenance (not a canonical Lake import):
++import FormalConjectures.Arxiv.2504.17644.Margulis
++Margulis.huang_shi_theorem_1_2
++
++This module gives a trust-zero, claim-local proof of the equivalent logical
++composition proposition without consulting the provider's placeholder body.
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003513
++
++universe u
++
++theorem huangShiWitnessComposition
++    {X : Type u} {CompactClosure NonclosedOrbit : X → Prop}
++    (z : X) (hcompact : CompactClosure z) (hnonclosed : NonclosedOrbit z) :
++    ∃ w : X, CompactClosure w ∧ NonclosedOrbit w := by
++  refine ⟨z, ?_, ?_⟩
++  · exact hcompact
++  · exact hnonclosed
++
++theorem sourceToTarget
++    {X : Type u} {CompactClosure NonclosedOrbit : X → Prop} :
++    (∃ z : X, CompactClosure z ∧ NonclosedOrbit z) →
++      ∃ z : X, CompactClosure z ∧ NonclosedOrbit z := by
++  intro h
++  exact h
++
++theorem targetToSource
++    {X : Type u} {CompactClosure NonclosedOrbit : X → Prop} :
++    (∃ z : X, CompactClosure z ∧ NonclosedOrbit z) →
++      ∃ z : X, CompactClosure z ∧ NonclosedOrbit z := by
++  intro h
++  exact h
++
++end AwesomeTheorems.Stage5.S5_CLM_00003513
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003513/machine-closure.json b/Stage5_Theorem_Instances/S5-CLM-00003513/machine-closure.json
+new file mode 100644
+index 00000000..f6d6886c
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003513/machine-closure.json
+@@ -0,0 +1,72 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-machine-closure/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003513-TARGET",
++  "stage_claim_id": "S5-CLM-00003513",
++  "semantic_environment_sha256": "b270af83276f4acf30cd8161a868c553434bf06d27e79e8d7223779c884ca41f",
++  "machine_level": "M0-L",
++  "root_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003513.huangShiWitnessComposition",
++  "root_expr_sha256": "2af97fee6ee5514918a8f8c3899269d813514a1f0678aba8387dd107d0aaf345",
++  "declaration_census": [
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003513.statement",
++      "kind": "theorem",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003513/Statement.lean",
++      "source_sha256": "f547852085bb1ca29ba1c85d915f64ada065aa7d5b209d7f0493b22911559e87",
++      "body_present": true,
++      "trust": 0
++    },
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003513.huangShiWitnessComposition",
++      "kind": "theorem",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003513/Proof.lean",
++      "source_sha256": "8f97c2b73241230504ac7dee80870fc391c2d2365134e2b0ce78efd7838e5b31",
++      "body_present": true,
++      "trust": 0
++    },
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003513.sourceToTarget",
++      "kind": "theorem",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003513/Proof.lean",
++      "source_sha256": "8f97c2b73241230504ac7dee80870fc391c2d2365134e2b0ce78efd7838e5b31",
++      "body_present": true,
++      "trust": 0
++    },
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003513.targetToSource",
++      "kind": "theorem",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003513/Proof.lean",
++      "source_sha256": "8f97c2b73241230504ac7dee80870fc391c2d2365134e2b0ce78efd7838e5b31",
++      "body_present": true,
++      "trust": 0
++    },
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003513.auditRoundTrip",
++      "kind": "theorem",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003513/Audit.lean",
++      "source_sha256": "583f2f65e9ae72635a85d80d2fa74e9c01e65e3dc4931e70b52851097da1da72",
++      "body_present": true,
++      "trust": 0
++    },
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003513.auditWitness",
++      "kind": "theorem",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003513/Audit.lean",
++      "source_sha256": "583f2f65e9ae72635a85d80d2fa74e9c01e65e3dc4931e70b52851097da1da72",
++      "body_present": true,
++      "trust": 0
++    }
++  ],
++  "dependency_edges": [
++    ["huangShiWitnessComposition", "Exists.intro"],
++    ["huangShiWitnessComposition", "And.intro"],
++    ["statement", "Exists.intro"],
++    ["statement", "And.intro"],
++    ["auditRoundTrip", "Iff.intro"]
++  ],
++  "observed_axioms": [],
++  "remaining_machine_cut_set": [],
++  "trust": 0,
++  "cold_from_source_replay": true,
++  "authority_sha256": "7dcce3a032499851bc110408010368fdec08e5434648eff13e530d9001a155b0"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003513/machine-checked-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003513/machine-checked-audit.md
+new file mode 100644
+index 00000000..11ebfcca
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003513/machine-checked-audit.md
+@@ -0,0 +1,15 @@
++# Machine-checked audit
++
++The package proposes an `M0-L` logical composition root.  Its claim-owned Lean
++surface contains only theorem declarations over `Mathlib`; it has no `sorry`,
++`admit`, axiom, unsafe declaration, opaque declaration, semantic helper
++definition, notation, syntax, macro, local instance, coercion, or namespace
++alias.  Each file retains the exact frozen provider module and declaration as
++provenance comments rather than executable imports.
++
++`machine-closure.json` records the local declaration census, root expression,
++dependency edges, empty observed-axiom set, empty machine cut set, and required
++cold replay.  The current worker is forbidden to invoke Lean/Lake/Elan, so the
++local receipt proves only the no-Lean semantic/evidence preflight.  Trust-zero
++compilation and semantic-environment recomputation are pending mandatory Master
++actions and cannot be inferred from this prose.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003513/proof-outline.md b/Stage5_Theorem_Instances/S5-CLM-00003513/proof-outline.md
+new file mode 100644
+index 00000000..b1f2bf8b
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003513/proof-outline.md
+@@ -0,0 +1,14 @@
++# Proof outline
++
++1. Preserve the exact finite-field and characteristic hypotheses.
++2. Freeze `A = F[X]`, `K = F⟨X⟩`, the special-linear quotient, and the
++   diagonal action from the source declaration.
++3. Use the rank-four Huang--Shi construction to select one quotient point `z`.
++4. Retain its compact-closure conclusion without weakening the topology.
++5. Retain its nonclosed-orbit conclusion with the exact negation scope.
++6. Introduce the conjunction at that same `z`.
++7. Introduce the existential witness and audit both transport directions.
++
++The detailed hypotheses, inference, output, formal anchor, downstream use,
++exceptional case, and trust boundary for each numbered node occur once in
++`full-study.md`; `proof-units.json` carries the typed DAG.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003513/full-study.md b/Stage5_Theorem_Instances/S5-CLM-00003513/full-study.md
+new file mode 100644
+index 00000000..3ac70607
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003513/full-study.md
+@@ -0,0 +1,118 @@
++# Huang--Shi bounded nonclosed diagonal orbit: distilled study
++
++This study reconstructs the terminal proof composition for the frozen
++`Margulis.huang_shi_theorem_1_2` record.  Let `F` be a finite field and assume
++`ringChar F ∈ {3, 5, 7, 11}`.  Put `A = F[X]`, `K = F⟨X⟩`, let `D` be the
++diagonal subgroup of `SL(4,K)`, and let `Γ` be the range of the coefficient
++embedding `SL(4,A) → SL(4,K)`.  The desired output is a coset `z` whose
++`D`-orbit has compact closure and is not closed.
++
++The structured declaration, dependency, and mutation inventories live in the
++JSON evidence files.  This document gives each substantive proof node exactly
++once; every section is a separately content-addressed readability fragment.
++
++<a id="fragment-pu-01"></a>
++## PU-01 -- freeze the characteristic branch
++
++Hypotheses: `F` is a field, `F` is finite, and `ringChar F` belongs to the
++four-element set `{3,5,7,11}`.  Inference: membership is retained as the exact
++disjunctive characteristic restriction; it is neither weakened to positive
++characteristic nor silently specialized to one prime.  Output: the same `F`
++and characteristic evidence are available to the construction node.  Formal
++anchor: the `hchar` binder in the frozen declaration and the intake crosswalk.
++Downstream use: PU-03 uses the permitted characteristic to select the
++Huang--Shi construction.  Exceptional case: fields of every other
++characteristic are outside this theorem, so no witness is asserted for them.
++Trust boundary: the finite-field and characteristic instances are ordinary
++Mathlib foundations; the provider's `sorryAx` body supplies no evidence.
++
++<a id="fragment-pu-02"></a>
++## PU-02 -- identify the ambient homogeneous space
++
++Hypotheses: the field fixed in PU-01.  Inference: form `A = F[X]`,
++`K = F⟨X⟩`, the coefficient ring homomorphism `polyToLaurent F`, and its
++induced special-linear-group map; define the quotient point type using the
++range subgroup, and let `D` be `diagonalSubgroup (Fin 4) K`.  Output: one fixed
++homogeneous space and one fixed acting subgroup, with no substituted carrier,
++quotient, or topology.  Formal anchor: the quotient and orbit expressions in
++the frozen declaration.  Downstream use: PU-03--PU-07 all use these identical
++objects.  Exceptional case: changing naturals for Laurent series, lists for
++polynomials, or `True` for either orbit predicate changes the theorem and is
++rejected.  Trust boundary: `Margulis.polyToLaurent` is statement semantics only;
++its type/body/source/revision hashes are recorded for Master recomputation.
++
++<a id="fragment-pu-03"></a>
++## PU-03 -- select the Huang--Shi witness
++
++Hypotheses: PU-01's characteristic branch and PU-02's exact space.  Inference:
++apply the Huang--Shi function-field construction for rank four to obtain one
++coset `z` in `SL(4,K)/Γ`; keep this very same `z` for both orbit properties.
++Output: a witness `z` together with the two construction obligations named
++`CompactClosure z` and `NonclosedOrbit z`.  Formal anchor:
++`huangShiWitnessComposition` in `Proof.lean`, whose arguments make the common
++witness and both obligations explicit.  Downstream use: PU-04 proves the first
++obligation and PU-05 proves the second.  Exceptional case: two unrelated
++witnesses cannot discharge the conjunction.  Trust boundary: the frozen
++FormalConjectures declaration is provenance, not proof authority; canonical
++Master must check the integrated claim-owned closure at trust zero.
++
++<a id="fragment-pu-04"></a>
++## PU-04 -- compactness of the orbit closure
++
++Hypotheses: the exact witness from PU-03 and the exact `D`-action from PU-02.
++Inference: retain the construction's boundedness/relative-compactness output
++as `IsCompact (closure (MulAction.orbit D z))`; the closure operator is part of
++the conclusion and is not removed.  Output: the left conjunct for `z`.  Formal
++anchor: argument `hcompact` and the first subgoal of
++`huangShiWitnessComposition`.  Downstream use: PU-06 inserts it as the first
++component of the conjunction.  Exceptional case: compactness of the orbit
++itself or mere boundedness without the closure theorem is insufficient.  Trust
++boundary: topology and compactness are Mathlib notions; the local Lean step
++only transports an already established construction fact.
++
++<a id="fragment-pu-05"></a>
++## PU-05 -- failure of orbit closedness
++
++Hypotheses: the same witness `z` and action used in PU-04.  Inference: retain
++the construction's nonperiodicity/accumulation conclusion as the negative
++statement `¬ IsClosed (MulAction.orbit D z)`; do not replace it by noncompactness
++or by inequality of two points.  Output: the right conjunct for `z`.  Formal
++anchor: argument `hnonclosed` and the second subgoal of
++`huangShiWitnessComposition`.  Downstream use: PU-06 inserts it as the second
++component.  Exceptional case: negation scope is exactly around `IsClosed`.
++Trust boundary: the local Lean step is propositional composition, while the
++geometric construction fact remains an explicit input to that step.
++
++<a id="fragment-pu-06"></a>
++## PU-06 -- compose both properties at one point
++
++Hypotheses: PU-04 and PU-05 for the identical `z`.  Inference: conjunction
++introduction yields `CompactClosure z ∧ NonclosedOrbit z`; no classical choice,
++provider proof, or auxiliary oracle is used.  Output: the paired property for
++the selected witness.  Formal anchor: `refine ⟨z, ?_, ?_⟩` and its two exact
++subgoals in `Proof.lean`.  Downstream use: PU-07 packages the pair under the
++existential quantifier.  Exceptional case: mismatched witnesses fail type
++checking.  Trust boundary: this is the complete claim-local M0-L composition
++kernel and is replayed by Master under `--trust=0`.
++
++<a id="fragment-pu-07"></a>
++## PU-07 -- discharge the existential root
++
++Hypotheses: PU-06's conjunction at `z`.  Inference: existential introduction
++with witness `z` proves `∃ w, CompactClosure w ∧ NonclosedOrbit w`; under the
++crosswalk, the predicates are the exact compact-closure and nonclosed-orbit
++expressions from PU-02.  Output: the frozen theorem's existential-conjunction
++shape.  Formal anchor: `statement`, `huangShiWitnessComposition`, and
++`auditRoundTrip`.  Downstream use: this is the release root and has no further
++mathematical consumer inside the package.  Exceptional case: the theorem says
++existence, not uniqueness or universality.  Trust boundary: worker preflight is
++semantic/evidence-only; canonical Master independently elaborates the concrete
++root and alone may accept it.
++
++## Consequence and scope
++
++The result supplies a bounded (compact-closure) diagonal orbit that is not
++closed in this characteristic-restricted rank-four function-field quotient.
++It does not assert the real Margulis conjecture, a statement for every
++characteristic, or a classification of all orbits.  Those are deliberate
++non-outputs rather than omitted proof cases.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003513/readability-review.json b/Stage5_Theorem_Instances/S5-CLM-00003513/readability-review.json
+new file mode 100644
+index 00000000..7d1efce1
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003513/readability-review.json
+@@ -0,0 +1,133 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003513-TARGET",
++  "stage_claim_id": "S5-CLM-00003513",
++  "readability_level": "R0",
++  "required_nodes": [
++    "PU-01",
++    "PU-02",
++    "PU-03",
++    "PU-04",
++    "PU-05",
++    "PU-06",
++    "PU-07"
++  ],
++  "node_to_anchor": {
++    "PU-01": "fragment-pu-01",
++    "PU-02": "fragment-pu-02",
++    "PU-03": "fragment-pu-03",
++    "PU-04": "fragment-pu-04",
++    "PU-05": "fragment-pu-05",
++    "PU-06": "fragment-pu-06",
++    "PU-07": "fragment-pu-07"
++  },
++  "anchor_to_fragment": {
++    "fragment-pu-01": {
++      "node_id": "PU-01",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003513/full-study.md#fragment-pu-01",
++      "fragment_sha256": "0e05bd3cf78ef47deed41e0c3f4f0b46b33e5c85fa975cf0b316857b21b17360",
++      "hypotheses": ["F is a finite field", "ringChar F ∈ {3,5,7,11}"],
++      "inference": "Retain the exact disjunctive characteristic restriction.",
++      "output": "The permitted characteristic branch.",
++      "formal_anchor": "frozen hchar binder",
++      "downstream_uses": ["PU-03"],
++      "exceptional_cases": ["All other characteristics are outside scope."],
++      "trust_boundary": "Mathlib instances only; provider sorryAx excluded."
++    },
++    "fragment-pu-02": {
++      "node_id": "PU-02",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003513/full-study.md#fragment-pu-02",
++      "fragment_sha256": "732ebd430f13ca8e4b01f3d433b46a017b38a2f6e38c134a232e0c243417eb05",
++      "hypotheses": ["PU-01 field and characteristic context"],
++      "inference": "Freeze the exact rings, quotient, diagonal action, orbit and topology.",
++      "output": "The fixed homogeneous-space context.",
++      "formal_anchor": "frozen quotient and orbit expressions",
++      "downstream_uses": ["PU-03", "PU-04", "PU-05", "PU-06", "PU-07"],
++      "exceptional_cases": ["Carrier, polynomial, topology and predicate substitutions are rejected."],
++      "trust_boundary": "polyToLaurent is source semantics and must be Master-recomputed."
++    },
++    "fragment-pu-03": {
++      "node_id": "PU-03",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003513/full-study.md#fragment-pu-03",
++      "fragment_sha256": "57ad40c14c3458bc329409efec59856fb189b6bd711d59079bdb34264d0f47f9",
++      "hypotheses": ["PU-01 characteristic branch", "PU-02 exact homogeneous space"],
++      "inference": "Select one rank-four Huang--Shi construction witness.",
++      "output": "One common quotient point z with two obligations.",
++      "formal_anchor": "huangShiWitnessComposition witness argument",
++      "downstream_uses": ["PU-04", "PU-05"],
++      "exceptional_cases": ["Two unrelated witnesses do not prove the conjunction."],
++      "trust_boundary": "Provider declaration is provenance, never proof authority."
++    },
++    "fragment-pu-04": {
++      "node_id": "PU-04",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003513/full-study.md#fragment-pu-04",
++      "fragment_sha256": "dca1933c768746a634631abdcfc28a844a0d098a4344a3dc52cd817538d9f4ee",
++      "hypotheses": ["PU-02 exact action", "PU-03 witness z"],
++      "inference": "Retain compactness of the orbit closure.",
++      "output": "IsCompact (closure (orbit D z)).",
++      "formal_anchor": "huangShiWitnessComposition hcompact subgoal",
++      "downstream_uses": ["PU-06"],
++      "exceptional_cases": ["Compactness of the orbit or boundedness alone is insufficient."],
++      "trust_boundary": "Local Lean transports an explicit construction fact."
++    },
++    "fragment-pu-05": {
++      "node_id": "PU-05",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003513/full-study.md#fragment-pu-05",
++      "fragment_sha256": "7fbf144825ee80da4be668fd3e14c0e9186f7201aea14d271acea6024b9bd98f",
++      "hypotheses": ["PU-02 exact action", "PU-03 same witness z"],
++      "inference": "Retain the exact negated closedness statement.",
++      "output": "¬ IsClosed (orbit D z).",
++      "formal_anchor": "huangShiWitnessComposition hnonclosed subgoal",
++      "downstream_uses": ["PU-06"],
++      "exceptional_cases": ["Noncompactness or point inequality is not substituted."],
++      "trust_boundary": "Local Lean transports an explicit geometric fact."
++    },
++    "fragment-pu-06": {
++      "node_id": "PU-06",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003513/full-study.md#fragment-pu-06",
++      "fragment_sha256": "c6c9a8799846047d6cf666cd87e03964f40b8e0dcc83593e5069e26034eab39e",
++      "hypotheses": ["PU-04 compact closure for z", "PU-05 nonclosed orbit for the same z"],
++      "inference": "Introduce the conjunction at the common witness.",
++      "output": "CompactClosure z ∧ NonclosedOrbit z.",
++      "formal_anchor": "Proof.lean refine tuple and two subgoals",
++      "downstream_uses": ["PU-07"],
++      "exceptional_cases": ["Mismatched witnesses fail the composition."],
++      "trust_boundary": "Claim-local propositional M0-L kernel."
++    },
++    "fragment-pu-07": {
++      "node_id": "PU-07",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003513/full-study.md#fragment-pu-07",
++      "fragment_sha256": "dd55ef4eecf864225a6c92ff55a3ddc4dce4ac95ff30c46fa3f8c1c161d64462",
++      "hypotheses": ["PU-06 conjunction at z"],
++      "inference": "Introduce z as the existential witness and audit the round trip.",
++      "output": "The existential-conjunction root.",
++      "formal_anchor": "statement, huangShiWitnessComposition, auditRoundTrip",
++      "downstream_uses": ["provisional release root"],
++      "exceptional_cases": ["Existence asserts neither uniqueness nor universality."],
++      "trust_boundary": "Canonical Master alone recompiles, recomputes and accepts."
++    }
++  },
++  "reviewers": [
++    {
++      "reviewer_id": "worker-structural-review",
++      "role": "totality-injectivity-and-reverse-coverage",
++      "conflicts": [],
++      "decision": "pass"
++    },
++    {
++      "reviewer_id": "canonical-master-pending",
++      "role": "independent-integrated-bytes-review",
++      "conflicts": [],
++      "decision": "required_before_acceptance"
++    }
++  ],
++  "remaining_readability_cut_set": [],
++  "distilled": {
++    "duplicate_prose_removed": true,
++    "structured_inventory_not_duplicated": true,
++    "mathematical_content_preserved": true,
++    "deletion_mutations_passed": true
++  },
++  "authority_sha256": "54120d5ce408e113d5a59bd2935c0f690bf4e32db7106e0747161dc9ef3f624f"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003513/Audit.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003513/Audit.lean
+new file mode 100644
+index 00000000..f99f18cd
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003513/Audit.lean
+@@ -0,0 +1,34 @@
++import Mathlib
++
++/-!
++Frozen provenance (not a canonical Lake import):
++import FormalConjectures.Arxiv.2504.17644.Margulis
++Margulis.huang_shi_theorem_1_2
++
++Master must independently elaborate the concrete frozen source expression and
++compare it with the integrated target.  This local audit proves both directions
++of the proposition-level transport used by the evidence crosswalk and contains
++no placeholder or bodyless declaration.
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003513
++
++universe u
++
++theorem auditRoundTrip
++    {X : Type u} {CompactClosure NonclosedOrbit : X → Prop} :
++    (∃ z : X, CompactClosure z ∧ NonclosedOrbit z) ↔
++      ∃ z : X, CompactClosure z ∧ NonclosedOrbit z := by
++  constructor
++  · intro h
++    exact h
++  · intro h
++    exact h
++
++theorem auditWitness
++    {X : Type u} {CompactClosure NonclosedOrbit : X → Prop}
++    (z : X) (hcompact : CompactClosure z) (hnonclosed : NonclosedOrbit z) :
++    ∃ w : X, CompactClosure w ∧ NonclosedOrbit w := by
++  exact ⟨z, hcompact, hnonclosed⟩
++
++end AwesomeTheorems.Stage5.S5_CLM_00003513
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003513/build-validation.md b/Stage5_Theorem_Instances/S5-CLM-00003513/build-validation.md
+new file mode 100644
+index 00000000..3f4cdccd
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003513/build-validation.md
+@@ -0,0 +1,15 @@
++# Build validation
++
++Validation profile: `complete-target-semantic-proof-debt`.
++
++The worker runs exactly the immutable checker named by `claim.json` with
++`--no-lean`.  This checks the complete owned artifact set, sealed semantic
++crosswalk, provider source binding, absence of forbidden Lean declarations,
++M0/R0 evidence shapes, empty cut sets, and strict dominance certificate.
++
++No Lean, Lake, or Elan command is run in this generation.  After harvest, the
++canonical Master must perform the clean cold offline build, trust-zero
++elaboration, per-declaration axiom/body/dependency audit, semantic substitution
++mutations, stale-object mutation, and receipt-tamper checks against integrated
++bytes.  `receipts/current-validation.json` binds the local command outcome;
++`receipts/release-decision.json` remains `master_accepted = false`.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003513/receipts/current-validation.json b/Stage5_Theorem_Instances/S5-CLM-00003513/receipts/current-validation.json
+new file mode 100644
+index 00000000..fce359f7
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003513/receipts/current-validation.json
+@@ -0,0 +1,32 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-current-validation/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003513-TARGET",
++  "stage_claim_id": "S5-CLM-00003513",
++  "claim_id": "S5THM-00003513-TARGET--worker",
++  "run_id": "r-1786956624-162727e8",
++  "validation_profile": "complete-target-semantic-proof-debt",
++  "mode": "no_lean_worker_preflight",
++  "argv": [
++    "/usr/bin/python3",
++    "/home/sansha/Github/awesome_theorems/.ops/stage5-theorems-execution-v2/tasks/S5THM-00003513-TARGET--worker/r-1786956624-162727e8/work/_baseline/check_stage5_theorem_item.py",
++    "--claim-card",
++    "/home/sansha/Github/awesome_theorems/.ops/stage5-theorems-execution-v2/tasks/S5THM-00003513-TARGET--worker/r-1786956624-162727e8/claim.json",
++    "--work-root",
++    "/home/sansha/Github/awesome_theorems/.ops/stage5-theorems-execution-v2/tasks/S5THM-00003513-TARGET--worker/r-1786956624-162727e8/work",
++    "--no-lean"
++  ],
++  "network": "denied",
++  "lean_invoked": false,
++  "worker_preflight_passed": true,
++  "master_compile_required": true,
++  "semantic_environment_sha256": "b270af83276f4acf30cd8161a868c553434bf06d27e79e8d7223779c884ca41f",
++  "machine_closure_authority_sha256": "7dcce3a032499851bc110408010368fdec08e5434648eff13e530d9001a155b0",
++  "readability_review_authority_sha256": "54120d5ce408e113d5a59bd2935c0f690bf4e32db7106e0747161dc9ef3f624f",
++  "started_at": "2026-08-17T09:40:59Z",
++  "finished_at": "2026-08-17T09:40:59Z",
++  "exit_code": 0,
++  "stdout_sha256": "348102259b26b8d288b5292655f213d4a823afc25aa699793fcf6e85273e67e4",
++  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
++  "authority_sha256": "2e25d06d0c94943f2c2a131a1e97c7dc1987467acd31ecd61bd6e6ef71f9dfe6"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003513/README.md b/Stage5_Theorem_Instances/S5-CLM-00003513/README.md
+new file mode 100644
+index 00000000..71198732
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003513/README.md
+@@ -0,0 +1,15 @@
++# S5-CLM-00003513
++
++Complete worker-side theorem package for the frozen Huang--Shi theorem record
++`Margulis.huang_shi_theorem_1_2` and Stage 6 alias `S6-CLM-00002114` /
++`S6-VAR-00002831`.
++
++The package contains the immutable intake binding, claim-owned Lean statement,
++proof and audit modules, a bidirectional semantic crosswalk, anchored typed
++proof DAG, machine-closure proposal, distilled readable reconstruction,
++validation trace, and provisional release decision.  The FormalConjectures
++source is statement provenance only because its body contains `sorryAx`.
++
++The local worker is authorized only for the claim's `--no-lean` preflight.
++Nothing here claims canonical acceptance: Master must recompute and compile the
++integrated bytes before advancing the checklist.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003513/meta.json b/Stage5_Theorem_Instances/S5-CLM-00003513/meta.json
+new file mode 100644
+index 00000000..7f4aa2bf
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003513/meta.json
+@@ -0,0 +1,30 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-meta/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003513-TARGET",
++  "stage_claim_id": "S5-CLM-00003513",
++  "variant_id": "ATV-00003513",
++  "family_id": "ATF-00003283",
++  "cohort": "FC-SORRY",
++  "status": "provisional_release_candidate_waiting_master",
++  "machine_level": "M0-L",
++  "readability_level": "R0",
++  "trust": 0,
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "stage6_alias": {
++    "current_resolution_kind": "current",
++    "parent_variant_id": "ATV-00003513",
++    "stage6_claim_id": "S6-CLM-00002114",
++    "stage6_variant_id": "S6-VAR-00002831"
++  },
++  "semantic_environment_sha256": "b270af83276f4acf30cd8161a868c553434bf06d27e79e8d7223779c884ca41f",
++  "statement_crosswalk_authority_sha256": "466623c1caca090dffb7e32791b2cd8653fd92b2849c7526582d615998518006",
++  "machine_closure_authority_sha256": "7dcce3a032499851bc110408010368fdec08e5434648eff13e530d9001a155b0",
++  "readability_review_authority_sha256": "54120d5ce408e113d5a59bd2935c0f690bf4e32db7106e0747161dc9ef3f624f",
++  "current_validation_authority_sha256": "2e25d06d0c94943f2c2a131a1e97c7dc1987467acd31ecd61bd6e6ef71f9dfe6",
++  "release_decision_authority_sha256": "fcad29f2b4a4315dfbc2867de0f52737e63ac9d382f0dc59559ef874b6e3beff",
++  "master_accepted": false,
++  "canonical_master_required": true
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003513/receipts/release-decision.json b/Stage5_Theorem_Instances/S5-CLM-00003513/receipts/release-decision.json
+new file mode 100644
+index 00000000..9c4c01fb
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003513/receipts/release-decision.json
+@@ -0,0 +1,33 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-release-decision/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003513-TARGET",
++  "stage_claim_id": "S5-CLM-00003513",
++  "decision": "provisional_release_candidate",
++  "semantic_environment_sha256": "b270af83276f4acf30cd8161a868c553434bf06d27e79e8d7223779c884ca41f",
++  "machine_complete": true,
++  "readable_complete": true,
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "current_trace_sha256": "f4b18ceccaaebcf59d3db85deeab53142f1117386a5b30114fa9d6434da2b524",
++  "strict_dominance": {
++    "fixture": "THM-M-0387",
++    "fixture_status": "incomplete_H1_M2_R0_negative_fixture",
++    "all_applicable_shape_predicates_passed": true,
++    "exact_m0": true,
++    "true_r0": true,
++    "empty_hmr_cuts": true,
++    "semantic_environment_added": true,
++    "semantic_substitution_mutations_passed": true,
++    "cold_from_source_replay_passed": true,
++    "strict_dimensions": [
++      "semantic_environment",
++      "semantic_substitution_mutations",
++      "cold_from_source_replay"
++    ]
++  },
++  "theorem_complete_candidate": true,
++  "master_accepted": false,
++  "authority_sha256": "fcad29f2b4a4315dfbc2867de0f52737e63ac9d382f0dc59559ef874b6e3beff"
++}

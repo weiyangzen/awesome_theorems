@@ -1,0 +1,88 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003537-TARGET",
+  "stage_claim_id": "S5-CLM-00003537",
+  "root_node": "PU-DIM",
+  "nodes": [
+    {
+      "node_id": "PU-LAC",
+      "kind": "hypothesis-normalization",
+      "inputs": [
+        "m : ℕ → ℕ",
+        "hm : ∀ n, 0 < m n",
+        "hlac : IsLacunary m"
+      ],
+      "output": "a uniform lacunarity ratio q > 1 for successive terms",
+      "formal_anchor": "Bugeaud06.pollington_de_mathan:hlac",
+      "provenance": "frozen source declaration",
+      "trust": 0,
+      "readability_anchor": "H-LAC"
+    },
+    {
+      "node_id": "PU-WIN",
+      "kind": "winning-set-construction",
+      "inputs": [
+        "PU-LAC"
+      ],
+      "output": "the uniformly orbit-avoiding parameter set is Schmidt winning",
+      "formal_anchor": "Bugeaud06.pollington_de_mathan",
+      "provenance": "Pollington--de Mathan lacunary avoidance argument",
+      "trust": 0,
+      "readability_anchor": "H-WIN"
+    },
+    {
+      "node_id": "PU-NON",
+      "kind": "topological-consequence",
+      "inputs": [
+        "PU-WIN"
+      ],
+      "output": "every uniformly avoiding orbit is not dense in AddCircle 1",
+      "formal_anchor": "Bugeaud06.pollington_de_mathan",
+      "provenance": "avoidance of a nonempty open arc",
+      "trust": 0,
+      "readability_anchor": "H-NON"
+    },
+    {
+      "node_id": "PU-DIM",
+      "kind": "dimension-composition",
+      "inputs": [
+        "PU-WIN",
+        "PU-NON"
+      ],
+      "output": "dimH {xi | the orbit of xi*m is not dense} = 1",
+      "formal_anchor": "Bugeaud06.pollington_de_mathan",
+      "provenance": "winning sets have full ambient Hausdorff dimension and dimH is monotone",
+      "trust": 0,
+      "readability_anchor": "H-DIM"
+    }
+  ],
+  "edges": [
+    {
+      "from": "PU-LAC",
+      "to": "PU-WIN",
+      "role": "ratio input"
+    },
+    {
+      "from": "PU-WIN",
+      "to": "PU-NON",
+      "role": "avoidance witness"
+    },
+    {
+      "from": "PU-WIN",
+      "to": "PU-DIM",
+      "role": "full dimension"
+    },
+    {
+      "from": "PU-NON",
+      "to": "PU-DIM",
+      "role": "set inclusion"
+    }
+  ],
+  "composition_complete": true,
+  "provenance_complete": true,
+  "trust_complete": true,
+  "readability_complete": true,
+  "remaining_human_cut_set": [],
+  "authority_sha256": "580f8147a9169f5bb97f4cc7522121da9db505186de14d654a41fb90d20ae416"
+}

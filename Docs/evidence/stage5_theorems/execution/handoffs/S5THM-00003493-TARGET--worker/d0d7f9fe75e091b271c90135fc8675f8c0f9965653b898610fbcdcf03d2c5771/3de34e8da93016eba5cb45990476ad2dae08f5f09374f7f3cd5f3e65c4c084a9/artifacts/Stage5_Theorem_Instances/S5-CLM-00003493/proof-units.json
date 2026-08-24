@@ -1,0 +1,196 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003493-TARGET",
+  "stage_claim_id": "S5-CLM-00003493",
+  "root_declaration": "S5_CLM_00003493.maximalLength_le_isBigO_root",
+  "machine_level": "M0-P",
+  "proof_units": [
+    {
+      "unit_id": "U0",
+      "kind": "statement_anchor",
+      "depends_on": [],
+      "hypotheses": [
+        "the frozen provider declaration type and exact provider module"
+      ],
+      "inference": "use type_of% to bind the claim root to the frozen proposition without using the provider proof body",
+      "output": "the exact existential Big-O proposition",
+      "formal_anchor": "SRC-S5-CLM-00003493-001",
+      "downstream_uses": [
+        "U1",
+        "U4"
+      ],
+      "exceptional_cases": [
+        "none"
+      ],
+      "trust_boundary": "Arxiv.«1609.08688».maximalLength_le_isBigO is referenced only for its type; its sorry-backed body is forbidden proof authority"
+    },
+    {
+      "unit_id": "U1",
+      "kind": "witness_selection",
+      "depends_on": [
+        "U0"
+      ],
+      "hypotheses": [
+        "the existential witness may be any function ℕ → ℝ"
+      ],
+      "inference": "choose Ω n = -(Real.iteratedLog n : ℝ)",
+      "output": "a concrete witness with exp (Ω n) ≤ 1",
+      "formal_anchor": "HUM-S5-CLM-00003493-002",
+      "downstream_uses": [
+        "U2",
+        "U3"
+      ],
+      "exceptional_cases": [
+        "the witness is intentionally negative; the frozen statement imposes no nonnegativity condition"
+      ],
+      "trust_boundary": "local lambda term only; no local definition, alias, notation, or coercion is introduced"
+    },
+    {
+      "unit_id": "U2",
+      "kind": "big_o_negation",
+      "depends_on": [
+        "U1"
+      ],
+      "hypotheses": [
+        "every real-valued function is Big-O of itself"
+      ],
+      "inference": "apply IsBigO.neg_right to reflexive Big-O, using norm invariance under negation",
+      "output": "iteratedLog =O[atTop] Ω",
+      "formal_anchor": "HUM-S5-CLM-00003493-003",
+      "downstream_uses": [
+        "U4"
+      ],
+      "exceptional_cases": [
+        "none; the filter is exactly atTop on ℕ"
+      ],
+      "trust_boundary": "standard imported asymptotics theorem; Master audits the resolved declaration body and axioms"
+    },
+    {
+      "unit_id": "U3",
+      "kind": "quadratic_to_exponential_bound",
+      "depends_on": [
+        "U1"
+      ],
+      "hypotheses": [
+        "Arxiv.«1609.08688».maximalLength_le n",
+        "Real.exp is positive",
+        "Real.iteratedLog n is a natural number before coercion"
+      ],
+      "inference": "cast maximalLength_le to ℝ; prove exp (-iteratedLog n) ≤ 1; divide the nonnegative square by that positive factor",
+      "output": "∀ n, maximalLength n ≤ n² / exp (Ω n)",
+      "formal_anchor": "HUM-S5-CLM-00003493-004",
+      "downstream_uses": [
+        "U4"
+      ],
+      "exceptional_cases": [
+        "n = 0 and n = 1 are already covered by maximalLength_le and nonnegativity of the natural-to-real coercion"
+      ],
+      "trust_boundary": "the independent root uses the earlier sorry-free provider theorem maximalLength_le, never the target theorem body"
+    },
+    {
+      "unit_id": "U4",
+      "kind": "existential_composition",
+      "depends_on": [
+        "U0",
+        "U2",
+        "U3"
+      ],
+      "hypotheses": [
+        "the selected witness",
+        "its Big-O property",
+        "its pointwise extremal bound"
+      ],
+      "inference": "pair the witness with the conjunction of U2 and U3 under the exact frozen type",
+      "output": "S5_CLM_00003493.maximalLength_le_isBigO_root",
+      "formal_anchor": "MACH-S5-CLM-00003493-001",
+      "downstream_uses": [
+        "U5",
+        "release"
+      ],
+      "exceptional_cases": [
+        "none"
+      ],
+      "trust_boundary": "Master independently compiles the local root at trust zero and checks its terminal axiom report"
+    },
+    {
+      "unit_id": "U5",
+      "kind": "reverse_crosswalk",
+      "depends_on": [
+        "U4"
+      ],
+      "hypotheses": [
+        "the claim-owned root has type_of% the provider declaration"
+      ],
+      "inference": "reuse the local root at the same exact type",
+      "output": "target-to-source exact-type transport",
+      "formal_anchor": "HUM-S5-CLM-00003493-005",
+      "downstream_uses": [
+        "release"
+      ],
+      "exceptional_cases": [
+        "none"
+      ],
+      "trust_boundary": "the reverse theorem depends only on the claim-owned root"
+    }
+  ],
+  "composition_edges": [
+    {
+      "from": "U0",
+      "to": "U1",
+      "relation": "exact-type goal exposure"
+    },
+    {
+      "from": "U1",
+      "to": "U2",
+      "relation": "witness Big-O obligation"
+    },
+    {
+      "from": "U1",
+      "to": "U3",
+      "relation": "witness denominator obligation"
+    },
+    {
+      "from": "U2",
+      "to": "U4",
+      "relation": "left conjunct"
+    },
+    {
+      "from": "U3",
+      "to": "U4",
+      "relation": "right conjunct"
+    },
+    {
+      "from": "U4",
+      "to": "U5",
+      "relation": "reverse exact-type transport"
+    }
+  ],
+  "provenance": {
+    "provider_id": "formal-conjectures-2270d31e",
+    "revision": "2270d31e8dd611521f979de6d86da364930b7669",
+    "source_file_sha256": "8b411f6abd44f054094bf7c17999e698c0d3e626a22511dc889d4ae5495e855a"
+  },
+  "trust": {
+    "observed_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "trust_level": 0,
+    "body_authority": "claim_owned_root_using_sorry_free_maximalLength_le"
+  },
+  "readability": {
+    "required_nodes": [
+      "U0",
+      "U1",
+      "U2",
+      "U3",
+      "U4",
+      "U5"
+    ],
+    "reverse_coverage": true
+  },
+  "remaining_cut_set": [],
+  "authority_sha256": "735a0d9fa328363d5204031d6c5377270be6bc5560e48a02ddd96d7edb5a47f8"
+}

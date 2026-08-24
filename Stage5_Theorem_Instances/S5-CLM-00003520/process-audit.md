@@ -1,0 +1,3 @@
+# Process audit
+
+INTAKE → STATEMENT → ANCHOR → TREE → MACHINE → READABLE → VALIDATE → RELEASE was completed in isolated generation `r-1787007402-5b5bae81` after explicit claim-local rematerialization of the controller-harvested checkpoint. The rematerialized theorem artifacts were preserved after the replacement diagnostic identified only a stale worker-result claim-card digest. Frozen workset identity, current claim baseline, provider digest, Stage6 alias, and writable ownership are sealed in JSON. No canonical writes, Lean/Lake/Elan invocation, network, clone, fetch, or predecessor/sibling-task-root inspection occurred.

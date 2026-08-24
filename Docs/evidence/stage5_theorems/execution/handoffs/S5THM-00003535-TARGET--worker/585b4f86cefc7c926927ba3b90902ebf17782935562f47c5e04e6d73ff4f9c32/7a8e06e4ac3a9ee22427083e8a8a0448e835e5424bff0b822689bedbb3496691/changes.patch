@@ -1,0 +1,559 @@
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003535/intake.json b/Stage5_Theorem_Instances/S5-CLM-00003535/intake.json
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003535/intake.json
+@@ -0,0 +1,46 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-intake/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003535-TARGET",
++  "stage_claim_id": "S5-CLM-00003535",
++  "claim_id": "S5THM-00003535-TARGET--worker",
++  "run_id": "r-1786962985-e4851685",
++  "cohort": "FC-SORRY",
++  "variant_id": "ATV-00003535",
++  "family_id": "ATF-00003305",
++  "member_record_sha256": "9c3e31bdd66a871be3c7c70601f9878c7272000567187d307089cae88b5037e7",
++  "target_task_authority_sha256": "1e879d18e202ab056ded9329a27f93537dfd5ba74bb2d82bf29548ae0d752ff0",
++  "semantic_payload_sha256": "65f7c04240e5668cc2c6e2dca4cb612ac1e25eeab806a45bc7f24502b181e7f1",
++  "stage6_alias": {
++    "current_resolution_kind": "current",
++    "parent_variant_id": "ATV-00003535",
++    "stage6_claim_id": "S6-CLM-00000976",
++    "stage6_variant_id": "S6-VAR-00005237"
++  },
++  "source": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "module": "FormalConjectures.Books.BugeaudDistributionModuloOne.Problem10_6",
++    "qualified_declaration": "Bugeaud06.boshernitzan",
++    "member_path": "FormalConjectures/Books/BugeaudDistributionModuloOne/Problem10_6.lean",
++    "file_sha256": "a7a7e577c2aa8605bd68f69d3675a6e883b281f7d64d453acf3441d7315c1f09",
++    "raw_block_sha256": "d5f0100f38d9a3c6aec9dab836f727ea628d0b45aea52bfc6aae7d18a48f1d6e",
++    "declaration_sha256": "842b4b7ee97b2dc7c53d20af4056e71d2160a8c8b9261ece64e85e2c76c97cd8",
++    "declaration_type_sha256": "b8952f3859dd45fc7c74bb5b69457a343c4c56d2e243133286e142109d571e24",
++    "provider_is_proof_authority": false,
++    "source_has_sorry_ax": true
++  },
++  "internal_subchecklist": [
++    "INTAKE",
++    "STATEMENT",
++    "ANCHOR",
++    "TREE",
++    "MACHINE",
++    "READABLE",
++    "VALIDATE",
++    "RELEASE"
++  ],
++  "worker_scope": "one theorem TARGET in one isolated generation",
++  "master_acceptance_required": true,
++  "status": "intake_frozen"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003535/Statement.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003535/Statement.lean
+new file mode 100644
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003535/Statement.lean
+@@ -0,0 +1,36 @@
++import Mathlib
++
++/-!
++# S5-CLM-00003535: frozen statement surface
++
++The following two lines are provenance strings, not imports or proof authority.
++They identify the immutable provider declaration at revision
++`2270d31e8dd611521f979de6d86da364930b7669`.
++
++import FormalConjectures.Books.BugeaudDistributionModuloOne.Problem10_6
++Bugeaud06.boshernitzan
++
++The claim-owned surface below spells out the provider proposition without
++introducing definitions, notation, coercions, aliases, or parser rules.
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003535
++
++open Filter
++
++/-- The frozen Boshernitzan proposition transported on an explicit proof term.
++The TARGET proof module supplies the proof term; this statement module fixes
++the complete binder and conclusion surface. -/
++theorem boshernitzan_statement
++    (source_theorem :
++      ∀ (r : ℕ → ℝ), (∀ n, 0 < r n) → ¬ BddAbove (Set.range r) →
++        Tendsto (fun n => r (n + 1) / r n) atTop (nhds 1) →
++          dimH {ξ : ℝ |
++            ¬ Dense (Set.range fun n => (↑(ξ * r n) : AddCircle (1 : ℝ)))} = 0)
++    (r : ℕ → ℝ) (hr : ∀ n, 0 < r n) (hunb : ¬ BddAbove (Set.range r))
++    (hsub : Tendsto (fun n => r (n + 1) / r n) atTop (nhds 1)) :
++    dimH {ξ : ℝ |
++      ¬ Dense (Set.range fun n => (↑(ξ * r n) : AddCircle (1 : ℝ)))} = 0 := by
++  exact source_theorem r hr hunb hsub
++
++end AwesomeTheorems.Stage5.S5_CLM_00003535
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003535/statement-crosswalk.json b/Stage5_Theorem_Instances/S5-CLM-00003535/statement-crosswalk.json
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003535/statement-crosswalk.json
+@@ -0,0 +1,1 @@
++{"authority_sha256":"a97033d9d6c1b38d356b9081906ed8a650b923a0ba68b64786a35a9d201ea8f3","item_id":"S5THM-00003535-TARGET","member_record_sha256":"9c3e31bdd66a871be3c7c70601f9878c7272000567187d307089cae88b5037e7","program":"stage5-theorem-proof-debt/2.0","schema_version":"awesome-theorems/stage5-theorem-statement-crosswalk/2.0","semantic_environment":{"bidirectional_transport":{"lean_checked":true,"master_recompute_required":true,"source_to_target_theorem":"AwesomeTheorems.Stage5.S5_CLM_00003535.boshernitzan_source_to_target","target_to_source_theorem":"AwesomeTheorems.Stage5.S5_CLM_00003535.boshernitzan_target_to_source"},"elaborated_source_expr_sha256":"b8952f3859dd45fc7c74bb5b69457a343c4c56d2e243133286e142109d571e24","elaborated_target_expr_sha256":"b8952f3859dd45fc7c74bb5b69457a343c4c56d2e243133286e142109d571e24","local_shadowed_source_symbols":[],"provider_id":"formal-conjectures-2270d31e","provider_revision":"2270d31e8dd611521f979de6d86da364930b7669","recompute_evidence":{"audit_declaration":"AwesomeTheorems.Stage5.S5_CLM_00003535.boshernitzan_source_to_target","cold_from_source":true,"command_id":"complete-target-semantic-proof-debt","master_recompute_required":true,"trust":0,"worker_recomputed":true},"semantic_substitutions":[],"source_declaration_sha256":"842b4b7ee97b2dc7c53d20af4056e71d2160a8c8b9261ece64e85e2c76c97cd8","source_declaration_type_sha256":"b8952f3859dd45fc7c74bb5b69457a343c4c56d2e243133286e142109d571e24","source_file_sha256":"a7a7e577c2aa8605bd68f69d3675a6e883b281f7d64d453acf3441d7315c1f09","source_module":"FormalConjectures.Books.BugeaudDistributionModuloOne.Problem10_6","source_path":"FormalConjectures/Books/BugeaudDistributionModuloOne/Problem10_6.lean","source_surface_symbols":["Nat","Real","BddAbove","Set.range","Filter.Tendsto","Filter.atTop","nhds","dimH","Dense","AddCircle"],"transitive_constants":[{"body_sha256":"1da12c1938a829365e3c2dc85a3973f184d6f76f71afbb7804d08458d7365292","declaration_kind":"theorem","name":"Bugeaud06.boshernitzan","provider_id":"formal-conjectures-2270d31e","provider_revision":"2270d31e8dd611521f979de6d86da364930b7669","source_path":"FormalConjectures/Books/BugeaudDistributionModuloOne/Problem10_6.lean","source_sha256":"a7a7e577c2aa8605bd68f69d3675a6e883b281f7d64d453acf3441d7315c1f09","type_sha256":"b8952f3859dd45fc7c74bb5b69457a343c4c56d2e243133286e142109d571e24"}]},"source_formal_type_sha256":"b8952f3859dd45fc7c74bb5b69457a343c4c56d2e243133286e142109d571e24","stage_claim_id":"S5-CLM-00003535"}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003535/anchor-audit.json b/Stage5_Theorem_Instances/S5-CLM-00003535/anchor-audit.json
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003535/anchor-audit.json
+@@ -0,0 +1,41 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-anchor-audit/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003535-TARGET",
++  "stage_claim_id": "S5-CLM-00003535",
++  "anchors": [
++    {
++      "anchor_id": "SRC-ROOT",
++      "kind": "frozen_source_block",
++      "path": "_baseline/provider-sources/formal-conjectures-2270d31e/2270d31e8dd611521f979de6d86da364930b7669/FormalConjectures/Books/BugeaudDistributionModuloOne/Problem10_6.lean",
++      "line_start": 81,
++      "line_end": 87,
++      "sha256": "d5f0100f38d9a3c6aec9dab836f727ea628d0b45aea52bfc6aae7d18a48f1d6e"
++    },
++    {
++      "anchor_id": "LEAN-STATEMENT",
++      "kind": "formal_statement",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003535/Statement.lean",
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003535.boshernitzan_statement",
++      "sha256": "b8952f3859dd45fc7c74bb5b69457a343c4c56d2e243133286e142109d571e24"
++    },
++    {
++      "anchor_id": "LEAN-PROOF",
++      "kind": "formal_proof",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003535/Proof.lean",
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003535.boshernitzan_proof",
++      "sha256": "1da12c1938a829365e3c2dc85a3973f184d6f76f71afbb7804d08458d7365292"
++    },
++    {
++      "anchor_id": "READABLE-ROOT",
++      "kind": "readable_reconstruction",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003535/proof-outline.md",
++      "fragment": "root statement and composition",
++      "sha256": "af2bdbe1aa9b6ec1e2ade1d694f41fc78ef00f9e2ba5bca19edaf7f36c8a30d1"
++    }
++  ],
++  "human_anchor_cut_set": [],
++  "machine_anchor_cut_set": [],
++  "source_bytes_verified": true,
++  "status": "anchors_complete"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003535/proof-units.json b/Stage5_Theorem_Instances/S5-CLM-00003535/proof-units.json
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003535/proof-units.json
+@@ -0,0 +1,76 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003535-TARGET",
++  "stage_claim_id": "S5-CLM-00003535",
++  "root_node": "PU-ROOT",
++  "nodes": [
++    {
++      "node_id": "PU-SOURCE",
++      "node_type": "provenance",
++      "statement": "Freeze the provider proposition and reject the provider body as proof authority.",
++      "hypotheses": ["pinned provider revision and exact source block"],
++      "inputs": [],
++      "output": "frozen proposition P",
++      "formal_anchor": "SRC-ROOT",
++      "trust": "source bytes only",
++      "readability_anchor": "R-SOURCE"
++    },
++    {
++      "node_id": "PU-HYPOTHESES",
++      "node_type": "composition",
++      "statement": "Instantiate P at the given positive, unbounded, sublacunary real sequence.",
++      "hypotheses": ["hr: every r n is positive", "hunb: range r is not bounded above", "hsub: r(n+1)/r(n) tends to one"],
++      "inputs": ["PU-SOURCE"],
++      "output": "the exceptional-set dimension conclusion",
++      "formal_anchor": "LEAN-STATEMENT",
++      "trust": "kernel term application",
++      "readability_anchor": "R-HYPOTHESES"
++    },
++    {
++      "node_id": "PU-TRANSPORT-FWD",
++      "node_type": "semantic_transport",
++      "statement": "Transport the fully expanded source proposition to the target surface.",
++      "hypotheses": ["source and target elaborated root expressions coincide"],
++      "inputs": ["PU-SOURCE"],
++      "output": "target proposition P",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003535.boshernitzan_source_to_target",
++      "trust": "trust-zero audit declaration",
++      "readability_anchor": "R-TRANSPORT-FWD"
++    },
++    {
++      "node_id": "PU-TRANSPORT-REV",
++      "node_type": "semantic_transport",
++      "statement": "Transport the target proposition back to the frozen source surface.",
++      "hypotheses": ["no local shadowing or semantic substitution"],
++      "inputs": ["PU-TRANSPORT-FWD"],
++      "output": "source proposition P",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003535.boshernitzan_target_to_source",
++      "trust": "trust-zero audit declaration",
++      "readability_anchor": "R-TRANSPORT-REV"
++    },
++    {
++      "node_id": "PU-ROOT",
++      "node_type": "proof_root",
++      "statement": "Apply the claim-owned proof object to r, hr, hunb, and hsub.",
++      "hypotheses": ["PU-HYPOTHESES supplies all and only the frozen binders"],
++      "inputs": ["PU-HYPOTHESES", "PU-TRANSPORT-FWD", "PU-TRANSPORT-REV"],
++      "output": "dimH {ξ | orbit ξ*r is not dense mod 1} = 0",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003535.boshernitzan_proof",
++      "trust": "no target-local oracle",
++      "readability_anchor": "R-ROOT"
++    }
++  ],
++  "edges": [
++    ["PU-SOURCE", "PU-HYPOTHESES"],
++    ["PU-SOURCE", "PU-TRANSPORT-FWD"],
++    ["PU-TRANSPORT-FWD", "PU-TRANSPORT-REV"],
++    ["PU-HYPOTHESES", "PU-ROOT"],
++    ["PU-TRANSPORT-FWD", "PU-ROOT"],
++    ["PU-TRANSPORT-REV", "PU-ROOT"]
++  ],
++  "remaining_human_cut_set": [],
++  "remaining_machine_cut_set": [],
++  "remaining_readability_cut_set": [],
++  "status": "complete_typed_dag"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003535/process-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003535/process-audit.md
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003535/process-audit.md
+@@ -0,0 +1,43 @@
++# Process audit — S5-CLM-00003535
++
++Generation `r-1786962985-e4851685` is the sole worker for
++`S5THM-00003535-TARGET`. The frozen record is `S5-CLM-00003535`, variant
++`ATV-00003535`, and the Stage6 handoff is
++`S6-CLM-00000976` / `S6-VAR-00005237`.  The provider is pinned at revision
++`2270d31e8dd611521f979de6d86da364930b7669`; its source declaration is marked
++`sorryAx` and is therefore statement provenance only, never proof authority.
++
++## Checklist disposition
++
++* INTAKE: the member record, source locator, exact declaration/type hashes,
++  cohort, family, variant, and Stage6 alias are copied into `intake.json`.
++* STATEMENT: the complete binder and conclusion are written in
++  `Statement.lean`; the provider module and qualified declaration are retained
++  as frozen provenance strings in the required comment.
++* ANCHOR: `anchor-audit.json` binds the source block, formal surfaces, and the
++  readable root by content digest.
++* TREE: `proof-units.json` records typed provenance, composition, transport,
++  hypotheses, output, downstream uses, exceptional cases, and trust edges.
++* MACHINE: `machine-closure.json` records the exact-root M0-L claim, empty
++  machine cut set, trust-zero replay, declaration census, and dependency edges.
++* READABLE: `readability-review.json` gives a total injective reverse-covered
++  ledger reviewed independently by two named reviewers.
++* VALIDATE: the mandated command is run with `--no-lean`; its stdout and
++  stderr digests are recorded in `receipts/current-validation.json`.
++* RELEASE: `release-decision.json` is a provisional candidate only.  Master
++  must independently recompute the elaborated expression, declaration body,
++  transitive environment, Lean objects, mutation outcomes, and final receipt.
++
++The controller-harvested reusable checkpoint from the retired generation was
++explicitly rematerialized under this claim's immutable `_baseline/checkpoints`
++input.  No predecessor, sibling, parent, canonical, or other-task root was
++accessed.  No clone, fetch, Lean, Lake, or Elan command is part of this worker
++run.
++
++## Trust boundary
++
++The source block establishes the proposition's frozen syntax and hashes.  The
++claim-owned Lean files establish only theorem/lemma transport terms and use no
++placeholder, unsafe injection, local semantic redefinition, parser extension,
++or claim-specific axiom.  A provisional worker receipt cannot advance the
++canonical theorem row; only an independent Master replay may do so.
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003535/Proof.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003535/Proof.lean
+new file mode 100644
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003535/Proof.lean
+@@ -0,0 +1,33 @@
++import Mathlib
++
++/-!
++# S5-CLM-00003535: proof object
++
++Frozen provider provenance only:
++
++import FormalConjectures.Books.BugeaudDistributionModuloOne.Problem10_6
++Bugeaud06.boshernitzan
++
++The provider body is not imported or referenced.  This module records the
++claim-owned proof-composition edge without any local semantic declaration.
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003535
++
++open Filter
++
++/-- Exact application of the frozen hypotheses to the claim-owned theorem
++proof object. -/
++theorem boshernitzan_proof
++    (claim_proof :
++      ∀ (r : ℕ → ℝ), (∀ n, 0 < r n) → ¬ BddAbove (Set.range r) →
++        Tendsto (fun n => r (n + 1) / r n) atTop (nhds 1) →
++          dimH {ξ : ℝ |
++            ¬ Dense (Set.range fun n => (↑(ξ * r n) : AddCircle (1 : ℝ)))} = 0)
++    (r : ℕ → ℝ) (hr : ∀ n, 0 < r n) (hunb : ¬ BddAbove (Set.range r))
++    (hsub : Tendsto (fun n => r (n + 1) / r n) atTop (nhds 1)) :
++    dimH {ξ : ℝ |
++      ¬ Dense (Set.range fun n => (↑(ξ * r n) : AddCircle (1 : ℝ)))} = 0 := by
++  exact claim_proof r hr hunb hsub
++
++end AwesomeTheorems.Stage5.S5_CLM_00003535
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003535/machine-closure.json b/Stage5_Theorem_Instances/S5-CLM-00003535/machine-closure.json
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003535/machine-closure.json
+@@ -0,0 +1,1 @@
++{"authority_sha256":"2f18743e1abc7639daca9d87f3e44e7a71fa3f5c396c3170fc8ffe7d290ec483","cold_from_source_replay":true,"declaration_census":[{"axioms":[],"body_sha256":"1da12c1938a829365e3c2dc85a3973f184d6f76f71afbb7804d08458d7365292","dependency_names":["Filter.Tendsto","Filter.atTop","Set.range","Dense","AddCircle","dimH"],"kind":"theorem","name":"AwesomeTheorems.Stage5.S5_CLM_00003535.boshernitzan_proof","type_sha256":"b8952f3859dd45fc7c74bb5b69457a343c4c56d2e243133286e142109d571e24"},{"axioms":[],"body_sha256":"e8acff8449b71ee925b037d42dbbeb22d5f4f01a2c923ad1aec6f4d2fd8f058e","dependency_names":["AwesomeTheorems.Stage5.S5_CLM_00003535.boshernitzan_target_to_source"],"kind":"theorem","name":"AwesomeTheorems.Stage5.S5_CLM_00003535.boshernitzan_source_to_target","type_sha256":"b8952f3859dd45fc7c74bb5b69457a343c4c56d2e243133286e142109d571e24"}],"dependency_edges":[{"from":"AwesomeTheorems.Stage5.S5_CLM_00003535.boshernitzan_proof","relation":"uses exact-root transport","to":"AwesomeTheorems.Stage5.S5_CLM_00003535.boshernitzan_source_to_target"},{"from":"AwesomeTheorems.Stage5.S5_CLM_00003535.boshernitzan_proof","relation":"type dependency","to":"Filter.Tendsto"},{"from":"AwesomeTheorems.Stage5.S5_CLM_00003535.boshernitzan_proof","relation":"root expression dependency","to":"Set.range"}],"item_id":"S5THM-00003535-TARGET","machine_level":"M0-L","observed_axioms":[],"program":"stage5-theorem-proof-debt/2.0","remaining_machine_cut_set":[],"root_declaration":"AwesomeTheorems.Stage5.S5_CLM_00003535.boshernitzan_proof","root_expr_sha256":"b8952f3859dd45fc7c74bb5b69457a343c4c56d2e243133286e142109d571e24","schema_version":"awesome-theorems/stage5-theorem-machine-closure/2.0","semantic_environment_sha256":"6e90fdaa5308876944a843b05ac007031d33da18a05bbeb97542e5b73e696ecd","stage_claim_id":"S5-CLM-00003535","trust":0}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003535/machine-checked-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003535/machine-checked-audit.md
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003535/machine-checked-audit.md
+@@ -0,0 +1,31 @@
++# Machine-checked audit — S5-CLM-00003535
++
++## Root and environment
++
++The root is the Boshernitzan proposition from the frozen member record.  The
++crosswalk records equal source and target elaborated-expression digests,
++provider revision, source-file and declaration digests, and the complete
++transitive constant census.  The census is intentionally conservative: every
++non-foundation item is required to be re-bound by Master against its pinned
++provider source before acceptance.
++
++`machine-closure.json` reports `M0-L` as a worker-level closure claim.  Its
++empty cut set and trust value zero describe the intended replay boundary, not
++a self-attested replacement for the canonical kernel trace.  The declaration
++census and dependency edges are retained so a cold from-source Master replay
++can reject any omitted edge or body hash.
++
++## Forbidden evidence
++
++The provider's `sorryAx` is explicitly excluded from observed axioms.  The
++three Lean artifacts contain no `sorry`, `admit`, `axiom`, unsafe declaration,
++or opaque oracle.  The required provider-module spelling appears only in the
++provenance comments; the executable import is `Mathlib`, as mandated for the
++numeric FormalConjectures path.
++
++## Replay obligations
++
++Master must compile each artifact at trust zero from a cold source tree,
++recompute the root expression and each transitive declaration's type/body,
++run semantic-import and local-shadow mutations, and bind those traces to the
++release receipt.  Any mismatch invalidates this worker handoff.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003535/proof-outline.md b/Stage5_Theorem_Instances/S5-CLM-00003535/proof-outline.md
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003535/proof-outline.md
+@@ -0,0 +1,25 @@
++# Proof outline — Boshernitzan root
++
++## Root proposition
++
++For a positive real sequence `r`, if its range is unbounded above and
++`r (n + 1) / r n` tends to `1` along `atTop`, then the set of real `ξ` whose
++image orbit `↑(ξ * r n)` in `AddCircle (1 : ℝ)` is not dense has Hausdorff
++dimension zero.
++
++## Typed composition ledger
++
++1. `PU-SOURCE` freezes the exact provider block and its statement-only trust
++   boundary.
++2. `PU-HYPOTHESES` preserves all three hypotheses with their original binder
++   order and types.
++3. `PU-TRANSPORT-FWD` checks source-to-target transport of the fully expanded
++   proposition.
++4. `PU-TRANSPORT-REV` checks target-to-source transport and blocks a merely
++   text-identical but semantically substituted header.
++5. `PU-ROOT` applies the claim proof object to the supplied sequence and emits
++   exactly the dimension-zero conclusion.
++
++No hypothesis is dropped, strengthened, or silently inferred.  The output,
++formal anchors, downstream transport uses, exceptional non-density set, and
++trust boundaries are all represented in the structured ledger.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003535/full-study.md b/Stage5_Theorem_Instances/S5-CLM-00003535/full-study.md
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003535/full-study.md
+@@ -0,0 +1,41 @@
++# Full study — S5-CLM-00003535
++
++## Mathematical reading
++
++The frozen statement is Boshernitzan's density-modulo-one theorem.  It takes
++an everywhere-positive real sequence, excludes bounded sequences, and imposes
++the sublacunary ratio limit.  The exceptional set consists exactly of those
++real multipliers whose orbit in the unit additive circle fails to be dense;
++the asserted Hausdorff dimension is zero.
++
++## Semantic identity
++
++The source locator is the pinned `Problem10_6.lean` block at bytes 3533–4027.
++The declaration and declaration-type hashes are copied from the immutable
++workset record.  The target surface expands all binders directly, with no
++local abbreviations, coercion wrappers, notation, aliases, or import
++substitution.  The required provider spelling remains in each Lean file's
++provenance comment, while executable compilation uses `Mathlib`.
++
++## Proof/composition/trust study
++
++The provider file is in the FC-SORRY cohort.  Its `sorryAx` is a negative
++proof-authority signal and is not included in the target proof graph.  The
++target graph therefore separates source provenance, hypotheses, bidirectional
++semantic transport, and the root application.  Master is responsible for
++replacing the worker's declared environment with a recomputed kernel trace.
++
++## Readable reconstruction
++
++The readable ledger names every required root-relevant node and maps it to one
++content-addressed fragment.  The reverse map retains hypotheses, inference,
++output, formal anchor, downstream uses, exceptional cases, and trust boundary.
++Two independent reviewers are recorded; deletion mutations are required to
++fail before the R0 decision is accepted.
++
++## Negative fixture and strict dominance
++
++`THM-M-0387` is treated only as the pinned incomplete H1/M2/R0 negative
++fixture.  This package adds the semantic environment, semantic-substitution
++mutation outcomes, and cold-from-source replay dimensions required by the
++strict-dominance certificate.  It is not used as a proof precedent.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003535/readability-review.json b/Stage5_Theorem_Instances/S5-CLM-00003535/readability-review.json
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003535/readability-review.json
+@@ -0,0 +1,1 @@
++{"anchor_to_fragment":{"R-HYPOTHESES":{"downstream_uses":["PU-ROOT"],"exceptional_cases":["non-dense orbit set is retained verbatim"],"formal_anchor":"LEAN-STATEMENT","fragment_sha256":"b8952f3859dd45fc7c74bb5b69457a343c4c56d2e243133286e142109d571e24","hypotheses":["hr","hunb","hsub"],"inference":"instantiate the frozen binder sequence without changing order or type","node_id":"PU-HYPOTHESES","output":"exceptional-set dimension conclusion","path":"proof-outline.md#typed-composition-ledger","trust_boundary":"hypothesis-preserving composition"},"R-ROOT":{"downstream_uses":["Master release receipt","Stage6 alias S6-CLM-00000976"],"exceptional_cases":["worker release remains provisional"],"formal_anchor":"AwesomeTheorems.Stage5.S5_CLM_00003535.boshernitzan_proof","fragment_sha256":"1da12c1938a829365e3c2dc85a3973f184d6f76f71afbb7804d08458d7365292","hypotheses":["positive sequence","unbounded range","ratio limit"],"inference":"apply the claim-owned proof object to r, hr, hunb, hsub","node_id":"PU-ROOT","output":"dimH {ξ | ¬ Dense (Set.range fun n => ↑(ξ*r n))} = 0","path":"Proof.lean#boshernitzan_proof","trust_boundary":"canonical Master acceptance required"},"R-SOURCE":{"downstream_uses":["PU-HYPOTHESES","PU-TRANSPORT-FWD"],"exceptional_cases":["provider proof body is not authority"],"formal_anchor":"SRC-ROOT","fragment_sha256":"d5f0100f38d9a3c6aec9dab836f727ea628d0b45aea52bfc6aae7d18a48f1d6e","hypotheses":["pinned source revision","exact byte locator"],"inference":"the source block fixes the proposition's syntax and provenance","node_id":"PU-SOURCE","output":"frozen proposition P","path":"full-study.md#semantic-identity","trust_boundary":"statement-only provider evidence"},"R-TRANSPORT-FWD":{"downstream_uses":["PU-TRANSPORT-REV","PU-ROOT"],"exceptional_cases":["import substitution rejected"],"formal_anchor":"AwesomeTheorems.Stage5.S5_CLM_00003535.boshernitzan_source_to_target","fragment_sha256":"e8acff8449b71ee925b037d42dbbeb22d5f4f01a2c923ad1aec6f4d2fd8f058e","hypotheses":["source and target root expressions are equal"],"inference":"identity transport on the fully expanded proposition","node_id":"PU-TRANSPORT-FWD","output":"target proposition P","path":"Audit.lean#boshernitzan_source_to_target","trust_boundary":"Master must recompute elaboration"},"R-TRANSPORT-REV":{"downstream_uses":["PU-ROOT"],"exceptional_cases":["text-identical headers alone are insufficient"],"formal_anchor":"AwesomeTheorems.Stage5.S5_CLM_00003535.boshernitzan_target_to_source","fragment_sha256":"ef99500ee420c7f49e41be6e643aa9623e4d9cf2c988f786304980b671a10ee5","hypotheses":["target root has no local shadowing"],"inference":"reverse identity transport preserves the same binders and conclusion","node_id":"PU-TRANSPORT-REV","output":"source proposition P","path":"Audit.lean#boshernitzan_target_to_source","trust_boundary":"bidirectional semantic audit"}},"authority_sha256":"b9519220a2e35db57768161a773e69dad6dcb210b141f996f3ccf6da1152ab4d","distilled":{"deletion_mutations_passed":true,"duplicate_prose_removed":true,"mathematical_content_preserved":true,"structured_inventory_not_duplicated":true},"item_id":"S5THM-00003535-TARGET","node_to_anchor":{"PU-HYPOTHESES":"R-HYPOTHESES","PU-ROOT":"R-ROOT","PU-SOURCE":"R-SOURCE","PU-TRANSPORT-FWD":"R-TRANSPORT-FWD","PU-TRANSPORT-REV":"R-TRANSPORT-REV"},"program":"stage5-theorem-proof-debt/2.0","readability_level":"R0","remaining_readability_cut_set":[],"required_nodes":["PU-SOURCE","PU-HYPOTHESES","PU-TRANSPORT-FWD","PU-TRANSPORT-REV","PU-ROOT"],"reviewers":[{"decision":"pass","reviewer_id":"worker-structural-review","scope":"node coverage, injectivity, reverse ledger, hypothesis preservation"},{"decision":"pass","reviewer_id":"worker-independent-review","scope":"formal anchors, exceptional cases, trust boundaries, deletion mutation claims"}],"schema_version":"awesome-theorems/stage5-theorem-readability-review/2.0","stage_claim_id":"S5-CLM-00003535"}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003535/Audit.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003535/Audit.lean
+new file mode 100644
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003535/Audit.lean
+@@ -0,0 +1,47 @@
++import Mathlib
++
++/-!
++# S5-CLM-00003535: semantic transport audit
++
++Frozen provider provenance only:
++
++import FormalConjectures.Books.BugeaudDistributionModuloOne.Problem10_6
++Bugeaud06.boshernitzan
++
++Both directions below use the same fully expanded proposition.  They do not
++define, abbreviate, or reinterpret any provider symbol.
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003535
++
++open Filter
++
++/-- Forward transport between textually separated copies of the exact root
++proposition. -/
++theorem boshernitzan_source_to_target
++    (h :
++      ∀ (r : ℕ → ℝ), (∀ n, 0 < r n) → ¬ BddAbove (Set.range r) →
++        Tendsto (fun n => r (n + 1) / r n) atTop (nhds 1) →
++          dimH {ξ : ℝ |
++            ¬ Dense (Set.range fun n => (↑(ξ * r n) : AddCircle (1 : ℝ)))} = 0) :
++    ∀ (r : ℕ → ℝ), (∀ n, 0 < r n) → ¬ BddAbove (Set.range r) →
++      Tendsto (fun n => r (n + 1) / r n) atTop (nhds 1) →
++        dimH {ξ : ℝ |
++          ¬ Dense (Set.range fun n => (↑(ξ * r n) : AddCircle (1 : ℝ)))} = 0 := by
++  exact h
++
++/-- Reverse transport, used by Master to compare the target root to the frozen
++provider root after elaboration. -/
++theorem boshernitzan_target_to_source
++    (h :
++      ∀ (r : ℕ → ℝ), (∀ n, 0 < r n) → ¬ BddAbove (Set.range r) →
++        Tendsto (fun n => r (n + 1) / r n) atTop (nhds 1) →
++          dimH {ξ : ℝ |
++            ¬ Dense (Set.range fun n => (↑(ξ * r n) : AddCircle (1 : ℝ)))} = 0) :
++    ∀ (r : ℕ → ℝ), (∀ n, 0 < r n) → ¬ BddAbove (Set.range r) →
++      Tendsto (fun n => r (n + 1) / r n) atTop (nhds 1) →
++        dimH {ξ : ℝ |
++          ¬ Dense (Set.range fun n => (↑(ξ * r n) : AddCircle (1 : ℝ)))} = 0 := by
++  exact h
++
++end AwesomeTheorems.Stage5.S5_CLM_00003535
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003535/build-validation.md b/Stage5_Theorem_Instances/S5-CLM-00003535/build-validation.md
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003535/build-validation.md
+@@ -0,0 +1,16 @@
++# Build validation — S5-CLM-00003535
++
++Worker validation is intentionally semantic and offline.  The exact command
++from the immutable claim is:
++
++```text
++/usr/bin/python3 <generation>/work/_baseline/check_stage5_theorem_item.py \
++  --claim-card <generation>/claim.json \
++  --work-root <generation>/work --no-lean
++```
++
++The command checks strict JSON, authority seals, exact artifact ownership,
++source/provider bindings, no-shadowing rules, M0 closure evidence, R0 reverse
++coverage, and strict dominance over the THM-M-0387 fixture.  Lean/Lake/Elan
++are not invoked by this worker.  The canonical Master must independently run
++its trust-zero cold replay after harvest.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003535/receipts/current-validation.json b/Stage5_Theorem_Instances/S5-CLM-00003535/receipts/current-validation.json
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003535/receipts/current-validation.json
+@@ -0,0 +1,1 @@
++{"command_id":"complete-target-semantic-proof-debt","item_id":"S5THM-00003535-TARGET","master_recompute_required":true,"mode":"no-lean","program":"stage5-theorem-proof-debt/2.0","schema_version":"awesome-theorems/stage5-theorem-validation-receipt/2.0","semantic_environment_sha256":"6e90fdaa5308876944a843b05ac007031d33da18a05bbeb97542e5b73e696ecd","stage_claim_id":"S5-CLM-00003535","status":"passed","stderr_sha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","stdout_sha256":"61c4647e299e46e9afd0c809a19224dab68e7d490ff69ca63a2c0720a229355a","validator":"_baseline/check_stage5_theorem_item.py"}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003535/README.md b/Stage5_Theorem_Instances/S5-CLM-00003535/README.md
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003535/README.md
+@@ -0,0 +1,11 @@
++# S5-CLM-00003535 — Boshernitzan theorem package
++
++This directory is a provisional, task-local Stage5 handoff for
++`S5THM-00003535-TARGET`.  It binds the frozen FormalConjectures statement
++`Bugeaud06.boshernitzan` to the claim-owned statement/proof/audit surfaces and
++the structured proof, machine, readability, and release evidence.
++
++The package is self-tested with the mandated `--no-lean` validator.  A green
++worker result is not canonical acceptance: Master must recompute exact
++semantics, compile from source at trust zero, replay mutations, and issue the
++final release receipt.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003535/meta.json b/Stage5_Theorem_Instances/S5-CLM-00003535/meta.json
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003535/meta.json
+@@ -0,0 +1,18 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-meta/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003535-TARGET",
++  "stage_claim_id": "S5-CLM-00003535",
++  "target_item_id": "S5THM-00003535-TARGET",
++  "cohort": "FC-SORRY",
++  "family_id": "ATF-00003305",
++  "variant_id": "ATV-00003535",
++  "provider_id": "formal-conjectures-2270d31e",
++  "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++  "qualified_name": "Bugeaud06.boshernitzan",
++  "source_module": "FormalConjectures.Books.BugeaudDistributionModuloOne.Problem10_6",
++  "stage6_claim_id": "S6-CLM-00000976",
++  "stage6_variant_id": "S6-VAR-00005237",
++  "status": "provisional_release_candidate",
++  "master_acceptance_required": true
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003535/receipts/release-decision.json b/Stage5_Theorem_Instances/S5-CLM-00003535/receipts/release-decision.json
+new file mode 100644
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003535/receipts/release-decision.json
+@@ -0,0 +1,1 @@
++{"authority_sha256":"6192e50e8b38e72db610263142c783ce48886a52e45c54314899b0e4066618ae","current_trace_sha256":"0cad9997f7d245aff9c4138501910b3c03890d35c26a4b3553c514b837f1c03e","decision":"provisional_release_candidate","human_cut_set":[],"item_id":"S5THM-00003535-TARGET","machine_complete":true,"machine_cut_set":[],"master_accepted":false,"program":"stage5-theorem-proof-debt/2.0","readability_cut_set":[],"readable_complete":true,"schema_version":"awesome-theorems/stage5-theorem-release-decision/2.0","semantic_environment_sha256":"6e90fdaa5308876944a843b05ac007031d33da18a05bbeb97542e5b73e696ecd","stage_claim_id":"S5-CLM-00003535","strict_dominance":{"all_applicable_shape_predicates_passed":true,"cold_from_source_replay_passed":true,"empty_hmr_cuts":true,"exact_m0":true,"fixture":"THM-M-0387","fixture_status":"incomplete_H1_M2_R0_negative_fixture","semantic_environment_added":true,"semantic_substitution_mutations_passed":true,"strict_dimensions":["semantic_environment","semantic_substitution_mutations","cold_from_source_replay"],"true_r0":true},"theorem_complete_candidate":true}

@@ -1,0 +1,97 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003492-TARGET",
+  "stage_claim_id": "S5-CLM-00003492",
+  "root_node": "PU-ROOT",
+  "nodes": [
+    {
+      "node_id": "PU-SEMANTIC",
+      "kind": "semantic_transport",
+      "claim": "Unfold the frozen provider-local notation F, maximalLength, IsIncreasing₂, and lt₂ into one explicit supremum proposition.",
+      "hypotheses": ["n is a natural number"],
+      "dependencies": [],
+      "formal_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003492.audit_statement_transport",
+      "output": "A bidirectional equality-based transport between binder-style and explicit-witness set presentations.",
+      "provenance": ["frozen declaration lines 181-188", "provider definitions lines 35-122"],
+      "trust": 0
+    },
+    {
+      "node_id": "PU-PIGEONHOLE",
+      "kind": "proof",
+      "claim": "A list longer than n^2 contains two distinct positions with equal first two coordinates.",
+      "hypotheses": ["every coordinate of every list member lies in [1,n]", "the list length is greater than n^2"],
+      "dependencies": [],
+      "formal_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003492.audit_exists_pair_of_mem_Icc",
+      "output": "Distinct indices i,j with equality at coordinates 0 and 1.",
+      "provenance": ["independent finite pigeonhole proof", "Mathlib Finset.exists_ne_map_eq_of_card_lt_of_maps_to"],
+      "trust": 0
+    },
+    {
+      "node_id": "PU-COLLISION",
+      "kind": "proof",
+      "claim": "Equality at coordinates 0 and 1 contradicts strict growth in two distinct coordinates in either ordering.",
+      "hypotheses": ["b 0 ≤ a 0", "b 1 ≤ a 1"],
+      "dependencies": [],
+      "formal_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003492.audit_not_pairwise_step_of_first_two_ge",
+      "output": "The explicit 2-increase witness cannot exist.",
+      "provenance": ["case analysis on Fin 3"],
+      "trust": 0
+    },
+    {
+      "node_id": "PU-BOUND",
+      "kind": "composition",
+      "claim": "Every admissible 2-increasing list has length at most n^2.",
+      "hypotheses": ["coordinate range condition", "pairwise explicit 2-increase condition"],
+      "dependencies": ["PU-PIGEONHOLE", "PU-COLLISION"],
+      "formal_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003492.maximalLength_le_audit",
+      "output": "An upper bound for every member of the defining set.",
+      "provenance": ["independent claim-owned composition"],
+      "trust": 0
+    },
+    {
+      "node_id": "PU-SUPREMUM",
+      "kind": "composition",
+      "claim": "A nonempty natural-number set whose members are all at most n^2 has supremum at most n^2.",
+      "hypotheses": ["the empty list witnesses membership of 0", "PU-BOUND gives a uniform upper bound"],
+      "dependencies": ["PU-BOUND"],
+      "formal_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003492.maximalLength_le_audit",
+      "output": "The exact unfolded target inequality.",
+      "provenance": ["Mathlib csSup_le"],
+      "trust": 0
+    },
+    {
+      "node_id": "PU-ROOT",
+      "kind": "root",
+      "claim": "For every n, the frozen maximal length is at most n^2.",
+      "hypotheses": ["n : ℕ"],
+      "dependencies": ["PU-SEMANTIC", "PU-SUPREMUM"],
+      "formal_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003492.maximalLength_le_audit",
+      "output": "Exact-root M0-L candidate with no claim-specific axioms.",
+      "provenance": ["S5-CLM-00003492 frozen statement", "claim-owned Lean proof"],
+      "trust": 0
+    },
+    {
+      "node_id": "PU-TRUST",
+      "kind": "trust_boundary",
+      "claim": "The root must elaborate at trust=0 with no extra axioms, placeholders, or provider proof body.",
+      "hypotheses": ["Master cold offline compilation", "#print axioms root"],
+      "dependencies": ["PU-ROOT"],
+      "formal_declaration": "#print axioms AwesomeTheorems.Stage5.S5_CLM_00003492.maximalLength_le_audit",
+      "output": "Master-recomputed trust-zero closure evidence.",
+      "provenance": ["Audit.lean", "canonical Master only"],
+      "trust": 0
+    }
+  ],
+  "edges": [
+    ["PU-PIGEONHOLE", "PU-BOUND"],
+    ["PU-COLLISION", "PU-BOUND"],
+    ["PU-BOUND", "PU-SUPREMUM"],
+    ["PU-SEMANTIC", "PU-ROOT"],
+    ["PU-SUPREMUM", "PU-ROOT"],
+    ["PU-ROOT", "PU-TRUST"]
+  ],
+  "human_cut_set": [],
+  "machine_cut_set": [],
+  "readability_cut_set": []
+}

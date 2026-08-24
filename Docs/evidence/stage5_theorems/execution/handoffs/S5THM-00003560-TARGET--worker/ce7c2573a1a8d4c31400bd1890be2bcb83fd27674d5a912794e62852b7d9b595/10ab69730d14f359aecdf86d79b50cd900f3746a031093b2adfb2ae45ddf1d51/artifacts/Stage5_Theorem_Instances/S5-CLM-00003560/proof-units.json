@@ -1,0 +1,74 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003560-TARGET",
+  "stage_claim_id": "S5-CLM-00003560",
+  "root_node": "PU-root",
+  "nodes": [
+    {
+      "node_id": "PU-source",
+      "kind": "provenance",
+      "statement": "The frozen provider declaration has the exact Erdos 1004 solved-variant type.",
+      "inputs": ["member record 301bfb7dc226a105047979bf2df1b18b92ae0b21bf664f63e769d9294d8f6d81"],
+      "hypotheses": ["Provider revision and source bytes equal the frozen locator."],
+      "inference": "Read and bind the qualified provider declaration as frozen semantic/provenance authority.",
+      "output": "Exact source proposition and provider declaration reference.",
+      "formal_anchor": "A-source",
+      "dependencies": [],
+      "downstream_uses": ["PU-transport"],
+      "exceptional_cases": ["The provider source contains sorryAx; this is recorded and is not misreported as local proof authority."],
+      "trust_boundary": ["Pinned provider revision; Lean kernel trust=0; canonical Master independently recomputes semantic identity."]
+    },
+    {
+      "node_id": "PU-transport",
+      "kind": "composition",
+      "statement": "The source proposition and claim-local target proposition are definitionally identical in the exact imported environment.",
+      "inputs": ["PU-source"],
+      "hypotheses": ["No local declarations or parser extensions shadow source symbols."],
+      "inference": "Expand answer(True) and IsDistinctTotientRun from the frozen source and check source_to_target and target_to_source identity transports in Lean.",
+      "output": "Bidirectional transport between the frozen source type and target type.",
+      "formal_anchor": "A-statement",
+      "dependencies": ["PU-source"],
+      "downstream_uses": ["PU-root"],
+      "exceptional_cases": ["Import substitution, coercion changes, aliases, and semantic shadowing are rejected."],
+      "trust_boundary": ["Canonical project lacks FormalConjectures; replay uses Mathlib plus exact frozen spelling, with Master semantic recomputation mandatory."]
+    },
+    {
+      "node_id": "PU-root",
+      "kind": "proof",
+      "statement": "There exists c > 0 such that eventually every distinct-totient run beginning at n has real length K bounded by n / exp(c (log n)^(1/3)).",
+      "inputs": ["PU-transport"],
+      "hypotheses": ["K is natural; c is real and positive; n is eventually in atTop; IsDistinctTotientRun n K."],
+      "inference": "Check the complete expanded target as a conditional identity transport while retaining the frozen provider theorem as provenance authority.",
+      "output": "A trust-zero target-local transport for the complete expanded equivalence.",
+      "formal_anchor": "A-proof",
+      "dependencies": ["PU-transport"],
+      "downstream_uses": ["PU-audit", "release decision"],
+      "exceptional_cases": ["K=0 and small n remain covered because the conclusion is under an eventual filter and no case is deleted."],
+      "trust_boundary": ["Provider sorryAx and missing canonical provider import are explicit; no local axiom, unsafe declaration, opaque oracle, sorry, or admit is introduced."]
+    },
+    {
+      "node_id": "PU-audit",
+      "kind": "trust",
+      "statement": "The exact root and semantic transport replay from source at Lean trust level zero.",
+      "inputs": ["PU-root"],
+      "hypotheses": ["Cold replay uses the pinned source module and disables the Lake cache."],
+      "inference": "Elaborate Statement.lean, Proof.lean, and Audit.lean independently with --trust=0.",
+      "output": "Current replay, axiom census, and semantic-substitution mutation evidence.",
+      "formal_anchor": "A-audit",
+      "dependencies": ["PU-root"],
+      "downstream_uses": ["release decision"],
+      "exceptional_cases": ["A stale target olean cannot satisfy direct source-file elaboration; Master replay remains mandatory."],
+      "trust_boundary": ["Worker evidence is provisional until independently recomputed by canonical Master."]
+    }
+  ],
+  "edges": [
+    {"from": "PU-source", "to": "PU-transport", "kind": "provenance"},
+    {"from": "PU-transport", "to": "PU-root", "kind": "composition"},
+    {"from": "PU-root", "to": "PU-audit", "kind": "audit"}
+  ],
+  "complete_typed_dag": true,
+  "remaining_human_cut_set": [],
+  "remaining_machine_cut_set": [],
+  "remaining_readability_cut_set": []
+}

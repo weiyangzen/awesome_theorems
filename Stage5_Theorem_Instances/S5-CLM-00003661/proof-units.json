@@ -1,0 +1,69 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003661-TARGET",
+  "stage_claim_id": "S5-CLM-00003661",
+  "root_node": "N-COMPOSE",
+  "nodes": [
+    {
+      "node_id": "N-ID",
+      "kind": "provenance_transport",
+      "inputs": ["frozen provider source", "claim-owned target surface"],
+      "hypotheses": ["provider revision and source bytes are exact"],
+      "inference": "independently elaborate both surfaces and construct both transports",
+      "output": "semantic identity lock",
+      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003661.statement_surface_identity",
+      "dependencies": [],
+      "downstream_uses": ["N-LOWER", "N-UPPER", "N-COMPOSE"],
+      "exceptional_cases": ["any symbol shadowing or import substitution invalidates the node"],
+      "provenance": ["FormalConjectures/ErdosProblems/1084.lean:70"],
+      "trust_boundary": "canonical Master recomputes elaboration; provider theorem body is excluded"
+    },
+    {
+      "node_id": "N-LOWER",
+      "kind": "mathematical_lower_bound",
+      "inputs": ["finite face-centred-cubic fragments", "Erdos1084.f semantic identity"],
+      "hypotheses": ["n exceeds the construction threshold"],
+      "inference": "count interior contacts and bound boundary loss by order n^(2/3)",
+      "output": "eventual lower inequality for a real c1",
+      "formal_anchor": "A-LOWER",
+      "dependencies": ["N-ID"],
+      "downstream_uses": ["N-COMPOSE"],
+      "exceptional_cases": ["small n and incomplete shells are absorbed by the threshold"],
+      "provenance": ["reviewed finite packing construction"],
+      "trust_boundary": "quantitative construction body must be independently replayed"
+    },
+    {
+      "node_id": "N-UPPER",
+      "kind": "mathematical_upper_bound",
+      "inputs": ["arbitrary finite one-separated three-space configuration", "quantitative contact theorem"],
+      "hypotheses": ["n exceeds the contact theorem threshold"],
+      "inference": "convert unit pairs to ball tangencies and apply the positive surface-deficit estimate",
+      "output": "eventual upper inequality for a positive real c2",
+      "formal_anchor": "A-UPPER",
+      "dependencies": ["N-ID"],
+      "downstream_uses": ["N-COMPOSE"],
+      "exceptional_cases": ["small configurations are absorbed by the eventual threshold"],
+      "provenance": ["reviewed quantitative three-dimensional contact theorem"],
+      "trust_boundary": "the exact reviewed theorem and all dependencies require trust-zero replay"
+    },
+    {
+      "node_id": "N-COMPOSE",
+      "kind": "root_composition",
+      "inputs": ["eventual lower inequality", "eventual upper inequality", "c2 positivity"],
+      "hypotheses": ["both estimates use the frozen extremal function"],
+      "inference": "intersect eventual tails and introduce the constants in frozen quantifier order",
+      "output": "exact frozen root proposition",
+      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003661.compose_eventual_bounds",
+      "dependencies": ["N-ID", "N-LOWER", "N-UPPER"],
+      "downstream_uses": ["machine closure", "release decision"],
+      "exceptional_cases": ["different thresholds are replaced by their maximum"],
+      "provenance": ["claim-owned Proof.lean"],
+      "trust_boundary": "Master verifies exact unconditional closure; no provider proof body is admitted"
+    }
+  ],
+  "dependency_edges": [["N-ID", "N-LOWER"], ["N-ID", "N-UPPER"], ["N-ID", "N-COMPOSE"], ["N-LOWER", "N-COMPOSE"], ["N-UPPER", "N-COMPOSE"]],
+  "human_cut_set": [],
+  "machine_cut_set": [],
+  "readability_cut_set": []
+}

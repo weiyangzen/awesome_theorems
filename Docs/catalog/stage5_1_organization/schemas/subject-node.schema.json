@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://awesome-theorems.invalid/stage5-1-organization/schemas/subject-node.schema.json",
+  "title": "Stage5.1 subject node JSONL row",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "subject_id",
+    "subject_key",
+    "scheme",
+    "edition",
+    "notation",
+    "rank",
+    "parent_subject_id",
+    "broader_subject_ids",
+    "label",
+    "status",
+    "evidence_tier",
+    "source_refs",
+    "selectable_as_primary",
+    "selectable_as_secondary",
+    "record_sha256"
+  ],
+  "properties": {
+    "schema_version": {"$ref": "common.schema.json#/$defs/schema_version"},
+    "subject_id": {"$ref": "common.schema.json#/$defs/subject_id"},
+    "subject_key": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$"},
+    "scheme": {"enum": ["internal", "MSC", "arXiv", "source_native"]},
+    "edition": {"type": ["string", "null"], "minLength": 1},
+    "notation": {"type": ["string", "null"], "minLength": 1},
+    "rank": {"enum": ["root", "branch", "leaf", "sentinel"]},
+    "parent_subject_id": {
+      "oneOf": [
+        {"$ref": "common.schema.json#/$defs/subject_id"},
+        {"type": "null"}
+      ]
+    },
+    "broader_subject_ids": {
+      "type": "array",
+      "items": {"$ref": "common.schema.json#/$defs/subject_id"},
+      "uniqueItems": true
+    },
+    "label": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["en", "zh"],
+      "properties": {
+        "en": {"type": "string", "minLength": 1},
+        "zh": {"type": "string", "minLength": 1}
+      }
+    },
+    "status": {"enum": ["active", "deprecated"]},
+    "evidence_tier": {"$ref": "common.schema.json#/$defs/assignment_evidence_level"},
+    "source_refs": {
+      "type": "array",
+      "items": {"$ref": "common.schema.json#/$defs/source_ref"},
+      "uniqueItems": true
+    },
+    "selectable_as_primary": {"type": "boolean"},
+    "selectable_as_secondary": {"type": "boolean"},
+    "record_sha256": {"$ref": "common.schema.json#/$defs/sha256"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"rank": {"const": "sentinel"}}, "required": ["rank"]},
+      "then": {"properties": {"selectable_as_secondary": {"const": false}}}
+    }
+  ]
+}

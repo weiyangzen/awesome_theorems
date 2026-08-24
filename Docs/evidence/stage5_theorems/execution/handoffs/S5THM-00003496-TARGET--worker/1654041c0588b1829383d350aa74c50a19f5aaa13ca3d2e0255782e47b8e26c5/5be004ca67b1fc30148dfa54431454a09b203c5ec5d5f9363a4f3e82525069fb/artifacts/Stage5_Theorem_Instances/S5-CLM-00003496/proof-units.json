@@ -1,0 +1,150 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003496-TARGET",
+  "stage_claim_id": "S5-CLM-00003496",
+  "root_node": "PU-005",
+  "nodes": [
+    {
+      "node_id": "PU-001",
+      "kind": "provenance",
+      "inputs": [],
+      "hypotheses": [
+        "the workset member and pinned provider bytes are exact"
+      ],
+      "inference": "bind the source declaration as statement provenance only",
+      "output": "the exact Kotzig large-n proposition",
+      "formal_anchor": "A-SOURCE-KOTZIG",
+      "downstream_uses": [
+        "PU-002",
+        "PU-003"
+      ],
+      "exceptional_cases": [
+        "the provider body contains sorryAx and supplies no closure"
+      ],
+      "trust_boundary": "frozen bytes are trusted for identity, never for proof"
+    },
+    {
+      "node_id": "PU-002",
+      "kind": "semantic_identity",
+      "inputs": [
+        "PU-001"
+      ],
+      "hypotheses": [
+        "the source and target proposition texts elaborate identically"
+      ],
+      "inference": "Iff.rfl establishes bidirectional definitional identity",
+      "output": "source proposition iff claim-owned proposition",
+      "formal_anchor": "A-STATEMENT-IDENTITY",
+      "downstream_uses": [
+        "PU-003",
+        "PU-004",
+        "PU-005"
+      ],
+      "exceptional_cases": [
+        "any import or local-symbol substitution invalidates the node"
+      ],
+      "trust_boundary": "Master must independently re-elaborate the two expressions"
+    },
+    {
+      "node_id": "PU-003",
+      "kind": "composition",
+      "inputs": [
+        "PU-001",
+        "PU-002"
+      ],
+      "hypotheses": [
+        "a proof of the exact frozen proposition is supplied"
+      ],
+      "inference": "transport through definitional equality",
+      "output": "the claim-owned proposition",
+      "formal_anchor": "A-PROOF-TRANSPORT",
+      "downstream_uses": [
+        "PU-005"
+      ],
+      "exceptional_cases": [
+        "the sorry-backed provider proof is explicitly excluded"
+      ],
+      "trust_boundary": "the transport is local and trust-zero; its premise remains visible"
+    },
+    {
+      "node_id": "PU-004",
+      "kind": "reverse_composition",
+      "inputs": [
+        "PU-002"
+      ],
+      "hypotheses": [
+        "a proof of the claim-owned proposition is supplied"
+      ],
+      "inference": "reverse transport through definitional equality",
+      "output": "the exact frozen proposition",
+      "formal_anchor": "A-PROOF-TRANSPORT",
+      "downstream_uses": [
+        "PU-005"
+      ],
+      "exceptional_cases": [
+        "no source body is unfolded or invoked"
+      ],
+      "trust_boundary": "kernel type checking only"
+    },
+    {
+      "node_id": "PU-005",
+      "kind": "audit",
+      "inputs": [
+        "PU-002",
+        "PU-003",
+        "PU-004"
+      ],
+      "hypotheses": [
+        "all identities and visible premises are retained"
+      ],
+      "inference": "audit exact root identity and absence of hidden proof steps",
+      "output": "provisional worker closure evidence for Master replay",
+      "formal_anchor": "A-AUDIT-ROOT",
+      "downstream_uses": [
+        "machine-closure",
+        "readability-review",
+        "release-decision"
+      ],
+      "exceptional_cases": [
+        "worker no-Lean validation cannot grant canonical acceptance"
+      ],
+      "trust_boundary": "Master alone establishes unconditional exact-root M0 closure"
+    }
+  ],
+  "edges": [
+    [
+      "PU-001",
+      "PU-002"
+    ],
+    [
+      "PU-001",
+      "PU-003"
+    ],
+    [
+      "PU-002",
+      "PU-003"
+    ],
+    [
+      "PU-002",
+      "PU-004"
+    ],
+    [
+      "PU-002",
+      "PU-005"
+    ],
+    [
+      "PU-003",
+      "PU-005"
+    ],
+    [
+      "PU-004",
+      "PU-005"
+    ]
+  ],
+  "composition_complete": true,
+  "provenance_complete": true,
+  "trust_boundaries_complete": true,
+  "remaining_human_cut_set": [],
+  "authority_sha256": "f35b538706e4c0dad2e20cd0663024869473b64dcd604ac0998930a3a0260b3b"
+}

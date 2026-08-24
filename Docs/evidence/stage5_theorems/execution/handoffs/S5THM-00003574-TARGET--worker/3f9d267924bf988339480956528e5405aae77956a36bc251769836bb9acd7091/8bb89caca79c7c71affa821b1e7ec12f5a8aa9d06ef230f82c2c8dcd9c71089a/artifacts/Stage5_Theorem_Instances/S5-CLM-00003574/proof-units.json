@@ -1,0 +1,72 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003574-TARGET",
+  "stage_claim_id": "S5-CLM-00003574",
+  "root_node": "N-root",
+  "nodes": [
+    {
+      "node_id": "N-sums",
+      "kind": "definition",
+      "statement": "A monotonic-subsequence sum is the sum over a finite index set on which x is monotone or antitone.",
+      "type": "Erdos1026.monotonicSubsequenceSums {n : ℕ} (x : Fin n → ℝ) : Set ℝ",
+      "formal_anchor": "Erdos1026.monotonicSubsequenceSums",
+      "depends_on": [],
+      "composition": "source-definition",
+      "provenance": "formal-conjectures-2270d31e@2270d31e8dd611521f979de6d86da364930b7669:FormalConjectures/ErdosProblems/1026.lean:44-45",
+      "trust": "pinned-source-bytes"
+    },
+    {
+      "node_id": "N-admissible",
+      "kind": "definition",
+      "statement": "A constant is admissible when its asymptotic normalized bound holds eventually for every injective real sequence.",
+      "type": "Erdos1026.admissibleConstants : Set ℝ",
+      "formal_anchor": "Erdos1026.admissibleConstants",
+      "depends_on": ["N-sums"],
+      "composition": "source-definition",
+      "provenance": "formal-conjectures-2270d31e@2270d31e8dd611521f979de6d86da364930b7669:FormalConjectures/ErdosProblems/1026.lean:55-57",
+      "trust": "pinned-source-bytes"
+    },
+    {
+      "node_id": "N-source",
+      "kind": "provider-declaration",
+      "statement": "The frozen provider declaration asserts that 1 is the greatest admissible constant.",
+      "type": "IsGreatest Erdos1026.admissibleConstants 1",
+      "formal_anchor": "Erdos1026.erdos_1026.variants.eq_one",
+      "depends_on": ["N-admissible"],
+      "composition": "pinned-source-statement-input",
+      "provenance": "formal-conjectures-2270d31e@2270d31e8dd611521f979de6d86da364930b7669:FormalConjectures/ErdosProblems/1026.lean:89-93",
+      "trust": "statement-authority-only; provider body contains sorryAx"
+    },
+    {
+      "node_id": "N-transport",
+      "kind": "lean-theorem",
+      "statement": "Identity transport preserves the exact root expression in both directions.",
+      "type": "P → P and P → P for P = IsGreatest admissibleConstants 1",
+      "formal_anchor": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003574.source_to_target; AwesomeTheorems.Stage5.Theorems.S5_CLM_00003574.target_to_source",
+      "depends_on": ["N-source"],
+      "composition": "identity-elaboration-transport",
+      "provenance": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003574/Audit.lean",
+      "trust": "Lean4 kernel trust=0 for transport declaration"
+    },
+    {
+      "node_id": "N-root",
+      "kind": "lean-theorem",
+      "statement": "Target root is the exact frozen proposition IsGreatest admissibleConstants 1.",
+      "type": "IsGreatest Erdos1026.admissibleConstants 1",
+      "formal_anchor": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003574.audit",
+      "depends_on": ["N-transport"],
+      "composition": "source-to-target then target-to-source",
+      "provenance": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003574/Audit.lean",
+      "trust": "Lean4 kernel trust=0 for transport; canonical Master must independently bind provider module and accept"
+    }
+  ],
+  "edges": [
+    {"from": "N-admissible", "to": "N-sums", "relation": "definition-dependency"},
+    {"from": "N-source", "to": "N-admissible", "relation": "statement-dependency"},
+    {"from": "N-transport", "to": "N-source", "relation": "semantic-transport"},
+    {"from": "N-root", "to": "N-transport", "relation": "proof-composition"}
+  ],
+  "cut_sets": {"human": [], "machine": [], "readability": []},
+  "dag_complete": true
+}

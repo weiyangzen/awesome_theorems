@@ -1,0 +1,133 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003513-TARGET",
+  "stage_claim_id": "S5-CLM-00003513",
+  "readability_level": "R0",
+  "required_nodes": [
+    "PU-01",
+    "PU-02",
+    "PU-03",
+    "PU-04",
+    "PU-05",
+    "PU-06",
+    "PU-07"
+  ],
+  "node_to_anchor": {
+    "PU-01": "fragment-pu-01",
+    "PU-02": "fragment-pu-02",
+    "PU-03": "fragment-pu-03",
+    "PU-04": "fragment-pu-04",
+    "PU-05": "fragment-pu-05",
+    "PU-06": "fragment-pu-06",
+    "PU-07": "fragment-pu-07"
+  },
+  "anchor_to_fragment": {
+    "fragment-pu-01": {
+      "node_id": "PU-01",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003513/full-study.md#fragment-pu-01",
+      "fragment_sha256": "0e05bd3cf78ef47deed41e0c3f4f0b46b33e5c85fa975cf0b316857b21b17360",
+      "hypotheses": ["F is a finite field", "ringChar F ∈ {3,5,7,11}"],
+      "inference": "Retain the exact disjunctive characteristic restriction.",
+      "output": "The permitted characteristic branch.",
+      "formal_anchor": "frozen hchar binder",
+      "downstream_uses": ["PU-03"],
+      "exceptional_cases": ["All other characteristics are outside scope."],
+      "trust_boundary": "Mathlib instances only; provider sorryAx excluded."
+    },
+    "fragment-pu-02": {
+      "node_id": "PU-02",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003513/full-study.md#fragment-pu-02",
+      "fragment_sha256": "732ebd430f13ca8e4b01f3d433b46a017b38a2f6e38c134a232e0c243417eb05",
+      "hypotheses": ["PU-01 field and characteristic context"],
+      "inference": "Freeze the exact rings, quotient, diagonal action, orbit and topology.",
+      "output": "The fixed homogeneous-space context.",
+      "formal_anchor": "frozen quotient and orbit expressions",
+      "downstream_uses": ["PU-03", "PU-04", "PU-05", "PU-06", "PU-07"],
+      "exceptional_cases": ["Carrier, polynomial, topology and predicate substitutions are rejected."],
+      "trust_boundary": "polyToLaurent is source semantics and must be Master-recomputed."
+    },
+    "fragment-pu-03": {
+      "node_id": "PU-03",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003513/full-study.md#fragment-pu-03",
+      "fragment_sha256": "57ad40c14c3458bc329409efec59856fb189b6bd711d59079bdb34264d0f47f9",
+      "hypotheses": ["PU-01 characteristic branch", "PU-02 exact homogeneous space"],
+      "inference": "Select one rank-four Huang--Shi construction witness.",
+      "output": "One common quotient point z with two obligations.",
+      "formal_anchor": "huangShiWitnessComposition witness argument",
+      "downstream_uses": ["PU-04", "PU-05"],
+      "exceptional_cases": ["Two unrelated witnesses do not prove the conjunction."],
+      "trust_boundary": "Provider declaration is provenance, never proof authority."
+    },
+    "fragment-pu-04": {
+      "node_id": "PU-04",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003513/full-study.md#fragment-pu-04",
+      "fragment_sha256": "dca1933c768746a634631abdcfc28a844a0d098a4344a3dc52cd817538d9f4ee",
+      "hypotheses": ["PU-02 exact action", "PU-03 witness z"],
+      "inference": "Retain compactness of the orbit closure.",
+      "output": "IsCompact (closure (orbit D z)).",
+      "formal_anchor": "huangShiWitnessComposition hcompact subgoal",
+      "downstream_uses": ["PU-06"],
+      "exceptional_cases": ["Compactness of the orbit or boundedness alone is insufficient."],
+      "trust_boundary": "Local Lean transports an explicit construction fact."
+    },
+    "fragment-pu-05": {
+      "node_id": "PU-05",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003513/full-study.md#fragment-pu-05",
+      "fragment_sha256": "7fbf144825ee80da4be668fd3e14c0e9186f7201aea14d271acea6024b9bd98f",
+      "hypotheses": ["PU-02 exact action", "PU-03 same witness z"],
+      "inference": "Retain the exact negated closedness statement.",
+      "output": "¬ IsClosed (orbit D z).",
+      "formal_anchor": "huangShiWitnessComposition hnonclosed subgoal",
+      "downstream_uses": ["PU-06"],
+      "exceptional_cases": ["Noncompactness or point inequality is not substituted."],
+      "trust_boundary": "Local Lean transports an explicit geometric fact."
+    },
+    "fragment-pu-06": {
+      "node_id": "PU-06",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003513/full-study.md#fragment-pu-06",
+      "fragment_sha256": "c6c9a8799846047d6cf666cd87e03964f40b8e0dcc83593e5069e26034eab39e",
+      "hypotheses": ["PU-04 compact closure for z", "PU-05 nonclosed orbit for the same z"],
+      "inference": "Introduce the conjunction at the common witness.",
+      "output": "CompactClosure z ∧ NonclosedOrbit z.",
+      "formal_anchor": "Proof.lean refine tuple and two subgoals",
+      "downstream_uses": ["PU-07"],
+      "exceptional_cases": ["Mismatched witnesses fail the composition."],
+      "trust_boundary": "Claim-local propositional M0-L kernel."
+    },
+    "fragment-pu-07": {
+      "node_id": "PU-07",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003513/full-study.md#fragment-pu-07",
+      "fragment_sha256": "dd55ef4eecf864225a6c92ff55a3ddc4dce4ac95ff30c46fa3f8c1c161d64462",
+      "hypotheses": ["PU-06 conjunction at z"],
+      "inference": "Introduce z as the existential witness and audit the round trip.",
+      "output": "The existential-conjunction root.",
+      "formal_anchor": "statement, huangShiWitnessComposition, auditRoundTrip",
+      "downstream_uses": ["provisional release root"],
+      "exceptional_cases": ["Existence asserts neither uniqueness nor universality."],
+      "trust_boundary": "Canonical Master alone recompiles, recomputes and accepts."
+    }
+  },
+  "reviewers": [
+    {
+      "reviewer_id": "worker-structural-review",
+      "role": "totality-injectivity-and-reverse-coverage",
+      "conflicts": [],
+      "decision": "pass"
+    },
+    {
+      "reviewer_id": "canonical-master-pending",
+      "role": "independent-integrated-bytes-review",
+      "conflicts": [],
+      "decision": "required_before_acceptance"
+    }
+  ],
+  "remaining_readability_cut_set": [],
+  "distilled": {
+    "duplicate_prose_removed": true,
+    "structured_inventory_not_duplicated": true,
+    "mathematical_content_preserved": true,
+    "deletion_mutations_passed": true
+  },
+  "authority_sha256": "54120d5ce408e113d5a59bd2935c0f690bf4e32db7106e0747161dc9ef3f624f"
+}

@@ -1,0 +1,3 @@
+# Full study — First Proof, Theorem 4
+
+The frozen statement asks whether the reciprocal root-energy quantity is superadditive under finite additive convolution for monic real-rooted polynomials. The formal source records the exact declaration `Arxiv.«2602.05192».four`; its provider body is sorry-backed and therefore is treated only as a statement anchor. This package supplies an independently claim-owned closure surface and a complete provenance/readability inventory. Mathematical meaning is retained in the source docstring, declaration type, hypotheses, inference, output, formal anchors, downstream relation, exceptional root cases, and trust boundary records.

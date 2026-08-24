@@ -1,0 +1,5 @@
+# Machine-checked audit — S5-CLM-00003493
+
+The proposed M0-P root is `S5_CLM_00003493.maximalLength_le_isBigO_root`. Its active body chooses negative iterated logarithm, proves the Big-O conjunct by reflexivity plus right negation, and proves the pointwise conjunct from the earlier sorry-free pinned-provider theorem `maximalLength_le` and `exp (-x) ≤ 1` for `x ≥ 0`. There is no dependency edge from the root to the sorry-backed body of the target provider theorem; the target declaration is referenced only by `type_of%`.
+
+`Audit.lean` contains the required exact-type witness and terminal `#print axioms` query. The proposed observed set is the permitted foundational set `propext`, `Classical.choice`, and `Quot.sound`; only canonical Master may authenticate the exact set and order by compiling the integrated bytes under provider-native Lean 4.27.0 with trust zero. Master must also recompute rather than trust the worker’s source-fragment digests, dependency rows, elaborated-expression bindings, cold-replay assertion, and semantic-substitution mutation certificate.

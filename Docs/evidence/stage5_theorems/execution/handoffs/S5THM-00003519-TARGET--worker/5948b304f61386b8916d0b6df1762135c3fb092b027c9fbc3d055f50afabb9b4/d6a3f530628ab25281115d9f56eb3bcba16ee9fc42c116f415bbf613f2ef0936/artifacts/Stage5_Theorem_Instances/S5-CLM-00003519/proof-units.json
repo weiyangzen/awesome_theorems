@@ -1,0 +1,198 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003519-TARGET",
+  "stage_claim_id": "S5-CLM-00003519",
+  "root_node": "PU-07",
+  "nodes": [
+    {
+      "node_id": "PU-01",
+      "node_kind": "provenance",
+      "inputs": [
+        "frozen provider declaration"
+      ],
+      "hypotheses": [
+        "none"
+      ],
+      "inference": "Bidirectional type_of% transport binds the exact provider proposition.",
+      "output": "Exact target proposition",
+      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003519.source_to_target",
+      "human_anchor": "FULL-STUDY-PU-01",
+      "downstream_uses": [
+        "PU-07"
+      ],
+      "exceptional_cases": [
+        "Provider sorry body is excluded as proof authority"
+      ],
+      "trust_boundary": "Master recomputes elaborated identity"
+    },
+    {
+      "node_id": "PU-02",
+      "node_kind": "construction",
+      "inputs": [
+        "Fin 2 elements 0 and 1"
+      ],
+      "hypotheses": [
+        "0 and 1 are the two Fin 2 values"
+      ],
+      "inference": "Choose the transposition τ and diagonal pair (τ,τ).",
+      "output": "Candidate pair",
+      "formal_anchor": "LEAN-GENERATOR",
+      "human_anchor": "FULL-STUDY-PU-02",
+      "downstream_uses": [
+        "PU-03"
+      ],
+      "exceptional_cases": [
+        "A mixed pair is not used"
+      ],
+      "trust_boundary": "Pinned Equiv.swap declaration"
+    },
+    {
+      "node_id": "PU-03",
+      "node_kind": "typing",
+      "inputs": [
+        "PU-02",
+        "gammaSubgroup",
+        "signDiffHom"
+      ],
+      "hypotheses": [
+        "Both coordinates equal τ"
+      ],
+      "inference": "The sign difference of equal coordinates is one.",
+      "output": "g : gammaSubgroup 2 2",
+      "formal_anchor": "LEAN-GENERATOR",
+      "human_anchor": "FULL-STUDY-PU-03",
+      "downstream_uses": [
+        "PU-06"
+      ],
+      "exceptional_cases": [
+        "No numerical sign assumption is required"
+      ],
+      "trust_boundary": "Exact routed provider definitions"
+    },
+    {
+      "node_id": "PU-04",
+      "node_kind": "finite_classification",
+      "inputs": [
+        "σ : Equiv.Perm (Fin 2)"
+      ],
+      "hypotheses": [
+        "Fin 2 is finite and decidable"
+      ],
+      "inference": "Kernel-reducible decide exhausts the equivalences of Fin 2.",
+      "output": "σ = 1 ∨ σ = τ",
+      "formal_anchor": "LEAN-CLASSIFICATION",
+      "human_anchor": "FULL-STUDY-PU-04",
+      "downstream_uses": [
+        "PU-05"
+      ],
+      "exceptional_cases": [
+        "Classification is special to Fin 2"
+      ],
+      "trust_boundary": "Kernel decide; no native-code oracle"
+    },
+    {
+      "node_id": "PU-05",
+      "node_kind": "elimination",
+      "inputs": [
+        "PU-04",
+        "kernel membership of x"
+      ],
+      "hypotheses": [
+        "Coordinates have equal sign"
+      ],
+      "inference": "The mixed identity/transposition coordinate cases contradict kernel membership.",
+      "output": "x = 1 ∨ x = g",
+      "formal_anchor": "LEAN-CLASSIFICATION",
+      "human_anchor": "FULL-STUDY-PU-05",
+      "downstream_uses": [
+        "PU-06"
+      ],
+      "exceptional_cases": [
+        "Both diagonal cases remain"
+      ],
+      "trust_boundary": "Pinned simplifier lemmas and exact provider definitions"
+    },
+    {
+      "node_id": "PU-06",
+      "node_kind": "closure",
+      "inputs": [
+        "PU-03",
+        "PU-05"
+      ],
+      "hypotheses": [
+        "x is identity or g"
+      ],
+      "inference": "A subgroup contains identity and closure contains its singleton generator.",
+      "output": "x ∈ Subgroup.closure {g}",
+      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003519.rank_2_2_machine",
+      "human_anchor": "FULL-STUDY-PU-06",
+      "downstream_uses": [
+        "PU-07"
+      ],
+      "exceptional_cases": [
+        "No power-normal-form lemma is required"
+      ],
+      "trust_boundary": "Pinned subgroup closure interface"
+    },
+    {
+      "node_id": "PU-07",
+      "node_kind": "composition_root",
+      "inputs": [
+        "PU-01",
+        "PU-06"
+      ],
+      "hypotheses": [
+        "Every ambient element belongs to closure {g}"
+      ],
+      "inference": "top_unique converts total inclusion into equality with top.",
+      "output": "∃ g, Subgroup.closure {g} = ⊤",
+      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003519.rank_2_2_machine",
+      "human_anchor": "FULL-STUDY-PU-07",
+      "downstream_uses": [
+        "Frozen Stage5 claim",
+        "S6-CLM-00002198"
+      ],
+      "exceptional_cases": [
+        "Equality is exact, not a cardinality proxy"
+      ],
+      "trust_boundary": "Canonical Master trust-zero acceptance"
+    }
+  ],
+  "edges": [
+    {
+      "from": "PU-02",
+      "to": "PU-03",
+      "kind": "constructs"
+    },
+    {
+      "from": "PU-04",
+      "to": "PU-05",
+      "kind": "classifies"
+    },
+    {
+      "from": "PU-03",
+      "to": "PU-06",
+      "kind": "types_generator"
+    },
+    {
+      "from": "PU-05",
+      "to": "PU-06",
+      "kind": "exhausts_elements"
+    },
+    {
+      "from": "PU-01",
+      "to": "PU-07",
+      "kind": "fixes_goal"
+    },
+    {
+      "from": "PU-06",
+      "to": "PU-07",
+      "kind": "proves_inclusion"
+    }
+  ],
+  "human_cut_set": [],
+  "machine_cut_set": [],
+  "readability_cut_set": [],
+  "authority_sha256": "e62717b389032c0924cecf0dd9a3e5d9eaa34db57e54b785b34877c67e7a4e8c"
+}

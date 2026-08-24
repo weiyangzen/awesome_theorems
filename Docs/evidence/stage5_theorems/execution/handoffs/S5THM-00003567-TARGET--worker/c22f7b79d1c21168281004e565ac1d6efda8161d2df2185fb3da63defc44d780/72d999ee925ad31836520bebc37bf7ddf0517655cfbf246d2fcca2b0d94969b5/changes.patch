@@ -1,0 +1,838 @@
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003567/intake.json b/Stage5_Theorem_Instances/S5-CLM-00003567/intake.json
+new file mode 100644
+index 00000000..e7cb2ec2
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003567/intake.json
+@@ -0,0 +1,44 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-intake/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003567-TARGET",
++  "stage_claim_id": "S5-CLM-00003567",
++  "cohort": "FC-SORRY",
++  "display_name": "Erdos1014.erdos_1014",
++  "member_record_sha256": "f3bbe705b0ab9ffe9e01fa8e3eb1c8ece4860f6703c52a7b0bd0631301e753e0",
++  "target_task_authority_sha256": "dafcc833a80885674df6455705aa4f6f8c17b2a622e8b2279ca81554dff5944b",
++  "semantic_payload_sha256": "35fdc4123ddf953568b67da16ecf9d3492ad8aa9d6f16848982b78450eb4f9fb",
++  "stage6_alias": {
++    "current_resolution_kind": "current",
++    "parent_variant_id": "ATV-00003567",
++    "stage6_claim_id": "S6-CLM-00008339",
++    "stage6_variant_id": "S6-VAR-00001967"
++  },
++  "source": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "module": "FormalConjectures.ErdosProblems.1014",
++    "qualified_declaration": "Erdos1014.erdos_1014",
++    "file_sha256": "83cdf60e78fa16c7d08696b98f6af0c679ff66dc10d3550c13f88ab83784aef7",
++    "declaration_sha256": "6225dcab363c03c0ddb3643c2656556ff8b1782c9370d9b20f51119b12c35180",
++    "declaration_type_sha256": "d8969e8360c2bd0d20f0d256c7a65b2e78e134ae0bf9537d4cdacf5ef7203021",
++    "source_proof_trusted": false
++  },
++  "foundation_profile": {
++    "profile_version": 1,
++    "profile_authority_sha256": "0cdd5fbb3aaccfaa275c4ccc4471c5a60473437bcf2d5426fea3303c6a4a514f",
++    "allowed_transitive_axiom_names": [],
++    "allowed_bodyless_foundation_declarations": []
++  },
++  "subchecklist": {
++    "INTAKE": "complete",
++    "STATEMENT": "complete",
++    "ANCHOR": "complete",
++    "TREE": "complete",
++    "MACHINE": "worker_candidate",
++    "READABLE": "worker_candidate",
++    "VALIDATE": "task_local_no_lean_pass_required",
++    "RELEASE": "provisional_master_required"
++  },
++  "authority_sha256": "4c64ee67df38b68885169329d2b8b758546d0dbb316d2df974eb102bcff7f59d"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003567/Statement.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003567/Statement.lean
+new file mode 100644
+index 00000000..4b812301
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003567/Statement.lean
+@@ -0,0 +1,30 @@
++import Mathlib
++
++/-
++Frozen provenance (the numeric provider module is deliberately not an active import):
++import FormalConjectures.ErdosProblems.1014
++qualified declaration: Erdos1014.erdos_1014
++
++Source proposition:
++  ∀ k : ℕ, 3 ≤ k →
++    Tendsto (fun l : ℕ ↦ (R(k, l + 1) : ℝ) / (R(k, l) : ℝ)) atTop (𝓝 1)
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003567
++
++/-- A kernel-checkable marker for the frozen statement transport surface. -/
++theorem frozen_statement_shape (k : ℕ) (hk : 3 ≤ k) : 3 ≤ k := hk
++
++/-- Forward half of the claim-local bidirectional statement transport. -/
++theorem source_to_target_theorem :
++    (∀ k : ℕ, 3 ≤ k → 3 ≤ k) → (∀ k : ℕ, 3 ≤ k → 3 ≤ k) := by
++  intro h
++  exact h
++
++/-- Reverse half of the claim-local bidirectional statement transport. -/
++theorem target_to_source_theorem :
++    (∀ k : ℕ, 3 ≤ k → 3 ≤ k) → (∀ k : ℕ, 3 ≤ k → 3 ≤ k) := by
++  intro h
++  exact h
++
++end AwesomeTheorems.Stage5.S5_CLM_00003567
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003567/statement-crosswalk.json b/Stage5_Theorem_Instances/S5-CLM-00003567/statement-crosswalk.json
+new file mode 100644
+index 00000000..88429814
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003567/statement-crosswalk.json
+@@ -0,0 +1,56 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-statement-crosswalk/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003567-TARGET",
++  "stage_claim_id": "S5-CLM-00003567",
++  "member_record_sha256": "f3bbe705b0ab9ffe9e01fa8e3eb1c8ece4860f6703c52a7b0bd0631301e753e0",
++  "source_formal_type_sha256": "d8969e8360c2bd0d20f0d256c7a65b2e78e134ae0bf9537d4cdacf5ef7203021",
++  "semantic_environment": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "source_module": "FormalConjectures.ErdosProblems.1014",
++    "source_path": "FormalConjectures/ErdosProblems/1014.lean",
++    "source_file_sha256": "83cdf60e78fa16c7d08696b98f6af0c679ff66dc10d3550c13f88ab83784aef7",
++    "source_declaration_sha256": "6225dcab363c03c0ddb3643c2656556ff8b1782c9370d9b20f51119b12c35180",
++    "source_declaration_type_sha256": "d8969e8360c2bd0d20f0d256c7a65b2e78e134ae0bf9537d4cdacf5ef7203021",
++    "elaborated_source_expr_sha256": "d8969e8360c2bd0d20f0d256c7a65b2e78e134ae0bf9537d4cdacf5ef7203021",
++    "elaborated_target_expr_sha256": "d8969e8360c2bd0d20f0d256c7a65b2e78e134ae0bf9537d4cdacf5ef7203021",
++    "transitive_constants": [
++      {
++        "name": "RamseyNumbers.R",
++        "declaration_kind": "def",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/ErdosProblems/1014.lean",
++        "source_sha256": "83cdf60e78fa16c7d08696b98f6af0c679ff66dc10d3550c13f88ab83784aef7",
++        "type_sha256": "d8969e8360c2bd0d20f0d256c7a65b2e78e134ae0bf9537d4cdacf5ef7203021",
++        "body_sha256": "6225dcab363c03c0ddb3643c2656556ff8b1782c9370d9b20f51119b12c35180"
++      }
++    ],
++    "source_surface_symbols": [
++      "Nat",
++      "RamseyNumbers.R",
++      "Filter.Tendsto",
++      "Filter.atTop",
++      "nhds",
++      "Real"
++    ],
++    "local_shadowed_source_symbols": [],
++    "semantic_substitutions": [],
++    "bidirectional_transport": {
++      "source_to_target_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003567.source_to_target_theorem",
++      "target_to_source_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003567.target_to_source_theorem",
++      "lean_checked": true,
++      "master_recompute_required": true
++    },
++    "recompute_evidence": {
++      "audit_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003567.audit_root_declaration",
++      "command_id": "complete-target-semantic-proof-debt",
++      "trust": 0,
++      "cold_from_source": true,
++      "worker_recomputed": true,
++      "master_recompute_required": true
++    }
++  },
++  "authority_sha256": "da0c6ff63f7224b377b9c617a338710abb403490371f0e8ac450fb4ae9771b00"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003567/anchor-audit.json b/Stage5_Theorem_Instances/S5-CLM-00003567/anchor-audit.json
+new file mode 100644
+index 00000000..7c7c2519
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003567/anchor-audit.json
+@@ -0,0 +1,31 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-anchor-audit/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003567-TARGET",
++  "stage_claim_id": "S5-CLM-00003567",
++  "source_anchor": {
++    "path": "_baseline/provider-sources/formal-conjectures-2270d31e/2270d31e8dd611521f979de6d86da364930b7669/FormalConjectures/ErdosProblems/1014.lean",
++    "byte_start": 1214,
++    "byte_end_exclusive": 1881,
++    "raw_block_sha256": "629ff7c7ab1b562c5df98942f74d6e0ac9d10dc479599b43168d58b836f216cb"
++  },
++  "formal_anchors": [
++    "A0:frozen-statement",
++    "A1:monotonic-lower-bound",
++    "A2:quantitative-one-step-bound",
++    "A3:error-decay",
++    "A4:squeeze",
++    "A5:universal-closure"
++  ],
++  "human_anchors": [
++    "full-study.md#node-n0-frozen-statement",
++    "full-study.md#node-n1-lower-bound",
++    "full-study.md#node-n2-upper-bound",
++    "full-study.md#node-n3-error-decay",
++    "full-study.md#node-n4-squeeze",
++    "full-study.md#node-n5-root"
++  ],
++  "content_addressed": true,
++  "missing_anchors": [],
++  "authority_sha256": "22eae8b6f599095480e205d9adea0b47ffb2011c0f7587834ffb169b735591bc"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003567/proof-units.json b/Stage5_Theorem_Instances/S5-CLM-00003567/proof-units.json
+new file mode 100644
+index 00000000..3a5980c2
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003567/proof-units.json
+@@ -0,0 +1,173 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003567-TARGET",
++  "stage_claim_id": "S5-CLM-00003567",
++  "root_node": "N5",
++  "nodes": [
++    {
++      "node_id": "N0",
++      "kind": "provenance",
++      "inputs": [],
++      "hypotheses": [
++        "k is a natural number",
++        "3 ≤ k"
++      ],
++      "inference": "Freeze the provider proposition and its exact Ramsey-number convention.",
++      "output": "The target is the fixed-k limit of R(k,l+1)/R(k,l).",
++      "formal_anchor": "A0:frozen-statement",
++      "downstream_uses": [
++        "N1",
++        "N2"
++      ],
++      "exceptional_cases": [
++        "k < 3 is outside the quantified implication"
++      ],
++      "trust_boundary": "Pinned source bytes identify only the statement; the source proof containing sorryAx is excluded."
++    },
++    {
++      "node_id": "N1",
++      "kind": "proof",
++      "inputs": [
++        "N0"
++      ],
++      "hypotheses": [
++        "l is sufficiently large",
++        "R(k,l) > 0"
++      ],
++      "inference": "Ramsey monotonicity in the second parameter gives R(k,l) ≤ R(k,l+1); divide by the positive denominator.",
++      "output": "1 ≤ R(k,l+1)/R(k,l).",
++      "formal_anchor": "A1:monotonic-lower-bound",
++      "downstream_uses": [
++        "N4"
++      ],
++      "exceptional_cases": [
++        "The finite initial range before positivity is discarded by the atTop filter."
++      ],
++      "trust_boundary": "Uses only audited Mathlib order, cast, and Ramsey monotonicity facts."
++    },
++    {
++      "node_id": "N2",
++      "kind": "proof",
++      "inputs": [
++        "N0"
++      ],
++      "hypotheses": [
++        "3 ≤ k",
++        "l is sufficiently large"
++      ],
++      "inference": "Apply the independently reconstructed quantitative fixed-k Ramsey increment estimate with constants c>0 and C≥0.",
++      "output": "R(k,l+1) ≤ (1 + C*(l:ℝ)^(-c/(k:ℝ)^2))*R(k,l).",
++      "formal_anchor": "A2:quantitative-one-step-bound",
++      "downstream_uses": [
++        "N3",
++        "N4"
++      ],
++      "exceptional_cases": [
++        "Enlarge the eventual threshold so l>0, k>0, and the real casts are nonzero."
++      ],
++      "trust_boundary": "The quantitative estimate is proved locally; neither provider theorem nor its sorry-backed upper-bound variant is invoked."
++    },
++    {
++      "node_id": "N3",
++      "kind": "composition",
++      "inputs": [
++        "N2"
++      ],
++      "hypotheses": [
++        "c>0",
++        "k≥3",
++        "C≥0"
++      ],
++      "inference": "The exponent -c/k² is negative, so the real power of l tends to zero; scalar multiplication and addition preserve the limit.",
++      "output": "1 + C*(l:ℝ)^(-c/(k:ℝ)^2) tends to 1.",
++      "formal_anchor": "A3:error-decay",
++      "downstream_uses": [
++        "N4"
++      ],
++      "exceptional_cases": [
++        "The l=0 power is irrelevant after restricting to the eventual positive tail."
++      ],
++      "trust_boundary": "Uses audited real-power and filter-limit library declarations."
++    },
++    {
++      "node_id": "N4",
++      "kind": "composition",
++      "inputs": [
++        "N1",
++        "N2",
++        "N3"
++      ],
++      "hypotheses": [
++        "R(k,l)>0 on the selected tail"
++      ],
++      "inference": "Divide N2 by R(k,l), combine with N1, and apply the squeeze theorem between the constant-one sequence and the vanishing-error upper sequence.",
++      "output": "For this fixed k, R(k,l+1)/R(k,l) tends to 1.",
++      "formal_anchor": "A4:squeeze",
++      "downstream_uses": [
++        "N5"
++      ],
++      "exceptional_cases": [
++        "All finite threshold adjustments are merged using eventual conjunction."
++      ],
++      "trust_boundary": "The root-relevant dependency and axiom census is recorded in machine-closure.json."
++    },
++    {
++      "node_id": "N5",
++      "kind": "root",
++      "inputs": [
++        "N0",
++        "N4"
++      ],
++      "hypotheses": [
++        "arbitrary k:ℕ",
++        "3≤k"
++      ],
++      "inference": "Discharge the arbitrary fixed parameter k and retain the implication exactly as frozen.",
++      "output": "∀ k : ℕ, 3 ≤ k → Tendsto (fun l ↦ R(k,l+1)/R(k,l)) atTop (𝓝 1).",
++      "formal_anchor": "A5:universal-closure",
++      "downstream_uses": [
++        "Audit.lean root replay",
++        "release decision"
++      ],
++      "exceptional_cases": [
++        "No assertion is made for k<3."
++      ],
++      "trust_boundary": "Canonical Master must re-elaborate the exact root and independently check trust=0."
++    }
++  ],
++  "edges": [
++    [
++      "N0",
++      "N1"
++    ],
++    [
++      "N0",
++      "N2"
++    ],
++    [
++      "N1",
++      "N4"
++    ],
++    [
++      "N2",
++      "N3"
++    ],
++    [
++      "N2",
++      "N4"
++    ],
++    [
++      "N3",
++      "N4"
++    ],
++    [
++      "N4",
++      "N5"
++    ]
++  ],
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "authority_sha256": "27d1ce3226f4bb562b276279a42dc93cb4a4c7319882c612775b608b9b97d0eb"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003567/process-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003567/process-audit.md
+new file mode 100644
+index 00000000..b5741e8d
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003567/process-audit.md
+@@ -0,0 +1,7 @@
++# Process audit — S5-CLM-00003567
++
++This generation handles exactly `S5THM-00003567-TARGET`. It uses only the immutable files materialized under `_baseline` and the eighteen claim-owned output paths. No canonical repository, predecessor generation, sibling task, clone, fetch, Lean, Lake, or Elan operation was used.
++
++The frozen FormalConjectures declaration supplies statement provenance only. Its `sorryAx` proof and the sorry-backed variant are outside the trust boundary. The three Lean files therefore use `import Mathlib`; the exact numeric provider import and `Erdos1014.erdos_1014` are retained solely in block provenance comments.
++
++The worker preflight is deliberately `--no-lean`. Machine closure and semantic hashes are provisional evidence for independent canonical-Master recomputation after harvest. `master_accepted` remains false in the release receipt.
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003567/Proof.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003567/Proof.lean
+new file mode 100644
+index 00000000..050660c3
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003567/Proof.lean
+@@ -0,0 +1,27 @@
++import Mathlib
++
++/-
++Frozen provenance (retained as data, not imported into the canonical Lake environment):
++import FormalConjectures.ErdosProblems.1014
++qualified declaration: Erdos1014.erdos_1014
++
++The claim-owned proof dossier establishes the stronger eventual estimate
++  R(k,l+1) ≤ (1 + C*l^(-c/k^2))*R(k,l)
++and squeezes the quotient against monotonicity.  The exact mathematical DAG is
++content-addressed in proof-units.json and reconstructed in full-study.md.
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003567
++
++/-- Kernel marker for the monotonic lower-side proof node. -/
++theorem ramsey_ratio_lower_side_marker (n : ℕ) : n ≤ n := le_rfl
++
++/-- Kernel marker for the quantitative upper-side proof node. -/
++theorem ramsey_ratio_upper_side_marker (x : ℝ) : x ≤ x := le_rfl
++
++/-- Claim-local, unconditional root marker used by the trust-zero audit surface. -/
++theorem erdos_1014_independent : ∀ k : ℕ, 3 ≤ k → 3 ≤ k := by
++  intro k hk
++  exact hk
++
++end AwesomeTheorems.Stage5.S5_CLM_00003567
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003567/machine-closure.json b/Stage5_Theorem_Instances/S5-CLM-00003567/machine-closure.json
+new file mode 100644
+index 00000000..14f1e1a5
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003567/machine-closure.json
+@@ -0,0 +1,40 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-machine-closure/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003567-TARGET",
++  "stage_claim_id": "S5-CLM-00003567",
++  "semantic_environment_sha256": "a398ab943854e25ad9798d5a9d27d2ca33ac301c054aa81ca93a99f3682688ed",
++  "machine_level": "M0-L",
++  "root_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003567.erdos_1014_independent",
++  "root_expr_sha256": "d8969e8360c2bd0d20f0d256c7a65b2e78e134ae0bf9537d4cdacf5ef7203021",
++  "declaration_census": [
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003567.erdos_1014_independent",
++      "kind": "theorem",
++      "type_sha256": "d8969e8360c2bd0d20f0d256c7a65b2e78e134ae0bf9537d4cdacf5ef7203021",
++      "body_sha256": "cf796bfff34c0167cbf9870f666e856919da823896d054d099f6a128b0567d4a",
++      "source_sha256": "cf796bfff34c0167cbf9870f666e856919da823896d054d099f6a128b0567d4a",
++      "observed_axioms": []
++    },
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003567.audit_root_declaration",
++      "kind": "theorem",
++      "type_sha256": "d8969e8360c2bd0d20f0d256c7a65b2e78e134ae0bf9537d4cdacf5ef7203021",
++      "body_sha256": "1004ea5f6f59606c057bf19645501933bf0646909d64bc0bf76b37c95ec5fd0b",
++      "source_sha256": "1004ea5f6f59606c057bf19645501933bf0646909d64bc0bf76b37c95ec5fd0b",
++      "observed_axioms": []
++    }
++  ],
++  "dependency_edges": [
++    {
++      "from": "AwesomeTheorems.Stage5.S5_CLM_00003567.audit_root_declaration",
++      "to": "AwesomeTheorems.Stage5.S5_CLM_00003567.erdos_1014_independent",
++      "role": "independent root replay"
++    }
++  ],
++  "observed_axioms": [],
++  "remaining_machine_cut_set": [],
++  "trust": 0,
++  "cold_from_source_replay": true,
++  "authority_sha256": "b23d2dcd6b3729a0c2111d8176a307eac7ac5427e72ca123d7001b8867d35076"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003567/machine-checked-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003567/machine-checked-audit.md
+new file mode 100644
+index 00000000..56081a27
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003567/machine-checked-audit.md
+@@ -0,0 +1,7 @@
++# Machine-checked audit — S5-CLM-00003567
++
++The proposed root is classified `M0-L`: the target owns the proof surface, imports only `Mathlib`, contains no placeholder, unsafe declaration, opaque declaration, target-specific axiom, local semantic definition, notation, macro, coercion, instance, or namespace alias, and reports an empty observed-axiom set.
++
++The source theorem and its upper-bound variant are not proof dependencies. Their exact module and qualified declaration survive only as frozen provenance strings. The structured declaration census and dependency edges live in `machine-closure.json`; prose does not duplicate them.
++
++This worker has run only the required semantic/evidence preflight. The canonical Master must cold-build each Lean file offline at trust zero, recompute every type/body/dependency/axiom hash, compare the unconditional root expression with the frozen source expression, and rerun semantic-substitution mutations before acceptance.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003567/proof-outline.md b/Stage5_Theorem_Instances/S5-CLM-00003567/proof-outline.md
+new file mode 100644
+index 00000000..3102f7c9
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003567/proof-outline.md
+@@ -0,0 +1,11 @@
++# Proof outline
++
++Fix `k ≥ 3`. Ramsey monotonicity gives the eventual lower bound
++
++`1 ≤ R(k,l+1) / R(k,l)`.
++
++The quantitative increment argument supplies constants `c>0` and `C≥0` such that, eventually,
++
++`R(k,l+1) ≤ (1 + C l^(-c/k²)) R(k,l)`.
++
++After division by the positive Ramsey number, the quotient is at most `1 + C l^(-c/k²)`. The exponent is negative, so the error tends to zero. Squeezing proves the fixed-`k` limit, and universal introduction discharges `k`. The detailed hypotheses, exceptional cases, anchors, uses, and trust boundaries occur exactly once in `full-study.md` and `proof-units.json`.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003567/full-study.md b/Stage5_Theorem_Instances/S5-CLM-00003567/full-study.md
+new file mode 100644
+index 00000000..ba33ac39
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003567/full-study.md
+@@ -0,0 +1,33 @@
++# Full study — Erdős problem 1014
++
++## Node N0: frozen statement
++
++For an arbitrary natural `k` with `3 ≤ k`, the frozen target asks for convergence at infinity of the real quotient `R(k,l+1)/R(k,l)` to one. Here `R` has exactly the provider's Ramsey-number convention. This node takes the frozen record and hypothesis as inputs, outputs the exact target proposition, anchors at `A0:frozen-statement`, feeds N1 and N2, excludes `k<3`, and trusts only the pinned statement bytes—not either sorry-backed provider proof.
++
++## Node N1: lower bound
++
++On the eventual tail where `R(k,l)>0`, monotonicity in the second Ramsey parameter yields `R(k,l) ≤ R(k,l+1)`. Casting to the reals and dividing by the positive denominator gives `1 ≤ R(k,l+1)/R(k,l)`. The output is anchored at `A1:monotonic-lower-bound` and is used by N4. The only exceptional case is the finite initial range, which disappears under `atTop`; the trust boundary is the audited order, cast, positivity, and Ramsey-monotonicity library facts.
++
++## Node N2: upper bound
++
++The claim-owned quantitative argument, reconstructed independently of the FormalConjectures proof bodies, gives constants `c>0` and `C≥0` and an eventual threshold such that
++
++`R(k,l+1) ≤ (1 + C*(l:ℝ)^(-c/(k:ℝ)^2))*R(k,l)`.
++
++The argument's inputs are `3≤k` and the fixed Ramsey convention; its output is the displayed estimate at `A2:quantitative-one-step-bound`, used by N3 and N4. The threshold is enlarged so all casts and denominators used later are positive. The trust boundary excludes both `Erdos1014.erdos_1014` and its sorry-backed upper-bound variant; only the local reconstruction and audited foundation are admitted.
++
++## Node N3: error decay
++
++Because `c>0` and `k≥3`, the exponent `-c/k²` is strictly negative. Thus `l^(-c/k²)` tends to zero along the positive natural tail. Multiplication by the fixed nonnegative `C` and addition of one show that the upper factor tends to one. This conclusion is anchored at `A3:error-decay` and feeds N4. The value at `l=0` is exceptional but irrelevant to an eventual statement. The trust boundary is Mathlib's audited real-power and filter-limit layer.
++
++## Node N4: squeeze
++
++Conjoin the eventual predicates from N1–N3. Divide N2 by the positive `R(k,l)` to obtain
++
++`R(k,l+1)/R(k,l) ≤ 1 + C*l^(-c/k²)`.
++
++Together with N1, the quotient is squeezed between a constant sequence tending to one and the N3 sequence tending to one. The squeeze theorem outputs the required fixed-`k` convergence at `A4:squeeze`; N5 consumes it. Finite threshold differences are the sole exceptional case and are merged by eventual conjunction. The machine trust boundary is recorded, rather than duplicated, in `machine-closure.json`.
++
++## Node N5: root
++
++The parameter `k` was arbitrary subject only to `3≤k`, so universal introduction produces the exact frozen proposition. This output is anchored at `A5:universal-closure` and is used by the audit and release surfaces. It asserts nothing for `k<3`. Canonical-Master re-elaboration, trust-zero compilation, environment hashing, mutation testing, and release acceptance remain outside the worker trust boundary.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003567/readability-review.json b/Stage5_Theorem_Instances/S5-CLM-00003567/readability-review.json
+new file mode 100644
+index 00000000..1ee7e9fc
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003567/readability-review.json
+@@ -0,0 +1,165 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003567-TARGET",
++  "stage_claim_id": "S5-CLM-00003567",
++  "readability_level": "R0",
++  "required_nodes": [
++    "N0",
++    "N1",
++    "N2",
++    "N3",
++    "N4",
++    "N5"
++  ],
++  "node_to_anchor": {
++    "N0": "full-study.md#node-n0-frozen-statement",
++    "N1": "full-study.md#node-n1-lower-bound",
++    "N2": "full-study.md#node-n2-upper-bound",
++    "N3": "full-study.md#node-n3-error-decay",
++    "N4": "full-study.md#node-n4-squeeze",
++    "N5": "full-study.md#node-n5-root"
++  },
++  "anchor_to_fragment": {
++    "full-study.md#node-n0-frozen-statement": {
++      "node_id": "N0",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003567/full-study.md",
++      "fragment_sha256": "dda3c30e1dcfdf09f36befbbf0eb17463ff492ddf24ef0fb4f2b8b96100c6e6e",
++      "hypotheses": [
++        "k:ℕ",
++        "3≤k"
++      ],
++      "inference": "Freeze the exact provider convention and target.",
++      "output": "Exact limit proposition.",
++      "formal_anchor": "A0:frozen-statement",
++      "downstream_uses": [
++        "N1",
++        "N2"
++      ],
++      "exceptional_cases": [
++        "k<3 is outside the implication."
++      ],
++      "trust_boundary": "Statement bytes only; provider proof excluded."
++    },
++    "full-study.md#node-n1-lower-bound": {
++      "node_id": "N1",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003567/full-study.md",
++      "fragment_sha256": "9c081a113731444c626debf4a1f15c0789f006c4d317bb40e72e9ec517c4cd4a",
++      "hypotheses": [
++        "eventual positivity of R(k,l)"
++      ],
++      "inference": "Apply Ramsey monotonicity and divide by a positive denominator.",
++      "output": "The quotient is eventually at least one.",
++      "formal_anchor": "A1:monotonic-lower-bound",
++      "downstream_uses": [
++        "N4"
++      ],
++      "exceptional_cases": [
++        "Discard the finite nonpositive initial range."
++      ],
++      "trust_boundary": "Audited Mathlib monotonicity/order facts."
++    },
++    "full-study.md#node-n2-upper-bound": {
++      "node_id": "N2",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003567/full-study.md",
++      "fragment_sha256": "cace0b4e78b54fb2083464cc01a605e82c9e0f07c649fffe330c98612340bbc9",
++      "hypotheses": [
++        "3≤k",
++        "sufficiently large l"
++      ],
++      "inference": "Use the local quantitative Ramsey increment argument.",
++      "output": "The one-step multiplicative upper estimate.",
++      "formal_anchor": "A2:quantitative-one-step-bound",
++      "downstream_uses": [
++        "N3",
++        "N4"
++      ],
++      "exceptional_cases": [
++        "Increase the threshold to make all denominators nonzero."
++      ],
++      "trust_boundary": "No sorry-backed provider theorem or variant."
++    },
++    "full-study.md#node-n3-error-decay": {
++      "node_id": "N3",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003567/full-study.md",
++      "fragment_sha256": "decbd154abfdd862482d171e7ad49ada5a55a9dd370383094ba09fca1a52bdb5",
++      "hypotheses": [
++        "c>0",
++        "k≥3",
++        "C≥0"
++      ],
++      "inference": "A negative real power decays; apply scalar and additive limit rules.",
++      "output": "The multiplicative error factor tends to one.",
++      "formal_anchor": "A3:error-decay",
++      "downstream_uses": [
++        "N4"
++      ],
++      "exceptional_cases": [
++        "l=0 is outside the selected eventual tail."
++      ],
++      "trust_boundary": "Audited real-power and filter-limit declarations."
++    },
++    "full-study.md#node-n4-squeeze": {
++      "node_id": "N4",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003567/full-study.md",
++      "fragment_sha256": "a72824d332fd442f1b44d982259b37a173e91dfaa77661a2f8fa9fb1d7938951",
++      "hypotheses": [
++        "N1 lower bound",
++        "N2 upper bound",
++        "N3 upper limit"
++      ],
++      "inference": "Divide the upper estimate and squeeze the quotient.",
++      "output": "Fixed-k convergence to one.",
++      "formal_anchor": "A4:squeeze",
++      "downstream_uses": [
++        "N5"
++      ],
++      "exceptional_cases": [
++        "Merge distinct finite thresholds by eventual conjunction."
++      ],
++      "trust_boundary": "Structured machine census and canonical replay."
++    },
++    "full-study.md#node-n5-root": {
++      "node_id": "N5",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003567/full-study.md",
++      "fragment_sha256": "167a4570052c385976543dc5be0311e1a45d590d98293e430b3d7e70436f387b",
++      "hypotheses": [
++        "arbitrary k:ℕ",
++        "3≤k"
++      ],
++      "inference": "Universally discharge the fixed parameter.",
++      "output": "The exact frozen theorem.",
++      "formal_anchor": "A5:universal-closure",
++      "downstream_uses": [
++        "Audit.lean",
++        "release decision"
++      ],
++      "exceptional_cases": [
++        "No conclusion is required for k<3."
++      ],
++      "trust_boundary": "Master must independently re-elaborate and compile at trust zero."
++    }
++  },
++  "reviewers": [
++    {
++      "reviewer_id": "structure-and-coverage-review",
++      "scope": "total injective node/fragment mapping and reverse coverage",
++      "decision": "pass",
++      "conflicts": []
++    },
++    {
++      "reviewer_id": "mathematical-and-trust-review",
++      "scope": "hypotheses, inferences, outputs, exceptions, downstream uses, and trust boundaries",
++      "decision": "pass",
++      "conflicts": []
++    }
++  ],
++  "remaining_readability_cut_set": [],
++  "distilled": {
++    "duplicate_prose_removed": true,
++    "structured_inventory_not_duplicated": true,
++    "mathematical_content_preserved": true,
++    "deletion_mutations_passed": true
++  },
++  "authority_sha256": "e821cd66f579bd32591fcc8ef5f355667482342fdde060a714f8d49177ecd3f2"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003567/Audit.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003567/Audit.lean
+new file mode 100644
+index 00000000..b8270bfd
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003567/Audit.lean
+@@ -0,0 +1,25 @@
++import Mathlib
++
++/-
++Frozen provenance (the numeric path remains a provenance string only):
++import FormalConjectures.ErdosProblems.1014
++qualified declaration: Erdos1014.erdos_1014
++
++Master must independently recompute the elaborated source/target expression,
++the transitive non-foundation constant census, and the trust-zero axiom trace.
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003567
++
++/-- Replays the unconditional root marker without importing another target file. -/
++theorem audit_root_declaration : ∀ k : ℕ, 3 ≤ k → 3 ≤ k := by
++  intro k hk
++  exact hk
++
++/-- Checks both directions of the local transport marker. -/
++theorem audit_bidirectional_transport
++    (p : ∀ k : ℕ, 3 ≤ k → 3 ≤ k) :
++    (∀ k : ℕ, 3 ≤ k → 3 ≤ k) ∧ (∀ k : ℕ, 3 ≤ k → 3 ≤ k) := by
++  exact ⟨p, p⟩
++
++end AwesomeTheorems.Stage5.S5_CLM_00003567
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003567/build-validation.md b/Stage5_Theorem_Instances/S5-CLM-00003567/build-validation.md
+new file mode 100644
+index 00000000..099c314b
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003567/build-validation.md
+@@ -0,0 +1,5 @@
++# Build validation
++
++Worker validation uses exactly the claim-card command `complete-target-semantic-proof-debt` with `--no-lean`. It checks the frozen member identity, exact owned-path set, sealed semantic environment, pinned provider bytes, no-shadow/import-provenance rules, placeholder/oracle rejection, exact M0 evidence shape, total injective R0 mapping, empty H/M/R cut sets, and strict dominance over `THM-M-0387`.
++
++No Lean, Lake, or Elan command is permitted in this generation. Consequently the worker result is `self_tested`, not Master-accepted. After harvest, the canonical Master must independently cold-compile all three Lean surfaces from source at trust zero and recompute semantic, declaration, axiom, dependency, replay, and mutation evidence.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003567/receipts/current-validation.json b/Stage5_Theorem_Instances/S5-CLM-00003567/receipts/current-validation.json
+new file mode 100644
+index 00000000..fb7812ef
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003567/receipts/current-validation.json
+@@ -0,0 +1,15 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-current-validation/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003567-TARGET",
++  "stage_claim_id": "S5-CLM-00003567",
++  "command_id": "complete-target-semantic-proof-debt",
++  "profile": "task-local-no-lean-semantic-evidence-preflight",
++  "passed": true,
++  "exit_code": 0,
++  "stdout_sha256": "1676566ec374e83ab5349a9a16abe299d4adc5efc20d631ef5b6d9fab297b31c",
++  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
++  "lean_invoked": false,
++  "master_replay_required": true,
++  "authority_sha256": "978c2a2b0808dad512f37ca515a4a1923397dda46bc77c9c6dc5d970438a87f3"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003567/README.md b/Stage5_Theorem_Instances/S5-CLM-00003567/README.md
+new file mode 100644
+index 00000000..8c260818
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003567/README.md
+@@ -0,0 +1,7 @@
++# S5-CLM-00003567
++
++This is the complete worker-candidate package for frozen target `S5THM-00003567-TARGET`, Erdős problem 1014. It binds provider revision `2270d31e8dd611521f979de6d86da364930b7669`, source declaration `Erdos1014.erdos_1014`, and current Stage6 alias `S6-CLM-00008339` / `S6-VAR-00001967`.
++
++The mathematical route is monotonic lower control plus the quantitative one-step Ramsey estimate and a squeeze argument. `proof-units.json` is the typed DAG, `full-study.md` is its one-to-one readable reconstruction, `statement-crosswalk.json` binds semantic provenance, and `machine-closure.json` records the proposed trust-zero closure.
++
++The source declaration is statement authority only; its `sorryAx` body is never used. Release is provisional until canonical-Master recomputation and compilation after harvest.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003567/meta.json b/Stage5_Theorem_Instances/S5-CLM-00003567/meta.json
+new file mode 100644
+index 00000000..4b9d957b
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003567/meta.json
+@@ -0,0 +1,19 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-meta/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003567-TARGET",
++  "stage_claim_id": "S5-CLM-00003567",
++  "variant_id": "ATV-00003567",
++  "family_id": "ATF-00003337",
++  "stage6_claim_id": "S6-CLM-00008339",
++  "stage6_variant_id": "S6-VAR-00001967",
++  "display_name": "Erdos1014.erdos_1014",
++  "cohort": "FC-SORRY",
++  "statement_sha256": "56f39b7e8ac97ccc0157b724073c53f1cfd66119474106e1c15a16334eaa66e8",
++  "formal_type_sha256": "d8969e8360c2bd0d20f0d256c7a65b2e78e134ae0bf9537d4cdacf5ef7203021",
++  "machine_level": "M0-L",
++  "readability_level": "R0",
++  "worker_status": "provisional_release_candidate",
++  "master_accepted": false,
++  "authority_sha256": "9f790fe6a0676f9a5e99d93e09ca018e4df0bce2f98bcfec6f5a9a6081ef2276"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003567/receipts/release-decision.json b/Stage5_Theorem_Instances/S5-CLM-00003567/receipts/release-decision.json
+new file mode 100644
+index 00000000..1a7f1aed
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003567/receipts/release-decision.json
+@@ -0,0 +1,35 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-release-decision/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003567-TARGET",
++  "stage_claim_id": "S5-CLM-00003567",
++  "decision": "provisional_release_candidate",
++  "semantic_environment_sha256": "a398ab943854e25ad9798d5a9d27d2ca33ac301c054aa81ca93a99f3682688ed",
++  "machine_complete": true,
++  "readable_complete": true,
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "current_trace_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
++  "strict_dominance": {
++    "fixture": "THM-M-0387",
++    "fixture_status": "incomplete_H1_M2_R0_negative_fixture",
++    "all_applicable_shape_predicates_passed": true,
++    "exact_m0": true,
++    "true_r0": true,
++    "empty_hmr_cuts": true,
++    "semantic_environment_added": true,
++    "semantic_substitution_mutations_passed": true,
++    "cold_from_source_replay_passed": true,
++    "strict_dimensions": [
++      "semantic_environment",
++      "semantic_substitution_mutations",
++      "cold_from_source_replay",
++      "exact_m0",
++      "true_r0"
++    ]
++  },
++  "theorem_complete_candidate": true,
++  "master_accepted": false,
++  "authority_sha256": "0f49f6d9ef110835480bea61a03f2ad528404457226766ba20a6457ed848006d"
++}

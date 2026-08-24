@@ -1,10 +1,10 @@
 # Stage1 v2 Machine-Proof Integration Blueprint
 
-> Document type: sole current Stage1 blueprint and task-state SSOT
+> Document type: historical Stage1 v2 machine-proof integration cursor; not the current project SSOT
 > Blueprint version: `stage1-integration/2.1`
 > Focus policy version: `stage1-focus-policy/1.0`
-> Requirements and phase-state authority: `Docs/Stage1_Blueprint_v2.md`
-> This is the only current Stage1 blueprint and writable task-state cursor.
+> Historical requirements and phase-state source: `Docs/Stage1_Blueprint_v2.md`
+> Current project SSOT: the Stage5.1 organization release and its two execution Blueprints.
 > Membership projection: `Docs/Stage1_Target_Membership_v2.json`
 > Read-only phase-DAG projection: `Docs/Stage1_Phase_DAG_v2.json`
 > Read-only theorem and eligibility projection: `Docs/Stage1_Theorem_DAG_v2.json`
@@ -42,14 +42,14 @@ work or provenance is erased. Membership is a discovery universe, not an asserti
 is currently executable. Focus eligibility is a separate fail-closed gate applied before DAG order,
 claiming, review, integration, or acceptance.
 
-## 1. Sole Authority and Legacy Boundary
+## 1. Historical Authority and Legacy Boundary
 
-There is one blueprint authority for Stage1 requirements and task state. This file is the
-only current Stage1 blueprint and writable task-state cursor:
+During the Stage1 v2 epoch, this file owned Stage1 requirements and task state. It is now a
+historical cursor and cannot compete with or update the Stage5.1 SSOT:
 
 | Concern | Authoritative source | Boundary |
 |---|---|---|
-| scope, focus policy, phase permissions, ordering, acceptance, and `[ ]` / `[_]` / `[x]` state | this file | sole writable Stage1 SSOT |
+| scope, focus policy, phase permissions, ordering, acceptance, and `[ ]` / `[_]` / `[x]` state | this file | frozen Stage1 historical cursor |
 | immutable facts supporting one target's admission | content-addressed `focus-eligibility.json` plus bound evidence | facts only; cannot change policy or checkbox state |
 | phase and theorem DAG views, focus projection, summaries, and daily todo | generated JSON/Markdown projections | read-only; must reproduce this file and accepted receipts |
 | validation claims | content-addressed receipts and independently replayed evidence | evidence only; cannot write task state or grant focus permission |
@@ -65,7 +65,7 @@ Superseded validators are reproducible only by checking out their recorded revis
 restored into the current scheduler or support new acceptance. Current acceptance requires a
 scheduler-owned v2 validator and evidence bound to this policy.
 
-The checklist between `STAGE1-EXECUTION-CHECKLIST` markers is the sole writable phase cursor. Its
+The checklist between `STAGE1-EXECUTION-CHECKLIST` markers is the frozen Stage1 phase cursor. Its
 migrated stable IDs, attempts, counts, and current marks are frozen for this policy change. Its phase
 descriptions are v2 policy text and may be made stricter without changing a cursor. The JSON DAGs and
 daily todo may project those rows but never write back independently.

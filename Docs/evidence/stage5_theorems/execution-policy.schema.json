@@ -1,0 +1,42 @@
+{
+  "$id": "https://awesome-theorems.invalid/schemas/stage5-execution-policy-1.0.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "type": "object",
+  "properties": {
+    "execution_limits": {
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "generation_lifetime_seconds": { "const": 1209600, "type": "integer" },
+        "model_input_tokens": { "minimum": 1, "type": "integer" },
+        "model_output_tokens": { "minimum": 1, "type": "integer" },
+        "model_turns": { "const": "unbounded", "type": "string" },
+        "cpu_seconds": { "minimum": 1, "type": "integer" },
+        "external_launches": { "minimum": 1, "type": "integer" }
+      },
+      "required": ["generation_lifetime_seconds", "model_input_tokens", "model_output_tokens", "model_turns", "cpu_seconds", "external_launches"]
+    },
+    "recovery": {
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "startup_attempts_per_generation": { "const": 1, "type": "integer" },
+        "provider_attempts_per_request": { "const": 60, "type": "integer" },
+        "repair_attempts_per_failure_identity": { "minimum": 1, "type": "integer" },
+        "generation_replacements_per_work_item": { "const": 60, "type": "integer" },
+        "backoff_initial_seconds": { "const": 60, "type": "integer" },
+        "backoff_max_seconds": { "const": 3600, "type": "integer" },
+        "backoff_multiplier": { "const": 2, "type": "integer" },
+        "backoff_jitter_ratio": { "const": 0.2, "type": "number" },
+        "retry_after_precedence": { "const": "provider_retry_after_then_exponential", "type": "string" },
+        "breaker_failure_classes": { "const": ["http_429", "http_503", "provider_unavailable"], "type": "array" },
+        "breaker_scope": { "const": "provider", "type": "string" },
+        "breaker_failure_threshold": { "const": 3, "type": "integer" },
+        "breaker_cooldown_seconds": { "const": 1800, "type": "integer" }
+      },
+      "required": ["startup_attempts_per_generation", "provider_attempts_per_request", "repair_attempts_per_failure_identity", "generation_replacements_per_work_item", "backoff_initial_seconds", "backoff_max_seconds", "backoff_multiplier", "backoff_jitter_ratio", "retry_after_precedence", "breaker_failure_classes", "breaker_scope", "breaker_failure_threshold", "breaker_cooldown_seconds"]
+    }
+  },
+  "required": ["execution_limits", "recovery"]
+}

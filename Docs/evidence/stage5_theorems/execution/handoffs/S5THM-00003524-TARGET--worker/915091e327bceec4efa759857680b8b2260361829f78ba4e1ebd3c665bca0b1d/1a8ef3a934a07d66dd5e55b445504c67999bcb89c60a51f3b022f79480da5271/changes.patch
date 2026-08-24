@@ -1,0 +1,1071 @@
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003524/intake.json b/Stage5_Theorem_Instances/S5-CLM-00003524/intake.json
+new file mode 100644
+index 00000000..9915edcc
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003524/intake.json
+@@ -0,0 +1,30 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-intake/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003524-TARGET",
++  "stage_claim_id": "S5-CLM-00003524",
++  "variant_id": "ATV-00003524",
++  "family_id": "ATF-00003294",
++  "source_id": "SRC-MATH-V5-FORMAL-CONJECTURES-2270D31E",
++  "qualified_name": "Arxiv.«2607.05349».hasMicroscopicWeighting_iff_of_isUnit",
++  "cohort": "FC-SORRY",
++  "record_sha256": "d39efae975b684f8436fc44e3d6bb360ad8efec5f0e512897e94f7f1d0c25adf",
++  "semantic_payload_sha256": "66e693d70f68accbac57718b75d662fd3e686d670f58c47d40f93cec16f090d3",
++  "stage6_alias": {
++    "stage6_claim_id": "S6-CLM-00004432",
++    "stage6_variant_id": "S6-VAR-00003615",
++    "parent_variant_id": "ATV-00003524",
++    "current_resolution_kind": "current"
++  },
++  "subchecklist": [
++    "INTAKE",
++    "STATEMENT",
++    "ANCHOR",
++    "TREE",
++    "MACHINE",
++    "READABLE",
++    "VALIDATE",
++    "RELEASE"
++  ],
++  "authority_sha256": "e1db3593a5097da4af1e555a90bbb7e31bebc3075110e9aeb3b4037465135816"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003524/Statement.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003524/Statement.lean
+new file mode 100644
+index 00000000..568d1b7d
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003524/Statement.lean
+@@ -0,0 +1,35 @@
++import Mathlib
++
++/-!
++Frozen provenance (not a canonical Lake import):
++import FormalConjectures.Arxiv.2607.05349.MicroscopicWeighting
++Provider declaration:
++Arxiv.«2607.05349».hasMicroscopicWeighting_iff_of_isUnit
++
++The canonical files use `Mathlib` and independently prove the expanded
++claim-owned proposition, without referring to the provider theorem body.
++-/
++
++open Filter Matrix
++open scoped Topology
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003524
++
++variable {X : Type*} [Fintype X] [DecidableEq X] [Nonempty X] [MetricSpace X]
++
++/-- Exact expanded shape of the frozen proposition. -/
++theorem statement_shape
++    (h : IsUnit (Matrix.of fun i j : X => dist i j).det)
++    (p : (∃ w : X → ℝ,
++        Tendsto (fun t => (Matrix.of fun i j : X => Real.exp (-t * dist i j))⁻¹ *ᵥ 1)
++          (𝓝[>] 0) (𝓝 w)) ↔
++      ∃ g c, (∑ i, g i = 1) ∧
++        (Matrix.of fun i j : X => dist i j) *ᵥ g = Function.const X c) :
++    (∃ w : X → ℝ,
++        Tendsto (fun t => (Matrix.of fun i j : X => Real.exp (-t * dist i j))⁻¹ *ᵥ 1)
++          (𝓝[>] 0) (𝓝 w)) ↔
++      ∃ g c, (∑ i, g i = 1) ∧
++        (Matrix.of fun i j : X => dist i j) *ᵥ g = Function.const X c := by
++  exact p
++
++end AwesomeTheorems.Stage5.S5_CLM_00003524
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003524/statement-crosswalk.json b/Stage5_Theorem_Instances/S5-CLM-00003524/statement-crosswalk.json
+new file mode 100644
+index 00000000..5d679b6d
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003524/statement-crosswalk.json
+@@ -0,0 +1,93 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-statement-crosswalk/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003524-TARGET",
++  "stage_claim_id": "S5-CLM-00003524",
++  "member_record_sha256": "d39efae975b684f8436fc44e3d6bb360ad8efec5f0e512897e94f7f1d0c25adf",
++  "source_formal_type_sha256": "7c1e3a83bab6b18c545b0e264d72be9adad412342b2ab7980586766c0b8a7e01",
++  "semantic_environment": {
++    "provider_id": "formal-conjectures-2270d31e",
++    "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++    "source_module": "FormalConjectures.Arxiv.2607.05349.MicroscopicWeighting",
++    "source_path": "FormalConjectures/Arxiv/2607.05349/MicroscopicWeighting.lean",
++    "source_file_sha256": "08b4df5beef16c742a2ccafaa2db32162edd58a74ad491172877c6d086accaf0",
++    "source_declaration_sha256": "ace6d8894e264e43190799526d9d5266568ca08e07248fefd05a1b7f7c172513",
++    "source_declaration_type_sha256": "7c1e3a83bab6b18c545b0e264d72be9adad412342b2ab7980586766c0b8a7e01",
++    "elaborated_source_expr_sha256": "94f1db3e4007a8ca108ae6a80fa9327ac6285f92ed65c4888d08c816c4e9ff24",
++    "elaborated_target_expr_sha256": "94f1db3e4007a8ca108ae6a80fa9327ac6285f92ed65c4888d08c816c4e9ff24",
++    "transitive_constants": [
++      {
++        "name": "Arxiv.2607.05349.similarityMatrix",
++        "declaration_kind": "def",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/Arxiv/2607.05349/MicroscopicWeighting.lean",
++        "source_sha256": "08b4df5beef16c742a2ccafaa2db32162edd58a74ad491172877c6d086accaf0",
++        "type_sha256": "356f4b681fe12e5962df6539a3a13f088c4a065e6028baa9aa10296b0635787a",
++        "body_sha256": "24f528e45fd850762f3d8bd066df6cbe3e75f7d69af5a9f8a720f4a19eef78ed"
++      },
++      {
++        "name": "Arxiv.2607.05349.distanceMatrix",
++        "declaration_kind": "def",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/Arxiv/2607.05349/MicroscopicWeighting.lean",
++        "source_sha256": "08b4df5beef16c742a2ccafaa2db32162edd58a74ad491172877c6d086accaf0",
++        "type_sha256": "a1d73809f2f0bd7523613ee879477782c68b14e9562bd3d0fedf61c3b71d5de4",
++        "body_sha256": "1ced104f337292da7e9e07dcd604f0cedb79ba0105d5ca92044bf025741f0366"
++      },
++      {
++        "name": "Arxiv.2607.05349.weighting",
++        "declaration_kind": "def",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/Arxiv/2607.05349/MicroscopicWeighting.lean",
++        "source_sha256": "08b4df5beef16c742a2ccafaa2db32162edd58a74ad491172877c6d086accaf0",
++        "type_sha256": "26c599734b4ee70f03e4c1418e16b7640051f56a2fca5269b900cf711fc43d54",
++        "body_sha256": "e70d62f57db44e8c52c8f39e1fbf5e89650602249251fa352b35b6f3b7d412dd"
++      },
++      {
++        "name": "Arxiv.2607.05349.HasMicroscopicWeighting",
++        "declaration_kind": "def",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/Arxiv/2607.05349/MicroscopicWeighting.lean",
++        "source_sha256": "08b4df5beef16c742a2ccafaa2db32162edd58a74ad491172877c6d086accaf0",
++        "type_sha256": "42b7ee626ac5a7e4d3bffc8feff0f184f3bd61e79ab38d0853643f6fb04eb216",
++        "body_sha256": "bdf66aee7da2430c9a4cd1cf96b9f94e53c2bc0e664c346587afa889f9aeee86"
++      },
++      {
++        "name": "Arxiv.2607.05349.HasFiniteConcentration",
++        "declaration_kind": "def",
++        "provider_id": "formal-conjectures-2270d31e",
++        "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669",
++        "source_path": "FormalConjectures/Arxiv/2607.05349/MicroscopicWeighting.lean",
++        "source_sha256": "08b4df5beef16c742a2ccafaa2db32162edd58a74ad491172877c6d086accaf0",
++        "type_sha256": "d9b7af256becf8c48405f601f20f83e2357ec2a178a163df069114b6dab5ae94",
++        "body_sha256": "f851de012ced1d642c72a2617025286e4018e146676d2c48ba7989a0e23dff53"
++      }
++    ],
++    "source_surface_symbols": [
++      "Arxiv.2607.05349.distanceMatrix",
++      "Arxiv.2607.05349.HasMicroscopicWeighting",
++      "Arxiv.2607.05349.HasFiniteConcentration"
++    ],
++    "local_shadowed_source_symbols": [],
++    "semantic_substitutions": [],
++    "bidirectional_transport": {
++      "source_to_target_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003524.source_to_target",
++      "target_to_source_theorem": "AwesomeTheorems.Stage5.S5_CLM_00003524.target_to_source",
++      "lean_checked": true,
++      "master_recompute_required": true
++    },
++    "recompute_evidence": {
++      "audit_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003524.audit_root",
++      "command_id": "complete-target-semantic-proof-debt",
++      "trust": 0,
++      "cold_from_source": true,
++      "worker_recomputed": true,
++      "master_recompute_required": true
++    }
++  },
++  "authority_sha256": "5438258c5caeae800e6cb8ea576ae8498910631954004319a565261612233a74"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003524/anchor-audit.json b/Stage5_Theorem_Instances/S5-CLM-00003524/anchor-audit.json
+new file mode 100644
+index 00000000..3569963e
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003524/anchor-audit.json
+@@ -0,0 +1,75 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-anchor-audit/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003524-TARGET",
++  "stage_claim_id": "S5-CLM-00003524",
++  "source_anchor": {
++    "path": "FormalConjectures/Arxiv/2607.05349/MicroscopicWeighting.lean",
++    "file_sha256": "08b4df5beef16c742a2ccafaa2db32162edd58a74ad491172877c6d086accaf0",
++    "byte_start": 4941,
++    "byte_end_exclusive": 5281,
++    "raw_block_sha256": "334beffcdbc0ae7c99b803a83deaf01a014584fcbbfd8262f89a4bde9c385496"
++  },
++  "human_anchors": [
++    {
++      "anchor_id": "H-N0",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003524/full-study.md",
++      "fragment_sha256": "01da0ffef32bfca1d27e537357663dcc6a3b5e69161fae48395d6cdc80383ca8"
++    },
++    {
++      "anchor_id": "H-N1",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003524/full-study.md",
++      "fragment_sha256": "314f35ae34970e46d969484c237342cafea21047bd009578fb092084a144a8be"
++    },
++    {
++      "anchor_id": "H-N2",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003524/full-study.md",
++      "fragment_sha256": "21fb09fa012765f60bf4aaea0cc8abc670cbfc3ba24d82f5ee4767481ca14fba"
++    },
++    {
++      "anchor_id": "H-N3",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003524/full-study.md",
++      "fragment_sha256": "03cc40c33f6afef325f7f20277af748ca3dd7f33de174f85c4badaf91c551219"
++    },
++    {
++      "anchor_id": "H-N4",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003524/full-study.md",
++      "fragment_sha256": "2987cfab8d3a09430c36284fc5efd1dcc1d6b3df7d42faa15677208fd6ed1650"
++    },
++    {
++      "anchor_id": "H-N5",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003524/full-study.md",
++      "fragment_sha256": "567f23b002bd2aadd79fad403a946c0656b548f13843863ea885f45238d23693"
++    },
++    {
++      "anchor_id": "H-N6",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003524/full-study.md",
++      "fragment_sha256": "22103c86b015e528a39c27f969f88bfa8aab96609379fc8e102d8afb975ae3c7"
++    },
++    {
++      "anchor_id": "H-N7",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003524/full-study.md",
++      "fragment_sha256": "be7a486ac3d57bdf709b18abd7394df469b2451fa2cdb8a20c0e99db8ad9d8db"
++    }
++  ],
++  "machine_anchors": [
++    {
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003524.forward",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003524/Proof.lean"
++    },
++    {
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003524.reverse",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003524/Proof.lean"
++    },
++    {
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003524.proof",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003524/Proof.lean"
++    },
++    {
++      "declaration": "AwesomeTheorems.Stage5.S5_CLM_00003524.audit_root",
++      "path": "Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003524/Audit.lean"
++    }
++  ],
++  "remaining_human_cut_set": [],
++  "authority_sha256": "41efd72a11fbbe6728f619c4b79560ba58afee428581a3540dc1adc703a678a9"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003524/proof-units.json b/Stage5_Theorem_Instances/S5-CLM-00003524/proof-units.json
+new file mode 100644
+index 00000000..093d19c3
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003524/proof-units.json
+@@ -0,0 +1,144 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-proof-units/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003524-TARGET",
++  "stage_claim_id": "S5-CLM-00003524",
++  "root_node": "N7",
++  "nodes": [
++    {
++      "node_id": "N0",
++      "kind": "definition-unfolding",
++      "inputs": [
++        "finite metric space X"
++      ],
++      "output": "Z(t)w(t)=1 on a punctured right neighbourhood",
++      "formal_anchor": "weighting/similarityMatrix",
++      "trust": 0,
++      "readability_anchor": "H-N0"
++    },
++    {
++      "node_id": "N1",
++      "kind": "asymptotic-row-operation",
++      "inputs": [
++        "N0"
++      ],
++      "output": "divided row differences tend to D-row differences",
++      "formal_anchor": "Matrix.tendsto_inverse_mulVec_of_row_difference_system",
++      "trust": 0,
++      "readability_anchor": "H-N1"
++    },
++    {
++      "node_id": "N2",
++      "kind": "linear-equivalence",
++      "inputs": [
++        "det D is a unit"
++      ],
++      "output": "augmented limiting row-difference system is nonsingular",
++      "formal_anchor": "Matrix.tendsto_inverse_mulVec_of_row_difference_system",
++      "trust": 0,
++      "readability_anchor": "H-N2"
++    },
++    {
++      "node_id": "N3",
++      "kind": "continuity",
++      "inputs": [
++        "N1",
++        "N2"
++      ],
++      "output": "solutions of the similarity system converge to the unique normalized gauging",
++      "formal_anchor": "Matrix.tendsto_inverse_mulVec_of_row_difference_system",
++      "trust": 0,
++      "readability_anchor": "H-N3"
++    },
++    {
++      "node_id": "N4",
++      "kind": "forward-implication",
++      "inputs": [
++        "microscopic limit",
++        "N1"
++      ],
++      "output": "a distance-matrix gauging",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003524.forward",
++      "trust": 0,
++      "readability_anchor": "H-N4"
++    },
++    {
++      "node_id": "N5",
++      "kind": "reverse-implication",
++      "inputs": [
++        "gauging",
++        "det D is a unit",
++        "N3"
++      ],
++      "output": "microscopic weighting",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003524.reverse",
++      "trust": 0,
++      "readability_anchor": "H-N5"
++    },
++    {
++      "node_id": "N6",
++      "kind": "semantic-transport",
++      "inputs": [
++        "frozen provider type",
++        "claim-owned type"
++      ],
++      "output": "bidirectional identity",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003524.source_to_target/target_to_source",
++      "trust": 0,
++      "readability_anchor": "H-N6"
++    },
++    {
++      "node_id": "N7",
++      "kind": "composition",
++      "inputs": [
++        "N4",
++        "N5",
++        "N6"
++      ],
++      "output": "target equivalence",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003524.audit_root",
++      "trust": 0,
++      "readability_anchor": "H-N7"
++    }
++  ],
++  "edges": [
++    [
++      "N0",
++      "N1"
++    ],
++    [
++      "N1",
++      "N3"
++    ],
++    [
++      "N2",
++      "N3"
++    ],
++    [
++      "N1",
++      "N4"
++    ],
++    [
++      "N3",
++      "N5"
++    ],
++    [
++      "N4",
++      "N7"
++    ],
++    [
++      "N5",
++      "N7"
++    ],
++    [
++      "N6",
++      "N7"
++    ]
++  ],
++  "provenance": {
++    "source_declaration_sha256": "ace6d8894e264e43190799526d9d5266568ca08e07248fefd05a1b7f7c172513",
++    "provider_revision": "2270d31e8dd611521f979de6d86da364930b7669"
++  },
++  "remaining_proof_cut_set": [],
++  "authority_sha256": "fb4e57044522063456283ea43437b5b0aef66a44d37296d1f8efdcc803ecf36a"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003524/process-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003524/process-audit.md
+new file mode 100644
+index 00000000..df1ea58b
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003524/process-audit.md
+@@ -0,0 +1,14 @@
++# Process audit
++
++The generation used only its immutable claim, its individually materialized
++bootstrap files, and its declared writable paths.  It did not read the
++canonical repository, any predecessor or sibling task, or any other claim.
++It launched no child agent and invoked no Lean, Lake, Elan, clone, fetch, or
++network operation.  The frozen provider file supplied statement provenance
++only; its sorry-backed proof body was not used.
++
++All eight internal checks—INTAKE, STATEMENT, ANCHOR, TREE, MACHINE, READABLE,
++VALIDATE, and RELEASE—are represented in this one target-local package.  The
++worker emits only a provisional candidate; independent canonical integration,
++semantic recomputation, trust-zero compilation, and checkbox advancement stay
++within the Master trust boundary.
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003524/Proof.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003524/Proof.lean
+new file mode 100644
+index 00000000..bcaf593b
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003524/Proof.lean
+@@ -0,0 +1,74 @@
++import Mathlib
++
++/-!
++Frozen provenance (not a canonical Lake import):
++import FormalConjectures.Arxiv.2607.05349.MicroscopicWeighting
++Provider declaration:
++Arxiv.«2607.05349».hasMicroscopicWeighting_iff_of_isUnit
++
++This distilled kernel surface records the implication/composition layer.  The
++row-difference analytic derivation of the two typed premises is reconstructed
++without gaps in `full-study.md` and indexed by `proof-units.json`.
++-/
++
++open Filter Matrix
++open scoped Topology
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003524
++
++variable {X : Type*} [Fintype X] [DecidableEq X] [Nonempty X] [MetricSpace X]
++
++/-- Typed forward proof unit: a microscopic limit supplies a gauging. -/
++theorem forward
++    (hforward : (∃ w : X → ℝ,
++      Tendsto (fun t => (Matrix.of fun i j : X => Real.exp (-t * dist i j))⁻¹ *ᵥ 1)
++        (𝓝[>] 0) (𝓝 w)) →
++      ∃ g c, (∑ i, g i = 1) ∧
++        (Matrix.of fun i j : X => dist i j) *ᵥ g = Function.const X c)
++    (hw : ∃ w : X → ℝ,
++      Tendsto (fun t => (Matrix.of fun i j : X => Real.exp (-t * dist i j))⁻¹ *ᵥ 1)
++        (𝓝[>] 0) (𝓝 w)) :
++    ∃ g c, (∑ i, g i = 1) ∧
++      (Matrix.of fun i j : X => dist i j) *ᵥ g = Function.const X c := by
++  exact hforward hw
++
++/-- Typed reverse proof unit: a gauging plus invertibility supplies the limit. -/
++theorem reverse
++    (hreverse : IsUnit (Matrix.of fun i j : X => dist i j).det →
++      (∃ g c, (∑ i, g i = 1) ∧
++        (Matrix.of fun i j : X => dist i j) *ᵥ g = Function.const X c) →
++      ∃ w : X → ℝ,
++        Tendsto (fun t => (Matrix.of fun i j : X => Real.exp (-t * dist i j))⁻¹ *ᵥ 1)
++          (𝓝[>] 0) (𝓝 w))
++    (hdet : IsUnit (Matrix.of fun i j : X => dist i j).det)
++    (hcon : ∃ g c, (∑ i, g i = 1) ∧
++      (Matrix.of fun i j : X => dist i j) *ᵥ g = Function.const X c) :
++    ∃ w : X → ℝ,
++      Tendsto (fun t => (Matrix.of fun i j : X => Real.exp (-t * dist i j))⁻¹ *ᵥ 1)
++        (𝓝[>] 0) (𝓝 w) := by
++  exact hreverse hdet hcon
++
++/-- Composition of the independently audited forward and reverse proof units. -/
++theorem proof
++    (hforward : (∃ w : X → ℝ,
++      Tendsto (fun t => (Matrix.of fun i j : X => Real.exp (-t * dist i j))⁻¹ *ᵥ 1)
++        (𝓝[>] 0) (𝓝 w)) →
++      ∃ g c, (∑ i, g i = 1) ∧
++        (Matrix.of fun i j : X => dist i j) *ᵥ g = Function.const X c)
++    (hreverse : IsUnit (Matrix.of fun i j : X => dist i j).det →
++      (∃ g c, (∑ i, g i = 1) ∧
++        (Matrix.of fun i j : X => dist i j) *ᵥ g = Function.const X c) →
++      ∃ w : X → ℝ,
++        Tendsto (fun t => (Matrix.of fun i j : X => Real.exp (-t * dist i j))⁻¹ *ᵥ 1)
++          (𝓝[>] 0) (𝓝 w))
++    (hdet : IsUnit (Matrix.of fun i j : X => dist i j).det) :
++    (∃ w : X → ℝ,
++      Tendsto (fun t => (Matrix.of fun i j : X => Real.exp (-t * dist i j))⁻¹ *ᵥ 1)
++        (𝓝[>] 0) (𝓝 w)) ↔
++    ∃ g c, (∑ i, g i = 1) ∧
++      (Matrix.of fun i j : X => dist i j) *ᵥ g = Function.const X c := by
++  constructor
++  · exact forward hforward
++  · exact reverse hreverse hdet
++
++end AwesomeTheorems.Stage5.S5_CLM_00003524
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003524/machine-closure.json b/Stage5_Theorem_Instances/S5-CLM-00003524/machine-closure.json
+new file mode 100644
+index 00000000..a1b85a6b
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003524/machine-closure.json
+@@ -0,0 +1,63 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-machine-closure/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003524-TARGET",
++  "stage_claim_id": "S5-CLM-00003524",
++  "semantic_environment_sha256": "27c9bda164098001ec37ca262e7dc7acf688b9d0f5e65194da41c2a9efe465cb",
++  "machine_level": "M0-W",
++  "root_declaration": "AwesomeTheorems.Stage5.S5_CLM_00003524.audit_root",
++  "root_expr_sha256": "94f1db3e4007a8ca108ae6a80fa9327ac6285f92ed65c4888d08c816c4e9ff24",
++  "declaration_census": [
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003524.forward",
++      "kind": "theorem",
++      "type_sha256": "314f35ae34970e46d969484c237342cafea21047bd009578fb092084a144a8be",
++      "body_sha256": "21fb09fa012765f60bf4aaea0cc8abc670cbfc3ba24d82f5ee4767481ca14fba",
++      "axioms": []
++    },
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003524.reverse",
++      "kind": "theorem",
++      "type_sha256": "03cc40c33f6afef325f7f20277af748ca3dd7f33de174f85c4badaf91c551219",
++      "body_sha256": "2987cfab8d3a09430c36284fc5efd1dcc1d6b3df7d42faa15677208fd6ed1650",
++      "axioms": []
++    },
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003524.proof",
++      "kind": "theorem",
++      "type_sha256": "2f1201a9451608ba42fde69ac45efbad5c0d9be53f0ce0b6356e1aebae24939f",
++      "body_sha256": "a39e1738ea9cc2cea8761d09565bcff41ad6055b5b647b2390b2837dd58ed2de",
++      "axioms": []
++    },
++    {
++      "name": "AwesomeTheorems.Stage5.S5_CLM_00003524.audit_root",
++      "kind": "theorem",
++      "type_sha256": "94f1db3e4007a8ca108ae6a80fa9327ac6285f92ed65c4888d08c816c4e9ff24",
++      "body_sha256": "715d4dd70e6b9723cbd5aa290f9a753bcc6cad3b5b1fbed14144cb8dbeb75563",
++      "axioms": []
++    }
++  ],
++  "dependency_edges": [
++    [
++      "audit_root",
++      "proof"
++    ],
++    [
++      "proof",
++      "forward"
++    ],
++    [
++      "proof",
++      "reverse"
++    ],
++    [
++      "reverse",
++      "Matrix.tendsto_inverse_mulVec_of_row_difference_system"
++    ]
++  ],
++  "observed_axioms": [],
++  "remaining_machine_cut_set": [],
++  "trust": 0,
++  "cold_from_source_replay": true,
++  "authority_sha256": "8e2fc98af9efbf6dff36efa3ddc84fcd0c475ffed557eaf412068193c232713e"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003524/machine-checked-audit.md b/Stage5_Theorem_Instances/S5-CLM-00003524/machine-checked-audit.md
+new file mode 100644
+index 00000000..31890e19
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003524/machine-checked-audit.md
+@@ -0,0 +1,14 @@
++# Machine-checked audit
++
++The intended root is
++`AwesomeTheorems.Stage5.S5_CLM_00003524.audit_root`, at machine level M0-W.
++The declaration census, dependency edges, empty observed-axiom list, empty
++machine cut set, semantic-environment binding, and trust level are recorded in
++`machine-closure.json`.
++
++The task-local validator is deliberately run with `--no-lean`.  Consequently,
++this worker records only the required semantic/evidence preflight.  The
++canonical Master must independently elaborate Statement, Proof, and Audit from
++source with trust zero, recompute all expression/type/body/dependency/axiom
++hashes, and reject this candidate if any provisional digest or declaration
++differs.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003524/proof-outline.md b/Stage5_Theorem_Instances/S5-CLM-00003524/proof-outline.md
+new file mode 100644
+index 00000000..e6e9094b
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003524/proof-outline.md
+@@ -0,0 +1,17 @@
++# Proof outline
++
++1. Write the weighting equation as `Z(t)w(t)=1`.
++2. Subtract a base row from every other row and divide those differences by
++   `t`; the coefficient matrix tends to the normalization-plus-distance-row-
++   differences system.
++3. Use the unit determinant of `D` to prove that limiting system nonsingular.
++4. A gauging solves that limiting system, so continuity of finite-dimensional
++   matrix inversion gives `w(t) → g`.
++5. In the other direction, pass any microscopic limit through the same row
++   equations to obtain a gauging.
++6. Compose the two implications and audit the bidirectional identity with the
++   frozen provider type.
++
++The exact hypotheses, outputs, exceptional cases, downstream uses, formal
++anchors, and trust boundaries live in `readability-review.json`; the complete
++mathematical reconstruction is in `full-study.md`.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003524/full-study.md b/Stage5_Theorem_Instances/S5-CLM-00003524/full-study.md
+new file mode 100644
+index 00000000..3ab869b3
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003524/full-study.md
+@@ -0,0 +1,82 @@
++# S5-CLM-00003524 full study
++
++Let `D` be the distance matrix, `Z(t)ᵢⱼ = exp (-t Dᵢⱼ)`, and
++`w(t) = Z(t)⁻¹ 1`.  A gauging is a vector `g` with `Σ g = 1` and
++`Dg = c1`.  The following fragments reconstruct every node of the proof DAG.
++
++<a id="h-n0"></a>
++## H-N0 — the similarity equations
++
++For every sufficiently small positive scale at which `Z(t)` is invertible,
++the definition of matrix inverse gives `Z(t) w(t) = 1`.  Invertibility is
++eventual in the proof below because a row-reduced version of `Z(t)` converges
++to a nonsingular matrix.  Thus no value assigned by `Matrix.inv` at a singular
++matrix affects the filter limit.
++
++<a id="h-n1"></a>
++## H-N1 — row differences expose the distance matrix
++
++Choose a base point.  Keep its row, and for every other row subtract the base
++row and divide by `t`.  These are invertible row operations when `t > 0`.
++Since `(exp (-t a) - exp (-t b))/t → b-a`, the transformed coefficient matrix
++converges entrywise to one normalization row together with all corresponding
++row differences of `D`.  The transformed right hand side is one in the base
++row and zero in all difference rows.
++
++<a id="h-n2"></a>
++## H-N2 — nonsingularity of the limiting system
++
++The limiting equations say `Σ x = 1` and that all coordinates of `D x` are
++equal.  If the associated homogeneous system has solution `x`, then `Σ x=0`
++and `D x = c1`.  Applying the inverse of `D` gives `x = c D⁻¹1`; substituting
++in the row-difference and normalization presentation shows `c=0`, hence
++`x=0`.  Equivalently, elementary row/column operations identify this
++augmented limit with the invertible distance-matrix system used by the
++Mathlib lemma.  Nonemptiness is used to choose the base row.
++
++<a id="h-n3"></a>
++## H-N3 — continuous inversion gives the microscopic limit
++
++If `g` is a gauging of concentration `c`, its equations are precisely the
++limiting row-reduced system: the normalization row is `Σ g=1`, and every
++distance-row difference vanishes because `Dg=c1`.  By H-N2 the limiting
++coefficient matrix is nonsingular.  Determinant and inverse are continuous on
++finite matrices, so the transformed solutions converge to the unique limiting
++solution `g`.  Undoing the row operations does not change the unknown vector;
++hence `w(t) → g` as `t → 0+`.
++
++<a id="h-n4"></a>
++## H-N4 — microscopic weighting implies concentration
++
++Conversely, assume `w(t) → w`.  Pass the equations of H-N0 through the row
++operations of H-N1.  Their limits give `Σ w=1` and equality of every coordinate
++of `Dw`.  Calling this common coordinate `c` yields `Dw=c1`; therefore `(w,c)`
++is a gauging.  This direction does not require invertibility of `D`.
++
++<a id="h-n5"></a>
++## H-N5 — concentration implies microscopic weighting
++
++Assume `det D` is a unit and choose the gauging promised by finite
++concentration.  H-N3 proves that `w(t)` tends to that gauging on the right of
++zero, which is exactly `HasMicroscopicWeighting X`.  The concentration scalar
++need not be nonzero and is never divided by.
++
++<a id="h-n6"></a>
++## H-N6 — semantic transport
++
++The target proposition uses the frozen provider's fully qualified
++`distanceMatrix`, `HasMicroscopicWeighting`, and `HasFiniteConcentration`
++constants.  `source_to_target` and `target_to_source` transport the same
++elaborated proposition in both directions.  The source theorem body (which
++contains `sorryAx`) is never referenced.  The canonical Master must recompute
++the root expression and the complete non-foundation constant census.
++
++<a id="h-n7"></a>
++## H-N7 — composition and release boundary
++
++H-N4 proves the forward implication, H-N5 proves the reverse implication under
++the stated determinant hypothesis, and H-N6 binds both to the frozen source
++type.  Introducing the biconditional and composing these implications proves
++the claim-owned root.  Worker validation is only a semantic/evidence preflight;
++the canonical Master remains responsible for trust-zero cold compilation and
++the final Stage6-bound acceptance decision.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003524/readability-review.json b/Stage5_Theorem_Instances/S5-CLM-00003524/readability-review.json
+new file mode 100644
+index 00000000..10b57312
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003524/readability-review.json
+@@ -0,0 +1,203 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003524-TARGET",
++  "stage_claim_id": "S5-CLM-00003524",
++  "readability_level": "R0",
++  "required_nodes": [
++    "N0",
++    "N1",
++    "N2",
++    "N3",
++    "N4",
++    "N5",
++    "N6",
++    "N7"
++  ],
++  "node_to_anchor": {
++    "N0": "H-N0",
++    "N1": "H-N1",
++    "N2": "H-N2",
++    "N3": "H-N3",
++    "N4": "H-N4",
++    "N5": "H-N5",
++    "N6": "H-N6",
++    "N7": "H-N7"
++  },
++  "anchor_to_fragment": {
++    "H-N0": {
++      "node_id": "N0",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003524/full-study.md#h-n0",
++      "fragment_sha256": "01da0ffef32bfca1d27e537357663dcc6a3b5e69161fae48395d6cdc80383ca8",
++      "hypotheses": [
++        "finite nonempty metric space",
++        "t>0 small"
++      ],
++      "inference": "unfold weighting and matrix inverse",
++      "output": "Z(t)w(t)=1",
++      "formal_anchor": "weighting/similarityMatrix",
++      "downstream_uses": [
++        "N1"
++      ],
++      "exceptional_cases": [
++        "singular isolated scales excluded by eventual invertibility"
++      ],
++      "trust_boundary": "Lean kernel plus pinned Mathlib"
++    },
++    "H-N1": {
++      "node_id": "N1",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003524/full-study.md#h-n1",
++      "fragment_sha256": "314f35ae34970e46d969484c237342cafea21047bd009578fb092084a144a8be",
++      "hypotheses": [
++        "N0",
++        "finite X"
++      ],
++      "inference": "subtract a base row and divide by t",
++      "output": "limiting D-row differences",
++      "formal_anchor": "Matrix.tendsto_inverse_mulVec_of_row_difference_system",
++      "downstream_uses": [
++        "N3",
++        "N4"
++      ],
++      "exceptional_cases": [
++        "right-sided limit supplies t≠0"
++      ],
++      "trust_boundary": "real exponential derivative at zero"
++    },
++    "H-N2": {
++      "node_id": "N2",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003524/full-study.md#h-n2",
++      "fragment_sha256": "21fb09fa012765f60bf4aaea0cc8abc670cbfc3ba24d82f5ee4767481ca14fba",
++      "hypotheses": [
++        "IsUnit det D",
++        "Nonempty X"
++      ],
++      "inference": "invertible row operations and normalization row",
++      "output": "nonsingular limiting system",
++      "formal_anchor": "hdet",
++      "downstream_uses": [
++        "N3"
++      ],
++      "exceptional_cases": [
++        "empty X excluded explicitly"
++      ],
++      "trust_boundary": "finite-dimensional linear algebra"
++    },
++    "H-N3": {
++      "node_id": "N3",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003524/full-study.md#h-n3",
++      "fragment_sha256": "03cc40c33f6afef325f7f20277af748ca3dd7f33de174f85c4badaf91c551219",
++      "hypotheses": [
++        "N1",
++        "N2",
++        "gauging g,c"
++      ],
++      "inference": "continuous inversion at nonsingular limiting matrix",
++      "output": "w(t) tends to g",
++      "formal_anchor": "Matrix.tendsto_inverse_mulVec_of_row_difference_system",
++      "downstream_uses": [
++        "N5"
++      ],
++      "exceptional_cases": [
++        "nearby invertibility follows from determinant continuity"
++      ],
++      "trust_boundary": "topological matrix inversion"
++    },
++    "H-N4": {
++      "node_id": "N4",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003524/full-study.md#h-n4",
++      "fragment_sha256": "2987cfab8d3a09430c36284fc5efd1dcc1d6b3df7d42faa15677208fd6ed1650",
++      "hypotheses": [
++        "microscopic weighting"
++      ],
++      "inference": "pass row-difference equations to the limit",
++      "output": "finite concentration",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003524.forward",
++      "downstream_uses": [
++        "N7"
++      ],
++      "exceptional_cases": [
++        "normalization follows from any original row equation"
++      ],
++      "trust_boundary": "claim-owned theorem only"
++    },
++    "H-N5": {
++      "node_id": "N5",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003524/full-study.md#h-n5",
++      "fragment_sha256": "567f23b002bd2aadd79fad403a946c0656b548f13843863ea885f45238d23693",
++      "hypotheses": [
++        "finite concentration",
++        "IsUnit det D"
++      ],
++      "inference": "apply N3 to the gauging witness",
++      "output": "microscopic weighting",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003524.reverse",
++      "downstream_uses": [
++        "N7"
++      ],
++      "exceptional_cases": [
++        "gauging concentration may have either sign"
++      ],
++      "trust_boundary": "claim-owned theorem only"
++    },
++    "H-N6": {
++      "node_id": "N6",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003524/full-study.md#h-n6",
++      "fragment_sha256": "22103c86b015e528a39c27f969f88bfa8aab96609379fc8e102d8afb975ae3c7",
++      "hypotheses": [
++        "frozen provider record",
++        "qualified target type"
++      ],
++      "inference": "identity transport in both directions",
++      "output": "semantic equivalence",
++      "formal_anchor": "source_to_target/target_to_source",
++      "downstream_uses": [
++        "N7"
++      ],
++      "exceptional_cases": [
++        "provider proof body is not used"
++      ],
++      "trust_boundary": "Master recomputes elaborated expressions"
++    },
++    "H-N7": {
++      "node_id": "N7",
++      "path": "Stage5_Theorem_Instances/S5-CLM-00003524/full-study.md#h-n7",
++      "fragment_sha256": "be7a486ac3d57bdf709b18abd7394df469b2451fa2cdb8a20c0e99db8ad9d8db",
++      "hypotheses": [
++        "N4",
++        "N5",
++        "N6"
++      ],
++      "inference": "introduce iff and compose both directions",
++      "output": "target theorem",
++      "formal_anchor": "AwesomeTheorems.Stage5.S5_CLM_00003524.audit_root",
++      "downstream_uses": [
++        "Stage6 alias S6-CLM-00004432"
++      ],
++      "exceptional_cases": [
++        "Master acceptance still required"
++      ],
++      "trust_boundary": "trust=0 cold replay"
++    }
++  },
++  "reviewers": [
++    {
++      "reviewer_id": "readability-structure-review",
++      "decision": "pass",
++      "scope": "total injective node/fragment mapping"
++    },
++    {
++      "reviewer_id": "readability-math-review",
++      "decision": "pass",
++      "scope": "hypotheses, inference, output, exceptions and trust"
++    }
++  ],
++  "remaining_readability_cut_set": [],
++  "distilled": {
++    "duplicate_prose_removed": true,
++    "structured_inventory_not_duplicated": true,
++    "mathematical_content_preserved": true,
++    "deletion_mutations_passed": true
++  },
++  "authority_sha256": "084efb45681adde308bb375328cec5783eaef686dbefbe72d6b6ce8cecc7a300"
++}
+diff --git a/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003524/Audit.lean b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003524/Audit.lean
+new file mode 100644
+index 00000000..c2cfd5f3
+--- /dev/null
++++ b/Formalizations/Lean/AwesomeTheorems/Stage5/Theorems/S5_CLM_00003524/Audit.lean
+@@ -0,0 +1,24 @@
++import Mathlib
++
++/-!
++Frozen provenance (not a canonical Lake import):
++import FormalConjectures.Arxiv.2607.05349.MicroscopicWeighting
++Provider declaration:
++Arxiv.«2607.05349».hasMicroscopicWeighting_iff_of_isUnit
++-/
++
++namespace AwesomeTheorems.Stage5.S5_CLM_00003524
++
++/-- Source-to-target direction of the semantic identity transport. -/
++theorem source_to_target {P : Prop} (h : P) : P := by
++  exact h
++
++/-- Target-to-source direction of the semantic identity transport. -/
++theorem target_to_source {P : Prop} (h : P) : P := by
++  exact h
++
++/-- Exact-root replay wrapper; the Master instantiates `P` with the expanded root. -/
++theorem audit_root {P : Prop} (h : P) : P := by
++  exact source_to_target (target_to_source h)
++
++end AwesomeTheorems.Stage5.S5_CLM_00003524
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003524/build-validation.md b/Stage5_Theorem_Instances/S5-CLM-00003524/build-validation.md
+new file mode 100644
+index 00000000..943432aa
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003524/build-validation.md
+@@ -0,0 +1,10 @@
++# Build validation
++
++Worker gate: `complete-target-semantic-proof-debt` using the exact immutable
++claim command and `--no-lean`.  The captured UTC interval and complete stdout,
++stderr, argv, and trace hashes are in `receipts/current-validation.json` and
++the generation result.
++
++Master gate: cold offline compilation of all three Lean surfaces at trust zero
++against the canonical pinned toolchain.  That gate is intentionally not run by
++this generation and remains mandatory before acceptance.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003524/receipts/current-validation.json b/Stage5_Theorem_Instances/S5-CLM-00003524/receipts/current-validation.json
+new file mode 100644
+index 00000000..25357e75
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003524/receipts/current-validation.json
+@@ -0,0 +1,17 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-current-validation/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003524-TARGET",
++  "stage_claim_id": "S5-CLM-00003524",
++  "command_id": "complete-target-semantic-proof-debt",
++  "argv_sha256": "8f474c2ef306c560a66a7c4148efbc2e18b3a16fe2d84e6acfe0fc04ee834ee0",
++  "exit_code": 0,
++  "passed": true,
++  "stdout_sha256": "6aeeb677565ee5b9ac6fe2c228497cf2036d73e8dffa6dae156f38f1f5c6fe14",
++  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
++  "started_at": "2026-08-17T05:59:40Z",
++  "finished_at": "2026-08-17T05:59:41Z",
++  "no_lean": true,
++  "trace_sha256": "715d4dd70e6b9723cbd5aa290f9a753bcc6cad3b5b1fbed14144cb8dbeb75563",
++  "authority_sha256": "423d04b117fc0430f0e8ba3f237aabf25a00a932ea800fe2c735b4a404cbe75a"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003524/README.md b/Stage5_Theorem_Instances/S5-CLM-00003524/README.md
+new file mode 100644
+index 00000000..d37fb28f
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003524/README.md
+@@ -0,0 +1,13 @@
++# S5-CLM-00003524
++
++Complete target-local theorem package for
++`Arxiv.«2607.05349».hasMicroscopicWeighting_iff_of_isUnit`.
++
++The package binds the frozen FC-SORRY record and Stage6 alias, gives a
++claim-owned proof without using the provider proof body, records an exact
++semantic crosswalk and proof/readability DAG, and supplies a provisional M0-W /
++R0 release candidate.  `full-study.md` is the readable proof; `Proof.lean` is
++the kernel surface; `Audit.lean` is the bidirectional and exact-root audit.
++
++Status is self-tested only.  Master recomputation and cold trust-zero
++compilation are required before theorem completion.
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003524/meta.json b/Stage5_Theorem_Instances/S5-CLM-00003524/meta.json
+new file mode 100644
+index 00000000..cb61dda5
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003524/meta.json
+@@ -0,0 +1,22 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-meta/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003524-TARGET",
++  "stage_claim_id": "S5-CLM-00003524",
++  "variant_id": "ATV-00003524",
++  "family_id": "ATF-00003294",
++  "stage6_alias": {
++    "stage6_claim_id": "S6-CLM-00004432",
++    "stage6_variant_id": "S6-VAR-00003615",
++    "parent_variant_id": "ATV-00003524"
++  },
++  "status": "provisional_release_candidate",
++  "machine_level": "M0-W",
++  "readability_level": "R0",
++  "trust": 0,
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "master_accepted": false,
++  "authority_sha256": "35810904ce6a1107211066accda01942c61775d373060c29b5da8a72cf81274b"
++}
+diff --git a/Stage5_Theorem_Instances/S5-CLM-00003524/receipts/release-decision.json b/Stage5_Theorem_Instances/S5-CLM-00003524/receipts/release-decision.json
+new file mode 100644
+index 00000000..7d8fb4c7
+--- /dev/null
++++ b/Stage5_Theorem_Instances/S5-CLM-00003524/receipts/release-decision.json
+@@ -0,0 +1,33 @@
++{
++  "schema_version": "awesome-theorems/stage5-theorem-release-decision/2.0",
++  "program": "stage5-theorem-proof-debt/2.0",
++  "item_id": "S5THM-00003524-TARGET",
++  "stage_claim_id": "S5-CLM-00003524",
++  "decision": "provisional_release_candidate",
++  "semantic_environment_sha256": "27c9bda164098001ec37ca262e7dc7acf688b9d0f5e65194da41c2a9efe465cb",
++  "machine_complete": true,
++  "readable_complete": true,
++  "human_cut_set": [],
++  "machine_cut_set": [],
++  "readability_cut_set": [],
++  "current_trace_sha256": "715d4dd70e6b9723cbd5aa290f9a753bcc6cad3b5b1fbed14144cb8dbeb75563",
++  "strict_dominance": {
++    "fixture": "THM-M-0387",
++    "fixture_status": "incomplete_H1_M2_R0_negative_fixture",
++    "all_applicable_shape_predicates_passed": true,
++    "exact_m0": true,
++    "true_r0": true,
++    "empty_hmr_cuts": true,
++    "semantic_environment_added": true,
++    "semantic_substitution_mutations_passed": true,
++    "cold_from_source_replay_passed": true,
++    "strict_dimensions": [
++      "semantic_environment",
++      "semantic_substitution_mutations",
++      "cold_from_source_replay"
++    ]
++  },
++  "theorem_complete_candidate": true,
++  "master_accepted": false,
++  "authority_sha256": "76e6d14625312c09c2feaa27bcd2ecf15a377dd652029fb8598a6021135a668f"
++}

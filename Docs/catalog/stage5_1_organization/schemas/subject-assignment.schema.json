@@ -1,0 +1,331 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://awesome-theorems.invalid/stage5-1-organization/schemas/subject-assignment.schema.json",
+  "title": "Stage5.1 subject assignment JSONL row",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "assignment_id", "object_id", "stage51_item_id", "primary",
+    "secondary_subject_ids", "candidate_subject_ids", "method_facets", "source_labels",
+    "classification_status", "cross_domain", "review", "legacy_binding", "record_sha256"
+  ],
+  "properties": {
+    "schema_version": {"$ref": "common.schema.json#/$defs/schema_version"},
+    "assignment_id": {"$ref": "common.schema.json#/$defs/assignment_id"},
+    "object_id": {"$ref": "common.schema.json#/$defs/object_id"},
+    "stage51_item_id": {"$ref": "common.schema.json#/$defs/member_item_id"},
+    "primary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["subject_id", "granularity", "assertion_state", "evidence_tier", "evidence"],
+      "properties": {
+        "subject_id": {"$ref": "common.schema.json#/$defs/subject_id"},
+        "granularity": {"$ref": "common.schema.json#/$defs/granularity"},
+        "assertion_state": {"$ref": "common.schema.json#/$defs/assertion_state"},
+        "evidence_tier": {"$ref": "common.schema.json#/$defs/assignment_evidence_level"},
+        "evidence": {
+          "type": "array",
+          "items": {"$ref": "common.schema.json#/$defs/evidence_ref"},
+          "uniqueItems": true
+        }
+      }
+    },
+    "secondary_subject_ids": {
+      "type": "array",
+      "items": {"$ref": "common.schema.json#/$defs/normal_subject_id"},
+      "uniqueItems": true
+    },
+    "candidate_subject_ids": {
+      "type": "array",
+      "items": {"$ref": "common.schema.json#/$defs/subject_id"},
+      "uniqueItems": true
+    },
+    "method_facets": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "source_labels": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "classification_status": {"$ref": "common.schema.json#/$defs/classification_status"},
+    "cross_domain": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "root_subject_ids"],
+      "properties": {
+        "value": {"type": "boolean"},
+        "root_subject_ids": {
+          "type": "array",
+          "items": {"$ref": "common.schema.json#/$defs/normal_subject_id"},
+          "uniqueItems": true
+        }
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"value": {"const": true}}, "required": ["value"]},
+          "then": {"properties": {"root_subject_ids": {"minItems": 2}}}
+        }
+      ]
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "reviewer_id", "receipt_sha256"],
+      "properties": {
+        "state": {"enum": ["accepted", "candidate", "pending", "rejected"]},
+        "reviewer_id": {"type": ["string", "null"], "minLength": 1},
+        "receipt_sha256": {
+          "oneOf": [{"$ref": "common.schema.json#/$defs/sha256"}, {"type": "null"}]
+        }
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"state": {"const": "accepted"}}, "required": ["state"]},
+          "then": {
+            "properties": {
+              "reviewer_id": {"type": "string", "minLength": 1},
+              "receipt_sha256": {"$ref": "common.schema.json#/$defs/sha256"}
+            }
+          }
+        }
+      ]
+    },
+    "legacy_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["legacy_item_id", "identity_sha256", "source_record_sha256"],
+      "properties": {
+        "legacy_item_id": {"$ref": "common.schema.json#/$defs/legacy_item_id"},
+        "identity_sha256": {"$ref": "common.schema.json#/$defs/sha256"},
+        "source_record_sha256": {"$ref": "common.schema.json#/$defs/sha256"}
+      }
+    },
+    "record_sha256": {"$ref": "common.schema.json#/$defs/sha256"}
+  },
+  "allOf": [
+    {
+      "if": {
+        "anyOf": [
+          {
+            "properties": {"classification_status": {"const": "accepted"}},
+            "required": ["classification_status"]
+          },
+          {
+            "properties": {
+              "primary": {
+                "properties": {"assertion_state": {"const": "accepted"}},
+                "required": ["assertion_state"]
+              }
+            },
+            "required": ["primary"]
+          },
+          {
+            "properties": {
+              "review": {
+                "properties": {"state": {"const": "accepted"}},
+                "required": ["state"]
+              }
+            },
+            "required": ["review"]
+          }
+        ]
+      },
+      "then": {
+        "properties": {
+          "classification_status": {"const": "accepted"},
+          "primary": {
+            "properties": {
+              "assertion_state": {"const": "accepted"},
+              "evidence_tier": {"const": "independent_review"},
+              "evidence": {"minItems": 1}
+            },
+            "required": ["assertion_state", "evidence_tier", "evidence"]
+          },
+          "review": {
+            "properties": {"state": {"const": "accepted"}},
+            "required": ["state"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "primary": {
+            "properties": {"evidence_tier": {"const": "source_exact"}},
+            "required": ["evidence_tier"]
+          }
+        },
+        "required": ["primary"]
+      },
+      "then": {
+        "properties": {
+          "primary": {
+            "properties": {"evidence": {"minItems": 1}},
+            "required": ["evidence"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "primary": {
+            "properties": {
+              "evidence_tier": {
+                "enum": [
+                  "source_exact", "source_category", "machine_crosswalk",
+                  "statement_candidate"
+                ]
+              }
+            },
+            "required": ["evidence_tier"]
+          }
+        },
+        "required": ["primary"]
+      },
+      "then": {
+        "properties": {
+          "classification_status": {"const": "candidate"},
+          "primary": {
+            "properties": {"assertion_state": {"const": "candidate"}},
+            "required": ["assertion_state"]
+          },
+          "review": {
+            "properties": {"state": {"enum": ["candidate", "pending"]}},
+            "required": ["state"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "primary": {
+            "properties": {"subject_id": {"const": "S51-SUB-REVIEW-PENDING"}},
+            "required": ["subject_id"]
+          }
+        },
+        "required": ["primary"]
+      },
+      "then": {
+        "properties": {
+          "classification_status": {"const": "review_pending"},
+          "primary": {
+            "properties": {
+              "granularity": {"const": "sentinel"},
+              "assertion_state": {"const": "review_pending"},
+              "evidence_tier": {"const": "none"}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "primary": {
+            "properties": {"subject_id": {"const": "S51-SUB-UNCLASSIFIED"}},
+            "required": ["subject_id"]
+          }
+        },
+        "required": ["primary"]
+      },
+      "then": {
+        "properties": {
+          "classification_status": {"const": "unclassified"},
+          "primary": {
+            "properties": {
+              "granularity": {"const": "sentinel"},
+              "assertion_state": {"const": "unclassified"}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "primary": {
+            "properties": {"subject_id": {"const": "S51-SUB-AMBIGUOUS"}},
+            "required": ["subject_id"]
+          }
+        },
+        "required": ["primary"]
+      },
+      "then": {
+        "properties": {
+          "classification_status": {"const": "ambiguous"},
+          "primary": {
+            "properties": {
+              "granularity": {"const": "sentinel"},
+              "assertion_state": {"const": "ambiguous"}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "primary": {
+            "properties": {"subject_id": {"const": "S51-SUB-OUT-OF-SCOPE"}},
+            "required": ["subject_id"]
+          }
+        },
+        "required": ["primary"]
+      },
+      "then": {
+        "properties": {
+          "classification_status": {"const": "out_of_scope"},
+          "primary": {
+            "properties": {
+              "granularity": {"const": "sentinel"},
+              "assertion_state": {"const": "out_of_scope"}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "cross_domain": {
+            "properties": {"value": {"const": true}},
+            "required": ["value"]
+          }
+        },
+        "required": ["cross_domain"]
+      },
+      "then": {"properties": {"classification_status": {"const": "accepted"}}}
+    },
+    {
+      "if": {
+        "properties": {
+          "cross_domain": {
+            "properties": {"value": {"const": false}},
+            "required": ["value"]
+          }
+        },
+        "required": ["cross_domain"]
+      },
+      "then": {
+        "properties": {
+          "cross_domain": {
+            "properties": {"root_subject_ids": {"maxItems": 1}}
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "classification_status": {"not": {"const": "accepted"}}
+        },
+        "required": ["classification_status"]
+      },
+      "then": {
+        "properties": {
+          "cross_domain": {
+            "properties": {"root_subject_ids": {"maxItems": 0}}
+          }
+        }
+      }
+    }
+  ]
+}

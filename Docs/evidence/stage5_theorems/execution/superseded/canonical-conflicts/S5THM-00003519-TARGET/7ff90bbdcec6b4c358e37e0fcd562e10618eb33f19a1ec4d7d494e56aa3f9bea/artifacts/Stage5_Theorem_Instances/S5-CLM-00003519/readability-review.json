@@ -1,0 +1,127 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003519-TARGET",
+  "stage_claim_id": "S5-CLM-00003519",
+  "readability_level": "R0",
+  "required_nodes": ["N01", "N02", "N03", "N04", "N05", "N06", "N07"],
+  "node_to_anchor": {
+    "N01": "fragment-N01",
+    "N02": "fragment-N02",
+    "N03": "fragment-N03",
+    "N04": "fragment-N04",
+    "N05": "fragment-N05",
+    "N06": "fragment-N06",
+    "N07": "fragment-N07"
+  },
+  "anchor_to_fragment": {
+    "fragment-N01": {
+      "node_id": "N01",
+      "path": "proof-outline.md#fragment-n01-exact-root",
+      "fragment_sha256": "57945d70d2c09337a54ea69ced41ec4cb329751268fae778663ac4228733dcec",
+      "hypotheses": ["Pinned provider module, declaration, and type bytes."],
+      "inference": "Qualified elaboration fixes the exact target root.",
+      "output": "The target existential proposition.",
+      "formal_anchor": "Statement.lean:source_to_target_statement",
+      "downstream_uses": ["N07", "statement crosswalk"],
+      "exceptional_cases": ["The provider sorry body contributes no proof credit."],
+      "trust_boundary": ["Frozen source is statement authority only."]
+    },
+    "fragment-N02": {
+      "node_id": "N02",
+      "path": "proof-outline.md#fragment-n02-two-permutations",
+      "fragment_sha256": "69e850ff66117ce8f8a34d270d7aa3bbf5402fb6f4458da67aec76b1ff207f46",
+      "hypotheses": ["p is a permutation of Fin 2."],
+      "inference": "Finite exhaustive decision classifies p.",
+      "output": "p is identity or tau.",
+      "formal_anchor": "Proof.lean:permutation_cases",
+      "downstream_uses": ["N03", "N04"],
+      "exceptional_cases": ["Only Fin 2 is classified."],
+      "trust_boundary": ["Kernel checks native_decide's certificate."]
+    },
+    "fragment-N03": {
+      "node_id": "N03",
+      "path": "proof-outline.md#fragment-n03-diagonal-witness",
+      "fragment_sha256": "c5253f4e858d3facc0f263ca907d2d249733bd7714c9122a2941affdece1463c",
+      "hypotheses": ["tau is the nonidentity permutation."],
+      "inference": "Equal coordinate signs cancel in signDiffHom.",
+      "output": "The diagonal transposition pair is in gammaSubgroup.",
+      "formal_anchor": "Proof.lean:g",
+      "downstream_uses": ["N05", "N06", "N07"],
+      "exceptional_cases": ["No mixed pair is used as a witness."],
+      "trust_boundary": ["Pinned definitions are unfolded directly."]
+    },
+    "fragment-N04": {
+      "node_id": "N04",
+      "path": "proof-outline.md#fragment-n04-four-cases",
+      "fragment_sha256": "f5835851ea2e620d530f0b024a36842d5ef87b349acb9fd039a7afdf65b4cc20",
+      "hypotheses": ["x belongs to gammaSubgroup 2 2."],
+      "inference": "Classify each coordinate independently.",
+      "output": "Four exhaustive coordinate cases.",
+      "formal_anchor": "Proof.lean:coordinate-rcases",
+      "downstream_uses": ["N05", "N06"],
+      "exceptional_cases": ["Both mixed orientations remain explicit."],
+      "trust_boundary": ["No prose-only exhaustion claim is used."]
+    },
+    "fragment-N05": {
+      "node_id": "N05",
+      "path": "proof-outline.md#fragment-n05-mixed-cases",
+      "fragment_sha256": "a3186b9fa97f549dd2fc6890ce0dba4e3ac6080c5eccd2030a151c74e8a8b2e3",
+      "hypotheses": ["Kernel membership and one mixed coordinate pair."],
+      "inference": "Simplify the unequal signs in signDiffHom.",
+      "output": "Each mixed pair is impossible.",
+      "formal_anchor": "Proof.lean:mixed-kernel-branches",
+      "downstream_uses": ["N06"],
+      "exceptional_cases": ["Identity/tau and tau/identity are checked separately."],
+      "trust_boundary": ["Lean derives both contradictions."]
+    },
+    "fragment-N06": {
+      "node_id": "N06",
+      "path": "proof-outline.md#fragment-n06-closure",
+      "fragment_sha256": "4367ae8ce24d561c649c2a50001f0e6e4ba6c13b6d5fd8bab4c0e99425f98fb6",
+      "hypotheses": ["Only identity and diagonal tau remain."],
+      "inference": "Use subgroup identity membership or singleton subset closure.",
+      "output": "Every subgroup element lies in closure {g}.",
+      "formal_anchor": "Proof.lean:identity-and-generator-branches",
+      "downstream_uses": ["N07"],
+      "exceptional_cases": ["The two survivors use distinct closure facts."],
+      "trust_boundary": ["Standard subgroup closure lemmas only."]
+    },
+    "fragment-N07": {
+      "node_id": "N07",
+      "path": "proof-outline.md#fragment-n07-root",
+      "fragment_sha256": "400b4643f2b0684a438137a727fac723c7c52127c92cca5f49bf53e70df06a5c",
+      "hypotheses": ["The witness is valid and its closure contains every subgroup element."],
+      "inference": "top_unique identifies the closure with top.",
+      "output": "The exact existential root theorem.",
+      "formal_anchor": "Proof.lean:rank_2_2",
+      "downstream_uses": ["release decision", "Stage6 alias handoff"],
+      "exceptional_cases": ["Formal conclusion is cyclic generation, not a separate minimality theorem."],
+      "trust_boundary": ["Trust-zero Lean elaboration closes the root."]
+    }
+  },
+  "reviewers": [
+    {
+      "reviewer_id": "readability-structure-review",
+      "role": "node-to-fragment coverage reviewer",
+      "independent_of": ["formal-proof-author"],
+      "decision": "pass",
+      "conflicts": []
+    },
+    {
+      "reviewer_id": "readability-reverse-ledger-review",
+      "role": "anchor-to-node reverse coverage reviewer",
+      "independent_of": ["formal-proof-author", "readability-structure-review"],
+      "decision": "pass",
+      "conflicts": []
+    }
+  ],
+  "remaining_readability_cut_set": [],
+  "distilled": {
+    "duplicate_prose_removed": true,
+    "structured_inventory_not_duplicated": true,
+    "mathematical_content_preserved": true,
+    "deletion_mutations_passed": true
+  },
+  "authority_sha256": "7e8e79a28df6b56d6b1bb44d26b336f8747ebc2516fe5ba3ff12444c16c108a4"
+}

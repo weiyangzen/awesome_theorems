@@ -1,0 +1,105 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003516-TARGET",
+  "stage_claim_id": "S5-CLM-00003516",
+  "readability_level": "R0",
+  "required_nodes": [
+    "PU-ROOT",
+    "PU-FORWARD",
+    "PU-REVERSE",
+    "PU-SEMANTIC-AUDIT",
+    "PU-AXIOM-AUDIT"
+  ],
+  "node_to_anchor": {
+    "PU-ROOT": "fragment-pu-root",
+    "PU-FORWARD": "fragment-pu-forward",
+    "PU-REVERSE": "fragment-pu-reverse",
+    "PU-SEMANTIC-AUDIT": "fragment-pu-semantic-audit",
+    "PU-AXIOM-AUDIT": "fragment-pu-axiom-audit"
+  },
+  "anchor_to_fragment": {
+    "fragment-pu-root": {
+      "node_id": "PU-ROOT",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/full-study.md#fragment-pu-root",
+      "fragment_sha256": "ecd27a2ff623c202760b233bc0204bde5521d81fe051f628a617c7d5dbd06821",
+      "hypotheses": ["Exact frozen source/target semantic equality."],
+      "inference": ["Compose independent forward and reverse transports using iff introduction."],
+      "output": ["Bidirectional exact-root transport."],
+      "formal_anchor": ["AwesomeTheorems.Stage5.S5_CLM_00003516.Proof.root"],
+      "downstream_uses": ["Semantic identity audit.", "Axiom/trust audit."],
+      "exceptional_cases": ["Digest mismatch, one-way transport, or substituted semantics rejects the root."],
+      "trust_boundary": ["Lean kernel checks the local term; canonical Master recomputes provider identity."]
+    },
+    "fragment-pu-forward": {
+      "node_id": "PU-FORWARD",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/full-study.md#fragment-pu-forward",
+      "fragment_sha256": "aefe6f6d1b6585e97adcad5623372395200028ef2211b498dc6fc4bd2a3f0242",
+      "hypotheses": ["The source proposition has a proof."],
+      "inference": ["Transport the proof across the exact elaborated-expression equality."],
+      "output": ["The target proposition has a proof."],
+      "formal_anchor": ["AwesomeTheorems.Stage5.S5_CLM_00003516.Proof.forward"],
+      "downstream_uses": ["Forward half of PU-ROOT."],
+      "exceptional_cases": ["No semantic shadow, coercion, alias, notation, macro, or import substitution is allowed."],
+      "trust_boundary": ["Provider binding is outside worker authority and requires Master recomputation."]
+    },
+    "fragment-pu-reverse": {
+      "node_id": "PU-REVERSE",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/full-study.md#fragment-pu-reverse",
+      "fragment_sha256": "abd95cf9709f6332d693385c9b41b1f391c050d350efdd663246dbed0e0c5607",
+      "hypotheses": ["The target proposition has a proof."],
+      "inference": ["Transport the proof back across the same exact equality."],
+      "output": ["The frozen source proposition has a proof."],
+      "formal_anchor": ["AwesomeTheorems.Stage5.S5_CLM_00003516.Proof.reverse"],
+      "downstream_uses": ["Reverse half of PU-ROOT."],
+      "exceptional_cases": ["Forward-only coverage cannot establish a bidirectional crosswalk."],
+      "trust_boundary": ["Reverse coverage is checked independently."]
+    },
+    "fragment-pu-semantic-audit": {
+      "node_id": "PU-SEMANTIC-AUDIT",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/full-study.md#fragment-pu-semantic-audit",
+      "fragment_sha256": "edadeb615b6299a90d8767405e30438943225e8323ca2cb9695ac9b2b6f1bd85",
+      "hypotheses": ["Frozen workset member, provider source, and declaration locator are exact."],
+      "inference": ["Compare expression and transitive provider declaration/type/body/source/revision bindings."],
+      "output": ["An exact semantic-environment lock with no shadowing or substitutions."],
+      "formal_anchor": ["AwesomeTheorems.Stage5.S5_CLM_00003516.Audit.elaborated_root_expression_agrees"],
+      "downstream_uses": ["M0 closure and release dominance."],
+      "exceptional_cases": ["Text identity by itself is expressly insufficient."],
+      "trust_boundary": ["All worker hashes remain provisional pending Master recomputation."]
+    },
+    "fragment-pu-axiom-audit": {
+      "node_id": "PU-AXIOM-AUDIT",
+      "path": "Stage5_Theorem_Instances/S5-CLM-00003516/full-study.md#fragment-pu-axiom-audit",
+      "fragment_sha256": "a168dc719c79e5046e7d808b1a875a4d763a8144db8bb690b7c7a0a4ad18bccc",
+      "hypotheses": ["The root-relevant local declarations elaborate with --trust=0."],
+      "inference": ["Inspect terminal structured axiom queries and dependency census."],
+      "output": ["Empty observed axiom and remaining H/M/R cut sets."],
+      "formal_anchor": ["AwesomeTheorems.Stage5.S5_CLM_00003516.Audit.target_to_source_audit"],
+      "downstream_uses": ["Provisional release candidate."],
+      "exceptional_cases": ["The provider theorem's sorryAx cannot be cited as proof authority."],
+      "trust_boundary": ["Only canonical Master acceptance may advance theorem_complete."]
+    }
+  },
+  "reviewers": [
+    {
+      "reviewer_id": "readability-structure-review-v1",
+      "role": "independent_structure_reviewer",
+      "conflicts_checked": true,
+      "decision": "pass"
+    },
+    {
+      "reviewer_id": "readability-content-review-v1",
+      "role": "independent_content_reviewer",
+      "conflicts_checked": true,
+      "decision": "pass"
+    }
+  ],
+  "remaining_readability_cut_set": [],
+  "distilled": {
+    "duplicate_prose_removed": true,
+    "structured_inventory_not_duplicated": true,
+    "mathematical_content_preserved": true,
+    "deletion_mutations_passed": true
+  },
+  "authority_sha256": "0e3fd377985fa988149892bef94ee317c40079cb7701c792b4e8a8005e3d983a"
+}

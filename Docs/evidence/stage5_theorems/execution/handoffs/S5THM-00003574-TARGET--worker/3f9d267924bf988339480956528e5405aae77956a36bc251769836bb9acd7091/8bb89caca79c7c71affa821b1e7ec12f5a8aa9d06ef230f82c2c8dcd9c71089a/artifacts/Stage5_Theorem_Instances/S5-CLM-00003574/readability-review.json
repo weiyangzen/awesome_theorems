@@ -1,0 +1,89 @@
+{
+  "schema_version": "awesome-theorems/stage5-theorem-readability-review/2.0",
+  "program": "stage5-theorem-proof-debt/2.0",
+  "item_id": "S5THM-00003574-TARGET",
+  "stage_claim_id": "S5-CLM-00003574",
+  "readability_level": "R0",
+  "required_nodes": ["N-sums", "N-admissible", "N-source", "N-transport", "N-root"],
+  "node_to_anchor": {
+    "N-sums": "R-sums",
+    "N-admissible": "R-admissible",
+    "N-source": "R-source",
+    "N-transport": "R-transport",
+    "N-root": "R-root"
+  },
+  "anchor_to_fragment": {
+    "R-sums": {
+      "node_id": "N-sums",
+      "path": "full-study.md#statement-and-interpretation",
+      "fragment_sha256": "42f4d5778bf62c08b6adc029d7da52b07a49272aff22923764cc7b7448d49212",
+      "hypotheses": ["x is a finite real sequence", "I is a finite index set"],
+      "inference": "Require x restricted to I to be monotone or antitone and sum x over I.",
+      "output": "A member of monotonicSubsequenceSums x.",
+      "formal_anchor": "Erdos1026.monotonicSubsequenceSums",
+      "downstream_uses": ["N-admissible"],
+      "exceptional_cases": ["The empty finite set is allowed by the frozen definition."],
+      "trust_boundary": "Pinned provider definition bytes; no proof authority asserted."
+    },
+    "R-admissible": {
+      "node_id": "N-admissible",
+      "path": "full-study.md#statement-and-interpretation",
+      "fragment_sha256": "f3766d2ee4ecf5aefbbb5c330de8ea1407ee44d169a8eaf703528996f17247e8",
+      "hypotheses": ["ε > 0", "n is eventually large", "x is injective"],
+      "inference": "Find a monotonic-subsequence sum above the normalized (c - ε) bound.",
+      "output": "Membership c ∈ admissibleConstants.",
+      "formal_anchor": "Erdos1026.admissibleConstants",
+      "downstream_uses": ["N-source"],
+      "exceptional_cases": ["No positivity hypothesis on the sequence is added."],
+      "trust_boundary": "Pinned provider definition bytes; eventual quantifier and normalization retained."
+    },
+    "R-source": {
+      "node_id": "N-source",
+      "path": "full-study.md#statement-and-interpretation",
+      "fragment_sha256": "9aa9c5e55441b1830d347b80a84dac229050b846bb797a993d66bb823a1c55bf",
+      "hypotheses": ["The frozen definitions of admissibleConstants and monotonicSubsequenceSums."],
+      "inference": "Unpack IsGreatest into membership of 1 and upper-boundedness of every admissible constant.",
+      "output": "IsGreatest admissibleConstants 1.",
+      "formal_anchor": "Erdos1026.erdos_1026.variants.eq_one",
+      "downstream_uses": ["N-transport"],
+      "exceptional_cases": ["Both conjuncts of IsGreatest must be preserved."],
+      "trust_boundary": "The source body reports sorryAx and is statement authority only."
+    },
+    "R-transport": {
+      "node_id": "N-transport",
+      "path": "full-study.md#formal-composition",
+      "fragment_sha256": "426d304dd3f8f08fdd5a5531028ac05b92575120439b4dc755f1b8dfc71d7455",
+      "hypotheses": ["A proof h of the exact root proposition."],
+      "inference": "Return h unchanged in source-to-target and target-to-source directions.",
+      "output": "Bidirectional proposition-preserving transport.",
+      "formal_anchor": "source_to_target; target_to_source",
+      "downstream_uses": ["N-root"],
+      "exceptional_cases": ["No definitional alias, notation, coercion, or import substitution participates."],
+      "trust_boundary": "Transport declarations are checked by Lean at trust zero."
+    },
+    "R-root": {
+      "node_id": "N-root",
+      "path": "proof-outline.md",
+      "fragment_sha256": "fe06150c4b25fa9bc7b1511606312bb745c95467d20393504ace3ea4bcb1c50a",
+      "hypotheses": ["Frozen root binding", "Bidirectional identity transport", "Master recomputation requirement"],
+      "inference": "Compose source-to-target with target-to-source at the exact root.",
+      "output": "The audited target proposition IsGreatest admissibleConstants 1.",
+      "formal_anchor": "AwesomeTheorems.Stage5.Theorems.S5_CLM_00003574.audit",
+      "downstream_uses": ["S6-CLM-00004745", "S6-VAR-00002963"],
+      "exceptional_cases": ["Worker result is provisional and does not set Master acceptance."],
+      "trust_boundary": "Kernel checks transport; canonical Master alone accepts integrated semantic closure."
+    }
+  },
+  "reviewers": [
+    {"reviewer_id": "structure-review", "scope": "forward and reverse node coverage", "independent_pass": true},
+    {"reviewer_id": "content-review", "scope": "hypotheses, inference, outputs, anchors, downstream uses, exceptions, trust", "independent_pass": true}
+  ],
+  "remaining_readability_cut_set": [],
+  "distilled": {
+    "duplicate_prose_removed": true,
+    "structured_inventory_not_duplicated": true,
+    "mathematical_content_preserved": true,
+    "deletion_mutations_passed": true
+  },
+  "authority_sha256": "c4fb680a81409630dfe3904c47e1685adf9b91d20122f3eb0e8fbf0e60013a3f"
+}
